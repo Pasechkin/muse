@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Контакты студии Muse. Москва и Санкт-Петербург. Телефоны, адреса, режим работы.">
+    <title>Контакты - студия Muse</title>
+    <link rel="stylesheet" href="../../css/output.css">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+</head>
+<body class="bg-white">
+    <!-- Верхнее меню -->
+    <header class="sticky top-0 z-50 bg-white shadow-sm">
+        <nav class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <a href="/" class="flex items-center">
+                        <span class="text-2xl font-light text-dark">Muse</span>
+                    </a>
+                </div>
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="/portret-na-zakaz/" class="text-body hover:text-primary transition-colors duration-200 font-normal">Портреты</a>
+                    <a href="/pechat/" class="text-body hover:text-primary transition-colors duration-200 font-normal">Печать</a>
+                    <a href="/blog/" class="text-body hover:text-primary transition-colors duration-200 font-normal">Блог</a>
+                    <a href="/info/" class="text-body hover:text-primary transition-colors duration-200 font-normal">О нас</a>
+                    <a href="/info/kontakty/" class="text-body hover:text-primary transition-colors duration-200 font-normal">Контакты</a>
+                    <a href="/order/" class="btn btn--primary type--uppercase"><span class="btn__text">Заказать</span></a>
+                </div>
+                <button id="mobile-menu-button" class="lg:hidden p-2 text-dark hover:text-primary transition-colors" aria-label="Открыть меню">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="mobile-menu" class="hidden lg:hidden pb-4">
+                <div class="flex flex-col space-y-4 pt-4 border-t border-gray-200">
+                    <a href="/portret-na-zakaz/" class="text-body hover:text-primary transition-colors duration-200 font-normal py-2">Портреты</a>
+                    <a href="/pechat/" class="text-body hover:text-primary transition-colors duration-200 font-normal py-2">Печать</a>
+                    <a href="/blog/" class="text-body hover:text-primary transition-colors duration-200 font-normal py-2">Блог</a>
+                    <a href="/info/" class="text-body hover:text-primary transition-colors duration-200 font-normal py-2">О нас</a>
+                    <a href="/info/kontakty/" class="text-body hover:text-primary transition-colors duration-200 font-normal py-2">Контакты</a>
+                    <a href="/order/" class="btn btn--primary type--uppercase inline-block text-center mt-2"><span class="btn__text">Заказать</span></a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 py-12">
+        <h1 class="text-h1 text-dark mb-6">Контакты</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+            <!-- Москва -->
+            <div class="boxed boxed--border bg-secondary">
+                <h2 class="text-h3 text-dark mb-4">Москва</h2>
+                <div class="space-y-3 text-body">
+                    <p><strong>Адрес:</strong><br>ул. Прянишникова, д. 19, стр. 9</p>
+                    <p><strong>Телефон:</strong><br><a href="tel:+74954091869" class="text-primary hover:underline">+7-495-409-18-69</a></p>
+                    <p><strong>Режим работы:</strong><br>Ежедневно с 9:00 до 21:00</p>
+                </div>
+            </div>
+
+            <!-- Санкт-Петербург -->
+            <div class="boxed boxed--border bg-secondary">
+                <h2 class="text-h3 text-dark mb-4">Санкт-Петербург</h2>
+                <div class="space-y-3 text-body">
+                    <p><strong>Адрес:</strong><br>ул. Слуцкая, д. 13, корпус 2, Павловск</p>
+                    <p><strong>Телефон:</strong><br><a href="tel:+78124081869" class="text-primary hover:underline">+7-812-408-18-69</a></p>
+                    <p><strong>Режим работы:</strong><br>Ежедневно с 9:00 до 21:00</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-12 text-center">
+            <p class="text-lead text-body mb-4">Бесплатный звонок по России</p>
+            <a href="tel:88007076921" class="text-h3 text-primary hover:underline">8-800-707-69-21</a>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white py-8 md:py-12 mt-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center text-sm text-gray-300">
+                <p>&copy; 2015-2024 Muse. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                    const icon = mobileMenuButton.querySelector('svg');
+                    if (mobileMenu.classList.contains('hidden')) {
+                        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+                    } else {
+                        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+                    }
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
+

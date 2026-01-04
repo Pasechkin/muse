@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Портреты на заказ по фото. Более 17 стилей: маслом, акварель, карандаш, поп-арт и другие.">
+    <title>Портреты на заказ - студия Muse</title>
+    <link rel="stylesheet" href="../css/output.css">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+</head>
+<body class="bg-white">
+    <!-- Верхнее меню -->
+    <header class="sticky top-0 z-50 bg-white shadow-sm">
+        <nav class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <a href="/" class="flex items-center">
+                        <span class="text-2xl font-light text-dark">Muse</span>
+                    </a>
+                </div>
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="/portret-na-zakaz/" class="text-body hover:text-primary transition-colors duration-200 font-normal">Портреты</a>
+                    <a href="/pechat/" class="text-body hover:text-primary transition-colors duration-200 font-normal">Печать</a>
+                    <a href="/blog/" class="text-body hover:text-primary transition-colors duration-200 font-normal">Блог</a>
+                    <a href="/info/" class="text-body hover:text-primary transition-colors duration-200 font-normal">О нас</a>
+                    <a href="/info/kontakty/" class="text-body hover:text-primary transition-colors duration-200 font-normal">Контакты</a>
+                    <a href="/order/" class="btn btn--primary type--uppercase"><span class="btn__text">Заказать</span></a>
+                </div>
+                <button id="mobile-menu-button" class="lg:hidden p-2 text-dark hover:text-primary transition-colors" aria-label="Открыть меню">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="mobile-menu" class="hidden lg:hidden pb-4">
+                <div class="flex flex-col space-y-4 pt-4 border-t border-gray-200">
+                    <a href="/portret-na-zakaz/" class="text-body hover:text-primary transition-colors duration-200 font-normal py-2">Портреты</a>
+                    <a href="/pechat/" class="text-body hover:text-primary transition-colors duration-200 font-normal py-2">Печать</a>
+                    <a href="/blog/" class="text-body hover:text-primary transition-colors duration-200 font-normal py-2">Блог</a>
+                    <a href="/info/" class="text-body hover:text-primary transition-colors duration-200 font-normal py-2">О нас</a>
+                    <a href="/info/kontakty/" class="text-body hover:text-primary transition-colors duration-200 font-normal py-2">Контакты</a>
+                    <a href="/order/" class="btn btn--primary type--uppercase inline-block text-center mt-2"><span class="btn__text">Заказать</span></a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 py-12">
+        <h1 class="text-h1 text-dark mb-6">Портреты на заказ</h1>
+        <p class="text-lead text-body mb-8">Создайте уникальный портрет по вашей фотографии в любом из 17 стилей</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+            <div class="boxed boxed--border bg-secondary">
+                <h3 class="text-h4 text-dark mb-4">Портрет маслом</h3>
+                <p class="text-body mb-4">Классический портрет масляными красками</p>
+                <a href="/portret-na-zakaz/portret-maslom/" class="text-primary hover:underline">Подробнее →</a>
+            </div>
+            <div class="boxed boxed--border bg-secondary">
+                <h3 class="text-h4 text-dark mb-4">Акварель</h3>
+                <p class="text-body mb-4">Нежный портрет в акварельной технике</p>
+                <a href="/portret-na-zakaz/portret-akvarelyu/" class="text-primary hover:underline">Подробнее →</a>
+            </div>
+            <div class="boxed boxed--border bg-secondary">
+                <h3 class="text-h4 text-dark mb-4">Карандаш</h3>
+                <p class="text-body mb-4">Детальный портрет карандашом</p>
+                <a href="/portret-na-zakaz/portret-karandashom/" class="text-primary hover:underline">Подробнее →</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white py-8 md:py-12 mt-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center text-sm text-gray-300">
+                <p>&copy; 2015-2024 Muse. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                    const icon = mobileMenuButton.querySelector('svg');
+                    if (mobileMenu.classList.contains('hidden')) {
+                        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+                    } else {
+                        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+                    }
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,482 @@
+﻿@import "tailwindcss";
+
+@theme {
+  --color-primary: #4a90e2;
+  --color-dark: #252525;
+  --color-secondary: #fafafa;
+}
+
+/* Кастомные стили для имитации Stack темы */
+@layer base {
+  html {
+    font-size: 87.5%; /* 14px базовый размер */
+  }
+  
+  @media (max-width: 768px) {
+    html {
+      font-size: 81.25%; /* 13px на мобильных */
+    }
+  }
+  
+  body {
+    font-size: 1em;
+    line-height: 1.85714286em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    color: #666666;
+    font-weight: 400;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+    color: #252525;
+    font-weight: 300;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  h1, .h1 { 
+    font-size: 3.14285714em; 
+    line-height: 1.31818182em; 
+  }
+  h2, .h2 { 
+    font-size: 2.35714286em; 
+    line-height: 1.36363636em; 
+  }
+  h3, .h3 { 
+    font-size: 1.78571429em; 
+    line-height: 1.5em; 
+  }
+  h4, .h4 { 
+    font-size: 1.35714286em; 
+    line-height: 1.36842105em; 
+  }
+  h5, .h5 { 
+    font-size: 1em; 
+    line-height: 1.85714286em; 
+  }
+  h6, .h6 { 
+    font-size: 0.85714286em; 
+    line-height: 2.16666667em; 
+  }
+  
+  .lead {
+    font-size: 1.35714286em;
+    line-height: 1.68421053em;
+    margin: 0;
+  }
+  
+  /* Адаптивные размеры для мобильных (из Stack темы) */
+  @media (max-width: 767px) {
+    h1, .h1 {
+      font-size: 2.35714286em;
+      line-height: 1.36363636em;
+    }
+    h2, .h2 {
+      font-size: 1.78571429em;
+      line-height: 1.5em;
+    }
+    h3, .h3 {
+      font-size: 1.35714286em;
+      line-height: 1.85714286em;
+    }
+  }
+  
+  a {
+    color: #4a90e2;
+    text-decoration: none;
+  }
+}
+
+@layer components {
+  /* Boxed стили */
+  .boxed {
+    position: relative;
+    overflow: hidden;
+    padding: 1.85714286em;
+    margin-bottom: 30px;
+  }
+  
+  .boxed--border {
+    border: 1px solid #ececec;
+  }
+  
+  @media (max-width: 767px) {
+    .boxed {
+      padding: 1.23809524em;
+      margin-bottom: 15px;
+    }
+    .boxed.feature-2 {
+      text-align: left !important;
+    }
+  }
+  
+  /* Feature-2 стили */
+  .feature-2 {
+    overflow: hidden;
+  }
+  
+  .feature-2 svg,
+  .feature-2 i {
+    width: 25%;
+    float: left;
+  }
+  
+  .feature-2 .feature__body {
+    width: 75%;
+    float: right;
+  }
+  
+  @media (max-width: 990px) {
+    .feature-2 {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      justify-content: flex-start !important;
+      text-align: left !important;
+      overflow: visible !important;
+    }
+    .boxed.feature-2,
+    .feature-2.boxed {
+      text-align: left !important;
+    }
+    .boxed {
+      text-align: left !important;
+    }
+    .feature-2::before,
+    .feature-2::after {
+      content: none !important;
+      display: none !important;
+    }
+    .feature-2 > * {
+      width: 100% !important;
+      float: none !important;
+      clear: both !important;
+    }
+    .feature-2 .feature__body,
+    .feature-2 svg,
+    .feature-2 i {
+      width: 100% !important;
+      float: none !important;
+      clear: both !important;
+    }
+    .feature-2 svg,
+    .feature-2 i {
+      display: block !important;
+      text-align: left !important;
+      margin: 0 0 0.92857143em 0 !important;
+      margin-left: 0 !important;
+      margin-right: auto !important;
+      margin-inline: 0 auto !important;
+      margin-inline-start: 0 !important;
+      margin-inline-end: auto !important;
+      align-self: flex-start !important;
+      justify-self: flex-start !important;
+      float: none !important;
+      clear: both !important;
+      max-width: 100% !important;
+      position: relative !important;
+      left: 0 !important;
+      right: auto !important;
+    }
+    .feature-2 .feature__body {
+      text-align: left !important;
+      align-self: flex-start !important;
+      justify-self: flex-start !important;
+      float: none !important;
+      clear: both !important;
+      margin-left: 0 !important;
+      margin-right: auto !important;
+      margin-inline: 0 auto !important;
+      margin-inline-start: 0 !important;
+      margin-inline-end: auto !important;
+      width: 100% !important;
+    }
+    .feature-2 svg[style*="margin"] {
+      margin-left: 0 !important;
+      margin-right: auto !important;
+    }
+    .feature-2 .feature__body p:first-of-type {
+      margin-top: 0;
+    }
+  }
+  
+  /* Кнопки */
+  .btn {
+    display: inline-block;
+    padding: 0.46428571em 1.85714286em;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    font-size: 1em;
+    line-height: 1.85714286em;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn--primary {
+    background: #4a90e2;
+    border-color: #4a90e2;
+  }
+  
+  .btn--primary .btn__text {
+    color: #fff;
+  }
+  
+  .btn--primary:hover {
+    background: #609de6;
+  }
+  
+  .type--uppercase {
+    text-transform: uppercase;
+  }
+  
+  /* Фоны */
+  .bg--secondary {
+    background: #fafafa;
+  }
+  
+  .bg-dark,
+  .bg--dark {
+    background: #252525;
+    color: #ffffff;
+  }
+  
+  .bg-dark h1, .bg-dark h2, .bg-dark h3, .bg-dark h4, 
+  .bg-dark h5, .bg-dark h6, .bg-dark p, .bg-dark span:not(.btn__text),
+  .bg--dark h1, .bg--dark h2, .bg--dark h3, .bg--dark h4, 
+  .bg--dark h5, .bg--dark h6, .bg--dark p, .bg--dark span:not(.btn__text) {
+    color: #ffffff;
+  }
+  
+  .bg-dark a:not(.btn),
+  .bg--dark a:not(.btn) {
+    color: #fff;
+  }
+  
+  /* Utility классы */
+  .text-center { text-align: center; }
+  
+  /* Фоны */
+  .bg-primary {
+    background-color: #4a90e2;
+  }
+  
+  .bg-dark {
+    background-color: #252525;
+  }
+  
+  .bg-secondary {
+    background-color: #fafafa;
+  }
+  
+  /* Утилиты для текста */
+  .text-white {
+    color: #fff !important;
+  }
+  
+  .text-white h1,
+  .text-white h2,
+  .text-white h3,
+  .text-white h4,
+  .text-white h5,
+  .text-white h6,
+  .text-white p,
+  .text-white .h1,
+  .text-white .lead {
+    color: #fff !important;
+  }
+  
+  /* Цвета текста из темы Stack */
+  .text-body {
+    color: #666666;
+  }
+  
+  .text-dark {
+    color: #252525;
+  }
+  
+  .text-primary {
+    color: #4a90e2;
+  }
+  
+  /* Цвета фона */
+  .bg-secondary {
+    background-color: #fafafa;
+  }
+  
+  /* Feature-1 стили для карточек продуктов */
+  .feature-1 img {
+    border-radius: 6px 6px 0 0;
+  }
+  
+  .feature-1 .feature__body {
+    border-radius: 0 0 6px 6px;
+  }
+  
+  /* CTA стили */
+  .cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2em;
+    border-radius: 6px;
+  }
+  
+  @media (max-width: 767px) {
+    .cta {
+      flex-direction: column;
+      text-align: center;
+      gap: 1em;
+    }
+  }
+
+  /* Стили для верхнего меню */
+  header {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  /* Плавная анимация для мобильного меню */
+  #mobile-menu {
+    transition: all 0.3s ease-in-out;
+  }
+
+  /* Кнопка Scroll to Top */
+  #back-to-top {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    z-index: 1000;
+    display: none;
+  }
+  
+  @media (max-width: 767px) {
+    #back-to-top {
+      bottom: 80px;
+      right: 15px;
+    }
+  }
+  
+  /* Кнопка Чат */
+  #chat-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+  
+  @media (max-width: 767px) {
+    #chat-button {
+      bottom: 15px;
+      right: 15px;
+    }
+  }
+
+  /* Стили для навигационных ссылок */
+  nav a:not(.btn) {
+    position: relative;
+  }
+
+  nav a:not(.btn)::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #4a90e2;
+    transition: width 0.3s ease;
+  }
+
+  nav a:not(.btn):hover::after {
+    width: 100%;
+  }
+
+  /* Стили для футера */
+  footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  footer nav a {
+    position: relative;
+    transition: color 0.3s ease;
+  }
+
+  footer nav a:hover {
+    color: #ffffff;
+  }
+
+  /* Стили для социальных иконок */
+  footer .social-icon {
+    transition: all 0.3s ease;
+  }
+
+  footer .social-icon:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Адаптивность футера */
+  @media (max-width: 768px) {
+    footer {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+
+    footer nav {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  }
+
+  /* Карусели с CSS Scroll Snap */
+  .carousel-scroll {
+    scroll-behavior: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    position: relative;
+    cursor: grab;
+  }
+
+  /* Отключаем snap во время прокрутки для плавности */
+  .carousel-scroll.scrolling {
+    scroll-snap-type: none;
+  }
+
+  .carousel-scroll:active {
+    cursor: grabbing;
+  }
+
+  .carousel-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .carousel-scroll > * > .snap-center {
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+  }
+
+  /* Прокрутка колесиком мыши на ПК */
+  @media (min-width: 1024px) {
+    .carousel-scroll {
+      cursor: grab;
+    }
+    
+    .carousel-scroll:active {
+      cursor: grabbing;
+    }
+  }
+}
