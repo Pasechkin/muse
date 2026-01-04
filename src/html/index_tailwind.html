@@ -9,10 +9,910 @@
     <!-- Закрыто от индексации во время разработки -->
     <meta name="robots" content="noindex, nofollow">
     
-    <!-- Tailwind Plus Elements для интерактивных компонентов -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
+    <!-- Предподключение к CDN для ускорения загрузки -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
     
-    <link rel="stylesheet" href="css/output.css">
+    <!-- Инлайновый CSS для оптимизации критического пути -->
+    <style>
+/*! tailwindcss v4.1.18 | MIT License | https://tailwindcss.com */
+@layer properties;
+@layer theme, base, components, utilities;
+@layer theme {
+  :root, :host {
+    --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+      "Courier New", monospace;
+    --color-gray-200: oklch(92.8% 0.006 264.531);
+    --color-gray-300: oklch(87.2% 0.01 258.338);
+    --color-gray-700: oklch(37.3% 0.034 259.733);
+    --color-white: #fff;
+    --spacing: 0.25rem;
+    --container-2xl: 42rem;
+    --text-sm: 0.875rem;
+    --text-sm--line-height: calc(1.25 / 0.875);
+    --text-2xl: 1.5rem;
+    --text-2xl--line-height: calc(2 / 1.5);
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --tracking-wide: 0.025em;
+    --default-transition-duration: 150ms;
+    --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    --default-font-family: var(--font-sans);
+    --default-mono-font-family: var(--font-mono);
+  }
+}
+@layer base {
+  *, ::after, ::before, ::backdrop, ::file-selector-button {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0 solid;
+  }
+  html, :host {
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+    -moz-tab-size: 4;
+      -o-tab-size: 4;
+         tab-size: 4;
+    font-family: var(--default-font-family, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji");
+    font-feature-settings: var(--default-font-feature-settings, normal);
+    font-variation-settings: var(--default-font-variation-settings, normal);
+    -webkit-tap-highlight-color: transparent;
+  }
+  hr {
+    height: 0;
+    color: inherit;
+    border-top-width: 1px;
+  }
+  abbr:where([title]) {
+    -webkit-text-decoration: underline dotted;
+    text-decoration: underline dotted;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+  a {
+    color: inherit;
+    -webkit-text-decoration: inherit;
+    text-decoration: inherit;
+  }
+  b, strong {
+    font-weight: bolder;
+  }
+  code, kbd, samp, pre {
+    font-family: var(--default-mono-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
+    font-feature-settings: var(--default-mono-font-feature-settings, normal);
+    font-variation-settings: var(--default-mono-font-variation-settings, normal);
+    font-size: 1em;
+  }
+  small {
+    font-size: 80%;
+  }
+  sub, sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+  }
+  sub {
+    bottom: -0.25em;
+  }
+  sup {
+    top: -0.5em;
+  }
+  table {
+    text-indent: 0;
+    border-color: inherit;
+    border-collapse: collapse;
+  }
+  :-moz-focusring {
+    outline: auto;
+  }
+  progress {
+    vertical-align: baseline;
+  }
+  summary {
+    display: list-item;
+  }
+  ol, ul, menu {
+    list-style: none;
+  }
+  img, svg, video, canvas, audio, iframe, embed, object {
+    display: block;
+    vertical-align: middle;
+  }
+  img, video {
+    max-width: 100%;
+    height: auto;
+  }
+  button, input, select, optgroup, textarea, ::file-selector-button {
+    font: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    border-radius: 0;
+    background-color: transparent;
+    opacity: 1;
+  }
+  :where(select:is([multiple], [size])) optgroup {
+    font-weight: bolder;
+  }
+  :where(select:is([multiple], [size])) optgroup option {
+    padding-inline-start: 20px;
+  }
+  ::file-selector-button {
+    margin-inline-end: 4px;
+  }
+  ::-moz-placeholder {
+    opacity: 1;
+  }
+  ::placeholder {
+    opacity: 1;
+  }
+  @supports (not (-webkit-appearance: -apple-pay-button))  or (contain-intrinsic-size: 1px) {
+    ::-moz-placeholder {
+      color: currentcolor;
+      @supports (color: color-mix(in lab, red, red)) {
+        color: color-mix(in oklab, currentcolor 50%, transparent);
+      }
+    }
+    ::placeholder {
+      color: currentcolor;
+      @supports (color: color-mix(in lab, red, red)) {
+        color: color-mix(in oklab, currentcolor 50%, transparent);
+      }
+    }
+  }
+  textarea {
+    resize: vertical;
+  }
+  ::-webkit-search-decoration {
+    -webkit-appearance: none;
+  }
+  ::-webkit-date-and-time-value {
+    min-height: 1lh;
+    text-align: inherit;
+  }
+  ::-webkit-datetime-edit {
+    display: inline-flex;
+  }
+  ::-webkit-datetime-edit-fields-wrapper {
+    padding: 0;
+  }
+  ::-webkit-datetime-edit, ::-webkit-datetime-edit-year-field, ::-webkit-datetime-edit-month-field, ::-webkit-datetime-edit-day-field, ::-webkit-datetime-edit-hour-field, ::-webkit-datetime-edit-minute-field, ::-webkit-datetime-edit-second-field, ::-webkit-datetime-edit-millisecond-field, ::-webkit-datetime-edit-meridiem-field {
+    padding-block: 0;
+  }
+  ::-webkit-calendar-picker-indicator {
+    line-height: 1;
+  }
+  :-moz-ui-invalid {
+    box-shadow: none;
+  }
+  button, input:where([type="button"], [type="reset"], [type="submit"]), ::file-selector-button {
+    -webkit-appearance: button;
+       -moz-appearance: button;
+            appearance: button;
+  }
+  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button {
+    height: auto;
+  }
+  [hidden]:where(:not([hidden="until-found"])) {
+    display: none !important;
+  }
+}
+@layer utilities {
+  .relative {
+    position: relative;
+  }
+  .sticky {
+    position: sticky;
+  }
+  .top-0 {
+    top: calc(var(--spacing) * 0);
+  }
+  .z-50 {
+    z-index: 50;
+  }
+  .container {
+    width: 100%;
+    @media (width >= 40rem) {
+      max-width: 40rem;
+    }
+    @media (width >= 48rem) {
+      max-width: 48rem;
+    }
+    @media (width >= 64rem) {
+      max-width: 64rem;
+    }
+    @media (width >= 80rem) {
+      max-width: 80rem;
+    }
+    @media (width >= 96rem) {
+      max-width: 96rem;
+    }
+  }
+  .mx-auto {
+    margin-inline: auto;
+  }
+  .mt-2 {
+    margin-top: calc(var(--spacing) * 2);
+  }
+  .mt-12 {
+    margin-top: calc(var(--spacing) * 12);
+  }
+  .mt-16 {
+    margin-top: calc(var(--spacing) * 16);
+  }
+  .mb-2 {
+    margin-bottom: calc(var(--spacing) * 2);
+  }
+  .mb-4 {
+    margin-bottom: calc(var(--spacing) * 4);
+  }
+  .mb-6 {
+    margin-bottom: calc(var(--spacing) * 6);
+  }
+  .mb-8 {
+    margin-bottom: calc(var(--spacing) * 8);
+  }
+  .mb-12 {
+    margin-bottom: calc(var(--spacing) * 12);
+  }
+  .flex {
+    display: flex;
+  }
+  .grid {
+    display: grid;
+  }
+  .hidden {
+    display: none;
+  }
+  .inline-block {
+    display: inline-block;
+  }
+  .h-5 {
+    height: calc(var(--spacing) * 5);
+  }
+  .h-6 {
+    height: calc(var(--spacing) * 6);
+  }
+  .h-10 {
+    height: calc(var(--spacing) * 10);
+  }
+  .h-20 {
+    height: calc(var(--spacing) * 20);
+  }
+  .min-h-\[80vh\] {
+    min-height: 80vh;
+  }
+  .w-5 {
+    width: calc(var(--spacing) * 5);
+  }
+  .w-6 {
+    width: calc(var(--spacing) * 6);
+  }
+  .w-10 {
+    width: calc(var(--spacing) * 10);
+  }
+  .max-w-2xl {
+    max-width: var(--container-2xl);
+  }
+  .flex-1 {
+    flex: 1;
+  }
+  .flex-shrink-0 {
+    flex-shrink: 0;
+  }
+  .grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  .flex-col {
+    flex-direction: column;
+  }
+  .flex-wrap {
+    flex-wrap: wrap;
+  }
+  .items-center {
+    align-items: center;
+  }
+  .items-start {
+    align-items: flex-start;
+  }
+  .justify-between {
+    justify-content: space-between;
+  }
+  .justify-center {
+    justify-content: center;
+  }
+  .gap-4 {
+    gap: calc(var(--spacing) * 4);
+  }
+  .gap-6 {
+    gap: calc(var(--spacing) * 6);
+  }
+  .gap-8 {
+    gap: calc(var(--spacing) * 8);
+  }
+  .space-y-1 {
+    :where(& > :not(:last-child)) {
+      --tw-space-y-reverse: 0;
+      margin-block-start: calc(calc(var(--spacing) * 1) * var(--tw-space-y-reverse));
+      margin-block-end: calc(calc(var(--spacing) * 1) * calc(1 - var(--tw-space-y-reverse)));
+    }
+  }
+  .space-y-3 {
+    :where(& > :not(:last-child)) {
+      --tw-space-y-reverse: 0;
+      margin-block-start: calc(calc(var(--spacing) * 3) * var(--tw-space-y-reverse));
+      margin-block-end: calc(calc(var(--spacing) * 3) * calc(1 - var(--tw-space-y-reverse)));
+    }
+  }
+  .space-y-4 {
+    :where(& > :not(:last-child)) {
+      --tw-space-y-reverse: 0;
+      margin-block-start: calc(calc(var(--spacing) * 4) * var(--tw-space-y-reverse));
+      margin-block-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-y-reverse)));
+    }
+  }
+  .space-x-8 {
+    :where(& > :not(:last-child)) {
+      --tw-space-x-reverse: 0;
+      margin-inline-start: calc(calc(var(--spacing) * 8) * var(--tw-space-x-reverse));
+      margin-inline-end: calc(calc(var(--spacing) * 8) * calc(1 - var(--tw-space-x-reverse)));
+    }
+  }
+  .rounded-full {
+    border-radius: calc(infinity * 1px);
+  }
+  .border-2 {
+    border-style: var(--tw-border-style);
+    border-width: 2px;
+  }
+  .border-t {
+    border-top-style: var(--tw-border-style);
+    border-top-width: 1px;
+  }
+  .border-b {
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: 1px;
+  }
+  .border-gray-200 {
+    border-color: var(--color-gray-200);
+  }
+  .border-gray-700 {
+    border-color: var(--color-gray-700);
+  }
+  .border-white {
+    border-color: var(--color-white);
+  }
+  .bg-gray-700 {
+    background-color: var(--color-gray-700);
+  }
+  .bg-white {
+    background-color: var(--color-white);
+  }
+  .bg-gradient-to-br {
+    --tw-gradient-position: to bottom right in oklab;
+    background-image: linear-gradient(var(--tw-gradient-stops));
+  }
+  .fill-white {
+    fill: var(--color-white);
+  }
+  .p-2 {
+    padding: calc(var(--spacing) * 2);
+  }
+  .px-4 {
+    padding-inline: calc(var(--spacing) * 4);
+  }
+  .py-2 {
+    padding-block: calc(var(--spacing) * 2);
+  }
+  .py-8 {
+    padding-block: calc(var(--spacing) * 8);
+  }
+  .py-12 {
+    padding-block: calc(var(--spacing) * 12);
+  }
+  .py-16 {
+    padding-block: calc(var(--spacing) * 16);
+  }
+  .py-20 {
+    padding-block: calc(var(--spacing) * 20);
+  }
+  .pt-2 {
+    padding-top: calc(var(--spacing) * 2);
+  }
+  .pt-4 {
+    padding-top: calc(var(--spacing) * 4);
+  }
+  .pb-4 {
+    padding-bottom: calc(var(--spacing) * 4);
+  }
+  .pb-8 {
+    padding-bottom: calc(var(--spacing) * 8);
+  }
+  .text-center {
+    text-align: center;
+  }
+  .text-2xl {
+    font-size: var(--text-2xl);
+    line-height: var(--tw-leading, var(--text-2xl--line-height));
+  }
+  .text-sm {
+    font-size: var(--text-sm);
+    line-height: var(--tw-leading, var(--text-sm--line-height));
+  }
+  .font-light {
+    --tw-font-weight: var(--font-weight-light);
+    font-weight: var(--font-weight-light);
+  }
+  .font-normal {
+    --tw-font-weight: var(--font-weight-normal);
+    font-weight: var(--font-weight-normal);
+  }
+  .tracking-wide {
+    --tw-tracking: var(--tracking-wide);
+    letter-spacing: var(--tracking-wide);
+  }
+  .text-gray-300 {
+    color: var(--color-gray-300);
+  }
+  .text-white {
+    color: var(--color-white);
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+  .shadow-sm {
+    --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .transition-colors {
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--default-transition-duration));
+  }
+  .duration-200 {
+    --tw-duration: 200ms;
+    transition-duration: 200ms;
+  }
+  .hover\:bg-white {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-white);
+      }
+    }
+  }
+  .hover\:text-white {
+    &:hover {
+      @media (hover: hover) {
+        color: var(--color-white);
+      }
+    }
+  }
+  .hover\:underline {
+    &:hover {
+      @media (hover: hover) {
+        text-decoration-line: underline;
+      }
+    }
+  }
+  .sm\:flex-row {
+    @media (width >= 40rem) {
+      flex-direction: row;
+    }
+  }
+  .md\:grid-cols-2 {
+    @media (width >= 48rem) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  .md\:flex-row {
+    @media (width >= 48rem) {
+      flex-direction: row;
+    }
+  }
+  .md\:items-center {
+    @media (width >= 48rem) {
+      align-items: center;
+    }
+  }
+  .md\:justify-start {
+    @media (width >= 48rem) {
+      justify-content: flex-start;
+    }
+  }
+  .md\:gap-6 {
+    @media (width >= 48rem) {
+      gap: calc(var(--spacing) * 6);
+    }
+  }
+  .md\:gap-8 {
+    @media (width >= 48rem) {
+      gap: calc(var(--spacing) * 8);
+    }
+  }
+  .md\:py-12 {
+    @media (width >= 48rem) {
+      padding-block: calc(var(--spacing) * 12);
+    }
+  }
+  .lg\:flex {
+    @media (width >= 64rem) {
+      display: flex;
+    }
+  }
+  .lg\:hidden {
+    @media (width >= 64rem) {
+      display: none;
+    }
+  }
+  .lg\:grid-cols-3 {
+    @media (width >= 64rem) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+}
+@layer base {
+  html {
+    font-size: 87.5%;
+  }
+  @media (max-width: 768px) {
+    html {
+      font-size: 81.25%;
+    }
+  }
+  body {
+    font-size: 1em;
+    line-height: 1.85714286em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    color: #666666;
+    font-weight: 400;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+    color: #252525;
+    font-weight: 300;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  h1, .h1 {
+    font-size: 3.14285714em;
+    line-height: 1.31818182em;
+  }
+  h2, .h2 {
+    font-size: 2.35714286em;
+    line-height: 1.36363636em;
+  }
+  h3, .h3 {
+    font-size: 1.78571429em;
+    line-height: 1.5em;
+  }
+  h4, .h4 {
+    font-size: 1.35714286em;
+    line-height: 1.36842105em;
+  }
+  h5, .h5 {
+    font-size: 1em;
+    line-height: 1.85714286em;
+  }
+  h6, .h6 {
+    font-size: 0.85714286em;
+    line-height: 2.16666667em;
+  }
+  .lead {
+    font-size: 1.35714286em;
+    line-height: 1.68421053em;
+    margin: 0;
+  }
+  @media (max-width: 767px) {
+    h1, .h1 {
+      font-size: 2.35714286em;
+      line-height: 1.36363636em;
+    }
+    h2, .h2 {
+      font-size: 1.78571429em;
+      line-height: 1.5em;
+    }
+    h3, .h3 {
+      font-size: 1.35714286em;
+      line-height: 1.85714286em;
+    }
+  }
+  a {
+    color: #4a90e2;
+    text-decoration: none;
+  }
+}
+@layer components {
+  .boxed {
+    position: relative;
+    overflow: hidden;
+    padding: 1.85714286em;
+    margin-bottom: 30px;
+  }
+  .boxed--border {
+    border: 1px solid #ececec;
+  }
+  @media (max-width: 767px) {
+    .boxed {
+      padding: 1.23809524em;
+      margin-bottom: 15px;
+    }
+  }
+  .feature-2 {
+    overflow: hidden;
+  }
+  .feature-2 svg,
+  .feature-2 i {
+    width: 25%;
+    float: left;
+  }
+  .feature-2 .feature__body {
+    width: 75%;
+    float: right;
+  }
+  @media (max-width: 990px) {
+    .feature-2 .feature__body,
+    .feature-2 svg,
+    .feature-2 i {
+      width: 100%;
+      float: none;
+    }
+    .feature-2 .feature__body p:first-of-type {
+      margin-top: 0.92857143em;
+    }
+  }
+  .btn {
+    display: inline-block;
+    padding: 0.46428571em 1.85714286em;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    font-size: 1em;
+    line-height: 1.85714286em;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .btn--primary {
+    background: #4a90e2;
+    border-color: #4a90e2;
+  }
+  .btn--primary .btn__text {
+    color: #fff;
+  }
+  .btn--primary:hover {
+    background: #609de6;
+  }
+  .type--uppercase {
+    text-transform: uppercase;
+  }
+  .bg--secondary {
+    background: #fafafa;
+  }
+  .bg--dark {
+    background: #252525;
+    color: #ffffff;
+  }
+  .bg--dark h1, .bg--dark h2, .bg--dark h3, .bg--dark h4, 
+  .bg--dark h5, .bg--dark h6, .bg--dark p, .bg--dark span:not(.btn__text) {
+    color: #ffffff;
+  }
+  .bg--dark a:not(.btn) {
+    color: #fff;
+  }
+  .text-center {
+    text-align: center;
+  }
+  .text-white {
+    color: #fff !important;
+  }
+  .text-white h1,
+  .text-white h2,
+  .text-white h3,
+  .text-white h4,
+  .text-white h5,
+  .text-white h6,
+  .text-white p,
+  .text-white .h1,
+  .text-white .lead {
+    color: #fff !important;
+  }
+  .feature-1 img {
+    border-radius: 6px 6px 0 0;
+  }
+  .feature-1 .feature__body {
+    border-radius: 0 0 6px 6px;
+  }
+  .cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2em;
+    border-radius: 6px;
+  }
+  @media (max-width: 767px) {
+    .cta {
+      flex-direction: column;
+      text-align: center;
+      gap: 1em;
+    }
+  }
+  header {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  #mobile-menu {
+    transition: all 0.3s ease-in-out;
+  }
+  nav a:not(.btn) {
+    position: relative;
+  }
+  nav a:not(.btn)::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #4a90e2;
+    transition: width 0.3s ease;
+  }
+  nav a:not(.btn):hover::after {
+    width: 100%;
+  }
+  footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  footer nav a {
+    position: relative;
+    transition: color 0.3s ease;
+  }
+  footer nav a:hover {
+    color: #ffffff;
+  }
+  footer .social-icon {
+    transition: all 0.3s ease;
+  }
+  footer .social-icon:hover {
+    transform: translateY(-2px);
+  }
+  @media (max-width: 768px) {
+    footer {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+    footer nav {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  }
+}
+@property --tw-space-y-reverse {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-space-x-reverse {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-font-weight {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-tracking {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-shadow-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+@property --tw-inset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-inset-shadow-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-inset-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+@property --tw-ring-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-inset-ring-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-inset-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-inset {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ring-offset-width {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+@property --tw-ring-offset-color {
+  syntax: "*";
+  inherits: false;
+  initial-value: #fff;
+}
+@property --tw-ring-offset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-duration {
+  syntax: "*";
+  inherits: false;
+}
+@layer properties {
+  @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
+    *, ::before, ::after, ::backdrop {
+      --tw-space-y-reverse: 0;
+      --tw-space-x-reverse: 0;
+      --tw-border-style: solid;
+      --tw-font-weight: initial;
+      --tw-tracking: initial;
+      --tw-shadow: 0 0 #0000;
+      --tw-shadow-color: initial;
+      --tw-shadow-alpha: 100%;
+      --tw-inset-shadow: 0 0 #0000;
+      --tw-inset-shadow-color: initial;
+      --tw-inset-shadow-alpha: 100%;
+      --tw-ring-color: initial;
+      --tw-ring-shadow: 0 0 #0000;
+      --tw-inset-ring-color: initial;
+      --tw-inset-ring-shadow: 0 0 #0000;
+      --tw-ring-inset: initial;
+      --tw-ring-offset-width: 0px;
+      --tw-ring-offset-color: #fff;
+      --tw-ring-offset-shadow: 0 0 #0000;
+      --tw-duration: initial;
+    }
+  }
+}
+    </style>
 </head>
 <body class="bg-white">
     <!-- Верхнее меню -->
@@ -264,7 +1164,7 @@
                     <!-- Портрет 1: Акварель -->
                     <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
                         <a href="https://muse.ooo/portret-na-zakaz/portret-akvarelyu/">
-                            <img title="Акварель" alt="Портрет пары в акварельном стиле" class="w-full h-auto" src="https://muse.ooo/upload/img/watercolor-couple-223-297.webp" loading="lazy">
+                            <img title="Акварель" alt="Портрет пары в акварельном стиле" class="w-full h-auto" src="https://muse.ooo/upload/img/watercolor-couple-223-297.webp" width="223" height="297" loading="lazy">
                             <div class="text-white py-2">
                                 <p>Акварель</p>
                             </div>
@@ -273,7 +1173,7 @@
                     <!-- Портрет 2: Маслом -->
                     <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
                         <a href="https://muse.ooo/portret-na-zakaz/portret-maslom/">
-                            <img title="Масло" alt="Портрет Джеффа Бриджеса под живопись маслом" class="w-full h-auto" src="https://muse.ooo/upload/img/maslom-portret-223-297.webp" loading="lazy">
+                            <img title="Масло" alt="Портрет Джеффа Бриджеса под живопись маслом" class="w-full h-auto" src="https://muse.ooo/upload/img/maslom-portret-223-297.webp" width="223" height="297" loading="lazy">
                             <div class="text-white py-2">
                                 <p>Маслом</p>
                             </div>
@@ -282,7 +1182,7 @@
                     <!-- Портрет 3: Карандаш -->
                     <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
                         <a href="https://muse.ooo/portret-na-zakaz/portret-karandashom/">
-                            <img title="Карандаш" alt="Портрет девушки карандашом с цветком в руках" class="w-full h-auto" src="https://muse.ooo/upload/img/pencil-223-297.webp" loading="lazy">
+                            <img title="Карандаш" alt="Портрет девушки карандашом с цветком в руках" class="w-full h-auto" src="https://muse.ooo/upload/img/pencil-223-297.webp" width="223" height="297" loading="lazy">
                             <div class="text-white py-2">
                                 <p>Карандаш</p>
                             </div>
@@ -291,7 +1191,7 @@
                     <!-- Портрет 4: В образе -->
                     <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
                         <a href="https://muse.ooo/portret-na-zakaz/portret-v-obraze/">
-                            <img title="В образе" alt="Портрет женщины в образе королевы на основе фотомонтажа в известную картину" class="w-full h-auto" src="https://muse.ooo/upload/img/painting-queen-portrait-223-297.webp" loading="lazy">
+                            <img title="В образе" alt="Портрет женщины в образе королевы на основе фотомонтажа в известную картину" class="w-full h-auto" src="https://muse.ooo/upload/img/painting-queen-portrait-223-297.webp" width="223" height="297" loading="lazy">
                             <div class="text-white py-2">
                                 <p>В образе</p>
                             </div>
@@ -300,7 +1200,7 @@
                     <!-- Портрет 5: Шарж -->
                     <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
                         <a href="https://muse.ooo/portret-na-zakaz/sharzh-po-foto/">
-                            <img title="Шарж" alt="Шарж по фото на Анатолия Вассермана" class="w-full h-auto" src="https://muse.ooo/upload/img/sharzh-po-foto-223-297.webp" loading="lazy">
+                            <img title="Шарж" alt="Шарж по фото на Анатолия Вассермана" class="w-full h-auto" src="https://muse.ooo/upload/img/sharzh-po-foto-223-297.webp" width="223" height="297" loading="lazy">
                             <div class="text-white py-2">
                                 <p>Шарж</p>
                             </div>
@@ -309,7 +1209,7 @@
                     <!-- Портрет 6: Комикс -->
                     <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
                         <a href="https://muse.ooo/portret-na-zakaz/portret-komiks/">
-                            <img title="Комикс" alt="Портрет мужчины в стиле Комикс" class="w-full h-auto" src="https://muse.ooo/upload/img/comics-223-297-man.webp" loading="lazy">
+                            <img title="Комикс" alt="Портрет мужчины в стиле Комикс" class="w-full h-auto" src="https://muse.ooo/upload/img/comics-223-297-man.webp" width="223" height="297" loading="lazy">
                             <div class="text-white py-2">
                                 <p>Комикс</p>
                             </div>
@@ -318,7 +1218,7 @@
                     <!-- Портрет 7: Из слов -->
                     <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
                         <a href="https://muse.ooo/portret-na-zakaz/portret-iz-slov/">
-                            <img title="Портрет из слов" alt="Портрет мужчины из слов" class="w-full h-auto" src="https://muse.ooo/upload/img/iz-slov-portret-223-297.webp" loading="lazy">
+                            <img title="Портрет из слов" alt="Портрет мужчины из слов" class="w-full h-auto" src="https://muse.ooo/upload/img/iz-slov-portret-223-297.webp" width="223" height="297" loading="lazy">
                             <div class="text-white py-2">
                                 <p>Из слов</p>
                             </div>
@@ -327,7 +1227,7 @@
                     <!-- Портрет 8: Фотомозаика -->
                     <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
                         <a href="https://muse.ooo/portret-na-zakaz/fotomozaika/">
-                            <img title="Фотомозаика" alt="Фотомозаика для актрисы Светланы Ходченковой" class="w-full h-auto" src="https://muse.ooo/upload/img/fotomozaika-223-297.webp" loading="lazy">
+                            <img title="Фотомозаика" alt="Фотомозаика для актрисы Светланы Ходченковой" class="w-full h-auto" src="https://muse.ooo/upload/img/fotomozaika-223-297.webp" width="223" height="297" loading="lazy">
                             <div class="text-white py-2">
                                 <p>Фотомозаика</p>
                             </div>
@@ -336,7 +1236,7 @@
                     <!-- Портрет 9: Граффити -->
                     <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
                         <a href="https://muse.ooo/portret-na-zakaz/graffiti-portret/">
-                            <img title="Граффити" alt="Пример портрета известного московского DJ в стиле Граффити" class="w-full h-auto" src="https://muse.ooo/upload/img/graffiti-223-297.webp" loading="lazy">
+                            <img title="Граффити" alt="Пример портрета известного московского DJ в стиле Граффити" class="w-full h-auto" src="https://muse.ooo/upload/img/graffiti-223-297.webp" width="223" height="297" loading="lazy">
                             <div class="text-white py-2">
                                 <p>Граффити</p>
                             </div>
@@ -345,7 +1245,7 @@
                     <!-- Портрет 10: Лоу-поли -->
                     <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
                         <a href="https://muse.ooo/portret-na-zakaz/low-poly-portret/">
-                            <img title="Low poly" alt="Портрет Павла Дурова в стиле Low poly" class="w-full h-auto" src="https://muse.ooo/upload/img/low-poly-223-297.webp" loading="lazy">
+                            <img title="Low poly" alt="Портрет Павла Дурова в стиле Low poly" class="w-full h-auto" src="https://muse.ooo/upload/img/low-poly-223-297.webp" width="223" height="297" loading="lazy">
                             <div class="text-white py-2">
                                 <p>Лоу-поли</p>
                             </div>
@@ -354,7 +1254,7 @@
                     <!-- Портрет 11: Фэнтези -->
                     <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
                         <a href="https://muse.ooo/portret-na-zakaz/fantasy-art-portret/">
-                            <img title="Фэнтези" alt="Портрет в стиле Fantasy Art девочки на фоне сказочного леса" class="w-full h-auto" src="https://muse.ooo/upload/img/fantasy-223-297.webp" loading="lazy">
+                            <img title="Фэнтези" alt="Портрет в стиле Fantasy Art девочки на фоне сказочного леса" class="w-full h-auto" src="https://muse.ooo/upload/img/fantasy-223-297.webp" width="223" height="297" loading="lazy">
                             <div class="text-white py-2">
                                 <p>Фэнтези</p>
                             </div>
@@ -363,7 +1263,7 @@
                     <!-- Портрет 12: Flower Art -->
                     <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
                         <a href="https://muse.ooo/portret-na-zakaz/portret-flower-art/">
-                            <img title="Flower Art" alt="Flower Art портрет девушки на цветочном пастельном фоне" class="w-full h-auto" src="https://muse.ooo/upload/img/flower-art-4-223-297.webp" loading="lazy">
+                            <img title="Flower Art" alt="Flower Art портрет девушки на цветочном пастельном фоне" class="w-full h-auto" src="https://muse.ooo/upload/img/flower-art-4-223-297.webp" width="223" height="297" loading="lazy">
                             <div class="text-white py-2">
                                 <p>Flower Art</p>
                             </div>
@@ -372,7 +1272,7 @@
                     <!-- Портрет 13: Love is... -->
                     <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
                         <a href="https://muse.ooo/portret-na-zakaz/love-is-portret/">
-                            <img title="Love is..." alt="Портрет пары в стиле Love is..." class="w-full h-auto" src="https://muse.ooo/upload/img/love-is-223-297.webp" loading="lazy">
+                            <img title="Love is..." alt="Портрет пары в стиле Love is..." class="w-full h-auto" src="https://muse.ooo/upload/img/love-is-223-297.webp" width="223" height="297" loading="lazy">
                             <div class="text-white py-2">
                                 <p>Love is...</p>
                             </div>
@@ -381,7 +1281,7 @@
                     <!-- Портрет 14: Гранж -->
                     <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
                         <a href="https://muse.ooo/portret-na-zakaz/granzh-portret/">
-                            <img title="Гранж" alt="Портрет Данилы Козловского с Ольгой Зуевой в стиле Гранж" class="w-full h-auto" src="https://muse.ooo/upload/img/grunge-223-297.webp" loading="lazy">
+                            <img title="Гранж" alt="Портрет Данилы Козловского с Ольгой Зуевой в стиле Гранж" class="w-full h-auto" src="https://muse.ooo/upload/img/grunge-223-297.webp" width="223" height="297" loading="lazy">
                             <div class="text-white py-2">
                                 <p>Гранж</p>
                             </div>
@@ -390,7 +1290,7 @@
                     <!-- Портрет 15: WPAP -->
                     <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
                         <a href="https://muse.ooo/portret-na-zakaz/wpap-portret/">
-                            <img title="WPAP" alt="WPAP портрет девушки в очках и берете" class="w-full h-auto" src="https://muse.ooo/upload/img/wpap-223-297.webp" loading="lazy">
+                            <img title="WPAP" alt="WPAP портрет девушки в очках и берете" class="w-full h-auto" src="https://muse.ooo/upload/img/wpap-223-297.webp" width="223" height="297" loading="lazy">
                             <div class="text-white py-2">
                                 <p>WPAP</p>
                             </div>
@@ -399,7 +1299,7 @@
                     <!-- Портрет 16: Бьюти-арт -->
                     <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
                         <a href="https://muse.ooo/portret-na-zakaz/beauty-art-portret/">
-                            <img title="Бьюти-арт" alt="Портрет женщины с цветами в стиле бьюти-арт" class="w-full h-auto" src="https://muse.ooo/upload/img/beauty-art-221019-223-297.webp" loading="lazy">
+                            <img title="Бьюти-арт" alt="Портрет женщины с цветами в стиле бьюти-арт" class="w-full h-auto" src="https://muse.ooo/upload/img/beauty-art-221019-223-297.webp" width="223" height="297" loading="lazy">
                             <div class="text-white py-2">
                                 <p>Бьюти-арт</p>
                             </div>
@@ -408,7 +1308,7 @@
                     <!-- Портрет 17: Поп-арт -->
                     <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
                         <a href="https://muse.ooo/portret-na-zakaz/pop-art-portret/">
-                            <img title="Поп-арт" alt="Поп-арт портрет в стиле Че девушки блондинки на малиновом фоне" class="w-full h-auto" src="https://muse.ooo/upload/img/pop-art-223-297.webp" loading="lazy">
+                            <img title="Поп-арт" alt="Поп-арт портрет в стиле Че девушки блондинки на малиновом фоне" class="w-full h-auto" src="https://muse.ooo/upload/img/pop-art-223-297.webp" width="223" height="297" loading="lazy">
                             <div class="text-white py-2">
                                 <p>Поп-арт</p>
                             </div>
@@ -417,7 +1317,7 @@
                     <!-- Портрет 18: Дрим-арт -->
                     <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
                         <a href="https://muse.ooo/portret-na-zakaz/drim-art-portret/">
-                            <img title="Дрим-Арт" alt="Портрет влюбленной пары в стиле Дрим-Арт" class="w-full h-auto" src="https://muse.ooo/upload/img/dream-couple-223-297.webp" loading="lazy">
+                            <img title="Дрим-Арт" alt="Портрет влюбленной пары в стиле Дрим-Арт" class="w-full h-auto" src="https://muse.ooo/upload/img/dream-couple-223-297.webp" width="223" height="297" loading="lazy">
                             <div class="text-white py-2">
                                 <p>Дрим-арт</p>
                             </div>
@@ -460,7 +1360,7 @@
                     <!-- Продукт 1: Фото на холсте -->
                     <div class="feature feature-1">
                         <a href="https://muse.ooo/pechat/foto-na-kholste/" class="block">
-                            <img alt="Фотография Гагарина Ю.А. для печати на холсте" title="Печать фото на холсте" loading="lazy" src="https://muse.ooo/upload/img/print-photo-on-canvas-330-Gagarin.webp" class="w-full h-auto rounded-t">
+                            <img alt="Фотография Гагарина Ю.А. для печати на холсте" title="Печать фото на холсте" loading="lazy" src="https://muse.ooo/upload/img/print-photo-on-canvas-330-Gagarin.webp" width="330" height="330" class="w-full h-auto rounded-t">
                             <div class="boxed boxed--border feature__body bg-white rounded-b">
                                 <span class="h4 text-dark block mb-2">Фото на холсте</span>
                                 <p class="text-primary">Подробнее</p>
@@ -470,7 +1370,7 @@
                     <!-- Продукт 2: Фотоколлаж на холсте -->
                     <div class="feature feature-1">
                         <a href="https://muse.ooo/pechat/fotokollazh-na-kholste/" class="block">
-                            <img alt="Фотоколлаж на холсте с детского праздника" title="Фотоколлаж на холсте" loading="lazy" src="https://muse.ooo/upload/img/o-photo-collage-on-canvas-330.webp" class="w-full h-auto rounded-t">
+                            <img alt="Фотоколлаж на холсте с детского праздника" title="Фотоколлаж на холсте" loading="lazy" src="https://muse.ooo/upload/img/o-photo-collage-on-canvas-330.webp" width="330" height="330" class="w-full h-auto rounded-t">
                             <div class="boxed boxed--border feature__body bg-white rounded-b">
                                 <span class="h4 text-dark block mb-2">Фотоколлаж на холсте</span>
                                 <p class="text-primary">Подробнее</p>
@@ -480,7 +1380,7 @@
                     <!-- Продукт 3: Модульная картина -->
                     <div class="feature feature-1">
                         <a href="https://muse.ooo/pechat/modulnaya-kartina/" class="block">
-                            <img alt="Модульная картина на холсте с изображением орхидеи" title="Модульная картина на холсте из своих фото" loading="lazy" src="https://muse.ooo/upload/img/o-modular-painting-on-canvas-330.webp" class="w-full h-auto rounded-t">
+                            <img alt="Модульная картина на холсте с изображением орхидеи" title="Модульная картина на холсте из своих фото" loading="lazy" src="https://muse.ooo/upload/img/o-modular-painting-on-canvas-330.webp" width="330" height="330" class="w-full h-auto rounded-t">
                             <div class="boxed boxed--border feature__body bg-white rounded-b">
                                 <span class="h4 text-dark block mb-2">Модульная картина</span>
                                 <p class="text-primary">из своих фото</p>
@@ -490,7 +1390,7 @@
                     <!-- Продукт 4: Репродукции картин -->
                     <div class="feature feature-1">
                         <a href="https://muse.ooo/pechat/reproduktsiya/" class="block">
-                            <img alt="Репродукция картины Девушка с жемчужной сережкой" title="Печать репродукций картин на холсте" loading="lazy" src="https://muse.ooo/upload/img/o-painting-reproduction-330-2.webp" class="w-full h-auto rounded-t">
+                            <img alt="Репродукция картины Девушка с жемчужной сережкой" title="Печать репродукций картин на холсте" loading="lazy" src="https://muse.ooo/upload/img/o-painting-reproduction-330-2.webp" width="330" height="330" class="w-full h-auto rounded-t">
                             <div class="boxed boxed--border feature__body bg-white rounded-b">
                                 <span class="h4 text-dark block mb-2">Репродукции картин</span>
                                 <p class="text-primary">Подробнее</p>
@@ -512,7 +1412,7 @@
                     <!-- Продукт 1: Фото в рамке -->
                     <div class="feature feature-1 hidden md:block">
                         <a href="https://muse.ooo/pechat/foto-v-ramke/" class="block">
-                            <img alt="Фотография балерины в рамке и паспарту" title="Фото в рамке" loading="lazy" src="https://muse.ooo/upload/img/photo-in-frame-main-263.webp" class="w-full h-auto rounded-t">
+                            <img alt="Фотография балерины в рамке и паспарту" title="Фото в рамке" loading="lazy" src="https://muse.ooo/upload/img/photo-in-frame-main-263.webp" width="263" height="263" class="w-full h-auto rounded-t">
                             <div class="boxed boxed--border feature__body bg-white rounded-b mt-0">
                                 <span class="h4 text-dark block mb-2">Фото в рамке</span>
                                 <p class="text-primary">Подробнее</p>
@@ -522,7 +1422,7 @@
                     <!-- Продукт 2: Коллаж в раме -->
                     <div class="feature feature-1 hidden md:block">
                         <a href="https://muse.ooo/pechat/fotokollazh-v-ramke/" class="block">
-                            <img alt="Фотоколлаж в рамке в виде луны" title="Коллаж в раме" loading="lazy" src="https://muse.ooo/upload/img/o-collage-in-a-frame-main-263.webp" class="w-full h-auto rounded-t">
+                            <img alt="Фотоколлаж в рамке в виде луны" title="Коллаж в раме" loading="lazy" src="https://muse.ooo/upload/img/o-collage-in-a-frame-main-263.webp" width="263" height="263" class="w-full h-auto rounded-t">
                             <div class="boxed boxed--border feature__body bg-white rounded-b mt-0">
                                 <span class="h4 text-dark block mb-2">Коллаж в раме</span>
                                 <p class="text-primary">Подробнее</p>
@@ -534,7 +1434,7 @@
                 <div class="grid grid-cols-2 md:hidden gap-4 mt-6">
                     <div class="feature feature-1">
                         <a href="https://muse.ooo/pechat/foto-v-ramke/" class="block">
-                            <img alt="Фотография балерины в рамке и паспарту" title="Фото в рамке" loading="lazy" src="https://muse.ooo/upload/img/photo-in-frame-main-263.webp" class="w-full h-auto rounded-t">
+                            <img alt="Фотография балерины в рамке и паспарту" title="Фото в рамке" loading="lazy" src="https://muse.ooo/upload/img/photo-in-frame-main-263.webp" width="263" height="263" class="w-full h-auto rounded-t">
                             <div class="boxed boxed--border feature__body bg-white rounded-b mt-0">
                                 <span class="h4 text-dark block mb-2">Фото в рамке</span>
                                 <p class="text-primary">Подробнее</p>
@@ -543,7 +1443,7 @@
                     </div>
                     <div class="feature feature-1">
                         <a href="https://muse.ooo/pechat/fotokollazh-v-ramke/" class="block">
-                            <img alt="Фотоколлаж в рамке в виде луны" title="Коллаж в раме" loading="lazy" src="https://muse.ooo/upload/img/o-collage-in-a-frame-main-263.webp" class="w-full h-auto rounded-t">
+                            <img alt="Фотоколлаж в рамке в виде луны" title="Коллаж в раме" loading="lazy" src="https://muse.ooo/upload/img/o-collage-in-a-frame-main-263.webp" width="263" height="263" class="w-full h-auto rounded-t">
                             <div class="boxed boxed--border feature__body bg-white rounded-b mt-0">
                                 <span class="h4 text-dark block mb-2">Коллаж в раме</span>
                                 <p class="text-primary">Подробнее</p>
@@ -564,7 +1464,7 @@
                     <div class="md:col-span-2">
                         <a href="https://muse.ooo/pechat/podarochnyy-sertifikat/" class="block">
                             <div class="relative h-64 rounded overflow-hidden">
-                                <img alt="фото подарочного сертификата" src="https://muse.ooo/img/o-gift-555.jpg" class="absolute inset-0 w-full h-full object-cover">
+                                <img alt="фото подарочного сертификата" src="https://muse.ooo/upload/imgsite/o-gift-555.webp" width="555" height="555" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
                                 <div class="absolute inset-0 bg-black opacity-60"></div>
                                 <div class="absolute inset-0 flex items-center p-8">
                                     <h4 class="h4 text-white">Если Вы не определились с выбором, то рекомендуем обратить внимание на наши подарочные сертификаты</h4>
@@ -872,6 +1772,32 @@
             let targetScroll = carousel.scrollLeft;
             let animationFrame = null;
             let scrollTimeout = null;
+            
+            // Кэшируем геометрические свойства для избежания forced reflow
+            let maxScroll = 0;
+            let carouselRect = null;
+            let rectCacheTime = 0;
+            const RECT_CACHE_DURATION = 100; // Кэшируем getBoundingClientRect на 100мс
+            
+            // Функция для обновления кэшированных значений
+            function updateCachedValues() {
+                if (!isDown) { // Обновляем только если не происходит drag
+                    maxScroll = Math.max(0, carousel.scrollWidth - carousel.clientWidth);
+                }
+            }
+            
+            // Инициализация кэшированных значений
+            updateCachedValues();
+            
+            // Обновляем кэш при изменении размера окна
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    updateCachedValues();
+                    carouselRect = null; // Сбрасываем кэш rect
+                }, 100);
+            });
 
             // Easing функция для плавности
             function easeOutQuart(t) {
@@ -907,11 +1833,21 @@
                 }
                 if (scrollTimeout) clearTimeout(scrollTimeout);
             }
+            
+            // Получаем кэшированный getBoundingClientRect
+            function getCachedRect() {
+                const now = Date.now();
+                if (!carouselRect || (now - rectCacheTime) > RECT_CACHE_DURATION) {
+                    carouselRect = carousel.getBoundingClientRect();
+                    rectCacheTime = now;
+                }
+                return carouselRect;
+            }
 
             carousel.addEventListener('wheel', (e) => {
                 if (window.innerWidth >= 1024) {
-                    // Проверяем, что мышь находится над каруселью
-                    const rect = carousel.getBoundingClientRect();
+                    // Проверяем, что мышь находится над каруселью (используем кэш)
+                    const rect = getCachedRect();
                     const isOverCarousel = e.clientX >= rect.left && e.clientX <= rect.right &&
                                          e.clientY >= rect.top && e.clientY <= rect.bottom;
                     
@@ -921,10 +1857,13 @@
                             e.preventDefault();
                             startScrolling();
                             
+                            // Обновляем maxScroll только если нужно
+                            if (maxScroll === 0) updateCachedValues();
+                            
                             // Плавно добавляем к целевой позиции
                             const delta = e.deltaY * 0.6; // Множитель для чувствительности (меньше = плавнее)
                             targetScroll += delta;
-                            targetScroll = Math.max(0, Math.min(carousel.scrollWidth - carousel.clientWidth, targetScroll));
+                            targetScroll = Math.max(0, Math.min(maxScroll, targetScroll));
                             
                             // Запускаем плавную прокрутку, если еще не запущена
                             if (!isScrolling) {
@@ -939,20 +1878,27 @@
 
             // Поддержка drag для прокрутки мышью
             let isDown = false;
-            let startX;
+            let startX; // Используем абсолютную позицию мыши, а не относительную к элементу
             let startScrollLeft;
             let lastX = 0;
             let dragVelocity = 0;
             let lastTime = Date.now();
+            let carouselOffsetLeft = 0; // Кэшируем offsetLeft
 
             carousel.addEventListener('mousedown', (e) => {
                 isDown = true;
                 carousel.style.cursor = 'grabbing';
-                startX = e.pageX - carousel.offsetLeft;
+                
+                // Кэшируем offsetLeft один раз при mousedown
+                carouselOffsetLeft = carousel.offsetLeft;
+                startX = e.pageX - carouselOffsetLeft;
                 startScrollLeft = carousel.scrollLeft;
                 lastX = e.pageX;
                 lastTime = Date.now();
                 startScrolling();
+                
+                // Обновляем maxScroll при начале drag
+                updateCachedValues();
                 
                 // Останавливаем плавную прокрутку
                 if (animationFrame) {
@@ -968,10 +1914,13 @@
                     isDown = false;
                     carousel.style.cursor = 'grab';
                     
+                    // Используем сохраненное значение scrollLeft вместо повторного запроса
+                    const currentScroll = carousel.scrollLeft;
+                    
                     // Добавляем инерцию после отпускания
                     if (Math.abs(dragVelocity) > 0.5) {
-                        targetScroll = carousel.scrollLeft + dragVelocity * 20;
-                        targetScroll = Math.max(0, Math.min(carousel.scrollWidth - carousel.clientWidth, targetScroll));
+                        targetScroll = currentScroll + dragVelocity * 20;
+                        targetScroll = Math.max(0, Math.min(maxScroll, targetScroll));
                         if (!isScrolling) {
                             isScrolling = true;
                             animationFrame = requestAnimationFrame(smoothScroll);
@@ -982,6 +1931,9 @@
                             carousel.classList.remove('scrolling');
                         }, 200);
                     }
+                    
+                    // Обновляем кэш после завершения drag
+                    updateCachedValues();
                 }
             });
 
@@ -990,10 +1942,13 @@
                     isDown = false;
                     carousel.style.cursor = 'grab';
                     
+                    // Используем сохраненное значение scrollLeft вместо повторного запроса
+                    const currentScroll = carousel.scrollLeft;
+                    
                     // Добавляем инерцию после отпускания
                     if (Math.abs(dragVelocity) > 0.5) {
-                        targetScroll = carousel.scrollLeft + dragVelocity * 20;
-                        targetScroll = Math.max(0, Math.min(carousel.scrollWidth - carousel.clientWidth, targetScroll));
+                        targetScroll = currentScroll + dragVelocity * 20;
+                        targetScroll = Math.max(0, Math.min(maxScroll, targetScroll));
                         if (!isScrolling) {
                             isScrolling = true;
                             animationFrame = requestAnimationFrame(smoothScroll);
@@ -1004,17 +1959,22 @@
                             carousel.classList.remove('scrolling');
                         }, 200);
                     }
+                    
+                    // Обновляем кэш после завершения drag
+                    updateCachedValues();
                 }
             });
 
             carousel.addEventListener('mousemove', (e) => {
                 if (!isDown) return;
                 e.preventDefault();
-                const x = e.pageX - carousel.offsetLeft;
+                
+                // Используем кэшированное значение offsetLeft вместо повторного запроса
+                const x = e.pageX - carouselOffsetLeft;
                 const walk = (x - startX) * 1.2; // Скорость прокрутки
                 carousel.scrollLeft = startScrollLeft - walk;
                 
-                // Вычисляем скорость для инерции
+                // Вычисляем скорость для инерции (используем только e.pageX, без запроса геометрии)
                 const now = Date.now();
                 const timeDelta = now - lastTime;
                 if (timeDelta > 0) {
@@ -1025,6 +1985,9 @@
             });
         });
     </script>
+    
+    <!-- Tailwind Plus Elements для интерактивных компонентов (загружается асинхронно в конце страницы) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module" async></script>
 </body>
 </html>
 
