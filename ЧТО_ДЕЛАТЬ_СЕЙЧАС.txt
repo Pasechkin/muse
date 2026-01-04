@@ -2,8 +2,7 @@
   ПРОЕКТ ЕЩЕ НЕ ЗАГРУЖЕН НА GITHUB
 ═══════════════════════════════════════════════════════════════
 
-Я проверил репозиторий: https://github.com/Pasechkin/muse-site
-Репозиторий не найден (404 ошибка).
+Ваш репозиторий: https://github.com/Pasechkin/muse
 
 ═══════════════════════════════════════════════════════════════
   ЧТО НУЖНО СДЕЛАТЬ:
@@ -60,7 +59,7 @@ git init
 git add .
 git commit -m "Initial commit"
 git branch -M main
-git remote add origin https://github.com/Pasechkin/muse-site.git
+   git remote add origin https://github.com/Pasechkin/muse.git
 git push -u origin main
 
 
@@ -69,7 +68,7 @@ git push -u origin main
 ═══════════════════════════════════════════════════════════════
 
 1. Проверьте репозиторий:
-   https://github.com/Pasechkin/muse-site
+   https://github.com/Pasechkin/muse
 
 2. Подключите к Vercel для деплоя:
    https://vercel.com → Import Project → muse-site → Deploy

@@ -2,10 +2,14 @@
   "version": 2,
   "buildCommand": "npm install && npm run build:once && npm run copy-css",
   "outputDirectory": "src/html",
-  "devCommand": "npm run build",
   "installCommand": "npm install",
+  "devCommand": "npm run build",
   "framework": null,
   "rewrites": [
+    {
+      "source": "/",
+      "destination": "/index_tailwind.html"
+    },
     {
       "source": "/(.*)",
       "destination": "/$1"

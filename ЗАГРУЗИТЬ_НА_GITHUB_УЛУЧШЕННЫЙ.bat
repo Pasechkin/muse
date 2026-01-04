@@ -129,8 +129,8 @@ if %ERRORLEVEL% NEQ 0 (
     echo ║  Подключение к GitHub репозиторию      ║
     echo ╚════════════════════════════════════════╝
     echo.
-    echo 🔗 Подключение к: https://github.com/Pasechkin/muse-site.git
-    %GIT_EXE% remote add origin https://github.com/Pasechkin/muse-site.git
+    echo 🔗 Подключение к: https://github.com/Pasechkin/muse.git
+    %GIT_EXE% remote add origin https://github.com/Pasechkin/muse.git
     if %ERRORLEVEL% NEQ 0 (
         echo ❌ Ошибка при подключении репозитория
         echo 💡 Возможно, репозиторий уже подключен
@@ -165,7 +165,7 @@ if %ERRORLEVEL% NEQ 0 (
     echo    %GIT_EXE% push -u origin main --force
     echo.
     echo 💡 Или проверьте, что репозиторий создан:
-    echo    https://github.com/Pasechkin/muse-site
+    echo    https://github.com/Pasechkin/muse
     echo.
     pause
     exit /b 1
@@ -177,7 +177,7 @@ echo ║  ✅ ГОТОВО! Проект загружен на GitHub  ║
 echo ╚════════════════════════════════════════╝
 echo.
 echo 🔗 Ваш репозиторий:
-echo    https://github.com/Pasechkin/muse-site
+echo    https://github.com/Pasechkin/muse
 echo.
 echo 🎉 Следующие шаги:
 echo    1. Откройте репозиторий на GitHub и проверьте файлы
