@@ -1779,24 +1779,31 @@
             let rectCacheTime = 0;
             const RECT_CACHE_DURATION = 100; // Кэшируем getBoundingClientRect на 100мс
             
-            // Функция для обновления кэшированных значений
+            // Функция для обновления кэшированных значений (используем requestAnimationFrame для батчинга)
             function updateCachedValues() {
-                if (!isDown) { // Обновляем только если не происходит drag
+                if (isDown) return; // Не обновляем во время drag
+                
+                // Используем requestAnimationFrame для батчинга чтений геометрических свойств
+                requestAnimationFrame(() => {
                     maxScroll = Math.max(0, carousel.scrollWidth - carousel.clientWidth);
-                }
+                });
             }
             
-            // Инициализация кэшированных значений
-            updateCachedValues();
+            // Инициализация кэшированных значений с задержкой после загрузки
+            requestAnimationFrame(() => {
+                updateCachedValues();
+            });
             
-            // Обновляем кэш при изменении размера окна
+            // Обновляем кэш при изменении размера окна (с debounce)
             let resizeTimeout;
             window.addEventListener('resize', () => {
                 clearTimeout(resizeTimeout);
                 resizeTimeout = setTimeout(() => {
-                    updateCachedValues();
-                    carouselRect = null; // Сбрасываем кэш rect
-                }, 100);
+                    requestAnimationFrame(() => {
+                        updateCachedValues();
+                        carouselRect = null; // Сбрасываем кэш rect
+                    });
+                }, 150);
             });
 
             // Easing функция для плавности
@@ -1805,17 +1812,27 @@
             }
 
             // Плавная прокрутка через requestAnimationFrame с easing
+            // Оптимизировано: читаем scrollLeft один раз и батчим записи
+            let lastKnownScroll = carousel.scrollLeft;
             function smoothScroll() {
-                const currentScroll = carousel.scrollLeft;
+                // Читаем scrollLeft только один раз за кадр
+                const currentScroll = lastKnownScroll;
                 const diff = targetScroll - currentScroll;
                 
                 if (Math.abs(diff) > 0.1) {
                     // Используем более плавную интерполяцию
                     const ease = 0.08; // Очень плавный коэффициент (чем меньше, тем плавнее)
-                    carousel.scrollLeft += diff * ease;
+                    const newScroll = currentScroll + diff * ease;
+                    
+                    // Записываем новое значение
+                    carousel.scrollLeft = newScroll;
+                    lastKnownScroll = newScroll;
+                    
                     animationFrame = requestAnimationFrame(smoothScroll);
                 } else {
+                    // Финальная запись
                     carousel.scrollLeft = targetScroll;
+                    lastKnownScroll = targetScroll;
                     isScrolling = false;
                     
                     // Восстанавливаем snap после прокрутки
@@ -1857,8 +1874,12 @@
                             e.preventDefault();
                             startScrolling();
                             
-                            // Обновляем maxScroll только если нужно
-                            if (maxScroll === 0) updateCachedValues();
+                            // Обновляем maxScroll только если нужно (асинхронно через RAF)
+                            if (maxScroll === 0) {
+                                requestAnimationFrame(() => {
+                                    maxScroll = Math.max(0, carousel.scrollWidth - carousel.clientWidth);
+                                });
+                            }
                             
                             // Плавно добавляем к целевой позиции
                             const delta = e.deltaY * 0.6; // Множитель для чувствительности (меньше = плавнее)
@@ -1889,16 +1910,19 @@
                 isDown = true;
                 carousel.style.cursor = 'grabbing';
                 
-                // Кэшируем offsetLeft один раз при mousedown
+                // Кэшируем offsetLeft и scrollLeft один раз при mousedown (читаем синхронно, но только один раз)
                 carouselOffsetLeft = carousel.offsetLeft;
-                startX = e.pageX - carouselOffsetLeft;
                 startScrollLeft = carousel.scrollLeft;
+                lastKnownScroll = startScrollLeft; // Обновляем кэш
+                startX = e.pageX - carouselOffsetLeft; // Относительная позиция с кэшированным offsetLeft
                 lastX = e.pageX;
                 lastTime = Date.now();
                 startScrolling();
                 
-                // Обновляем maxScroll при начале drag
-                updateCachedValues();
+                // Обновляем maxScroll при начале drag (асинхронно через RAF)
+                requestAnimationFrame(() => {
+                    maxScroll = Math.max(0, carousel.scrollWidth - carousel.clientWidth);
+                });
                 
                 // Останавливаем плавную прокрутку
                 if (animationFrame) {
@@ -1914,8 +1938,14 @@
                     isDown = false;
                     carousel.style.cursor = 'grab';
                     
-                    // Используем сохраненное значение scrollLeft вместо повторного запроса
-                    const currentScroll = carousel.scrollLeft;
+                    // Отменяем pending mousemove frame
+                    if (mousemoveFrame) {
+                        cancelAnimationFrame(mousemoveFrame);
+                        mousemoveFrame = null;
+                    }
+                    
+                    // Используем кэшированное значение scrollLeft вместо повторного запроса
+                    const currentScroll = lastKnownScroll;
                     
                     // Добавляем инерцию после отпускания
                     if (Math.abs(dragVelocity) > 0.5) {
@@ -1932,8 +1962,11 @@
                         }, 200);
                     }
                     
-                    // Обновляем кэш после завершения drag
-                    updateCachedValues();
+                    // Обновляем кэш после завершения drag (асинхронно через RAF)
+                    requestAnimationFrame(() => {
+                        maxScroll = Math.max(0, carousel.scrollWidth - carousel.clientWidth);
+                        lastKnownScroll = carousel.scrollLeft;
+                    });
                 }
             });
 
@@ -1942,8 +1975,19 @@
                     isDown = false;
                     carousel.style.cursor = 'grab';
                     
-                    // Используем сохраненное значение scrollLeft вместо повторного запроса
-                    const currentScroll = carousel.scrollLeft;
+                    // Отменяем pending mousemove frame
+                    if (mousemoveFrame) {
+                        cancelAnimationFrame(mousemoveFrame);
+                        mousemoveFrame = null;
+                    }
+                    
+                    // Читаем scrollLeft один раз для обновления кэша
+                    requestAnimationFrame(() => {
+                        lastKnownScroll = carousel.scrollLeft;
+                    });
+                    
+                    // Используем кэшированное значение для инерции
+                    const currentScroll = lastKnownScroll;
                     
                     // Добавляем инерцию после отпускания
                     if (Math.abs(dragVelocity) > 0.5) {
@@ -1960,8 +2004,11 @@
                         }, 200);
                     }
                     
-                    // Обновляем кэш после завершения drag
-                    updateCachedValues();
+                    // Обновляем кэш после завершения drag (асинхронно через RAF)
+                    requestAnimationFrame(() => {
+                        maxScroll = Math.max(0, carousel.scrollWidth - carousel.clientWidth);
+                        lastKnownScroll = carousel.scrollLeft;
+                    });
                 }
             });
 
@@ -1969,10 +2016,21 @@
                 if (!isDown) return;
                 e.preventDefault();
                 
-                // Используем кэшированное значение offsetLeft вместо повторного запроса
-                const x = e.pageX - carouselOffsetLeft;
-                const walk = (x - startX) * 1.2; // Скорость прокрутки
-                carousel.scrollLeft = startScrollLeft - walk;
+                // Используем кэшированный offsetLeft и абсолютную позицию мыши
+                // Не читаем геометрические свойства в каждом событии mousemove
+                const currentX = e.pageX - carouselOffsetLeft; // Используем кэшированный offsetLeft
+                const walk = (currentX - startX) * 1.2; // Скорость прокрутки
+                const newScroll = startScrollLeft - walk;
+                
+                // Записываем напрямую (mousemove уже в событии пользователя, можно писать синхронно)
+                // Но ограничиваем частоту записей через throttling
+                if (!mousemoveFrame) {
+                    mousemoveFrame = requestAnimationFrame(() => {
+                        carousel.scrollLeft = newScroll;
+                        lastKnownScroll = newScroll; // Обновляем кэш
+                        mousemoveFrame = null;
+                    });
+                }
                 
                 // Вычисляем скорость для инерции (используем только e.pageX, без запроса геометрии)
                 const now = Date.now();
@@ -1983,6 +2041,9 @@
                 lastX = e.pageX;
                 lastTime = now;
             });
+            
+            // Переменная для throttling mousemove
+            let mousemoveFrame = null;
         });
     </script>
     
