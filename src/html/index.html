@@ -3,158 +3,642 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Картины по фото: портреты маслом и печать на холсте. Закажите бесплатный эскиз. Собственное производство, гарантия качества.">
     <title>Картины по фото на заказ - студия Muse</title>
+    <meta name="description" content="Картины по фото: портреты маслом и печать на холсте. Закажите бесплатный эскиз. Собственное производство, гарантия качества.">
+    
+    <!-- Tailwind Plus Elements для интерактивных компонентов -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
+    
     <link rel="stylesheet" href="css/output.css">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
 <body class="bg-white">
     <!-- Верхнее меню -->
-    <header class="sticky top-0 z-50 bg-white shadow-sm">
-        <nav class="container mx-auto px-4">
-            <div class="flex items-center justify-between h-20">
-                <!-- Логотип -->
-                <div class="flex-shrink-0">
-                    <a href="/" class="flex items-center">
-                        <span class="text-2xl font-light text-dark">Muse</span>
-                    </a>
-                </div>
-
-                <!-- Десктопное меню -->
-                <div class="hidden lg:flex items-center space-x-8">
-                    <a href="/portret-na-zakaz/" class="text-body hover:text-primary transition-colors duration-200 font-normal">
-                        Портреты
-                    </a>
-                    <a href="/pechat/" class="text-body hover:text-primary transition-colors duration-200 font-normal">
-                        Печать
-                    </a>
-                    <a href="/blog/" class="text-body hover:text-primary transition-colors duration-200 font-normal">
-                        Блог
-                    </a>
-                    <a href="/info/" class="text-body hover:text-primary transition-colors duration-200 font-normal">
-                        О нас
-                    </a>
-                    <a href="/info/kontakty/" class="text-body hover:text-primary transition-colors duration-200 font-normal">
-                        Контакты
-                    </a>
-                    <a href="/order/" class="btn btn--primary type--uppercase">
-                        <span class="btn__text">Заказать</span>
-                    </a>
-                </div>
-
-                <!-- Мобильная кнопка меню -->
-                <button id="mobile-menu-button" class="lg:hidden p-2 text-dark hover:text-primary transition-colors" aria-label="Открыть меню">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+    <header class="bg-dark sticky top-0 z-50">
+        <nav aria-label="Основная навигация" class="mx-auto flex max-w-7xl items-center justify-between gap-x-4 p-4 lg:px-8">
+            <!-- Логотип -->
+            <div class="flex-shrink-0">
+                <a href="https://muse.ooo/" class="-m-1.5 p-1.5 flex items-center">
+                    <svg height="26" viewBox="0 0 1285 359" width="74" xmlns="http://www.w3.org/2000/svg" style="image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision" class="h-7 w-auto">
+                        <defs>
+                            <style>
+                                .fil0{fill:#fefefe}
+                                .fil1{fill:#fefefe;fill-rule:nonzero}
+                            </style>
+                        </defs>
+                        <path class="fil0" d="M10 359l353 0-63-63-226 0-64 63zm364-10l0-285c-24 7-45 18-64 34l0 188 64 63zm-374-285l0 285 63-63 0-188c-19-16-40-27-63-34z"/>
+                        <path class="fil0" d="M300 0c-49 0-92 28-113 68-22-40-65-68-114-68-27 0-52 8-73 23 82 9 149 79 187 166 37-87 104-157 187-166-21-15-47-23-74-23z"/>
+                        <path class="fil0" d="M494 20c-11-11-27-18-45-17-16 1-26 8-32 17 36 0 60 19 77 48 17-29 41-48 78-48-7-9-17-16-33-17-17-1-33 6-45 17z"/>
+                        <path class="fil1" d="M1152 178c4-24 18-40 41-40 22 0 36 16 39 40l-80 0zm46 114c34 0 59-13 77-35l-31-28c-14 14-27 20-45 20-24 0-41-13-47-37l132 0c0-5 1-10 1-14 0-54-29-103-92-103-55 0-94 45-94 99 0 58 42 98 99 98z"/>
+                        <path class="fil1" d="M1008 291c41 0 73-19 73-61 0-35-31-48-57-57-21-7-39-12-39-22 0-8 7-14 20-14 14 0 32 7 51 18l21-37c-21-14-47-22-71-22-38 0-69 21-69 60 0 37 30 50 56 57 21 7 39 10 39 22 0 9-7 15-22 15-18 0-39-8-60-23l-23 36c25 19 55 28 81 28z"/>
+                        <path class="fil1" d="M792 291c24 0 46-15 56-25l0 22 55 0 0-189-58 0 0 107c0 21-13 43-33 43-19 0-31-13-31-39l0-111-54 0 0 122c0 43 24 70 65 70z"/>
+                        <path class="fil1" d="M623 95c-30 0-49 17-60 28-10-16-25-27-46-28-25-1-43 15-53 26l0-22-55 0 0 189 58 0 0-109c0-22 15-41 33-41 18 0 29 11 29 36l0 114 12 0 34 0 8 0 0-139c5-5 12-11 24-11 16 0 30 11 30 38l0 112 54 0 0-123c0-43-26-70-68-70z"/>
                     </svg>
-                </button>
+                </a>
             </div>
-
-            <!-- Мобильное меню -->
-            <div id="mobile-menu" class="hidden lg:hidden pb-4">
-                <div class="flex flex-col space-y-4 pt-4 border-t border-gray-200">
-                    <a href="/portret-na-zakaz/" class="text-body hover:text-primary transition-colors duration-200 font-normal py-2">
-                        Портреты
-                    </a>
-                    <a href="/pechat/" class="text-body hover:text-primary transition-colors duration-200 font-normal py-2">
-                        Печать
-                    </a>
-                    <a href="/blog/" class="text-body hover:text-primary transition-colors duration-200 font-normal py-2">
-                        Блог
-                    </a>
-                    <a href="/info/" class="text-body hover:text-primary transition-colors duration-200 font-normal py-2">
-                        О нас
-                    </a>
-                    <a href="/info/kontakty/" class="text-body hover:text-primary transition-colors duration-200 font-normal py-2">
-                        Контакты
-                    </a>
-                    <a href="/order/" class="btn btn--primary type--uppercase inline-block text-center mt-2">
-                        <span class="btn__text">Заказать</span>
-                    </a>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Основной контент -->
-    <main>
-        <!-- Hero секция -->
-        <section class="relative min-h-[80vh] flex items-center justify-center bg-gradient-to-br from-primary/10 to-secondary">
-            <div class="container mx-auto px-4 py-20 text-center">
-                <h1 class="text-h1 text-dark mb-6">Создай своё произведение искусства</h1>
-                <p class="text-lead text-body mb-8 max-w-2xl mx-auto">
-                    Картины по фото: портреты маслом и печать на холсте. Закажите бесплатный эскиз. Собственное производство, гарантия качества.
-                </p>
-                <a href="/order/" class="btn btn--primary type--uppercase">
+            
+            <!-- Все пункты меню справа (десктоп) -->
+            <div class="hidden lg:flex lg:items-center lg:gap-x-6">
+                <a href="https://muse.ooo/pechat/" class="text-white hover:text-primary transition-colors font-normal whitespace-nowrap uppercase">Печать</a>
+                <a href="https://muse.ooo/portret-na-zakaz/" class="text-white hover:text-primary transition-colors font-normal whitespace-nowrap uppercase">Портреты</a>
+                <a href="https://muse.ooo/info/dostavka/" class="text-white hover:text-primary transition-colors font-normal whitespace-nowrap uppercase">Доставка</a>
+                <a href="#callback" class="text-white hover:text-primary transition-colors font-normal whitespace-nowrap uppercase">Обратный звонок</a>
+                <span class="text-white font-normal whitespace-nowrap uppercase">Москва</span>
+                <a href="tel:88007076921" class="text-white hover:text-primary transition-colors font-normal whitespace-nowrap">8-800-707-69-21</a>
+                <a href="#search" class="text-white hover:text-primary transition-colors" aria-label="Поиск">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5">
+                        <path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </a>
+                <a href="https://muse.ooo/order/" class="btn btn--primary type--uppercase whitespace-nowrap">
                     <span class="btn__text">Заказать</span>
                 </a>
             </div>
+            
+            <!-- Мобильная кнопка меню и Заказать -->
+            <div class="flex lg:hidden items-center gap-x-4">
+                <a href="https://muse.ooo/order/" class="btn btn--primary type--uppercase text-sm whitespace-nowrap">
+                    <span class="btn__text">Заказать</span>
+                </a>
+                <button type="button" command="show-modal" commandfor="mobile-menu" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white">
+                    <span class="sr-only">Открыть меню</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
+                        <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+        
+        <!-- Мобильное меню -->
+        <el-dialog>
+            <dialog id="mobile-menu" class="backdrop:bg-transparent lg:hidden">
+                <div tabindex="0" class="fixed inset-0 focus:outline-none">
+                    <el-dialog-panel class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-dark p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-700">
+                        <div class="flex items-center gap-x-6">
+                            <a href="https://muse.ooo/" class="-m-1.5 p-1.5 flex items-center">
+                                <svg height="26" viewBox="0 0 1285 359" width="74" xmlns="http://www.w3.org/2000/svg" style="image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision" class="h-7 w-auto">
+                                    <defs>
+                                        <style>
+                                            .fil0{fill:#fefefe}
+                                            .fil1{fill:#fefefe;fill-rule:nonzero}
+                                        </style>
+                                    </defs>
+                                    <path class="fil0" d="M10 359l353 0-63-63-226 0-64 63zm364-10l0-285c-24 7-45 18-64 34l0 188 64 63zm-374-285l0 285 63-63 0-188c-19-16-40-27-63-34z"/>
+                                    <path class="fil0" d="M300 0c-49 0-92 28-113 68-22-40-65-68-114-68-27 0-52 8-73 23 82 9 149 79 187 166 37-87 104-157 187-166-21-15-47-23-74-23z"/>
+                                    <path class="fil0" d="M494 20c-11-11-27-18-45-17-16 1-26 8-32 17 36 0 60 19 77 48 17-29 41-48 78-48-7-9-17-16-33-17-17-1-33 6-45 17z"/>
+                                    <path class="fil1" d="M1152 178c4-24 18-40 41-40 22 0 36 16 39 40l-80 0zm46 114c34 0 59-13 77-35l-31-28c-14 14-27 20-45 20-24 0-41-13-47-37l132 0c0-5 1-10 1-14 0-54-29-103-92-103-55 0-94 45-94 99 0 58 42 98 99 98z"/>
+                                    <path class="fil1" d="M1008 291c41 0 73-19 73-61 0-35-31-48-57-57-21-7-39-12-39-22 0-8 7-14 20-14 14 0 32 7 51 18l21-37c-21-14-47-22-71-22-38 0-69 21-69 60 0 37 30 50 56 57 21 7 39 10 39 22 0 9-7 15-22 15-18 0-39-8-60-23l-23 36c25 19 55 28 81 28z"/>
+                                    <path class="fil1" d="M792 291c24 0 46-15 56-25l0 22 55 0 0-189-58 0 0 107c0 21-13 43-33 43-19 0-31-13-31-39l0-111-54 0 0 122c0 43 24 70 65 70z"/>
+                                    <path class="fil1" d="M623 95c-30 0-49 17-60 28-10-16-25-27-46-28-25-1-43 15-53 26l0-22-55 0 0 189 58 0 0-109c0-22 15-41 33-41 18 0 29 11 29 36l0 114 12 0 34 0 8 0 0-139c5-5 12-11 24-11 16 0 30 11 30 38l0 112 54 0 0-123c0-43-26-70-68-70z"/>
+                                </svg>
+                            </a>
+                            <button type="button" command="close" commandfor="mobile-menu" class="ml-auto -m-2.5 rounded-md p-2.5 text-white">
+                                <span class="sr-only">Закрыть меню</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
+                                    <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="mt-6 flow-root">
+                            <div class="-my-6 divide-y divide-gray-700">
+                                <div class="space-y-2 py-6">
+                                    <a href="https://muse.ooo/pechat/" class="-mx-3 block rounded-lg px-3 py-2 text-white font-normal hover:bg-gray-700 uppercase">Печать</a>
+                                    <a href="https://muse.ooo/portret-na-zakaz/" class="-mx-3 block rounded-lg px-3 py-2 text-white font-normal hover:bg-gray-700 uppercase">Портреты</a>
+                                    <a href="https://muse.ooo/info/dostavka/" class="-mx-3 block rounded-lg px-3 py-2 text-white font-normal hover:bg-gray-700 uppercase">Доставка</a>
+                                    <a href="#callback" class="-mx-3 block rounded-lg px-3 py-2 text-white font-normal hover:bg-gray-700 uppercase">Обратный звонок</a>
+                                    <div class="-mx-3 block rounded-lg px-3 py-2 text-white font-normal uppercase">Москва</div>
+                                    <a href="tel:88007076921" class="-mx-3 block rounded-lg px-3 py-2 text-white font-normal hover:bg-gray-700">8-800-707-69-21</a>
+                                    <a href="#search" class="-mx-3 block rounded-lg px-3 py-2 text-white font-normal hover:bg-gray-700 flex items-center gap-2">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5">
+                                            <path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                        Поиск
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </el-dialog-panel>
+                </div>
+            </dialog>
+        </el-dialog>
+    </header>
+
+    <!-- Hero секция с видео фоном -->
+    <header>
+        <section class="relative h-screen overflow-hidden bg-black">
+            <video class="absolute inset-0 w-full h-full object-cover hidden md:block" autoplay loop muted playsinline>
+                <source src="https://muse.ooo/video/portret-po-foto.webm" type="video/webm">
+                <source src="https://muse.ooo/video/portret-po-foto.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-black opacity-60"></div>
+            <div class="container mx-auto px-4 h-full flex items-center relative z-10">
+                <div class="max-w-2xl">
+                    <p class="h1 text-white mb-4">Создай своё произведение искусства</p>
+                    <h1 class="lead text-white mb-8">Картины по фото: портреты маслом и печать на холсте</h1>
+                    <a href="https://muse.ooo/order/" class="btn btn--primary type--uppercase">
+                        <span class="btn__text">Заказать</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </header>
+
+    <!-- Блок акции -->
+    <section class="bg-primary text-white py-10">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-center">
+                <p class="lead">Скидка 20% с 3 по 4 января</p>
+            </div>
+        </div>
+    </section>
+
+    <main class="main-container">
+        <!-- Секция Преимущества -->
+        <section class="bg-secondary py-16 md:py-24">
+            <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                <div class="mx-auto max-w-2xl mb-12 text-center">
+                    <h2 class="h2 text-dark">Преимущества</h2>
+                </div>
+                <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+                    <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+                        <!-- Преимущество 1: Собственное производство -->
+                        <div class="flex flex-col boxed boxed--border bg-white">
+                            <dt class="text-base/7 font-normal text-dark">
+                                <div class="mb-6 flex size-10 items-center justify-start">
+                                    <svg height="32" viewBox="0 0 325.9 325.9" width="32" xmlns="http://www.w3.org/2000/svg" class="text-primary">
+                                        <path d="M297.4 47.8h-24.5v-7.1c0-9.3-7.5-16.8-16.8-16.8H69.7c-9.3 0-16.8 7.5-16.8 16.8v7.1H28.5C12.7 47.8 0 60.5 0 76.2v39.8c0 12.6 8.3 23.2 19.7 27v115.7L9.5 289.6c-1.6 5 1 10.3 6 11.9 1 0.3 2 0.5 3 0.5 4 0 7.7-2.5 9-6.5l10.7-32.4h0.4v-1.3L48.8 230.9c1.6-5-1-10.3-6-11.9 -1.4-0.5-2.8-0.5-4.2-0.4v-74.1h22.9v111.4h202.9V144.5h17.2v69.4c-2.4-1.9-5.7-2.5-8.8-1.5 -5 1.6-7.6 7-6 11.9l21.3 64.6c1.3 4 5 6.5 9 6.5 1 0 2-0.2 3-0.5 5-1.6 7.6-7 6-11.9l-6.6-19.9h1V144.2c14.3-1.5 25.4-13.5 25.4-28.2V76.2C325.9 60.5 313.1 47.8 297.4 47.8zM63.7 40.7c0-3.3 2.7-6 6-6H256.1c3.3 0 6 2.7 6 6v7.1H63.7V40.7zM253.6 144.5v100.6H72.3V144.5 123.9c0-8.1 4.1-19.5 8.9-24.8l8.7-9.6h146l8.7 9.6c4.8 5.3 8.9 16.7 8.9 24.8v20.6H253.6z" fill="currentColor"></path>
+                                        <path d="M232.7 106.4H93.2c-3 0-5.4 2.4-5.4 5.4 0 3 2.4 5.4 5.4 5.4h139.5c3 0 5.4-2.4 5.4-5.4C238.1 108.8 235.6 106.4 232.7 106.4z" fill="currentColor"></path>
+                                    </svg>
+                                </div>
+                                <span class="lead text-dark">Собственное производство</span>
+                            </dt>
+                        </div>
+
+                        <!-- Преимущество 2: Профессиональный дизайн -->
+                        <div class="flex flex-col boxed boxed--border bg-white">
+                            <dt class="text-base/7 font-normal text-dark">
+                                <div class="mb-6 flex size-10 items-center justify-start">
+                                    <svg height="32" viewBox="0 0 19.3 19.3" width="32" xmlns="http://www.w3.org/2000/svg" class="text-primary">
+                                        <path d="M7.6 10.3c-0.4 0.4-0.5 0.7-0.9 1.5 0.3 0.2 0.9 0.7 1.3 1.6 0.8-0.5 1.2-0.5 1.7-0.9 2.9-2.4 9.9-11 9.6-11.3C19 0.8 10.1 7.5 7.6 10.3zM5.9 12.4c-1.2-0.2-2.5 0.6-3.3 2.5 -0.8 2-2.3 2.8-2.6 2.7 1.5 0.6 6.2 2 7.3-3.4C6.9 12.9 5.9 12.4 5.9 12.4z" fill="currentColor"></path>
+                                    </svg>
+                                </div>
+                                <span class="lead text-dark">Профессиональный дизайн</span>
+                            </dt>
+                        </div>
+
+                        <!-- Преимущество 3: Оформление в багет -->
+                        <div class="flex flex-col boxed boxed--border bg-white">
+                            <dt class="text-base/7 font-normal text-dark">
+                                <div class="mb-6 flex size-10 items-center justify-start">
+                                    <svg height="32" viewBox="0 0 325.893 325.893" width="32" xmlns="http://www.w3.org/2000/svg" class="text-primary">
+                                        <polygon fill="currentColor" points="36.894,39.968 8.695,39.968 27.142,58.415 45.588,76.862 281.072,76.862 299.52,58.415 317.966,39.968 288.999,39.968"></polygon>
+                                        <polygon fill="currentColor" points="36.894,241.105 36.894,85.557 18.447,67.11 0,48.663 0,76.862 0,249.031 0,277.998 18.447,259.552"></polygon>
+                                        <polygon fill="currentColor" points="280.304,249.031 46.357,249.031 27.91,267.479 9.464,285.925 36.894,285.925 288.999,285.925 317.197,285.925 298.751,267.479"></polygon>
+                                        <polygon fill="currentColor" points="288.999,86.325 288.999,240.336 307.445,258.783 325.893,277.229 325.893,249.031 325.893,76.862 325.893,49.432 307.445,67.879"></polygon>
+                                    </svg>
+                                </div>
+                                <span class="lead text-dark">Оформление<br>в багет</span>
+                            </dt>
+                        </div>
+
+                        <!-- Преимущество 4: Доставка по России -->
+                        <div class="flex flex-col boxed boxed--border bg-white">
+                            <dt class="text-base/7 font-normal text-dark">
+                                <div class="mb-6 flex size-10 items-center justify-start">
+                                    <svg height="32" viewBox="0 0 458.9 458.9" width="32" xmlns="http://www.w3.org/2000/svg" class="text-primary">
+                                        <path d="M451.2 95.4l0.3-0.8L238.6 7.9l-36.1 13.7c3.8 4.1 7.3 8.4 10.7 12.9l25.2-9.6 51.2 20.9c15.6-2.5 29.6-1.7 41.6 2.6 14 5.1 24.7 14.3 32.3 27.5l67.5 27.5 -55.4 21.8c-0.4 6.5-2 13.3-5.6 19.3l65.8-26v244.7L237.4 441.5V196.8l92.3-36.4c-8.3-1.1-17.2-3.5-26.4-6.6l-73.8 29.1 -71-28 35-15.9c-2.9-1.2-5.6-3.1-7.6-5.7 -3.1-3.8-4.7-8.6-4.4-13.4 -1.9-2.2-7.4-4.7-13.9-7l-56 23.6 -81.7-32.2 56.4-21.4c-4.4-3.6-8-7.9-10.4-13L8 95.5l-0.7-0.3v0.6L7.2 95.8l0 0.1v278.1L221.5 458.6v0.3h15.9v-0.3l214.3-84.5V95.2L451.2 95.4zM96.5 392.2l-73.4-29V118.6l73.4 29V392.2zM221.5 441.5l-83.2-33.6 0.3-243.8 83 32.7V441.5zM143.4 97.4c19.3 5.2 48.5 13.2 47.5 22.8 -0.7 6.5 4.1 12.4 10.6 13.1l0 0c3.4 0.4 6.6-0.8 9-2.9 0.7 0.6 1.4 1.2 2.2 1.6 5.8 3 13 0.8 16.1-5 0.1-0.2 0.3-0.4 0.5-0.6 2.9 1.7 6.5 2.2 9.9 0.9 1.5-0.5 2.8-1.4 4-2.4 12.2 2.2 29.4 8.9 41.5 13.6 17.6 6.8 34.6 13.3 49 14.8 10.3 1.1 19.3-0.5 26.1-6.4 14.4-12.6 8.7-36.8 6.8-44.7 -5.6-23.6-17.9-39-36.6-45.7 -30.4-11-70.2 4.9-98.8 20.6C216.3 47.7 191.2 9.6 158.4 1.6c-19.3-4.7-38 1.3-55.8 17.8C85.9 35 79.2 48.8 82.4 61.6 87.5 82.3 114.7 89.6 143.4 97.4zM321.9 78.9c10.8 3.9 17.8 13.4 21.5 28.9 4.2 17.6 0.8 21.2 0.7 21.3 -5.5 4.8-35-6.6-50.8-12.7 -17.2-6.6-35.5-13.7-51.2-15.3 -0.3-0.7-0.6-1.4-0.9-2.1C267.2 84.6 300.4 71.2 321.9 78.9zM118.8 36.8c11.7-10.9 22.7-14.8 33.9-12.1 23.1 5.6 44.2 37.6 57.9 64.8 -3.3 2.1-6.2 4.1-8.6 5.7 -12.8-10-33.3-15.6-52.4-20.8 -15.9-4.3-42.4-11.5-44.1-18.5C105.5 55.7 104.4 50.3 118.8 36.8z" fill="currentColor"></path>
+                                    </svg>
+                                </div>
+                                <span class="lead text-dark">Доставка по<br>России</span>
+                            </dt>
+                        </div>
+
+                        <!-- Преимущество 5: Полная оплата при получении -->
+                        <div class="flex flex-col boxed boxed--border bg-white">
+                            <dt class="text-base/7 font-normal text-dark">
+                                <div class="mb-6 flex size-10 items-center justify-start">
+                                    <svg height="32" viewBox="0 0 612 612" width="32" xmlns="http://www.w3.org/2000/svg" class="text-primary">
+                                        <path d="M592.9 306c0-79.2-32.1-150.9-84-202.9C456.9 51.2 385.2 19.1 306 19.1s-150.9 32.1-202.8 84C51.2 155.1 19.1 226.8 19.1 306s32.1 151 84 202.9 123.6 84 202.8 84c79.2 0 150.9-32.1 202.9-84C560.8 457 592.9 385.2 592.9 306L592.9 306zM522.4 89.6C577.8 145 612 221.5 612 306c0 84.5-34.2 161-89.6 216.4C467 577.8 390.5 612 306 612s-161-34.2-216.4-89.6C34.3 467 0 390.5 0 306c0-84.5 34.2-161 89.6-216.4C145 34.3 221.5 0 306 0 390.5 0 467 34.2 522.4 89.6z" fill="currentColor"></path>
+                                        <path d="M296.5 439.9c5.3 0 9.6 4.3 9.6 9.6 0 5.3-4.3 9.6-9.6 9.6h-76.5c-5.3 0-9.6-4.3-9.6-9.6s4.3-9.6 9.6-9.6H296.5z" fill="currentColor"></path>
+                                        <path d="M334.7 344.3c-5.3 0-9.6-4.3-9.6-9.6 0-5.3 4.3-9.6 9.6-9.6 18.5 0 35.2-7.5 47.3-19.6l0.5-0.5c11.8-12 19.1-28.6 19.1-46.8 0-18.5-7.5-35.2-19.6-47.3l-0.5-0.5c-12.1-11.8-28.6-19.1-46.8-19.1H220c-5.3 0-9.6-4.3-9.6-9.6 0-5.3 4.3-9.6 9.6-9.6h114.8c23.4 0 44.7 9.4 60.2 24.7l0.6 0.6c15.6 15.6 25.2 37.1 25.2 60.9 0 23.4-9.4 44.7-24.6 60.2l-0.6 0.6C380 334.6 358.5 344.3 334.7 344.3z" fill="currentColor"></path>
+                                        <path d="M219.9 344.3c-5.3 0-9.6-4.3-9.6-9.6 0-5.3 4.3-9.6 9.6-9.6H334.7c5.3 0 9.6 4.3 9.6 9.6s-4.3 9.6-9.6 9.6H219.9z" fill="currentColor"></path>
+                                        <path d="M267.7 449.5c0 5.3-4.3 9.6-9.6 9.6 -5.3 0-9.6-4.3-9.6-9.6V181.7c0-5.3 4.3-9.6 9.6-9.6 5.3 0 9.6 4.3 9.6 9.6V449.5z" fill="currentColor"></path>
+                                        <path d="M219.9 382.5c-5.3 0-9.6-4.3-9.6-9.6 0-5.3 4.3-9.6 9.6-9.6h133.9c5.3 0 9.6 4.3 9.6 9.6 0 5.3-4.3 9.6-9.6 9.6H219.9z" fill="currentColor"></path>
+                                    </svg>
+                                </div>
+                                <span class="lead text-dark">Полная оплата <br> при получении</span>
+                            </dt>
+                        </div>
+
+                        <!-- Преимущество 6: Официальная гарантия -->
+                        <div class="flex flex-col boxed boxed--border bg-white">
+                            <dt class="text-base/7 font-normal text-dark">
+                                <div class="mb-6 flex size-10 items-center justify-start">
+                                    <svg height="32" viewBox="0 0 214.3 214.3" width="32" xmlns="http://www.w3.org/2000/svg" class="text-primary">
+                                        <path d="M196.9 55.2c-0.1-5.8-0.2-11.2-0.2-16.5 0-4.1-3.4-7.5-7.5-7.5 -32.1 0-56.5-9.2-76.9-29 -2.9-2.8-7.5-2.8-10.5 0 -20.4 19.8-44.8 29-76.8 29 -4.1 0-7.5 3.4-7.5 7.5 0 5.3-0.1 10.8-0.2 16.5 -1 53.8-2.4 127.6 87.3 158.7 0.8 0.3 1.6 0.4 2.5 0.4 0.8 0 1.7-0.1 2.5-0.4C199.4 182.7 198 109 196.9 55.2zM107.1 198.8c-77-28-75.8-89.2-74.8-143.4 0.1-3.2 0.1-6.4 0.2-9.5 30-1.3 54.1-10.4 74.6-28.3 20.6 17.9 44.6 27 74.6 28.3 0 3.1 0.1 6.2 0.2 9.5C183 109.6 184.1 170.8 107.1 198.8z" fill="currentColor"></path>
+                                        <path d="M133 81.1l-36.2 36.2 -15.4-15.4c-2.9-2.9-7.7-2.9-10.6 0 -2.9 2.9-2.9 7.7 0 10.6l20.8 20.8c1.5 1.5 3.4 2.2 5.3 2.2 1.9 0 3.8-0.7 5.3-2.2l41.5-41.5c2.9-2.9 2.9-7.7 0-10.6C140.6 78.2 135.9 78.2 133 81.1z" fill="currentColor"></path>
+                                    </svg>
+                                </div>
+                                <span class="lead text-dark">Официальная <br> гарантия</span>
+                            </dt>
+                        </div>
+                    </dl>
+                </div>
+            </div>
         </section>
 
-        <!-- Преимущества -->
-        <section class="py-16 bg-secondary">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-12">
-                    <h2 class="text-h2 text-dark mb-4">Преимущества</h2>
+        <!-- Секция Портреты на холсте -->
+        <section class="bg-dark py-16" id="portret-po-foto">
+            <div class="container mx-auto px-4 mb-8">
+                <div class="text-center">
+                    <h2 class="text-white">
+                        <a href="https://muse.ooo/portret-na-zakaz/" class="text-white hover:text-primary transition-colors">Портреты на холсте</a>
+                    </h2>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Преимущество 1 -->
-                    <div class="boxed boxed--border bg-white feature feature-2">
-                        <svg height="32" viewBox="0 0 325.9 325.9" width="32" xmlns="http://www.w3.org/2000/svg" class="text-primary">
-                            <path d="M297.4 47.8h-24.5v-7.1c0-9.3-7.5-16.8-16.8-16.8H69.7c-9.3 0-16.8 7.5-16.8 16.8v7.1H28.5C12.7 47.8 0 60.5 0 76.2v39.8c0 12.6 8.3 23.2 19.7 27v115.7L9.5 289.6c-1.6 5 1 10.3 6 11.9 1 0.3 2 0.5 3 0.5 4 0 7.7-2.5 9-6.5l10.7-32.4h0.4v-1.3L48.8 230.9c1.6-5-1-10.3-6-11.9 -1.4-0.5-2.8-0.5-4.2-0.4v-74.1h22.9v111.4h202.9V144.5h17.2v69.4c-2.4-1.9-5.7-2.5-8.8-1.5 -5 1.6-7.6 7-6 11.9l21.3 64.6c1.3 4 5 6.5 9 6.5 1 0 2-0.2 3-0.5 5-1.6 7.6-7 6-11.9l-6.6-19.9h1V144.2c14.3-1.5 25.4-13.5 25.4-28.2V76.2C325.9 60.5 313.1 47.8 297.4 47.8z" fill="currentColor"></path>
-                        </svg>
-                        <div class="feature__body">
-                            <p class="lead text-dark">Собственное производство</p>
-                        </div>
+            </div>
+            <!-- Карусель портретов -->
+            <div class="carousel-scroll scrollbar-hide pb-4">
+                <div class="flex gap-4 px-4" style="min-width: max-content;">
+                    <!-- Портрет 1: Акварель -->
+                    <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
+                        <a href="https://muse.ooo/portret-na-zakaz/portret-akvarelyu/">
+                            <img title="Акварель" alt="Портрет пары в акварельном стиле" class="w-full h-auto" src="https://muse.ooo/upload/img/watercolor-couple-223-297.webp" loading="lazy">
+                            <div class="text-white py-2">
+                                <p>Акварель</p>
+                            </div>
+                        </a>
                     </div>
-
-                    <!-- Преимущество 2 -->
-                    <div class="boxed boxed--border bg-white feature feature-2">
-                        <svg height="32" viewBox="0 0 19.3 19.3" width="32" xmlns="http://www.w3.org/2000/svg" class="text-primary">
-                            <path d="M7.6 10.3c-0.4 0.4-0.5 0.7-0.9 1.5 0.3 0.2 0.9 0.7 1.3 1.6 0.8-0.5 1.2-0.5 1.7-0.9 2.9-2.4 9.9-11 9.6-11.3C19 0.8 10.1 7.5 7.6 10.3z" fill="currentColor"></path>
-                        </svg>
-                        <div class="feature__body">
-                            <p class="lead text-dark">Профессиональный дизайн</p>
-                        </div>
+                    <!-- Портрет 2: Маслом -->
+                    <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
+                        <a href="https://muse.ooo/portret-na-zakaz/portret-maslom/">
+                            <img title="Масло" alt="Портрет Джеффа Бриджеса под живопись маслом" class="w-full h-auto" src="https://muse.ooo/upload/img/maslom-portret-223-297.webp" loading="lazy">
+                            <div class="text-white py-2">
+                                <p>Маслом</p>
+                            </div>
+                        </a>
                     </div>
-
-                    <!-- Преимущество 3 -->
-                    <div class="boxed boxed--border bg-white feature feature-2">
-                        <svg height="32" viewBox="0 0 325.893 325.893" width="32" xmlns="http://www.w3.org/2000/svg" class="text-primary">
-                            <polygon fill="currentColor" points="36.894,39.968 8.695,39.968 27.142,58.415 45.588,76.862 281.072,76.862 299.52,58.415 317.966,39.968 288.999,39.968"></polygon>
-                        </svg>
-                        <div class="feature__body">
-                            <p class="lead text-dark">Оформление в багет</p>
-                        </div>
+                    <!-- Портрет 3: Карандаш -->
+                    <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
+                        <a href="https://muse.ooo/portret-na-zakaz/portret-karandashom/">
+                            <img title="Карандаш" alt="Портрет девушки карандашом с цветком в руках" class="w-full h-auto" src="https://muse.ooo/upload/img/pencil-223-297.webp" loading="lazy">
+                            <div class="text-white py-2">
+                                <p>Карандаш</p>
+                            </div>
+                        </a>
                     </div>
-
-                    <!-- Преимущество 4 -->
-                    <div class="boxed boxed--border bg-white feature feature-2">
-                        <svg height="32" viewBox="0 0 458.9 458.9" width="32" xmlns="http://www.w3.org/2000/svg" class="text-primary">
-                            <path d="M451.2 95.4l0.3-0.8L238.6 7.9l-36.1 13.7c3.8 4.1 7.3 8.4 10.7 12.9l25.2-9.6 51.2 20.9c15.6-2.5 29.6-1.7 41.6 2.6 14 5.1 24.7 14.3 32.3 27.5l67.5 27.5 -55.4 21.8c-0.4 6.5-2 13.3-5.6 19.3l65.8-26v244.7L237.4 441.5V196.8l92.3-36.4c-8.3-1.1-17.2-3.5-26.4-6.6l-73.8 29.1 -71-28 35-15.9c-2.9-1.2-5.6-3.1-7.6-5.7 -3.1-3.8-4.7-8.6-4.4-13.4 -1.9-2.2-7.4-4.7-13.9-7l-56 23.6 -81.7-32.2 56.4-21.4c-4.4-3.6-8-7.9-10.4-13L8 95.5l-0.7-0.3v0.6L7.2 95.8l0 0.1v278.1L221.5 458.6v0.3h15.9v-0.3l214.3-84.5V95.2L451.2 95.4z" fill="currentColor"></path>
-                        </svg>
-                        <div class="feature__body">
-                            <p class="lead text-dark">Доставка по России</p>
-                        </div>
+                    <!-- Портрет 4: В образе -->
+                    <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
+                        <a href="https://muse.ooo/portret-na-zakaz/portret-v-obraze/">
+                            <img title="В образе" alt="Портрет женщины в образе королевы на основе фотомонтажа в известную картину" class="w-full h-auto" src="https://muse.ooo/upload/img/painting-queen-portrait-223-297.webp" loading="lazy">
+                            <div class="text-white py-2">
+                                <p>В образе</p>
+                            </div>
+                        </a>
                     </div>
-
-                    <!-- Преимущество 5 -->
-                    <div class="boxed boxed--border bg-white feature feature-2">
-                        <svg height="32" viewBox="0 0 612 612" width="32" xmlns="http://www.w3.org/2000/svg" class="text-primary">
-                            <path d="M592.9 306c0-79.2-32.1-150.9-84-202.9C456.9 51.2 385.2 19.1 306 19.1s-150.9 32.1-202.8 84C51.2 155.1 19.1 226.8 19.1 306s32.1 151 84 202.9 123.6 84 202.8 84c79.2 0 150.9-32.1 202.9-84C560.8 457 592.9 385.2 592.9 306L592.9 306z" fill="currentColor"></path>
-                        </svg>
-                        <div class="feature__body">
-                            <p class="lead text-dark">Полная оплата при получении</p>
-                        </div>
+                    <!-- Портрет 5: Шарж -->
+                    <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
+                        <a href="https://muse.ooo/portret-na-zakaz/sharzh-po-foto/">
+                            <img title="Шарж" alt="Шарж по фото на Анатолия Вассермана" class="w-full h-auto" src="https://muse.ooo/upload/img/sharzh-po-foto-223-297.webp" loading="lazy">
+                            <div class="text-white py-2">
+                                <p>Шарж</p>
+                            </div>
+                        </a>
                     </div>
+                    <!-- Портрет 6: Комикс -->
+                    <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
+                        <a href="https://muse.ooo/portret-na-zakaz/portret-komiks/">
+                            <img title="Комикс" alt="Портрет мужчины в стиле Комикс" class="w-full h-auto" src="https://muse.ooo/upload/img/comics-223-297-man.webp" loading="lazy">
+                            <div class="text-white py-2">
+                                <p>Комикс</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Портрет 7: Из слов -->
+                    <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
+                        <a href="https://muse.ooo/portret-na-zakaz/portret-iz-slov/">
+                            <img title="Портрет из слов" alt="Портрет мужчины из слов" class="w-full h-auto" src="https://muse.ooo/upload/img/iz-slov-portret-223-297.webp" loading="lazy">
+                            <div class="text-white py-2">
+                                <p>Из слов</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Портрет 8: Фотомозаика -->
+                    <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
+                        <a href="https://muse.ooo/portret-na-zakaz/fotomozaika/">
+                            <img title="Фотомозаика" alt="Фотомозаика для актрисы Светланы Ходченковой" class="w-full h-auto" src="https://muse.ooo/upload/img/fotomozaika-223-297.webp" loading="lazy">
+                            <div class="text-white py-2">
+                                <p>Фотомозаика</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Портрет 9: Граффити -->
+                    <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
+                        <a href="https://muse.ooo/portret-na-zakaz/graffiti-portret/">
+                            <img title="Граффити" alt="Пример портрета известного московского DJ в стиле Граффити" class="w-full h-auto" src="https://muse.ooo/upload/img/graffiti-223-297.webp" loading="lazy">
+                            <div class="text-white py-2">
+                                <p>Граффити</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Портрет 10: Лоу-поли -->
+                    <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
+                        <a href="https://muse.ooo/portret-na-zakaz/low-poly-portret/">
+                            <img title="Low poly" alt="Портрет Павла Дурова в стиле Low poly" class="w-full h-auto" src="https://muse.ooo/upload/img/low-poly-223-297.webp" loading="lazy">
+                            <div class="text-white py-2">
+                                <p>Лоу-поли</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Портрет 11: Фэнтези -->
+                    <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
+                        <a href="https://muse.ooo/portret-na-zakaz/fantasy-art-portret/">
+                            <img title="Фэнтези" alt="Портрет в стиле Fantasy Art девочки на фоне сказочного леса" class="w-full h-auto" src="https://muse.ooo/upload/img/fantasy-223-297.webp" loading="lazy">
+                            <div class="text-white py-2">
+                                <p>Фэнтези</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Портрет 12: Flower Art -->
+                    <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
+                        <a href="https://muse.ooo/portret-na-zakaz/portret-flower-art/">
+                            <img title="Flower Art" alt="Flower Art портрет девушки на цветочном пастельном фоне" class="w-full h-auto" src="https://muse.ooo/upload/img/flower-art-4-223-297.webp" loading="lazy">
+                            <div class="text-white py-2">
+                                <p>Flower Art</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Портрет 13: Love is... -->
+                    <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
+                        <a href="https://muse.ooo/portret-na-zakaz/love-is-portret/">
+                            <img title="Love is..." alt="Портрет пары в стиле Love is..." class="w-full h-auto" src="https://muse.ooo/upload/img/love-is-223-297.webp" loading="lazy">
+                            <div class="text-white py-2">
+                                <p>Love is...</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Портрет 14: Гранж -->
+                    <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
+                        <a href="https://muse.ooo/portret-na-zakaz/granzh-portret/">
+                            <img title="Гранж" alt="Портрет Данилы Козловского с Ольгой Зуевой в стиле Гранж" class="w-full h-auto" src="https://muse.ooo/upload/img/grunge-223-297.webp" loading="lazy">
+                            <div class="text-white py-2">
+                                <p>Гранж</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Портрет 15: WPAP -->
+                    <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
+                        <a href="https://muse.ooo/portret-na-zakaz/wpap-portret/">
+                            <img title="WPAP" alt="WPAP портрет девушки в очках и берете" class="w-full h-auto" src="https://muse.ooo/upload/img/wpap-223-297.webp" loading="lazy">
+                            <div class="text-white py-2">
+                                <p>WPAP</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Портрет 16: Бьюти-арт -->
+                    <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
+                        <a href="https://muse.ooo/portret-na-zakaz/beauty-art-portret/">
+                            <img title="Бьюти-арт" alt="Портрет женщины с цветами в стиле бьюти-арт" class="w-full h-auto" src="https://muse.ooo/upload/img/beauty-art-221019-223-297.webp" loading="lazy">
+                            <div class="text-white py-2">
+                                <p>Бьюти-арт</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Портрет 17: Поп-арт -->
+                    <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
+                        <a href="https://muse.ooo/portret-na-zakaz/pop-art-portret/">
+                            <img title="Поп-арт" alt="Поп-арт портрет в стиле Че девушки блондинки на малиновом фоне" class="w-full h-auto" src="https://muse.ooo/upload/img/pop-art-223-297.webp" loading="lazy">
+                            <div class="text-white py-2">
+                                <p>Поп-арт</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Портрет 18: Дрим-арт -->
+                    <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
+                        <a href="https://muse.ooo/portret-na-zakaz/drim-art-portret/">
+                            <img title="Дрим-Арт" alt="Портрет влюбленной пары в стиле Дрим-Арт" class="w-full h-auto" src="https://muse.ooo/upload/img/dream-couple-223-297.webp" loading="lazy">
+                            <div class="text-white py-2">
+                                <p>Дрим-арт</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                    <!-- Преимущество 6 -->
-                    <div class="boxed boxed--border bg-white feature feature-2">
-                        <svg height="32" viewBox="0 0 214.3 214.3" width="32" xmlns="http://www.w3.org/2000/svg" class="text-primary">
-                            <path d="M196.9 55.2c-0.1-5.8-0.2-11.2-0.2-16.5 0-4.1-3.4-7.5-7.5-7.5 -32.1 0-56.5-9.2-76.9-29 -2.9-2.8-7.5-2.8-10.5 0 -20.4 19.8-44.8 29-76.8 29 -4.1 0-7.5 3.4-7.5 7.5 0 5.3-0.1 10.8-0.2 16.5 -1 53.8-2.4 127.6 87.3 158.7 0.8 0.3 1.6 0.4 2.5 0.4 0.8 0 1.7-0.1 2.5-0.4C199.4 182.7 198 109 196.9 55.2z" fill="currentColor"></path>
-                        </svg>
-                        <div class="feature__body">
-                            <p class="lead text-dark">Официальная гарантия</p>
+        <!-- Видео секция о печати (скрыта на мобильных) -->
+        <section class="bg-dark hidden md:block">
+            <div class="relative h-[70vh] flex items-center justify-center overflow-hidden">
+                <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline preload="metadata">
+                    <source src="https://muse.ooo/video/devushka-veshaet-kartinu-na-stenu.webm" type="video/webm">
+                    <source src="https://muse.ooo/video/devushka-veshaet-kartinu-na-stenu.mp4" type="video/mp4">
+                </video>
+                <div class="absolute inset-0 bg-black opacity-70"></div>
+                <div class="container mx-auto px-4 relative z-10">
+                    <div class="max-w-2xl">
+                        <h2 class="h2 text-white mb-6">Видео о печати фото на холсте</h2>
+                        <a href="https://muse.ooo/pechat/foto-na-kholste/#order" class="btn btn--primary type--uppercase">
+                            <span class="btn__text">Перейти</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция Печать на холсте -->
+        <section class="bg-dark py-16" id="pechat-na-kholste">
+            <div class="container mx-auto px-4 mb-12">
+                <div class="text-center">
+                    <h2 class="text-white">
+                        <a href="https://muse.ooo/pechat/" class="text-white hover:text-primary transition-colors">Печать на холсте</a>
+                    </h2>
+                </div>
+            </div>
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Продукт 1: Фото на холсте -->
+                    <div class="feature feature-1">
+                        <a href="https://muse.ooo/pechat/foto-na-kholste/" class="block">
+                            <img alt="Фотография Гагарина Ю.А. для печати на холсте" title="Печать фото на холсте" loading="lazy" src="https://muse.ooo/upload/img/print-photo-on-canvas-330-Gagarin.webp" class="w-full h-auto rounded-t">
+                            <div class="boxed boxed--border feature__body bg-white rounded-b">
+                                <span class="h4 text-dark block mb-2">Фото на холсте</span>
+                                <p class="text-primary">Подробнее</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Продукт 2: Фотоколлаж на холсте -->
+                    <div class="feature feature-1">
+                        <a href="https://muse.ooo/pechat/fotokollazh-na-kholste/" class="block">
+                            <img alt="Фотоколлаж на холсте с детского праздника" title="Фотоколлаж на холсте" loading="lazy" src="https://muse.ooo/upload/img/o-photo-collage-on-canvas-330.webp" class="w-full h-auto rounded-t">
+                            <div class="boxed boxed--border feature__body bg-white rounded-b">
+                                <span class="h4 text-dark block mb-2">Фотоколлаж на холсте</span>
+                                <p class="text-primary">Подробнее</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Продукт 3: Модульная картина -->
+                    <div class="feature feature-1">
+                        <a href="https://muse.ooo/pechat/modulnaya-kartina/" class="block">
+                            <img alt="Модульная картина на холсте с изображением орхидеи" title="Модульная картина на холсте из своих фото" loading="lazy" src="https://muse.ooo/upload/img/o-modular-painting-on-canvas-330.webp" class="w-full h-auto rounded-t">
+                            <div class="boxed boxed--border feature__body bg-white rounded-b">
+                                <span class="h4 text-dark block mb-2">Модульная картина</span>
+                                <p class="text-primary">из своих фото</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Продукт 4: Репродукции картин -->
+                    <div class="feature feature-1">
+                        <a href="https://muse.ooo/pechat/reproduktsiya/" class="block">
+                            <img alt="Репродукция картины Девушка с жемчужной сережкой" title="Печать репродукций картин на холсте" loading="lazy" src="https://muse.ooo/upload/img/o-painting-reproduction-330-2.webp" class="w-full h-auto rounded-t">
+                            <div class="boxed boxed--border feature__body bg-white rounded-b">
+                                <span class="h4 text-dark block mb-2">Репродукции картин</span>
+                                <p class="text-primary">Подробнее</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция Печать на фотобумаге -->
+        <section class="py-16">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="md:col-span-1">
+                        <h3 class="h2 text-dark mb-4">Печать на фотобумаге</h3>
+                        <p class="text-body">Мы предлагаем высококачественную печать на фотобумаге для ваших любимых снимков.</p>
+                    </div>
+                    <!-- Продукт 1: Фото в рамке -->
+                    <div class="feature feature-1 hidden md:block">
+                        <a href="https://muse.ooo/pechat/foto-v-ramke/" class="block">
+                            <img alt="Фотография балерины в рамке и паспарту" title="Фото в рамке" loading="lazy" src="https://muse.ooo/upload/img/photo-in-frame-main-263.webp" class="w-full h-auto rounded-t">
+                            <div class="boxed boxed--border feature__body bg-white rounded-b mt-0">
+                                <span class="h4 text-dark block mb-2">Фото в рамке</span>
+                                <p class="text-primary">Подробнее</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Продукт 2: Коллаж в раме -->
+                    <div class="feature feature-1 hidden md:block">
+                        <a href="https://muse.ooo/pechat/fotokollazh-v-ramke/" class="block">
+                            <img alt="Фотоколлаж в рамке в виде луны" title="Коллаж в раме" loading="lazy" src="https://muse.ooo/upload/img/o-collage-in-a-frame-main-263.webp" class="w-full h-auto rounded-t">
+                            <div class="boxed boxed--border feature__body bg-white rounded-b mt-0">
+                                <span class="h4 text-dark block mb-2">Коллаж в раме</span>
+                                <p class="text-primary">Подробнее</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- Мобильная версия: две карточки в ряд -->
+                <div class="grid grid-cols-2 md:hidden gap-4 mt-6">
+                    <div class="feature feature-1">
+                        <a href="https://muse.ooo/pechat/foto-v-ramke/" class="block">
+                            <img alt="Фотография балерины в рамке и паспарту" title="Фото в рамке" loading="lazy" src="https://muse.ooo/upload/img/photo-in-frame-main-263.webp" class="w-full h-auto rounded-t">
+                            <div class="boxed boxed--border feature__body bg-white rounded-b mt-0">
+                                <span class="h4 text-dark block mb-2">Фото в рамке</span>
+                                <p class="text-primary">Подробнее</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="feature feature-1">
+                        <a href="https://muse.ooo/pechat/fotokollazh-v-ramke/" class="block">
+                            <img alt="Фотоколлаж в рамке в виде луны" title="Коллаж в раме" loading="lazy" src="https://muse.ooo/upload/img/o-collage-in-a-frame-main-263.webp" class="w-full h-auto rounded-t">
+                            <div class="boxed boxed--border feature__body bg-white rounded-b mt-0">
+                                <span class="h4 text-dark block mb-2">Коллаж в раме</span>
+                                <p class="text-primary">Подробнее</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция Подарочный сертификат -->
+        <section class="bg-secondary py-16">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div>
+                        <h3 class="h2 text-dark mb-4">Подарочный сертификат</h3>
+                    </div>
+                    <div class="md:col-span-2">
+                        <a href="https://muse.ooo/pechat/podarochnyy-sertifikat/" class="block">
+                            <div class="relative h-64 rounded overflow-hidden">
+                                <img alt="фото подарочного сертификата" src="https://muse.ooo/img/o-gift-555.jpg" class="absolute inset-0 w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-black opacity-60"></div>
+                                <div class="absolute inset-0 flex items-center p-8">
+                                    <h4 class="h4 text-white">Если Вы не определились с выбором, то рекомендуем обратить внимание на наши подарочные сертификаты</h4>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция Отзыв -->
+        <section class="bg-white px-6 py-24 sm:py-32 lg:px-8">
+            <figure class="mx-auto max-w-2xl">
+                <p class="sr-only">5 out of 5 stars</p>
+                <div class="flex gap-x-1 text-primary justify-center mb-10">
+                    <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="w-4 h-4 flex-none">
+                        <path d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" fill-rule="evenodd" />
+                    </svg>
+                    <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="w-4 h-4 flex-none">
+                        <path d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" fill-rule="evenodd" />
+                    </svg>
+                    <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="w-4 h-4 flex-none">
+                        <path d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" fill-rule="evenodd" />
+                    </svg>
+                    <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="w-4 h-4 flex-none">
+                        <path d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" fill-rule="evenodd" />
+                    </svg>
+                    <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="w-4 h-4 flex-none">
+                        <path d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" fill-rule="evenodd" />
+                    </svg>
+                </div>
+                <blockquote class="mt-10 text-xl/8 font-semibold tracking-tight text-gray-900 sm:text-2xl/9">
+                    <p>"Получила сегодня заказ. Картина потрясающая! Цвета сочные, яркие, качество отличное! Спасибо вам большое! Издалека выглядит как шедевр Эрмитажа!)))"</p>
+                </blockquote>
+                <figcaption class="mt-10 flex items-center justify-center gap-x-6">
+                    <div class="text-sm/6">
+                        <div class="font-semibold text-gray-900">ТРЕТЯК ЕКАТЕРИНА</div>
+                        <div class="mt-0.5 text-gray-600">07.03.2017</div>
+                    </div>
+                </figcaption>
+            </figure>
+        </section>
+        <!-- Секция Логотипы клиентов -->
+        <section class="py-16 bg-secondary">
+            <div class="container mx-auto px-4 mb-8">
+                <div class="text-center">
+                    <h2 class="h2 text-dark">Нам доверяют</h2>
+                </div>
+            </div>
+            <!-- Карусель логотипов -->
+            <div class="relative">
+                <div class="carousel-scroll scrollbar-hide py-8" id="logos-carousel">
+                    <div class="flex gap-8 items-center" style="min-width: max-content; margin: 0 auto; width: fit-content;">
+                        <div class="flex-shrink-0 snap-center w-32 h-16 flex items-center justify-center">
+                            <img class="h-full w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" alt="Logo 1C" src="data:image/webp;base64,UklGRoACAABXRUJQVlA4WAoAAAAQAAAASAAAMQAAQUxQSCYCAAABT6BEtg1akD9J041sJBHzH1Cks95oJUCutW1uGo2zSxC+ACW7ViK0SISzJWFYtiTKtA7I6klTA9Z8l7ueUaDaLSP6z8Bt20Z0d2/fL8g/L7Yroqdq2Uk9gxzVuJL0qIgn1ZLTopS2PSVdXdeQnmfCAaAq1+H6wNnXKF20VsvLp75zSHk1ZU7La+VSBwBSpSIL2m5ZlCalNJH4a+DvYZSuOVjnWm7clnSg5brBt1Cec4Rtz3VbC46VKWitQCwb+k+ss+DsELcNTVe0YM0hdaoTiNOkK9tCaQCMDeK4hkIGCcY30ra0L30dR7C2iJ/UIOJsVFHnYC/y78vjf6OjBOuDuIDuJ+hmiaJ9Sj9hVXvBxbViU9tirGSgdJsyw8ps7hGHEUdXeeeskkHXp1xS+sAv5Y1j7A0SrG4nCcwM4k9LtB3q+hlfCiEDzqrWN6rFsJr9zWpXhDhndKwdakXYCXv2efxMCFE36Kpb1Av7uYl4lFk0UhdR0cb08Uf6vz5tl4a0eqECyZ88XUhL2IudxLULif9jn/FbubpI6RMN/QjmXYbMsar0EyCk+bnLMuCxaa+BQ5Sfhyx+go4y3KFIHrNYW7wa9jzaH/KT2ahzsNqVNlwsc+fhfRbicMTeNSlrem6uM2kfYGHbUMr5ucpUGuzAQtoqkNtMRJ0nAIsK5D4bcb6BSy8kYn8WRXpR6HxGMtUZLopMHghptlpq0DJIqgTFDvkfCAAAVlA4IDQAAADQAwCdASpJADIAPm02mUmmJKOiIagAwA2JaQAADHX/KcOHDhxwFmAA/uG7H1beG0IAAAAA">
+                        </div>
+                        <div class="flex-shrink-0 snap-center w-32 h-16 flex items-center justify-center">
+                            <img class="h-full w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" alt="Logo Bashneft" src="data:image/webp;base64,UklGRuQGAABXRUJQVlA4WAoAAAAQAAAASAAAMQAAQUxQSM0DAAAB58GgkSRFN/SM/s3OuYiY/xyBYGEgJFGDGlQKNK2XRZDcNiBxCukNdr9F/GSzIgmogcAEdWvborYaDs2bSTrZ2hotndvoTowxNQXe8z+vnZfB+A2/I/rvwG0bR5Ljval73vYJ5lI8GabY0MBMEDtTu5mCV5P44u6hFEKUDwnEE3+s6WAuZlOfLpJVtd2joe0fcRuDP9hQJjOP4rvqoNAldageY1+0yWDmLs+n1297q6W1vW7/6fF8MDB3aXr7o7Vt64cam9upMx0MZbpwW8ojKg/G8u3DzOHFdDi2ZmSpUCsfxoKHuSPfYGbL5XKxOK2bW0aUZmiPtncUbnE6LofDl6ZmthGPQ8BqauXjszPhc6FsI63xdCnG/eJc5pectJz9wV/li+zm9/gzWxoJL+eDubok8UdElG6jG6mO8n5pJLw6l0VNc55vyVG0Tcnjz/253FydxB87RLQm/GgjxvF4zynizRmQlkIjSqW0cqOtABa3C4p4NmsktNZauaDSEklGdzkGnGYUoezE2sD14E/wMbhuLGhcOkDpeoGU3F2fR8yJWzdKWqD79ZHY3JIX0VBYMB8AlbeFRzS4mgXsDE24r6OM0h5LabC4OMuMRTNuowmjtHYbCT6N2NkKK7pYC6OU5zuVFKMK2RgqFKKJoxxW5tNSBRtF6YECSwvap5yWxulSNopgQ2hjwGg6ONIDJzbAxlHhflWV0tLiF9GiGGeGMdgbP1ZJidLrLbCxVBzQKQvtMK0eS6ExjdrVQIUOjzdPSreesppWe8PZmDL+wdGQUjsyqH3BxlQE6d5aoemkqB1f5z6FiI2mkKcpTzc4TJuCQo11LgapoWrvt9pvzEjjLQRO8GJz8PhAoxRozG0sAADOIX3ebJWp7eY55RwAojBgoys8ZQVeFM+b56LgEAZRyP5DEt1Ja8ag7t4Ye2pzJtqcvXdJ0n6E0NTw2XVdCyxK1t0TsKyhnG3WvPt5Uuu3t5KxVdvXwJ76FRP9CcyS/tOk/3p7BaiaDrvmBV7eu+b9Ndt9+imVSIAx9tV9tZmPdZIZ5AmE7/p7ja+1ShhdFMvadQKhF8T2ha4564UPOtcJRGyg7pN3zEosbRDpznl4z5tdknfrvK0j3yFfGYcyz2Cty3fMv3FlU+W1yn08QbXL3vu27dvsLwJe+xIMPgIwyACCZNe22LQ12HyBUKUboZsGq6Rpskz0L6Vum57GT6ivENoavnDXNAlLXhqsSmAMWoO27neJm0QIkQOIjDEocxC2IBZZGJerOKMUiZEQ6IuKyxUwKIVYJez/SwAAAFZQOCDwAgAA0A8AnQEqSQAyAD5pLJFFpiQilz1W5GAGhLSACc5V6sSq+gGlExw/7n0085X1L7Av6x9XL9pvYA/bdUPdo5NMF7zKeIomfhCHMvBd5viFky4Mo7VA4evDRmOX8AXjOqDyRYZLGsc3M2f8WuXBa4pnUjbOLDb2ENhE8zgsBCCz1f6q455PPByAAP78wOZ8z+WCLykrA850HXxpdXjDe5x/8c4q1VwmgVIPXmt1bHPwMrZ18CaHmSHJ32OeUwP55VNnYnvJ6s1znB/UOPJ4m28AkdDjTKq91Ei5YX6rhb+Qz0hb1u5CYLIVhXrxjsMHdA5DQBFWnqRu6k5GV2e8jgWWopky4zGRUYa4lvvNx7gBIvbCiFwDvs+h3w6mgRt37FUHDaILBBzIs7tV+Jhp3iZM5UTA3ebfgbnmF1ETB4nSH/G+DzmX9kNEptM97Fcg1J1XpKIpFvBAGgO6KT34kZpFc1l+OezBaw+VBh4Ix28W3vZpJqIwcJn2kMuMk+uu+lxAIUEJDIswLqelZ+xdOsefSl7c8vPytwB2Eo26D+nleXyIDqTKBItaxUHytopd2OFNGTMHzIF9Le9cajxy/vo/8A7P+wIVaPnMdrJj/cCebf6TUy4sd0aZqZNmGxL+w3doc1S0/lw5ljcYY8x+oRb/6ABrMa7LAGL6ApFizMcpL+aSXmUJyxFRyM8lI9jlIK9qhBRUrb+s+xqgoF/9Z7o8Btf//HFlZ1F3O4ktP3R7CDCeqQa/gDKxiow+clXPEtfFKMq+xP9UciWAygOLDYTurWtK15+gDofUcKFrJA19Qs/6DFaVVI5eOcM5LlXPzSZ9KpKpRD3TLeRGSaymy4+A/gHsjEdlYieS3qW3+7ysvp5K/9EHCLrGp9yovL91VlzqYvUyW69YzNPchWOfFwPIIZMifI+kxGheRKTeax/cnTLbCMjTvyPYPw0+4/sFA2cF0or/3szLLwjcLk8j9/OjuX2Q7fl2w+ArKgf/ChgAAAA=">
+                        </div>
+                        <div class="flex-shrink-0 snap-center w-32 h-16 flex items-center justify-center">
+                            <img class="h-full w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" alt="Logo Gazprom Neft" src="data:image/webp;base64,UklGRogCAABXRUJQVlA4WAoAAAAQAAAASAAAMQAAQUxQSDICAAABR6C0kRQ4fAWc5UdhQREx/4HmrSNGI8jZtu1JsxvUg/UF2wqYNpLOmB5Gy4efYwpttbsmUp6/zfu+1iljRP8Vtm3bMOmed+AvEQqOEewExwhneJSm91TBEeLZbOAIcctOcXiwZv0ah4fZuOvj8HCuk2N46K+eDr+K9b7pWYGuK7oOJkbSD6Ar8kj0rl6epvSiIogawVDpR82HKKp8R6dm+MbCphnWAPSLFfeqIh1Ws6WaRm53lFfTKOkmRSe/MEkDekSlWfHGVRFlanbtdd11JT2JP87TkutwZs5dLb6HQFpDvK4Ez7s8cJ/E2cvHWGBJyXrc4b1XaCwTjP+Ot8mZnW3nj2eaQ4Lqm2eCOfqtOXPZrWTxPZlqn7JvsyVJ1k19YxDff0qmpans67IiOFS0gmvZqSqL1ppYiTuK01eFB++3lW2oQvI1+hWSOsBuIfsp+Vu4WanvlXKiMwAwJF3353xNLlflHmhlL57cUkGrCvDP9/0mLIUZpmHaKjMsxVIA24CtG5aaU6IA4so2DoiMPIDNiwOl5HIn1uwwEwGAww38faPWI0/C8jbSoU9E7y9ElAQF0eglJ0pmpJnFaJvONde64hpsSuTpKd83Jg3rlSqYQv1KGHBX/U9xTmx/zDX0qCU8UmvTlfAkIc6aaGBpokI6tzkIuI61ybssiXtGHTtYNYD05oY7s8W/r3LuWlR2yuEyXEbRicLFSy6OOFpu2RcXAnTbNsQBy943VPwFAgAAVlA4IDAAAADQAwCdASpJADIAPm02mUmmJKOiIagAwA2JaQAADHThw4cOHDhwrAAA/uGkAAAAAAA=">
+                        </div>
+                        <div class="flex-shrink-0 snap-center w-32 h-16 flex items-center justify-center">
+                            <img class="h-full w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" alt="Logo Huawei" src="data:image/webp;base64,UklGRvACAABXRUJQVlA4WAoAAAAQAAAASAAAMQAAQUxQSJoCAAABR6CmjSQ3eQBym+8YfP0R8x8QufI96xjIubW9TaTPga3JtcitmGRKTcTlJEKblnFLVk18fzefbJkNfUT/GTiSFKVWwHNd0FeQJdrTgEj83NFVIdYYEn0AjauMAe3QHIjcK1r2CMCnPYDyFSQAZOgAoHOFd1bOngAMnZStQvTBWoJFLgknjZVr6sizaVFK0eS5HAfmiGOYwhiheTpUbEgK2v6q7AHaV0lCWgEZK3Hm/JxzaAj4PfZX8f1R7siMNKUPvt3KyOEvE/h7LiGdYMSPs6id7ksa2aLHuPADqTrJdP0U0+QJpzht/Cho7WOKRhlNW3PILHlkip6MCRUp+YKokzrz4a0pjB2LYrJzyRzKRyNRmY+1J46dRPKs6+LEhwumn3k6D5UpLICoyKsdKf4dhiMAg/wEFuJyU+RNABRPoULzAEQFLiNIZGQdFla4JL2onRAVv/guS9IDP9OtrBB+hHKooO+fuMFPNmd4aB91/kG25niQxlfUbjJp1Ms1+bfCW923N4DtCsfKoOvtEhG9VmJl+DbmtBB5OaKsy9l5QkTWrTebzfq9N65B9Xsc95QispVqtVa9ZaJWrVbzOSdFe3757l1OGp3kufReXjy7hXnaXOuxeToFdeZWjFUx5dYle2RXgG7EqxBrQBdTILlB4jLKY4qsRuSqycsoag7955GtUbYgCiRdEm62Rm0nWxO3twWRTyT6jgxUQPMMLcuySztfdEfbbUs1bVTMoZOd0aGpgtHDbeHdYpZ7NIm3HzrUNp2P8qhZJZtNf21Swcpb1LuDhT+K+na936ZRY1kcvbbWK2/UfbHq80FIy8xKn1tKZ/Y/zugXWfEtYvuy8WZ3z6HQ/jykS1dPg5boypCyM2fjqoBGQCcOAABWUDggMAAAANADAJ0BKkkAMgA+bTaZSaYko6IhqADADYlpAAAMdOHDhw4cOHCsAAD+4aQAAAAAAA==">
+                        </div>
+                        <div class="flex-shrink-0 snap-center w-32 h-16 flex items-center justify-center">
+                            <img class="h-full w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" alt="Logo Lexus" src="data:image/webp;base64,UklGRlACAABXRUJQVlA4WAoAAAAQAAAASAAAMQAAQUxQSPkBAAABN6CmkRQ4exLuAB9vRUfE/AfSSesFyLGtPW6bH7TTA5pqEKRckwSo2hx7DcQCYvLf/xZC/BgytxH9d+C2bSTJK+zc405+Af+LcKFcxE9uNcPoYg4/Yz0syy6inTKRbPNaTKFEviFa1h+Sncjyqp0b9IlX1etcMFfggYgn4INhCcqnLYlyRZwzgPxVJNBvLf1GHSJe3b3NlEWVqz0S+XPnSBuconR4Y7TlfvXMaJc5ctr1pnW9fa/nMYLcLF04fyHaN6/Neo3w6e2T4bTM4xHbfeDZL4AY+E4dvoX5wnciXxFt5lPhe5gVM0KNiG2gjcRLUL5ZRni6/RDbRxCJBDqcLADfbhFmpzecZCqKu9seAybsOMjdM/tpZGwfqrTbPnfOQTr8FsTNx+Ma2uFfsSF+JzWqHWu0n2GzWZiOLE9iNDMLIzfXg7+ilBDJk8ylfi3hTIcYNbbuT+lwFMTCV3uMVskbiKfb2iwiH0wC/GlLEbafDglA/rLmEGrRLwWDxN9Y0IOiGZYyTYDmhYvRSik9vNIFyIdls9PoJlOkC255+9Y0avUzAnCh9hzEz2wxh2AgBPD9usSD/ARca22ELqFTWh/TkBeoprF4at3CvZ/GVD5E1+pjvxSt+IEZyjT4qIdJa92bUT+NHq5pQKOaQqmDVKRAc4BfHQAAAFZQOCAwAAAA0AMAnQEqSQAyAD5tNplJpiSjoiGoAMANiWkAAAx04cOHDhw4cKwAAP7iugAAAAAA">
+                        </div>
+                        <div class="flex-shrink-0 snap-center w-32 h-16 flex items-center justify-center">
+                            <img class="h-full w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" alt="Logo Lifan" src="data:image/webp;base64,UklGRtoEAABXRUJQVlA4WAoAAAAQAAAASAAAMQAAQUxQSBICAAABN6AoABk4KYAQVPDfGTH/gWSvhICure1R6+yVIKkl46RmMK6ZaxsE/ag+R/Dd/yV8zqiT5B/KiP4n/n+oahvN2FzwLjWYLH0NY4R3qLUV+FbtEfz7VuD7cpLwLXYJlbJILkK5HL5LDl52jtax6Tcr4RefEnwSZyfdHXEOv+ckUBDbJ/H1pKGD33IHP4m7N+KabGUlvI4Q/EacHzTN1KkzhNcRQJ3EGXHuKMcRwosCFMRTT5wdVsJ9hI+iADPxfaGpoBbsPsPrDODIXg66zpMEu8/wOkJ1UBufrVgzvI4QXu5TQTZ4TIEazQ3qDOA1dwtd8dbUbPiGwkp4FXa9aV53zsECSwc/dZB5pS+Jl3JXeM5kuMH3DyvhGR+RZnynthu8y/GC71TfCvj3k8S3fpR4T7m19WtrBN6XVIabVOAfrjRYC/0SGhqsoYUWSgv9ghZKs1BaxKPAEG07B4McZNwoEw3Xar8OhqutSQxH/R48OqHO1KbcU3Tmzzw+6/O2b91gm9VQ1a256T/Mn1DY0tbZcWb7uFyLczj6e9ElUzLqo+/WzDbShSi6ZapXu9bdegaz4e0tfN4f96KL94U6vVJwZOmX3IUFRYvLHyRcf29d7qI5f3T93Q3dcN3kPpo13IKhNdsaxkaZpc4X2woXFucY7dW02BZJeklEglSmnAhckCYs41qikqgylaksriX+FwAAAFZQOCCiAgAAMA8AnQEqSQAyAD5tLpRGJiQjFzx1GGAGxLSACesDsVQngr/kvAGUDwA0gX5nzeOZt8s/0vsG/rb1qP2x9kn9iELhQZU/rRUR6oG/7ME/K5lIgiZHO3V6j2BDWE5hnVUoP3Uz9AhpasfDYcaVg451F1FlVyIYhU186RM3smgo3QZoAAD++50ekgT7zQYUxfLoEd7hGcMeNJPHd+wOzJWqE/fGjk6jtrXAV0tQgYMP3fEFBlZgiZ4LcC6BMANaRKLyZ9umEoyxx/0NQtSud8MNNB7uAe0S304UDzjEoioo/Ky/DxxwRqbXghpEULVHt1Dvjhf5k2pMS6eih1PVRMFJJ6tyTbO1zGcDIl89/sCuD3OxtRIGD1hfToc6Ww+goWCTx+hrYKrdl7CqcSmSSNjdR9wvFSeD0GZGY82OBxPOld+ZszGH8Xwaxi+m5OUhYDtJ/Jow4tIxmZnssE0l5pEGdemo8GbmlGDjnO1j112k49J+Gcc9vPYDreA+ttNrIXGFE+Au2vWoaHxrsnvinF6qdUdXDi+Z5df0OBjgNnpZ4YnHruub7MXL2sK2NR5vg3nnPgosAU6xIJu9G/SSCsUloiYdnrfjWiI48TYC2Uggrp5xiFPg3Wckjxjab8w4oqLvm2Y80MJT31tzc5V0Cidi0HcRS/l0AUkfIM2V+VRi/mfOScFywG/KKcfrU8X3x5Vojt+wHztb5vYNyY66nKu7X3qYTjOSFEDy3WCVFwrfco/2AmTeapMBiKq7PO8iBCXKYBcu/0+Of9DAOI6njjKk6m4AeU2Y2roZgDqB06NmipbPK+u0HvG3WUx6s1OswB7xmXjSPTN8DgdTgYA1nSXU74g76OVQO8d4KmlqBu7nDt942N36yDQ9Ssme+1q2zXAAAAA=">
+                        </div>
+                        <div class="flex-shrink-0 snap-center w-32 h-16 flex items-center justify-center">
+                            <img class="h-full w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" alt="Logo Microsoft" src="data:image/webp;base64,UklGRlABAABXRUJQVlA4WAoAAAAQAAAASAAAMQAAQUxQSPoAAAABN6CobSM2Vybj1qskLmL+A+nFCQPc2trbNj+UagQOAJCQe6QBEj0AwgYi958hKVeqIvqvyG3bhhmdx7wCfnPRWrO1teuL5nm20zx/HKZ34XIAHHv5WHborlsHqvUDelQ4UoPuqVfw7YCAEMAIEwCCgCAcSTzckywKtZfi9h+qLHOnpuXkwvJ2Mcb02hgG2EZqSm+DFMFpJ1xmpLAypD4ddugiDDL3thwgMN/hGCVJSMlI4v76b6HSPQxiPw32gfXaisbukHj54RLy3UOkHhbBDYHx0UgdZbaVRlKO9wygUegHXJw+QBipH6lokhgUzjvfMFj3RvQHGQAAVlA4IDAAAADQAwCdASpJADIAPm02mUmmJKOiIagAwA2JaQAADHTh2eHDhw4cGgAA/uK7Tf0AAAA=">
+                        </div>
+                        <div class="flex-shrink-0 snap-center w-32 h-16 flex items-center justify-center">
+                            <img class="h-full w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" alt="Logo Tele2" src="data:image/webp;base64,UklGRgQCAABXRUJQVlA4WAoAAAAQAAAASAAAMQAAQUxQSE4BAAABN0AmbZusg9koeydhEfMfDJ2mANe27abRk0OP8MI1sTc8rHoCuB/NevRO9/+/AQUmhy6i/wzcNlLkZd6DV9D/LCQtr+jdoRjOGN8XE6L8djoDRr05Fd0gK7Jw8Mai4N4CWCd3X/Y2V5wuzgN8Jp5Uwb1zC9jZ432eF6ZEd8/HF5i4eV5NFpi8iUnaDkfARE1jv7q63R4cXfJwNxc0CwrlHTApx5AVAG9AFLIehKRfNo2KrkDjO840UUxSlERaEeXuzZGVnkt9QUZxVk7KdXorV5TrV1mRoyi+kS+/I7yL0wzNm7hDtlEwb+HKafVurmzo7VpOgxKrOKmjiChSRmWalh1EZFwtoDittaai1GXZMfMqItF6VjLvvI8okgqCENGIuP/4CuyD/3h3D9IUAxhf9oW8oeG6O15RyxUzH7jq5inM3DJzymFY0X8lAAAAVlA4IJAAAABQBwCdASpJADIAPm0ylUemJCMhoa0IwA2JaQAADOAOWUvSZNmr0aA4br7SIQJUBzRel4fY5LxXrjBEGkG4fV1jHQ4AAP7rKyMIaVKx1TTK8keT+p/Mm0uwy2+iPRbiWvOiDOS8rTpLr4om03n+yslV041jfGFWGIdavGDBYsx+PSWsEje4OEDongWPNl8AAAA=">
                         </div>
                     </div>
                 </div>
@@ -162,15 +646,18 @@
         </section>
 
         <!-- CTA секция -->
-        <section class="py-16 bg-primary text-white">
-            <div class="container mx-auto px-4 text-center">
-                <h2 class="text-h2 mb-6">Создай своё произведение искусства</h2>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <a href="/order/" class="btn bg-white text-primary hover:bg-secondary">
+        <section class="bg-secondary py-24 sm:py-32">
+            <div class="mx-auto max-w-7xl px-6 lg:flex lg:items-center lg:justify-between lg:px-8">
+                <h2 class="max-w-2xl h4 font-semibold tracking-tight text-gray-900 sm:text-5xl">
+                    Создай своё произведение искусства
+                </h2>
+                <div class="mt-10 flex items-center gap-x-6 lg:mt-0 lg:shrink-0">
+                    <a href="https://muse.ooo/order/" class="btn btn--primary type--uppercase">
                         <span class="btn__text">Заказать</span>
                     </a>
-                    <a href="/info/kontakty/" class="btn border-2 border-white text-white hover:bg-white hover:text-primary">
-                        <span class="btn__text">Обратный звонок</span>
+                    <a href="#callback" class="text-sm/6 font-semibold text-gray-900 hover:text-primary transition-colors">
+                        Обратный звонок
+                        <span aria-hidden="true">→</span>
                     </a>
                 </div>
             </div>
@@ -182,110 +669,359 @@
         <div class="container mx-auto px-4">
             <!-- Верхняя часть футера: меню навигации -->
             <div class="mb-8 pb-8 border-b border-gray-700">
-                <div class="flex flex-wrap gap-6 md:gap-8 justify-center md:justify-start">
-                    <!-- Меню "О нас" -->
-                    <nav class="flex flex-wrap gap-4 md:gap-6">
-                        <a href="/info/" class="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide">
-                            О нас
+                <div class="relative">
+                    <!-- Навигационные ссылки: вертикально на мобильных, две строки на десктопе -->
+                    <div class="flex flex-col">
+                        <!-- Основные ссылки (жирный белый текст) - первая строка на десктопе -->
+                        <nav class="flex flex-col md:flex-row flex-wrap gap-4 md:gap-6">
+                            <a href="https://muse.ooo/info/" class="text-sm text-white font-semibold hover:text-primary transition-colors uppercase tracking-wide">
+                                О нас
+                            </a>
+                            <a href="https://muse.ooo/info/kontakty/" class="text-sm text-white font-semibold hover:text-primary transition-colors uppercase tracking-wide">
+                                Контакты
+                            </a>
+                            <a href="https://muse.ooo/pechat/" class="text-sm text-white font-semibold hover:text-primary transition-colors uppercase tracking-wide">
+                                Печать на холсте
+                            </a>
+                            <a href="https://muse.ooo/portret-na-zakaz/" class="text-sm text-white font-semibold hover:text-primary transition-colors uppercase tracking-wide">
+                                Портреты
+                            </a>
+                            <a href="https://muse.ooo/pechat/foto-na-kholste/" class="text-sm text-white font-semibold hover:text-primary transition-colors uppercase tracking-wide">
+                                Фото на холсте
+                            </a>
+                            <a href="https://muse.ooo/portret-na-zakaz/portret-maslom/" class="text-sm text-white font-semibold hover:text-primary transition-colors uppercase tracking-wide">
+                                Портрет маслом
+                            </a>
+                        </nav>
+                        
+                        <!-- Вторичные ссылки (светло-серый текст) - вторая строка на десктопе -->
+                        <nav class="flex flex-col md:flex-row flex-wrap gap-4 md:gap-6 mt-6 md:mt-6">
+                            <a href="https://muse.ooo/info/avtorstvo/" class="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide">
+                                Авторское право
+                            </a>
+                            <a href="https://muse.ooo/info/faq/" class="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide">
+                                Вопросы и ответы
+                            </a>
+                            <a href="https://muse.ooo/info/guarantee/" class="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide">
+                                Гарантия
+                            </a>
+                            <a href="https://muse.ooo/info/partnerstvo/" class="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide">
+                                Партнёрство
+                            </a>
+                            <a href="https://muse.ooo/info/dostavka/#cities" class="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide">
+                                Доставка
+                            </a>
+                            <a href="https://muse.ooo/info/oplata/" class="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide">
+                                Оплата
+                            </a>
+                            <a href="https://muse.ooo/blog/" class="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide">
+                                Блог
+                            </a>
+                        </nav>
+                    </div>
+                    
+                    <!-- Соцсети: справа на уровне первой строки на десктопе -->
+                    <div class="hidden md:flex gap-3 items-center absolute top-0 right-0 flex-shrink-0">
+                        <!-- WhatsApp -->
+                        <a 
+                            href="whatsapp://send?phone=74954091869" 
+                            target="_blank" 
+                            rel="noopener nofollow"
+                            title="WhatsApp"
+                            class="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800 hover:bg-primary transition-colors"
+                            aria-label="WhatsApp"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 418.135 418.135" class="w-5 h-5 fill-white">
+                                <path d="M198.929,0.242C88.5,5.5,1.356,97.466,1.691,208.02c0.102,33.672,8.231,65.454,22.571,93.536 L2.245,408.429c-1.191,5.781,4.023,10.843,9.766,9.483l104.723-24.811c26.905,13.402,57.125,21.143,89.108,21.631 c112.869,1.724,206.982-87.897,210.5-200.724C420.113,93.065,320.295-5.538,198.929,0.242z M323.886,322.197 c-30.669,30.669-71.446,47.559-114.818,47.559c-25.396,0-49.71-5.698-72.269-16.935l-14.584-7.265l-64.206,15.212l13.515-65.607 l-7.185-14.07c-11.711-22.935-17.649-47.736-17.649-73.713c0-43.373,16.89-84.149,47.559-114.819 c30.395-30.395,71.837-47.56,114.822-47.56C252.443,45,293.218,61.89,323.887,92.558c30.669,30.669,47.559,71.445,47.56,114.817 C371.446,250.361,354.281,291.803,323.886,322.197z"/>
+                                <path d="M309.712,252.351l-40.169-11.534c-5.281-1.516-10.968-0.018-14.816,3.903l-9.823,10.008 c-4.142,4.22-10.427,5.576-15.909,3.358c-19.002-7.69-58.974-43.23-69.182-61.007c-2.945-5.128-2.458-11.539,1.158-16.218 l8.576-11.095c3.36-4.347,4.069-10.185,1.847-15.21l-16.9-38.223c-4.048-9.155-15.747-11.82-23.39-5.356 c-11.211,9.482-24.513,23.891-26.13,39.854c-2.851,28.144,9.219,63.622,54.862,106.222c52.73,49.215,94.956,55.717,122.449,49.057 c15.594-3.777,28.056-18.919,35.921-31.317C323.568,266.34,319.334,255.114,309.712,252.351z"/>
+                            </svg>
                         </a>
-                        <a href="/info/kontakty/" class="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide">
-                            Контакты
+                        
+                        <!-- VK -->
+                        <a 
+                            href="https://vk.com/artwork.muse" 
+                            target="_blank" 
+                            rel="noopener nofollow"
+                            title="Публичная страница в ВК"
+                            class="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800 hover:bg-primary transition-colors"
+                            aria-label="ВКонтакте"
+                        >
+                            <svg viewBox="0 0 20 20" class="w-5 h-5 fill-white">
+                                <path d="M18.1 0h-16.2c-1 0-1.9 0.8-1.9 1.9v16.3c0 1 0.8 1.9 1.9 1.9h16.3c1 0 1.9-0.8 1.9-1.9v-16.2c0-1-0.8-1.9-1.9-1.9zM16.2 14l-1.8 0c0 0-0.4 0.1-0.9-0.3-0.7-0.5-1.3-1.7-1.8-1.5-0.5 0.2-0.5 1.3-0.5 1.3s0 0.2-0.1 0.4c-0.1 0.1-0.4 0.2-0.4 0.2h-0.8c0 0-1.8 0.1-3.4-1.5-1.7-1.8-3.3-5.4-3.3-5.4s-0.1-0.2 0-0.3c0.1-0.1 0.4-0.1 0.4-0.1l2 0c0 0 0.2 0 0.3 0.1 0.1 0.1 0.2 0.2 0.2 0.2s0.3 0.8 0.7 1.5c0.8 1.4 1.2 1.7 1.5 1.6 0.4-0.2 0.3-2 0.3-2s0-0.6-0.2-0.9c-0.2-0.2-0.5-0.3-0.6-0.3-0.1 0 0.1-0.3 0.3-0.4 0.4-0.2 1-0.2 1.7-0.2 0.6 0 0.7 0 1 0.1 0.7 0.2 0.4 0.8 0.4 2.3 0 0.5-0.1 1.2 0.3 1.4 0.1 0.1 0.5 0 1.4-1.5 0.4-0.7 0.8-1.6 0.8-1.6s0.1-0.2 0.2-0.2c0.1-0.1 0.3 0 0.3 0l2.1 0c0 0 0.6-0.1 0.7 0.2 0.1 0.3-0.2 1-1.1 2.1-1.4 1.8-1.5 1.7-0.4 2.7 1.1 1 1.3 1.5 1.4 1.6 0.4 0.8-0.5 0.8-0.5 0.8z"/>
+                            </svg>
                         </a>
-                        <a href="/pechat/" class="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide">
-                            Печать на холсте
+                    </div>
+                    
+                    <!-- Соцсети: на мобильных внизу слева -->
+                    <div class="flex md:hidden gap-3 items-center mt-6">
+                        <!-- WhatsApp -->
+                        <a 
+                            href="whatsapp://send?phone=74954091869" 
+                            target="_blank" 
+                            rel="noopener nofollow"
+                            title="WhatsApp"
+                            class="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800 hover:bg-primary transition-colors"
+                            aria-label="WhatsApp"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 418.135 418.135" class="w-5 h-5 fill-white">
+                                <path d="M198.929,0.242C88.5,5.5,1.356,97.466,1.691,208.02c0.102,33.672,8.231,65.454,22.571,93.536 L2.245,408.429c-1.191,5.781,4.023,10.843,9.766,9.483l104.723-24.811c26.905,13.402,57.125,21.143,89.108,21.631 c112.869,1.724,206.982-87.897,210.5-200.724C420.113,93.065,320.295-5.538,198.929,0.242z M323.886,322.197 c-30.669,30.669-71.446,47.559-114.818,47.559c-25.396,0-49.71-5.698-72.269-16.935l-14.584-7.265l-64.206,15.212l13.515-65.607 l-7.185-14.07c-11.711-22.935-17.649-47.736-17.649-73.713c0-43.373,16.89-84.149,47.559-114.819 c30.395-30.395,71.837-47.56,114.822-47.56C252.443,45,293.218,61.89,323.887,92.558c30.669,30.669,47.559,71.445,47.56,114.817 C371.446,250.361,354.281,291.803,323.886,322.197z"/>
+                                <path d="M309.712,252.351l-40.169-11.534c-5.281-1.516-10.968-0.018-14.816,3.903l-9.823,10.008 c-4.142,4.22-10.427,5.576-15.909,3.358c-19.002-7.69-58.974-43.23-69.182-61.007c-2.945-5.128-2.458-11.539,1.158-16.218 l8.576-11.095c3.36-4.347,4.069-10.185,1.847-15.21l-16.9-38.223c-4.048-9.155-15.747-11.82-23.39-5.356 c-11.211,9.482-24.513,23.891-26.13,39.854c-2.851,28.144,9.219,63.622,54.862,106.222c52.73,49.215,94.956,55.717,122.449,49.057 c15.594-3.777,28.056-18.919,35.921-31.317C323.568,266.34,319.334,255.114,309.712,252.351z"/>
+                            </svg>
                         </a>
-                        <a href="/portret-na-zakaz/" class="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide">
-                            Портреты
+                        
+                        <!-- VK -->
+                        <a 
+                            href="https://vk.com/artwork.muse" 
+                            target="_blank" 
+                            rel="noopener nofollow"
+                            title="Публичная страница в ВК"
+                            class="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800 hover:bg-primary transition-colors"
+                            aria-label="ВКонтакте"
+                        >
+                            <svg viewBox="0 0 20 20" class="w-5 h-5 fill-white">
+                                <path d="M18.1 0h-16.2c-1 0-1.9 0.8-1.9 1.9v16.3c0 1 0.8 1.9 1.9 1.9h16.3c1 0 1.9-0.8 1.9-1.9v-16.2c0-1-0.8-1.9-1.9-1.9zM16.2 14l-1.8 0c0 0-0.4 0.1-0.9-0.3-0.7-0.5-1.3-1.7-1.8-1.5-0.5 0.2-0.5 1.3-0.5 1.3s0 0.2-0.1 0.4c-0.1 0.1-0.4 0.2-0.4 0.2h-0.8c0 0-1.8 0.1-3.4-1.5-1.7-1.8-3.3-5.4-3.3-5.4s-0.1-0.2 0-0.3c0.1-0.1 0.4-0.1 0.4-0.1l2 0c0 0 0.2 0 0.3 0.1 0.1 0.1 0.2 0.2 0.2 0.2s0.3 0.8 0.7 1.5c0.8 1.4 1.2 1.7 1.5 1.6 0.4-0.2 0.3-2 0.3-2s0-0.6-0.2-0.9c-0.2-0.2-0.5-0.3-0.6-0.3-0.1 0 0.1-0.3 0.3-0.4 0.4-0.2 1-0.2 1.7-0.2 0.6 0 0.7 0 1 0.1 0.7 0.2 0.4 0.8 0.4 2.3 0 0.5-0.1 1.2 0.3 1.4 0.1 0.1 0.5 0 1.4-1.5 0.4-0.7 0.8-1.6 0.8-1.6s0.1-0.2 0.2-0.2c0.1-0.1 0.3 0 0.3 0l2.1 0c0 0 0.6-0.1 0.7 0.2 0.1 0.3-0.2 1-1.1 2.1-1.4 1.8-1.5 1.7-0.4 2.7 1.1 1 1.3 1.5 1.4 1.6 0.4 0.8-0.5 0.8-0.5 0.8z"/>
+                            </svg>
                         </a>
-                    </nav>
+                    </div>
                 </div>
             </div>
 
-            <!-- Нижняя часть футера: контакты, реквизиты, соцсети -->
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                <!-- Левая часть: реквизиты и контакты -->
-                <div class="flex-1 space-y-3 text-sm text-gray-300">
-                    <!-- Реквизиты -->
-                    <div class="flex flex-wrap gap-4 mb-2">
-                        <span>ИНН 782575923262</span>
-                        <span>ОГРНИП 316784700066112</span>
+            <!-- Нижняя часть футера: контакты, реквизиты -->
+            <div class="space-y-3 text-sm text-gray-300">
+                <!-- Реквизиты -->
+                <div class="flex flex-wrap gap-4">
+                    <span>ИНН 782575923262</span>
+                    <span>ОГРНИП 316784700066112</span>
+                </div>
+                
+                <!-- Юридические ссылки -->
+                <nav class="flex flex-wrap gap-4">
+                    <a href="https://muse.ooo/karta-sayta/" class="hover:text-white transition-colors">
+                        Карта сайта
+                    </a>
+                    <a href="https://muse.ooo/info/politika_konfidentsialnosti_sayta/" class="hover:text-white transition-colors">
+                        Политика конфиденциальности
+                    </a>
+                    <a href="https://muse.ooo/info/oferta/" class="hover:text-white transition-colors">
+                        Публичная оферта
+                    </a>
+                </nav>
+                
+                <!-- Телефоны -->
+                <div class="space-y-1">
+                    <div>
+                        <a href="tel:88007076921" class="underline hover:text-white transition-colors">
+                            Бесплатный звонок по России: 8-800-707-69-21
+                        </a>
                     </div>
-                    
-                    <!-- Телефоны -->
-                    <div class="space-y-1">
-                        <div>
-                            <a href="tel:88007076921" class="hover:text-white transition-colors">
-                                Бесплатный звонок по России: 8-800-707-69-21
-                            </a>
-                        </div>
-                        <div>
-                            <a href="tel:+74954091869" class="hover:text-white transition-colors">
-                                Москва: +7-495-409-18-69
-                            </a>
-                        </div>
-                        <div>
-                            <a href="tel:+78124081869" class="hover:text-white transition-colors">
-                                Санкт-Петербург: +7-812-408-18-69
-                            </a>
-                        </div>
+                    <div>
+                        <a href="tel:+74954091869" class="underline hover:text-white transition-colors">
+                            Москва: +7-495-409-18-69
+                        </a>
                     </div>
-                    
-                    <!-- Копирайт -->
-                    <div class="pt-2">
-                        <span>&copy; 2015-2024 Muse</span>
+                    <div>
+                        <a href="tel:+78124081869" class="underline hover:text-white transition-colors">
+                            Санкт-Петербург: +7-812-408-18-69
+                        </a>
                     </div>
                 </div>
-
-                <!-- Правая часть: социальные сети -->
-                <div class="flex gap-4 items-center">
-                    <!-- VK -->
-                    <a 
-                        href="https://vk.com/artwork.muse" 
-                        target="_blank" 
-                        rel="noopener nofollow"
-                        title="Публичная страница в ВК"
-                        class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-700 hover:bg-primary transition-colors"
-                        aria-label="ВКонтакте"
-                    >
-                        <svg viewBox="0 0 20 20" class="w-5 h-5 fill-white">
-                            <path d="M18.1 0h-16.2c-1 0-1.9 0.8-1.9 1.9v16.3c0 1 0.8 1.9 1.9 1.9h16.3c1 0 1.9-0.8 1.9-1.9v-16.2c0-1-0.8-1.9-1.9-1.9zM16.2 14l-1.8 0c0 0-0.4 0.1-0.9-0.3-0.7-0.5-1.3-1.7-1.8-1.5-0.5 0.2-0.5 1.3-0.5 1.3s0 0.2-0.1 0.4c-0.1 0.1-0.4 0.2-0.4 0.2h-0.8c0 0-1.8 0.1-3.4-1.5-1.7-1.8-3.3-5.4-3.3-5.4s-0.1-0.2 0-0.3c0.1-0.1 0.4-0.1 0.4-0.1l2 0c0 0 0.2 0 0.3 0.1 0.1 0.1 0.2 0.2 0.2 0.2s0.3 0.8 0.7 1.5c0.8 1.4 1.2 1.7 1.5 1.6 0.4-0.2 0.3-2 0.3-2s0-0.6-0.2-0.9c-0.2-0.2-0.5-0.3-0.6-0.3-0.1 0 0.1-0.3 0.3-0.4 0.4-0.2 1-0.2 1.7-0.2 0.6 0 0.7 0 1 0.1 0.7 0.2 0.4 0.8 0.4 2.3 0 0.5-0.1 1.2 0.3 1.4 0.1 0.1 0.5 0 1.4-1.5 0.4-0.7 0.8-1.6 0.8-1.6s0.1-0.2 0.2-0.2c0.1-0.1 0.3 0 0.3 0l2.1 0c0 0 0.6-0.1 0.7 0.2 0.1 0.3-0.2 1-1.1 2.1-1.4 1.8-1.5 1.7-0.4 2.7 1.1 1 1.3 1.5 1.4 1.6 0.4 0.8-0.5 0.8-0.5 0.8z"/>
-                        </svg>
-                    </a>
+                
+                <!-- Копирайт -->
+                <div class="pt-2">
+                    <span>&copy; 2015-2026 Muse</span>
                 </div>
             </div>
         </div>
     </footer>
 
-    <script>
-        // Мобильное меню
-        (function() {
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            
-            if (mobileMenuButton && mobileMenu) {
-                mobileMenuButton.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('hidden');
-                    
-                    // Изменение иконки
-                    const icon = mobileMenuButton.querySelector('svg');
-                    if (mobileMenu.classList.contains('hidden')) {
-                        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
-                    } else {
-                        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
-                    }
-                });
+    <!-- Кнопка Scroll to Top (фиксированная справа, только на десктопе) -->
+    <a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-gray-700 hover:bg-primary transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6 text-white">
+            <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
 
-                // Закрытие меню при клике на ссылку (на мобильных)
-                const mobileLinks = mobileMenu.querySelectorAll('a');
-                mobileLinks.forEach(link => {
-                    link.addEventListener('click', () => {
-                        mobileMenu.classList.add('hidden');
-                        const icon = mobileMenuButton.querySelector('svg');
-                        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
-                    });
-                });
+    <!-- Скрипт для кнопки "Наверх" и прокрутки каруселей -->
+    <script>
+        // Кнопка "Scroll to Top" (только на десктопе)
+        const backToTop = document.getElementById('back-to-top');
+        if (backToTop) {
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTop.classList.remove('opacity-0', 'pointer-events-none');
+                    backToTop.classList.add('opacity-100');
+                } else {
+                    backToTop.classList.add('opacity-0', 'pointer-events-none');
+                    backToTop.classList.remove('opacity-100');
+                }
+            });
+            
+            backToTop.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // Прокрутка каруселей колесиком мыши на ПК с плавной анимацией
+        const carousels = document.querySelectorAll('.carousel-scroll');
+        carousels.forEach(carousel => {
+            let isScrolling = false;
+            let targetScroll = carousel.scrollLeft;
+            let animationFrame = null;
+            let scrollTimeout = null;
+
+            // Easing функция для плавности
+            function easeOutQuart(t) {
+                return 1 - Math.pow(1 - t, 4);
             }
-        })();
+
+            // Плавная прокрутка через requestAnimationFrame с easing
+            function smoothScroll() {
+                const currentScroll = carousel.scrollLeft;
+                const diff = targetScroll - currentScroll;
+                
+                if (Math.abs(diff) > 0.1) {
+                    // Используем более плавную интерполяцию
+                    const ease = 0.08; // Очень плавный коэффициент (чем меньше, тем плавнее)
+                    carousel.scrollLeft += diff * ease;
+                    animationFrame = requestAnimationFrame(smoothScroll);
+                } else {
+                    carousel.scrollLeft = targetScroll;
+                    isScrolling = false;
+                    
+                    // Восстанавливаем snap после прокрутки
+                    if (scrollTimeout) clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => {
+                        carousel.classList.remove('scrolling');
+                    }, 200);
+                }
+            }
+
+            // Отключаем snap во время прокрутки
+            function startScrolling() {
+                if (!carousel.classList.contains('scrolling')) {
+                    carousel.classList.add('scrolling');
+                }
+                if (scrollTimeout) clearTimeout(scrollTimeout);
+            }
+
+            carousel.addEventListener('wheel', (e) => {
+                if (window.innerWidth >= 1024) {
+                    // Проверяем, что мышь находится над каруселью
+                    const rect = carousel.getBoundingClientRect();
+                    const isOverCarousel = e.clientX >= rect.left && e.clientX <= rect.right &&
+                                         e.clientY >= rect.top && e.clientY <= rect.bottom;
+                    
+                    if (isOverCarousel) {
+                        // Прокручиваем горизонтально при вертикальной прокрутке колесиком
+                        if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) {
+                            e.preventDefault();
+                            startScrolling();
+                            
+                            // Плавно добавляем к целевой позиции
+                            const delta = e.deltaY * 0.6; // Множитель для чувствительности (меньше = плавнее)
+                            targetScroll += delta;
+                            targetScroll = Math.max(0, Math.min(carousel.scrollWidth - carousel.clientWidth, targetScroll));
+                            
+                            // Запускаем плавную прокрутку, если еще не запущена
+                            if (!isScrolling) {
+                                isScrolling = true;
+                                if (animationFrame) cancelAnimationFrame(animationFrame);
+                                animationFrame = requestAnimationFrame(smoothScroll);
+                            }
+                        }
+                    }
+                }
+            }, { passive: false });
+
+            // Поддержка drag для прокрутки мышью
+            let isDown = false;
+            let startX;
+            let startScrollLeft;
+            let lastX = 0;
+            let dragVelocity = 0;
+            let lastTime = Date.now();
+
+            carousel.addEventListener('mousedown', (e) => {
+                isDown = true;
+                carousel.style.cursor = 'grabbing';
+                startX = e.pageX - carousel.offsetLeft;
+                startScrollLeft = carousel.scrollLeft;
+                lastX = e.pageX;
+                lastTime = Date.now();
+                startScrolling();
+                
+                // Останавливаем плавную прокрутку
+                if (animationFrame) {
+                    cancelAnimationFrame(animationFrame);
+                    animationFrame = null;
+                }
+                isScrolling = false;
+                targetScroll = carousel.scrollLeft;
+            });
+
+            carousel.addEventListener('mouseleave', () => {
+                if (isDown) {
+                    isDown = false;
+                    carousel.style.cursor = 'grab';
+                    
+                    // Добавляем инерцию после отпускания
+                    if (Math.abs(dragVelocity) > 0.5) {
+                        targetScroll = carousel.scrollLeft + dragVelocity * 20;
+                        targetScroll = Math.max(0, Math.min(carousel.scrollWidth - carousel.clientWidth, targetScroll));
+                        if (!isScrolling) {
+                            isScrolling = true;
+                            animationFrame = requestAnimationFrame(smoothScroll);
+                        }
+                    } else {
+                        if (scrollTimeout) clearTimeout(scrollTimeout);
+                        scrollTimeout = setTimeout(() => {
+                            carousel.classList.remove('scrolling');
+                        }, 200);
+                    }
+                }
+            });
+
+            carousel.addEventListener('mouseup', () => {
+                if (isDown) {
+                    isDown = false;
+                    carousel.style.cursor = 'grab';
+                    
+                    // Добавляем инерцию после отпускания
+                    if (Math.abs(dragVelocity) > 0.5) {
+                        targetScroll = carousel.scrollLeft + dragVelocity * 20;
+                        targetScroll = Math.max(0, Math.min(carousel.scrollWidth - carousel.clientWidth, targetScroll));
+                        if (!isScrolling) {
+                            isScrolling = true;
+                            animationFrame = requestAnimationFrame(smoothScroll);
+                        }
+                    } else {
+                        if (scrollTimeout) clearTimeout(scrollTimeout);
+                        scrollTimeout = setTimeout(() => {
+                            carousel.classList.remove('scrolling');
+                        }, 200);
+                    }
+                }
+            });
+
+            carousel.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - carousel.offsetLeft;
+                const walk = (x - startX) * 1.2; // Скорость прокрутки
+                carousel.scrollLeft = startScrollLeft - walk;
+                
+                // Вычисляем скорость для инерции
+                const now = Date.now();
+                const timeDelta = now - lastTime;
+                if (timeDelta > 0) {
+                    dragVelocity = (e.pageX - lastX) / timeDelta * 16; // Нормализуем к 60fps
+                }
+                lastX = e.pageX;
+                lastTime = now;
+            });
+        });
     </script>
 </body>
 </html>
+
