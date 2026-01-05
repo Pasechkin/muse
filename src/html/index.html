@@ -866,7 +866,8 @@
             });
         }
 
-        // Прокрутка каруселей колесиком мыши на ПК с плавной анимацией
+        // Прокрутка каруселей колесиком мыши на ПК (оптимизированная версия)
+        // Использует scrollBy для минимизации forced reflows
         const carousels = document.querySelectorAll('.carousel-scroll');
         carousels.forEach(carousel => {
             let isScrolling = false;
