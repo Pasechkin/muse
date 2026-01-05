@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Название страницы - Muse</title>
+    <meta name="description" content="Описание страницы">
+    <link rel="stylesheet" href="../css/output.css">
+</head>
+<body class="bg-white">
+    <!-- Header -->
+    <!-- Вставьте сюда компонент header/header.html -->
+    
+    <!-- Hero секция (опционально, для важных страниц) -->
+    <section class="relative h-[40vh] overflow-hidden bg-dark">
+        <div class="absolute inset-0 bg-dark"></div>
+        <div class="container mx-auto px-4 h-full flex items-center relative z-10">
+            <div class="max-w-2xl">
+                <h1 class="h1 text-white mb-4">Название страницы</h1>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Основной контент -->
+    <main class="main-container">
+        <section class="bg-secondary py-16 md:py-24">
+            <div class="mx-auto max-w-4xl px-6 lg:px-8">
+                <!-- Контент страницы -->
+                <div class="bg-white p-8 md:p-12 rounded-md">
+                    <div class="prose prose-lg max-w-none">
+                        <h2 class="h2 text-dark mb-4">Заголовок раздела</h2>
+                        <p class="text-body mb-4">
+                            Основной текст страницы. Здесь размещается информационный контент.
+                        </p>
+                        
+                        <h3 class="h3 text-dark mb-3 mt-8">Подзаголовок</h3>
+                        <p class="text-body mb-4">
+                            Дополнительная информация.
+                        </p>
+                        
+                        <!-- Список (пример) -->
+                        <ul class="list-disc list-inside text-body mb-4 space-y-2">
+                            <li>Пункт списка 1</li>
+                            <li>Пункт списка 2</li>
+                            <li>Пункт списка 3</li>
+                        </ul>
+                        
+                        <!-- Кнопка действия (опционально) -->
+                        <div class="mt-8">
+                            <a href="https://muse.ooo/order/" class="btn btn--primary type--uppercase">
+                                <span class="btn__text">Заказать</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Дополнительные секции (опционально) -->
+        <!-- Вставьте сюда компоненты sections/advantages.html, sections/cta.html и т.д. -->
+    </main>
+    
+    <!-- Footer -->
+    <!-- Вставьте сюда компонент footer/footer.html -->
+    
+    <!-- Скрипты -->
+    <script>
+        // Загрузка @tailwindplus/elements для мобильного меню
+        document.getElementById('mobile-menu-button')?.addEventListener('click', function() {
+            const script = document.createElement('script');
+            script.src = "https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1";
+            script.type = "module";
+            script.async = true;
+            document.body.appendChild(script);
+        }, { once: true });
+    </script>
+</body>
+</html>
+
+<!--
+  ИНСТРУКЦИЯ ПО ИСПОЛЬЗОВАНИЮ:
+  
+  1. Скопируйте этот файл в нужную папку (например, src/html/info/dostavka/index.html)
+  2. Замените:
+     - Заголовок и описание в <head>
+     - Название страницы в hero секции (если нужна)
+     - Контент страницы в основной секции
+  3. Используйте классы типографики:
+     - h2, h3 для заголовков
+     - text-body для основного текста
+     - list-disc для списков
+  4. Добавьте дополнительные секции при необходимости
+  5. Hero секция опциональна - можно убрать для простых страниц
+-->
+

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Название категории - Muse</title>
+    <meta name="description" content="Описание категории">
+    <link rel="stylesheet" href="../css/output.css">
+</head>
+<body class="bg-white">
+    <!-- Header -->
+    <!-- Вставьте сюда компонент header/header.html -->
+    
+    <!-- Hero секция с изображением -->
+    <section class="relative h-[50vh] overflow-hidden bg-dark">
+        <div class="absolute inset-0">
+            <img 
+                src="https://muse.ooo/upload/img/category-hero.webp" 
+                alt="Фоновое изображение категории" 
+                class="w-full h-full object-cover"
+            >
+        </div>
+        <div class="absolute inset-0 bg-dark opacity-70"></div>
+        <div class="container mx-auto px-4 h-full flex items-center relative z-10">
+            <div class="max-w-2xl">
+                <h1 class="h1 text-white mb-4">Название категории</h1>
+                <p class="lead text-white">Краткое описание категории</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Основной контент -->
+    <main class="main-container">
+        <!-- Описание категории -->
+        <section class="bg-secondary py-16 md:py-24">
+            <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                <div class="mx-auto max-w-2xl text-center mb-12">
+                    <h2 class="h2 text-dark mb-4">О категории</h2>
+                    <p class="text-body">Подробное описание категории и её особенностей.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Сетка товаров -->
+        <section class="py-16">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Товар 1 -->
+                    <!-- Вставьте сюда компонент cards/product-card.html -->
+                    
+                    <!-- Товар 2 -->
+                    <!-- Вставьте сюда компонент cards/product-card.html -->
+                    
+                    <!-- Товар 3 -->
+                    <!-- Вставьте сюда компонент cards/product-card.html -->
+                    
+                    <!-- Товар 4 -->
+                    <!-- Вставьте сюда компонент cards/product-card.html -->
+                </div>
+            </div>
+        </section>
+        
+        <!-- CTA секция -->
+        <!-- Вставьте сюда компонент sections/cta.html -->
+    </main>
+    
+    <!-- Footer -->
+    <!-- Вставьте сюда компонент footer/footer.html -->
+    
+    <!-- Скрипты -->
+    <script>
+        // Загрузка @tailwindplus/elements для мобильного меню
+        document.getElementById('mobile-menu-button')?.addEventListener('click', function() {
+            const script = document.createElement('script');
+            script.src = "https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1";
+            script.type = "module";
+            script.async = true;
+            document.body.appendChild(script);
+        }, { once: true });
+    </script>
+</body>
+</html>
+
+<!--
+  ИНСТРУКЦИЯ ПО ИСПОЛЬЗОВАНИЮ:
+  
+  1. Скопируйте этот файл в нужную папку (например, src/html/pechat/index.html)
+  2. Замените:
+     - Заголовок и описание в <head>
+     - Название категории в hero секции
+     - Описание категории
+     - Вставьте карточки товаров из components/cards/product-card.html
+  3. Настройте сетку товаров (количество колонок)
+  4. Добавьте CTA секцию в конце (опционально)
+-->
+

@@ -1,0 +1,178 @@
+/**
+ * Typography - Muse Design System
+ * 
+ * Определение всех текстовых стилей для проекта
+ * Основано на теме Stack
+ */
+
+@layer base {
+  /* Базовые настройки HTML */
+  html {
+    font-size: var(--font-size-base);
+  }
+  
+  @media (max-width: 768px) {
+    html {
+      font-size: var(--font-size-base-mobile);
+    }
+  }
+  
+  /* Базовые настройки body */
+  body {
+    font-size: 1em;
+    line-height: var(--line-height-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: var(--font-family-sans);
+    color: var(--color-text-body);
+    font-weight: var(--font-weight-normal);
+  }
+  
+  /* ============================================
+     ЗАГОЛОВКИ (Headings)
+     ============================================ */
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-sans);
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-light);
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  /* H1 - Главный заголовок */
+  h1, .h1 {
+    font-size: var(--font-size-h1);
+    line-height: var(--line-height-h1);
+  }
+  
+  /* H2 - Заголовок секции */
+  h2, .h2 {
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+  }
+  
+  /* H3 - Подзаголовок */
+  h3, .h3 {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+  }
+  
+  /* H4 - Малый заголовок */
+  h4, .h4 {
+    font-size: var(--font-size-h4);
+    line-height: var(--line-height-h4);
+  }
+  
+  /* H5 - Очень малый заголовок */
+  h5, .h5 {
+    font-size: var(--font-size-h5);
+    line-height: var(--line-height-h5);
+  }
+  
+  /* H6 - Минимальный заголовок */
+  h6, .h6 {
+    font-size: var(--font-size-h6);
+    line-height: var(--line-height-h6);
+  }
+  
+  /* ============================================
+     ТЕКСТОВЫЕ СТИЛИ (Text Styles)
+     ============================================ */
+  
+  /* Lead - Вводный текст */
+  .lead {
+    font-size: var(--font-size-lead);
+    line-height: var(--line-height-lead);
+    margin: 0;
+  }
+  
+  /* Body - Основной текст */
+  p, .text-body {
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    color: var(--color-text-body);
+  }
+  
+  /* Small - Мелкий текст */
+  small, .text-small {
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-body);
+  }
+  
+  /* ============================================
+     АДАПТИВНЫЕ РАЗМЕРЫ (Responsive Sizes)
+     ============================================ */
+  
+  @media (max-width: 767px) {
+    h1, .h1 {
+      font-size: var(--font-size-h2); /* Используем размер h2 на мобильных */
+      line-height: var(--line-height-h2);
+    }
+    
+    h2, .h2 {
+      font-size: var(--font-size-h3); /* Используем размер h3 на мобильных */
+      line-height: var(--line-height-h3);
+    }
+    
+    h3, .h3 {
+      font-size: var(--font-size-h4); /* Используем размер h4 на мобильных */
+      line-height: var(--line-height-h4);
+    }
+  }
+  
+  /* ============================================
+     ССЫЛКИ (Links)
+     ============================================ */
+  
+  a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color var(--transition-duration-normal) var(--transition-timing);
+  }
+  
+  a:hover {
+    color: var(--color-primary-hover);
+  }
+  
+  /* ============================================
+     СПЕЦИАЛЬНЫЕ СТИЛИ (Special Styles)
+     ============================================ */
+  
+  /* Uppercase текст */
+  .type--uppercase {
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+  }
+  
+  /* Выравнивание текста */
+  .text-center {
+    text-align: center;
+  }
+  
+  .text-left {
+    text-align: left;
+  }
+  
+  .text-right {
+    text-align: right;
+  }
+  
+  /* Насыщенность шрифта */
+  .font-light {
+    font-weight: var(--font-weight-light);
+  }
+  
+  .font-normal {
+    font-weight: var(--font-weight-normal);
+  }
+  
+  .font-semibold {
+    font-weight: var(--font-weight-semibold);
+  }
+  
+  .font-bold {
+    font-weight: var(--font-weight-bold);
+  }
+}
+

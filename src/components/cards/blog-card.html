@@ -1,0 +1,69 @@
+<!--
+  Компонент: Blog Card (карточка статьи блога)
+  
+  Используется для отображения статей блога
+  
+  Параметры:
+  - image-url: URL изображения статьи
+  - image-alt: Альтернативный текст изображения
+  - title: Заголовок статьи
+  - excerpt: Краткое описание статьи
+  - date: Дата публикации (опционально)
+  - link: Ссылка на статью
+-->
+
+<!-- ============================================
+     БАЗОВЫЙ ВАРИАНТ: Карточка статьи
+     ============================================ -->
+<article class="feature feature-1">
+  <a href="/blog/article/" class="block">
+    <img 
+      alt="Описание изображения статьи" 
+      title="Заголовок статьи" 
+      loading="lazy" 
+      src="https://muse.ooo/upload/img/blog-example.webp" 
+      width="330" 
+      height="330" 
+      class="w-full h-auto rounded-t"
+    >
+    <div class="boxed feature__body bg-white rounded-b">
+      <h3 class="h4 text-dark block mb-2">Заголовок статьи</h3>
+      <p class="text-body mb-2">Краткое описание статьи, которое дает представление о содержании...</p>
+      <p class="text-primary text-sm">Читать далее</p>
+    </div>
+  </a>
+</article>
+
+<!-- ============================================
+     ВАРИАНТ: С датой публикации
+     ============================================ -->
+<article class="feature feature-1">
+  <a href="/blog/article/" class="block">
+    <img 
+      alt="Описание изображения статьи" 
+      title="Заголовок статьи" 
+      loading="lazy" 
+      src="https://muse.ooo/upload/img/blog-example.webp" 
+      width="330" 
+      height="330" 
+      class="w-full h-auto rounded-t"
+    >
+    <div class="boxed feature__body bg-white rounded-b">
+      <time class="text-body text-sm block mb-2">15 января 2025</time>
+      <h3 class="h4 text-dark block mb-2">Заголовок статьи</h3>
+      <p class="text-body mb-2">Краткое описание статьи...</p>
+      <p class="text-primary text-sm">Читать далее</p>
+    </div>
+  </a>
+</article>
+
+<!--
+  ПРИМЕЧАНИЯ:
+  - Изображение: скругление только сверху (rounded-t)
+  - Body карточки: белый фон (bg-white), скругление снизу (rounded-b)
+  - Заголовок: класс "h4" для размера, темный цвет
+  - Описание: класс "text-body" для основного текста
+  - Ссылка "Читать далее": цвет primary, размер small
+  - Используется в сетке блога: grid-cols-1 md:grid-cols-2 lg:grid-cols-3
+-->
+

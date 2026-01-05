@@ -1,5 +1,9 @@
 ﻿@import "tailwindcss";
 
+/* Дизайн-система */
+@import "./design-system/tokens.css";
+@import "./design-system/typography.css";
+
 @theme {
   --color-primary: #4a90e2;
   --color-dark: #252525;

@@ -1,0 +1,66 @@
+<!--
+  Компонент: Hero секция с изображением фоном
+  
+  Используется для главной секции страницы с изображением на фоне
+  
+  Параметры:
+  - title: Главный заголовок
+  - subtitle: Подзаголовок
+  - button-text: Текст кнопки
+  - button-link: Ссылка кнопки
+  - image-url: URL фонового изображения
+  - image-alt: Альтернативный текст изображения
+-->
+
+<!-- ============================================
+     БАЗОВЫЙ ВАРИАНТ: Hero с изображением
+     ============================================ -->
+<section class="relative h-[65vh] md:h-screen overflow-hidden bg-dark">
+  <div class="absolute inset-0">
+    <img 
+      src="https://muse.ooo/upload/img/hero-background.webp" 
+      alt="Фоновое изображение" 
+      class="w-full h-full object-cover"
+    >
+  </div>
+  <div class="absolute inset-0 bg-dark opacity-70"></div>
+  <div class="container mx-auto px-4 h-full flex items-center relative z-10">
+    <div class="max-w-2xl">
+      <p class="h1 text-white mb-4">Главный заголовок</p>
+      <h1 class="lead text-white mb-8">Подзаголовок или описание</h1>
+      <a href="https://muse.ooo/order/" class="btn btn--primary type--uppercase">
+        <span class="btn__text">Кнопка действия</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     ВАРИАНТ: С меньшей высотой (для внутренних страниц)
+     ============================================ -->
+<section class="relative h-[50vh] overflow-hidden bg-dark">
+  <div class="absolute inset-0">
+    <img 
+      src="https://muse.ooo/upload/img/hero-background.webp" 
+      alt="Фоновое изображение" 
+      class="w-full h-full object-cover"
+    >
+  </div>
+  <div class="absolute inset-0 bg-dark opacity-70"></div>
+  <div class="container mx-auto px-4 h-full flex items-center relative z-10">
+    <div class="max-w-2xl">
+      <h1 class="h1 text-white mb-4">Заголовок страницы</h1>
+      <p class="lead text-white">Краткое описание страницы</p>
+    </div>
+  </div>
+</section>
+
+<!--
+  ПРИМЕЧАНИЯ:
+  - Высота: настраивается через классы h-[50vh], h-[65vh] или h-screen
+  - Изображение: должно быть достаточно большого размера для фона
+  - Подложка: темный фон с opacity 70% для читаемости текста
+  - Контент: выровнен по левому краю, максимальная ширина 2xl
+  - Рекомендуется использовать WebP формат для оптимизации
+-->
+
