@@ -868,285 +868,91 @@
 
         // Прокрутка каруселей колесиком мыши на ПК (оптимизированная версия)
         // Использует scrollBy для минимизации forced reflows
-        const carousels = document.querySelectorAll('.carousel-scroll');
-        carousels.forEach(carousel => {
-            let isScrolling = false;
-            let targetScroll = carousel.scrollLeft;
-            let animationFrame = null;
-            let scrollTimeout = null;
+        (function() {
+            const carousels = document.querySelectorAll('.carousel-scroll');
             
-            // Кэшируем геометрические свойства для избежания forced reflow
-            let maxScroll = 0;
-            let carouselRect = null;
-            let rectCacheTime = 0;
-            const RECT_CACHE_DURATION = 100; // Кэшируем getBoundingClientRect на 100мс
-            
-            // Функция для обновления кэшированных значений (используем requestAnimationFrame для батчинга)
-            function updateCachedValues() {
-                if (isDown) return; // Не обновляем во время drag
-                
-                // Используем requestAnimationFrame для батчинга чтений геометрических свойств
-                requestAnimationFrame(() => {
-                    maxScroll = Math.max(0, carousel.scrollWidth - carousel.clientWidth);
-                });
-            }
-            
-            // Инициализация кэшированных значений с задержкой после загрузки
-            requestAnimationFrame(() => {
-                updateCachedValues();
-            });
-            
-            // Обновляем кэш при изменении размера окна (с debounce)
-            let resizeTimeout;
-            window.addEventListener('resize', () => {
-                clearTimeout(resizeTimeout);
-                resizeTimeout = setTimeout(() => {
-                    requestAnimationFrame(() => {
-                        updateCachedValues();
-                        carouselRect = null; // Сбрасываем кэш rect
+            carousels.forEach(carousel => {
+                // Используем Intersection Observer для определения, когда карусель в viewport
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        carousel.dataset.visible = entry.isIntersecting ? 'true' : 'false';
                     });
-                }, 150);
-            });
-
-            // Easing функция для плавности
-            function easeOutQuart(t) {
-                return 1 - Math.pow(1 - t, 4);
-            }
-
-            // Плавная прокрутка через requestAnimationFrame с easing
-            // Оптимизировано: читаем scrollLeft один раз и батчим записи
-            let lastKnownScroll = carousel.scrollLeft;
-            function smoothScroll() {
-                // Читаем scrollLeft только один раз за кадр
-                const currentScroll = lastKnownScroll;
-                const diff = targetScroll - currentScroll;
+                }, { threshold: 0.1 });
                 
-                if (Math.abs(diff) > 0.1) {
-                    // Используем более плавную интерполяцию
-                    const ease = 0.08; // Очень плавный коэффициент (чем меньше, тем плавнее)
-                    const newScroll = currentScroll + diff * ease;
-                    
-                    // Записываем новое значение
-                    carousel.scrollLeft = newScroll;
-                    lastKnownScroll = newScroll;
-                    
-                    animationFrame = requestAnimationFrame(smoothScroll);
-                } else {
-                    // Финальная запись
-                    carousel.scrollLeft = targetScroll;
-                    lastKnownScroll = targetScroll;
-                    isScrolling = false;
-                    
-                    // Восстанавливаем snap после прокрутки
-                    if (scrollTimeout) clearTimeout(scrollTimeout);
-                    scrollTimeout = setTimeout(() => {
-                        carousel.classList.remove('scrolling');
-                    }, 200);
+                if (carousel) {
+                    observer.observe(carousel);
                 }
-            }
 
-            // Отключаем snap во время прокрутки
-            function startScrolling() {
-                if (!carousel.classList.contains('scrolling')) {
-                    carousel.classList.add('scrolling');
-                }
-                if (scrollTimeout) clearTimeout(scrollTimeout);
-            }
-            
-            // Получаем кэшированный getBoundingClientRect
-            function getCachedRect() {
-                const now = Date.now();
-                if (!carouselRect || (now - rectCacheTime) > RECT_CACHE_DURATION) {
-                    carouselRect = carousel.getBoundingClientRect();
-                    rectCacheTime = now;
-                }
-                return carouselRect;
-            }
-
-            carousel.addEventListener('wheel', (e) => {
-                if (window.innerWidth >= 1024) {
-                    // Проверяем, что мышь находится над каруселью (используем кэш)
-                    const rect = getCachedRect();
+                // Wheel обработчик - используем scrollBy (нативный метод браузера)
+                carousel.addEventListener('wheel', (e) => {
+                    // Только на десктопе и только если карусель видна
+                    if (window.innerWidth < 1024 || carousel.dataset.visible !== 'true') return;
+                    
+                    // Проверяем, что мышь над каруселью (один вызов getBoundingClientRect на событие)
+                    const rect = carousel.getBoundingClientRect();
                     const isOverCarousel = e.clientX >= rect.left && e.clientX <= rect.right &&
                                          e.clientY >= rect.top && e.clientY <= rect.bottom;
                     
-                    if (isOverCarousel) {
-                        // Прокручиваем горизонтально при вертикальной прокрутке колесиком
-                        if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) {
-                            e.preventDefault();
-                            startScrolling();
-                            
-                            // Обновляем maxScroll только если нужно (асинхронно через RAF)
-                            if (maxScroll === 0) {
-                                requestAnimationFrame(() => {
-                                    maxScroll = Math.max(0, carousel.scrollWidth - carousel.clientWidth);
-                                });
-                            }
-                            
-                            // Плавно добавляем к целевой позиции
-                            const delta = e.deltaY * 0.6; // Множитель для чувствительности (меньше = плавнее)
-                            targetScroll += delta;
-                            targetScroll = Math.max(0, Math.min(maxScroll, targetScroll));
-                            
-                            // Запускаем плавную прокрутку, если еще не запущена
-                            if (!isScrolling) {
-                                isScrolling = true;
-                                if (animationFrame) cancelAnimationFrame(animationFrame);
-                                animationFrame = requestAnimationFrame(smoothScroll);
-                            }
-                        }
+                    if (isOverCarousel && Math.abs(e.deltaX) < Math.abs(e.deltaY)) {
+                        e.preventDefault();
+                        
+                        // scrollBy - нативный метод, браузер оптимизирует reflows
+                        carousel.scrollBy({
+                            left: e.deltaY * 0.6,
+                            behavior: 'auto'
+                        });
                     }
-                }
-            }, { passive: false });
+                }, { passive: false });
 
-            // Поддержка drag для прокрутки мышью
-            let isDown = false;
-            let startX; // Используем абсолютную позицию мыши, а не относительную к элементу
-            let startScrollLeft;
-            let lastX = 0;
-            let dragVelocity = 0;
-            let lastTime = Date.now();
-            let carouselOffsetLeft = 0; // Кэшируем offsetLeft
-
-            carousel.addEventListener('mousedown', (e) => {
-                isDown = true;
-                carousel.style.cursor = 'grabbing';
+                // Упрощенный drag-to-scroll - минимум геометрических чтений
+                let isDown = false;
+                let startX = 0;
+                let startScrollLeft = 0;
                 
-                // Кэшируем offsetLeft и scrollLeft один раз при mousedown (читаем синхронно, но только один раз)
-                carouselOffsetLeft = carousel.offsetLeft;
-                startScrollLeft = carousel.scrollLeft;
-                lastKnownScroll = startScrollLeft; // Обновляем кэш
-                startX = e.pageX - carouselOffsetLeft; // Относительная позиция с кэшированным offsetLeft
-                lastX = e.pageX;
-                lastTime = Date.now();
-                startScrolling();
+                carousel.style.cursor = 'grab';
                 
-                // Обновляем maxScroll при начале drag (асинхронно через RAF)
-                requestAnimationFrame(() => {
-                    maxScroll = Math.max(0, carousel.scrollWidth - carousel.clientWidth);
+                carousel.addEventListener('mousedown', (e) => {
+                    if (window.innerWidth < 1024) return;
+                    
+                    isDown = true;
+                    carousel.style.cursor = 'grabbing';
+                    
+                    // Кэшируем значения один раз при mousedown
+                    // pageX - абсолютная координата, не требует геометрических чтений
+                    startX = e.pageX;
+                    startScrollLeft = carousel.scrollLeft; // Одно чтение scrollLeft при начале drag
+                    
+                    e.preventDefault();
                 });
-                
-                // Останавливаем плавную прокрутку
-                if (animationFrame) {
-                    cancelAnimationFrame(animationFrame);
-                    animationFrame = null;
-                }
-                isScrolling = false;
-                targetScroll = carousel.scrollLeft;
-            });
 
-            carousel.addEventListener('mouseleave', () => {
-                if (isDown) {
-                    isDown = false;
-                    carousel.style.cursor = 'grab';
+                carousel.addEventListener('mousemove', (e) => {
+                    if (!isDown || window.innerWidth < 1024) return;
                     
-                    // Отменяем pending mousemove frame
-                    if (mousemoveFrame) {
-                        cancelAnimationFrame(mousemoveFrame);
-                        mousemoveFrame = null;
-                    }
+                    e.preventDefault();
                     
-                    // Используем кэшированное значение scrollLeft вместо повторного запроса
-                    const currentScroll = lastKnownScroll;
+                    // Используем только pageX (абсолютная координата) - нет геометрических чтений
+                    const walk = (e.pageX - startX) * 1.2;
+                    const newScroll = startScrollLeft - walk;
                     
-                    // Добавляем инерцию после отпускания
-                    if (Math.abs(dragVelocity) > 0.5) {
-                        targetScroll = currentScroll + dragVelocity * 20;
-                        targetScroll = Math.max(0, Math.min(maxScroll, targetScroll));
-                        if (!isScrolling) {
-                            isScrolling = true;
-                            animationFrame = requestAnimationFrame(smoothScroll);
-                        }
-                    } else {
-                        if (scrollTimeout) clearTimeout(scrollTimeout);
-                        scrollTimeout = setTimeout(() => {
-                            carousel.classList.remove('scrolling');
-                        }, 200);
-                    }
-                    
-                    // Обновляем кэш после завершения drag (асинхронно через RAF)
-                    requestAnimationFrame(() => {
-                        maxScroll = Math.max(0, carousel.scrollWidth - carousel.clientWidth);
-                        lastKnownScroll = carousel.scrollLeft;
-                    });
-                }
-            });
+                    // Записываем напрямую - mousemove уже user-triggered событие
+                    carousel.scrollLeft = newScroll;
+                });
 
-            carousel.addEventListener('mouseup', () => {
-                if (isDown) {
-                    isDown = false;
-                    carousel.style.cursor = 'grab';
-                    
-                    // Отменяем pending mousemove frame
-                    if (mousemoveFrame) {
-                        cancelAnimationFrame(mousemoveFrame);
-                        mousemoveFrame = null;
+                carousel.addEventListener('mouseleave', () => {
+                    if (isDown) {
+                        isDown = false;
+                        carousel.style.cursor = 'grab';
                     }
-                    
-                    // Читаем scrollLeft один раз для обновления кэша
-                    requestAnimationFrame(() => {
-                        lastKnownScroll = carousel.scrollLeft;
-                    });
-                    
-                    // Используем кэшированное значение для инерции
-                    const currentScroll = lastKnownScroll;
-                    
-                    // Добавляем инерцию после отпускания
-                    if (Math.abs(dragVelocity) > 0.5) {
-                        targetScroll = currentScroll + dragVelocity * 20;
-                        targetScroll = Math.max(0, Math.min(maxScroll, targetScroll));
-                        if (!isScrolling) {
-                            isScrolling = true;
-                            animationFrame = requestAnimationFrame(smoothScroll);
-                        }
-                    } else {
-                        if (scrollTimeout) clearTimeout(scrollTimeout);
-                        scrollTimeout = setTimeout(() => {
-                            carousel.classList.remove('scrolling');
-                        }, 200);
-                    }
-                    
-                    // Обновляем кэш после завершения drag (асинхронно через RAF)
-                    requestAnimationFrame(() => {
-                        maxScroll = Math.max(0, carousel.scrollWidth - carousel.clientWidth);
-                        lastKnownScroll = carousel.scrollLeft;
-                    });
-                }
-            });
+                });
 
-            carousel.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                
-                // Используем кэшированный offsetLeft и абсолютную позицию мыши
-                // Не читаем геометрические свойства в каждом событии mousemove
-                const currentX = e.pageX - carouselOffsetLeft; // Используем кэшированный offsetLeft
-                const walk = (currentX - startX) * 1.2; // Скорость прокрутки
-                const newScroll = startScrollLeft - walk;
-                
-                // Записываем напрямую (mousemove уже в событии пользователя, можно писать синхронно)
-                // Но ограничиваем частоту записей через throttling
-                if (!mousemoveFrame) {
-                    mousemoveFrame = requestAnimationFrame(() => {
-                        carousel.scrollLeft = newScroll;
-                        lastKnownScroll = newScroll; // Обновляем кэш
-                        mousemoveFrame = null;
-                    });
-                }
-                
-                // Вычисляем скорость для инерции (используем только e.pageX, без запроса геометрии)
-                const now = Date.now();
-                const timeDelta = now - lastTime;
-                if (timeDelta > 0) {
-                    dragVelocity = (e.pageX - lastX) / timeDelta * 16; // Нормализуем к 60fps
-                }
-                lastX = e.pageX;
-                lastTime = now;
+                carousel.addEventListener('mouseup', () => {
+                    if (isDown) {
+                        isDown = false;
+                        carousel.style.cursor = 'grab';
+                    }
+                });
             });
-            
-            // Переменная для throttling mousemove
-            let mousemoveFrame = null;
-        });
+        })();
     </script>
     
     <!-- Tailwind Plus Elements для интерактивных компонентов (загружается асинхронно в конце страницы) -->
