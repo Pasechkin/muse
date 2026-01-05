@@ -7,10 +7,6 @@
   "framework": null,
   "rewrites": [
     {
-      "source": "/",
-      "destination": "/index_tailwind.html"
-    },
-    {
       "source": "/(.*)",
       "destination": "/$1"
     }
