@@ -131,12 +131,12 @@
 
     <!-- Hero секция с видео фоном -->
     <header>
-        <section class="relative h-[65vh] md:h-screen overflow-hidden bg-black">
+        <section class="relative h-[65vh] md:h-screen overflow-hidden bg-dark">
             <video class="absolute inset-0 w-full h-full object-cover hidden md:block" autoplay loop muted playsinline>
                 <source src="https://muse.ooo/video/portret-po-foto.webm" type="video/webm">
                 <source src="https://muse.ooo/video/portret-po-foto.mp4" type="video/mp4">
             </video>
-            <div class="absolute inset-0 bg-black opacity-20 md:opacity-20"></div>
+            <div class="absolute inset-0 bg-dark opacity-20 md:opacity-20"></div>
             <div class="container mx-auto px-4 h-full flex items-center relative z-10">
                 <div class="max-w-2xl">
                     <p class="h1 text-white mb-4">Создай своё произведение искусства</p>
@@ -993,8 +993,29 @@
         })();
     </script>
     
-    <!-- Tailwind Plus Elements для интерактивных компонентов (загружается асинхронно в конце страницы) -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module" async></script>
+    <!-- Tailwind Plus Elements для интерактивных компонентов (загружается только при открытии мобильного меню) -->
+    <script>
+        // Отложенная загрузка @tailwindplus/elements только при первом открытии мобильного меню
+        (function() {
+            let elementsLoaded = false;
+            const menuButton = document.querySelector('button[command="show-modal"][commandfor="mobile-menu"]');
+            
+            function loadElements() {
+                if (elementsLoaded) return;
+                elementsLoaded = true;
+                
+                const script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1';
+                script.type = 'module';
+                script.async = true;
+                document.body.appendChild(script);
+            }
+            
+            if (menuButton) {
+                menuButton.addEventListener('click', loadElements, { once: true });
+            }
+        })();
+    </script>
 </body>
 </html>
 
