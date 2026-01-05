@@ -42,13 +42,13 @@
             
             <!-- Все пункты меню справа (десктоп) -->
             <div class="hidden lg:flex lg:items-center lg:gap-x-6">
-                <a href="https://muse.ooo/pechat/" class="text-white hover:text-primary transition-colors font-normal whitespace-nowrap uppercase">Печать</a>
-                <a href="https://muse.ooo/portret-na-zakaz/" class="text-white hover:text-primary transition-colors font-normal whitespace-nowrap uppercase">Портреты</a>
-                <a href="https://muse.ooo/info/dostavka/" class="text-white hover:text-primary transition-colors font-normal whitespace-nowrap uppercase">Доставка</a>
-                <a href="#callback" class="text-white hover:text-primary transition-colors font-normal whitespace-nowrap uppercase">Обратный звонок</a>
-                <span class="text-white font-normal whitespace-nowrap uppercase">Москва</span>
-                <a href="tel:88007076921" class="text-white hover:text-primary transition-colors font-normal whitespace-nowrap">8-800-707-69-21</a>
-                <a href="#search" class="text-white hover:text-primary transition-colors" aria-label="Поиск">
+                <a href="https://muse.ooo/pechat/" class="text-gray-400 hover:text-white transition-colors font-normal whitespace-nowrap uppercase">Печать</a>
+                <a href="https://muse.ooo/portret-na-zakaz/" class="text-gray-400 hover:text-white transition-colors font-normal whitespace-nowrap uppercase">Портреты</a>
+                <a href="https://muse.ooo/info/dostavka/" class="text-gray-400 hover:text-white transition-colors font-normal whitespace-nowrap uppercase">Доставка</a>
+                <a href="#callback" class="text-gray-400 hover:text-white transition-colors font-normal whitespace-nowrap uppercase">Обратный звонок</a>
+                <span class="text-gray-400 font-normal whitespace-nowrap uppercase">Москва</span>
+                <a href="tel:88007076921" class="text-gray-400 hover:text-white transition-colors font-normal whitespace-nowrap">8-800-707-69-21</a>
+                <a href="#search" class="text-gray-400 hover:text-white transition-colors" aria-label="Поиск">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5">
                         <path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
@@ -58,11 +58,8 @@
                 </a>
             </div>
             
-            <!-- Мобильная кнопка меню и Заказать -->
-            <div class="flex lg:hidden items-center gap-x-4">
-                <a href="https://muse.ooo/order/" class="btn btn--primary type--uppercase text-sm whitespace-nowrap">
-                    <span class="btn__text">Заказать</span>
-                </a>
+            <!-- Мобильная кнопка меню -->
+            <div class="flex lg:hidden items-center">
                 <button type="button" command="show-modal" commandfor="mobile-menu" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white">
                     <span class="sr-only">Открыть меню</span>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
@@ -117,6 +114,12 @@
                                         </svg>
                                         Поиск
                                     </a>
+                                    <!-- Кнопка Заказать внутри мобильного меню -->
+                                    <div class="pt-4">
+                                        <a href="https://muse.ooo/order/" class="btn btn--primary type--uppercase w-full text-center block">
+                                            <span class="btn__text">Заказать</span>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -128,7 +131,7 @@
 
     <!-- Hero секция с видео фоном -->
     <header>
-        <section class="relative h-[50vh] md:h-screen overflow-hidden bg-black">
+        <section class="relative h-[65vh] md:h-screen overflow-hidden bg-black">
             <video class="absolute inset-0 w-full h-full object-cover hidden md:block" autoplay loop muted playsinline>
                 <source src="https://muse.ooo/video/portret-po-foto.webm" type="video/webm">
                 <source src="https://muse.ooo/video/portret-po-foto.mp4" type="video/mp4">

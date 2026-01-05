@@ -393,19 +393,9 @@
     position: relative;
   }
 
+  /* Убираем подчеркивание - только изменение цвета при hover */
   nav a:not(.btn)::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: #4a90e2;
-    transition: width 0.3s ease;
-  }
-
-  nav a:not(.btn):hover::after {
-    width: 100%;
+    display: none;
   }
 
   /* Стили для футера */
