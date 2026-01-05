@@ -228,6 +228,11 @@
     background: #609de6;
   }
   
+  .btn.bg-dark .btn__text,
+  .btn.bg--dark .btn__text {
+    color: #ffffff;
+  }
+  
   .type--uppercase {
     text-transform: uppercase;
   }
