@@ -260,7 +260,7 @@
                 </div>
             </div>
             <!-- Карусель портретов -->
-            <div class="carousel-scroll scrollbar-hide pb-4">
+            <div class="carousel-scroll pb-4">
                 <div class="flex gap-4 px-4" style="min-width: max-content;">
                     <!-- Портрет 1: Акварель -->
                     <div class="text-center flex-shrink-0 snap-center" style="width: 223px;">
@@ -618,7 +618,7 @@
             </div>
             <!-- Карусель логотипов -->
             <div class="relative">
-                <div class="carousel-scroll scrollbar-hide py-8" id="logos-carousel">
+                <div class="carousel-scroll py-8" id="logos-carousel">
                     <div class="flex gap-8 items-center" style="min-width: max-content; margin: 0 auto; width: fit-content;">
                         <div class="flex-shrink-0 snap-center w-32 h-16 flex items-center justify-center">
                             <img class="h-full w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" alt="Logo 1C" src="data:image/webp;base64,UklGRoACAABXRUJQVlA4WAoAAAAQAAAASAAAMQAAQUxQSCYCAAABT6BEtg1akD9J041sJBHzH1Cks95oJUCutW1uGo2zSxC+ACW7ViK0SISzJWFYtiTKtA7I6klTA9Z8l7ueUaDaLSP6z8Bt20Z0d2/fL8g/L7Yroqdq2Uk9gxzVuJL0qIgn1ZLTopS2PSVdXdeQnmfCAaAq1+H6wNnXKF20VsvLp75zSHk1ZU7La+VSBwBSpSIL2m5ZlCalNJH4a+DvYZSuOVjnWm7clnSg5brBt1Cec4Rtz3VbC46VKWitQCwb+k+ss+DsELcNTVe0YM0hdaoTiNOkK9tCaQCMDeK4hkIGCcY30ra0L30dR7C2iJ/UIOJsVFHnYC/y78vjf6OjBOuDuIDuJ+hmiaJ9Sj9hVXvBxbViU9tirGSgdJsyw8ps7hGHEUdXeeeskkHXp1xS+sAv5Y1j7A0SrG4nCcwM4k9LtB3q+hlfCiEDzqrWN6rFsJr9zWpXhDhndKwdakXYCXv2efxMCFE36Kpb1Av7uYl4lFk0UhdR0cb08Uf6vz5tl4a0eqECyZ88XUhL2IudxLULif9jn/FbubpI6RMN/QjmXYbMsar0EyCk+bnLMuCxaa+BQ5Sfhyx+go4y3KFIHrNYW7wa9jzaH/KT2ahzsNqVNlwsc+fhfRbicMTeNSlrem6uM2kfYGHbUMr5ucpUGuzAQtoqkNtMRJ0nAIsK5D4bcb6BSy8kYn8WRXpR6HxGMtUZLopMHghptlpq0DJIqgTFDvkfCAAAVlA4IDQAAADQAwCdASpJADIAPm02mUmmJKOiIagAwA2JaQAADHX/KcOHDhxwFmAA/uG7H1beG0IAAAAA">
@@ -908,6 +908,9 @@
                 let isDown = false;
                 let startX = 0;
                 let startScrollLeft = 0;
+                let hasMoved = false; // Флаг: было ли движение мышки (drag)
+                let clickBlocked = false; // Флаг: нужно ли блокировать клик
+                const DRAG_THRESHOLD = 5; // Порог в пикселях для определения drag
                 
                 carousel.style.cursor = 'grab';
                 
@@ -915,6 +918,8 @@
                     if (window.innerWidth < 1024) return;
                     
                     isDown = true;
+                    hasMoved = false;
+                    clickBlocked = false;
                     carousel.style.cursor = 'grabbing';
                     
                     // Кэшируем значения один раз при mousedown
@@ -930,6 +935,13 @@
                     
                     e.preventDefault();
                     
+                    // Проверяем, было ли движение
+                    const moveDistance = Math.abs(e.pageX - startX);
+                    if (moveDistance > DRAG_THRESHOLD) {
+                        hasMoved = true;
+                        clickBlocked = true;
+                    }
+                    
                     // Используем только pageX (абсолютная координата) - нет геометрических чтений
                     const walk = (e.pageX - startX) * 1.2;
                     const newScroll = startScrollLeft - walk;
@@ -938,17 +950,38 @@
                     carousel.scrollLeft = newScroll;
                 });
 
+                // Блокируем клики на ссылках, если был drag
+                carousel.addEventListener('click', (e) => {
+                    if (clickBlocked && window.innerWidth >= 1024) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        clickBlocked = false; // Сбрасываем флаг
+                    }
+                }, true); // Используем capture phase для перехвата клика до обработчиков ссылок
+
                 carousel.addEventListener('mouseleave', () => {
                     if (isDown) {
                         isDown = false;
+                        hasMoved = false;
                         carousel.style.cursor = 'grab';
+                        // Не сбрасываем clickBlocked здесь - клик может произойти после mouseleave
                     }
                 });
 
-                carousel.addEventListener('mouseup', () => {
+                carousel.addEventListener('mouseup', (e) => {
                     if (isDown) {
                         isDown = false;
                         carousel.style.cursor = 'grab';
+                        
+                        // Если было движение, блокируем клик на небольшое время
+                        if (hasMoved) {
+                            clickBlocked = true;
+                            // Сбрасываем флаг через небольшую задержку
+                            setTimeout(() => {
+                                clickBlocked = false;
+                            }, 100);
+                        }
+                        hasMoved = false;
                     }
                 });
             });
