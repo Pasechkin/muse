@@ -451,8 +451,35 @@
     cursor: grabbing;
   }
 
+  /* Скроллбар: видим на мобильных, скрыт на десктопе */
   .carousel-scroll::-webkit-scrollbar {
-    display: none;
+    display: block;
+    height: 8px;
+  }
+  
+  .carousel-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .carousel-scroll::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+  
+  .carousel-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  /* На десктопе скрываем скроллбар (там wheel + drag) */
+  @media (min-width: 1024px) {
+    .carousel-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .carousel-scroll {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
   }
 
   .scrollbar-hide {
