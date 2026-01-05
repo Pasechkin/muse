@@ -348,6 +348,15 @@
     transition: all 0.3s ease-in-out;
   }
 
+  /* Стили для hero видео - полный экран на ПК */
+  section.relative video {
+    min-width: 100% !important;
+    min-height: 100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
   /* Кнопка Scroll to Top */
   #back-to-top {
     position: fixed;
