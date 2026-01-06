@@ -10,6 +10,39 @@
   --color-secondary: #fafafa;
 }
 
+/* ============================================
+   КОНТЕЙНЕР Bootstrap 3 (Stack) - вне @layer для высокого приоритета
+   ============================================ */
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  max-width: none !important;
+}
+
+/* Планшеты (>=768px) */
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+
+/* Ноутбуки (>=992px) */
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+
+/* Большие мониторы (>=1200px) */
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+
 /* Кастомные стили для имитации Stack темы */
 @layer base {
   html {

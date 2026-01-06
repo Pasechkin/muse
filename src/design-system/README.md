@@ -85,6 +85,85 @@ background: var(--color-bg-dark);
 - `--spacing-xl`: 3rem (48px)
 - `--spacing-2xl`: 4rem (64px)
 
+## Система контейнеров (как в Bootstrap 3)
+
+Контейнер `.container` имеет **фиксированную ширину** на разных размерах экрана, как в оригинальной теме Stack на Bootstrap 3:
+
+| Размер экрана | Ширина контейнера |
+|---------------|-------------------|
+| < 768px (мобильные) | 100% |
+| >= 768px (планшеты) | 750px |
+| >= 992px (ноутбуки) | 970px |
+| >= 1200px (большие мониторы) | 1170px |
+
+**Padding:** 15px с каждой стороны (как в Bootstrap 3)
+
+**Стандартный паттерн для секций:**
+```html
+<section class="bg-white py-16 md:py-24">
+    <div class="container">
+        <!-- Контент здесь -->
+    </div>
+</section>
+```
+
+**Важно:** Используйте только класс `container` без дополнительных `mx-auto` или `px-4` — они уже включены в стили контейнера.
+
+Эта система обеспечивает единообразную ширину для всех блоков:
+- Верхнее меню (header)
+- Первый экран (hero)
+- Изготовление
+- Доставка
+- Оплата
+- Преимущества
+- Вопросы и ответы
+- Примеры
+
+## Кнопка "Наверх"
+
+На всех страницах для ПК (lg и выше) должна быть кнопка "Наверх" для быстрого возврата к началу страницы.
+
+**Стандартная реализация:**
+```html
+<!-- Кнопка "Наверх" (для ПК) -->
+<a href="#" id="back-to-top" class="hidden lg:flex fixed bottom-24 right-6 w-12 h-12 items-center justify-center rounded-full bg-gray-700 hover:bg-primary transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6 text-white">
+        <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+</a>
+```
+
+**JavaScript для показа/скрытия кнопки:**
+```javascript
+(function() {
+    const backToTopButton = document.getElementById('back-to-top');
+    
+    if (backToTopButton) {
+        function toggleBackToTop() {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.remove('opacity-0', 'pointer-events-none');
+                backToTopButton.classList.add('opacity-100');
+            } else {
+                backToTopButton.classList.add('opacity-0', 'pointer-events-none');
+                backToTopButton.classList.remove('opacity-100');
+            }
+        }
+        
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        window.addEventListener('scroll', toggleBackToTop);
+        toggleBackToTop(); // Initial call
+    }
+})();
+```
+
+Кнопка появляется при прокрутке страницы вниз более чем на 300px.
+
 ## Границы и радиусы
 
 - `--border-radius-sm`: 4px
@@ -127,9 +206,26 @@ background: var(--color-bg-dark);
 
 ```html
 <section class="bg-dark py-16 md:py-24">
-  <div class="container mx-auto px-4">
+  <div class="container">
     <h2 class="h2 text-white">Заголовок секции</h2>
   </div>
 </section>
 ```
+
+## SEO и индексация
+
+**По умолчанию все страницы закрыты от индексации поисковыми системами** во время разработки.
+
+**Стандартный мета-тег в `<head>`:**
+```html
+<!-- Закрыто от индексации во время разработки -->
+<meta name="robots" content="noindex, nofollow">
+```
+
+**Важно:** Перед публикацией на продакшн необходимо:
+1. Удалить или закомментировать этот мета-тег
+2. Или заменить на `<meta name="robots" content="index, follow">` для разрешения индексации
+
+Это правило применяется ко всем страницам проекта по умолчанию для предотвращения индексации тестовых/разрабатываемых версий сайта.
+
 

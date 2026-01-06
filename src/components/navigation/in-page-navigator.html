@@ -1,0 +1,83 @@
+<!-- In-Page Navigator - навигация по секциям страницы (для ПК) -->
+<!-- Использование: скопировать этот блок в нужное место на странице -->
+<nav class="hidden md:block fixed right-4 top-1/3 z-40" aria-label="Навигация по странице">
+    <ul class="space-y-2 text-xs">
+        <li>
+            <a href="#portraits-from-photo" class="block px-3 py-2 text-gray-300 hover:text-white transition-colors rounded-md hover:bg-gray-800/50" data-section="portraits-from-photo">
+                Портреты по фото
+            </a>
+        </li>
+        <li>
+            <a href="#styles" class="block px-3 py-2 text-gray-300 hover:text-white transition-colors rounded-md hover:bg-gray-800/50" data-section="styles">
+                Стили
+            </a>
+        </li>
+        <li>
+            <a href="#calc" class="block px-3 py-2 text-gray-300 hover:text-white transition-colors rounded-md hover:bg-gray-800/50" data-section="calc">
+                Цена
+            </a>
+        </li>
+        <li>
+            <a href="#order" class="block px-3 py-2 text-gray-300 hover:text-white transition-colors rounded-md hover:bg-gray-800/50" data-section="order">
+                Как заказать
+            </a>
+        </li>
+        <li>
+            <a href="#portraits-on-canvas" class="block px-3 py-2 text-gray-300 hover:text-white transition-colors rounded-md hover:bg-gray-800/50" data-section="portraits-on-canvas">
+                Изготовление
+            </a>
+        </li>
+        <li>
+            <a href="#delivery" class="block px-3 py-2 text-gray-300 hover:text-white transition-colors rounded-md hover:bg-gray-800/50" data-section="delivery">
+                Доставка
+            </a>
+        </li>
+        <li>
+            <a href="#payment" class="block px-3 py-2 text-gray-300 hover:text-white transition-colors rounded-md hover:bg-gray-800/50" data-section="payment">
+                Оплата
+            </a>
+        </li>
+        <li>
+            <a href="#faq" class="block px-3 py-2 text-gray-300 hover:text-white transition-colors rounded-md hover:bg-gray-800/50" data-section="faq">
+                Ответы
+            </a>
+        </li>
+        <li>
+            <a href="#examples" class="block px-3 py-2 text-gray-300 hover:text-white transition-colors rounded-md hover:bg-gray-800/50" data-section="examples">
+                Примеры
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<!-- Опциональный JavaScript для подсветки активной секции при скролле -->
+<script>
+    (function() {
+        const navLinks = document.querySelectorAll('[data-section]');
+        const sections = Array.from(navLinks).map(link => {
+            const id = link.getAttribute('href').substring(1);
+            return document.getElementById(id);
+        }).filter(Boolean);
+
+        function updateActiveNav() {
+            const scrollPos = window.scrollY + 200; // offset для активации
+
+            sections.forEach((section, index) => {
+                if (section) {
+                    const top = section.offsetTop;
+                    const bottom = top + section.offsetHeight;
+                    const link = navLinks[index];
+
+                    if (scrollPos >= top && scrollPos < bottom) {
+                        navLinks.forEach(l => l.classList.remove('text-white', 'bg-gray-800/50'));
+                        link?.classList.add('text-white', 'bg-gray-800/50');
+                    }
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveNav);
+        updateActiveNav(); // Initial call
+    })();
+</script>
+

@@ -4,6 +4,17 @@ module.exports = {
     "./src/**/*.{html,js}",
   ],
   theme: {
+    // Настройка контейнера как в Bootstrap 3
+    container: {
+      center: true,
+      padding: '15px',
+    },
+    // Брейкпоинты как в Bootstrap 3
+    screens: {
+      'sm': '768px',   // Планшеты
+      'md': '992px',   // Ноутбуки
+      'lg': '1200px',  // Большие мониторы
+    },
     extend: {
       colors: {
         // Цвета из оригинальной темы Stack

@@ -31,3 +31,4 @@ with open(index_path, 'w', encoding='utf-8') as f:
 print("✅ index.html восстановлен с внешним CSS")
 print(f"📁 Файл сохранен: {index_path}")
 
+

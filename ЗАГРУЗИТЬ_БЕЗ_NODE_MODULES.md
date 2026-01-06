@@ -65,3 +65,4 @@ GitHub Desktop автоматически игнорирует node_modules бл
 3. Появится папка `tailwind-project-clean` БЕЗ node_modules
 4. Загрузите эту папку в GitHub
 
+
