@@ -104,3 +104,5 @@ Asset::getInstance()->addCss('/tailwind-project/src/css/output.css');
 Для добавления подменю или выпадающих списков можно расширить компонент, добавив соответствующие элементы и JavaScript логику.
 
 
+
+

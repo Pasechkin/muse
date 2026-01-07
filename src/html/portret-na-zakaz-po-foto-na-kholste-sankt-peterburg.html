@@ -14,6 +14,411 @@
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
     
     <link rel="stylesheet" href="css/output.css">
+    
+    <!-- Временные стили для навигатора, аккордеона и process-3 (пока CSS не скомпилирован) -->
+    <style>
+        /* In-Page Navigator (Stack стиль) */
+        .page-navigator {
+            position: fixed;
+            padding: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 1.85714286em;
+            z-index: 9999;
+        }
+        .page-navigator ul {
+            display: inline-block;
+            padding: 0.92857143em;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 1.85714286em;
+            transition: all 0.2s ease;
+        }
+        .page-navigator ul:hover {
+            background: rgba(0, 0, 0, 0.6);
+        }
+        .page-navigator ul li:not(:last-child) {
+            margin-bottom: 1.85714286em;
+        }
+        @media all and (max-width: 1023px) {
+            .page-navigator {
+                display: none !important;
+            }
+        }
+        .page-navigator li a {
+            width: 8px;
+            height: 8px;
+            background: #fff;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+            display: block;
+            position: relative;
+        }
+        .page-navigator li a:not(:hover) {
+            opacity: 0.5;
+        }
+        .page-navigator li a.inner-link--active {
+            opacity: 1;
+            animation: bulge 0.5s ease;
+        }
+        @keyframes bulge {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        .page-navigator li a[data-title]:before {
+            content: attr(data-title);
+            position: absolute;
+            right: 12px;
+            top: -14px;
+            background: #222;
+            color: #fff;
+            border-radius: 6px;
+            padding: 4px 8px;
+            display: inline-block;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            font-size: 12px;
+        }
+        .page-navigator li a[data-title]:not(:hover):before {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        
+        /* Accordion (Stack Minimal Style - Multiple Open) - полная переработка по Stack */
+        .accordion {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .accordion li {
+            margin-bottom: 0 !important;
+        }
+        .accordion .accordion__title {
+            transition: opacity 0.5s ease !important;
+            opacity: 0.5 !important;
+            margin-bottom: 0.92857143em !important;
+            cursor: pointer !important;
+            position: relative !important;
+            padding: 0.92857143em 0 !important;
+            display: block !important;
+        }
+        .accordion .accordion__title:hover {
+            opacity: 1 !important;
+        }
+        .accordion .accordion__title:before {
+            content: '' !important;
+            display: inline-block !important;
+            width: 12px !important;
+            height: 12px !important;
+            min-width: 12px !important;
+            margin-right: 6px !important;
+            vertical-align: middle !important;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23252525' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+            background-size: 12px 12px !important;
+            background-repeat: no-repeat !important;
+            background-position: center !important;
+            transition: all 0.3s ease !important;
+            flex-shrink: 0 !important;
+        }
+        .accordion .accordion__title span {
+            display: inline-block !important;
+        }
+        .accordion li.active {
+            margin-bottom: 0.92857143em !important;
+        }
+        .accordion li.active .accordion__title {
+            opacity: 1 !important;
+        }
+        .accordion li.active .accordion__title:before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23252525' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='18 15 12 9 6 15'%3E%3C/polyline%3E%3C/svg%3E") !important;
+        }
+        .accordion li.active .accordion__content {
+            animation: fadeUp 0.5s ease forwards !important;
+            max-height: 10000px !important;
+            padding: 0 0 1.23809524em 0 !important;
+            opacity: 1 !important;
+        }
+        .accordion__content {
+            max-height: 0 !important;
+            overflow: hidden !important;
+            transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease !important;
+            padding: 0 !important;
+            opacity: 0 !important;
+        }
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .accordion-2 li .accordion__title {
+            border-left: none !important;
+            border-right: none !important;
+            border-top: none !important;
+            border-bottom: 1px solid #ECECEC !important;
+            padding-left: 0 !important;
+        }
+        .accordion-2 li.active .accordion__title {
+            background: none !important;
+            border-bottom: 1px solid rgba(0, 0, 0, 0) !important;
+        }
+        
+        /* Process 3 (Process 5 style) */
+        .process-3 {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            position: relative;
+        }
+        .process-3 li {
+            position: relative;
+            margin-bottom: 3.71428571em;
+        }
+        .process-3 li:last-child {
+            margin-bottom: 0;
+        }
+        .process-3 li .process__number {
+            width: 3.71428571em;
+            min-width: 3.71428571em;
+            height: 3.71428571em;
+            border-radius: 50%;
+            border: 2px solid #4a90e2;
+            background: #fff;
+            text-align: center;
+            float: left;
+            position: relative;
+            z-index: 1;
+        }
+        .process-3 li .process__number span {
+            font-size: 1.35714286em;
+            font-weight: bold;
+            color: #4a90e2;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            line-height: 1;
+        }
+        .process-3 li .process__body {
+            width: calc(100% - 4.5em);
+            margin-left: 1em;
+            float: right;
+            position: relative;
+            z-index: 1;
+        }
+        .process-3 li .process__body h4 {
+            margin-bottom: 0.342105263157895em;
+        }
+        .process-3 li:after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+        .process-3:before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 1px;
+            left: 1.85714286em;
+            top: 0;
+            border-left: 1px dashed #ddd;
+            z-index: 0;
+        }
+        .process-3 li:not(:last-child) {
+            margin-bottom: 3.71428571em;
+        }
+        @media (max-width: 767px) {
+            .process-3 li .process__number {
+                width: 3em;
+                min-width: 3em;
+                height: 3em;
+            }
+            .process-3 li .process__body {
+                width: calc(100% - 4em);
+                margin-left: 1em;
+            }
+            .process-3:before {
+                left: 1.5em;
+            }
+        }
+        
+        /* Video Cover (Stack стиль) */
+        .video-cover {
+            position: relative;
+            overflow: hidden;
+        }
+        .video-cover .background-image-holder {
+            position: relative;
+        }
+        .video-cover .background-image-holder img {
+            display: block;
+        }
+        .video-cover .video-play-icon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+        .video-cover video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .video-cover.video-playing .background-image-holder,
+        .video-cover.video-playing .video-play-icon {
+            display: none;
+        }
+        .video-cover.video-playing video {
+            display: block;
+            position: relative;
+        }
+        
+        /* Checkmark (Stack стиль) */
+        .checkmark {
+            display: inline-block;
+            position: relative;
+            width: 1.23809524em;
+            height: 1.23809524em;
+            min-width: 1.23809524em;
+            border-radius: 50%;
+            text-align: center;
+            background: #4a90e2;
+            flex-shrink: 0;
+        }
+        .checkmark:before {
+            content: '\2713';
+            color: #fff;
+            font-size: 11px;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            line-height: 1;
+        }
+        .pricing-1 ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .pricing-1 li {
+            margin-bottom: 0.5em;
+        }
+        
+        /* Нативная карусель с круглыми изображениями - CSS Scroll Snap */
+        .carousel-scroll-round-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        .carousel-scroll-round {
+            position: relative;
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding: 0 3rem;
+            scroll-behavior: smooth;
+        }
+        .carousel-scroll-round::-webkit-scrollbar {
+            display: none;
+        }
+        /* Модальное окно для подсказок */
+        .help-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+        .help-modal.active {
+            display: flex;
+        }
+        .help-modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            position: relative;
+        }
+        .help-modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+        .help-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #e5e7eb;
+            color: #6b7280;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
+        .help-icon:hover {
+            background: #d1d5db;
+            color: #374151;
+        }
+        .round-image-wrapper {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            border: none;
+            box-shadow: none;
+            background: transparent;
+        }
+        .round-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 50%;
+            margin: 0;
+            padding: 0;
+            border: none;
+            box-shadow: none;
+            background: transparent;
+            display: block;
+        }
+    </style>
 </head>
 <body class="bg-white">
     <!-- Верхнее меню (как на главной Tailwind-странице) -->
@@ -172,56 +577,38 @@
         </div>
     </section>
 
-    <!-- In-Page Navigator - навигация по секциям страницы (для ПК) -->
-    <nav id="page-navigator" class="fixed right-6 top-1/3 bg-white border-2 border-gray-300 rounded-lg shadow-2xl p-3" aria-label="Навигация по странице" style="min-width: 180px; max-width: 200px; z-index: 9999; display: none;">
-        <ul class="space-y-1 text-xs">
+    <!-- In-Page Navigator - навигация по секциям страницы (для ПК) в стиле Stack -->
+    <section class="page-navigator" id="page-navigator" style="display: none;">
+        <ul>
             <li>
-                <a href="#portraits-from-photo" class="block px-3 py-2 text-gray-600 hover:text-primary hover:bg-gray-100 transition-colors rounded-md" data-section="portraits-from-photo">
-                    Портреты по фото
-                </a>
+                <a href="#portraits-from-photo" class="inner-link" data-title="Портреты по фото"></a>
             </li>
             <li>
-                <a href="#styles" class="block px-3 py-2 text-gray-600 hover:text-primary hover:bg-gray-100 transition-colors rounded-md" data-section="styles">
-                    Стили
-                </a>
+                <a href="#styles" class="inner-link" data-title="Стили"></a>
             </li>
             <li>
-                <a href="#calc" class="block px-3 py-2 text-gray-600 hover:text-primary hover:bg-gray-100 transition-colors rounded-md" data-section="calc">
-                    Цена
-                </a>
+                <a href="#calc" class="inner-link" data-title="Цена"></a>
             </li>
             <li>
-                <a href="#order" class="block px-3 py-2 text-gray-600 hover:text-primary hover:bg-gray-100 transition-colors rounded-md" data-section="order">
-                    Как заказать
-                </a>
+                <a href="#order" class="inner-link" data-title="Как заказать"></a>
             </li>
             <li>
-                <a href="#portraits-on-canvas" class="block px-3 py-2 text-gray-600 hover:text-primary hover:bg-gray-100 transition-colors rounded-md" data-section="portraits-on-canvas">
-                    Изготовление
-                </a>
+                <a href="#portraits-on-canvas" class="inner-link" data-title="Изготовление"></a>
             </li>
             <li>
-                <a href="#delivery" class="block px-3 py-2 text-gray-600 hover:text-primary hover:bg-gray-100 transition-colors rounded-md" data-section="delivery">
-                    Доставка
-                </a>
+                <a href="#delivery" class="inner-link" data-title="Доставка"></a>
             </li>
             <li>
-                <a href="#payment" class="block px-3 py-2 text-gray-600 hover:text-primary hover:bg-gray-100 transition-colors rounded-md" data-section="payment">
-                    Оплата
-                </a>
+                <a href="#payment" class="inner-link" data-title="Оплата"></a>
             </li>
             <li>
-                <a href="#faq" class="block px-3 py-2 text-gray-600 hover:text-primary hover:bg-gray-100 transition-colors rounded-md" data-section="faq">
-                    Ответы
-                </a>
+                <a href="#faq" class="inner-link" data-title="Ответы"></a>
             </li>
             <li>
-                <a href="#examples" class="block px-3 py-2 text-gray-600 hover:text-primary hover:bg-gray-100 transition-colors rounded-md" data-section="examples">
-                    Примеры
-                </a>
+                <a href="#examples" class="inner-link" data-title="Примеры"></a>
             </li>
         </ul>
-    </nav>
+    </section>
 
     <!-- Кнопка "Наверх" (для ПК) -->
     <a href="#" id="back-to-top" class="hidden lg:flex fixed bottom-24 right-6 w-12 h-12 items-center justify-center rounded-full bg-gray-700 hover:bg-primary transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
@@ -235,25 +622,32 @@
         document.addEventListener('DOMContentLoaded', function() {
             const pageNavigator = document.getElementById('page-navigator');
             const backToTopButton = document.getElementById('back-to-top');
-            const navLinks = document.querySelectorAll('[data-section]');
+            const navLinks = document.querySelectorAll('.page-navigator .inner-link');
             const sections = Array.from(navLinks).map(link => {
                 const id = link.getAttribute('href').substring(1);
                 return document.getElementById(id);
             }).filter(Boolean);
 
-            // Показ/скрытие навигатора на ПК (ширина >= 1024px)
-            function toggleDesktopElements() {
-                const isDesktop = window.innerWidth >= 1024;
-                
-                if (pageNavigator) {
-                    pageNavigator.style.display = isDesktop ? 'block' : 'none';
-                }
-            }
-            
+            // Smooth scroll для inner-link
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        const offsetTop = targetElement.offsetTop - 100;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
             // Показ/скрытие кнопки "Наверх" при прокрутке
             function toggleBackToTop() {
                 if (backToTopButton) {
-                    if (window.scrollY > 300) {
+                    if (window.scrollY > 300 && window.innerWidth >= 1024) {
                         backToTopButton.classList.remove('opacity-0', 'pointer-events-none');
                         backToTopButton.classList.add('opacity-100');
                     } else {
@@ -263,7 +657,7 @@
                 }
             }
 
-            // Подсветка активной секции в навигаторе
+            // Подсветка активной секции в навигаторе (Stack стиль)
             function updateActiveNav() {
                 const scrollPos = window.scrollY + 200;
 
@@ -274,8 +668,8 @@
                         const link = navLinks[index];
 
                         if (scrollPos >= top && scrollPos < bottom) {
-                            navLinks.forEach(l => l.classList.remove('text-primary', 'bg-gray-100', 'font-semibold'));
-                            link?.classList.add('text-primary', 'bg-gray-100', 'font-semibold');
+                            navLinks.forEach(l => l.classList.remove('inner-link--active'));
+                            link?.classList.add('inner-link--active');
                         }
                     }
                 });
@@ -294,19 +688,76 @@
 
             // Event listeners
             window.addEventListener('scroll', function() {
-                toggleDesktopElements();
                 updateActiveNav();
                 toggleBackToTop();
             });
-            window.addEventListener('resize', toggleDesktopElements);
+            window.addEventListener('resize', toggleBackToTop);
+
+            // Accordion functionality (Stack style - Multiple Open) - полная переработка
+            function initAccordion() {
+                // Ищем все заголовки аккордеона
+                const accordionTitles = document.querySelectorAll('.accordion .accordion__title');
+                
+                accordionTitles.forEach(function(title) {
+                    // Удаляем старый обработчик, если есть
+                    const newTitle = title.cloneNode(true);
+                    title.parentNode.replaceChild(newTitle, title);
+                    
+                    // Добавляем новый обработчик
+                    newTitle.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const li = this.closest('li');
+                        if (li) {
+                            li.classList.toggle('active');
+                        }
+                    });
+                });
+            }
+            
+            // Инициализируем сразу
+            initAccordion();
+            
+            // Инициализируем еще раз через небольшую задержку (на случай динамической загрузки)
+            setTimeout(initAccordion, 100);
+            setTimeout(initAccordion, 500);
+            
+            // Video Cover functionality
+            const videoCovers = document.querySelectorAll('.video-cover');
+            videoCovers.forEach(function(cover) {
+                const playIcon = cover.querySelector('.video-play-icon');
+                const video = cover.querySelector('video');
+                const backgroundImage = cover.querySelector('.background-image-holder');
+                
+                if (playIcon && video) {
+                    playIcon.addEventListener('click', function() {
+                        cover.classList.add('video-playing');
+                        video.play();
+                    });
+                }
+            });
+
+            // Показ/скрытие навигатора на больших экранах
+            function toggleDesktopElements() {
+                if (pageNavigator) {
+                    if (window.innerWidth >= 1024) {
+                        pageNavigator.style.display = 'block';
+                    } else {
+                        pageNavigator.style.display = 'none';
+                    }
+                }
+            }
 
             // Initial calls
-            toggleDesktopElements();
             updateActiveNav();
             toggleBackToTop();
+            toggleDesktopElements();
             
-            console.log('Page Navigator initialized:', pageNavigator ? 'found' : 'not found');
-            console.log('Back to Top initialized:', backToTopButton ? 'found' : 'not found');
+            // Обновление при изменении размера окна
+            window.addEventListener('resize', function() {
+                toggleDesktopElements();
+                toggleBackToTop();
+            });
         });
     </script>
 
@@ -456,40 +907,41 @@
                 </div>
             </div>
 
-            <!-- Вторая карусель: парный / семейный / детский / женский / мужской -->
-            <section class="space--xxs bg-dark mt-8">
-                <div class="carousel-scroll pb-4">
-                    <div class="flex gap-0 px-4" style="min-width: max-content;">
-                        <div class="text-center feature flex-shrink-0 snap-center">
-                            <a href="https://muse.ooo/portret-na-zakaz/parnyy-portret/">
-                                <img title="Парный" alt="Парный портрет" decoding="async" height="50" width="50" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQECAgICAgICAgICAgMDAwMDAwMDAwP/2wBDAQEBAQEBAQEBAQECAgECAgMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwP/wAARCAAyADIDAREAAhEBAxEB/8QAHQAAAgICAwEAAAAAAAAAAAAACQoHCAAFAgYLBP/EAEEQAAEEAgACBwIICwkAAAAAAAMBAgQFBgcIEQASExQVNDUJIRgiMTIzNjhjFhkjN1RWV2FiZGUKOUFFUVNVZsH/xAAcAQACAgMBAQAAAAAAAAAAAAAGBwUIAgMEAAn/xABHEQACAQIEAgYGBAsFCQAAAAABAgMEEQAFEiEGMQcTIjJBURQzNFJhcRU1QmIIFiNDU1RjcoGRsTZEosHwF2RzgoOEodHx/9oADAMBAAIRAxEAPwB+O9vaTF6S4yXJbirx7HMdqrC9v7+8sIlTS0dJUxDT7W4uLSeUEGtq6yDHIaRIM9ggiY573I1FXpi7pGjySOFjUEkk2AA3JJOwAHM4ziikmkjhhjZ5XYKqgEkkmwAA3JJ2AG5OFHOKP+0nwcr2tZaj4QqiTS4NT5JGoC7pyelG+62AORYRq9tnhFDcj7pi2LzUeYgJFjHNayozgl7KvKjwqvc54wkAK5WQIffI7R+SkdkfMX+CnDs4Z6LQxD58rNVWv1QNlXx7bA3Y2sbKQvkWFjgrfDTxE2ed4rBsszup868JGGpZN1YS5k0qINHq4pJ5Hn+Mr16qe5rW8kaiJy6ClHxSKiSVKur1Op2JJP8ADf8A+YLc66PmpKemny+h6uNxuAoA+ew2/rfHzb/4gYuJQWya65PFMGQpWFgWUisI9yIRjQMnBMB/XERvvRjus1ye/wCTl00V3EkTVGiCUqwG2kkfPfa9v/BxnlfAtT6IZammBRueoA2vy23tq8LjcYHfiXtjt66OzmezMR1+5NQdcaug5PaRqfNK0yKJ9mKqytsYhmuZHOM0MdiKeyYqPCNwFVCDk8s44rqdlFQ3X04NiD3h5EN5/O4+XPEXnfRbltSoFKvo1YwupUXQ+YZOQt46bEc9+RYz4YeKLSvGDqGh3ZofL4uWYZclPWzhfk49/iOUQBRi3WFZnTIYxqDK6TvglNHe5wygMGVGIeHIjSDNegr6XMqZKukk1RH+anxVh4Ef+iCQQSh83yevyOtkoMxhKTAXB30up7roSBdWsbHmCCrAMCBYPp2YjMKX+3y437zINhUvBLgORWtBhOMEoMj3hNqXOIHNcsnNr7/Ftd2YhBGR+O41VFj2ZlSQWPItZIkKJhKtFelukfilxVDIaMkxx2aaxtdiAyKfNVBDnmNRXYFcWj6Eej+F8tk4wzPSs02pabUL2QErI452aRg0YuFIQMQSHthbfAtI4ZXbQg5fAlR1qxWRZcvDp0NZ9ehJwpAbEcCSpGPiQ1KQZ4gnIRsRzXNYvUc3qKuuzmoalMRNm5agbXtyuPPzPjtffnYfKOGqdKzrNOoHfSRfTcG9j7u/ZU308geVjSYJxAWlVEi0lFPsYD3yo0UtlH8Kmy4cVzFD4klfdBdCt4lYrWOJEQ8eQUSr2T1c3qqIHMU6xnZ2BA8PtEeAI5X8/wCeGI/DMj0scaQofn9keLWPO3u+PhbEgcZcmywTRHDLsLLptDsLdGYYjtnLsbxrCb2TWYamFZHfYuGjvXjygRRRcgNMhIKcQrDliNLIixFe1O0cV1K/RmUcPSVVbc1qzTLZQSqErpBt3tL7NYjcnba+F3lkU2fcScdw0WSlKXKpqSjYu2kPOiS9cy+CqYyrR3BNlG/atgL28XWWT4v1bmUMNjPOCfKHAE5YKTqyFMsFihV7mGcHro8Q3rycqcl5IvTRluayrKysgIIFt7cjz+dsdOecNU4hjaOQqATc2BFyOXgbarHzx2v2dPHdd+zI4z4eYzcj7xoPbOV4RhW+8VZYSQNm4BlEB8+n2eWjDHnhlZNqXxbxMEgQUKSEk2uYQLbIpWtHhriB8srY3bV6IxVJB4WbutbzU/10/awjeNOBhxLlM1PEVOYRI8lOxBvdO9DqPIOAbAm2wY90Y9J/xCB+mxPKeIeZD5D9N+f5T735n7+j21L7w5X/AIeeKgaH9087cvHy+fwx5ke3dvXW3twbS2vfFYtzsjPsxzec4TlSOIuVXc23dDAxXKoo8NktoRDT4rBNRqe5ETpTusrnzGvrq6W3WyyO/wALsxP+e2PpxRZLDkGXZXk1I+qnpoI4VPiQqhdx7xtufE7+OOWtyvkWBydZOatVjebuXNXtVUVqf4dVrV969B7MJD1ZIPjg0yWBFmAdbEf6/wBDFsNdU2T7f2Xh+idURo787t50pTHn30DHAHNW0064Errq3CSsiYzHHCL1pDEe6TMakdyhVqKvFR5VNmlVS0FOE62cnSzEhQygsQSO7YDmfMEAjBRU5zScO5PmPEmbiQ0NOoAREMjMGZU2RO2z3YWXYBbsb4s7xJcM2x8O1fh1jmexWZTm2qtRQ4VtrZ7zODidFU5PNsj4ziU6o7+LIZ5iZMSfIaVjXHKI3ZkcwI3dC3MuEMwiyMZlLmaddltKimDdgFMh1rC4vqYFwzXHb3sbAYiuH6/6Vp85z6hyMw8PV2a2E1j1kkksaxpUTqSFjiTqVQkE9WrpqAZmGBrbLbHtaCNYxCoSEAopyr1xk64wm7GTHe4CvZ3gI2EYRGrz6zV+T5Ogzlk5Wq3vst/6f5Yj89odVAUUgl5Aux8d7b+V/HAsN14ncLeY1HRskZbmliQUE4aWffshxaykY9LgNGOT2byDDFjEU6uUEURVcXkJrlRn5a6zJJrXbTuBzKkcx4bHcctwMJqrp2iea0ulUYqGIuisST2gO0bgEAKGJufCxwZr8bdu7/lrj+6B+BR6kT86/wCtvmPzg/zXm/3dDX8Zv2w+q9HPw975/HCw/wBmbfqL/XnpfIcv0fPuf4vu4qRZ4vbVuVZXitnCPX2uLW13j95DkBeBYNpT2Z6mVEQJfy4iAmRHtIx68xv9ye5OXRG1hkpKiaCVSsiOVYeRBsR8OWLO5UtPX0NFVxSB4JI1dSNwQwBUg/a1A3v/AFxYnFuF3iVg4Hj+2IOAeJ4Blc5kCmmwb6lTJCK8rxw5c7Dps2LfRKuxMEncZnZuDNYxSD/J8nOlI+Fc/r8tgzKmyqSSjm7tius2NtQQkNoJB0tbextsL4lctNVV5lUUNBR1MtXChe6RSMjIB29LgaWaO46wLfSSAbHbBQOFmTG0FrzIbLZODEr9q5RLRmEzCDhEyKPrKU6EO7r7V6Ge7F/FMghmkRkVynP2LXPG34irO8N5U2VZdWPX0GjMZWuhJGoQgbhheygsCVPM28BbBtw70eZ/xxmEWYITT5LTkxyiYMh9ICaleNCLyKFZUkuAACbMRqGLz+zrePauX5htDJO6pEpAWGFRww7FxL0V3kLJWOy7+LMON6jyCphTzGQzBvYMzQOHz6j1SQ4VmlWSKrq2H5EkqL76piU1feZUJI2NrLttgf8AwtpU4b4fpejnJp59NQVlkJjEcIhiVZhBpBF4nKopDEagZA3NRgVPFBwPbE03t7bOqde6o2xda0qLI83T9qmM32W/hdr+XVxbCDfkyqnq5EC3myCmlDllK4ctZQXrIYhFVzgriDh6uyfiaupaDLKuXLmcPC4jeQPC6hgwkVSGsSQb2I02YDAFwpxrlvFvBGUZzmuf5ZFnbQlauPrYqfqqqORlePqHdWjuqqUVQUIcdWSNgFfOsfkmr77DIQXRctrrOwk4shnBjoMd9joWZTXlsyqxtS/K8UjjkNlqqjYWOfnyXmizWTVE0UaAr2yrIdvA87/umzfuk4is0yYZpmUMNKAYmIfdtIBjBJcE7AaLqWOwNr7YIZ8F2X+y2R9nP8YV5cH1h/WT531G+/8AL/wdJ76Ln9yT2L0jx9V7n7vw5YXv08364PrX6P7357z/AOL/AIvji3ftg+E7JeFT2jk3aLqME3hc4zlyXN62xA+XIs6jfKR/Gdl68ANx5KluspsmGyWtdI7rDkDsjwwqjoSquXS1wxHQzz5zBqAqJC1gNrkdu+9yde9th21APPG78HDjQZ5ksWQ1dVGKzLlRNLmxaLWAhXa2lY+wT2tPVlmFiuIk2txwcQ3DnxEkqdh7poz8Mu2qUV/pYuOVGHZtq+mxeXFrKynr67I8gxtL7ELPX/YwQKKXH7aO96xTCNEIp+nNW5xnStW1fDGazSUEigrCJVl6tNIOqHUp0OgA/J20mMlQtwbsDhmbLxllPlHEuWNQcYULdX6ZG1XR9eBLJcVMcdQqOJNRRmB7chEwKOATYuhyyJua/udfXGOGpNp2EUl9Q5fTQ4I9cbFhtZ24rOIIBEJjkq3cxBSo8Fz3QbByvNFYIgjqJRcW1NbKKLMQGrZ+0k6BFR9A7Syx7dWxA7TJ2WNmKgG+LL8L9IXEHDFDQ1FVUip4dp2WGRJnY1dKGbQjiW2mrhS+3XhZWiGgTMylSTLhb0naUVfaFx8gaaYJRQba1nWVXXXk7KZfcyHHX1ICLEpYQ40hW9Z7FkKEbuXaPIi9ADP+LKqCOGlyUM1fOSYLAjQt7s+rkQACotfmbWHNKdK3SBk1dmU30pVLWguZJFRXkhijQNpWVj2mfYEJcRjUvIKcG61Rfmu8ArKPxfxHIMdkRB2kqG/lEfNj2ALAbiACjGeE2QnJ2Sc1VA81d8jk6WV6PuPp6zIKOmrX110dP22jFwjBu0CALaGDpbxCEs2wa3zv6ROHo6XiKsr46Mw5XVnrIlfnptbmbnrEKnV5tbTe4urFxE+x0zDik4sMyTRyU+vdUx81iQ6HKMtpLZkuww6ZnTbDNKWuqWNGO1rddzD2EimnyzibZVLnVzWlGqFd1/ibLVZjVpQxLHlfW9gsDqsT2rKeaLcjcjUtgL2Bw46fpViyPJ8unzepefiAUgMgjYaNegaBIwvaSRQutACFkuXtqK4ag+CBw6/szpvs1fBA+kmfZ1/Zn5j0b+L6b+Po2vo2j/Q/mOp/6fu4rJ+MWcfrre2+l/8AcfpPnjdcS3DXqjiy1DkWl9xUhLTGLt8OyrLSvJHiZPhOXUxu+YxnmE20iLNHT5bi9kiHimeE8YzevGlgkwzyIxsM2ymizugny7MItVO4/ipHJlJBsyncGxHgQQSDt4X4ozjg/OqTPsjqerrYrix3SRGFnikXbVG67MLg/aUqwVgkf7U72YW79P1mPUGZ0czO9VDyDPYtVtzFKKZ+CLanII9HZw5GXxIzrWRgt/InjkhHDO4rer1gwzzmjQi1nreEeIODcwqZXjMlGZtcdQgOk3a9pALlGBNypFiLhGcA4vjlXSdwn0pU+VyJUMueNTmOopJWUyiXleFiAJlkt31A7RUukbNbHbPZb24sqwKv1HklvEyDOuHnJvC/HYMaWo5sKGKOOty2pmzI4ZsikyTH3BAyaRjGHZ1UVqdVrUC62jQ5rKKbS0BkMy6QbaXJ1D4drVHfysCN8M6SvZsoWSuR1een9HkDEBusQabWvZrWWYAczqI3ucET1PgO34e7Mxw/G6yyurGyvbcWNWM4Bzy8qcgI8+vuY8qWcVZ3ONjruz68owOTUeqNVHNRRmsyTO63iej4byWAVlcOzHCtkjjU9rTUE6ViVVYM0ikpYDcE2I5nnD3CM3AU3GHE9TT0uVFNVVJG5aoRlcxFeqXtvKZVaNFKsoZr9rSDg/ek8G2XrfAS0hZFfc5QCwmNKOe1YdZLbNV5QkhzAR1JFras0h7iOQZe3exWsRqK3nYfoxyXjTKUlpJZ4koaWteGXrYDesAXU0lO6kdVDG7lY5GDrNpN9I0g0m6TOJuFeKc9Wvyyhkgys00YhUPd4wgCATBidUrqouLgoCCSxucTdr7By4jFsJltYjt8ovyxpF7YRYy19WzuYe7wa2mqmkIKBXQAKqc/pDlc8r+XWaMbzpadoE/KOGlPMgWHwAFzaw/md7DkFZmNalZKOph6unUWUE6j8SzHmT/ICwHiTIfTqxH4zp7Hsaq99EuPSvSrD130TyhvWP6V+kfc9bphJ6uTu908+XLx+Hn8Mbqb2iDv99e53+Y7v3vd+NsKVyvt2zPsC+lYl9hjz3qM389H/TP9/wDqHW6Vl4j+vaD6o7/907vrF73w/S/ftj6A8C/2Rr/7S+P1n3/UH1P7b9X/AGWDRaJ+uq/Vv1ip9J9Q9GjeZ/qf+n8n2fQmyr2XN/YOdP3P3U9p/wB29/7vVYUXSb9V5f7d/ePXep5t6n4+/wDtetwTSm9MiemfR/5N6Z853lPu/wD3n0cGRfVFB7J6pfZfZ+Q9V9z3fhbFX632qf1ve/Od/wD5vjjZ9JfHLjOnsex//9k=" />
-                                <p class="mt-2 text-white text-sm">Парный</p>
+            <!-- Круглые изображения: парный / семейный / детский / женский / мужской -->
+            <section class="bg-dark py-8">
+                <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                    <ul role="list" class="mx-auto grid max-w-2xl grid-cols-2 gap-x-8 gap-y-16 text-center sm:grid-cols-3 md:grid-cols-4 lg:mx-0 lg:max-w-none lg:grid-cols-5">
+                        <li class="text-center feature">
+                            <a href="https://muse.ooo/portret-na-zakaz/parnyy-portret/" class="block">
+                                <img title="Парный" alt="Парный портрет" decoding="async" height="64" width="64" class="mx-auto size-16 rounded-full outline-1 -outline-offset-1 outline-white/10" src="data:image/jpeg;base64,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" />
+                                <h3 class="mt-6 text-base/7 font-semibold tracking-tight text-white">Парный</h3>
                             </a>
-                        </div>
-                        <div class="text-center feature flex-shrink-0">
-                            <a href="https://muse.ooo/portret-na-zakaz/semeynyy-portret/">
-                                <img title="Семейный" alt="Семейный портрет" decoding="async" height="50" width="50" src="data:image/jpeg;base64,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" />
-                                <p class="mt-2 text-white text-sm">Семейный</p>
+                        </li>
+                        <li class="text-center feature">
+                            <a href="https://muse.ooo/portret-na-zakaz/semeynyy-portret/" class="block">
+                                <img title="Семейный" alt="Семейный портрет" decoding="async" height="64" width="64" class="mx-auto size-16 rounded-full outline-1 -outline-offset-1 outline-white/10" src="data:image/jpeg;base64,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" />
+                                <h3 class="mt-6 text-base/7 font-semibold tracking-tight text-white">Семейный</h3>
                             </a>
-                        </div>
-                        <div class="text-center feature flex-shrink-0">
-                            <a href="https://muse.ooo/portret-na-zakaz/detskiy-portret/">
-                                <img title="Детский" alt="Детский портрет" decoding="async" height="50" width="50" src="data:image/jpeg;base64,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" />
-                                <p class="mt-2 text-white text-sm">Детский</p>
+                        </li>
+                        <li class="text-center feature">
+                            <a href="https://muse.ooo/portret-na-zakaz/detskiy-portret/" class="block">
+                                <img title="Детский" alt="Детский портрет" decoding="async" height="64" width="64" class="mx-auto size-16 rounded-full outline-1 -outline-offset-1 outline-white/10" src="data:image/jpeg;base64,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" />
+                                <h3 class="mt-6 text-base/7 font-semibold tracking-tight text-white">Детский</h3>
                             </a>
-                        </div>
-                        <div class="text-center feature flex-shrink-0">
-                            <a href="https://muse.ooo/portret-na-zakaz/zhenskiy-portret/">
-                                <img title="Женский" alt="Женский портрет" decoding="async" height="50" width="50" src="data:image/jpeg;base64,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" />
-                                <p class="mt-2 text-white text-sm">Женский</p>
+                        </li>
+                        <li class="text-center feature">
+                            <a href="https://muse.ooo/portret-na-zakaz/zhenskiy-portret/" class="block">
+                                <img title="Женский" alt="Женский портрет" decoding="async" height="64" width="64" class="mx-auto size-16 rounded-full outline-1 -outline-offset-1 outline-white/10" src="data:image/jpeg;base64,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" />
+                                <h3 class="mt-6 text-base/7 font-semibold tracking-tight text-white">Женский</h3>
                             </a>
-                        </div>
-                        <div class="text-center feature flex-shrink-0">
-                            <a href="https://muse.ooo/portret-na-zakaz/muzhskoy-portret/">
-                                <img title="Мужской" alt="Мужской портрет" decoding="async" height="50" width="50" src="data:image/webp;base64,UklGRpgDAABXRUJQVlA4IIwDAABwDwCdASoyADIAPm0skUWkIqGXCk+MQAbEsYBmgihod2BDgcOUDA6U/mqokeOuYlaQ0byVfVPAZH+mf+eAwg/8hNZ8YsHm6ZRIemvZRImVx82Rrw1H8+MxFXVmrIB4mtr0FghTe87ik6/I1LeSe+2hLe2krET7b17zG5LEKjCkZ2+lRAAA/v6rqSNfxXO8FbuWmKWMhj/9P8Z72OJOnZQrUIlVP3YMum8UIsuS4mnyjQYoumxSc2im3RgfSZfZPo9PzMEELd5WUNbu3Ahqta+aTExkpNyaeQ9QtpHawUAyTpDcoUwuinaP5121lXX2qciBkcwVMj/kT/fwbl+pmO/nnGQytPkdD29Uga1NXhvHCzBBkusjYnMnNy/aMo7Xyc/y5m8iHOuONK4GgwEwoBWUjSGrMJJd2buY+dfdICrZS8NtC5+3U+lZW7B8aWlSgORKljhe4RcoP4GU9V0zcc45PONy3+FCayjfpOhEkDsEptD/9FfVqKwIl7C/Yxrsf4gTkXGlxC1KWs5V7c0Z1f7q9+tX+ctKpW9VcoamKxafpyQZFoeCIOAho4wOTWbqYwuhz9f6TS8YMyCCOsLaTfXMWfcflPhYR9FsbmPm3scpFO5uxmrHXbkXNAHYQNcs58seBPn0GZzo9pZWpAICBNhkkOJY3v3jhn3VUllVbuH1LpshYo/91BnXGIb2N9ZSD0fKf43vhhqmzWgdPxoufHF0OykD7BVqBCKraHUCFpcCDv9jLZf9W2Pi63/nb88kYfgW23xj7tSMWPuqLy+3fOjpuTT/uNJA1ZmYa+pvYvnzmjShMAHEryzC1x/RS/JKRk2wWgRIdL3zGpem/Tdvgc3i6S1VklBYE0yACEjdhN0mC6AtyTWnseWgoPg/yWCxIodPmr64nifKoy0VY1rJZ22v3PrbF1uOZjkyMybT0+e2CY51ntXclfmJBpN8Xn8fAfQ7yiAYv5ySJDulzOZ1w0cW6Q+sbsm2gMnZCJC0tb+KqKgJ0pdn4Kzyr4jiDXkJDqf4tIItCNpeFzizXYkfnPHnU+X3hbDwDM/lTTNrtuRr9c0kHor56vpy16CfFg7KaO+ShOjlRrOGQoNKv9/O73uSDeovLvIFgfwmn7cN6mMKyUivy5VhlTeq2uLlr3pdtk4WiRD6hH2I/HDv9j/KKnuhdQVtPiIkpnZJeX674kcvq2w0JVAEBEBhLsAAAA==" />
-                                <p class="mt-2 text-white text-sm">Мужской</p>
+                        </li>
+                        <li class="text-center feature">
+                            <a href="https://muse.ooo/portret-na-zakaz/muzhskoy-portret/" class="block">
+                                <img title="Мужской" alt="Мужской портрет" decoding="async" height="64" width="64" class="mx-auto size-16 rounded-full outline-1 -outline-offset-1 outline-white/10" src="data:image/webp;base64,UklGRpgDAABXRUJQVlA4IIwDAABwDwCdASoyADIAPm0skUWkIqGXCk+MQAbEsYBmgihod2BDgcOUDA6U/mqokeOuYlaQ0byVfVPAZH+mf+eAwg/8hNZ8YsHm6ZRIemvZRImVx82Rrw1H8+MxFXVmrIB4mtr0FghTe87ik6/I1LeSe+2hLe2krET7b17zG5LEKjCkZ2+lRAAA/v6rqSNfxXO8FbuWmKWMhj/9P8Z72OJOnZQrUIlVP3YMum8UIsuS4mnyjQYoumxSc2im3RgfSZfZPo9PzMEELd5WUNbu3Ahqta+aTExkpNyaeQ9QtpHawUAyTpDcoUwuinaP5121lXX2qciBkcwVMj/kT/fwbl+pmO/nnGQytPkdD29Uga1NXhvHCzBBkusjYnMnNy/aMo7Xyc/y5m8iHOuONK4GgwEwoBWUjSGrMJJd2buY+dfdICrZS8NtC5+3U+lZW7B8aWlSgORKljhe4RcoP4GU9V0zcc45PONy3+FCayjfpOhEkDsEptD/9FfVqKwIl7C/Yxrsf4gTkXGlxC1KWs5V7c0Z1f7q9+tX+ctKpW9VcoamKxafpyQZFoeCIOAho4wOTWbqYwuhz9f6TS8YMyCCOsLaTfXMWfcflPhYR9FsbmPm3scpFO5uxmrHXbkXNAHYQNcs58seBPn0GZzo9pZWpAICBNhkkOJY3v3jhn3VUllVbuH1LpshYo/91BnXGIb2N9ZSD0fKf43vhhqmzWgdPxoufHF0OykD7BVqBCKraHUCFpcCDv9jLZf9W2Pi63/nb88kYfgW23xj7tSMWPuqLy+3fOjpuTT/uNJA1ZmYa+pvYvnzmjShMAHEryzC1x/RS/JKRk2wWgRIdL3zGpem/Tdvgc3i6S1VklBYE0yACEjdhN0mC6AtyTWnseWgoPg/yWCxIodPmr64nifKoy0VY1rJZ22v3PrbF1uOZjkyMybT0+e2CY51ntXclfmJBpN8Xn8fAfQ7yiAYv5ySJDulzOZ1w0cW6Q+sbsm2gMnZCJC0tb+KqKgJ0pdn4Kzyr4jiDXkJDqf4tIItCNpeFzizXYkfnPHnU+X3hbDwDM/lTTNrtuRr9c0kHor56vpy16CfFg7KaO+ShOjlRrOGQoNKv9/O73uSDeovLvIFgfwmn7cN6mMKyUivy5VhlTeq2uLlr3pdtk4WiRD6hH2I/HDv9j/KKnuhdQVtPiIkpnZJeX674kcvq2w0JVAEBEBhLsAAAA==" />
+                                <h3 class="mt-6 text-base/7 font-semibold tracking-tight text-white">Мужской</h3>
                             </a>
-                        </div>
+                        </li>
+                        </ul>
                     </div>
                 </div>
             </section>
@@ -505,80 +957,305 @@
                     </p>
                 </div>
 
-                <div class="grid gap-8 lg:grid-cols-3">
-                    <!-- Левая часть: шаблон калькулятора (форма без логики) -->
-                    <div class="lg:col-span-2 bg-white p-6 rounded-md shadow-sm border border-gray-200">
-                        <form>
-                            <div class="grid gap-4 md:grid-cols-2">
-                                <div>
-                                    <label class="block text-sm text-dark mb-1">Размер</label>
-                                    <select class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm">
-                                        <option>30×40 см</option>
-                                        <option>40×40 см</option>
-                                        <option>40×50 см</option>
-                                        <option>40×60 см</option>
-                                        <option>50×50 см</option>
-                                        <option>50×60 см</option>
-                                        <option>50×70 см</option>
-                                        <option>60×80 см</option>
-                                        <option>60×90 см</option>
-                                        <option>80×120 см</option>
-                                        <option>90×120 см</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-sm text-dark mb-1">Количество лиц</label>
-                                    <select class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm">
-                                        <option>1 лицо</option>
-                                        <option>2 лица</option>
-                                        <option>3 лица</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-sm text-dark mb-1">Стиль</label>
-                                    <select class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm">
-                                        <option>Масло</option>
-                                        <option>Акварель</option>
-                                        <option>Карандаш</option>
-                                        <option>Комикс</option>
-                                        <option>Поп-арт</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-sm text-dark mb-1">Город доставки</label>
-                                    <input type="text" value="Санкт-Петербург" class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm">
+                <!-- Калькулятор: изображение слева, опции справа, форма внизу -->
+                <div class="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
+                    <!-- Верхняя часть: изображение слева, опции справа -->
+                    <div class="grid md:grid-cols-2 gap-0">
+                        <!-- Изображение слева (адаптивное) -->
+                        <div>
+                            <img 
+                                src="https://muse.ooo/assets/calculator/img/canvas_ad_mirrored_size_628_398.webp" 
+                                alt="Портрет на холсте" 
+                                class="w-full h-full object-cover min-h-[300px] md:min-h-0"
+                                loading="lazy"
+                            >
+                            <!-- Цены под изображением (не накладываясь) -->
+                            <div class="p-4 text-center">
+                                <div class="flex items-baseline justify-center gap-2">
+                                    <span class="text-lg text-gray-400 line-through">5 464 ₽</span>
+                                    <span class="text-2xl font-bold text-dark">4 371 ₽</span>
                                 </div>
                             </div>
-                            <div class="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        </div>
+
+                        <!-- Опции конфигурации справа -->
+                        <div class="p-6 md:p-8">
+                            <form id="calculator-form" class="space-y-4">
+                                <!-- Размер: два поля -->
                                 <div>
-                                    <p class="text-sm text-body">Ориентировочная стоимость:</p>
-                                    <p class="h4 text-dark mt-1">от 4 371 ₽</p>
+                                    <label class="block text-sm font-medium text-dark mb-1">
+                                        Размер
+                                    </label>
+                                    <div class="flex items-center gap-2">
+                                        <input 
+                                            type="text" 
+                                            name="size_width" 
+                                            value="20" 
+                                            class="w-20 border border-gray-300 rounded-md px-3 py-2 text-sm text-center focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                        >
+                                        <span class="text-gray-600">×</span>
+                                        <input 
+                                            type="text" 
+                                            name="size_height" 
+                                            value="30" 
+                                            class="w-20 border border-gray-300 rounded-md px-3 py-2 text-sm text-center focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                        >
+                                    </div>
                                 </div>
-                                <a href="https://muse.ooo/order/" class="btn btn--primary type--uppercase w-full sm:w-auto text-center">
-                                    <span class="btn__text">Оформить заказ</span>
-                                </a>
+
+                                <!-- Стиль -->
+                                <div>
+                                    <label class="block text-sm font-medium text-dark mb-1">
+                                        Стиль
+                                        <span class="help-icon" data-help="тест" title="Подсказка">?</span>
+                                    </label>
+                                    <select 
+                                        name="style" 
+                                        class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                    >
+                                        <option value="под масло" selected>Под масло</option>
+                                        <option value="Акварель">Акварель</option>
+                                        <option value="Маслом">Маслом</option>
+                                        <option value="Карандаш">Карандаш</option>
+                                        <option value="В образе">В образе</option>
+                                        <option value="Шарж">Шарж</option>
+                                        <option value="Комикс">Комикс</option>
+                                        <option value="Из слов">Из слов</option>
+                                        <option value="Фотомозаика">Фотомозаика</option>
+                                        <option value="Граффити">Граффити</option>
+                                        <option value="Лоу-поли">Лоу-поли</option>
+                                        <option value="Фэнтези">Фэнтези</option>
+                                        <option value="Flower Art">Flower Art</option>
+                                        <option value="Love is...">Love is...</option>
+                                        <option value="Гранж">Гранж</option>
+                                        <option value="WPAP">WPAP</option>
+                                        <option value="Бьюти-арт">Бьюти-арт</option>
+                                        <option value="Поп-арт">Поп-арт</option>
+                                        <option value="Дрим-арт">Дрим-арт</option>
+                                    </select>
+                                </div>
+
+                                <!-- Количество лиц -->
+                                <div>
+                                    <label class="block text-sm font-medium text-dark mb-1">
+                                        Количество лиц
+                                        <span class="help-icon" data-help="тест" title="Подсказка">?</span>
+                                    </label>
+                                    <select 
+                                        name="faces" 
+                                        class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                    >
+                                        <option value="1" selected>1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                    </select>
+                                    <p class="text-sm text-gray-600 mt-1">1 920 ₽</p>
+                                </div>
+
+                                <!-- Печать, подрамник -->
+                                <div>
+                                    <label class="block text-sm font-medium text-dark mb-1">
+                                        Печать, подрамник
+                                        <span class="help-icon" data-help="тест" title="Подсказка">?</span>
+                                    </label>
+                                    <select 
+                                        name="print" 
+                                        class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                    >
+                                        <option value="стандартный" selected>Стандартный</option>
+                                        <option value="премиум">Премиум</option>
+                                        <option value="эконом">Эконом</option>
+                                    </select>
+                                    <p class="text-sm text-gray-600 mt-1">2 391 ₽</p>
+                                </div>
+
+                                <!-- Покрытие лаком -->
+                                <div>
+                                    <div class="flex items-center justify-between">
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input 
+                                                type="checkbox" 
+                                                name="varnish" 
+                                                checked 
+                                                class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                                            >
+                                            <span class="text-sm text-dark">Покрытие лаком</span>
+                                            <span class="help-icon" data-help="тест" title="Подсказка">?</span>
+                                        </label>
+                                        <span class="text-sm text-gray-600">60 ₽</span>
+                                    </div>
+                                </div>
+
+                                <!-- Подарочная упаковка -->
+                                <div>
+                                    <div class="flex items-center justify-between">
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input 
+                                                type="checkbox" 
+                                                name="gift_wrap" 
+                                                class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                                            >
+                                            <span class="text-sm text-dark">Подарочная упаковка</span>
+                                            <span class="help-icon" data-help="тест" title="Подсказка">?</span>
+                                        </label>
+                                        <span class="text-sm text-gray-600">650 ₽</span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Кнопка загрузки фото (под калькулятором) -->
+                    <div class="p-6 md:p-8 border-t border-gray-200 text-center">
+                        <button 
+                            type="button" 
+                            class="bg-primary text-white font-semibold py-3 px-6 rounded-md hover:bg-primary-dark transition-colors uppercase tracking-wide"
+                        >
+                            ЗАГРУЗИТЕ ФОТО
+                        </button>
+                    </div>
+
+                    <!-- Нижняя часть: форма (на всю ширину) -->
+                    <div class="p-6 md:p-8 border-t border-gray-200">
+
+                        <!-- Поля формы -->
+                        <form class="space-y-4">
+                            <!-- Первая строка: Имя, Телефон, E-mail, Комментарий (4 колонки, без label, только placeholder) -->
+                            <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                                <input 
+                                    type="text" 
+                                    name="name" 
+                                    required 
+                                    class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                    placeholder="Имя *"
+                                >
+
+                                <input 
+                                    type="tel" 
+                                    name="phone" 
+                                    required 
+                                    id="phone-input"
+                                    class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                    placeholder="Телефон *"
+                                >
+
+                                <input 
+                                    type="email" 
+                                    name="email" 
+                                    id="email-input"
+                                    class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                    placeholder="E-mail"
+                                >
+
+                                <textarea 
+                                    name="comment" 
+                                    rows="3" 
+                                    class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
+                                    placeholder="Комментарий"
+                                ></textarea>
+                            </div>
+
+                            <!-- Вторая строка: Поле для ссылки на фото или облако (1 колонка, 2 строки, без label) -->
+                            <div>
+                                <textarea 
+                                    name="photo_link" 
+                                    rows="2" 
+                                    class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
+                                    placeholder="Поле для ссылки на фото или облако"
+                                ></textarea>
+                            </div>
+
+                            <!-- Третья строка: Согласие (2 колонки) и кнопка (1 колонка) -->
+                            <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 items-start">
+                                <label class="flex items-start gap-2 cursor-pointer lg:col-span-2">
+                                    <input 
+                                        type="checkbox" 
+                                        name="agreement" 
+                                        required 
+                                        class="mt-1 w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary flex-shrink-0"
+                                    >
+                                    <span class="text-xs text-body leading-relaxed">
+                                        Заполняя форму, я соглашаюсь с условиями <a href="#" class="text-primary hover:underline">Оферты</a> и даю свое согласие на обработку персональных данных в соответствии с <a href="#" class="text-primary hover:underline">Политикой конфиденциальности</a> сайта
+                                    </span>
+                                </label>
+
+                                <div class="lg:col-span-1">
+                                    <button 
+                                        type="submit" 
+                                        class="w-full bg-primary text-white font-semibold py-3 px-6 rounded-md hover:bg-primary-dark transition-colors uppercase tracking-wide"
+                                    >
+                                        ЗАКАЗАТЬ
+                                    </button>
+                                </div>
                             </div>
                         </form>
                     </div>
+                </div>
+            </div>
+        </section>
 
-                    <!-- Правая часть: Характеристики (из старой страницы) -->
-                    <div class="bg-white p-6 rounded-md shadow-sm border border-gray-200">
-                        <h3 class="h4 text-dark mb-4">Характеристики</h3>
-                        <ul class="space-y-2 text-body text-sm">
-                            <li>• Цифровой макет</li>
-                            <li>• 100%-й хлопковый холст плотностью 380&nbsp;г/кв.м</li>
-                            <li>• Печать латексными чернилами</li>
-                            <li>• Сосновый подрамник</li>
-                            <li>• Галерейная натяжка холста на подрамник</li>
-                            <li>• Проклейка с обратной стороны защитным скотчем</li>
-                            <li>• Установка креплений «Крокодил»</li>
-                            <li>• Упаковка в пупырчатую пленку и картон</li>
-                            <li>• Страхование доставки</li>
-                        </ul>
-                        <div class="mt-4 text-sm text-body">
-                            <p>Срок создания цифрового макета — <?=$orderDate?><?=$dateNote?>.</p>
-                            <p>Получение портрета на холсте со склада самовывоза — <?=$Pdate?>.</p>
-                            <p>Ориентировочная дата доставки в пункты выдачи Санкт-Петербурга — <?=$Ddate?>.</p>
+        <!-- Характеристики и Сроки -->
+        <section class="bg-secondary py-16 md:py-24">
+            <div class="container">
+                <div class="grid gap-6 md:grid-cols-2">
+                    <!-- Характеристики -->
+                    <div>
+                        <h3 class="h3 text-dark mb-4">Характеристики</h3>
+                        <div class="pricing pricing-1">
+                            <ul class="space-y-2">
+                                <li class="flex items-start gap-2">
+                                    <span class="bg-primary checkmark flex-shrink-0"></span>
+                                    <span class="text-body">Цифровой макет</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="bg-primary checkmark flex-shrink-0"></span>
+                                    <span class="text-body">100%-й хлопковый холст плотностью 380&nbsp;г/кв.м</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="bg-primary checkmark flex-shrink-0"></span>
+                                    <span class="text-body">Печать латексными чернилами</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="bg-primary checkmark flex-shrink-0"></span>
+                                    <span class="text-body">Сосновый подрамник</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="bg-primary checkmark flex-shrink-0"></span>
+                                    <span class="text-body">Галерейная натяжка холста на подрамник</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="bg-primary checkmark flex-shrink-0"></span>
+                                    <span class="text-body">Проклейка с обратной стороны защитным скотчем</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="bg-primary checkmark flex-shrink-0"></span>
+                                    <span class="text-body">Установка креплений «Крокодил»</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="bg-primary checkmark flex-shrink-0"></span>
+                                    <span class="text-body">Упаковка в пупырчатую пленку и картон</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="bg-primary checkmark flex-shrink-0"></span>
+                                    <span class="text-body">Страхование доставки</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Сроки -->
+                    <div>
+                        <h3 class="h3 text-dark mb-4">Сроки</h3>
+                        <div class="text-body space-y-2">
+                            <p>Срок создания цифрового макета&nbsp;&mdash; 08.01.2026.</p>
+                            <p>Получение портрета на&nbsp;холсте со&nbsp;склада самовывоза&nbsp;&mdash; 09.01.2026.</p>
+                            <p>Ориентировочная дата доставки в <a href="https://muse.ooo/info/dostavka/" class="text-primary">пункты выдачи</a> Санкт-Петербурга (<a href="#tfLocationPopup" class="text-primary">изменить местоположение</a>)&nbsp;&mdash; 11 января.</p>
                         </div>
                     </div>
                 </div>
@@ -596,51 +1273,71 @@
                 <div class="grid gap-10 lg:grid-cols-2">
                     <!-- Видео слева -->
                     <div>
-                        <div class="border--round box-shadow-wide overflow-hidden rounded-md bg-black/40">
-                            <div class="relative w-full" style="padding-top: 64%;">
-                                <iframe 
-                                    src="https://www.youtube.com/embed/09C_QXeMT3o?rel=0&showinfo=0" 
+                        <div class="border--round box-shadow-wide video-cover overflow-hidden rounded-md">
+                            <div class="background-image-holder relative w-full" style="padding-top: 64.5%;">
+                                <img 
+                                    decoding="async" 
                                     loading="lazy" 
-                                    title="Видео о создании портрета на холсте в Muse" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen 
-                                    class="absolute inset-0 w-full h-full border-0">
-                                </iframe>
+                                    fetchpriority="high"
+                                    height="358" 
+                                    width="555" 
+                                    title="Видео о создании портретов от Muse" 
+                                    alt="Обложка для видео: Портрет на заказ по фото. Печать на холсте. Вопрос-ответ." 
+                                    src="https://muse.ooo/img/portret-na-zakaz-cover-555.webp"
+                                    class="absolute inset-0 w-full h-full object-cover">
                             </div>
+                            <div class="video-play-icon absolute inset-0 flex items-center justify-center cursor-pointer z-10 bg-black/20 hover:bg-black/30 transition-colors">
+                                <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                            </div>
+                            <video 
+                                title="Процесс создания портрета в студии Muse"
+                                aria-label="Видео: как создаются и печатаются портреты на холсте"
+                                preload="metadata"
+                                controls
+                                playsinline
+                                webkit-playsinline
+                                class="hidden w-full"
+                                >
+                                <source src="https://muse.ooo/video/portret-po-foto-na-zakaz-na-holste.webm" type="video/webm"/>
+                                Ваш браузер не поддерживает воспроизведение видео.
+                            </video>
                         </div>
                         <p class="mt-4 text-body">
                             Видео о создании портрета на холсте в Muse
                         </p>
                     </div>
-                    <!-- Процесс справа -->
+                    <!-- Процесс справа (Process 5 style) -->
                     <div>
-                        <ol class="space-y-6">
-                            <li class="flex gap-4">
-                                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white">
-                                    <span class="h4">1</span>
+                        <ol class="process-3">
+                            <li>
+                                <div class="process__number">
+                                    <span>1</span>
                                 </div>
-                                <div class="flex-1">
-                                    <p class="text-body">
+                                <div class="process__body">
+                                    <h4>Выбор стиля и оформление заказа</h4>
+                                    <p>
                                         Сначала рекомендуем определиться со стилем портрета. В разделе
                                         <a href="#styles" class="text-primary">&laquo;Выберите стиль ↑&raquo;</a>
                                         нажмите на название понравившегося стиля. Откроется отдельная страница с его подробным описанием.
                                     </p>
-                                    <p class="text-body mt-2">
+                                    <p>
                                         В разделе <a href="#calc" class="text-primary">&laquo;Цена ↑&raquo;</a> можно загрузить фото, подобрать нужный размер, рассчитать стоимость и оформить заказ.
                                     </p>
-                                    <p class="text-body mt-2">
+                                    <p>
                                         Нет возможности разбираться?<br>
                                         Нажмите любую кнопку <a href="https://muse.ooo/order/" class="text-primary">&laquo;Заказать&raquo;</a> на сайте и перешлите нам фото. Перезвоним и поможем с выбором.
                                     </p>
                                 </div>
                             </li>
-                            <li class="flex gap-4">
-                                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white">
-                                    <span class="h4">2</span>
+                            <li>
+                                <div class="process__number">
+                                    <span>2</span>
                                 </div>
-                                <div class="flex-1">
-                                    <span class="h3 text-white block mb-2">Цифровой макет</span>
-                                    <p class="text-body">
+                                <div class="process__body">
+                                    <h4>Цифровой макет</h4>
+                                    <p>
                                         В&nbsp;течение часа позвоним, чтобы обсудить задание. По&nbsp;согласованному заданию выполним эскиз. После подтверждения эскиза напишем портрет. Вносите правки, пока не&nbsp;будете удовлетворены работой.
                                     </p>
                                 </div>
@@ -780,13 +1477,12 @@
                 </div>
                 <div class="grid gap-8 md:grid-cols-2" itemscope itemtype="http://schema.org/FAQPage">
                     <!-- Левая колонка -->
-                    <div class="space-y-4">
-                        <div class="rounded-md bg-white" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" class="w-full flex items-center justify-between px-4 py-3 accordion-title">
-                                <span class="h5 font-normal text-dark text-left flex-1" itemprop="name">Сколько стоит портрет по фото на холсте?</span>
-                                <span class="ml-2 text-gray-500">+</span>
-                            </button>
-                            <div class="px-4 pb-4 hidden accordion-content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
+                    <ul class="accordion accordion-2 space-y-0">
+                        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+                            <div class="accordion__title">
+                                <span class="h5 font-normal text-dark" itemprop="name">Сколько стоит портрет по фото на холсте?</span>
+                            </div>
+                            <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
                                 <div class="text-body" itemprop="text">
                                     <p>Понимаем, что для подарка важна предсказуемая цена. Поэтому упростили расчёты. Цена написания портрета рассчитывается от количества лиц, а цена его печати и оформления на холсте — от размера. Минимальная стоимость картины с изображением одного человека размером 20×30 см (с покрытием лаком) — 4371 р., а средняя (размер 40×60 ) — 5293 р.</p>
                                     <div class="mt-3">
@@ -875,62 +1571,57 @@
                                     </p>
                                 </div>
                             </div>
-                        </div>
+                        </li>
 
-                        <div class="rounded-md bg-white" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" class="w-full flex items-center justify-between px-4 py-3 accordion-title">
-                                <span class="h5 font-normal text-dark text-left flex-1" itemprop="name">Какие сроки исполнения заказа?</span>
-                                <span class="ml-2 text-gray-500">+</span>
-                            </button>
-                            <div class="px-4 pb-4 hidden accordion-content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
+                        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+                            <div class="accordion__title">
+                                <span class="h5 font-normal text-dark" itemprop="name">Какие сроки исполнения заказа?</span>
+                            </div>
+                            <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
                                 <div class="text-body" itemprop="text">
                                     Средний срок создания цифрового макета&nbsp;&mdash; 2&nbsp;дня. Средний срок его печати и&nbsp;оформления &mdash; 1&nbsp;день.
                                 </div>
                             </div>
-                        </div>
+                        </li>
 
-                        <div class="rounded-md bg-white" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" class="w-full flex items-center justify-between px-4 py-3 accordion-title">
-                                <span class="h5 font-normal text-dark text-left flex-1" itemprop="name">В чём особенность портретов по фото?</span>
-                                <span class="ml-2 text-gray-500">+</span>
-                            </button>
-                            <div class="px-4 pb-4 hidden accordion-content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
+                        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+                            <div class="accordion__title">
+                                <span class="h5 font-normal text-dark" itemprop="name">В чём особенность портретов по фото?</span>
+                            </div>
+                            <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
                                 <div class="text-body" itemprop="text">
                                     Они пишутся без позирования изображаемых людей, поэтому часто выбираются как неожиданный подарок для близких.
                                 </div>
                             </div>
-                        </div>
+                        </li>
 
-                        <div class="rounded-md bg-white" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" class="w-full flex items-center justify-between px-4 py-3 accordion-title">
-                                <span class="h5 font-normal text-dark text-left flex-1" itemprop="name">Вы печатаете или рисуете?</span>
-                                <span class="ml-2 text-gray-500">+</span>
-                            </button>
-                            <div class="px-4 pb-4 hidden accordion-content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
+                        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+                            <div class="accordion__title">
+                                <span class="h5 font-normal text-dark" itemprop="name">Вы печатаете или рисуете?</span>
+                            </div>
+                            <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
                                 <div class="text-body" itemprop="text">
                                     Портрет пишется художником в цифровом виде, а затем печатается. После изготовления он может быть прорисован маслом, акриловыми красками или художественным гелем.
                                 </div>
                             </div>
-                        </div>
+                        </li>
 
-                        <div class="rounded-md bg-white" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" class="w-full flex items-center justify-between px-4 py-3 accordion-title">
-                                <span class="h5 font-normal text-dark text-left flex-1" itemprop="name">Есть ли преимущества у «цифры» перед кистью?</span>
-                                <span class="ml-2 text-gray-500">+</span>
-                            </button>
-                            <div class="px-4 pb-4 hidden accordion-content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
+                        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+                            <div class="accordion__title">
+                                <span class="h5 font-normal text-dark" itemprop="name">Есть ли преимущества у «цифры» перед кистью?</span>
+                            </div>
+                            <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
                                 <div class="text-body" itemprop="text">
                                     Цифровой портрет создается поверх фотографии&nbsp;&mdash; художнику легче добиться схожести, а затем проще вносить правки. Его можно использовать как для печати на&nbsp;холсте, так и&nbsp;для соцсетей, визиток, футболок или кружек. Он легко перепечатывается в&nbsp;случае утраты или тиражируется.
                                 </div>
                             </div>
-                        </div>
+                        </li>
 
-                        <div class="rounded-md bg-white" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" class="w-full flex items-center justify-between px-4 py-3 accordion-title">
-                                <span class="h5 font-normal text-dark text-left flex-1" itemprop="name">Какие будут гарантии при работе с вами?</span>
-                                <span class="ml-2 text-gray-500">+</span>
-                            </button>
-                            <div class="px-4 pb-4 hidden accordion-content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
+                        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+                            <div class="accordion__title">
+                                <span class="h5 font-normal text-dark" itemprop="name">Какие будут гарантии при работе с вами?</span>
+                            </div>
+                            <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
                                 <div class="text-body" itemprop="text">
                                     <p class="h5">Почему нам можно доверять:</p>
                                     <ul class="list-disc pl-5 mt-2 space-y-1">
@@ -943,17 +1634,16 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        </li>
+                    </ul>
 
                     <!-- Правая колонка -->
-                    <div class="space-y-4">
-                        <div class="rounded-md bg-white" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" class="w-full flex items-center justify-between px-4 py-3 accordion-title">
-                                <span class="h5 font-normal text-dark text-left flex-1" itemprop="name">Почему не напечатать просто фото?</span>
-                                <span class="ml-2 text-gray-500">+</span>
-                            </button>
-                            <div class="px-4 pb-4 hidden accordion-content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
+                    <ul class="accordion accordion-2 space-y-0">
+                        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+                            <div class="accordion__title">
+                                <span class="h5 font-normal text-dark" itemprop="name">Почему не напечатать просто фото?</span>
+                            </div>
+                            <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
                                 <div class="text-body" itemprop="text">
                                     <p>При написании портрета заказчик руками художника выражает <strong>личное отношение</strong> к&nbsp;портретируемому:</p>
                                     <ul class="list-disc pl-5 mt-2 space-y-1">
@@ -969,40 +1659,37 @@
                                     </p>
                                 </div>
                             </div>
-                        </div>
+                        </li>
 
-                        <div class="rounded-md bg-white" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" class="w-full flex items-center justify-between px-4 py-3 accordion-title">
-                                <span class="h5 font-normal text-dark text-left flex-1" itemprop="name">Какие требования к фото?</span>
-                                <span class="ml-2 text-gray-500">+</span>
-                            </button>
-                            <div class="px-4 pb-4 hidden accordion-content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
+                        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+                            <div class="accordion__title">
+                                <span class="h5 font-normal text-dark" itemprop="name">Какие требования к фото?</span>
+                            </div>
+                            <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
                                 <div class="text-body" itemprop="text">
                                     Лучше найти исходник&nbsp;&mdash; снимок со&nbsp;смартфона или фотоаппарата. Если нет цифрового оригинала, а&nbsp;только фотокарточка&nbsp;&mdash; отсканируйте&nbsp;её.<br>
                                     Изображения из&nbsp;социальных сетей, мессенджеров подойдут не&nbsp;все&nbsp;&mdash; пришлите их&nbsp;нам, чтобы художник посмотрел.
                                 </div>
                             </div>
-                        </div>
+                        </li>
 
-                        <div class="rounded-md bg-white" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" class="w-full flex items-center justify-between px-4 py-3 accordion-title">
-                                <span class="h5 font-normal text-dark text-left flex-1" itemprop="name">На чём печатаете?</span>
-                                <span class="ml-2 text-gray-500">+</span>
-                            </button>
-                            <div class="px-4 pb-4 hidden accordion-content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
+                        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+                            <div class="accordion__title">
+                                <span class="h5 font-normal text-dark" itemprop="name">На чём печатаете?</span>
+                            </div>
+                            <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
                                 <div class="text-body" itemprop="text">
                                     На&nbsp;плоттере HP&nbsp;Latex 315&nbsp;с разрешением 1200×1200 dpi и&nbsp;размером капли 12&nbsp;пиколитров. Цвет точки формируется из&nbsp;6&nbsp;цветов: черного, голубого, светло-голубого, светло-пурпурного, пурпурного и&nbsp;желтого.<br>
                                     В качестве основы используем 100%-й хлопковый холст плотностью 380 г/м². Такая плотность соответствует <a rel="nofollow noopener" href="https://www.fineart.co.uk/guild-print-standards-with-artsure.aspx" target="_blank" class="text-primary">стандартам</a> международной гильдии Fine Art Trade Guild и обеспечивает гарантию на выполненную работу.
                                 </div>
                             </div>
-                        </div>
+                        </li>
 
-                        <div class="rounded-md bg-white" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" class="w-full flex items-center justify-between px-4 py-3 accordion-title">
-                                <span class="h5 font-normal text-dark text-left flex-1" itemprop="name">Недорого ли у вас печатать?</span>
-                                <span class="ml-2 text-gray-500">+</span>
-                            </button>
-                            <div class="px-4 pb-4 hidden accordion-content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
+                        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+                            <div class="accordion__title">
+                                <span class="h5 font-normal text-dark" itemprop="name">Недорого ли у вас печатать?</span>
+                            </div>
+                            <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
                                 <div class="text-body" itemprop="text">
                                     Печатаем латексными чернилами (они дороже в&nbsp;3&nbsp;раза, чем широко распространенные экосольвентные), так как латексные безвредны для человека, что подтверждено <a rel="nofollow noopener" href="https://spot.ul.com/main-app/products/detail/5ad1e9dd55b0e82d946a315a?page_type=Products%20Catalog" target="_blank" class="text-primary">сертификатами безопасности</a>. Экосольвентные чернила могут быть экологически опасны для здоровья, если в&nbsp;них содержится циклогексан. Для проверки наличия сертификата безопасности&nbsp;&mdash; спросите марку чернил, а затем введите её&nbsp;здесь: <a rel="nofollow noopener" href="https://spot.ul.com/" target="_blank" class="text-primary">www.spot.ul.com</a>.<br>
                                     Экосольвентные плоттеры чаще всего используют лишь 4 цвета, а латексные&nbsp;&mdash; 6. Шесть цветов увеличивают реалистичность и&nbsp;богатство полутонов.<br>
@@ -1010,34 +1697,32 @@
                                     Если найдете цену ниже на&nbsp;работу с&nbsp;аналогичными характеристиками в СПб, то&nbsp;напишите&nbsp;&mdash; снизим цену и&nbsp;приготовим подарок.
                                 </div>
                             </div>
-                        </div>
+                        </li>
 
-                        <div class="rounded-md bg-white" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" class="w-full flex items-center justify-between px-4 py-3 accordion-title">
-                                <span class="h5 font-normal text-dark text-left flex-1" itemprop="name">Почему портрет на холсте долговечен?</span>
-                                <span class="ml-2 text-gray-500">+</span>
-                            </button>
-                            <div class="px-4 pb-4 hidden accordion-content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
+                        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+                            <div class="accordion__title">
+                                <span class="h5 font-normal text-dark" itemprop="name">Почему портрет на холсте долговечен?</span>
+                            </div>
+                            <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
                                 <div class="text-body" itemprop="text">
                                     Если использованы оригинальные чернила, он устойчив к воздействию ультрафиолета, который со временем разрушает натуральные материалы.
                                 </div>
                             </div>
-                        </div>
+                        </li>
 
-                        <div class="rounded-md bg-white" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" class="w-full flex items-center justify-between px-4 py-3 accordion-title">
-                                <span class="h5 font-normal text-dark text-left flex-1" itemprop="name">Где вы находитесь?</span>
-                                <span class="ml-2 text-gray-500">+</span>
-                            </button>
-                            <div class="px-4 pb-4 hidden accordion-content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
+                        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+                            <div class="accordion__title">
+                                <span class="h5 font-normal text-dark" itemprop="name">Где вы находитесь?</span>
+                            </div>
+                            <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
                                 <div class="text-body" itemprop="text">
                                     <p class="h5">Студия Muse</p>
                                     <p>Адрес: 196620, Россия, Санкт-Петербург, Павловск, Слуцкая ул., дом 13 к 2.</p>
                                     <p>Телефон: +7-812-408-18-69</p>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -1250,10 +1935,11 @@
         </div>
     </footer>
 
-    <!-- Скрипты: аккордеон FAQ и прокрутка каруселей (как на главной) -->
+    <!-- Скрипты: прокрутка каруселей (как на главной) -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // FAQ accordion
+            
+            // Old accordion support (if any remain)
             document.querySelectorAll('.accordion-title').forEach(function (btn) {
                 btn.addEventListener('click', function () {
                     const content = btn.parentElement.querySelector('.accordion-content');
@@ -1382,6 +2068,101 @@
             }
         })();
     </script>
+    
+    <!-- Модальное окно для подсказок -->
+    <div id="help-modal" class="help-modal">
+        <div class="help-modal-content">
+            <button class="help-modal-close" id="help-modal-close">&times;</button>
+            <div id="help-modal-text"></div>
+        </div>
+    </div>
+
+    <!-- Маски для телефона и email, модальное окно -->
+    <script>
+        // Модальное окно для подсказок
+        (function() {
+            const helpIcons = document.querySelectorAll('.help-icon');
+            const helpModal = document.getElementById('help-modal');
+            const helpModalText = document.getElementById('help-modal-text');
+            const helpModalClose = document.getElementById('help-modal-close');
+            
+            helpIcons.forEach(icon => {
+                icon.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const helpText = icon.getAttribute('data-help') || 'Тест';
+                    helpModalText.textContent = helpText;
+                    helpModal.classList.add('active');
+                });
+            });
+            
+            helpModalClose.addEventListener('click', () => {
+                helpModal.classList.remove('active');
+            });
+            
+            helpModal.addEventListener('click', (e) => {
+                if (e.target === helpModal) {
+                    helpModal.classList.remove('active');
+                }
+            });
+        })();
+        
+        // Маска для телефона
+        (function() {
+            const phoneInput = document.getElementById('phone-input');
+            if (!phoneInput) return;
+            
+            phoneInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.startsWith('7') || value.startsWith('8')) {
+                    value = value.substring(1);
+                }
+                if (value.length > 0) {
+                    let formatted = '+7 (';
+                    if (value.length > 0) {
+                        formatted += value.substring(0, 3);
+                    }
+                    if (value.length >= 4) {
+                        formatted += ') ' + value.substring(3, 6);
+                    }
+                    if (value.length >= 7) {
+                        formatted += '-' + value.substring(6, 8);
+                    }
+                    if (value.length >= 9) {
+                        formatted += '-' + value.substring(8, 10);
+                    }
+                    e.target.value = formatted;
+                } else {
+                    e.target.value = '';
+                }
+            });
+            
+            phoneInput.addEventListener('focus', function(e) {
+                if (!e.target.value) {
+                    e.target.value = '+7 (';
+                }
+            });
+        })();
+        
+        // Валидация email
+        (function() {
+            const emailInput = document.getElementById('email-input');
+            if (!emailInput) return;
+            
+            emailInput.addEventListener('blur', function(e) {
+                const email = e.target.value;
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (email && !emailRegex.test(email)) {
+                    e.target.setCustomValidity('Введите корректный email адрес');
+                    e.target.classList.add('border-red-500');
+                } else {
+                    e.target.setCustomValidity('');
+                    e.target.classList.remove('border-red-500');
+                }
+            });
+        })();
+    </script>
+
 </body>
 </html>
 
