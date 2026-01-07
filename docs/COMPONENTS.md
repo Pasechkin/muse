@@ -335,6 +335,130 @@
 
 ---
 
+## Навигация и вспомогательные компоненты
+
+### Breadcrumbs (Хлебные крошки)
+
+**Расположение:** `src/components/navigation/breadcrumbs.html`
+
+**Использование:** Показывает путь до текущей страницы, обычно внутри hero-блока над заголовком.
+
+**Пример:**
+
+```html
+<nav class="mb-4 text-sm text-gray-300" aria-label="Хлебные крошки">
+  <ol class="flex items-center space-x-2">
+    <li>
+      <a href="/" class="text-gray-300 hover:text-white transition-colors">Главная</a>
+    </li>
+    <li class="text-gray-400">/</li>
+    <li class="text-gray-100">Портрет на заказ по фото</li>
+  </ol>
+</nav>
+```
+
+**Как адаптировать:**
+- замените текст последнего элемента на название текущей страницы;
+- при необходимости добавьте промежуточные уровни (например, «Печать» → «Печать на холсте»).
+
+**Документация:** См. `src/components/navigation/breadcrumbs.html`
+
+---
+
+### In-Page Navigator (Навигация по секциям)
+
+**Расположение:** `src/components/navigation/in-page-navigator.html`
+
+**Использование:** Боковое меню для быстрого перехода к основным секциям длинной страницы (только на десктопе).
+
+**Пример:**
+
+```html
+<nav class="hidden md:block fixed right-4 top-1/3 z-40" aria-label="Навигация по странице">
+  <ul class="space-y-2 text-xs">
+    <li>
+      <a href="#section-1" class="block px-3 py-2 text-gray-300 hover:text-white transition-colors rounded-md hover:bg-gray-800/50" data-section="section-1">
+        Секция 1
+      </a>
+    </li>
+  </ul>
+</nav>
+```
+
+**Документация:** См. `src/components/navigation/in-page-navigator.html`
+
+---
+
+### Back to Top (Кнопка «Наверх»)
+
+**Расположение:** `src/components/navigation/back-to-top.html`
+
+**Использование:** Плавающая кнопка, которая появляется при прокрутке вниз и возвращает пользователя к началу страницы.
+
+**Пример:**
+
+```html
+<a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-gray-700 hover:bg-primary transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6 text-white">
+    <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+</a>
+```
+
+**Документация:** См. `src/components/navigation/back-to-top.html`
+
+---
+
+## Дополнительные секции
+
+### FAQ Accordion (Вопросы и ответы)
+
+**Расположение:** `src/components/sections/faq-accordion.html`
+
+**Использование:** Секция с вопросами и ответами, использует аккордеон в две колонки на десктопе.
+
+**Пример:**
+
+```html
+<section class="bg-white py-16 md:py-24" id="faq">
+  <!-- см. полный пример в файле компонента -->
+</section>
+```
+
+**Документация:** См. `src/components/sections/faq-accordion.html`
+
+---
+
+### Styles Carousel (Карусель стилей / примеров)
+
+**Расположение:** `src/components/sections/styles-carousel.html`
+
+**Использование:** Горизонтальная карусель с фиксированной шириной карточек (CSS scroll snap), подходит для списка стилей или примеров работ.
+
+**Документация:** См. `src/components/sections/styles-carousel.html`
+
+---
+
+### Video Cover (Видео с обложкой)
+
+**Расположение:** `src/components/media/video-cover.html`
+
+**Использование:** Обложка с картинкой и кнопкой Play, по клику запускает видео и показывает его вместо обложки.
+
+**Документация:** См. `src/components/media/video-cover.html`
+
+---
+
+### Process 3 (Шаги процесса)
+
+**Расположение:** `src/components/sections/process-3.html`
+
+**Использование:** Вертикальный список шагов процесса с нумерованными кругами и линией.
+
+**Документация:** См. `src/components/sections/process-3.html`
+
+---
+
 ## Как использовать компоненты
 
 ### Шаг 1: Выберите компонент

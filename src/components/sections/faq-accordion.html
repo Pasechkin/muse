@@ -1,0 +1,70 @@
+<!-- FAQ Accordion (Вопросы и ответы) -->
+<!-- Использование: секция с аккордеоном вопросов и ответов, можно ставить на любую страницу -->
+<section class="bg-white py-16 md:py-24" id="faq">
+  <div class="container">
+    <div class="text-center mb-8">
+      <h2 class="h2 text-dark">Вопросы и ответы</h2>
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-2" itemscope itemtype="http://schema.org/FAQPage">
+      <!-- Левая колонка -->
+      <ul class="accordion accordion-2 space-y-0">
+        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+          <div class="accordion__title">
+            <span class="h5 font-normal text-dark" itemprop="name">Вопрос 1</span>
+          </div>
+          <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
+            <div class="text-body" itemprop="text">
+              <p>Краткий ответ на первый вопрос.</p>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <!-- Правая колонка -->
+      <ul class="accordion accordion-2 space-y-0">
+        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+          <div class="accordion__title">
+            <span class="h5 font-normal text-dark" itemprop="name">Вопрос 2</span>
+          </div>
+          <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
+            <div class="text-body" itemprop="text">
+              <p>Краткий ответ на второй вопрос.</p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- JS: инициализация аккордеона (множественное раскрытие) -->
+<script>
+  (function () {
+    function initAccordion() {
+      const accordionTitles = document.querySelectorAll('.accordion .accordion__title');
+
+      accordionTitles.forEach(function (title) {
+        const newTitle = title.cloneNode(true);
+        title.parentNode.replaceChild(newTitle, title);
+
+        newTitle.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const li = this.closest('li');
+          if (li) {
+            li.classList.toggle('active');
+          }
+        });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      initAccordion();
+      setTimeout(initAccordion, 100);
+      setTimeout(initAccordion, 500);
+    });
+  })();
+</script>
+
+

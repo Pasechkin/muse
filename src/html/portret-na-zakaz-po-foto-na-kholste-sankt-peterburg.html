@@ -15,8 +15,12 @@
     
     <link rel="stylesheet" href="css/output.css">
     
-    <!-- Временные стили для навигатора, аккордеона и process-3 (пока CSS не скомпилирован) -->
+    <!-- Временные стили для навигатора, аккордеона, process-3 и кнопки "Наверх" -->
     <style>
+        /* Кнопка "Наверх" (sm = 768px) */
+        @media (min-width: 768px) {
+            #back-to-top { display: flex !important; }
+        }
         /* In-Page Navigator (Stack стиль) */
         .page-navigator {
             position: fixed;
@@ -426,7 +430,7 @@
         <nav aria-label="Основная навигация" class="container flex items-center justify-between gap-x-4 py-5">
             <!-- Логотип -->
             <div class="flex-shrink-0">
-                <a href="/" class="-m-1.5 p-1.5 flex items-center">
+                <a href="https://muse.ooo/" class="-m-1.5 p-1.5 flex items-center">
                     <svg height="26" viewBox="0 0 1285 359" width="74" xmlns="http://www.w3.org/2000/svg" style="image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision" class="h-7 w-auto">
                         <defs>
                             <style>
@@ -480,7 +484,7 @@
                 <div tabindex="0" class="fixed inset-0 focus:outline-none">
                     <el-dialog-panel class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-dark p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-700">
                         <div class="flex items-center gap-x-6">
-                            <a href="/" class="-m-1.5 p-1.5 flex items-center">
+                            <a href="https://muse.ooo/" class="-m-1.5 p-1.5 flex items-center">
                                 <svg height="26" viewBox="0 0 1285 359" width="74" xmlns="http://www.w3.org/2000/svg" style="image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision" class="h-7 w-auto">
                                     <defs>
                                         <style>
@@ -611,7 +615,7 @@
     </section>
 
     <!-- Кнопка "Наверх" (для ПК) -->
-    <a href="#" id="back-to-top" class="hidden lg:flex fixed bottom-24 right-6 w-12 h-12 items-center justify-center rounded-full bg-gray-700 hover:bg-primary transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
+    <a href="#" id="back-to-top" class="hidden sm:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-gray-700 hover:bg-primary transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6 text-white">
             <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -647,7 +651,7 @@
             // Показ/скрытие кнопки "Наверх" при прокрутке
             function toggleBackToTop() {
                 if (backToTopButton) {
-                    if (window.scrollY > 300 && window.innerWidth >= 1024) {
+                    if (window.scrollY > 300 && window.innerWidth >= 768) {
                         backToTopButton.classList.remove('opacity-0', 'pointer-events-none');
                         backToTopButton.classList.add('opacity-100');
                     } else {

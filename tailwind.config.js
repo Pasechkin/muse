@@ -4,17 +4,12 @@ module.exports = {
     "./src/**/*.{html,js}",
   ],
   theme: {
-    // Настройка контейнера как в Bootstrap 3
+    // Контейнер
     container: {
       center: true,
-      padding: '15px',
+      padding: '1rem',
     },
-    // Брейкпоинты как в Bootstrap 3
-    screens: {
-      'sm': '768px',   // Планшеты
-      'md': '992px',   // Ноутбуки
-      'lg': '1200px',  // Большие мониторы
-    },
+    // Стандартные брейкпоинты Tailwind (sm=640, md=768, lg=1024, xl=1280, 2xl=1536)
     extend: {
       colors: {
         // Цвета из оригинальной темы Stack

@@ -1,0 +1,40 @@
+<!-- Кнопка «Наверх» -->
+<!-- Использование: вставить в конец body, рядом с другими вспомогательными элементами -->
+<a
+  href="#"
+  id="back-to-top"
+  class="hidden sm:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-gray-700 hover:bg-primary transition-colors z-50 opacity-0 pointer-events-none"
+  aria-label="Наверх"
+>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6 text-white">
+    <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+</a>
+
+<script>
+  (function () {
+    const backToTop = document.getElementById('back-to-top');
+    if (!backToTop) return;
+
+    function toggleBackToTop() {
+      if (window.scrollY > 300 && window.innerWidth >= 768) {
+        backToTop.classList.remove('opacity-0', 'pointer-events-none');
+        backToTop.classList.add('opacity-100');
+      } else {
+        backToTop.classList.add('opacity-0', 'pointer-events-none');
+        backToTop.classList.remove('opacity-100');
+      }
+    }
+
+    backToTop.addEventListener('click', function (e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    window.addEventListener('scroll', toggleBackToTop);
+    window.addEventListener('resize', toggleBackToTop);
+    toggleBackToTop();
+  })();
+</script>
+
+

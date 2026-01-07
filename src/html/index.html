@@ -14,6 +14,12 @@
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
     
     <link rel="stylesheet" href="css/output.css">
+    <style>
+        /* Временный стиль для кнопки "Наверх" (sm = 768px) */
+        @media (min-width: 768px) {
+            #back-to-top { display: flex !important; }
+        }
+    </style>
 </head>
 <body class="bg-white">
     <!-- Верхнее меню -->
@@ -844,7 +850,7 @@
     </footer>
 
     <!-- Кнопка Scroll to Top (фиксированная справа, только на десктопе) -->
-    <a href="#" id="back-to-top" class="hidden lg:flex fixed bottom-24 right-6 w-12 h-12 items-center justify-center rounded-full bg-gray-700 hover:bg-primary transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
+    <a href="#" id="back-to-top" class="hidden sm:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-gray-700 hover:bg-primary transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6 text-white">
             <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
