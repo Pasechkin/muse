@@ -29,7 +29,7 @@
     -->
     <!-- Верхнее меню -->
     <header class="bg-dark sticky top-0 z-50">
-        <nav aria-label="Основная навигация" class="mx-auto flex max-w-7xl items-center justify-between gap-x-4 py-5 px-4 lg:px-8">
+        <nav aria-label="Основная навигация" class="mx-auto flex max-w-7xl items-center justify-between gap-x-4 py-5 px-4 xl:px-8">
             <!-- Логотип -->
             <div class="flex-shrink-0">
                 <a href="https://muse.ooo/" class="-m-1.5 p-1.5 flex items-center">
@@ -52,7 +52,7 @@
             </div>
             
             <!-- Пункты меню (десктоп) -->
-            <div class="hidden lg:flex lg:items-center lg:gap-x-6">
+            <div class="hidden xl:flex xl:items-center xl:gap-x-6">
                 <a href="https://muse.ooo/pechat/" class="text-gray-400 hover:text-white transition-colors font-normal whitespace-nowrap uppercase">Печать</a>
                 <a href="https://muse.ooo/portret-na-zakaz/" class="text-gray-400 hover:text-white transition-colors font-normal whitespace-nowrap uppercase">Портреты</a>
                 <a href="https://muse.ooo/info/dostavka/" class="text-gray-400 hover:text-white transition-colors font-normal whitespace-nowrap uppercase">Доставка</a>
@@ -70,7 +70,7 @@
             </div>
             
             <!-- Мобильная кнопка меню -->
-            <div class="flex lg:hidden items-center">
+            <div class="flex xl:hidden items-center">
                 <button type="button" command="show-modal" commandfor="mobile-menu" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white">
                     <span class="sr-only">Открыть меню</span>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
@@ -82,9 +82,9 @@
         
         <!-- Мобильное меню -->
         <el-dialog>
-            <dialog id="mobile-menu" class="backdrop:bg-transparent lg:hidden">
+            <dialog id="mobile-menu" class="backdrop:bg-transparent xl:hidden">
                 <div tabindex="0" class="fixed inset-0 focus:outline-none">
-                    <el-dialog-panel class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-dark p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-700">
+                    <el-dialog-panel class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-dark p-6 md:max-w-sm md:ring-1 md:ring-gray-700">
                         <div class="flex items-center gap-x-6">
                             <a href="https://muse.ooo/" class="-m-1.5 p-1.5 flex items-center">
                                 <svg height="26" viewBox="0 0 1285 359" width="74" xmlns="http://www.w3.org/2000/svg" style="image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision" class="h-7 w-auto">
@@ -141,8 +141,8 @@
 
     <!-- Hero с видео и хлебными крошками -->
     <header>
-        <section class="relative h-[65vh] md:h-screen overflow-hidden bg-dark">
-            <video class="absolute inset-0 w-full h-full object-cover hidden md:block" autoplay loop muted playsinline title="Фоновый ролик о печати на холсте">
+        <section class="relative h-[65vh] lg:h-screen overflow-hidden bg-dark">
+            <video class="absolute inset-0 w-full h-full object-cover hidden lg:block" autoplay loop muted playsinline title="Фоновый ролик о печати на холсте">
                 <source src="https://muse.ooo/video/pechat-na-holste-video.webm" type="video/webm">
                 <source src="https://muse.ooo/video/pechat-na-holste-2.mp4" type="video/mp4">
             </video>
@@ -198,7 +198,7 @@
     </section>
 
     <!-- Кнопка "Наверх" -->
-    <a href="#" id="back-to-top" class="hidden sm:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-gray-700 hover:bg-primary transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
+    <a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-gray-700 hover:bg-primary transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6 text-white">
             <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -206,10 +206,10 @@
 
     <main class="main-container">
         <!-- Услуги: блоки Фото на холсте, Фотоколлаж, Репродукция, Модульная картина -->
-        <section class="bg-white py-16 md:py-24" id="services">
+        <section class="bg-white py-16 lg:py-24" id="services">
             <div class="container space-y-16">
                 <!-- Фото на холсте -->
-                <div class="grid gap-8 md:grid-cols-2 md:items-center">
+                <div class="grid gap-8 lg:grid-cols-2 lg:items-center">
                     <div>
                         <img
                             src="https://muse.ooo/upload/imgsite/print-photo-on-canvas-952-535.webp"
@@ -235,7 +235,7 @@
                 </div>
 
                 <!-- Фотоколлаж на холсте -->
-                <div class="grid gap-8 md:grid-cols-2 md:items-center md:flex-row-reverse">
+                <div class="grid gap-8 lg:grid-cols-2 lg:items-center lg:flex-row-reverse">
                     <div>
                         <img
                             src="https://muse.ooo/upload/imgsite/photo-collage-952-535.webp"
@@ -261,7 +261,7 @@
                 </div>
 
                 <!-- Репродукция -->
-                <div class="grid gap-8 md:grid-cols-2 md:items-center">
+                <div class="grid gap-8 lg:grid-cols-2 lg:items-center">
                     <div>
                         <img
                             src="https://muse.ooo/upload/imgsite/girl-with-pearl-earring-952-535-3.webp"
@@ -289,7 +289,7 @@
                 </div>
 
                 <!-- Модульная картина -->
-                <div class="grid gap-8 md:grid-cols-2 md:items-center md:flex-row-reverse">
+                <div class="grid gap-8 lg:grid-cols-2 lg:items-center lg:flex-row-reverse">
                     <div>
                         <img
                             src="https://muse.ooo/upload/imgsite/multi-panels-spb-952-535.webp"
@@ -316,7 +316,7 @@
         </section>
 
         <!-- Портреты на холсте (только заголовок) -->
-        <section class="bg-secondary py-16 md:py-24" id="portraits-on-canvas">
+        <section class="bg-secondary py-16 lg:py-24" id="portraits-on-canvas">
             <div class="container">
                 <div class="text-center">
                     <h2 class="h2 text-dark">Портреты на холсте</h2>
@@ -325,7 +325,7 @@
         </section>
 
         <!-- Цена (только заголовок) -->
-        <section class="bg-secondary py-16 md:py-24" id="price">
+        <section class="bg-secondary py-16 lg:py-24" id="price">
             <div class="container">
                 <div class="text-center">
                     <h2 class="h2 text-dark">Цена</h2>
@@ -334,14 +334,14 @@
         </section>
 
         <!-- Как заказать (CTA-блок) -->
-        <section class="bg-white py-16 md:py-24" id="order">
+        <section class="bg-white py-16 lg:py-24" id="order">
             <div class="container">
                 <div class="mx-auto max-w-3xl text-center">
                     <h2 class="h2 text-dark mb-4">Как заказать печать на холсте</h2>
                     <p class="lead mb-8">
                         Отправьте фотографию, укажите желаемый размер и оформление — мы поможем с обработкой и подготовим макет к печати.
                     </p>
-                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-4">
                         <a href="https://muse.ooo/order/" class="btn btn--primary type--uppercase">
                             <span class="btn__text">Заказать</span>
                         </a>
@@ -356,7 +356,7 @@
                 <div class="text-center mb-8">
                     <h2 class="h2 text-dark">Оплата</h2>
                 </div>
-                <div class="grid gap-8 md:grid-cols-2">
+                <div class="grid gap-8 lg:grid-cols-2">
                     <div>
                         <p class="text-body">
                             Вы можете оплатить заказ банковской картой онлайн, по счёту или наличными при получении.
@@ -377,7 +377,7 @@
                 <div class="text-center mb-8">
                     <h2 class="h2 text-dark">Доставка</h2>
                 </div>
-                <div class="grid gap-8 md:grid-cols-2">
+                <div class="grid gap-8 lg:grid-cols-2">
                     <div>
                         <p class="text-body">
                             Доставляем заказы по Санкт‑Петербургу курьером или в пункты выдачи. Также возможен самовывоз.
@@ -393,13 +393,13 @@
         </section>
 
         <!-- Преимущества -->
-        <section class="bg-secondary py-16 md:py-24" id="advantages">
-            <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <section class="bg-secondary py-16 lg:py-24" id="advantages">
+            <div class="mx-auto max-w-7xl px-6 xl:px-8">
                 <div class="mx-auto max-w-2xl mb-12 text-center">
                     <h2 class="h2 text-dark">Преимущества печати на холсте в Muse</h2>
                 </div>
-                <div class="mx-auto mt-8 max-w-2xl lg:max-w-none">
-                    <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+                <div class="mx-auto mt-8 max-w-2xl xl:max-w-none">
+                    <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 xl:max-w-none xl:grid-cols-3">
                         <div class="flex flex-col boxed boxed--border bg-white">
                             <dt class="text-base/7 font-normal text-dark">
                                 <div class="mb-6 flex size-10 items-center justify-start">
@@ -430,7 +430,7 @@
         </section>
 
         <!-- FAQ: переиспользуем аккордеон -->
-        <section class="bg-white py-16 md:py-24" id="faq">
+        <section class="bg-white py-16 lg:py-24" id="faq">
             <div class="container">
                 <div class="text-center mb-8">
                     <h2 class="h2 text-dark">Вопросы и ответы</h2>
@@ -440,7 +440,7 @@
         </section>
 
         <!-- Примеры (карусель) -->
-        <section class="bg-white py-16 md:py-24" id="examples">
+        <section class="bg-white py-16 lg:py-24" id="examples">
             <div class="container mb-8">
                 <div class="text-center">
                     <h2 class="h2 text-dark">Примеры печати на холсте</h2>
@@ -450,7 +450,7 @@
         </section>
 
         <!-- Отзывы (только заголовок) -->
-        <section class="bg-secondary py-16 md:py-24" id="reviews">
+        <section class="bg-secondary py-16 lg:py-24" id="reviews">
             <div class="container">
                 <div class="text-center">
                     <h2 class="h2 text-dark">Отзывы</h2>
@@ -459,12 +459,12 @@
         </section>
 
         <!-- Финальный CTA -->
-        <section class="bg-secondary py-24 sm:py-32">
-            <div class="mx-auto max-w-7xl px-6 lg:flex lg:items-center lg:justify-between lg:px-8">
+        <section class="bg-secondary py-24 md:py-32">
+            <div class="mx-auto max-w-7xl px-6 xl:flex xl:items-center xl:justify-between xl:px-8">
                 <h2 class="max-w-2xl h4 font-normal tracking-tight text-gray-900">
                     Хотите заказать печать на холсте в Петербурге?
                 </h2>
-                <div class="mt-10 flex items-center gap-x-6 lg:mt-0 lg:shrink-0">
+                <div class="mt-10 flex items-center gap-x-6 xl:mt-0 xl:shrink-0">
                     <a href="https://muse.ooo/order/" class="btn btn--primary type--uppercase">Заказать</a>
                 </div>
             </div>
@@ -476,12 +476,12 @@
       Компонент: Footer (футер сайта)
       Источник: src/components/footer/footer.html
     -->
-    <footer class="bg-dark text-white py-8 md:py-12">
+    <footer class="bg-dark text-white py-8 lg:py-12">
         <div class="container mx-auto px-4">
             <div class="mb-8 pb-8 border-b border-gray-700">
                 <div class="relative">
                     <div class="flex flex-col">
-                        <nav class="flex flex-col md:flex-row flex-wrap gap-4 md:gap-6">
+                        <nav class="flex flex-col lg:flex-row flex-wrap gap-4 lg:gap-6">
                             <a href="https://muse.ooo/info/" class="text-sm text-white font-semibold hover:text-primary transition-colors uppercase tracking-wide">
                                 О нас
                             </a>
@@ -501,7 +501,7 @@
                                 Портрет маслом
                             </a>
                         </nav>
-                        <nav class="flex flex-col md:flex-row flex-wrap gap-4 md:gap-6 mt-6 md:mt-6">
+                        <nav class="flex flex-col lg:flex-row flex-wrap gap-4 lg:gap-6 mt-6 lg:mt-6">
                             <a href="https://muse.ooo/info/avtorstvo/" class="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide">
                                 Авторское право
                             </a>
@@ -525,7 +525,7 @@
                             </a>
                         </nav>
                     </div>
-                    <div class="hidden md:flex gap-3 items-center absolute top-0 right-0 flex-shrink-0">
+                    <div class="hidden lg:flex gap-3 items-center absolute top-0 right-0 flex-shrink-0">
                         <a 
                             href="whatsapp://send?phone=74954091869" 
                             target="_blank" 
@@ -552,7 +552,7 @@
                             </svg>
                         </a>
                     </div>
-                    <div class="flex md:hidden gap-3 items-center mt-6">
+                    <div class="flex lg:hidden gap-3 items-center mt-6">
                         <a 
                             href="whatsapp://send?phone=74954091869" 
                             target="_blank" 

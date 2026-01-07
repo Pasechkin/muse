@@ -47,7 +47,7 @@
             </div>
             
             <!-- Все пункты меню справа (десктоп) -->
-            <div class="hidden lg:flex lg:items-center lg:gap-x-6">
+            <div class="hidden xl:flex xl:items-center xl:gap-x-6">
                 <a href="https://muse.ooo/pechat/" class="text-gray-400 hover:text-white transition-colors font-normal whitespace-nowrap uppercase">Печать</a>
                 <a href="/portret-na-zakaz-po-foto-na-kholste-sankt-peterburg.html" class="text-gray-400 hover:text-white transition-colors font-normal whitespace-nowrap uppercase">Портреты</a>
                 <a href="https://muse.ooo/info/dostavka/" class="text-gray-400 hover:text-white transition-colors font-normal whitespace-nowrap uppercase">Доставка</a>
@@ -65,7 +65,7 @@
             </div>
             
             <!-- Мобильная кнопка меню -->
-            <div class="flex lg:hidden items-center">
+            <div class="flex xl:hidden items-center">
                 <button type="button" command="show-modal" commandfor="mobile-menu" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white">
                     <span class="sr-only">Открыть меню</span>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
@@ -77,9 +77,9 @@
         
         <!-- Мобильное меню -->
         <el-dialog>
-            <dialog id="mobile-menu" class="backdrop:bg-transparent lg:hidden">
+            <dialog id="mobile-menu" class="backdrop:bg-transparent xl:hidden">
                 <div tabindex="0" class="fixed inset-0 focus:outline-none">
-                    <el-dialog-panel class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-dark p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-700">
+                    <el-dialog-panel class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-dark p-6 md:max-w-sm md:ring-1 md:ring-gray-700">
                         <div class="flex items-center gap-x-6">
                             <a href="https://muse.ooo/" class="-m-1.5 p-1.5 flex items-center">
                                 <svg height="26" viewBox="0 0 1285 359" width="74" xmlns="http://www.w3.org/2000/svg" style="image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision" class="h-7 w-auto">
@@ -137,12 +137,12 @@
 
     <!-- Hero секция с видео фоном -->
     <header>
-        <section class="relative h-[65vh] md:h-screen overflow-hidden bg-dark">
-            <video class="absolute inset-0 w-full h-full object-cover hidden md:block" autoplay loop muted playsinline>
+        <section class="relative h-[65vh] lg:h-screen overflow-hidden bg-dark">
+            <video class="absolute inset-0 w-full h-full object-cover hidden lg:block" autoplay loop muted playsinline>
                 <source src="https://muse.ooo/video/portret-po-foto.webm" type="video/webm">
                 <source src="https://muse.ooo/video/portret-po-foto.mp4" type="video/mp4">
             </video>
-            <div class="absolute inset-0 bg-dark opacity-20 md:opacity-20"></div>
+            <div class="absolute inset-0 bg-dark opacity-20 lg:opacity-20"></div>
             <div class="container mx-auto px-4 h-full flex items-center relative z-10">
                 <div class="max-w-2xl">
                     <p class="h1 text-white mb-4">Создай своё произведение искусства</p>
@@ -166,13 +166,13 @@
 
     <main class="main-container">
         <!-- Секция Преимущества -->
-        <section class="bg-secondary py-16 md:py-24">
+        <section class="bg-secondary py-16 lg:py-24">
             <div class="container">
                 <div class="mx-auto max-w-2xl mb-12 text-center">
                     <h2 class="h2 text-dark">Преимущества</h2>
                 </div>
-                <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-                    <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+                <div class="mx-auto mt-16 max-w-2xl md:mt-20 xl:mt-24 xl:max-w-none">
+                    <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 xl:max-w-none xl:grid-cols-3">
                         <!-- Преимущество 1: Собственное производство -->
                         <div class="flex flex-col boxed boxed--border bg-white">
                             <dt class="text-base/7 font-normal text-dark">
@@ -438,7 +438,7 @@
         </section>
 
         <!-- Видео секция о печати (скрыта на мобильных) -->
-        <section class="bg-dark hidden md:block">
+        <section class="bg-dark hidden lg:block">
             <div class="relative h-[70vh] flex items-center justify-center overflow-hidden">
                 <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline preload="metadata">
                     <source src="https://muse.ooo/video/devushka-veshaet-kartinu-na-stenu.webm" type="video/webm">
@@ -466,7 +466,7 @@
                 </div>
             </div>
             <div class="container">
-                <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="grid grid-cols-2 xl:grid-cols-4 gap-6">
                     <!-- Продукт 1: Фото на холсте -->
                     <div class="feature feature-1">
                         <a href="https://muse.ooo/pechat/foto-na-kholste/" class="block">
@@ -514,13 +514,13 @@
         <!-- Секция Печать на фотобумаге -->
         <section class="py-16">
             <div class="container">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="md:col-span-1">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-1">
                         <h3 class="h2 text-dark mb-4">Печать на фотобумаге</h3>
                         <p class="text-body">Мы предлагаем высококачественную печать на фотобумаге для ваших любимых снимков.</p>
                     </div>
                     <!-- Продукт 1: Фото в рамке -->
-                    <div class="feature feature-1 hidden md:block">
+                    <div class="feature feature-1 hidden lg:block">
                         <a href="https://muse.ooo/pechat/foto-v-ramke/" class="block">
                             <img alt="Фотография балерины в рамке и паспарту" title="Фото в рамке" loading="lazy" src="https://muse.ooo/upload/img/photo-in-frame-main-263.webp" width="263" height="263" class="w-full h-auto rounded-t">
                             <div class="boxed boxed--border feature__body bg-white rounded-b mt-0">
@@ -530,7 +530,7 @@
                         </a>
                     </div>
                     <!-- Продукт 2: Коллаж в раме -->
-                    <div class="feature feature-1 hidden md:block">
+                    <div class="feature feature-1 hidden lg:block">
                         <a href="https://muse.ooo/pechat/fotokollazh-v-ramke/" class="block">
                             <img alt="Фотоколлаж в рамке в виде луны" title="Коллаж в раме" loading="lazy" src="https://muse.ooo/upload/img/o-collage-in-a-frame-main-263.webp" width="263" height="263" class="w-full h-auto rounded-t">
                             <div class="boxed boxed--border feature__body bg-white rounded-b mt-0">
@@ -541,7 +541,7 @@
                     </div>
                 </div>
                 <!-- Мобильная версия: две карточки в ряд -->
-                <div class="grid grid-cols-2 md:hidden gap-4 mt-6">
+                <div class="grid grid-cols-2 lg:hidden gap-4 mt-6">
                     <div class="feature feature-1">
                         <a href="https://muse.ooo/pechat/foto-v-ramke/" class="block">
                             <img alt="Фотография балерины в рамке и паспарту" title="Фото в рамке" loading="lazy" src="https://muse.ooo/upload/img/photo-in-frame-main-263.webp" width="263" height="263" class="w-full h-auto rounded-t">
@@ -567,11 +567,11 @@
         <!-- Секция Подарочный сертификат -->
         <section class="bg-secondary py-16">
             <div class="container">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div>
                         <h3 class="h2 text-dark mb-4">Подарочный сертификат</h3>
                     </div>
-                    <div class="md:col-span-2">
+                    <div class="lg:col-span-2">
                         <a href="https://muse.ooo/pechat/podarochnyy-sertifikat/" class="block">
                             <div class="relative h-64 rounded overflow-hidden">
                                 <img alt="фото подарочного сертификата" src="https://muse.ooo/upload/imgsite/o-gift-555.webp" width="555" height="555" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
@@ -587,7 +587,7 @@
         </section>
 
         <!-- Секция Отзыв -->
-        <section class="bg-white px-6 py-24 sm:py-32 lg:px-8">
+        <section class="bg-white px-6 py-24 md:py-32 xl:px-8">
             <div class="mx-auto max-w-2xl text-center mb-10">
                 <h3 class="h4">Отзыв, которым гордимся</h3>
             </div>
@@ -610,7 +610,7 @@
                         <path d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" fill-rule="evenodd" />
                     </svg>
                 </div>
-                <blockquote class="mt-10 text-xl/8 font-semibold tracking-tight text-gray-900 sm:text-2xl/9">
+                <blockquote class="mt-10 text-xl/8 font-semibold tracking-tight text-gray-900 md:text-2xl/9">
                     <p>"Получила сегодня заказ. Картина потрясающая! Цвета сочные, яркие, качество отличное! Спасибо вам большое! Издалека выглядит как шедевр Эрмитажа!)))"</p>
                 </blockquote>
                 <figcaption class="mt-10 flex items-center justify-center gap-x-6">
@@ -662,12 +662,12 @@
         </section>
 
         <!-- CTA секция -->
-        <section class="bg-secondary py-24 sm:py-32">
-            <div class="container lg:flex lg:items-center lg:justify-between">
+        <section class="bg-secondary py-24 md:py-32">
+            <div class="container xl:flex xl:items-center xl:justify-between">
                 <h2 class="max-w-2xl h4 font-normal tracking-tight text-gray-900">
                     Создай своё произведение искусства
                 </h2>
-                <div class="mt-10 flex items-center gap-x-6 lg:mt-0 lg:shrink-0">
+                <div class="mt-10 flex items-center gap-x-6 xl:mt-0 xl:shrink-0">
                     <a href="https://muse.ooo/order/" class="btn btn--primary type--uppercase">
                         <span class="btn__text">Заказать</span>
                     </a>
@@ -680,7 +680,7 @@
     </main>
 
     <!-- Футер -->
-    <footer class="bg-dark text-white py-8 md:py-12">
+    <footer class="bg-dark text-white py-8 lg:py-12">
         <div class="container">
             <!-- Верхняя часть футера: меню навигации -->
             <div class="mb-8 pb-8 border-b border-gray-700">
@@ -688,7 +688,7 @@
                     <!-- Навигационные ссылки: вертикально на мобильных, две строки на десктопе -->
                     <div class="flex flex-col">
                         <!-- Основные ссылки (жирный белый текст) - первая строка на десктопе -->
-                        <nav class="flex flex-col md:flex-row flex-wrap gap-4 md:gap-6">
+                        <nav class="flex flex-col lg:flex-row flex-wrap gap-4 lg:gap-6">
                             <a href="https://muse.ooo/info/" class="text-sm text-white font-semibold hover:text-primary transition-colors uppercase tracking-wide">
                                 О нас
                             </a>
@@ -710,7 +710,7 @@
                         </nav>
                         
                         <!-- Вторичные ссылки (светло-серый текст) - вторая строка на десктопе -->
-                        <nav class="flex flex-col md:flex-row flex-wrap gap-4 md:gap-6 mt-6 md:mt-6">
+                        <nav class="flex flex-col lg:flex-row flex-wrap gap-4 lg:gap-6 mt-6 lg:mt-6">
                             <a href="https://muse.ooo/info/avtorstvo/" class="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide">
                                 Авторское право
                             </a>
@@ -736,7 +736,7 @@
                     </div>
                     
                     <!-- Соцсети: справа на уровне первой строки на десктопе -->
-                    <div class="hidden md:flex gap-3 items-center absolute top-0 right-0 flex-shrink-0">
+                    <div class="hidden lg:flex gap-3 items-center absolute top-0 right-0 flex-shrink-0">
                         <!-- WhatsApp -->
                         <a 
                             href="whatsapp://send?phone=74954091869" 
@@ -768,7 +768,7 @@
                     </div>
                     
                     <!-- Соцсети: на мобильных внизу слева -->
-                    <div class="flex md:hidden gap-3 items-center mt-6">
+                    <div class="flex lg:hidden gap-3 items-center mt-6">
                         <!-- WhatsApp -->
                         <a 
                             href="whatsapp://send?phone=74954091869" 
@@ -850,7 +850,7 @@
     </footer>
 
     <!-- Кнопка Scroll to Top (фиксированная справа, только на десктопе) -->
-    <a href="#" id="back-to-top" class="hidden sm:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-gray-700 hover:bg-primary transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
+    <a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-gray-700 hover:bg-primary transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6 text-white">
             <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>

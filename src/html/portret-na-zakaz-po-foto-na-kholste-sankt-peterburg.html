@@ -450,7 +450,7 @@
             </div>
             
             <!-- Меню (Москва, как на главной) -->
-            <div class="hidden lg:flex lg:items-center lg:gap-x-6">
+            <div class="hidden xl:flex xl:items-center xl:gap-x-6">
                 <a href="https://muse.ooo/pechat/" class="text-gray-400 hover:text-white transition-colors font-normal whitespace-nowrap uppercase">Печать</a>
                 <a href="https://muse.ooo/portret-na-zakaz/" class="text-gray-400 hover:text-white transition-colors font-normal whitespace-nowrap uppercase">Портреты</a>
                 <a href="https://muse.ooo/info/dostavka/" class="text-gray-400 hover:text-white transition-colors font-normal whitespace-nowrap uppercase">Доставка</a>
@@ -468,7 +468,7 @@
             </div>
             
             <!-- Мобильная кнопка меню -->
-            <div class="flex lg:hidden items-center">
+            <div class="flex xl:hidden items-center">
                 <button type="button" command="show-modal" commandfor="mobile-menu" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white">
                     <span class="sr-only">Открыть меню</span>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
@@ -480,9 +480,9 @@
         
         <!-- Мобильное меню (как на главной) -->
         <el-dialog>
-            <dialog id="mobile-menu" class="backdrop:bg-transparent lg:hidden">
+            <dialog id="mobile-menu" class="backdrop:bg-transparent xl:hidden">
                 <div tabindex="0" class="fixed inset-0 focus:outline-none">
-                    <el-dialog-panel class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-dark p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-700">
+                    <el-dialog-panel class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-dark p-6 md:max-w-sm md:ring-1 md:ring-gray-700">
                         <div class="flex items-center gap-x-6">
                             <a href="https://muse.ooo/" class="-m-1.5 p-1.5 flex items-center">
                                 <svg height="26" viewBox="0 0 1285 359" width="74" xmlns="http://www.w3.org/2000/svg" style="image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision" class="h-7 w-auto">
@@ -539,12 +539,12 @@
 
     <!-- Hero СПб с видео и хлебными крошками -->
     <header>
-        <section class="relative h-[65vh] md:h-screen overflow-hidden bg-dark">
-            <video class="absolute inset-0 w-full h-full object-cover hidden md:block" autoplay loop muted playsinline title="Ролик про стили портретов от Muse.">
+        <section class="relative h-[65vh] lg:h-screen overflow-hidden bg-dark">
+            <video class="absolute inset-0 w-full h-full object-cover hidden lg:block" autoplay loop muted playsinline title="Ролик про стили портретов от Muse.">
                 <source src="https://muse.ooo/video/portret-po-foto.webm" type="video/webm">
                 <source src="https://muse.ooo/video/portret-po-foto.mp4" type="video/mp4">
             </video>
-            <div class="absolute inset-0 bg-dark opacity-20 md:opacity-20"></div>
+            <div class="absolute inset-0 bg-dark opacity-20 lg:opacity-20"></div>
             <div class="container h-full flex items-center relative z-10">
                 <div class="max-w-2xl">
                     <!-- Хлебные крошки -->
@@ -615,7 +615,7 @@
     </section>
 
     <!-- Кнопка "Наверх" (для ПК) -->
-    <a href="#" id="back-to-top" class="hidden sm:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-gray-700 hover:bg-primary transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
+    <a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-gray-700 hover:bg-primary transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6 text-white">
             <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -767,7 +767,7 @@
 
     <main class="main-container">
         <!-- Портреты по фото (место под Bitrix GRID) -->
-        <section class="bg-secondary py-16 md:py-24" id="portraits-from-photo">
+        <section class="bg-secondary py-16 lg:py-24" id="portraits-from-photo">
             <div class="container">
                 <div class="text-center mb-12">
                     <h2 class="h2 text-dark">Портреты по фото</h2>
@@ -913,8 +913,8 @@
 
             <!-- Круглые изображения: парный / семейный / детский / женский / мужской -->
             <section class="bg-dark py-8">
-                <div class="mx-auto max-w-7xl px-6 lg:px-8">
-                    <ul role="list" class="mx-auto grid max-w-2xl grid-cols-2 gap-x-8 gap-y-16 text-center sm:grid-cols-3 md:grid-cols-4 lg:mx-0 lg:max-w-none lg:grid-cols-5">
+                <div class="mx-auto max-w-7xl px-6 xl:px-8">
+                    <ul role="list" class="mx-auto grid max-w-2xl grid-cols-2 gap-x-8 gap-y-16 text-center md:grid-cols-3 lg:grid-cols-4 xl:mx-0 xl:max-w-none xl:grid-cols-5">
                         <li class="text-center feature">
                             <a href="https://muse.ooo/portret-na-zakaz/parnyy-portret/" class="block">
                                 <img title="Парный" alt="Парный портрет" decoding="async" height="64" width="64" class="mx-auto size-16 rounded-full outline-1 -outline-offset-1 outline-white/10" src="data:image/jpeg;base64,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" />
@@ -952,7 +952,7 @@
         </section>
 
         <!-- HTML код калькулятора: заглушка + текст, как на старой странице -->
-        <section class="bg-secondary py-16 md:py-24" id="calc">
+        <section class="bg-secondary py-16 lg:py-24" id="calc">
             <div class="container">
                 <div class="text-center mb-8">
                     <h2 class="h2 text-dark">Цена</h2>
@@ -964,13 +964,13 @@
                 <!-- Калькулятор: изображение слева, опции справа, форма внизу -->
                 <div class="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
                     <!-- Верхняя часть: изображение слева, опции справа -->
-                    <div class="grid md:grid-cols-2 gap-0">
+                    <div class="grid lg:grid-cols-2 gap-0">
                         <!-- Изображение слева (адаптивное) -->
                         <div>
                             <img 
                                 src="https://muse.ooo/assets/calculator/img/canvas_ad_mirrored_size_628_398.webp" 
                                 alt="Портрет на холсте" 
-                                class="w-full h-full object-cover min-h-[300px] md:min-h-0"
+                                class="w-full h-full object-cover min-h-[300px] lg:min-h-0"
                                 loading="lazy"
                             >
                             <!-- Цены под изображением (не накладываясь) -->
@@ -983,7 +983,7 @@
                         </div>
 
                         <!-- Опции конфигурации справа -->
-                        <div class="p-6 md:p-8">
+                        <div class="p-6 lg:p-8">
                             <form id="calculator-form" class="space-y-4">
                                 <!-- Размер: два поля -->
                                 <div>
@@ -1117,7 +1117,7 @@
                     </div>
 
                     <!-- Кнопка загрузки фото (под калькулятором) -->
-                    <div class="p-6 md:p-8 border-t border-gray-200 text-center">
+                    <div class="p-6 lg:p-8 border-t border-gray-200 text-center">
                         <button 
                             type="button" 
                             class="bg-primary text-white font-semibold py-3 px-6 rounded-md hover:bg-primary-dark transition-colors uppercase tracking-wide"
@@ -1127,12 +1127,12 @@
                     </div>
 
                     <!-- Нижняя часть: форма (на всю ширину) -->
-                    <div class="p-6 md:p-8 border-t border-gray-200">
+                    <div class="p-6 lg:p-8 border-t border-gray-200">
 
                         <!-- Поля формы -->
                         <form class="space-y-4">
                             <!-- Первая строка: Имя, Телефон, E-mail, Комментарий (4 колонки, без label, только placeholder) -->
-                            <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                            <div class="grid grid-cols-1 xl:grid-cols-4 gap-4">
                                 <input 
                                     type="text" 
                                     name="name" 
@@ -1177,8 +1177,8 @@
                             </div>
 
                             <!-- Третья строка: Согласие (2 колонки) и кнопка (1 колонка) -->
-                            <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 items-start">
-                                <label class="flex items-start gap-2 cursor-pointer lg:col-span-2">
+                            <div class="grid grid-cols-1 xl:grid-cols-4 gap-4 items-start">
+                                <label class="flex items-start gap-2 cursor-pointer xl:col-span-2">
                                     <input 
                                         type="checkbox" 
                                         name="agreement" 
@@ -1190,7 +1190,7 @@
                                     </span>
                                 </label>
 
-                                <div class="lg:col-span-1">
+                                <div class="xl:col-span-1">
                                     <button 
                                         type="submit" 
                                         class="w-full bg-primary text-white font-semibold py-3 px-6 rounded-md hover:bg-primary-dark transition-colors uppercase tracking-wide"
@@ -1206,9 +1206,9 @@
         </section>
 
         <!-- Характеристики и Сроки -->
-        <section class="bg-secondary py-16 md:py-24">
+        <section class="bg-secondary py-16 lg:py-24">
             <div class="container">
-                <div class="grid gap-6 md:grid-cols-2">
+                <div class="grid gap-6 lg:grid-cols-2">
                     <!-- Характеристики -->
                     <div>
                         <h3 class="h3 text-dark mb-4">Характеристики</h3>
@@ -1267,14 +1267,14 @@
         </section>
 
         <!-- Как заказать (Process) -->
-        <section class="bg-dark py-16 md:py-24" id="order">
+        <section class="bg-dark py-16 lg:py-24" id="order">
             <div class="container mb-8">
                 <div class="text-center">
                     <h2 class="h2 text-white">Как заказать</h2>
                 </div>
             </div>
             <div class="container">
-                <div class="grid gap-10 lg:grid-cols-2">
+                <div class="grid gap-10 xl:grid-cols-2">
                     <!-- Видео слева -->
                     <div>
                         <div class="border--round box-shadow-wide video-cover overflow-hidden rounded-md">
@@ -1353,7 +1353,7 @@
         </section>
 
         <!-- Изготовление -->
-        <section class="bg-white py-16 md:py-24" id="portraits-on-canvas">
+        <section class="bg-white py-16 lg:py-24" id="portraits-on-canvas">
             <div class="container">
                 <h2 class="h2 text-dark mb-6 text-center">Изготовление</h2>
                 <p class="lead text-body">
@@ -1385,12 +1385,12 @@
         </section>
 
         <!-- Преимущества (фон primary, как на старой странице СПб) -->
-        <section class="bg-primary py-16 md:py-24">
+        <section class="bg-primary py-16 lg:py-24">
             <div class="container">
                 <div class="text-center mb-8">
                     <h3 class="h2 text-white">Преимущества</h3>
                 </div>
-                <dl class="grid grid-cols-1 gap-x-6 gap-y-6 md:grid-cols-3">
+                <dl class="grid grid-cols-1 gap-x-6 gap-y-6 lg:grid-cols-3">
                         <div class="flex flex-col boxed boxed--border bg-white">
                             <dt class="text-base/7 font-normal text-dark">
                                 <div class="mb-6 flex size-10 items-center justify-start">
@@ -1474,12 +1474,12 @@
         </section>
 
         <!-- FAQ -->
-        <section class="bg-white py-16 md:py-24" id="faq">
+        <section class="bg-white py-16 lg:py-24" id="faq">
             <div class="container">
                 <div class="text-center mb-8">
                     <h3 class="h2 text-dark">Вопросы и ответы</h3>
                 </div>
-                <div class="grid gap-8 md:grid-cols-2" itemscope itemtype="http://schema.org/FAQPage">
+                <div class="grid gap-8 lg:grid-cols-2" itemscope itemtype="http://schema.org/FAQPage">
                     <!-- Левая колонка -->
                     <ul class="accordion accordion-2 space-y-0">
                         <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
@@ -1732,7 +1732,7 @@
         </section>
 
         <!-- Примеры портретов на холсте -->
-        <section class="bg-white py-16 md:py-24" id="examples">
+        <section class="bg-white py-16 lg:py-24" id="examples">
             <div class="container mb-8">
                 <div class="text-center">
                     <h2 class="h2 text-dark">Примеры портретов на холсте</h2>
@@ -1802,12 +1802,12 @@
         </section>
 
         <!-- CTA секция (как на главной) -->
-        <section class="bg-secondary py-24 sm:py-32">
-            <div class="container lg:flex lg:items-center lg:justify-between">
+        <section class="bg-secondary py-24 md:py-32">
+            <div class="container xl:flex xl:items-center xl:justify-between">
                 <h2 class="h4 font-normal tracking-tight text-gray-900">
                     Создай своё произведение искусства
                 </h2>
-                <div class="mt-10 flex items-center gap-x-6 lg:mt-0 lg:shrink-0">
+                <div class="mt-10 flex items-center gap-x-6 xl:mt-0 xl:shrink-0">
                     <a href="https://muse.ooo/order/" class="btn btn--primary type--uppercase">
                         <span class="btn__text">Заказать</span>
                     </a>
@@ -1820,13 +1820,13 @@
     </main>
 
     <!-- Футер (как на главной) -->
-    <footer class="bg-dark text-white py-8 md:py-12">
+    <footer class="bg-dark text-white py-8 lg:py-12">
         <div class="container">
             <!-- Верхняя часть футера -->
             <div class="mb-8 pb-8 border-b border-gray-700">
                 <div class="relative">
                     <div class="flex flex-col">
-                        <nav class="flex flex-col md:flex-row flex-wrap gap-4 md:gap-6">
+                        <nav class="flex flex-col lg:flex-row flex-wrap gap-4 lg:gap-6">
                             <a href="https://muse.ooo/info/" class="text-sm text-white font-semibold hover:text-primary transition-colors uppercase tracking-wide">О нас</a>
                             <a href="https://muse.ooo/info/kontakty/" class="text-sm text-white font-semibold hover:text-primary transition-colors uppercase tracking-wide">Контакты</a>
                             <a href="https://muse.ooo/pechat/" class="text-sm text-white font-semibold hover:text-primary transition-colors uppercase tracking-wide">Печать на холсте</a>
@@ -1834,7 +1834,7 @@
                             <a href="https://muse.ooo/pechat/foto-na-kholste/" class="text-sm text-white font-semibold hover:text-primary transition-colors uppercase tracking-wide">Фото на холсте</a>
                             <a href="https://muse.ooo/portret-na-zakaz/portret-maslom/" class="text-sm text-white font-semibold hover:text-primary transition-colors uppercase tracking-wide">Портрет маслом</a>
                         </nav>
-                        <nav class="flex flex-col md:flex-row flex-wrap gap-4 md:gap-6 mt-6 md:mt-6">
+                        <nav class="flex flex-col lg:flex-row flex-wrap gap-4 lg:gap-6 mt-6 lg:mt-6">
                             <a href="https://muse.ooo/info/avtorstvo/" class="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide">Авторское право</a>
                             <a href="https://muse.ooo/info/faq/" class="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide">Вопросы и ответы</a>
                             <a href="https://muse.ooo/info/guarantee/" class="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide">Гарантия</a>
@@ -1846,7 +1846,7 @@
                     </div>
                     
                     <!-- Соцсети: справа на уровне первой строки на десктопе -->
-                    <div class="hidden md:flex gap-3 items-center absolute top-0 right-0 flex-shrink-0">
+                    <div class="hidden lg:flex gap-3 items-center absolute top-0 right-0 flex-shrink-0">
                         <!-- WhatsApp -->
                         <a 
                             href="whatsapp://send?phone=74954091869" 
@@ -1878,7 +1878,7 @@
                     </div>
                     
                     <!-- Соцсети: на мобильных внизу слева -->
-                    <div class="flex md:hidden gap-3 items-center mt-6">
+                    <div class="flex lg:hidden gap-3 items-center mt-6">
                         <!-- WhatsApp -->
                         <a 
                             href="whatsapp://send?phone=74954091869" 
