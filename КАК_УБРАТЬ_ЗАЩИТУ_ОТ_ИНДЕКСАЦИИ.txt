@@ -40,12 +40,11 @@
 <!-- Закрыто от индексации во время разработки -->
 <meta name="robots" content="noindex, nofollow">
 
-Файлы для редактирования:
-- src/html/index.html
-- src/html/index_tailwind.html
-- src/html/portret-na-zakaz/index.html
-- src/html/info/kontakty/index.html
-- (и любые другие HTML страницы)
+Файлы для редактирования (текущие):
+- src/html/index.html (главная - нужно переделать)
+- src/html/portret-na-zakaz-po-foto-na-kholste-sankt-peterburg.html (эталон - готова)
+- src/html/pechat-na-kholste-sankt-peterburg.html (печать - нужно переделать)
+- (и любые другие HTML страницы, которые будут созданы)
 
 
 ШАГ 3: ОТПРАВИТЬ ИЗМЕНЕНИЯ НА GITHUB
