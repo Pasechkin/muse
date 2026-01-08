@@ -9,18 +9,33 @@
     <!-- Закрыто от индексации во время разработки -->
     <meta name="robots" content="noindex, nofollow">
     
-    <!-- Предподключение к CDN для ускорения загрузки -->
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-    
-    <link rel="stylesheet" href="css/output.css">
-    
-    <!-- Временный стиль для кнопки Наверх -->
-    <style>
-        @media (min-width: 768px) {
-            #back-to-top { display: flex !important; }
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                container: {
+                    center: true,
+                    padding: '1rem',
+                    screens: {
+                        '2xl': '1170px'
+                    }
+                },
+                extend: {
+                    colors: {
+                        primary: '#4A90E2',
+                        'primary-hover': '#609DE6',
+                        dark: '#252525',
+                        body: '#666666',
+                        secondary: '#FAFAFA',
+                    }
+                }
+            }
         }
-    </style>
+    </script>
+    
+    <!-- Tailwind Plus Elements -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1"></script>
     
     <style>
         /* Page Navigator */
@@ -50,18 +65,9 @@
         .video-cover.video-playing .video-play-icon { display: none; }
         .video-cover.video-playing video { display: block; position: relative; }
         
-        /* Accordion */
-        .accordion li { list-style: none; }
-        .accordion .accordion__title { cursor: pointer; padding: 1em 0; border-bottom: 1px solid #ECECEC; display: flex; justify-content: space-between; align-items: center; }
-        .accordion .accordion__title:hover { opacity: 0.8; }
-        .accordion .accordion__content { display: none; padding: 1em 0; }
-        .accordion li.active .accordion__content { display: block; }
-        .accordion li.active .accordion__title { border-bottom-color: transparent; }
-        .accordion .accordion__title svg { transition: transform 0.3s ease; }
-        .accordion li.active .accordion__title svg { transform: rotate(180deg); }
     </style>
 </head>
-<body class="bg-white">
+<body class="bg-white overflow-x-hidden">
     <!-- Header -->
     <header class="bg-dark sticky top-0 z-50">
         <nav class="container flex items-center justify-between gap-x-4 py-5">
@@ -94,8 +100,8 @@
                         <path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </a>
-                <a href="https://muse.ooo/order/" class="btn btn--primary type--uppercase whitespace-nowrap">
-                    <span class="btn__text">Заказать</span>
+                <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors whitespace-nowrap">
+                    Заказать
                 </a>
             </div>
             
@@ -145,8 +151,8 @@
                                     <div class="-mx-3 block rounded-lg px-3 py-2 text-white uppercase">Москва</div>
                                     <a href="tel:88007076921" class="-mx-3 block rounded-lg px-3 py-2 text-white hover:bg-gray-700">8-800-707-69-21</a>
                                     <div class="pt-4">
-                                        <a href="https://muse.ooo/order/" class="btn btn--primary type--uppercase w-full text-center block">
-                                            <span class="btn__text">Заказать</span>
+                                        <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors w-full text-center">
+                                            Заказать
                                         </a>
                                     </div>
                                 </div>
@@ -176,7 +182,7 @@
                             <li class="text-gray-100">Портрет на заказ по фото</li>
                         </ol>
                     </nav>
-                    <h1 class="text-4xl lg:text-5xl font-bold text-white mb-4">Портрет на заказ в Петербурге</h1>
+                    <h1 class="text-4xl lg:text-5xl font-light text-white mb-4">Портрет на заказ в Петербурге</h1>
                     <p class="text-xl text-white/90 mb-8">
                         700 портретов по фото в 18 стилях — поможем с выбором, цена портрета на холсте от 4371 р. — гарантия и доставка заказа по Петербургу в срок
                     </p>
@@ -210,8 +216,8 @@
     </section>
 
     <!-- Back to Top Button -->
-    <a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-gray-700 hover:bg-primary transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6 text-white">
+    <a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-white text-dark hover:bg-dark hover:text-white border border-gray-300 hover:border-dark transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
             <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
     </a>
@@ -221,7 +227,7 @@
         <section class="bg-secondary py-16 lg:py-24" id="portraits-from-photo">
             <div class="container">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl lg:text-4xl font-bold text-dark">Портреты по фото</h2>
+                    <h2 class="text-3xl lg:text-4xl font-light text-dark">Портреты по фото</h2>
                     <p class="text-body mt-4">
                         Здесь при интеграции в Bitrix будет выводиться блок с примерами.
                     </p>
@@ -233,7 +239,7 @@
         <section class="bg-dark py-8">
             <div class="container">
                 <div class="text-center">
-                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/" class="inline-block px-6 py-2 border border-white text-white hover:bg-white hover:text-dark rounded uppercase transition-colors">
+                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/" class="inline-block px-6 py-2 text-white hover:bg-white hover:text-dark rounded uppercase transition-colors">
                         Еще более 700 примеров работ
                     </a>
                 </div>
@@ -244,7 +250,7 @@
         <section class="bg-dark py-16" id="styles">
             <div class="container mb-8">
                 <div class="text-center">
-                    <h2 class="text-3xl lg:text-4xl font-bold text-white">Выберите стиль</h2>
+                    <h2 class="text-3xl lg:text-4xl font-light text-white">Выберите стиль</h2>
                 </div>
             </div>
 
@@ -368,31 +374,31 @@
                         <div class="w-16 h-16 mx-auto rounded-full bg-gray-600 overflow-hidden">
                             <img src="https://muse.ooo/upload/img/parnyy-portret-64.webp" alt="Парный" class="w-full h-full object-cover" loading="lazy">
                         </div>
-                        <p class="mt-4 text-white font-semibold">Парный</p>
+                        <p class="mt-2 text-white">Парный</p>
                     </a>
                     <a href="https://muse.ooo/portret-na-zakaz/semeynyy-portret/" class="block">
                         <div class="w-16 h-16 mx-auto rounded-full bg-gray-600 overflow-hidden">
                             <img src="https://muse.ooo/upload/img/semeynyy-portret-64.webp" alt="Семейный" class="w-full h-full object-cover" loading="lazy">
                         </div>
-                        <p class="mt-4 text-white font-semibold">Семейный</p>
+                        <p class="mt-2 text-white">Семейный</p>
                     </a>
                     <a href="https://muse.ooo/portret-na-zakaz/detskiy-portret/" class="block">
                         <div class="w-16 h-16 mx-auto rounded-full bg-gray-600 overflow-hidden">
                             <img src="https://muse.ooo/upload/img/detskiy-portret-64.webp" alt="Детский" class="w-full h-full object-cover" loading="lazy">
                         </div>
-                        <p class="mt-4 text-white font-semibold">Детский</p>
+                        <p class="mt-2 text-white">Детский</p>
                     </a>
                     <a href="https://muse.ooo/portret-na-zakaz/zhenskiy-portret/" class="block">
                         <div class="w-16 h-16 mx-auto rounded-full bg-gray-600 overflow-hidden">
                             <img src="https://muse.ooo/upload/img/zhenskiy-portret-64.webp" alt="Женский" class="w-full h-full object-cover" loading="lazy">
                         </div>
-                        <p class="mt-4 text-white font-semibold">Женский</p>
+                        <p class="mt-2 text-white">Женский</p>
                     </a>
                     <a href="https://muse.ooo/portret-na-zakaz/muzhskoy-portret/" class="block">
                         <div class="w-16 h-16 mx-auto rounded-full bg-gray-600 overflow-hidden">
                             <img src="https://muse.ooo/upload/img/muzhskoy-portret-64.webp" alt="Мужской" class="w-full h-full object-cover" loading="lazy">
                         </div>
-                        <p class="mt-4 text-white font-semibold">Мужской</p>
+                        <p class="mt-2 text-white">Мужской</p>
                     </a>
                 </div>
             </div>
@@ -402,67 +408,225 @@
         <section class="bg-secondary py-16 lg:py-24" id="calc">
             <div class="container">
                 <div class="text-center mb-8">
-                    <h2 class="text-3xl lg:text-4xl font-bold text-dark">Цена</h2>
+                    <h2 class="text-3xl lg:text-4xl font-light text-dark">Цена</h2>
                 </div>
+                
+                <!-- Калькулятор -->
                 <div class="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
+                    <!-- Верхняя часть: превью + опции -->
                     <div class="grid lg:grid-cols-2 gap-0">
-                        <!-- Изображение -->
-                        <div>
-                            <img src="https://muse.ooo/assets/calculator/img/canvas_ad_mirrored_size_628_398.webp" alt="Портрет на холсте" class="w-full h-full object-cover min-h-[300px]" loading="lazy">
-                            <div class="p-4 text-center">
-                                <div class="flex items-baseline justify-center gap-2">
-                                    <span class="text-lg text-gray-400 line-through">5 464 ₽</span>
-                                    <span class="text-2xl font-bold text-dark">4 371 ₽</span>
+                        <!-- Превью изображения -->
+                        <div class="relative">
+                            <img src="https://muse.ooo/assets/calculator/img/canvas_ad_mirrored_size_628_398.webp" alt="Портрет на холсте" class="w-full h-auto" loading="lazy">
+                            <div class="p-4 text-center bg-gray-50">
+                                <div class="flex items-baseline justify-center gap-3">
+                                    <span class="text-2xl font-light text-gray-400 line-through">5 464 ₽</span>
+                                    <span class="text-2xl font-medium text-primary">4 371 ₽</span>
                                 </div>
                             </div>
                         </div>
-                        <!-- Опции -->
+                        
+                        <!-- Опции конфигурации -->
                         <div class="p-6 lg:p-8">
-                            <form class="space-y-4">
+                            <form id="calculator-form" class="space-y-5">
+                                <!-- Размер -->
                                 <div>
-                                    <label class="block text-sm font-medium text-dark mb-1">Размер</label>
+                                    <label class="block text-sm font-medium text-dark mb-2">Размер</label>
                                     <div class="flex items-center gap-2">
-                                        <input type="text" value="20" class="w-20 border border-gray-300 rounded-md px-3 py-2 text-sm text-center focus:outline-none focus:ring-2 focus:ring-primary">
-                                        <span class="text-gray-600">×</span>
-                                        <input type="text" value="30" class="w-20 border border-gray-300 rounded-md px-3 py-2 text-sm text-center focus:outline-none focus:ring-2 focus:ring-primary">
+                                        <input type="number" value="20" min="20" step="5" class="w-24 border border-gray-300 rounded-md px-4 py-2.5 text-base text-center focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        <span class="text-gray-500">×</span>
+                                        <input type="number" value="30" min="20" step="5" class="w-24 border border-gray-300 rounded-md px-4 py-2.5 text-base text-center focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
                                     </div>
                                 </div>
+                                
+                                <!-- Стиль -->
                                 <div>
-                                    <label class="block text-sm font-medium text-dark mb-1">Стиль</label>
-                                    <select class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary">
-                                        <option>Под масло</option>
-                                        <option>Акварель</option>
-                                        <option>Карандаш</option>
-                                        <option>В образе</option>
-                                        <option>Поп-арт</option>
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <label class="text-sm font-medium text-dark">Стиль</label>
+                                        <button popovertarget="tooltip-style" type="button" class="w-5 h-5 rounded-full bg-gray-200 text-gray-600 text-xs inline-flex items-center justify-center hover:bg-gray-300 transition-colors">?</button>
+                                    </div>
+                                    <select class="w-full border border-gray-300 rounded-md px-4 py-2.5 text-sm bg-white appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M6%208L1%203h10z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:12px] bg-[right_12px_center] bg-no-repeat pr-10 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent cursor-pointer">
+                                        <option value="18" selected>Под масло</option>
+                                        <option value="21">Портрет акварелью</option>
+                                        <option value="22">Портрет карандашом</option>
+                                        <option value="20">Портрет в образе</option>
+                                        <option value="25">Шарж по фото</option>
+                                        <option value="32">Комикс</option>
+                                        <option value="29">Из слов с прорисовкой</option>
+                                        <option value="30">Из слов по фото</option>
+                                        <option value="34">Мозаика с прорисовкой</option>
+                                        <option value="35">Мозаика</option>
+                                        <option value="27">Гранж портрет</option>
+                                        <option value="33">Flower Art</option>
+                                        <option value="1">Рисованный Love is...</option>
+                                        <option value="7">Love is... из фото</option>
+                                        <option value="31">Бьюти-арт</option>
+                                        <option value="28">WPAP портрет</option>
+                                        <option value="17">Дрим-арт портрет</option>
+                                        <option value="13">Поп-арт Монро</option>
+                                        <option value="14">Поп-арт Че</option>
+                                        <option value="15">Поп-арт Уорхол</option>
                                     </select>
                                 </div>
+                                
+                                <!-- Количество лиц -->
                                 <div>
-                                    <label class="block text-sm font-medium text-dark mb-1">Количество лиц</label>
-                                    <select class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5+</option>
-                                    </select>
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <label class="text-sm font-medium text-dark">Количество лиц</label>
+                                        <button popovertarget="tooltip-faces" type="button" class="w-5 h-5 rounded-full bg-gray-200 text-gray-600 text-xs inline-flex items-center justify-center hover:bg-gray-300 transition-colors">?</button>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <select class="flex-1 border border-gray-300 rounded-md px-4 py-2.5 text-sm bg-white appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M6%208L1%203h10z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:12px] bg-[right_12px_center] bg-no-repeat pr-10 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent cursor-pointer">
+                                            <option value="1" selected>1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </select>
+                                        <span class="ml-4 text-sm text-primary font-medium">1 920 ₽</span>
+                                    </div>
                                 </div>
-                                <div class="flex items-center justify-between">
-                                    <label class="flex items-center gap-2 cursor-pointer">
-                                        <input type="checkbox" checked class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary">
-                                        <span class="text-sm text-dark">Покрытие лаком</span>
-                                    </label>
-                                    <span class="text-sm text-gray-600">60 ₽</span>
+                                
+                                <!-- Печать, подрамник -->
+                                <div>
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <label class="text-sm font-medium text-dark">Печать, подрамник</label>
+                                        <button popovertarget="tooltip-frame" type="button" class="w-5 h-5 rounded-full bg-gray-200 text-gray-600 text-xs inline-flex items-center justify-center hover:bg-gray-300 transition-colors">?</button>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <select class="flex-1 border border-gray-300 rounded-md px-4 py-2.5 text-sm bg-white appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M6%208L1%203h10z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:12px] bg-[right_12px_center] bg-no-repeat pr-10 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent cursor-pointer">
+                                            <option value="2" selected>Стандартный</option>
+                                            <option value="1">Толстый</option>
+                                        </select>
+                                        <span class="ml-4 text-sm text-primary font-medium">2 391 ₽</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Чекбоксы -->
+                                <div class="space-y-3 pt-2">
+                                    <!-- Покрытие лаком -->
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <input type="checkbox" id="checkbox-lak" checked class="w-5 h-5 text-primary border-2 border-gray-300 rounded focus:ring-primary focus:ring-2 cursor-pointer accent-primary">
+                                            <label for="checkbox-lak" class="text-sm text-dark cursor-pointer">Покрытие лаком</label>
+                                            <button popovertarget="tooltip-lak" type="button" class="w-5 h-5 rounded-full bg-gray-200 text-gray-600 text-xs inline-flex items-center justify-center hover:bg-gray-300 transition-colors">?</button>
+                                        </div>
+                                        <span class="text-sm text-primary font-medium">60 ₽</span>
+                                    </div>
+                                    
+                                    <!-- Подарочная упаковка -->
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <input type="checkbox" id="checkbox-wrapper" class="w-5 h-5 text-primary border-2 border-gray-300 rounded focus:ring-primary focus:ring-2 cursor-pointer accent-primary">
+                                            <label for="checkbox-wrapper" class="text-sm text-dark cursor-pointer">Подарочная упаковка</label>
+                                            <button popovertarget="tooltip-wrapper" type="button" class="w-5 h-5 rounded-full bg-gray-200 text-gray-600 text-xs inline-flex items-center justify-center hover:bg-gray-300 transition-colors">?</button>
+                                        </div>
+                                        <span class="text-sm text-primary font-medium">650 ₽</span>
+                                    </div>
                                 </div>
                             </form>
                         </div>
                     </div>
-                    <div class="p-6 lg:p-8 border-t border-gray-200 text-center">
-                        <a href="https://muse.ooo/order/" class="inline-block px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors text-lg">
-                            Заказать
-                        </a>
+                    
+                    <!-- Кнопка загрузки фото -->
+                    <div class="p-6 border-t border-gray-200 text-center bg-gray-50">
+                        <button type="button" class="inline-block px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors">
+                            Загрузите фото
+                        </button>
+                    </div>
+                    
+                    <!-- Форма контактов -->
+                    <div class="p-6 lg:p-8 border-t border-gray-200">
+                        <!-- Верхняя строка: Имя, Телефон, E-mail, Комментарий -->
+                        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <!-- Имя -->
+                            <div>
+                                <input type="text" id="calc-name-input" placeholder="Имя*" required class="w-full border border-gray-300 rounded-md px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                            <!-- Телефон -->
+                            <div>
+                                <input type="tel" id="calc-phone-input" placeholder="Телефон*" required class="w-full border border-gray-300 rounded-md px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                            <!-- Email -->
+                            <div>
+                                <input type="email" id="calc-email-input" placeholder="E-mail" class="w-full border border-gray-300 rounded-md px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                            <!-- Комментарий -->
+                            <div class="md:col-span-2 lg:col-span-1">
+                                <textarea placeholder="Комментарий" rows="1" class="w-full border border-gray-300 rounded-md px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"></textarea>
+                            </div>
+                        </div>
+                        
+                        <!-- Нижняя строка: Ссылка (1 кол.) + Согласие (2 кол.) + Кнопка (1 кол.) -->
+                        <div class="mt-4 grid md:grid-cols-4 gap-4 items-center">
+                            <!-- Поле для ссылки - 1 колонка -->
+                            <div>
+                                <textarea id="calc-link-input" placeholder="Поле для ссылки на фото или облако" rows="2" class="w-full border border-gray-300 rounded-md px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"></textarea>
+                            </div>
+                            <!-- Согласие - 2 колонки -->
+                            <div class="md:col-span-2">
+                                <p class="text-xs text-body">
+                                    Заполняя форму, я соглашаюсь с условиями <a href="https://muse.ooo/info/oferta/" class="text-primary hover:underline">Оферты</a> и даю своё согласие на обработку персональных данных в соответствии с <a href="https://muse.ooo/info/politika_konfidentsialnosti_sayta/" class="text-primary hover:underline">Политикой конфиденциальности сайта</a>
+                                </p>
+                            </div>
+                            <!-- Кнопка - 1 колонка -->
+                            <div class="text-center md:text-right">
+                                <button type="submit" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors whitespace-nowrap">
+                                    Заказать
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                
+                <!-- Tooltips (Popovers) -->
+                <el-popover id="tooltip-style" anchor="bottom" popover class="bg-white rounded-lg shadow-xl border border-gray-200 p-6 max-w-sm z-50">
+                    <button popovertarget="tooltip-style" popovertargetaction="hide" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                    <h3 class="text-lg font-light text-dark text-center mb-2">Стиль</h3>
+                    <p class="text-sm text-body">Выберите художественный стиль для вашего портрета. Каждый стиль имеет свои особенности обработки.</p>
+                </el-popover>
+                
+                <el-popover id="tooltip-faces" anchor="bottom" popover class="bg-white rounded-lg shadow-xl border border-gray-200 p-6 max-w-sm z-50">
+                    <button popovertarget="tooltip-faces" popovertargetaction="hide" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                    <h3 class="text-lg font-light text-dark text-center mb-2">Количество лиц</h3>
+                    <p class="text-sm text-body">Укажите количество людей, которые будут изображены на портрете. Стоимость зависит от количества лиц.</p>
+                </el-popover>
+                
+                <el-popover id="tooltip-frame" anchor="bottom" popover class="bg-white rounded-lg shadow-xl border border-gray-200 p-6 max-w-sm z-50">
+                    <button popovertarget="tooltip-frame" popovertargetaction="hide" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                    <h3 class="text-lg font-light text-dark text-center mb-2">Печать, подрамник</h3>
+                    <p class="text-sm text-body">Стандартный подрамник толщиной 2 см. Толстый подрамник — 4 см, создаёт более объёмный вид картины.</p>
+                </el-popover>
+                
+                <el-popover id="tooltip-lak" anchor="bottom" popover class="bg-white rounded-lg shadow-xl border border-gray-200 p-6 max-w-sm z-50">
+                    <button popovertarget="tooltip-lak" popovertargetaction="hide" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                    <h3 class="text-lg font-light text-dark text-center mb-2">Покрытие лаком</h3>
+                    <p class="text-sm text-body">Защитное покрытие лаком продлевает срок службы картины, защищает от влаги и выцветания. Рекомендуется для всех работ.</p>
+                </el-popover>
+                
+                <el-popover id="tooltip-wrapper" anchor="bottom" popover class="bg-white rounded-lg shadow-xl border border-gray-200 p-6 max-w-sm z-50">
+                    <button popovertarget="tooltip-wrapper" popovertargetaction="hide" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                    <div class="text-center mb-4">
+                        <svg class="w-10 h-10 mx-auto text-primary" fill="currentColor" viewBox="0 0 458.9 458.9"><path d="M451.2 95.4l0.3-0.8L238.6 7.9l-36.1 13.7c3.8 4.1 7.3 8.4 10.7 12.9l25.2-9.6 51.2 20.9c15.6-2.5 29.6-1.7 41.6 2.6 14 5.1 24.7 14.3 32.3 27.5l67.5 27.5 -55.4 21.8c-0.4 6.5-2 13.3-5.6 19.3l65.8-26v244.7L237.4 441.5V196.8l92.3-36.4c-8.3-1.1-17.2-3.5-26.4-6.6l-73.8 29.1 -71-28 35-15.9c-2.9-1.2-5.6-3.1-7.6-5.7 -3.1-3.8-4.7-8.6-4.4-13.4 -1.9-2.2-7.4-4.7-13.9-7l-56 23.6 -81.7-32.2 56.4-21.4c-4.4-3.6-8-7.9-10.4-13L8 95.5l-0.7-0.3v0.6L7.2 95.8l0 0.1v278.1L221.5 458.6v0.3h15.9v-0.3l214.3-84.5V95.2L451.2 95.4z"/></svg>
+                    </div>
+                    <h3 class="text-lg font-light text-dark text-center mb-2">Подарочная упаковка</h3>
+                    <p class="text-sm text-body">По желанию упакуем работу в подарочную крафт-бумагу с красивым бантом. Варианты оформления обязательно с Вами предварительно согласуем.</p>
+                </el-popover>
             </div>
         </section>
 
@@ -471,7 +635,7 @@
             <div class="container">
                 <div class="grid gap-8 lg:grid-cols-2">
                     <div>
-                        <h3 class="text-2xl font-bold text-dark mb-4">Характеристики</h3>
+                        <h3 class="text-2xl font-light text-dark mb-4">Характеристики</h3>
                         <ul class="space-y-2">
                             <li class="flex items-start gap-2"><span class="w-5 h-5 rounded-full bg-primary flex items-center justify-center text-white text-xs flex-shrink-0 mt-0.5">✓</span><span class="text-body">Цифровой макет</span></li>
                             <li class="flex items-start gap-2"><span class="w-5 h-5 rounded-full bg-primary flex items-center justify-center text-white text-xs flex-shrink-0 mt-0.5">✓</span><span class="text-body">100%-й хлопковый холст плотностью 380 г/кв.м</span></li>
@@ -482,7 +646,7 @@
                         </ul>
                     </div>
                     <div>
-                        <h3 class="text-2xl font-bold text-dark mb-4">Сроки</h3>
+                        <h3 class="text-2xl font-light text-dark mb-4">Сроки</h3>
                         <div class="text-body space-y-2">
                             <p>Срок создания цифрового макета&nbsp;&mdash; 08.01.2026.</p>
                             <p>Получение портрета на&nbsp;холсте со&nbsp;склада самовывоза&nbsp;&mdash; 09.01.2026.</p>
@@ -493,48 +657,16 @@
             </div>
         </section>
 
-        <!-- Изготовление -->
-        <section class="bg-white py-16" id="portraits-on-canvas">
-            <div class="container">
-                <h2 class="text-2xl font-bold text-dark mb-6 text-center">Изготовление</h2>
-                <p class="text-xl text-body">
-                    Только после утверждения Вами цифрового макета, напечатаем его на холсте, натянем на подрамник и оформим. Сделаем фотографии готовой работы, перешлём Вам, а после передадим в службу доставки.
-                </p>
-            </div>
-        </section>
-
-        <!-- Доставка -->
-        <section class="bg-secondary py-16" id="delivery">
-            <div class="container">
-                <h3 class="text-2xl font-bold text-dark mb-6 text-center">Доставка</h3>
-                <p class="text-xl text-body">
-                    Самовывоз в СПб — ул. Слуцкая, дом 13, корпус 2 — получение на следующий рабочий день после изготовления.<br>
-                    Курьер — 450 руб. в пределах КАД.<br>
-                    Пункты выдачи СПб — 235 руб. — получение в течение 2-3 рабочих дней.
-                </p>
-            </div>
-        </section>
-
-        <!-- Оплата -->
-        <section class="bg-white py-16" id="payment">
-            <div class="container">
-                <h3 class="text-2xl font-bold text-dark mb-6 text-center">Оплата</h3>
-                <p class="text-xl text-body">
-                    Оплата услуг по печати и оформлению портрета на холсте при получении. Работа художника по созданию цифрового макета оплачивается после подтверждения эскиза. Оплатить можно банковской картой, через QR-код СБП, наличными.
-                </p>
-            </div>
-        </section>
-
-        <!-- How to Order -->
+        <!-- Как заказать -->
         <section class="bg-dark py-16 lg:py-24" id="order">
             <div class="container mb-8">
                 <div class="text-center">
-                    <h2 class="text-3xl lg:text-4xl font-bold text-white">Как заказать</h2>
+                    <h2 class="text-3xl lg:text-4xl font-light text-white">Как заказать</h2>
                 </div>
             </div>
             <div class="container">
                 <div class="grid gap-10 xl:grid-cols-2">
-                    <!-- Video -->
+                    <!-- Видео -->
                     <div>
                         <div class="video-cover border--round box-shadow-wide overflow-hidden rounded-md">
                             <div class="background-image-holder relative w-full" style="padding-top: 64.5%;">
@@ -542,7 +674,7 @@
                                     loading="lazy" 
                                     height="358" width="555" 
                                     title="Видео о создании портретов от Muse" 
-                                    alt="Обложка для видео" 
+                                    alt="Обложка для видео: Портрет на заказ по фото. Печать на холсте." 
                                     src="https://muse.ooo/img/portret-na-zakaz-cover-555.webp"
                                     class="absolute inset-0 w-full h-full object-cover"
                                 >
@@ -566,33 +698,31 @@
                         </div>
                         <p class="mt-4 text-gray-300">Видео о создании портрета на холсте в Muse</p>
                     </div>
-                    <!-- Process Steps -->
-                    <div class="space-y-8">
-                        <div class="flex gap-4">
-                            <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center">
-                                <span class="text-xl font-bold text-primary">1</span>
+                    <!-- Процесс -->
+                    <div class="relative">
+                        <!-- Пунктирная линия между шагами -->
+                        <div class="absolute left-6 top-12 bottom-12 w-0 border-l-2 border-dashed border-white/50"></div>
+                        
+                        <div class="space-y-8 relative">
+                            <div class="flex gap-4">
+                                <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center relative z-10">
+                                    <span class="text-xl font-bold text-white">1</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-white mb-2">Выбор стиля и оформление заказа</h4>
+                                    <p class="text-gray-300">Сначала рекомендуем определиться со стилем портрета. В разделе <a href="#styles" class="text-primary hover:underline">«Выберите стиль ↑»</a> нажмите на название понравившегося стиля.</p>
+                                    <p class="text-gray-300 mt-2">В разделе <a href="#calc" class="text-primary hover:underline">«Цена ↑»</a> можно загрузить фото, подобрать нужный размер, рассчитать стоимость и оформить заказ.</p>
+                                    <p class="text-gray-300 mt-2">Нет возможности разбираться? Нажмите любую кнопку <a href="https://muse.ooo/order/" class="text-primary hover:underline">«Заказать»</a> и перешлите нам фото. Перезвоним и поможем с выбором.</p>
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="text-lg font-semibold text-white mb-2">Выбор стиля и оформление заказа</h4>
-                                <p class="text-gray-300">Сначала определитесь со стилем портрета. Нажмите на понравившийся стиль выше для подробного описания.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center">
-                                <span class="text-xl font-bold text-primary">2</span>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-semibold text-white mb-2">Цифровой макет</h4>
-                                <p class="text-gray-300">Позвоним, обсудим задание. Выполним эскиз. После подтверждения напишем портрет. Вносите правки, пока не будете удовлетворены.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center">
-                                <span class="text-xl font-bold text-primary">3</span>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-semibold text-white mb-2">Печать и доставка</h4>
-                                <p class="text-gray-300">Напечатаем на холсте, натянем на подрамник, сделаем фото готовой работы и передадим в доставку.</p>
+                            <div class="flex gap-4">
+                                <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center relative z-10">
+                                    <span class="text-xl font-bold text-white">2</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-white mb-2">Цифровой макет</h4>
+                                    <p class="text-gray-300">В течение часа позвоним, чтобы обсудить задание. По согласованному заданию выполним эскиз. После подтверждения эскиза напишем портрет. Вносите правки, пока не будете удовлетворены работой.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -600,11 +730,43 @@
             </div>
         </section>
 
+        <!-- Изготовление -->
+        <section class="bg-white py-16 lg:py-24" id="portraits-on-canvas">
+            <div class="container">
+                <h2 class="text-3xl lg:text-4xl font-light text-dark mb-6 text-center">Изготовление</h2>
+                <p class="text-xl text-body">
+                    Только после утверждения Вами цифрового макета, напечатаем его на холсте, натянем на подрамник и оформим. Сделаем фотографии готовой работы, если нужно видео или онлайн-трансляцию, перешлём Вам, а после передадим в службу доставки.
+                </p>
+            </div>
+        </section>
+
+        <!-- Доставка -->
+        <section class="bg-secondary py-16" id="delivery">
+            <div class="container">
+                <h3 class="text-3xl lg:text-4xl font-light text-dark mb-6 text-center">Доставка</h3>
+                <p class="text-xl text-body">
+                    Самовывоз в СПб — ул. Слуцкая, дом 13, корпус 2 — получение на следующий рабочий день после изготовления.<br>
+                    Курьер — 450 руб. в пределах КАД — получение на следующий рабочий день после изготовления.<br>
+                    Пункты <a href="https://muse.ooo/info/dostavka/" class="text-primary hover:underline">выдачи</a> интернет-магазинов СПб — 235 руб. — получение в течение 2-3 рабочих дней после изготовления картины.
+                </p>
+            </div>
+        </section>
+
+        <!-- Оплата -->
+        <section class="bg-white py-16" id="payment">
+            <div class="container">
+                <h3 class="text-3xl lg:text-4xl font-light text-dark mb-6 text-center">Оплата</h3>
+                <p class="text-xl text-body">
+                    Оплата услуг по печати и оформлению портрета на холсте при получении. Работа художника по созданию цифрового макета оплачивается после подтверждения эскиза. Оплатить можно удобным способом: банковской картой, через QR-код приложений банков, через QR-код СБП, а также наличными по коду платежа.
+                </p>
+            </div>
+        </section>
+
         <!-- Advantages -->
         <section class="bg-primary py-16 lg:py-24">
             <div class="container">
                 <div class="text-center mb-8">
-                    <h3 class="text-3xl font-bold text-white">Преимущества</h3>
+                    <h3 class="text-3xl lg:text-4xl font-light text-white">Преимущества</h3>
                 </div>
                 <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
                     <!-- 1. Художники -->
@@ -674,19 +836,19 @@
         <section class="bg-white py-16 lg:py-24" id="faq">
             <div class="container">
                 <div class="text-center mb-8">
-                    <h3 class="text-3xl font-bold text-dark">Вопросы и ответы</h3>
+                    <h3 class="text-3xl lg:text-4xl font-light text-dark">Вопросы и ответы</h3>
                 </div>
                 <div class="grid gap-8 lg:grid-cols-2" itemscope itemtype="http://schema.org/FAQPage">
                     <!-- Left Column -->
-                    <ul class="accordion space-y-0">
-                        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <div class="accordion__title">
-                                <span class="text-lg font-medium text-dark" itemprop="name">Сколько стоит портрет по фото на холсте?</span>
-                                <svg class="size-5 flex-shrink-0 text-dark" viewBox="0 0 20 20" fill="currentColor">
+                    <div class="space-y-0 divide-y divide-gray-200 overflow-hidden">
+                        <details class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none [&::-webkit-details-marker]:hidden">
+                                <span itemprop="name" class="break-words">Сколько стоит портрет по фото на холсте?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
                                 </svg>
-                            </div>
-                            <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
+                            </summary>
+                            <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
                                 <div class="text-body" itemprop="text">
                                     <p>Понимаем, что для подарка важна предсказуемая цена. Поэтому упростили расчёты. Цена написания портрета рассчитывается от количества лиц, а цена его печати и оформления на холсте — от размера. Минимальная стоимость картины с изображением одного человека размером 20×30 см (с покрытием лаком) — 4371 р., а средняя (размер 40×60) — 5293 р.</p>
                                     <div class="mt-3 overflow-x-auto">
@@ -717,56 +879,99 @@
                                     <p class="mt-3">В стоимость включена работа художника по созданию портрета в цифровом виде, печать его на холсте, натяжка на подрамник, крепления и защитное покрытие лаком. Готовую картину можно вешать на стену. Багетная рама и подарочная упаковка оплачиваются отдельно. Стоимость портрета можно самостоятельно рассчитать в разделе <a href="#calc" class="text-primary hover:underline">«Цена» ↑</a>.</p>
                                 </div>
                             </div>
-                        </li>
+                        </details>
 
-                        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <div class="accordion__title"><span class="text-lg font-medium text-dark" itemprop="name">Какие сроки исполнения заказа?</span><svg class="size-5 flex-shrink-0 text-dark" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg></div>
-                            <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text">Средний срок создания цифрового макета — 2 дня. Средний срок его печати и оформления — 1 день.</div></div>
-                        </li>
-                        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <div class="accordion__title"><span class="text-lg font-medium text-dark" itemprop="name">В чём особенность портретов по фото?</span><svg class="size-5 flex-shrink-0 text-dark" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg></div>
-                            <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text">Они пишутся без позирования изображаемых людей, поэтому часто выбираются как неожиданный подарок для близких.</div></div>
-                        </li>
-                        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <div class="accordion__title"><span class="text-lg font-medium text-dark" itemprop="name">Вы печатаете или рисуете?</span><svg class="size-5 flex-shrink-0 text-dark" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg></div>
-                            <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text">Портрет пишется художником в цифровом виде, а затем печатается. После изготовления он может быть прорисован маслом, акриловыми красками или художественным гелем.</div></div>
-                        </li>
-                        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <div class="accordion__title"><span class="text-lg font-medium text-dark" itemprop="name">Есть ли преимущества у «цифры» перед кистью?</span><svg class="size-5 flex-shrink-0 text-dark" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg></div>
-                            <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text">Цифровой портрет создается поверх фотографии — художнику легче добиться схожести, а затем проще вносить правки. Его можно использовать как для печати на холсте, так и для соцсетей, визиток, футболок или кружек. Он легко перепечатывается в случае утраты или тиражируется.</div></div>
-                        </li>
-                        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <div class="accordion__title"><span class="text-lg font-medium text-dark" itemprop="name">Какие будут гарантии при работе с вами?</span><svg class="size-5 flex-shrink-0 text-dark" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg></div>
-                            <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text"><p>Работаем с 28.01.2016 года. Предоставляем юридические гарантии. Гарантия на заказ — 5 лет. Своё производство. Осуществляем страхование доставки.</p></div></div>
-                        </li>
-                    </ul>
+                        <details class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none [&::-webkit-details-marker]:hidden">
+                                <span itemprop="name">Какие сроки исполнения заказа?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text">Средний срок создания цифрового макета — 2 дня. Средний срок его печати и оформления — 1 день.</div></div>
+                        </details>
+
+                        <details class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none [&::-webkit-details-marker]:hidden">
+                                <span itemprop="name">В чём особенность портретов по фото?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text">Они пишутся без позирования изображаемых людей, поэтому часто выбираются как неожиданный подарок для близких.</div></div>
+                        </details>
+
+                        <details class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none [&::-webkit-details-marker]:hidden">
+                                <span itemprop="name">Вы печатаете или рисуете?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text">Портрет пишется художником в цифровом виде, а затем печатается. После изготовления он может быть прорисован маслом, акриловыми красками или художественным гелем.</div></div>
+                        </details>
+
+                        <details class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none [&::-webkit-details-marker]:hidden">
+                                <span itemprop="name">Есть ли преимущества у «цифры» перед кистью?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text">Цифровой портрет создается поверх фотографии — художнику легче добиться схожести, а затем проще вносить правки. Его можно использовать как для печати на холсте, так и для соцсетей, визиток, футболок или кружек. Он легко перепечатывается в случае утраты или тиражируется.</div></div>
+                        </details>
+
+                        <details class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none [&::-webkit-details-marker]:hidden">
+                                <span itemprop="name">Какие будут гарантии при работе с вами?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text"><p>Работаем с 28.01.2016 года. Предоставляем юридические гарантии. Гарантия на заказ — 5 лет. Своё производство. Осуществляем страхование доставки.</p></div></div>
+                        </details>
+                    </div>
+
                     <!-- Right Column -->
-                    <ul class="accordion space-y-0">
-                        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <div class="accordion__title"><span class="text-lg font-medium text-dark" itemprop="name">Почему не напечатать просто фото?</span><svg class="size-5 flex-shrink-0 text-dark" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg></div>
-                            <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text"><p>При написании портрета заказчик руками художника выражает личное отношение к портретируемому: выбирает стиль, подчёркивает достоинства, ретуширует недостатки.</p></div></div>
-                        </li>
-                        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <div class="accordion__title"><span class="text-lg font-medium text-dark" itemprop="name">Какие требования к фото?</span><svg class="size-5 flex-shrink-0 text-dark" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg></div>
-                            <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text">Лучше найти исходник — снимок со смартфона или фотоаппарата. Если нет цифрового оригинала — отсканируйте фотокарточку. Изображения из соцсетей подойдут не все — пришлите их нам, чтобы художник посмотрел.</div></div>
-                        </li>
-                        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <div class="accordion__title"><span class="text-lg font-medium text-dark" itemprop="name">На чём печатаете?</span><svg class="size-5 flex-shrink-0 text-dark" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg></div>
-                            <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text">На плоттере HP Latex 315 с разрешением 1200×1200 dpi. В качестве основы используем 100%-й хлопковый холст плотностью 380 г/м².</div></div>
-                        </li>
-                        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <div class="accordion__title"><span class="text-lg font-medium text-dark" itemprop="name">Недорого ли у вас печатать?</span><svg class="size-5 flex-shrink-0 text-dark" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg></div>
-                            <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text">Печатаем латексными чернилами (они дороже в 3 раза, чем экосольвентные), так как латексные безвредны для человека. Если найдете цену ниже — напишите, снизим цену и приготовим подарок.</div></div>
-                        </li>
-                        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <div class="accordion__title"><span class="text-lg font-medium text-dark" itemprop="name">Почему портрет на холсте долговечен?</span><svg class="size-5 flex-shrink-0 text-dark" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg></div>
-                            <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text">Если использованы оригинальные чернила, он устойчив к воздействию ультрафиолета, который со временем разрушает натуральные материалы.</div></div>
-                        </li>
-                        <li itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <div class="accordion__title"><span class="text-lg font-medium text-dark" itemprop="name">Где вы находитесь?</span><svg class="size-5 flex-shrink-0 text-dark" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg></div>
-                            <div class="accordion__content" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text"><p class="font-semibold">Студия Muse</p><p>Адрес: 196620, Россия, Санкт-Петербург, Павловск, Слуцкая ул., дом 13 к 2.</p><p>Телефон: +7-812-408-18-69</p></div></div>
-                        </li>
-                    </ul>
+                    <div class="space-y-0 divide-y divide-gray-200 overflow-hidden">
+                        <details class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none [&::-webkit-details-marker]:hidden">
+                                <span itemprop="name">Почему не напечатать просто фото?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text"><p>При написании портрета заказчик руками художника выражает личное отношение к портретируемому: выбирает стиль, подчёркивает достоинства, ретуширует недостатки.</p></div></div>
+                        </details>
+
+                        <details class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none [&::-webkit-details-marker]:hidden">
+                                <span itemprop="name">Какие требования к фото?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text">Лучше найти исходник — снимок со смартфона или фотоаппарата. Если нет цифрового оригинала — отсканируйте фотокарточку. Изображения из соцсетей подойдут не все — пришлите их нам, чтобы художник посмотрел.</div></div>
+                        </details>
+
+                        <details class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none [&::-webkit-details-marker]:hidden">
+                                <span itemprop="name">На чём печатаете?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text">На плоттере HP Latex 315 с разрешением 1200×1200 dpi. В качестве основы используем 100%-й хлопковый холст плотностью 380 г/м².</div></div>
+                        </details>
+
+                        <details class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none [&::-webkit-details-marker]:hidden">
+                                <span itemprop="name">Недорого ли у вас печатать?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text">Печатаем латексными чернилами (они дороже в 3 раза, чем экосольвентные), так как латексные безвредны для человека. Если найдете цену ниже — напишите, снизим цену и приготовим подарок.</div></div>
+                        </details>
+
+                        <details class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none [&::-webkit-details-marker]:hidden">
+                                <span itemprop="name">Почему портрет на холсте долговечен?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text">Если использованы оригинальные чернила, он устойчив к воздействию ультрафиолета, который со временем разрушает натуральные материалы.</div></div>
+                        </details>
+
+                        <details class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none [&::-webkit-details-marker]:hidden">
+                                <span itemprop="name">Где вы находитесь?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text"><p class="font-semibold">Студия Muse</p><p>Адрес: 196620, Россия, Санкт-Петербург, Павловск, Слуцкая ул., дом 13 к 2.</p><p>Телефон: +7-812-408-18-69</p></div></div>
+                        </details>
+                    </div>
                 </div>
             </div>
         </section>
@@ -775,7 +980,7 @@
         <section class="bg-white py-16 lg:py-24" id="examples">
             <div class="container mb-8">
                 <div class="text-center">
-                    <h2 class="text-3xl lg:text-4xl font-bold text-dark">Примеры портретов на холсте</h2>
+                    <h2 class="text-3xl lg:text-4xl font-light text-dark">Примеры портретов на холсте</h2>
                 </div>
             </div>
             <div class="carousel-scroll pb-4">
@@ -841,14 +1046,14 @@
         <!-- CTA Section -->
         <section class="bg-secondary py-24 md:py-32">
             <div class="container xl:flex xl:items-center xl:justify-between">
-                <h2 class="text-2xl font-bold tracking-tight text-gray-900">
+                <h2 class="text-2xl font-light tracking-tight text-dark">
                     Создай своё произведение искусства
                 </h2>
-                <div class="mt-10 flex items-center gap-x-6 xl:mt-0 xl:shrink-0">
-                    <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors">
+                <div class="mt-10 flex flex-col md:flex-row items-center gap-4 md:gap-x-6 xl:mt-0 xl:shrink-0">
+                    <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors w-full md:w-auto text-center">
                         Заказать
                     </a>
-                    <a href="#callback" class="inline-block px-6 py-2 bg-dark hover:bg-gray-700 text-white rounded uppercase transition-colors">
+                    <a href="#callback" class="inline-block px-6 py-2 bg-dark hover:bg-gray-700 text-white rounded uppercase transition-colors w-full md:w-auto text-center">
                         Обратный звонок
                     </a>
                 </div>
@@ -866,22 +1071,22 @@
                     <div class="flex flex-col">
                         <!-- Основные ссылки (жирный белый текст) - первая строка на десктопе -->
                         <nav class="flex flex-col md:flex-row flex-wrap gap-4 md:gap-6">
-                            <a href="https://muse.ooo/info/" class="text-sm text-white font-semibold hover:text-primary transition-colors uppercase tracking-wide">
+                            <a href="https://muse.ooo/info/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">
                                 О нас
                             </a>
-                            <a href="https://muse.ooo/info/kontakty/" class="text-sm text-white font-semibold hover:text-primary transition-colors uppercase tracking-wide">
+                            <a href="https://muse.ooo/info/kontakty/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">
                                 Контакты
                             </a>
-                            <a href="https://muse.ooo/pechat/" class="text-sm text-white font-semibold hover:text-primary transition-colors uppercase tracking-wide">
+                            <a href="https://muse.ooo/pechat/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">
                                 Печать на холсте
                             </a>
-                            <a href="https://muse.ooo/portret-na-zakaz/" class="text-sm text-white font-semibold hover:text-primary transition-colors uppercase tracking-wide">
+                            <a href="https://muse.ooo/portret-na-zakaz/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">
                                 Портреты
                             </a>
-                            <a href="https://muse.ooo/pechat/foto-na-kholste/" class="text-sm text-white font-semibold hover:text-primary transition-colors uppercase tracking-wide">
+                            <a href="https://muse.ooo/pechat/foto-na-kholste/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">
                                 Фото на холсте
                             </a>
-                            <a href="https://muse.ooo/portret-na-zakaz/portret-maslom/" class="text-sm text-white font-semibold hover:text-primary transition-colors uppercase tracking-wide">
+                            <a href="https://muse.ooo/portret-na-zakaz/portret-maslom/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">
                                 Портрет маслом
                             </a>
                         </nav>
@@ -920,7 +1125,7 @@
                             target="_blank" 
                             rel="noopener nofollow"
                             title="WhatsApp"
-                            class="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800 hover:bg-primary transition-colors"
+                            class="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800 hover:bg-gray-600 transition-colors"
                             aria-label="WhatsApp"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 418.135 418.135" class="w-5 h-5 fill-white">
@@ -935,7 +1140,7 @@
                             target="_blank" 
                             rel="noopener nofollow"
                             title="Публичная страница в ВК"
-                            class="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800 hover:bg-primary transition-colors"
+                            class="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800 hover:bg-gray-600 transition-colors"
                             aria-label="ВКонтакте"
                         >
                             <svg viewBox="0 0 20 20" class="w-5 h-5 fill-white">
@@ -952,7 +1157,7 @@
                             target="_blank" 
                             rel="noopener nofollow"
                             title="WhatsApp"
-                            class="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800 hover:bg-primary transition-colors"
+                            class="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800 hover:bg-gray-600 transition-colors"
                             aria-label="WhatsApp"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 418.135 418.135" class="w-5 h-5 fill-white">
@@ -967,7 +1172,7 @@
                             target="_blank" 
                             rel="noopener nofollow"
                             title="Публичная страница в ВК"
-                            class="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800 hover:bg-primary transition-colors"
+                            class="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800 hover:bg-gray-600 transition-colors"
                             aria-label="ВКонтакте"
                         >
                             <svg viewBox="0 0 20 20" class="w-5 h-5 fill-white">
@@ -1107,23 +1312,63 @@
                 }
             });
             
-            // Accordion functionality
-            document.querySelectorAll('.accordion .accordion__title').forEach(function(title) {
-                title.addEventListener('click', function() {
-                    const li = this.parentElement;
-                    const wasActive = li.classList.contains('active');
-                    
-                    // Close all items in this accordion
-                    li.closest('.accordion').querySelectorAll('li').forEach(function(item) {
-                        item.classList.remove('active');
+            // Маски для полей формы калькулятора
+            (function() {
+                // Маска для телефона
+                const phoneInput = document.getElementById('calc-phone-input');
+                if (phoneInput) {
+                    phoneInput.addEventListener('input', function(e) {
+                        let value = e.target.value.replace(/\D/g, '');
+                        if (value.startsWith('7') || value.startsWith('8')) {
+                            value = value.substring(1);
+                        }
+                        if (value.length > 0) {
+                            let formatted = '+7 (';
+                            if (value.length > 0) formatted += value.substring(0, 3);
+                            if (value.length > 3) formatted += ') ' + value.substring(3, 6);
+                            if (value.length > 6) formatted += '-' + value.substring(6, 8);
+                            if (value.length > 8) formatted += '-' + value.substring(8, 10);
+                            e.target.value = formatted;
+                        }
                     });
                     
-                    // Toggle current item
-                    if (!wasActive) {
-                        li.classList.add('active');
-                    }
-                });
-            });
+                    phoneInput.addEventListener('focus', function(e) {
+                        if (!e.target.value) {
+                            e.target.value = '+7 (';
+                        }
+                    });
+                }
+                
+                // Маска для E-mail
+                const emailInput = document.getElementById('calc-email-input');
+                if (emailInput) {
+                    emailInput.addEventListener('focus', function(e) {
+                        if (!e.target.value) {
+                            e.target.placeholder = 'example@mail.ru';
+                        }
+                    });
+                    emailInput.addEventListener('blur', function(e) {
+                        if (!e.target.value) {
+                            e.target.placeholder = 'E-mail';
+                        }
+                    });
+                }
+                
+                // Маска для ссылки на облако
+                const linkInput = document.getElementById('calc-link-input');
+                if (linkInput) {
+                    linkInput.addEventListener('focus', function(e) {
+                        if (!e.target.value) {
+                            e.target.value = 'https://';
+                        }
+                    });
+                    linkInput.addEventListener('blur', function(e) {
+                        if (e.target.value === 'https://') {
+                            e.target.value = '';
+                        }
+                    });
+                }
+            })();
 
             window.addEventListener('scroll', function() {
                 toggleBackToTop();
