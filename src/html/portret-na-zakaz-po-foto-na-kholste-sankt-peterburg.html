@@ -9,8 +9,10 @@
     <!-- Закрыто от индексации во время разработки -->
     <meta name="robots" content="noindex, nofollow">
     
-    <!-- Критический CSS для первого экрана (улучшает FCP) -->
+    <!-- Критический CSS (универсальный для всех страниц) -->
     <style>
+        /* ===== БАЗОВЫЕ СТИЛИ ===== */
+        
         /* CSS переменные для цветов */
         :root {
             --primary: #4A90E2;
@@ -20,7 +22,7 @@
             --secondary: #FAFAFA;
         }
         
-        /* Базовые стили для body */
+        /* Body */
         body {
             background-color: #fff;
             color: #666666;
@@ -36,22 +38,13 @@
             padding-right: 1rem;
         }
         @media (min-width: 1170px) {
-            .container {
-                max-width: 1170px;
-            }
+            .container { max-width: 1170px; }
         }
         
-        /* Header - критичные стили */
-        header.bg-dark {
-            background-color: #252525;
-        }
-        header.sticky {
-            position: sticky;
-            top: 0;
-            z-index: 50;
-        }
+        /* ===== HEADER ===== */
         
-        /* Навигация header - базовые стили */
+        header.bg-dark { background-color: #252525; }
+        header.sticky { position: sticky; top: 0; z-index: 50; }
         header nav {
             display: flex;
             align-items: center;
@@ -61,100 +54,46 @@
             padding-bottom: 1.25rem;
         }
         
-        /* Логотип */
-        .flex-shrink-0 {
-            flex-shrink: 0;
-        }
+        /* ===== ДЛЯ ВНУТРЕННИХ СТРАНИЦ (не главная) ===== */
         
-        /* Hero секция - критичные стили */
-        section.relative {
-            position: relative;
-        }
-        .h-\[65vh\] {
-            height: 65vh;
-        }
-        @media (min-width: 1024px) {
-            .lg\:h-screen {
-                height: 100vh;
-            }
-        }
-        .overflow-hidden {
-            overflow: hidden;
-        }
+        /* Хлебные крошки */
+        .breadcrumbs { font-size: 0.875rem; color: #9ca3af; }
+        .breadcrumbs a { color: #9ca3af; text-decoration: none; }
+        .breadcrumbs a:hover { text-decoration: underline; }
         
-        /* Заголовки - базовая типографика */
+        /* H1 - заголовок страницы */
         h1 {
             font-size: 2.25rem;
             font-weight: 300;
             line-height: 1.2;
-            color: #fff;
+            margin-bottom: 1rem;
         }
         @media (min-width: 1024px) {
-            h1 {
-                font-size: 3rem;
-            }
+            h1 { font-size: 3rem; }
         }
         
-        /* Кнопки - базовые стили */
-        .inline-block {
-            display: inline-block;
+        /* Lead текст под H1 */
+        .lead, .text-xl {
+            font-size: 1.25rem;
+            line-height: 1.75rem;
         }
-        .px-8 {
-            padding-left: 2rem;
-            padding-right: 2rem;
-        }
-        .py-3 {
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
-        }
-        .bg-primary {
-            background-color: #4A90E2;
-        }
-        .text-white {
-            color: #fff;
-        }
-        .rounded {
-            border-radius: 0.25rem;
-        }
-        .uppercase {
-            text-transform: uppercase;
-        }
+        
+        /* ===== БАЗОВЫЕ УТИЛИТЫ ===== */
+        
+        .flex-shrink-0 { flex-shrink: 0; }
+        .relative { position: relative; }
+        .overflow-hidden { overflow: hidden; }
+        .inline-block { display: inline-block; }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .text-white { color: #fff; }
+        .bg-primary { background-color: #4A90E2; }
+        .rounded { border-radius: 0.25rem; }
+        .uppercase { text-transform: uppercase; }
         .transition-colors {
             transition-property: color, background-color, border-color;
             transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
             transition-duration: 150ms;
-        }
-        
-        /* Текст - базовая типографика */
-        .text-xl {
-            font-size: 1.25rem;
-            line-height: 1.75rem;
-        }
-        .text-white\/90 {
-            color: rgba(255, 255, 255, 0.9);
-        }
-        
-        /* Flex утилиты */
-        .flex {
-            display: flex;
-        }
-        .items-center {
-            align-items: center;
-        }
-        .h-full {
-            height: 100%;
-        }
-        
-        /* Скрытие на мобильных */
-        @media (max-width: 1023px) {
-            .hidden {
-                display: none;
-            }
-        }
-        @media (min-width: 1024px) {
-            .lg\:block {
-                display: block;
-            }
         }
     </style>
     
