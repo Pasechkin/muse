@@ -200,6 +200,90 @@ body      = #666666  (текст)
 
 ---
 
+## Видео
+
+### Общие правила для всех `<video>`
+- `preload="none"` — не загружать до воспроизведения (экономит трафик)
+- `playsinline` — для корректного воспроизведения на iOS
+- `title` — для accessibility
+- **НЕ использовать:**
+  - `webkit-playsinline` — устаревший атрибут (ошибка валидации)
+  - `loading="lazy"` — не стандартный атрибут для video (ошибка валидации)
+
+### Видео, скрытое на мобильных (Hero с фоновым видео)
+```html
+<video 
+  class="... hidden lg:block" 
+  autoplay loop muted playsinline 
+  preload="none"
+  title="Описание видео"
+>
+  <source src="video.webm" media="(min-width: 1024px)" type="video/webm">
+  <source src="video.mp4" media="(min-width: 1024px)" type="video/mp4">
+</video>
+```
+- `hidden lg:block` — скрыть на мобильных через CSS
+- `media="(min-width: 1024px)"` — в каждом `<source>` для предотвращения загрузки на мобильных
+- `preload="none"` — не загружать пока не виден
+
+### Видео с ручным запуском (по клику на обложку)
+```html
+<video 
+  title="Описание видео"
+  preload="none"
+  controls
+  playsinline
+  class="hidden w-full"
+>
+  <source src="video.webm" type="video/webm">
+</video>
+```
+- `preload="none"` — не загружать до клика пользователя
+- `controls` — показать элементы управления
+- Обложка отдельным `<img>` поверх video
+
+---
+
+## Accessibility (доступность)
+
+### Формы
+Все поля форм должны иметь связанные `<label>`:
+
+```html
+<!-- Для select — видимый label -->
+<label for="calc-style" class="text-sm font-medium text-dark">Стиль</label>
+<select id="calc-style">...</select>
+
+<!-- Для input с placeholder — скрытый label -->
+<label for="calc-name" class="sr-only">Имя</label>
+<input type="text" id="calc-name" placeholder="Имя*">
+```
+
+**Класс `sr-only`** (screen reader only) — скрывает визуально, но доступен для screen readers.
+Этот класс уже есть в критическом CSS эталонной страницы.
+
+### Ссылки в тексте
+Ссылки должны быть различимы не только по цвету:
+
+```html
+<!-- Правильно: постоянное подчёркивание -->
+<a href="..." class="text-primary underline hover:no-underline">ссылка</a>
+
+<!-- Неправильно: подчёркивание только при наведении -->
+<a href="..." class="text-primary hover:underline">ссылка</a>
+```
+
+### Иконки-ссылки
+Добавлять `aria-label` для ссылок без текста:
+
+```html
+<a href="..." aria-label="WhatsApp">
+    <svg>...</svg>
+</a>
+```
+
+---
+
 ## SEO-элементы (обязательные)
 
 - `<title>` — без суффиксов типа "(Tailwind Test)", точно как в оригинале

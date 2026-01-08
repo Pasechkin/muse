@@ -108,23 +108,24 @@
 | **Body** | 14px (1em) | 13px (0.81em) | 1.86em | Основной текст |
 | **Small** | 12px (0.86em) | 12px (0.86em) | 1.86em | Мелкий текст |
 
-### Примеры
+### Примеры (чистый Tailwind)
 
 ```html
-<!-- Главный заголовок -->
-<h1>Создай своё произведение искусства</h1>
+<!-- Главный заголовок (Hero) -->
+<p class="text-4xl lg:text-5xl font-light text-white">Создай своё произведение искусства</p>
+<h1 class="text-xl text-white/90">Картины по фото: портреты маслом и печать на холсте</h1>
 
-<!-- Заголовок секции -->
-<h2 class="h2">Преимущества</h2>
+<!-- Заголовок секции (H2) -->
+<h2 class="text-3xl lg:text-4xl font-light text-dark">Преимущества</h2>
 
-<!-- Вводный текст -->
-<p class="lead">Картины по фото: портреты маслом и печать на холсте</p>
+<!-- Вводный текст (lead) -->
+<p class="text-xl">Картины по фото: портреты маслом и печать на холсте</p>
 
 <!-- Основной текст -->
 <p>Мы предлагаем высококачественную печать на холсте для ваших любимых снимков.</p>
 
 <!-- Мелкий текст -->
-<small>Дополнительная информация</small>
+<span class="text-sm text-gray-400">Дополнительная информация</span>
 ```
 
 ### Насыщенность шрифта
@@ -158,6 +159,60 @@
 | XL | 3rem | 48px | Очень большие отступы |
 | 2XL | 4rem | 64px | Максимальные отступы |
 
+### Контейнер
+
+Контейнер настроен через Tailwind конфигурацию:
+
+- **Максимальная ширина**: 1170px
+- **Padding**: 1rem (16px) по горизонтали
+- **Центрирование**: автоматическое
+
+```html
+<!-- Правильно: просто container -->
+<div class="container">...</div>
+
+<!-- Неправильно: избыточные классы (mx-auto и px-4 уже включены в container) -->
+<div class="container mx-auto px-4">...</div>
+```
+
+**Tailwind конфигурация контейнера:**
+```javascript
+tailwind.config = {
+    theme: {
+        container: {
+            center: true,      // mx-auto встроен
+            padding: '1rem',   // px-4 встроен
+            screens: {
+                '2xl': '1170px' // max-width на больших экранах
+            }
+        }
+    }
+}
+```
+
+### Вертикальные отступы секций
+
+Стандартные отступы для секций:
+
+| Тип секции | Мобильные | Десктоп (lg:) | Tailwind классы |
+|------------|-----------|---------------|-----------------|
+| **Основные секции** | 64px | 96px | `py-16 lg:py-24` |
+| **Промо-баннер** | 24px | 24px | `py-6` |
+| **CTA секция** | 96px | 128px | `py-24 md:py-32` |
+| **Footer** | 32px | 48px | `py-8 lg:py-12` |
+
+```html
+<!-- Основная секция контента -->
+<section class="bg-secondary py-16 lg:py-24">
+    <div class="container">...</div>
+</section>
+
+<!-- Промо-баннер -->
+<section class="bg-primary py-6">
+    <div class="container">...</div>
+</section>
+```
+
 ### Использование в Tailwind
 
 ```html
@@ -190,59 +245,90 @@
 
 ## Компоненты
 
+> **Важно:** Используйте чистый Tailwind CSS. Избегайте кастомных классов (btn, boxed, feature, h2, lead и т.д.).
+
 ### Кнопки
 
-#### Варианты кнопок
+#### Варианты кнопок (чистый Tailwind)
 
 ```html
 <!-- Primary кнопка (основная) -->
-<a href="#" class="btn btn--primary type--uppercase">
-  <span class="btn__text">Заказать</span>
+<a href="#" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors">
+    Заказать
 </a>
 
 <!-- Dark кнопка (на светлом фоне) -->
-<a href="#" class="btn bg-dark type--uppercase">
-  <span class="btn__text">Обратный звонок</span>
+<a href="#" class="inline-block px-6 py-2 bg-dark hover:bg-gray-700 text-white rounded uppercase transition-colors">
+    Обратный звонок
+</a>
+
+<!-- Большая кнопка (для Hero) -->
+<a href="#" class="inline-block px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors text-lg">
+    Заказать
 </a>
 ```
 
 **Характеристики:**
-- Padding: 6.5px вертикально, 26px горизонтально
-- Border radius: 6px
-- Transition: 300ms
-- Hover эффект: изменение цвета фона
+- Padding: `py-2 px-6` (стандарт) или `py-3 px-8` (большая)
+- Border radius: `rounded` (6px)
+- Transition: `transition-colors`
+- Hover эффект: `hover:bg-primary-hover` или `hover:bg-gray-700`
+
+#### Кнопка "Наверх" (Back to Top)
+
+Фиксированная круглая кнопка в правом нижнем углу. Появляется при прокрутке страницы вниз (на 300px). Скрыта на мобильных устройствах.
+
+```html
+<a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-white text-dark hover:bg-dark hover:text-white border border-gray-300 hover:border-dark transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
+        <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+</a>
+```
+
+**Характеристики:**
+- Размер: `w-12 h-12` (48×48px)
+- Позиция: `fixed bottom-5 right-5`
+- Фон: `bg-white` → `hover:bg-dark`
+- Цвет иконки: `text-dark` → `hover:text-white`
+- Рамка: `border border-gray-300` → `hover:border-dark`
+- Форма: `rounded-full`
+- Скрыта по умолчанию: `opacity-0 pointer-events-none`
+- Показывать при скролле через JS, добавляя `opacity-100` и убирая `pointer-events-none`
+- Видимость: `hidden md:flex` (скрыта на мобильных)
+- Доступность: `aria-label="Наверх"`
 
 ### Карточки
 
 #### Feature Card (карточка преимущества)
 
 ```html
-<div class="flex flex-col boxed boxed--border bg-white">
-  <div class="mb-6 flex size-10 items-center justify-start">
-    <!-- Иконка -->
-    <svg>...</svg>
-  </div>
-  <span class="lead text-dark">Собственное производство</span>
+<div class="flex flex-col p-6 border border-gray-200 rounded bg-white">
+    <div class="mb-6 flex size-10 items-center justify-start">
+        <!-- Иконка SVG с class="text-primary" -->
+        <svg class="text-primary">...</svg>
+    </div>
+    <span class="text-xl text-dark">Собственное производство</span>
 </div>
 ```
 
 **Характеристики:**
-- Padding: 26px (desktop), 17px (mobile)
-- Border: 1px solid #ececec
-- Border radius: 6px (верхние углы для изображения)
-- Margin bottom: 30px (desktop), 15px (mobile)
+- Padding: `p-6` (24px)
+- Border: `border border-gray-200`
+- Border radius: `rounded`
+- Фон: `bg-white`
 
 #### Product Card (карточка товара)
 
 ```html
-<div class="feature feature-1">
-  <a href="#" class="block">
-    <img src="..." class="w-full h-auto rounded-t">
-    <div class="boxed feature__body bg-dark rounded-b">
-      <span class="h4 text-white block mb-2">Название товара</span>
-      <p class="text-primary">Подробнее</p>
-    </div>
-  </a>
+<div class="group">
+    <a href="#" class="block">
+        <img src="..." alt="..." class="w-full h-auto rounded-t" loading="lazy">
+        <div class="p-4 bg-dark rounded-b">
+            <span class="text-lg font-medium text-white block mb-2">Название товара</span>
+            <p class="text-primary">Подробнее</p>
+        </div>
+    </a>
 </div>
 ```
 
@@ -251,56 +337,64 @@
 #### Hero секция (с видео)
 
 ```html
-<section class="relative h-[65vh] md:h-screen overflow-hidden bg-dark">
-  <video class="absolute inset-0 w-full h-full object-cover hidden md:block" autoplay loop muted playsinline>
-    <source src="..." type="video/webm">
-  </video>
-  <div class="absolute inset-0 bg-dark opacity-20"></div>
-  <div class="container mx-auto px-4 h-full flex items-center relative z-10">
-    <div class="max-w-2xl">
-      <p class="h1 text-white mb-4">Заголовок</p>
-      <h1 class="lead text-white mb-8">Подзаголовок</h1>
-      <a href="#" class="btn btn--primary type--uppercase">
-        <span class="btn__text">Кнопка</span>
-      </a>
+<section class="relative h-[65vh] lg:h-screen overflow-hidden bg-dark">
+    <video class="absolute inset-0 w-full h-full object-cover hidden lg:block" 
+           autoplay loop muted playsinline preload="none" 
+           title="Описание видео">
+        <source src="..." media="(min-width: 1024px)" type="video/webm">
+        <source src="..." media="(min-width: 1024px)" type="video/mp4">
+    </video>
+    <div class="absolute inset-0 bg-dark opacity-20"></div>
+    <div class="container h-full flex items-center relative z-10">
+        <div class="max-w-2xl">
+            <p class="text-4xl lg:text-5xl font-light text-white mb-4">Заголовок</p>
+            <h1 class="text-xl text-white/90 mb-8">Подзаголовок</h1>
+            <a href="#" class="inline-block px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors text-lg">
+                Кнопка
+            </a>
+        </div>
     </div>
-  </div>
 </section>
 ```
 
 **Характеристики:**
-- Высота: 65vh на мобильных, 100vh на десктопе
-- Видео скрыто на мобильных
-- Подложка: темный фон с opacity 20%
+- Высота: `h-[65vh]` на мобильных, `lg:h-screen` на десктопе
+- Видео скрыто на мобильных (`hidden lg:block`)
+- Подложка: `bg-dark opacity-20`
+- Видео атрибуты: `preload="none"`, `title`, `media` для условной загрузки
 
 #### Секция преимуществ
 
 ```html
-<section class="bg-secondary py-16 md:py-24">
-  <div class="mx-auto max-w-7xl px-6 lg:px-8">
-    <div class="mx-auto max-w-2xl mb-12 text-center">
-      <h2 class="h2 text-dark">Преимущества</h2>
+<section class="bg-secondary py-16 lg:py-24">
+    <div class="container">
+        <div class="mx-auto max-w-2xl mb-12 text-center">
+            <h2 class="text-3xl lg:text-4xl font-light text-dark">Преимущества</h2>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Карточки преимуществ -->
+        </div>
     </div>
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <!-- Карточки преимуществ -->
-    </div>
-  </div>
 </section>
 ```
 
 #### CTA секция
 
 ```html
-<section class="bg-secondary py-24 sm:py-32">
-  <div class="mx-auto max-w-7xl px-6 lg:flex lg:items-center lg:justify-between lg:px-8">
-    <h2 class="max-w-2xl h4 font-normal tracking-tight text-gray-900">
-      Создай своё произведение искусства
-    </h2>
-    <div class="mt-10 flex items-center gap-x-6 lg:mt-0 lg:shrink-0">
-      <a href="#" class="btn btn--primary type--uppercase">Заказать</a>
-      <a href="#" class="btn bg-dark type--uppercase">Обратный звонок</a>
+<section class="bg-secondary py-24 md:py-32">
+    <div class="container xl:flex xl:items-center xl:justify-between">
+        <h2 class="text-2xl font-light tracking-tight text-dark">
+            Создай своё произведение искусства
+        </h2>
+        <div class="mt-10 flex flex-col md:flex-row items-center gap-4 md:gap-x-6 xl:mt-0 xl:shrink-0">
+            <a href="#" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors w-full md:w-auto text-center">
+                Заказать
+            </a>
+            <a href="#" class="inline-block px-6 py-2 bg-dark hover:bg-gray-700 text-white rounded uppercase transition-colors w-full md:w-auto text-center">
+                Обратный звонок
+            </a>
+        </div>
     </div>
-  </div>
 </section>
 ```
 
@@ -308,11 +402,11 @@
 
 ```html
 <section class="bg-primary text-white py-6">
-  <div class="container mx-auto px-4">
-    <div class="flex items-center justify-center">
-      <p class="lead">Скидка 20% с 3 по 4 января</p>
+    <div class="container">
+        <div class="flex items-center justify-center">
+            <p class="text-xl">Скидка 20% с 3 по 4 января</p>
+        </div>
     </div>
-  </div>
 </section>
 ```
 
@@ -320,34 +414,67 @@
 
 ## Примеры использования
 
-### Полная страница
+### Полная страница (чистый Tailwind)
 
 ```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Заголовок страницы</title>
-  <link rel="stylesheet" href="css/output.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заголовок страницы</title>
+    
+    <!-- Критический CSS -->
+    <style>
+        :root { --primary: #4A90E2; --dark: #252525; }
+        .container { width: 100%; margin: 0 auto; padding: 0 1rem; }
+        @media (min-width: 1170px) { .container { max-width: 1170px; } }
+    </style>
+    
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                container: { center: true, padding: '1rem', screens: { '2xl': '1170px' } },
+                extend: {
+                    colors: {
+                        primary: '#4A90E2',
+                        'primary-hover': '#609DE6',
+                        dark: '#252525',
+                        body: '#666666',
+                        secondary: '#FAFAFA',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-white">
-  <!-- Header -->
-  <header class="bg-dark sticky top-0 z-50">...</header>
-  
-  <!-- Hero -->
-  <section class="relative h-[65vh] md:h-screen...">...</section>
-  
-  <!-- Промо-баннер -->
-  <section class="bg-primary text-white py-6">...</section>
-  
-  <!-- Контент -->
-  <main>
-    <section class="bg-secondary py-16 md:py-24">...</section>
-  </main>
-  
-  <!-- Footer -->
-  <footer class="bg-dark text-white py-8 md:py-12">...</footer>
+<body class="bg-white overflow-x-hidden">
+    <!-- Header -->
+    <header class="bg-dark sticky top-0 z-50">
+        <nav class="container flex items-center justify-between gap-x-4 py-5">...</nav>
+    </header>
+    
+    <!-- Hero -->
+    <section class="relative h-[65vh] lg:h-screen overflow-hidden bg-dark">...</section>
+    
+    <!-- Промо-баннер -->
+    <section class="bg-primary text-white py-6">
+        <div class="container">...</div>
+    </section>
+    
+    <!-- Контент -->
+    <main>
+        <section class="bg-secondary py-16 lg:py-24">
+            <div class="container">...</div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-8 lg:py-12">
+        <div class="container">...</div>
+    </footer>
 </body>
 </html>
 ```
@@ -356,13 +483,38 @@
 
 ## Контрольный список для создания страницы
 
-- [ ] Использовать правильные цвета из палитры
-- [ ] Применить правильную типографику (h1-h6, lead, body)
-- [ ] Использовать систему отступов (p-4, py-16, gap-8)
-- [ ] Проверить адаптивность на мобильных
-- [ ] Использовать готовые компоненты (кнопки, карточки)
-- [ ] Проверить контрастность текста на фонах
-- [ ] Убедиться в правильности радиусов скругления
+### Общие требования
+- [ ] Использовать только чистый Tailwind CSS (без кастомных классов типа btn, boxed, h2, lead)
+- [ ] Контейнер: только `class="container"` (без mx-auto px-4)
+- [ ] Правильные цвета из палитры (primary, dark, secondary, body)
+
+### Типографика
+- [ ] Заголовки: `text-3xl lg:text-4xl font-light` для H2
+- [ ] Lead текст: `text-xl`
+- [ ] Обычный текст: базовый без дополнительных классов
+
+### Отступы
+- [ ] Секции: `py-16 lg:py-24` (стандарт)
+- [ ] Промо-баннер: `py-6`
+- [ ] CTA: `py-24 md:py-32`
+- [ ] Footer: `py-8 lg:py-12`
+
+### Кнопки
+- [ ] Primary: `inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors`
+- [ ] Dark: `inline-block px-6 py-2 bg-dark hover:bg-gray-700 text-white rounded uppercase transition-colors`
+
+### Изображения
+- [ ] Атрибуты: `width`, `height`, `alt`, `title`
+- [ ] Для ленивой загрузки: `loading="lazy"` и `decoding="async"`
+- [ ] Формат: предпочтительно `.webp`
+
+### Видео
+- [ ] Атрибуты: `preload="none"`, `playsinline`, `title`
+- [ ] Атрибут `media` для условной загрузки на десктопе
+
+### Адаптивность
+- [ ] Проверить на мобильных устройствах
+- [ ] Использовать брейкпоинты: `sm:`, `md:`, `lg:`, `xl:`
 
 ---
 
