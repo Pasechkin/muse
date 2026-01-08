@@ -9,6 +9,155 @@
     <!-- Закрыто от индексации во время разработки -->
     <meta name="robots" content="noindex, nofollow">
     
+    <!-- Критический CSS для первого экрана (улучшает FCP) -->
+    <style>
+        /* CSS переменные для цветов */
+        :root {
+            --primary: #4A90E2;
+            --primary-hover: #609DE6;
+            --dark: #252525;
+            --body: #666666;
+            --secondary: #FAFAFA;
+        }
+        
+        /* Базовые стили для body */
+        body {
+            background-color: #fff;
+            color: #666666;
+            overflow-x: hidden;
+        }
+        
+        /* Контейнер */
+        .container {
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        @media (min-width: 1170px) {
+            .container {
+                max-width: 1170px;
+            }
+        }
+        
+        /* Header - критичные стили */
+        header.bg-dark {
+            background-color: #252525;
+        }
+        header.sticky {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        
+        /* Навигация - базовые стили */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-top: 1.25rem;
+            padding-bottom: 1.25rem;
+        }
+        
+        /* Логотип */
+        .flex-shrink-0 {
+            flex-shrink: 0;
+        }
+        
+        /* Hero секция - критичные стили */
+        section.relative {
+            position: relative;
+        }
+        .h-\[65vh\] {
+            height: 65vh;
+        }
+        @media (min-width: 1024px) {
+            .lg\:h-screen {
+                height: 100vh;
+            }
+        }
+        .overflow-hidden {
+            overflow: hidden;
+        }
+        
+        /* Заголовки - базовая типографика */
+        h1 {
+            font-size: 2.25rem;
+            font-weight: 300;
+            line-height: 1.2;
+            color: #fff;
+        }
+        @media (min-width: 1024px) {
+            h1 {
+                font-size: 3rem;
+            }
+        }
+        
+        /* Кнопки - базовые стили */
+        .inline-block {
+            display: inline-block;
+        }
+        .px-8 {
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+        .py-3 {
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+        .bg-primary {
+            background-color: #4A90E2;
+        }
+        .text-white {
+            color: #fff;
+        }
+        .rounded {
+            border-radius: 0.25rem;
+        }
+        .uppercase {
+            text-transform: uppercase;
+        }
+        .transition-colors {
+            transition-property: color, background-color, border-color;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+        
+        /* Текст - базовая типографика */
+        .text-xl {
+            font-size: 1.25rem;
+            line-height: 1.75rem;
+        }
+        .text-white\/90 {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* Flex утилиты */
+        .flex {
+            display: flex;
+        }
+        .items-center {
+            align-items: center;
+        }
+        .h-full {
+            height: 100%;
+        }
+        
+        /* Скрытие на мобильных */
+        @media (max-width: 1023px) {
+            .hidden {
+                display: none;
+            }
+        }
+        @media (min-width: 1024px) {
+            .lg\:block {
+                display: block;
+            }
+        }
+    </style>
+    
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -35,7 +184,7 @@
     </script>
     
     <!-- Tailwind Plus Elements -->
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" defer></script>
     
     <style>
         /* Page Navigator */
@@ -173,9 +322,9 @@
     <!-- Hero Section -->
     <header>
         <section class="relative h-[65vh] lg:h-screen overflow-hidden bg-dark">
-            <video class="absolute inset-0 w-full h-full object-cover hidden lg:block" autoplay loop muted playsinline title="Ролик про стили портретов от Muse.">
-                <source src="https://muse.ooo/video/portret-po-foto.webm" type="video/webm">
-                <source src="https://muse.ooo/video/portret-po-foto.mp4" type="video/mp4">
+            <video class="absolute inset-0 w-full h-full object-cover hidden lg:block" autoplay loop muted playsinline preload="none" title="Ролик про стили портретов от Muse.">
+                <source src="https://muse.ooo/video/portret-po-foto.webm" media="(min-width: 1024px)" type="video/webm">
+                <source src="https://muse.ooo/video/portret-po-foto.mp4" media="(min-width: 1024px)" type="video/mp4">
             </video>
             <div class="absolute inset-0 bg-dark opacity-20 lg:opacity-20"></div>
             <div class="container h-full flex items-center relative z-10">
@@ -1087,7 +1236,7 @@
                         <img loading="lazy" decoding="async" width="241" height="181" alt="Женщина в белом платье держит в руках подарок — портрет, выполненный по фотографии на холсте, где она изображена в народной одежде у березы" src="https://muse.ooo/upload/img/portret-po-foto-na-holste-zhenshchina-u-dereva-040324.webp">
                     </div>
                     <div class="flex-shrink-0 snap-center">
-                        <img loading="lazy" decoding="async"width="241" height="181" alt="Женщина в очках держит подарок — портрет на холсте, выполненный по её фотографии в образе королевы" src="https://muse.ooo/upload/img/portret-po-foto-na-holste-zhenshchina-v-obraze-korolevy-040324.webp">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Женщина в очках держит подарок — портрет на холсте, выполненный по её фотографии в образе королевы" src="https://muse.ooo/upload/img/portret-po-foto-na-holste-zhenshchina-v-obraze-korolevy-040324.webp">
                     </div>
                     <div class="flex-shrink-0 snap-center">
                         <img loading="lazy" decoding="async" width="241" height="181" alt="Мальчик держит в руках семейный портрет на холсте, на котором изображены он, его брат, папа и мама" src="https://muse.ooo/upload/img/portret-po-foto-semi-iz-chetyryoh-chelovek-040324.webp">
