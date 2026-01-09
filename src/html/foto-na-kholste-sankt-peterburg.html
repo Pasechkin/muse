@@ -131,9 +131,9 @@
         .video-cover .video-play-icon { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; z-index: 2; transition: all 0.3s ease; }
         .video-cover video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
         .video-cover iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        .video-cover.video-playing > div:first-child,
+        .video-cover.video-playing > :first-child,
         .video-cover.video-playing .video-play-icon { display: none; }
-        .video-cover.video-playing video { display: block; position: relative; }
+        .video-cover.video-playing video { display: block; }
         
         /* Ken Burns Effect */
         @keyframes kenburns {
@@ -347,17 +347,8 @@
             </div>
         </section>
 
-        <!-- Promo Banner (1:1 как в эталоне) -->
-        <section class="bg-primary text-white py-6">
-            <div class="container">
-                <div class="flex items-center justify-center">
-                    <p class="text-xl">Скидка 20% с 3 по 4 января</p>
-                </div>
-            </div>
-        </section>
-
         <!-- Характеристики и Описание -->
-        <section class="bg-secondary py-16 lg:py-20" id="harakteristiki-foto-na-holste">
+        <section class="py-16 lg:py-20" id="harakteristiki-foto-na-holste">
             <div class="container">
                 <div class="grid lg:grid-cols-2 gap-12">
                     <!-- Характеристики -->
@@ -507,49 +498,152 @@
             </div>
         </section>
 
-        <!-- Варианты заказа -->
-        <section class="bg-secondary py-16 lg:py-20">
+        <!-- Promo Banner (1:1 как в эталоне). Порядок блока — как на старой странице -->
+        <section class="bg-primary text-white py-6">
             <div class="container">
-                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Варианты оформления</h2>
-                
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Галерейная натяжка -->
-                    <div class="bg-white rounded-lg shadow-xl p-8 text-center">
-                        <!-- SVG Placeholder -->
+                <div class="flex items-center justify-center">
+                    <p class="text-xl">Скидка 20% с 3 по 4 января</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Варианты для заказа (как на старой странице) -->
+        <section class="bg-secondary py-16 lg:py-20" id="varianty-dlya-zakaza">
+            <div class="container">
+                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Варианты для заказа</h2>
+            </div>
+
+            <div class="container">
+                <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                    <div class="bg-white rounded-lg shadow-xl p-6 text-center">
                         <div class="w-10 h-10 mx-auto mb-4 text-primary">
                             <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
                                 <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
                             </svg>
                         </div>
-                        <h4 class="text-xl font-medium text-dark mb-2">Галерейная натяжка</h4>
-                        <span class="text-sm text-gray-500">Входит в стоимость</span>
-                        <p class="text-body text-left mt-4">Подрамник не виден, изображение продолжается на торцах. Картину можно вешать без рамы.</p>
+                        <h3 class="text-lg font-medium text-dark">Размер</h3>
+                        <p class="text-body text-left mt-3">Выберите любой размер от 20х30 до 120х300 см. Популярные: 30х40, 60х40, 50х70, 60х90 и 90х120 см.</p>
                     </div>
-                    
-                    <!-- Багетная рама -->
-                    <div class="bg-white rounded-lg shadow-xl p-8 text-center">
-                        <!-- SVG Placeholder -->
+
+                    <div class="bg-white rounded-lg shadow-xl p-6 text-center">
                         <div class="w-10 h-10 mx-auto mb-4 text-primary">
                             <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
                                 <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
                             </svg>
                         </div>
-                        <h4 class="text-xl font-medium text-dark mb-2">Багетная рама</h4>
-                        <span class="text-sm text-gray-500">Дополнительная услуга</span>
-                        <p class="text-body text-left mt-4">Оформим холст в классическую или современную раму. Большой выбор багета в нашей мастерской.</p>
+                        <h3 class="text-lg font-medium text-dark">Подрамник</h3>
+                        <p class="text-body text-left mt-3">Стандартная толщина деревянного подрамника — 2 см. Для интерьеров с акцентом на массивные элементы, подойдёт толстый подрамник — 3,5 см. Закажите холст в рулоне, если натяжка не требуется.</p>
                     </div>
-                    
-                    <!-- Подарочная упаковка -->
-                    <div class="bg-white rounded-lg shadow-xl p-8 text-center">
-                        <!-- SVG Placeholder -->
+
+                    <div class="bg-white rounded-lg shadow-xl p-6 text-center">
                         <div class="w-10 h-10 mx-auto mb-4 text-primary">
                             <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
                                 <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
                             </svg>
                         </div>
-                        <h4 class="text-xl font-medium text-dark mb-2">Подарочная упаковка</h4>
+                        <h3 class="text-lg font-medium text-dark">Торец</h3>
+                        <p class="text-body text-left mt-3">На подрамник из дерева вручную натягиваем холст галерейным способом. Основное изображение отображается зеркально и продолжается на торце. По требованию закрасим торец любым цветом.</p>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-xl p-6 text-center">
+                        <div class="w-10 h-10 mx-auto mb-4 text-primary">
+                            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
+                                <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-medium text-dark">Крепление</h3>
+                        <p class="text-body text-left mt-3">Устанавливаем зубчатые подвесы «Крокодил». Картина будет висеть параллельно стене. Для картин, оформленных в раму, установим по требованию металлический трос. Тогда она будет висеть, как в музее, под углом к стене.</p>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-xl p-6 text-center">
+                        <div class="w-10 h-10 mx-auto mb-4 text-primary">
+                            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
+                                <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-medium text-dark">Обработка фото</h3>
+
+                        <div class="text-body text-left mt-3 space-y-4">
+                            <details class="group">
+                                <summary class="cursor-pointer list-none font-medium text-dark hover:opacity-80 transition-opacity [&::-webkit-details-marker]:hidden">
+                                    <span>Базовая</span>
+                                </summary>
+                                <div class="mt-2">
+                                    <p>Базовая обработка перед печатью — включена в цену. Состоит из:</p>
+                                    <ul class="list-disc pl-5 mt-2 space-y-1">
+                                        <li>Полной оптимизации цвета;</li>
+                                        <li>Улучшения контрастности и экспозиции;</li>
+                                        <li>Повышения резкости;</li>
+                                        <li>Устранения шумов;</li>
+                                        <li>Удаления эффекта красных глаз, даты и незначительных дефектов.</li>
+                                    </ul>
+                                </div>
+                            </details>
+
+                            <details class="group">
+                                <summary class="cursor-pointer list-none font-medium text-dark hover:opacity-80 transition-opacity [&::-webkit-details-marker]:hidden">
+                                    <span>Оптимальная</span>
+                                </summary>
+                                <div class="mt-2">
+                                    <p>Дополнительная услуга к базовой:</p>
+                                    <ul class="list-disc pl-5 mt-2 space-y-1">
+                                        <li>Естественная портретная ретушь;</li>
+                                        <li>Гладкий и чистый вид кожи;</li>
+                                        <li>Коррекция лица, фигуры;</li>
+                                        <li>Подчеркнутая выразительность глаз и белоснежность улыбки;</li>
+                                        <li>Настройка цвета/экспозиции;</li>
+                                        <li>Добавление текста;</li>
+                                        <li>Корректировка «красных лиц».</li>
+                                    </ul>
+                                </div>
+                            </details>
+
+                            <details class="group">
+                                <summary class="cursor-pointer list-none font-medium text-dark hover:opacity-80 transition-opacity [&::-webkit-details-marker]:hidden">
+                                    <span>Премиальная</span>
+                                </summary>
+                                <div class="mt-2">
+                                    <p>Дополнительная услуга к оптимальной;</p>
+                                    <ul class="list-disc pl-5 mt-2 space-y-1">
+                                        <li>Замена фона, лиц, удаление части изображения;</li>
+                                        <li>Черно-белое в цветное (раскрашивание), реставрация.</li>
+                                    </ul>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-xl p-6 text-center">
+                        <div class="w-10 h-10 mx-auto mb-4 text-primary">
+                            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
+                                <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-medium text-dark">Лак</h3>
                         <span class="text-sm text-gray-500">Дополнительная услуга</span>
-                        <p class="text-body text-left mt-4">Упакуем заказ в подарочную бумагу с красивым бантом. Предложение с вариантами упаковки пришлем на согласование.</p>
+                        <p class="text-body text-left mt-3">Оригинальные краски не выцветают десятилетиями, поэтому нет строгой необходимости покрывать их лаком. Однако лак облегчает уход за полотном и выравнивает легкий глянец отпечатка. Художественный лак не бликует.</p>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-xl p-6 text-center">
+                        <div class="w-10 h-10 mx-auto mb-4 text-primary">
+                            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
+                                <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-medium text-dark">Рама</h3>
+                        <span class="text-sm text-gray-500">Дополнительная услуга</span>
+                        <p class="text-body text-left mt-3">Для визуализации и расчёта стоимости рамки в разделе <a href="#calc" class="text-primary underline hover:no-underline">«Цена»↑</a> загрузите изображение и установите размер. Или ожидайте нашего предложения после согласования макета.</p>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-xl p-6 text-center">
+                        <div class="w-10 h-10 mx-auto mb-4 text-primary">
+                            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
+                                <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-medium text-dark">Подарочная упаковка</h3>
+                        <span class="text-sm text-gray-500">Дополнительная услуга</span>
+                        <p class="text-body text-left mt-3">Упакуем заказ в подарочную бумагу с красивым бантом. Предложение с вариантами упаковки пришлем на согласование.</p>
                     </div>
                 </div>
             </div>
@@ -616,8 +710,8 @@
                                         - Рассчитайте стоимость.<br>
                                         - Заполните форму.<br>
                                         - Нажмите кнопку «Заказать».<br><br>
-                                        <b>Возникли затруднения?</b> Нажмите любую кнопку <a href="https://muse.ooo/order/" class="text-primary underline hover:no-underline">«Заказать»</a> на странице и отправьте нам изображение для печати.<br>
-                                        <b>Заинтересованы портретами?</b> Перейдите, пожалуйста, в раздел <a class="text-primary underline hover:no-underline" href="https://muse.ooo/portret-na-zakaz-po-foto-na-kholste-sankt-peterburg/">«Портрет на холсте»</a>.
+                                        <b>Возникли затруднения?</b> Нажмите любую кнопку <a href="https://muse.ooo/order/" class="text-primary underline hover:no-underline">«Заказать» ↗</a> на странице и отправьте нам изображение для печати.<br>
+                                        <b>Заинтересованы портретами?</b> Перейдите, пожалуйста, в раздел <a class="text-primary underline hover:no-underline" href="https://muse.ooo/portret-na-zakaz-po-foto-na-kholste-sankt-peterburg/">«Портрет на холсте» ↗</a>.
                                     </p>
                                 </div>
                             </div>
@@ -655,108 +749,75 @@
             </div>
         </section>
 
-        <!-- Доставка и Оплата -->
-        <section class="py-16 lg:py-20" id="dostavka">
+        <!-- Доставка (как на старой странице) -->
+        <section class="bg-secondary py-16 lg:py-20" id="dostavka">
             <div class="container">
-                <div class="grid lg:grid-cols-2 gap-12">
-                    <!-- Доставка -->
-                    <div>
-                        <h2 class="text-3xl lg:text-4xl font-light text-dark mb-8">Доставка</h2>
-                        <ul class="space-y-6">
-                            <li class="flex gap-4">
-                                <div class="flex-shrink-0 text-primary">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-medium text-dark">Самовывоз в СПб</h4>
-                                    <p class="text-body mt-1">ул. Слуцкая, дом 13, корпус 2. На следующий рабочий день после изготовления.</p>
-                                </div>
-                            </li>
-                            <li class="flex gap-4">
-                                <div class="flex-shrink-0 text-primary">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-medium text-dark">Курьерская доставка</h4>
-                                    <p class="text-body mt-1">450 руб. в пределах КАД. На следующий рабочий день после изготовления.</p>
-                                </div>
-                            </li>
-                            <li class="flex gap-4">
-                                <div class="flex-shrink-0 text-primary">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V7M3 7l9 6 9-6M3 7l9 6 9-6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-medium text-dark">Пункты выдачи</h4>
-                                    <p class="text-body mt-1">СДЭК — от 235 руб. In течение 2-3 рабочих дней по СПб.</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <!-- Оплата -->
-                    <div id="oplata">
-                        <h2 class="text-3xl lg:text-4xl font-light text-dark mb-8">Оплата</h2>
-                        <div class="space-y-6">
-                            <p class="text-body">Оплата заказа при получении. Работа дизайнера оплачивается после согласования макета. Принимаем все удобные способы оплаты:</p>
-                            <ul class="grid grid-cols-2 gap-4">
-                                <li class="flex items-center gap-2 p-3 bg-white rounded border border-gray-100 shadow-sm">
-                                    <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4zM18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM5 13a1 1 0 110-2 1 1 0 010 2zm3-1a1 1 0 102 0 1 1 0 00-2 0z"/></svg>
-                                    <span class="text-sm">Банковская карта</span>
-                                </li>
-                                <li class="flex items-center gap-2 p-3 bg-white rounded border border-gray-100 shadow-sm">
-                                    <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm1 2h12V4H4v2zm3 10a1 1 0 01-1 1H3a1 1 0 01-1-1v-2a1 1 0 011-1h3a1 1 0 011 1v2zm-1-1V15H3v1h2v-1zm10 0a1 1 0 01-1 1h-3a1 1 0 01-1-1v-2a1 1 0 011-1h3a1 1 0 011 1v2zm-1-1V15h-2v1h2v-1zM10 10a1 1 0 011-1h3a1 1 0 011 1v2a1 1 0 01-1 1h-3a1 1 0 01-1-1v-2zm1 1v1h2v-1h-2z"/></svg>
-                                    <span class="text-sm">Наличные</span>
-                                </li>
-                                <li class="flex items-center gap-2 p-3 bg-white rounded border border-gray-100 shadow-sm">
-                                    <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20"><path d="M12.125 0l-4.425 4.425-4.425-4.425-3.275 3.275 4.425 4.425-4.425 4.425 3.275 3.275 4.425-4.425 4.425 4.425 3.275-3.275-4.425-4.425 4.425-4.425-3.275-3.275z"/></svg>
-                                    <span class="text-sm">СБП (по QR)</span>
-                                </li>
-                                <li class="flex items-center gap-2 p-3 bg-white rounded border border-gray-100 shadow-sm">
-                                    <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/></svg>
-                                    <span class="text-sm">Безналичный расчет</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">Доставка</h2>
+                <ul class="text-xl text-body space-y-3">
+                    <li>Самовывоз в СПб — ул. Слуцкая, дом 13, корпус 2, на следующий рабочий день после изготовления заказа.</li>
+                    <li>Курьер — 450 р. в пределах КАД — получение на следующий день после изготовления.</li>
+                    <li>Пункты <a href="https://muse.ooo/info/dostavka/" class="text-primary underline hover:no-underline">выдачи ↗</a> интернет-магазинов СПб — 235 р. — получение через 2–3 дня после изготовления картины.</li>
+                    <li>Осуществляем доставку по всей России.</li>
+                </ul>
             </div>
         </section>
 
-        <!-- Преимущества -->
-        <section class="bg-secondary py-16 lg:py-20" id="preimushchestva-pechati-foto-na-holste">
+        <!-- Оплата (как на старой странице) -->
+        <section class="py-16 lg:py-20" id="oplata">
             <div class="container">
-                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Преимущества</h2>
-                
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-                    <div>
-                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm text-primary">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">Оплата</h2>
+                <p class="text-xl text-body text-center">
+                    Полная оплата заказа при получении.<br>
+                    Онлайн-предоплата за печать с отправкой по электронной почте кассового чека — 990 р. Оплатите удобным способом: банковской картой, через QR-код приложений банков, через QR-код СБП или наличными по коду платежа.<br>
+                    Для юридических лиц оплата по счёту.
+                </p>
+            </div>
+        </section>
+
+        <!-- Преимущества (1:1 по смыслу/структуре как на старой странице; SVG — заглушки) -->
+        <section class="bg-primary py-16 lg:py-20" id="preimushchestva-pechati-foto-na-holste">
+            <div class="container">
+                <h2 class="text-3xl lg:text-4xl font-light text-white text-center mb-12">Преимущества</h2>
+
+                <div class="grid gap-6 lg:grid-cols-3">
+                    <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-lg">
+                        <div class="flex items-start justify-between gap-4">
+                            <span class="text-lg font-medium text-dark">Оборудование</span>
+                            <div class="w-10 h-10 text-primary">
+                                <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
+                                    <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
+                                </svg>
+                            </div>
                         </div>
-                        <h4 class="font-medium text-dark mb-2">Натуральный холст</h4>
-                        <p class="text-sm text-body">100% хлопок плотностью 380 г/кв. м. без синтетических добавок.</p>
+                        <p class="text-body mt-3">Превратим фото в произведение искусства, напечатав его на одном из лучших широкоформатных принтеров: HP 315 или на Epson SC-P 7000.</p>
                     </div>
-                    <div>
-                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm text-primary">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+
+                    <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-lg">
+                        <div class="flex items-start justify-between gap-4">
+                            <span class="text-lg font-medium text-dark">Чернила</span>
+                            <div class="w-10 h-10 text-primary">
+                                <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
+                                    <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
+                                </svg>
+                            </div>
                         </div>
-                        <h4 class="font-medium text-dark mb-2">Стойкость цветов</h4>
-                        <p class="text-sm text-body">Латексные чернила HP не выгорают на солнце до 100 лет.</p>
+                        <p class="text-body mt-3">Благодаря печати оригинальными чернилами будет реалистичная цветопередача, богатые полутона и высокая светостойкость к выцветанию.</p>
                     </div>
-                    <div>
-                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm text-primary">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+
+                    <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-lg">
+                        <div class="flex items-start justify-between gap-4">
+                            <span class="text-lg font-medium text-dark">Холст</span>
+                            <div class="w-10 h-10 text-primary">
+                                <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
+                                    <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
+                                </svg>
+                            </div>
                         </div>
-                        <h4 class="font-medium text-dark mb-2">Быстрое изготовление</h4>
-                        <p class="text-sm text-body">Срок изготовления 1-2 дня. Возможна срочная печать.</p>
-                    </div>
-                    <div>
-                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm text-primary">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-10.43L10 3m11.303 12.91c-.847.131-1.713.202-2.597.202-2.042 0-3.99-.381-5.773-1.076M21 12c0 1.285-.038 2.56-.112 3.827l-2.33 4.66a.87.87 0 01-1.07.45l-3.32-1.66a.87.87 0 01-.45-1.07L14.453 11m0 0l-2.522 5.044A1 1 0 0111.036 17H5a1 1 0 01-1-1V7a1 1 0 011-1h6.036a1 1 0 01.894.553L14.453 11z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
-                        </div>
-                        <h4 class="font-medium text-dark mb-2">Гарантия качества</h4>
-                        <p class="text-sm text-body">Гарантия на холст и натяжку — 5 лет. Юридические гарантии.</p>
+                        <p class="text-body mt-3">Чтобы холст не провис и сохранил текстуру ткани, будем использовать натуральные материалы: хлопок или лён с плотностью от 380 г/кв. м.</p>
                     </div>
                 </div>
+
+                <p class="text-xl text-white text-center mt-10">Работаем по международным стандартам печати гильдии Fine Art Trade Guild.</p>
             </div>
         </section>
 
@@ -885,8 +946,8 @@
                                         <li>на HP — <b>латексными чернилами</b> шести цветов. Они гарантируют реалистичную цветопередачу и высокую стойкость к ультрафиолету (выгоранию).</li>
                                         <li>на Epson — <b>10-цветными пигментными чернилами UltraChrome HDX</b>. Они передают 98% цветов шкалы Pantone, обеспечивая сохранность отпечатков до 60 лет.</li>
                                     </ul>
-                                    <p class="mt-2">Латексные краски сертифицированы по <a href="https://spot.ul.com/main-app/products/detail/5ad1e9dd55b0e82d946a315a?page_type=Products%20Catalog" target="_blank" rel="nofollow noopener" class="text-primary underline hover:no-underline">стандартам GREENGUARD Gold Certification</a>, что подтверждает их безопасность для использования в жилых помещениях. Не используем экосольвентные чернила. Они уступают пигментным и латексным в цветовом охвате; в их состав входят летучие органические вещества, они могут негативно влиять на здоровье клиентов, чувствительных к запахам.</p>
-                                    <p class="mt-2">Применяем современные технологии и качественные материалы. Соблюдаем <a href="https://www.fineart.co.uk/guild-print-standards-with-artsure.aspx" target="_blank" rel="nofollow noopener" class="text-primary underline hover:no-underline">стандарты печати Fine Art Trade Guild</a>. <b>Понимаем, как важно</b> для вас найти достойный подарок; украсить дом или офис; запечатлеть важные воспоминания.</p>
+                                    <p class="mt-2">Латексные краски сертифицированы по <a href="https://spot.ul.com/main-app/products/detail/5ad1e9dd55b0e82d946a315a?page_type=Products%20Catalog" target="_blank" rel="nofollow noopener" class="text-primary underline hover:no-underline">стандартам GREENGUARD Gold Certification ↗</a>, что подтверждает их безопасность для использования в жилых помещениях. Не используем экосольвентные чернила. Они уступают пигментным и латексным в цветовом охвате; в их состав входят летучие органические вещества, они могут негативно влиять на здоровье клиентов, чувствительных к запахам.</p>
+                                    <p class="mt-2">Применяем современные технологии и качественные материалы. Соблюдаем <a href="https://www.fineart.co.uk/guild-print-standards-with-artsure.aspx" target="_blank" rel="nofollow noopener" class="text-primary underline hover:no-underline">стандарты печати Fine Art Trade Guild ↗</a>. <b>Понимаем, как важно</b> для вас найти достойный подарок; украсить дом или офис; запечатлеть важные воспоминания.</p>
                                 </div>
                             </div>
                         </details>
@@ -926,9 +987,9 @@
         </section>
 
         <!-- Примеры печати фото на холсте -->
-        <section class="bg-dark py-16 lg:py-20" id="primery-foto-na-holste">
+        <section class="bg-white py-16 lg:py-20" id="primery-foto-na-holste">
             <div class="container mb-8">
-                <h2 class="text-3xl lg:text-4xl font-light text-white text-center">Примеры печати фото на холсте</h2>
+                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center">Примеры печати фото на холсте</h2>
             </div>
             
             <div class="carousel-scroll pb-4">

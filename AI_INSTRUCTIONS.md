@@ -16,14 +16,63 @@
 - **Accuracy:** All technical details, tables, and lists must be preserved exactly as in the original.
 - **SEO:** Maintain all alt and title attributes for images and links.
 
+## Critical CSS: критический путь (минимум)
+Критический CSS — минимальный набор стилей, который нужен, чтобы страница выглядела корректно до загрузки Tailwind и не “прыгала”.
+Основа берётся из эталонной страницы, но **значения цветов** адаптируются под страницу, которую перевёрстываем.
+
+**Всегда включаем в Critical CSS:**
+- **Тема (CSS-переменные)**: `:root { --primary; --primary-hover; --dark; --body; --secondary; }`
+- **База страницы**: `body { background-color; color; overflow-x: hidden; }`
+- **Контейнер**:
+  - `.container` с паддингами `1rem`
+  - `max-width: 1170px` на ширине `min-width: 1170px`
+- **Минимальная типографика внутренней страницы (для Hero)**:
+  - `.breadcrumbs` (размер/цвет/hover)
+  - `h1` (размер/вес/адаптация)
+  - `.text-xl` (лид)
+- **Минимальные утилиты, которые используются выше первого экрана**:
+  - `.relative`, `.overflow-hidden`, `.inline-block`, `.flex`, `.items-center`
+  - `.text-white`, `.bg-primary`, `.rounded`, `.uppercase`, `.transition-colors`
+  - `.sr-only`
+
+**Не включаем в Critical CSS “по умолчанию” (добавляем только если реально используется на странице):**
+- Carousel (`.carousel-scroll`, `.snap-center`)
+- Video-cover (`.video-cover`, `.video-play-icon`, `video-playing`)
+- Page Navigator
+Причина: эти блоки не всегда присутствуют и не относятся к критическому рендеру первого экрана.
+
 ## Styling and Components
 - **Reference Page:** Use `@tailwind-project/src/html/portret-na-zakaz-po-foto-na-kholste-sankt-peterburg.html` as the etalon for structure and styling.
 - **Container Width:** The standard container width is `1170px` for the `2xl` breakpoint.
-- **Promo Block (Акция):** Take the promo block 1:1 from the reference page.
+- **Promo Block (Акция):**
+  - текст акции фиксированный: **«Скидка 20% с 3 по 4 января»**
+  - верстка берётся как в эталоне
+  - порядок/место блока на странице берём по старой странице (index.php); если фон/место отличаются — уточняем при планировании
+- **Варианты для заказа:** повторяем блок **1:1 по старой странице (index.php)**:
+  - заголовок: «Варианты для заказа»
+  - пункты/порядок/тексты — строго из старой страницы (без сокращений)
+  - **без модалок** (если на старой странице их нет)
+  - SVG иконки можно заменить заглушками (пользователь вставит свои)
 - **SVG Icons:** Use SVG placeholders (e.g., `<svg><text>SVG</text></svg>`) for icons. The user will replace them later.
 - **Ken Burns Effect:** Apply the Ken Burns effect to hero section background images where appropriate (see `info.html` for example).
 - **Product Gallery:** Use `el-tab-group` from Tailwind Plus for image galleries in product descriptions.
-- **Carousels:** Use a horizontal scrollable container with `snap-center` for image carousels (e.g., Examples of work).
+- **Carousels:** Use the etalon horizontal scroll pattern (`.carousel-scroll` + `.snap-center`) for image carousels (e.g., Examples of work). Not part of critical CSS by default.
+- **Advantages (Преимущества):** Repeat the section 1:1 by content and structure from the old page (index.php). SVG icons may be placeholders.
+
+## Базовые правила (важнейшее)
+- **Шрифты**: системные (не подключаем веб‑шрифты как обязательное правило).
+- **Ширина**: `1170px` на ПК (контейнер), как в эталоне.
+- **Цветовая схема**: берём из страницы, которую перевёрстываем (старой страницы / muse.ooo) и отражаем в:
+  - CSS-переменных `:root`
+  - `tailwind.config.extend.colors`
+- **Порядок секций и фоновые цвета**: по умолчанию повторяем старую страницу (index.php). Эталон используем как источник компонентов/паттернов.
+- **Inline‑ссылки в тексте (PageSpeed/UX)**:
+  - стиль: `text-primary underline hover:no-underline`
+  - стрелки:
+    - внутренняя ссылка на секцию выше → `↑`
+    - внутренняя ссылка на секцию ниже → `↓`
+    - внешняя ссылка → `↗`
+  - правило относится к **inline‑ссылкам в абзацах/списках**, не к кнопкам/меню/карточкам.
 
 ## Interactive Elements (JavaScript)
 - **Back to Top Button:** Every page should have a "Back to Top" button that appears on scroll (desktop only).
