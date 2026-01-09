@@ -9,6 +9,10 @@
     <!-- Закрыто от индексации во время разработки -->
     <meta name="robots" content="noindex, nofollow">
     
+    <!-- Preconnect и Preload для производительности -->
+    <link rel="preconnect" href="https://muse.ooo">
+    <link rel="preload" as="image" href="https://muse.ooo/upload/img/pavlosk-office.webp">
+    
     <!-- Критический CSS (универсальный для всех страниц) -->
     <style>
         /* ===== БАЗОВЫЕ СТИЛИ ===== */
@@ -331,6 +335,7 @@
         </el-dialog>
     </header>
 
+    <main>
     <!-- Hero Section with Ken Burns -->
     <section class="relative h-[70vh] overflow-hidden bg-dark">
         <!-- Ken Burns Background -->
@@ -1259,6 +1264,7 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Back to Top Button -->
     <a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-white text-dark hover:bg-dark hover:text-white border border-gray-300 hover:border-dark transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
