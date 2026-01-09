@@ -550,12 +550,13 @@
         <!-- Секция Печать на фотобумаге -->
         <section class="py-16">
             <div class="container">
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <div class="lg:col-span-1">
+                <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
+                    <!-- Заголовок: на мобильном занимает 2 колонки, на десктопе — 1 -->
+                    <div class="col-span-2 lg:col-span-1">
                         <h2 class="text-3xl lg:text-4xl font-light text-dark mb-4 text-center lg:text-left">Печать на фотобумаге</h2>
                     </div>
                     <!-- Продукт 1: Фото в рамке -->
-                    <div class="group hidden lg:block">
+                    <div class="group">
                         <a href="https://muse.ooo/pechat/foto-v-ramke/" class="block">
                             <img alt="Фотография балерины в рамке и паспарту" title="Фото в рамке" loading="lazy" src="https://muse.ooo/upload/img/photo-in-frame-main-263.webp" width="263" height="263" class="w-full h-auto rounded-t group-hover:opacity-80 transition-opacity">
                             <div class="p-4 bg-white rounded-b">
@@ -564,28 +565,9 @@
                         </a>
                     </div>
                     <!-- Продукт 2: Коллаж в раме -->
-                    <div class="group hidden lg:block">
+                    <div class="group">
                         <a href="https://muse.ooo/pechat/fotokollazh-v-ramke/" class="block">
                             <img alt="Фотоколлаж в рамке в виде луны" title="Коллаж в раме" loading="lazy" src="https://muse.ooo/upload/img/o-collage-in-a-frame-main-263.webp" width="263" height="263" class="w-full h-auto rounded-t group-hover:opacity-80 transition-opacity">
-                            <div class="p-4 bg-white rounded-b">
-                                <h3 class="text-lg font-medium text-dark">Коллаж в раме</h3>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <!-- Мобильная версия: две карточки в ряд (aria-hidden чтобы избежать дублирования h3 в DOM) -->
-                <div class="grid grid-cols-2 lg:hidden gap-4 mt-6" aria-hidden="true">
-                    <div class="group">
-                        <a href="https://muse.ooo/pechat/foto-v-ramke/" class="block">
-                            <img alt="Фотография балерины в рамке и паспарту" title="Фото в рамке" loading="lazy" src="https://muse.ooo/upload/img/photo-in-frame-main-263.webp" width="263" height="263" class="w-full h-auto rounded-t group-hover:opacity-80 transition-opacity">
-                            <div class="p-4 bg-white rounded-b">
-                                <h3 class="text-lg font-medium text-dark">Фото в рамке</h3>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="group">
-                        <a href="https://muse.ooo/pechat/fotokollazh-v-ramke/" class="block">
-                            <img alt="Фотоколлаж в рамке в виде луны" title="Коллаж в раме" loading="lazy" src="https://muse.ooo/upload/img/o-collage-in-a-frame-main-263.webp" width="263" height="261" class="w-full h-auto rounded-t group-hover:opacity-80 transition-opacity">
                             <div class="p-4 bg-white rounded-b">
                                 <h3 class="text-lg font-medium text-dark">Коллаж в раме</h3>
                             </div>
