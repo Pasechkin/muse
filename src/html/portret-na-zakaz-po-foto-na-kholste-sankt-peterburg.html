@@ -73,7 +73,7 @@
         }
         
         /* Lead текст под H1 */
-        .lead, .text-xl {
+        .text-xl {
             font-size: 1.25rem;
             line-height: 1.75rem;
         }
@@ -158,11 +158,9 @@
         
         /* Video Cover */
         .video-cover { position: relative; overflow: hidden; }
-        .video-cover .background-image-holder { position: relative; }
-        .video-cover .background-image-holder img { display: block; }
         .video-cover .video-play-icon { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; z-index: 2; transition: all 0.3s ease; }
         .video-cover video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-        .video-cover.video-playing .background-image-holder,
+        .video-cover.video-playing > div:first-child,
         .video-cover.video-playing .video-play-icon { display: none; }
         .video-cover.video-playing video { display: block; position: relative; }
         
@@ -311,7 +309,7 @@
     </section>
 
     <!-- Page Navigator -->
-    <section class="page-navigator" id="page-navigator" style="display: none;">
+    <section class="page-navigator hidden" id="page-navigator">
         <ul>
             <li><a href="#portraits-from-photo" class="inner-link" data-title="Портреты по фото"></a></li>
             <li><a href="#styles" class="inner-link" data-title="Стили"></a></li>
@@ -362,110 +360,110 @@
             </div>
 
             <div class="carousel-scroll pb-4">
-                <div class="flex gap-0 px-4" style="min-width: max-content;">
-                    <div class="text-center flex-shrink-0 snap-center" style="width:223px;">
+                <div class="flex gap-0 px-4 min-w-max">
+                    <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/portret-akvarelyu/">
                             <img title="Акварель" height="297" width="223" alt="Портрет пары в акварельном стиле" class="rounded" src="https://muse.ooo/upload/img/watercolor-couple-223-297.webp" decoding="async" loading="lazy">
                             <p class="mt-2 text-white">Акварель</p>
                         </a>
                     </div>
-                    <div class="text-center flex-shrink-0 snap-center" style="width:223px;">
+                    <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/portret-maslom/">
                             <img title="Масло" height="297" width="223" alt="Портрет Джеффа Бриджеса под живопись маслом" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/maslom-portret-223-297.webp">
                             <p class="mt-2 text-white">Маслом</p>
                         </a>
                     </div>
-                    <div class="text-center flex-shrink-0 snap-center" style="width:223px;">
+                    <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/portret-karandashom/">
                             <img title="Карандаш" height="297" width="223" alt="Портрет девушки карандашом с цветком в руках" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/pencil-223-297.webp">
                             <p class="mt-2 text-white">Карандаш</p>
                         </a>
                     </div>
-                    <div class="text-center flex-shrink-0 snap-center" style="width:223px;">
+                    <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/portret-v-obraze/">
                             <img title="В образе" height="297" width="223" alt="Портрет женщины в образе королевы на основе фотомонтажа в известную картину" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/painting-queen-portrait-223-297.webp">
                             <p class="mt-2 text-white">В образе</p>
                         </a>
                     </div>
-                    <div class="text-center flex-shrink-0 snap-center" style="width:223px;">
+                    <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/sharzh-po-foto/">
                             <img title="Шарж" height="297" width="223" alt="Шарж по фото на Анатолия Вассермана" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/sharzh-po-foto-223-297.webp">
                             <p class="mt-2 text-white">Шарж</p>
                         </a>
                     </div>
-                    <div class="text-center flex-shrink-0 snap-center" style="width:223px;">
+                    <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/portret-komiks/">
                             <img title="Комикс" height="297" width="223" alt="Портрет мужчины в стиле Комикс" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/comics-223-297-man.webp">
                             <p class="mt-2 text-white">Комикс</p>
                         </a>
                     </div>
-                    <div class="text-center flex-shrink-0 snap-center" style="width:223px;">
+                    <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/pop-art-portret/">
                             <img title="Поп-арт" height="297" width="223" alt="Поп-арт портрет в стиле Че девушки блондинки на малиновом фоне" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/pop-art-223-297.webp">
                             <p class="mt-2 text-white">Поп-арт</p>
                         </a>
                     </div>
-                    <div class="text-center flex-shrink-0 snap-center" style="width:223px;">
+                    <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/portret-iz-slov/">
                             <img title="Из слов" height="297" width="223" alt="Портрет мужчины из слов" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/iz-slov-portret-223-297.webp">
                             <p class="mt-2 text-white">Из слов</p>
                         </a>
                     </div>
-                    <div class="text-center flex-shrink-0 snap-center" style="width:223px;">
+                    <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/fotomozaika/">
                             <img title="Фотомозаика" height="297" width="223" alt="Фотомозаика для актрисы Светланы Ходченковой" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/fotomozaika-223-297.webp">
                             <p class="mt-2 text-white">Фотомозаика</p>
                         </a>
                     </div>
-                    <div class="text-center flex-shrink-0 snap-center" style="width:223px;">
+                    <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/graffiti-portret/">
                             <img title="Граффити" height="297" width="223" alt="Пример портрета известного московского DJ в стиле Граффити" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/graffiti-223-297.webp">
                             <p class="mt-2 text-white">Граффити</p>
                         </a>
                     </div>
-                    <div class="text-center flex-shrink-0 snap-center" style="width:223px;">
+                    <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/low-poly-portret/">
                             <img title="Лоу-поли" height="297" width="223" alt="Портрет Павла Дурова в стиле Low poly" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/low-poly-223-297.webp">
                             <p class="mt-2 text-white">Лоу-поли</p>
                         </a>
                     </div>
-                    <div class="text-center flex-shrink-0 snap-center" style="width:223px;">
+                    <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/fantasy-art-portret/">
                             <img title="Фэнтези" height="297" width="223" alt="Портрет в стиле Fantasy Art девочки на фоне сказочного леса" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/fantasy-223-297.webp">
                             <p class="mt-2 text-white">Фэнтези</p>
                         </a>
                     </div>
-                    <div class="text-center flex-shrink-0 snap-center" style="width:223px;">
+                    <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/portret-flower-art/">
                             <img title="Flower Art" height="297" width="223" alt="Flower Art портрет девушки на цветочном пастельном фоне" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/flower-art-4-223-297.webp">
                             <p class="mt-2 text-white">Flower Art</p>
                         </a>
                     </div>
-                    <div class="text-center flex-shrink-0 snap-center" style="width:223px;">
+                    <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/love-is-portret/">
                             <img title="Love is..." height="297" width="223" alt="Портрет пары в стиле Love is..." class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/love-is-223-297.webp">
                             <p class="mt-2 text-white">Love is...</p>
                         </a>
                     </div>
-                    <div class="text-center flex-shrink-0 snap-center" style="width:223px;">
+                    <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/granzh-portret/">
                             <img title="Гранж" height="297" width="223" alt="Портрет Данилы Козловского с Ольгой Зуевой в стиле Гранж" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/grunge-223-297.webp">
                             <p class="mt-2 text-white">Гранж</p>
                         </a>
                     </div>
-                    <div class="text-center flex-shrink-0 snap-center" style="width:223px;">
+                    <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/wpap-portret/">
                             <img title="WPAP" height="297" width="223" alt="WPAP портрет девушки в очках и берете" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/wpap-223-297.webp">
                             <p class="mt-2 text-white">WPAP</p>
                         </a>
                     </div>
-                    <div class="text-center flex-shrink-0 snap-center" style="width:223px;">
+                    <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/beauty-art-portret/">
                             <img title="Бьюти-арт" height="297" width="223" alt="Портрет женщины с цветами в стиле бьюти-арт" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/beauty-art-221019-223-297.webp">
                             <p class="mt-2 text-white">Бьюти-арт</p>
                         </a>
                     </div>
-                    <div class="text-center flex-shrink-0 snap-center" style="width:223px;">
+                    <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/drim-art-portret/">
                             <img title="Дрим-Арт" height="297" width="223" alt="Портрет влюбленной пары в стиле Дрим-Арт" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/dream-couple-223-297.webp">
                             <p class="mt-2 text-white">Дрим-арт</p>
@@ -786,7 +784,7 @@
                     <!-- Видео -->
                     <div>
                         <div class="video-cover border--round box-shadow-wide overflow-hidden rounded-md">
-                            <div class="background-image-holder relative w-full" style="padding-top: 64.5%;">
+                            <div class="relative w-full pt-[64.5%]">
                                 <img 
                                     loading="lazy" decoding="async"
                                     height="358" width="555" 
@@ -1150,7 +1148,7 @@
                 </div>
             </div>
             <div class="carousel-scroll pb-4">
-                <div class="flex gap-0 px-4" style="min-width: max-content;">
+                <div class="flex gap-0 px-4 min-w-max">
                     <div class="flex-shrink-0 snap-center">
                         <img loading="lazy" decoding="async" width="241" height="181" alt="Молодой человек держит в руках собственный портрет на холсте в рамке, который был создан по фотографии; на портрете он изображен сидящим в кресле в кепке и с автоматом" src="https://muse.ooo/upload/img/portret-po-foto-na-holste-yunosha-v-kepke-040324.webp">
                     </div>
