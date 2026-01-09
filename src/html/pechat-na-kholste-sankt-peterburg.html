@@ -425,16 +425,15 @@
                 <div class="flex flex-col lg:flex-row">
                     <div class="lg:w-1/2 relative aspect-video">
                         <video
-                            autoplay
                             muted
                             loop
                             playsinline
                             preload="none"
                             poster="https://muse.ooo/upload/imgsite/print-on-canvas-poster-2.webp"
                             title="Картины напечатанные на холсте"
-                            class="absolute inset-0 w-full h-full object-cover lg:relative lg:min-h-[500px]"
+                            class="lazy-video absolute inset-0 w-full h-full object-cover lg:relative lg:min-h-[500px]"
+                            data-src="https://muse.ooo/video/print-on-canvas-a-comp.webm"
                         >
-                            <source src="https://muse.ooo/video/print-on-canvas-a-comp.webm" type="video/webm">
                         </video>
                     </div>
                     <div class="lg:w-1/2 flex items-center p-8 lg:p-16">
@@ -1146,6 +1145,50 @@
         }
       ]
     }
+    </script>
+
+    <!-- Отложенная загрузка видео -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const lazyVideos = document.querySelectorAll('video.lazy-video');
+        
+        if ('IntersectionObserver' in window) {
+            const videoObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        const video = entry.target;
+                        const src = video.dataset.src;
+                        if (src) {
+                            const source = document.createElement('source');
+                            source.src = src;
+                            source.type = 'video/webm';
+                            video.appendChild(source);
+                            video.load();
+                            video.play();
+                        }
+                        videoObserver.unobserve(video);
+                    }
+                });
+            }, { rootMargin: '100px' });
+
+            lazyVideos.forEach(function(video) {
+                videoObserver.observe(video);
+            });
+        } else {
+            // Fallback для старых браузеров
+            lazyVideos.forEach(function(video) {
+                const src = video.dataset.src;
+                if (src) {
+                    const source = document.createElement('source');
+                    source.src = src;
+                    source.type = 'video/webm';
+                    video.appendChild(source);
+                    video.load();
+                    video.play();
+                }
+            });
+        }
+    });
     </script>
 </body>
 </html>
