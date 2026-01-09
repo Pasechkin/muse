@@ -186,15 +186,54 @@ body      = #666666  (текст)
 >
 ```
 
-**Для первого экрана (без lazy loading):**
+### LCP-изображение (Largest Contentful Paint)
+
+Для **первого большого изображения** в viewport (обычно hero или первая секция) — это LCP-элемент, влияющий на Core Web Vitals:
+
 ```html
 <img
-  src="https://muse.ooo/upload/img/hero.webp"
-  width="1920"
-  height="1080"
+  src="https://muse.ooo/upload/imgsite/image-952-535.webp"
+  srcset="
+    https://muse.ooo/upload/imgsite/image-400-225.webp 400w,
+    https://muse.ooo/upload/imgsite/image-600-337.webp 600w,
+    https://muse.ooo/upload/imgsite/image-786-442.webp 786w,
+    https://muse.ooo/upload/imgsite/image-828-465.webp 828w,
+    https://muse.ooo/upload/imgsite/image-952-535.webp 952w"
+  sizes="(max-width: 767px) 100vw, 50vw"
+  width="952"
+  height="535"
   alt="Описание"
+  loading="eager"
   decoding="async"
+  fetchpriority="high"
   class="..."
+>
+```
+
+**Атрибуты для LCP:**
+- `fetchpriority="high"` — приоритет загрузки (рекомендация PageSpeed Insights)
+- `loading="eager"` — без отложенной загрузки (или просто не указывать `loading`)
+- `srcset` + `sizes` — адаптивные изображения для разных экранов
+
+**Когда использовать `fetchpriority="high"`:**
+- Только для 1-2 самых важных изображений (LCP)
+- Hero-изображения
+- Первое изображение в блоках «полэкрана»
+
+**НЕ использовать `fetchpriority="high"` для:**
+- Изображений ниже первого экрана
+- Каруселей
+- Галерей
+
+**`fetchpriority="low"`** — для больших изображений ниже первого экрана (экономит ресурсы):
+```html
+<img
+  src="..."
+  srcset="..."
+  sizes="..."
+  loading="lazy"
+  decoding="async"
+  fetchpriority="low"
 >
 ```
 
@@ -313,6 +352,7 @@ body      = #666666  (текст)
 - [ ] Все изображения имеют `width` и `height`
 - [ ] Все изображения имеют `loading="lazy"` (кроме первого экрана)
 - [ ] Все изображения имеют `decoding="async"`
+- [ ] LCP-изображение имеет `fetchpriority="high"` и `srcset` (если доступны нарезки)
 
 ### Интерактивные элементы
 - [ ] Карусели работают (прокрутка на ПК, свайп на мобильных)
