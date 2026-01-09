@@ -20,60 +20,88 @@
 ### Шаблон для переверстки страницы
 
 ```
-Переверстать страницу [НАЗВАНИЕ] на основе эталонной страницы.
+Прежде чем начать работу, ознакомься со всей документацией проекта:
+- @tailwind-project/AI_INSTRUCTIONS.md — основные правила
+- @tailwind-project/docs/LESSONS_LEARNED.md — проблемы и решения
+- @tailwind-project/docs/DESIGN_SYSTEM.md — цвета, типографика
+- @tailwind-project/docs/COMPONENTS.md — каталог компонентов
+
+После ознакомления переверстай страницу [НАЗВАНИЕ] на основе эталона.
 
 Эталон: @tailwind-project/src/html/portret-na-zakaz-po-foto-na-kholste-sankt-peterburg.html
 
 Источник контента: [URL оригинальной страницы на muse.ooo]
-
-Инструкции: @tailwind-project/AI_INSTRUCTIONS.md
 
 Важно:
 - Взять структуру, header, footer, критический CSS из эталона
 - Контент (тексты, alt, title, meta) брать ТОЛЬКО с оригинала
 - НЕ менять и НЕ сокращать контент без согласования
 - Предупредить, если что-то урезается или отличается
+- НЕ изменять файлы документации без согласования
 ```
 
 ### Пример для главной страницы
 
 ```
-Переверстать главную страницу index.html на основе эталонной страницы.
+Прежде чем начать работу, ознакомься со всей документацией проекта:
+- @tailwind-project/AI_INSTRUCTIONS.md — основные правила
+- @tailwind-project/docs/LESSONS_LEARNED.md — проблемы и решения
+- @tailwind-project/docs/DESIGN_SYSTEM.md — цвета, типографика
+- @tailwind-project/docs/COMPONENTS.md — каталог компонентов
+
+После ознакомления переверстай главную страницу index.html на основе эталона.
 
 Эталон: @tailwind-project/src/html/portret-na-zakaz-po-foto-na-kholste-sankt-peterburg.html
 
 Источник контента: https://muse.ooo/
-
-Инструкции: @tailwind-project/AI_INSTRUCTIONS.md
 
 Важно:
 - Взять структуру, header, footer, критический CSS из эталона
 - Контент (тексты, alt, title, meta) брать ТОЛЬКО с оригинала muse.ooo
 - НЕ менять и НЕ сокращать контент без согласования
 - Предупредить, если что-то урезается или отличается
+- НЕ изменять файлы документации без согласования
 ```
 
 ### Пример для страницы печати
 
 ```
-Переверстать страницу печати pechat-na-kholste-sankt-peterburg.html на основе эталонной страницы.
+Прежде чем начать работу, ознакомься со всей документацией проекта:
+- @tailwind-project/AI_INSTRUCTIONS.md — основные правила
+- @tailwind-project/docs/LESSONS_LEARNED.md — проблемы и решения
+- @tailwind-project/docs/DESIGN_SYSTEM.md — цвета, типографика
+- @tailwind-project/docs/COMPONENTS.md — каталог компонентов
+
+После ознакомления переверстай страницу печати pechat-na-kholste-sankt-peterburg.html на основе эталона.
 
 Эталон: @tailwind-project/src/html/portret-na-zakaz-po-foto-na-kholste-sankt-peterburg.html
 
 Источник контента: https://muse.ooo/pechat-na-kholste-sankt-peterburg/
-
-Инструкции: @tailwind-project/AI_INSTRUCTIONS.md
 
 Важно:
 - Взять структуру, header, footer, критический CSS из эталона
 - Контент (тексты, alt, title, meta) брать ТОЛЬКО с оригинала
 - НЕ менять и НЕ сокращать контент без согласования
 - Предупредить, если что-то урезается или отличается
+- НЕ изменять файлы документации без согласования
 ```
 
 ---
 
-## Шаг 3: Вопросы для уточнения (режим Ask)
+## Шаг 3: Дождитесь подтверждения
+
+После первого сообщения убедитесь, что агент:
+
+1. ✅ Прочитал всю документацию
+2. ✅ Понял задачу
+3. ✅ Зафиксировал цвета со страницы-источника
+4. ✅ Перечислил секции, которые будет делать
+
+Если агент сразу начал писать код — **остановите его** и попросите сначала показать план.
+
+---
+
+## Шаг 4: Вопросы для уточнения (режим Ask)
 
 Перед началом работы уточните:
 
@@ -94,7 +122,7 @@
 
 ---
 
-## Шаг 4: Переключение на Agent
+## Шаг 5: Переключение на Agent
 
 После согласования плана напишите:
 
@@ -106,7 +134,7 @@
 
 ---
 
-## Шаг 5: Проверка после завершения
+## Шаг 6: Проверка после завершения
 
 Попросите агента проверить по чек-листу:
 
@@ -136,6 +164,8 @@ https://validator.w3.org/nu/?doc=https://muse-liard-one.vercel.app/[путь-к-
 | Эталон | `@tailwind-project/src/html/portret-na-zakaz-po-foto-na-kholste-sankt-peterburg.html` | Основа для всех страниц |
 | Инструкции | `@tailwind-project/AI_INSTRUCTIONS.md` | Правила работы |
 | Уроки | `@tailwind-project/docs/LESSONS_LEARNED.md` | Проблемы и решения |
+| Дизайн-система | `@tailwind-project/docs/DESIGN_SYSTEM.md` | Цвета, типографика |
+| Компоненты | `@tailwind-project/docs/COMPONENTS.md` | Каталог компонентов |
 | Список страниц | `@tailwind-project/docs/PAGES_LIST.md` | Статус всех страниц |
 
 ---
@@ -151,6 +181,7 @@ https://validator.w3.org/nu/?doc=https://muse-liard-one.vercel.app/[путь-к-
 - Конкретный URL источника контента
 - Ссылку на эталон
 - Ключевые правила (не менять контент, предупреждать об урезании)
+- Просьбу ознакомиться с документацией
 
 ---
 
@@ -160,4 +191,3 @@ https://validator.w3.org/nu/?doc=https://muse-liard-one.vercel.app/[путь-к-
 2. ✅ Запустить `БЫСТРЫЙ_ДЕПЛОЙ.bat` для публикации
 3. ✅ Проверить на Vercel
 4. ✅ Если нашли проблемы — задокументировать в `docs/LESSONS_LEARNED.md`
-

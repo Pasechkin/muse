@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Печать фото на холсте в СПб — заказать в Muse</title>
+    <title>Печать фото на холсте в Петербурге</title>
     <meta name="description" content="Печать фото на холсте с натяжкой на подрамник, любой размер, обработка фотографии, гарантия и доставка заказа по СПб — цена от 2391 р.">
     
     <!-- Закрыто от индексации во время разработки -->
@@ -109,40 +109,8 @@
             border-width: 0;
         }
         
-        /* Page Navigator (как в эталоне) */
-        .page-navigator { position: fixed; top: 50%; transform: translateY(-50%); right: 1.85714286em; z-index: 9999; }
-        .page-navigator ul { display: inline-block; padding: 0.92857143em; background: rgba(0, 0, 0, 0.4); border-radius: 1.85714286em; }
-        .page-navigator ul:hover { background: rgba(0, 0, 0, 0.6); }
-        .page-navigator ul li { list-style: none; }
-        .page-navigator ul li:not(:last-child) { margin-bottom: 1.85714286em; }
-        @media (max-width: 1023px) { .page-navigator { display: none !important; } }
-        .page-navigator li a { width: 8px; height: 8px; background: #fff; border-radius: 50%; transition: all 0.2s ease; display: block; position: relative; opacity: 0.5; }
-        .page-navigator li a:hover, .page-navigator li a.inner-link--active { opacity: 1; }
-        .page-navigator li a[data-title]:before { content: attr(data-title); position: absolute; right: 12px; top: -14px; background: #222; color: #fff; border-radius: 6px; padding: 4px 8px; display: inline-block; white-space: nowrap; font-size: 12px; opacity: 0; transition: all 0.2s ease; }
-        .page-navigator li a[data-title]:hover:before { opacity: 1; }
-        
-        /* Carousel */
-        .carousel-scroll { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
-        .carousel-scroll::-webkit-scrollbar { display: none; }
-        .snap-center { scroll-snap-align: center; }
-        
-        /* Video Cover */
-        .video-cover { position: relative; overflow: hidden; }
-        .video-cover .video-play-icon { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; z-index: 2; transition: all 0.3s ease; }
-        .video-cover video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-        .video-cover iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        .video-cover.video-playing > :first-child,
-        .video-cover.video-playing .video-play-icon { display: none; }
-        .video-cover.video-playing video { display: block; }
-        
-        /* Ken Burns Effect */
-        @keyframes kenburns {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
-        }
-        .ken-burns-img {
-            animation: kenburns 20s ease-out forwards;
-        }
+        /* ===== НЕКРИТИЧЕСКИЕ СТИЛИ (загружаются через Tailwind CDN) ===== */
+        /* Page Navigator, Carousel, Video Cover, Ken Burns — не в критическом CSS */
         
     </style>
     
@@ -173,6 +141,39 @@
     
     <!-- Tailwind Plus Elements -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
+    
+    <!-- Некритические стили (загружаются после Tailwind) -->
+    <style>
+        /* Page Navigator */
+        .page-navigator { position: fixed; top: 50%; transform: translateY(-50%); right: 1.85714286em; z-index: 9999; }
+        .page-navigator ul { display: inline-block; padding: 0.92857143em; background: rgba(0, 0, 0, 0.4); border-radius: 1.85714286em; }
+        .page-navigator ul:hover { background: rgba(0, 0, 0, 0.6); }
+        .page-navigator ul li { list-style: none; }
+        .page-navigator ul li:not(:last-child) { margin-bottom: 1.85714286em; }
+        @media (max-width: 1023px) { .page-navigator { display: none !important; } }
+        .page-navigator li a { width: 8px; height: 8px; background: #fff; border-radius: 50%; transition: all 0.2s ease; display: block; position: relative; opacity: 0.5; }
+        .page-navigator li a:hover, .page-navigator li a.inner-link--active { opacity: 1; }
+        .page-navigator li a[data-title]:before { content: attr(data-title); position: absolute; right: 12px; top: -14px; background: #222; color: #fff; border-radius: 6px; padding: 4px 8px; display: inline-block; white-space: nowrap; font-size: 12px; opacity: 0; transition: all 0.2s ease; }
+        .page-navigator li a[data-title]:hover:before { opacity: 1; }
+        
+        /* Carousel */
+        .carousel-scroll { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
+        .carousel-scroll::-webkit-scrollbar { display: none; }
+        .snap-center { scroll-snap-align: center; }
+        
+        /* Video Cover */
+        .video-cover { position: relative; overflow: hidden; }
+        .video-cover .video-play-icon { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; z-index: 2; transition: all 0.3s ease; }
+        .video-cover video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        .video-cover iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .video-cover.video-playing > :first-child,
+        .video-cover.video-playing .video-play-icon { display: none; }
+        .video-cover.video-playing video, .video-cover.video-playing iframe { display: block; }
+        
+        /* Ken Burns Effect */
+        @keyframes kenburns { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
+        .ken-burns-img { animation: kenburns 20s ease-out forwards; }
+    </style>
 </head>
 <body class="bg-white overflow-x-hidden">
 
@@ -302,14 +303,29 @@
     <main>
         <!-- Первый экран (Hero) с Ken Burns эффектом -->
         <section class="relative min-h-[520px] lg:min-h-[calc(100vh-88px)] overflow-hidden flex items-center">
-            <!-- Background Image + Animation -->
-            <div class="absolute inset-0 z-0">
-                <img 
-                    src="https://muse.ooo/upload/img/foto-gagarina-na-holste-3300-2330.webp" 
-                    alt="Фото на холсте Ю. Гагарина" 
-                    class="w-full h-full object-cover ken-burns-img"
-                    fetchpriority="high"
-                >
+            <!-- Background Image + Animation (не грузится на мобильных) -->
+            <div class="absolute inset-0 z-0 bg-black">
+                <picture>
+                    <!-- На мобильных (до lg) — прозрачный 1x1 пиксель, не тратит трафик -->
+                    <source 
+                        media="(max-width: 1023px)" 
+                        srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                    >
+                    <!-- На десктопе (lg+) — полное изображение -->
+                    <source 
+                        media="(min-width: 1024px)" 
+                        srcset="https://muse.ooo/upload/img/foto-gagarina-na-holste-3300-2330.webp"
+                    >
+                    <img 
+                        src="https://muse.ooo/upload/img/foto-gagarina-na-holste-3300-2330.webp" 
+                        alt="Композиция из фото Ю.Гагарина на холсте и фона с нарисованным плоттером, подрамниками и рулонами для печати"
+                        title="Фото Юрия Гагарина на холсте"
+                        class="w-full h-full object-cover ken-burns-img"
+                        width="3300"
+                        height="2330"
+                        fetchpriority="high"
+                    >
+                </picture>
                 <!-- Overlay -->
                 <div class="absolute inset-0 bg-black/40"></div>
             </div>
@@ -335,14 +351,9 @@
                         Печать фото на холсте с натяжкой на подрамник — размеры на выбор, помощь с обработкой фотографий, гарантия и доставка заказа по СПб — цена от 2391 р.
                     </p>
                     
-                    <div class="flex flex-wrap gap-4">
-                        <a href="#calc" class="inline-block px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors">
-                            Рассчитать цену
-                        </a>
-                        <a href="https://muse.ooo/order/" class="inline-block px-8 py-3 border border-white text-white hover:bg-white hover:text-dark rounded uppercase transition-colors">
-                            Заказать сейчас
-                        </a>
-                    </div>
+                    <a href="https://muse.ooo/order/" class="inline-block px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors text-lg">
+                        Заказать
+                    </a>
                 </div>
             </div>
         </section>
@@ -507,66 +518,72 @@
             </div>
         </section>
 
-        <!-- Варианты для заказа (как на старой странице) -->
+        <!-- Варианты для заказа (как на старой странице — без карточек) -->
         <section class="bg-secondary py-16 lg:py-20" id="varianty-dlya-zakaza">
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Варианты для заказа</h2>
             </div>
 
             <div class="container">
-                <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-                    <div class="bg-white rounded-lg shadow-xl p-6 text-center">
+                <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+                    <!-- Размер -->
+                    <div class="text-center">
                         <div class="w-10 h-10 mx-auto mb-4 text-primary">
-                            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
-                                <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
-                            </svg>
+                            <svg height=40 viewbox="0 0 1889 1889" width=40 xmlns=http://www.w3.org/2000/svg>
+                        <path d="M130 0l1729 0c17 0 30 13 30 30l0 1729c0 17-13 30-30 30l-590 0 0 20c0 17-14 30-30 30l-634 0 0 20c0 17-13 30-30 30l-545 0c-17 0-30-13-30-30l0-545c0-17 13-30 30-30l20 0 0-634c0-16 13-30 30-30l20 0 0-590c0-17 13-30 30-30zm475 1779l604 0 0-1099-1099 0 0 604 465 0c17 0 30 13 30 30l0 465zm-60-435l-485 0 0 485 485 0 0-485zm724 385l560 0 0-1669-1669 0 0 560 1079 0c16 0 30 14 30 30l0 1079z" fill=#4a90e2 class=fil101></path>
+                     </svg>
                         </div>
-                        <h3 class="text-base font-medium text-dark">Размер</h3>
-                        <p class="text-sm text-body leading-6 text-left mt-3">Выберите любой размер от 20х30 до 120х300 см. Популярные: 30х40, 60х40, 50х70, 60х90 и 90х120 см.</p>
+                        <h3 class="text-xl font-medium text-dark">Размер</h3>
+                        <p class="text-body leading-7 text-left mt-3">Выберите любой размер от 20х30 до 120х300 см. Популярные: 30х40, 60х40, 50х70, 60х90 и 90х120 см.</p>
                     </div>
 
-                    <div class="bg-white rounded-lg shadow-xl p-6 text-center">
+                    <!-- Подрамник -->
+                    <div class="text-center">
                         <div class="w-10 h-10 mx-auto mb-4 text-primary">
-                            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
-                                <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
-                            </svg>
+                            <svg height=40 viewbox="0 0 1889 1889" width=40 xmlns=http://www.w3.org/2000/svg>
+                        <path d="M1229 117l-383 490 0 1222 383 0 0-1712zm-756-117l343 0c16 0 30 13 30 30l0 480 388-496 0 0 0-1 0 0 0 0 0 0 1-1 0 0 1-1 0 0 0-1 0 0 1 0 0 0 0-1 0 0 1 0 0 0 0 0 0-1 0 0 1 0 0 0 0 0 0-1 0 0 1 0 0 0 0 0 0 0 0-1 1 0 0 0 0 0 0 0 1 0 0-1 0 0 0 0 0 0 1 0 0 0 0-1 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0-1 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0-1 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0-1 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1-1 0 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0 600 0c17 0 30 13 30 30l0 1829c0 17-13 30-30 30l-600 0-443 0-343 0-443 0c-17 0-30-13-30-30l0-1262 0 0c0-7 2-13 6-19l442-564 0 0 0-1 0 0 0 0 1 0 0-1 0 0 1-1 0 0 0-1 0 0 1 0 0 0 0-1 0 0 1 0 0 0 0 0 0-1 0 0 1 0 0 0 0 0 0-1 0 0 1 0 0 0 0 0 0 0 1-1 0 0 0 0 0 0 0 0 1 0 0-1 0 0 0 0 1 0 0 0 0 0 0-1 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0-1 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0-1 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0-1 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 1-1 0 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0zm313 60l-283 0 0 1769 283 0 0-1232 0-537zm1043 0l-540 0 0 1769 540 0 0-1769zm-1386 57l-383 490 0 1222 383 0 0-1712z" fill=#4a90e2 class=fil101></path>
+                     </svg>
                         </div>
-                        <h3 class="text-base font-medium text-dark">Подрамник</h3>
-                        <p class="text-sm text-body leading-6 text-left mt-3">Стандартная толщина деревянного подрамника — 2 см. Для интерьеров с акцентом на массивные элементы, подойдёт толстый подрамник — 3,5 см. Закажите холст в рулоне, если натяжка не требуется.</p>
+                        <h3 class="text-xl font-medium text-dark">Подрамник</h3>
+                        <p class="text-body leading-7 text-left mt-3">Стандартная толщина деревянного подрамника — 2 см. Для интерьеров с акцентом на массивные элементы, подойдёт толстый подрамник — 3,5 см. Закажите холст в рулоне, если натяжка не требуется.</p>
                     </div>
 
-                    <div class="bg-white rounded-lg shadow-xl p-6 text-center">
+                    <!-- Торец -->
+                    <div class="text-center">
                         <div class="w-10 h-10 mx-auto mb-4 text-primary">
-                            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
-                                <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
-                            </svg>
+                             <svg height=40 viewbox="0 0 1889 1889" width=40 xmlns=http://www.w3.org/2000/svg>
+                        <path d="M1388 0l471 0c17 0 30 13 30 30l0 1829c0 17-13 30-30 30l-471 0-443 0-472 0-443 0c-17 0-30-13-30-30l0-1262 0 0c0-7 2-13 6-19l221-282c1-1 1-2 2-3l219-279 0 0 0-1 0 0 0 0 1 0 0-1 0 0 1-1 0 0 0-1 0 0 1 0 0 0 0-1 0 0 1 0 0 0 0 0 0-1 0 0 1 0 0 0 0 0 0-1 0 0 1 0 0 0 0 0 0 0 1-1 0 0 0 0 0 0 0 0 1 0 0-1 0 0 0 0 1 0 0 0 0 0 0-1 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0-1 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0-1 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0-1 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 1-1 0 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 472 0c16 0 30 13 30 30l0 480 166-213c1-2 2-3 3-4l218-279 0 0 1-1 0 0 0 0 0 0 0-1 0 0 1-1 0 0 1-1 0 0 0 0 1 0 0-1 0 0 0 0 0 0 0 0 1-1 0 0 0 0 0 0 0 0 1-1 0 0 0 0 0 0 0 0 1 0 0-1 0 0 1 0 0 0 0 0 0 0 0-1 1 0 0 0 0 0 0 0 0 0 1-1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1-1 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0-1 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 1-1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0-1 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0zm-195 327l-218 774 0 147 335-1070-117 149zm-218 554l121-429-121 155 0 274zm-696-554l-219 774 0 156 340-1085-121 155zm-219 554l121-429-121 155 0 274zm383-646l-382 1217c0 2 0 3-1 4l0 171 383-1202 0-190zm60 177c2 6 3 13 1 20l-1 2 0 373c2 5 2 12 0 18l0 377c1 4 1 9 0 13l0 614 412 0 0-1232 0-537-412 0 0 352zm-60 210l-382 1197c0 2 0 3-1 4l0 6 50 0 333-1014 0-193zm0 386l-269 821 52 0 217-623 0-198zm0 379l-154 442 53 0 101-233 0-209zm0 359l-36 83 36 0 0-83zm975-947l411 225 0-325-411-225 0 325zm411 293l-411-225 0 325 411 225 0-325zm-471-866l-383 1222 0 170 383-1202 0-190zm0 387l-383 1202 0 14 47 0 336-1022 0-194zm0 386l-273 830 52 0 220-630 1-1 0-199zm0 380l-157 450 53 0 103-239 1-1 0-210zm0 360l-39 90 39 0 0-90zm138-1679l333 182 0-182-333 0zm333 250l-411-225 0 321 411 224 0-320zm0 1175l-411-225 0 324 411 225 0-324zm-87 344l-324-177 0 177 324 0z" fill=#4a90e2 class=fil101></path>
+                     </svg>
                         </div>
-                        <h3 class="text-base font-medium text-dark">Торец</h3>
-                        <p class="text-sm text-body leading-6 text-left mt-3">На подрамник из дерева вручную натягиваем холст галерейным способом. Основное изображение отображается зеркально и продолжается на торце. По требованию закрасим торец любым цветом.</p>
+                        <h3 class="text-xl font-medium text-dark">Торец</h3>
+                        <p class="text-body leading-7 text-left mt-3">На подрамник из дерева вручную натягиваем холст галерейным способом. Основное изображение отображается зеркально и продолжается на торце. По требованию закрасим торец любым цветом.</p>
                     </div>
 
-                    <div class="bg-white rounded-lg shadow-xl p-6 text-center">
+                    <!-- Крепление -->
+                    <div class="text-center">
                         <div class="w-10 h-10 mx-auto mb-4 text-primary">
-                            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
-                                <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
-                            </svg>
+                             <svg height=40 viewbox="0 0 1889 1200" width=40 xmlns=http://www.w3.org/2000/svg>
+                        <path d="M1550 0l309 0c17 0 30 13 30 30l0 1140c0 16-13 30-30 30l-309 0c-17 0-30-14-30-30l0-90-121-121-130 130c-12 12-31 12-43 0l-130-130-130 130c-12 12-31 12-43 0l-130-130-130 130c-12 12-31 12-43 0l-130-130-121 121 0 90c0 16-13 30-30 30l-309 0c-17 0-30-14-30-30l0-1140c0-17 13-30 30-30l309 0c17 0 30 13 30 30l0 90 121 121 130-130c12-12 31-12 43 0l130 130 130-130c12-12 31-12 43 0l130 130 130-130c12-12 31-12 43 0l130 130 121-121 0-90c0-17 13-30 30-30zm30 807c0 16-14 30-30 30-17 0-30-14-30-30l0-414c0-17 13-30 30-30 16 0 30 13 30 30l0 414zm-1211 0c0 16-13 30-30 30-16 0-30-14-30-30l0-414c0-17 14-30 30-30 17 0 30 13 30 30l0 414zm1335-305c27 0 52 11 69 29 18 17 29 42 29 69 0 27-11 51-29 69-17 18-42 29-69 29-27 0-51-11-69-29-17-18-28-42-28-69 0-27 11-52 28-69 18-18 42-29 69-29zm27 71c-7-7-16-11-27-11-10 0-20 4-26 11-7 7-11 16-11 27 0 10 4 20 11 27 6 6 16 11 26 11 11 0 20-5 27-11 7-7 11-17 11-27 0-11-4-20-11-27zm-1546-71c27 0 51 11 69 29 17 17 28 42 28 69 0 27-11 51-28 69-18 18-42 29-69 29-27 0-52-11-69-29-18-18-29-42-29-69 0-27 11-52 29-69 17-18 42-29 69-29zm26 71c-6-7-16-11-26-11-11 0-20 4-27 11-7 7-11 16-11 27 0 10 4 20 11 27 7 6 16 11 27 11 10 0 20-5 26-11 7-7 11-17 11-27 0-11-4-20-11-27zm1618-513l-249 0 0 73c0 7-3 15-9 21l-151 151c-12 11-31 11-42 0l-131-130-130 130c-12 11-31 11-42 0l-130-130-131 130c-11 11-30 11-42 0l-130-130-131 130c-11 11-30 11-42 0l-151-151c-5-6-9-13-9-21l0-73-249 0 0 1080 249 0 0-73c0-7 3-15 9-21l151-151c12-12 31-12 42 0l131 130 130-130c12-12 31-12 42 0l131 130 130-130c11-12 30-12 42 0l130 130 131-130c11-12 30-12 42 0l151 151c5 5 9 13 9 21l0 73 249 0 0-1080z" fill=#4a90e2 class=fil101></path>
+                     </svg>
                         </div>
-                        <h3 class="text-base font-medium text-dark">Крепление</h3>
-                        <p class="text-sm text-body leading-6 text-left mt-3">Устанавливаем зубчатые подвесы «Крокодил». Картина будет висеть параллельно стене. Для картин, оформленных в раму, установим по требованию металлический трос. Тогда она будет висеть, как в музее, под углом к стене.</p>
+                        <h3 class="text-xl font-medium text-dark">Крепление</h3>
+                        <p class="text-body leading-7 text-left mt-3">Устанавливаем зубчатые подвесы «Крокодил». Картина будет висеть параллельно стене. Для картин, оформленных в раму, установим по требованию металлический трос. Тогда она будет висеть, как в музее, под углом к стене.</p>
                     </div>
 
-                    <div class="bg-white rounded-lg shadow-xl p-6 text-center">
+                    <!-- Обработка фото (с accordion как на старой странице) -->
+                    <div class="text-center">
                         <div class="w-10 h-10 mx-auto mb-4 text-primary">
-                            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
-                                <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
-                            </svg>
+                            <svg height=40 viewbox="0 0 2119 1889" width=40 xmlns=http://www.w3.org/2000/svg>
+                        <path d="M1829 60l-1769 0 0 1769 1769 0 0-1138c-116 79-261 170-421 262l-1 1c-126 72-245 137-351 190-106 54-199 97-272 126-27 49-83 85-150 100-49 11-104 12-157-1-54-12-107-37-151-78-68-63-114-163-111-307 0-5 2-10 4-14l0 0c0-1 1-2 1-3l0 0 1-1 0 0 1-1 0 0 0 0 0 0 1-1 0 0 0 0 0 0 1-1 0 0 0 0 0 0 1-1 0 0 0 0 0 0 1-1 1 0 0-1 0 0c3-2 6-3 10-4l0 0c2-1 5-2 8-2 6 0 10 2 15 4l0 0c0 1 1 1 2 2l0 0 1 1 0 0 1 0 0 0 0 1 0 0 1 0 0 0 0 1 0 0 1 0 0 0 0 1 1 0 0 0 0 0 0 1 1 0 0 1 0 0 1 0 0 1 1 1c79 113 177 99 269 87 80-10 155-20 220 33 54-39 118-83 190-130 100-66 217-137 342-209l2-2c204-117 394-216 536-279l0-408zm-1550 1007c12 81 45 140 88 180 36 33 79 54 123 64 44 10 90 10 131 1 39-9 73-26 95-49-9-6-17-13-23-22-10-14-16-32-15-52 0-12 2-24 7-37 2-6 5-11 10-14 4-4 9-8 15-12-45-27-102-20-163-12-88 12-182 25-268-47zm915-192c3 23 10 42 20 59 9 15 22 28 37 39 41-23 83-47 126-71l1-1c204-117 383-232 508-323 111-80 179-133 177-139l0 0c-3-6-83 26-209 83-141 63-329 160-531 277l-3 2c-43 24-85 49-126 74zm1 129c-13-12-24-25-33-40-10-16-17-35-22-56-56 34-109 68-159 100-98 64-181 123-242 170-1 5-1 9-1 12-1 7 1 13 4 17 2 4 6 6 11 8 1 1 3 1 5 1 72-28 165-71 271-125 53-27 108-56 166-87zm694-354l0 1209c0 17-13 30-30 30l-1829 0c-17 0-30-13-30-30l0-1829c0-17 13-30 30-30l1829 0c17 0 30 13 30 30l0 412c124-50 208-65 226-33 5 8 5 19 1 28-13 42-84 110-195 190-10 7-21 15-32 23z" fill=#4a90e2 class=fil101></path>
+                     </svg>
                         </div>
-                        <h3 class="text-base font-medium text-dark">Обработка фото</h3>
+                        <h3 class="text-xl font-medium text-dark">Обработка фото</h3>
 
-                        <div class="text-sm text-body leading-6 text-left mt-3 space-y-4">
+                        <div class="text-body leading-7 text-left mt-3 space-y-3">
                             <details class="group">
-                                <summary class="cursor-pointer list-none font-medium text-dark hover:opacity-80 transition-opacity [&::-webkit-details-marker]:hidden">
+                                <summary class="flex items-center justify-between gap-4 py-2 cursor-pointer list-none font-medium text-dark hover:opacity-80 transition-opacity [&::-webkit-details-marker]:hidden">
                                     <span>Базовая</span>
+                                    <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
                                 </summary>
                                 <div class="mt-2">
                                     <p>Базовая обработка перед печатью — включена в цену. Состоит из:</p>
@@ -581,8 +598,9 @@
                             </details>
 
                             <details class="group">
-                                <summary class="cursor-pointer list-none font-medium text-dark hover:opacity-80 transition-opacity [&::-webkit-details-marker]:hidden">
+                                <summary class="flex items-center justify-between gap-4 py-2 cursor-pointer list-none font-medium text-dark hover:opacity-80 transition-opacity [&::-webkit-details-marker]:hidden">
                                     <span>Оптимальная</span>
+                                    <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
                                 </summary>
                                 <div class="mt-2">
                                     <p>Дополнительная услуга к базовой:</p>
@@ -599,8 +617,9 @@
                             </details>
 
                             <details class="group">
-                                <summary class="cursor-pointer list-none font-medium text-dark hover:opacity-80 transition-opacity [&::-webkit-details-marker]:hidden">
+                                <summary class="flex items-center justify-between gap-4 py-2 cursor-pointer list-none font-medium text-dark hover:opacity-80 transition-opacity [&::-webkit-details-marker]:hidden">
                                     <span>Премиальная</span>
+                                    <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
                                 </summary>
                                 <div class="mt-2">
                                     <p>Дополнительная услуга к оптимальной;</p>
@@ -613,37 +632,40 @@
                         </div>
                     </div>
 
-                    <div class="bg-white rounded-lg shadow-xl p-6 text-center">
+                    <!-- Лак -->
+                    <div class="text-center">
                         <div class="w-10 h-10 mx-auto mb-4 text-primary">
-                            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
-                                <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
-                            </svg>
+                            <svg height=40 viewbox="0 0 1889 1889" width=40 xmlns=http://www.w3.org/2000/svg>
+                        <path d="M1829 60l-1769 0 0 1769 1769 0 0-1769zm-873 1164l-102 205 102 204c8 15 2 33-13 40-9 4-19 4-27 0l-204-102-205 102c-14 7-32 1-40-13-4-9-4-19 0-27l103-204-103-205c-7-15-1-33 14-40 8-4 18-4 26 0l205 102 204-102c15-7 33-1 40 13 5 9 4 19 0 27zm-162 191l69-137-138 68c-8 4-18 5-27 0l-137-68 69 137c4 8 4 18 0 27l-69 138 137-69c9-4 18-5 27 0l138 69-69-138c-4-8-4-18 0-27zm948-843l-122 245 122 245c8 15 2 33-13 40-9 5-19 5-27 0l-245-122-245 122c-15 8-33 2-40-13-4-9-4-18 0-27l122-245-122-245c-7-14-1-32 13-40 9-4 19-4 27 0l245 123 245-123c15-7 33-1 40 14 5 8 4 18 0 26zm-182 232l89-178-178 89c-9 4-19 4-27 0l-179-89 90 178c4 8 4 18 0 27l-90 178 179-89c8-4 18-5 26 0l179 89-89-178c-4-8-5-18 0-27zm-696-631l-197 324 197 323c9 14 4 33-10 41-10 6-22 6-32 0l-323-197-323 197c-14 9-33 4-41-10-7-10-6-22 0-31l197-323-197-324c-9-14-5-33 9-41 11-6 23-6 32 0l323 197 324-197c14-9 32-4 41 10 6 10 6 22 0 31zm-258 308l143-234-234 142c-9 6-21 7-31 1l-234-143 142 233c6 10 7 22 1 32l-143 234 233-142c10-6 22-7 32-1l234 143-143-233c-6-10-6-22 0-32zm-576-481l1829 0c17 0 30 13 30 30l0 1829c0 17-13 30-30 30l-1829 0c-17 0-30-13-30-30l0-1829c0-17 13-30 30-30z" fill=#4a90e2 class=fil101></path>
+                     </svg>
                         </div>
-                        <h3 class="text-base font-medium text-dark">Лак</h3>
-                        <span class="text-sm text-gray-500">Дополнительная услуга</span>
-                        <p class="text-sm text-body leading-6 text-left mt-3">Оригинальные краски не выцветают десятилетиями, поэтому нет строгой необходимости покрывать их лаком. Однако лак облегчает уход за полотном и выравнивает легкий глянец отпечатка. Художественный лак не бликует.</p>
+                        <h3 class="text-xl font-medium text-dark">Лак</h3>
+                        <span class="text-gray-500">Дополнительная услуга</span>
+                        <p class="text-body leading-7 text-left mt-3">Оригинальные краски не выцветают десятилетиями, поэтому нет строгой необходимости покрывать их лаком. Однако лак облегчает уход за полотном и выравнивает легкий глянец отпечатка. Художественный лак не бликует.</p>
                     </div>
 
-                    <div class="bg-white rounded-lg shadow-xl p-6 text-center">
+                    <!-- Рама -->
+                    <div class="text-center">
                         <div class="w-10 h-10 mx-auto mb-4 text-primary">
-                            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
-                                <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
-                            </svg>
+                            <svg height=40 viewbox="0 0 1889 1889" width=40 xmlns=http://www.w3.org/2000/svg>
+                        <path d="M1787 60l-1685 0 298 298 1089 0 298-298zm-1387 1471l-298 298 1685 0-298-298-1089 0zm-340 256l298-298 0-1089-298-298 0 1685zm1471-298l298 298 0-1685-298 298 0 1089zm-60-1071l-1053 0 0 1053 1053 0 0-1053zm-1441-418l1829 0 1 0 1 0 0 0 0 0 1 0c1 0 2 0 3 1l1 0 0 0 0 0 1 0 1 0 1 1 0 0 1 0 0 0 0 0 1 0 0 0 0 1 1 0 0 0 0 0 1 0 0 0 0 1 1 0 0 0 0 0 1 0 0 1 1 0 0 0 0 0 0 1 1 0 0 0 0 0 1 0 0 1 0 0 1 0 0 0 0 1 0 0 1 0 0 0 0 1 1 0 0 0 0 1 0 0 1 0 0 0 0 1 0 0 1 0 0 1 0 0 0 0 0 1 1 0 0 0 0 0 0 1 1 0 0 1 0 0 0 0 0 1 1 0 0 0 0 1 0 0 0 0 0 1 1 0 0 0 0 1 0 0 0 0 0 1 0 0 1 1 0 1 0 1 0 0 0 0 0 1c1 1 1 2 1 3l0 1 0 0 0 0 0 1 0 1 0 1829 0 1 0 1 0 0 0 0 0 1c0 1 0 2-1 3l0 1 0 0 0 0 0 1 0 1-1 1 0 0 0 1 0 0 0 0 0 1 0 0-1 0 0 1 0 0 0 0 0 1 0 0-1 0 0 1 0 0 0 0 0 1-1 0 0 1 0 0 0 0-1 0 0 1 0 0 0 0 0 1-1 0 0 0 0 1 0 0-1 0 0 0 0 1 0 0-1 0 0 1 0 0-1 0 0 0 0 1 0 0-1 0 0 0 0 1-1 0 0 0 0 0-1 0 0 1 0 0 0 0-1 0 0 1-1 0 0 0 0 0-1 0 0 1 0 0-1 0 0 0 0 0-1 0 0 1 0 0-1 0 0 0 0 0-1 0 0 0-1 1-1 0-1 0 0 0 0 0-1 0c-1 1-2 1-3 1l-1 0 0 0 0 0-1 0-1 0-1829 0-1 0-1 0 0 0 0 0-1 0c-1 0-2 0-3-1l-1 0 0 0 0 0-1 0-1 0-1-1 0 0-1 0 0 0 0 0-1 0 0 0 0-1-1 0 0 0 0 0-1 0 0 0 0-1-1 0 0 0 0 0-1 0 0-1-1 0 0 0 0 0 0-1-1 0 0 0 0 0-1 0 0-1 0 0-1 0 0 0 0-1 0 0-1 0 0 0 0-1-1 0 0 0 0-1 0 0-1 0 0 0 0-1 0 0-1 0 0-1 0 0 0 0 0-1-1 0 0 0 0 0 0-1-1 0 0-1 0 0 0 0 0-1-1 0 0 0 0-1 0 0 0 0 0-1-1 0 0 0 0-1 0 0 0 0 0-1 0 0-1-1 0-1 0-1 0 0 0 0 0-1c-1-1-1-2-1-3l0-1 0 0 0 0 0-1 0-1 0-1829 0-1 0-1 0 0 0 0 0-1c0-1 0-2 1-3l0-1 0 0 0 0 0-1 0-1 1-1 0 0 0-1 0 0 0 0 0-1 0 0 1 0 0-1 0 0 0 0 0-1 0 0 1 0 0-1 0 0 0 0 0-1 1 0 0-1 0 0 0 0 1 0 0-1 0 0 0 0 0-1 1 0 0 0 0-1 0 0 1 0 0 0 0-1 0 0 1 0 0-1 0 0 1 0 0 0 0-1 0 0 1 0 0 0 0-1 1 0 0 0 0 0 1 0 0-1 0 0 0 0 1 0 0-1 1 0 0 0 0 0 1 0 0-1 0 0 1 0 0 0 0 0 1 0 0-1 0 0 1 0 0 0 0 0 1 0 0 0 1-1 1 0 1 0 0 0 0 0 1 0c1-1 2-1 3-1l1 0 0 0 0 0 1 0 1 0z" fill=#4a90e2 class=fil101></path>
+                     </svg>
                         </div>
-                        <h3 class="text-base font-medium text-dark">Рама</h3>
-                        <span class="text-sm text-gray-500">Дополнительная услуга</span>
-                        <p class="text-sm text-body leading-6 text-left mt-3">Для визуализации и расчёта стоимости рамки в разделе <a href="#calc" class="text-primary underline hover:no-underline">«Цена»↑</a> загрузите изображение и установите размер. Или ожидайте нашего предложения после согласования макета.</p>
+                        <h3 class="text-xl font-medium text-dark">Рама</h3>
+                        <span class="text-gray-500">Дополнительная услуга</span>
+                        <p class="text-body leading-7 text-left mt-3">Для визуализации и расчёта стоимости рамки в разделе <a href="#calc" class="text-primary underline hover:no-underline">«Цена»↑</a> загрузите изображение и установите размер. Или ожидайте нашего предложения после согласования макета.</p>
                     </div>
 
-                    <div class="bg-white rounded-lg shadow-xl p-6 text-center">
+                    <!-- Подарочная упаковка -->
+                    <div class="text-center">
                         <div class="w-10 h-10 mx-auto mb-4 text-primary">
-                            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
-                                <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
-                            </svg>
+                           <svg width="42" height="42" viewBox="0 0 450 450" xmlns=http://www.w3.org/2000/svg>
+                        <path d="M451.2 95.4l0.3-0.8L238.6 7.9l-36.1 13.7c3.8 4.1 7.3 8.4 10.7 12.9l25.2-9.6 51.2 20.9c15.6-2.5 29.6-1.7 41.6 2.6 14 5.1 24.7 14.3 32.3 27.5l67.5 27.5 -55.4 21.8c-0.4 6.5-2 13.3-5.6 19.3l65.8-26v244.7L237.4 441.5V196.8l92.3-36.4c-8.3-1.1-17.2-3.5-26.4-6.6l-73.8 29.1 -71-28 35-15.9c-2.9-1.2-5.6-3.1-7.6-5.7 -3.1-3.8-4.7-8.6-4.4-13.4 -1.9-2.2-7.4-4.7-13.9-7l-56 23.6 -81.7-32.2 56.4-21.4c-4.4-3.6-8-7.9-10.4-13L8 95.5l-0.7-0.3v0.6L7.2 95.8l0 0.1v278.1L221.5 458.6v0.3h15.9v-0.3l214.3-84.5V95.2L451.2 95.4zM96.5 392.2l-73.4-29V118.6l73.4 29V392.2zM221.5 441.5l-83.2-33.6 0.3-243.8 83 32.7V441.5zM143.4 97.4c19.3 5.2 48.5 13.2 47.5 22.8 -0.7 6.5 4.1 12.4 10.6 13.1l0 0c3.4 0.4 6.6-0.8 9-2.9 0.7 0.6 1.4 1.2 2.2 1.6 5.8 3 13 0.8 16.1-5 0.1-0.2 0.3-0.4 0.5-0.6 2.9 1.7 6.5 2.2 9.9 0.9 1.5-0.5 2.8-1.4 4-2.4 12.2 2.2 29.4 8.9 41.5 13.6 17.6 6.8 34.6 13.3 49 14.8 10.3 1.1 19.3-0.5 26.1-6.4 14.4-12.6 8.7-36.8 6.8-44.7 -5.6-23.6-17.9-39-36.6-45.7 -30.4-11-70.2 4.9-98.8 20.6C216.3 47.7 191.2 9.6 158.4 1.6c-19.3-4.7-38 1.3-55.8 17.8C85.9 35 79.2 48.8 82.4 61.6 87.5 82.3 114.7 89.6 143.4 97.4zM321.9 78.9c10.8 3.9 17.8 13.4 21.5 28.9 4.2 17.6 0.8 21.2 0.7 21.3 -5.5 4.8-35-6.6-50.8-12.7 -17.2-6.6-35.5-13.7-51.2-15.3 -0.3-0.7-0.6-1.4-0.9-2.1C267.2 84.6 300.4 71.2 321.9 78.9zM118.8 36.8c11.7-10.9 22.7-14.8 33.9-12.1 23.1 5.6 44.2 37.6 57.9 64.8 -3.3 2.1-6.2 4.1-8.6 5.7 -12.8-10-33.3-15.6-52.4-20.8 -15.9-4.3-42.4-11.5-44.1-18.5C105.5 55.7 104.4 50.3 118.8 36.8z" fill=#4a90e2 class=fil101></path>
+                     </svg>
                         </div>
-                        <h3 class="text-base font-medium text-dark">Подарочная упаковка</h3>
-                        <span class="text-sm text-gray-500">Дополнительная услуга</span>
-                        <p class="text-sm text-body leading-6 text-left mt-3">Упакуем заказ в подарочную бумагу с красивым бантом. Предложение с вариантами упаковки пришлем на согласование.</p>
+                        <h3 class="text-xl font-medium text-dark">Подарочная упаковка</h3>
+                        <span class="text-gray-500">Дополнительная услуга</span>
+                        <p class="text-body leading-7 text-left mt-3">Упакуем заказ в подарочную бумагу с красивым бантом. Предложение с вариантами упаковки пришлем на согласование.</p>
                     </div>
                 </div>
             </div>
@@ -766,7 +788,7 @@
         <section class="py-16 lg:py-20" id="oplata">
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">Оплата</h2>
-                <p class="text-xl text-body text-left">
+                <p class="text-xl text-body text-left leading-relaxed">
                     Полная оплата заказа при получении.<br>
                     Онлайн-предоплата за печать с отправкой по электронной почте кассового чека — 990 р. Оплатите удобным способом: банковской картой, через QR-код приложений банков, через QR-код СБП или наличными по коду платежа.<br>
                     Для юридических лиц оплата по счёту.
@@ -784,9 +806,10 @@
                         <div class="flex items-start justify-between gap-4">
                             <span class="text-lg font-medium text-dark">Оборудование</span>
                             <div class="w-10 h-10 text-primary">
-                                <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
-                                    <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
-                                </svg>
+                                <svg height=40 viewbox="0 0 325.9 325.9" width=40 xmlns=http://www.w3.org/2000/svg>
+                        <path d="M297.4 47.8h-24.5v-7.1c0-9.3-7.5-16.8-16.8-16.8H69.7c-9.3 0-16.8 7.5-16.8 16.8v7.1H28.5C12.7 47.8 0 60.5 0 76.2v39.8c0 12.6 8.3 23.2 19.7 27v115.7L9.5 289.6c-1.6 5 1 10.3 6 11.9 1 0.3 2 0.5 3 0.5 4 0 7.7-2.5 9-6.5l10.7-32.4h0.4v-1.3L48.8 230.9c1.6-5-1-10.3-6-11.9 -1.4-0.5-2.8-0.5-4.2-0.4v-74.1h22.9v111.4h202.9V144.5h17.2v69.4c-2.4-1.9-5.7-2.5-8.8-1.5 -5 1.6-7.6 7-6 11.9l21.3 64.6c1.3 4 5 6.5 9 6.5 1 0 2-0.2 3-0.5 5-1.6 7.6-7 6-11.9l-6.6-19.9h1V144.2c14.3-1.5 25.4-13.5 25.4-28.2V76.2C325.9 60.5 313.1 47.8 297.4 47.8zM63.7 40.7c0-3.3 2.7-6 6-6H256.1c3.3 0 6 2.7 6 6v7.1H63.7V40.7zM253.6 144.5v100.6H72.3V144.5 123.9c0-8.1 4.1-19.5 8.9-24.8l8.7-9.6h146l8.7 9.6c4.8 5.3 8.9 16.7 8.9 24.8v20.6H253.6z" fill=#4a90e2 class=fil101></path>
+                        <path d="M232.7 106.4H93.2c-3 0-5.4 2.4-5.4 5.4 0 3 2.4 5.4 5.4 5.4h139.5c3 0 5.4-2.4 5.4-5.4C238.1 108.8 235.6 106.4 232.7 106.4z" fill=#4a90e2 class=fil101></path>
+                     </svg>
                             </div>
                         </div>
                         <p class="text-body mt-3">Превратим фото в произведение искусства, напечатав его на одном из лучших широкоформатных принтеров: HP 315 или на Epson SC-P 7000.</p>
@@ -796,9 +819,10 @@
                         <div class="flex items-start justify-between gap-4">
                             <span class="text-lg font-medium text-dark">Чернила</span>
                             <div class="w-10 h-10 text-primary">
-                                <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
-                                    <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
-                                </svg>
+                                <svg height=40 viewbox="0 0 492.3 492.3" width=40 xmlns=http://www.w3.org/2000/svg>
+                        <path d="M394.1 208.4c-2.7-3.9-8.5-11.2-9-11.7C286.4 88 261.9 24.7 256.7 7.9 255.3 3.2 251 0 246.1 0 241.3 0 237 3.2 235.6 7.9c-5.2 16.8-29.7 80.2-128.8 189.3 0 0-5.8 7.3-8.5 11.2 -24.7 35.2-35.9 78.4-31.6 121.7 8.3 84.1 75.2 151.9 159.1 161.1 7 0.8 13.9 1.1 20.8 1.1 44.5 0 86.6-16 120.1-46 38.2-34.2 60.1-83.2 60.1-134.5C426.7 274.5 415.4 238.8 394.1 208.4zM353.4 431.6c-34.5 30.9-79.1 45.1-125.6 40 -74.7-8.2-134.3-68.6-141.7-143.5 -3.8-38.6 6.2-77.1 28.2-108.5 2.4-3.4 7.4-9.8 7.4-9.8 77-84.8 110.4-143.7 124.4-174.9 14 31.2 47.3 90.1 124 174.5 0 0 5.3 6.7 7.8 10.2 19 27.1 29 59 29 92.1C407 357.5 387.5 401.1 353.4 431.6z" fill=#4a90e2 class=fil101></path>
+                        <path d="M136.5 323.1l-19.6 1.9c5.8 59.4 55 109.2 114.3 115.8l2.2-19.6C183.1 415.7 141.5 373.5 136.5 323.1z" fill=#4a90e2 class=fil101></path>
+                     </svg>
                             </div>
                         </div>
                         <p class="text-body mt-3">Благодаря печати оригинальными чернилами будет реалистичная цветопередача, богатые полутона и высокая светостойкость к выцветанию.</p>
@@ -808,9 +832,9 @@
                         <div class="flex items-start justify-between gap-4">
                             <span class="text-lg font-medium text-dark">Холст</span>
                             <div class="w-10 h-10 text-primary">
-                                <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
-                                    <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
-                                </svg>
+                                <svg height=40 viewbox="0 0 1889 1889" width=40 xmlns=http://www.w3.org/2000/svg>
+                        <path d="M517 1829l102 0 0-6c0-16 14-30 30-30 17 0 30 14 30 30l0 6 358 0 0-6c0-16 13-30 30-30 16 0 30 14 30 30l0 6 357 0 0-6c0-16 13-30 30-30 16 0 30 14 30 30l0 6 315 0 0-109-4 0c-16 0-30-13-30-30 0-16 14-30 30-30l4 0 0-357-4 0c-16 0-30-13-30-30 0-16 14-30 30-30l4 0 0-357-4 0c-16 0-30-14-30-30 0-17 14-30 30-30l4 0 0-309-107 0c-1 15-14 27-29 27-16 0-29-12-30-27l-358 0c-1 15-14 27-30 27-15 0-28-12-30-27l-357 0c-2 15-14 27-30 27-16 0-28-12-30-27l-311 0 0 100c16 1 29 14 29 30 0 17-13 30-29 30l0 358c16 0 29 13 29 29 0 17-13 30-29 30l0 358c16 0 29 13 29 30 0 16-13 29-29 30l0 317zm1312-109l0-60-4 0c-16 0-30 14-30 30 0 17 14 30 30 30l4 0zm-107-1203l-59 0c1 15 14 27 30 27 15 0 28-12 29-27zm-105 995c-17 0-30-14-30-30 0-17 13-30 30-30l151 0c17 0 30 13 30 30 0 16-13 30-30 30l-151 0zm105 254c0 17-13 30-30 30-16 0-30-13-30-30l0-151c0-17 14-30 30-30 17 0 30 13 30 30l0 151zm-314-46c-16 0-30-13-30-30 0-16 14-30 30-30l152 0c16 0 30 14 30 30 0 17-14 30-30 30l-152 0zm255-523c0-16 13-30 30-30 16 0 30 14 30 30l0 152c0 16-14 30-30 30-17 0-30-14-30-30l0-152zm-255 106c-16 0-30-13-30-30 0-16 14-30 30-30l152 0c16 0 30 14 30 30 0 17-14 30-30 30l-152 0zm106 254c0 17-14 30-30 30-17 0-30-13-30-30l0-151c0-16 13-30 30-30 16 0 30 14 30 30l0 151zm-314-45c-17 0-30-14-30-30 0-17 13-30 30-30l151 0c16 0 30 13 30 30 0 16-14 30-30 30l-151 0zm105 254c0 17-13 30-30 30-16 0-30-13-30-30l0-151c0-17 14-30 30-30 17 0 30 13 30 30l0 151zm-314-46c-17 0-30-13-30-30 0-16 13-30 30-30l151 0c17 0 30 14 30 30 0 17-13 30-30 30l-151 0zm254-523c0-16 14-30 30-30 17 0 30 14 30 30l0 152c0 16-13 30-30 30-16 0-30-14-30-30l0-152zm-254 106c-17 0-30-13-30-30 0-16 13-30 30-30l151 0c17 0 30 14 30 30 0 17-13 30-30 30l-151 0zm106 254c0 17-14 30-30 30-17 0-30-13-30-30l0-151c0-16 13-30 30-30 16 0 30 14 30 30l0 151zm-315-45c-16 0-30-14-30-30 0-17 14-30 30-30l152 0c16 0 30 13 30 30 0 16-14 30-30 30l-152 0zm106 254c0 17-13 30-30 30-17 0-30-13-30-30l0-151c0-17 13-30 30-30 17 0 30 13 30 30l0 151zm-314-46c-17 0-30-13-30-30 0-16 13-30 30-30l151 0c17 0 30 14 30 30 0 17-13 30-30 30l-151 0zm254-523c0-16 13-30 30-30 17 0 30 14 30 30l0 152c0 16-13 30-30 30-17 0-30-14-30-30l0-152zm-254 106c-17 0-30-13-30-30 0-16 13-30 30-30l151 0c17 0 30 14 30 30 0 17-13 30-30 30l-151 0zm105 254c0 17-13 30-30 30-16 0-30-13-30-30l0-151c0-16 14-30 30-30 17 0 30 14 30 30l0 151zm938-463c-17 0-30-13-30-30 0-16 13-30 30-30l151 0c17 0 30 14 30 30 0 17-13 30-30 30l-151 0zm0-417c-17 0-30-13-30-30 0-16 13-30 30-30l151 0c17 0 30 14 30 30 0 17-13 30-30 30l-151 0zm106 255c0 16-14 30-30 30-17 0-30-14-30-30l0-152c0-16 13-30 30-30 16 0 30 14 30 30l0 152zm-315-46c-16 0-30-14-30-30 0-17 14-30 30-30l152 0c16 0 30 13 30 30 0 16-14 30-30 30l-152 0zm106 254c0 17-14 30-30 30-17 0-30-13-30-30l0-151c0-17 13-30 30-30 16 0 30 13 30 30l0 151zm-314-46c-17 0-30-13-30-30 0-16 13-30 30-30l151 0c16 0 30 14 30 30 0 17-14 30-30 30l-151 0zm314-371c0 16-14 30-30 30-17 0-30-14-30-30l0-151c0-17 13-30 30-30 16 0 30 13 30 30l0 151zm-314-46c-17 0-30-13-30-30 0-16 13-30 30-30l151 0c16 0 30 14 30 30 0 17-14 30-30 30l-151 0zm105 255c0 16-13 30-30 30-16 0-30-14-30-30l0-152c0-16 14-30 30-30 17 0 30 14 30 30l0 152zm-314-46c-17 0-30-14-30-30 0-17 13-30 30-30l151 0c17 0 30 13 30 30 0 16-13 30-30 30l-151 0zm106 254c0 17-14 30-30 30-17 0-30-13-30-30l0-151c0-17 13-30 30-30 16 0 30 13 30 30l0 151zm-315-46c-16 0-30-13-30-30 0-16 14-30 30-30l152 0c16 0 30 14 30 30 0 17-14 30-30 30l-152 0zm315-371c0 16-14 30-30 30-17 0-30-14-30-30l0-151c0-17 13-30 30-30 16 0 30 13 30 30l0 151zm-315-46c-16 0-30-13-30-30 0-16 14-30 30-30l152 0c16 0 30 14 30 30 0 17-14 30-30 30l-152 0zm106 255c0 16-13 30-30 30-17 0-30-14-30-30l0-152c0-16 13-30 30-30 17 0 30 14 30 30l0 152zm-314-46c-17 0-30-14-30-30 0-17 13-30 30-30l151 0c17 0 30 13 30 30 0 16-13 30-30 30l-151 0zm105 254c0 17-13 30-30 30-16 0-30-13-30-30l0-151c0-17 14-30 30-30 17 0 30 13 30 30l0 151zm0-417c0 16-13 30-30 30-16 0-30-14-30-30l0-151c0-17 14-30 30-30 17 0 30 13 30 30l0 151zm-619 649l397 0 0-63c-1-3-2-7-2-10 0-4 1-7 2-11l0-57-121 0c-17 0-30-14-30-30 0-17 13-30 30-30l121 0 0-58c-1-3-2-7-2-10 0-4 1-7 2-11l0-57-121 0c-17 0-30-14-30-30 0-17 13-30 30-30l121 0 0-58c-1-3-2-7-2-10 0-4 1-7 2-11l0-57-121 0c-17 0-30-14-30-30 0-17 13-30 30-30l121 0 0-58c-1-3-2-7-2-10 0-4 1-7 2-11l0-57-121 0c-17 0-30-14-30-30 0-17 13-30 30-30l121 0 0-58c-1-3-2-7-2-10 0-4 1-7 2-11l0-17c0-16 14-30 30-30l885 0 0-10-137 0c-17 0-30-14-30-30 0-17 13-30 30-30l137 0 0-41c-10-5-18-15-18-27 0-12 8-23 18-28l0-40-137 0c-17 0-30-14-30-30 0-17 13-30 30-30l137 0 0-41c-10-5-18-15-18-27 0-12 8-23 18-28l0-35-1312 0 0 34c13 3 22 15 22 29 0 13-9 25-22 29l0 39 142 0c16 0 30 13 30 30 0 16-14 30-30 30l-142 0 0 39c13 3 22 15 22 29 0 13-9 25-22 29l0 39 142 0c16 0 30 13 30 30 0 16-14 30-30 30l-142 0 0 39c13 3 22 15 22 29 0 13-9 25-22 28l0 40 142 0c16 0 30 13 30 30 0 16-14 30-30 30l-142 0 0 39c13 3 22 15 22 29 0 13-9 25-22 28l0 40 142 0c16 0 30 13 30 30 0 16-14 30-30 30l-142 0 0 39c13 3 22 15 22 29 0 13-9 25-22 28l0 40 142 0c16 0 30 13 30 30 0 16-14 30-30 30l-142 0 0 39c13 3 22 15 22 29 0 13-9 25-22 28l0 40 142 0c16 0 30 13 30 30 0 16-14 30-30 30l-142 0 0 39c13 3 22 15 22 29 0 13-9 25-22 28l0 45zm397 60l-427 0c-17 0-30-14-30-30l0-1372c0-17 13-30 30-30l1372 0c16 0 30 13 30 30l0 427 427 0c17 0 30 14 30 30l0 1372c0 17-13 30-30 30l-1372 0c-16 0-30-13-30-30l0-427zm628-1279c-17 0-30-14-30-30 0-17 13-30 30-30l165 0c17 0 30 13 30 30 0 16-13 30-30 30l-165 0zm-300 0c-16 0-30-14-30-30 0-17 14-30 30-30l166 0c16 0 30 13 30 30 0 16-14 30-30 30l-166 0zm-300 0c-16 0-30-14-30-30 0-17 14-30 30-30l166 0c17 0 30 13 30 30 0 16-13 30-30 30l-166 0zm-299 0c-17 0-30-14-30-30 0-17 13-30 30-30l165 0c17 0 30 13 30 30 0 16-13 30-30 30l-165 0zm899 196c-17 0-30-14-30-30 0-17 13-30 30-30l165 0c17 0 30 13 30 30 0 16-13 30-30 30l-165 0zm-300 0c-16 0-30-14-30-30 0-17 14-30 30-30l166 0c16 0 30 13 30 30 0 16-14 30-30 30l-166 0zm-300 0c-16 0-30-14-30-30 0-17 14-30 30-30l166 0c17 0 30 13 30 30 0 16-13 30-30 30l-166 0zm-299 0c-17 0-30-14-30-30 0-17 13-30 30-30l165 0c17 0 30 13 30 30 0 16-13 30-30 30l-165 0zm749-98c-17 0-30-14-30-30 0-17 13-30 30-30l165 0c17 0 30 13 30 30 0 16-13 30-30 30l-165 0zm-300 0c-16 0-30-14-30-30 0-17 14-30 30-30l166 0c16 0 30 13 30 30 0 16-14 30-30 30l-166 0zm-299 0c-17 0-30-14-30-30 0-17 13-30 30-30l165 0c17 0 30 13 30 30 0 16-13 30-30 30l-165 0zm-150 294c-17 0-30-14-30-30 0-17 13-30 30-30l165 0c17 0 30 13 30 30 0 16-13 30-30 30l-165 0zm749-98c-17 0-30-14-30-30 0-17 13-30 30-30l165 0c17 0 30 13 30 30 0 16-13 30-30 30l-165 0zm-300 0c-16 0-30-14-30-30 0-17 14-30 30-30l166 0c16 0 30 13 30 30 0 16-14 30-30 30l-166 0zm-299 0c-17 0-30-14-30-30 0-17 13-30 30-30l165 0c17 0 30 13 30 30 0 16-13 30-30 30l-165 0zm-150 294c-17 0-30-14-30-30 0-17 13-30 30-30l165 0c17 0 30 13 30 30 0 16-13 30-30 30l-165 0zm0 196c-17 0-30-14-30-30 0-17 13-30 30-30l165 0c17 0 30 13 30 30 0 16-13 30-30 30l-165 0zm0 196c-17 0-30-14-30-30 0-17 13-30 30-30l165 0c17 0 30 13 30 30 0 16-13 30-30 30l-165 0zm0 196c-17 0-30-14-30-30 0-17 13-30 30-30l165 0c17 0 30 13 30 30 0 16-13 30-30 30l-165 0 " fill=#4a90e2 class=fil101></path>
+                     </svg>
                             </div>
                         </div>
                         <p class="text-body mt-3">Чтобы холст не провис и сохранил текстуру ткани, будем использовать натуральные материалы: хлопок или лён с плотностью от 380 г/кв. м.</p>
@@ -1086,29 +1110,29 @@
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Блог</h2>
                 
                 <div class="grid md:grid-cols-3 gap-8">
-                    <article class="bg-white rounded-lg overflow-hidden shadow-lg">
-                        <a href="https://muse.ooo/blog/preimushchestva-pechati-foto-na-kholste/" class="block">
-                            <img src="https://muse.ooo/upload/imgsite/foto-na-holste-devushka-i-sobaka.webp" alt="Фото на холсте с фотографии девушки, обнимающей собаку" title="Фото девушки с собакой на холсте" width="360" height="254" class="w-full h-48 object-cover" loading="lazy" decoding="async" />
-                            <div class="p-6">
-                                <h3 class="text-lg font-medium text-dark">7 преимуществ печати фото на холсте</h3>
+                    <article class="bg-white border border-gray-200">
+                        <a href="https://muse.ooo/blog/preimushchestva-pechati-foto-na-kholste/" class="block" target="_blank">
+                            <img src="https://muse.ooo/upload/imgsite/foto-na-holste-devushka-i-sobaka.webp" alt="Фото на холсте с фотографии девушки, обнимающей собаку" title="Фото девушки с собакой на холсте" width="360" height="254" class="w-full" loading="lazy" decoding="async">
+                            <div class="p-4 border-t border-gray-200">
+                                <span class="text-primary">7 преимуществ печати фото на холсте</span>
                             </div>
                         </a>
                     </article>
                     
-                    <article class="bg-white rounded-lg overflow-hidden shadow-lg">
-                        <a href="https://muse.ooo/blog/pechat-na-kholste-foto-i-reproduktsiy/" class="block">
-                            <img src="https://muse.ooo/upload/imgsite/narisovannyj-plotter-s-holstom.webp" alt="Нарисованный плоттер для интерьерной печати" title="Плоттер для интерьерной печати" width="360" height="254" class="w-full h-48 object-cover" loading="lazy" decoding="async" />
-                            <div class="p-6">
-                                <h3 class="text-lg font-medium text-dark">Печать на холсте фотографий и репродукций</h3>
+                    <article class="bg-white border border-gray-200">
+                        <a href="https://muse.ooo/blog/pechat-na-kholste-foto-i-reproduktsiy/" class="block" target="_blank">
+                            <img src="https://muse.ooo/upload/imgsite/narisovannyj-plotter-s-holstom.webp" alt="Нарисованный плоттер для интерьерной печати" title="Плоттер для интерьерной печати" width="360" height="254" class="w-full" loading="lazy" decoding="async">
+                            <div class="p-4 border-t border-gray-200">
+                                <span class="text-primary">Печать на холсте фотографий и репродукций</span>
                             </div>
                         </a>
                     </article>
                     
-                    <article class="bg-white rounded-lg overflow-hidden shadow-lg">
-                        <a href="https://muse.ooo/blog/rukovodstvo-po-pechati-na-kholste/" class="block">
-                            <img src="https://muse.ooo/upload/imgsite/devushka-v-masterskoj-hudozhnika.webp" alt="Иллюстрация с девушкой на фоне плоттера для печати в художественной мастерской" title="Художник на фоне плоттера для печати в мастерской" width="360" height="254" class="w-full h-48 object-cover" loading="lazy" decoding="async" />
-                            <div class="p-6">
-                                <h3 class="text-lg font-medium text-dark">Руководство по печати на холсте</h3>
+                    <article class="bg-white border border-gray-200">
+                        <a href="https://muse.ooo/blog/rukovodstvo-po-pechati-na-kholste/" class="block" target="_blank">
+                            <img src="https://muse.ooo/upload/imgsite/devushka-v-masterskoj-hudozhnika.webp" alt="Иллюстрация с девушкой на фоне плоттера для печати в художественной мастерской" title="Художник на фоне плоттера для печати в мастерской" width="360" height="254" class="w-full" loading="lazy" decoding="async">
+                            <div class="p-4 border-t border-gray-200">
+                                <span class="text-primary">Руководство по печати на холсте</span>
                             </div>
                         </a>
                     </article>
