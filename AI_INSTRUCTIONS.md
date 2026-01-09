@@ -419,7 +419,102 @@ body      = #666666  (текст)
 - [ ] Карусели работают (прокрутка на ПК, свайп на мобильных)
 - [ ] Видео воспроизводится (клик по обложке)
 - [ ] FAQ открывается/закрывается
-- [ ] Кнопка "Наверх" появляется при скролле
+- [ ] Кнопка "Наверх" появляется при скролле (обязательна на всех страницах!)
+
+---
+
+## Стандарты компонентов
+
+### Карусели (примеры работ, стили)
+- **`gap-0`** для каруселей с изображениями (примеры работ, галереи, стили)
+- Карусели должны быть горизонтально прокручиваемыми
+- Использовать `carousel-scroll` и `snap-center`
+
+```html
+<div class="carousel-scroll flex gap-0 px-4 min-w-max">
+    <div class="flex-shrink-0 snap-center">...</div>
+</div>
+```
+
+### Кнопка Play для видео
+Используй стандартную кнопку из эталона (SVG без круглого фона):
+
+```html
+<div class="video-play-icon absolute inset-0 flex items-center justify-center cursor-pointer z-10 bg-black/20 hover:bg-black/30 transition-colors">
+    <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg">
+        <path d="M8 5v14l11-7z"/>
+    </svg>
+</div>
+```
+
+### Кнопка "Наверх"
+**Обязательна на всех страницах!** Добавляй перед `<footer>`:
+
+```html
+<a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-white text-dark hover:bg-dark hover:text-white border border-gray-300 hover:border-dark transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
+        <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+</a>
+```
+
+Добавь JS для показа/скрытия в блок `DOMContentLoaded`:
+
+```javascript
+const backToTopButton = document.getElementById('back-to-top');
+
+function toggleBackToTop() {
+    if (backToTopButton) {
+        if (window.scrollY > 300 && window.innerWidth >= 768) {
+            backToTopButton.classList.remove('opacity-0', 'pointer-events-none');
+            backToTopButton.classList.add('opacity-100');
+        } else {
+            backToTopButton.classList.add('opacity-0', 'pointer-events-none');
+            backToTopButton.classList.remove('opacity-100');
+        }
+    }
+}
+
+if (backToTopButton) {
+    backToTopButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+window.addEventListener('scroll', toggleBackToTop);
+window.addEventListener('resize', toggleBackToTop);
+```
+
+### Секция "Преимущества"
+- Заголовок карточки — по центру (`text-center`)
+- Иконка — по центру (`mx-auto`)
+- Текст описания — по **левому краю** (без `text-center`)
+
+```html
+<div class="bg-white rounded-lg shadow-xl p-8">
+    <h3 class="text-xl font-medium text-dark mb-4 text-center">Заголовок</h3>
+    <div class="w-10 h-10 mx-auto mb-4 text-primary"><!-- SVG --></div>
+    <p class="text-body">Текст по левому краю...</p>
+</div>
+```
+
+### Галочки в списках (на тёмном фоне)
+Используй SVG для надёжного отображения белых галочек:
+
+```html
+<li class="flex items-start gap-2">
+    <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+    </svg>
+    <span>Текст пункта</span>
+</li>
+```
+
+**Почему SVG:**
+- Emoji (✔) может рендериться цветным (зелёным) на некоторых платформах
+- SVG даёт 100% контроль над цветом через `text-white` / `currentColor`
+- Одинаково отображается на всех устройствах
 
 ### Валидация HTML
 - [ ] Проверена страница через [W3C Validator](https://validator.w3.org/nu/)
