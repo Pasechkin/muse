@@ -15,8 +15,8 @@
         
         /* CSS переменные для цветов */
         :root {
-            --primary: #b28d54;
-            --primary-hover: #9a7a46;
+            --primary: #4a90e2;
+            --primary-hover: #4382cb;
             --dark: #222222;
             --body: #444444;
             --secondary: #f8f8f8;
@@ -25,7 +25,7 @@
         /* Body */
         body {
             background-color: #fff;
-            color: #444444;
+            color: var(--body);
             overflow-x: hidden;
         }
         
@@ -87,7 +87,7 @@
         .flex { display: flex; }
         .items-center { align-items: center; }
         .text-white { color: #fff; }
-        .bg-primary { background-color: #b28d54; }
+        .bg-primary { background-color: var(--primary); }
         .rounded { border-radius: 0.25rem; }
         .uppercase { text-transform: uppercase; }
         .transition-colors {
@@ -160,8 +160,8 @@
                 },
                 extend: {
                     colors: {
-                        primary: '#b28d54',
-                        'primary-hover': '#9a7a46',
+                        primary: '#4a90e2',
+                        'primary-hover': '#4382cb',
                         dark: '#222222',
                         body: '#444444',
                         secondary: '#f8f8f8'
@@ -301,7 +301,7 @@
 
     <main>
         <!-- Первый экран (Hero) с Ken Burns эффектом -->
-        <section class="relative h-[60vh] min-h-[400px] overflow-hidden flex items-center">
+        <section class="relative min-h-[520px] lg:min-h-[calc(100vh-88px)] overflow-hidden flex items-center">
             <!-- Background Image + Animation -->
             <div class="absolute inset-0 z-0">
                 <img 
@@ -320,11 +320,11 @@
                         <ol class="flex list-none p-0">
                             <li class="flex items-center">
                                 <a href="https://muse.ooo/">Главная</a>
-                                <svg class="w-4 h-4 mx-2" fill="currentColor" viewBox="0 0 20 20"><path d="M7.293 14.707a1 1 0 010-1.414L10.586 11 7.293 7.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"/></svg>
+                                <span class="mx-2 text-gray-300">/</span>
                             </li>
                             <li class="flex items-center">
                                 <a href="https://muse.ooo/pechat-na-kholste-sankt-peterburg/">Печать на холсте</a>
-                                <svg class="w-4 h-4 mx-2" fill="currentColor" viewBox="0 0 20 20"><path d="M7.293 14.707a1 1 0 010-1.414L10.586 11 7.293 7.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"/></svg>
+                                <span class="mx-2 text-gray-300">/</span>
                             </li>
                             <li class="text-gray-300">Фото на холсте</li>
                         </ol>
@@ -521,8 +521,8 @@
                                 <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
                             </svg>
                         </div>
-                        <h3 class="text-lg font-medium text-dark">Размер</h3>
-                        <p class="text-body text-left mt-3">Выберите любой размер от 20х30 до 120х300 см. Популярные: 30х40, 60х40, 50х70, 60х90 и 90х120 см.</p>
+                        <h3 class="text-base font-medium text-dark">Размер</h3>
+                        <p class="text-sm text-body leading-6 text-left mt-3">Выберите любой размер от 20х30 до 120х300 см. Популярные: 30х40, 60х40, 50х70, 60х90 и 90х120 см.</p>
                     </div>
 
                     <div class="bg-white rounded-lg shadow-xl p-6 text-center">
@@ -531,8 +531,8 @@
                                 <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
                             </svg>
                         </div>
-                        <h3 class="text-lg font-medium text-dark">Подрамник</h3>
-                        <p class="text-body text-left mt-3">Стандартная толщина деревянного подрамника — 2 см. Для интерьеров с акцентом на массивные элементы, подойдёт толстый подрамник — 3,5 см. Закажите холст в рулоне, если натяжка не требуется.</p>
+                        <h3 class="text-base font-medium text-dark">Подрамник</h3>
+                        <p class="text-sm text-body leading-6 text-left mt-3">Стандартная толщина деревянного подрамника — 2 см. Для интерьеров с акцентом на массивные элементы, подойдёт толстый подрамник — 3,5 см. Закажите холст в рулоне, если натяжка не требуется.</p>
                     </div>
 
                     <div class="bg-white rounded-lg shadow-xl p-6 text-center">
@@ -541,8 +541,8 @@
                                 <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
                             </svg>
                         </div>
-                        <h3 class="text-lg font-medium text-dark">Торец</h3>
-                        <p class="text-body text-left mt-3">На подрамник из дерева вручную натягиваем холст галерейным способом. Основное изображение отображается зеркально и продолжается на торце. По требованию закрасим торец любым цветом.</p>
+                        <h3 class="text-base font-medium text-dark">Торец</h3>
+                        <p class="text-sm text-body leading-6 text-left mt-3">На подрамник из дерева вручную натягиваем холст галерейным способом. Основное изображение отображается зеркально и продолжается на торце. По требованию закрасим торец любым цветом.</p>
                     </div>
 
                     <div class="bg-white rounded-lg shadow-xl p-6 text-center">
@@ -551,8 +551,8 @@
                                 <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
                             </svg>
                         </div>
-                        <h3 class="text-lg font-medium text-dark">Крепление</h3>
-                        <p class="text-body text-left mt-3">Устанавливаем зубчатые подвесы «Крокодил». Картина будет висеть параллельно стене. Для картин, оформленных в раму, установим по требованию металлический трос. Тогда она будет висеть, как в музее, под углом к стене.</p>
+                        <h3 class="text-base font-medium text-dark">Крепление</h3>
+                        <p class="text-sm text-body leading-6 text-left mt-3">Устанавливаем зубчатые подвесы «Крокодил». Картина будет висеть параллельно стене. Для картин, оформленных в раму, установим по требованию металлический трос. Тогда она будет висеть, как в музее, под углом к стене.</p>
                     </div>
 
                     <div class="bg-white rounded-lg shadow-xl p-6 text-center">
@@ -561,9 +561,9 @@
                                 <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
                             </svg>
                         </div>
-                        <h3 class="text-lg font-medium text-dark">Обработка фото</h3>
+                        <h3 class="text-base font-medium text-dark">Обработка фото</h3>
 
-                        <div class="text-body text-left mt-3 space-y-4">
+                        <div class="text-sm text-body leading-6 text-left mt-3 space-y-4">
                             <details class="group">
                                 <summary class="cursor-pointer list-none font-medium text-dark hover:opacity-80 transition-opacity [&::-webkit-details-marker]:hidden">
                                     <span>Базовая</span>
@@ -619,9 +619,9 @@
                                 <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
                             </svg>
                         </div>
-                        <h3 class="text-lg font-medium text-dark">Лак</h3>
+                        <h3 class="text-base font-medium text-dark">Лак</h3>
                         <span class="text-sm text-gray-500">Дополнительная услуга</span>
-                        <p class="text-body text-left mt-3">Оригинальные краски не выцветают десятилетиями, поэтому нет строгой необходимости покрывать их лаком. Однако лак облегчает уход за полотном и выравнивает легкий глянец отпечатка. Художественный лак не бликует.</p>
+                        <p class="text-sm text-body leading-6 text-left mt-3">Оригинальные краски не выцветают десятилетиями, поэтому нет строгой необходимости покрывать их лаком. Однако лак облегчает уход за полотном и выравнивает легкий глянец отпечатка. Художественный лак не бликует.</p>
                     </div>
 
                     <div class="bg-white rounded-lg shadow-xl p-6 text-center">
@@ -630,9 +630,9 @@
                                 <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
                             </svg>
                         </div>
-                        <h3 class="text-lg font-medium text-dark">Рама</h3>
+                        <h3 class="text-base font-medium text-dark">Рама</h3>
                         <span class="text-sm text-gray-500">Дополнительная услуга</span>
-                        <p class="text-body text-left mt-3">Для визуализации и расчёта стоимости рамки в разделе <a href="#calc" class="text-primary underline hover:no-underline">«Цена»↑</a> загрузите изображение и установите размер. Или ожидайте нашего предложения после согласования макета.</p>
+                        <p class="text-sm text-body leading-6 text-left mt-3">Для визуализации и расчёта стоимости рамки в разделе <a href="#calc" class="text-primary underline hover:no-underline">«Цена»↑</a> загрузите изображение и установите размер. Или ожидайте нашего предложения после согласования макета.</p>
                     </div>
 
                     <div class="bg-white rounded-lg shadow-xl p-6 text-center">
@@ -641,9 +641,9 @@
                                 <text x="12" y="16" text-anchor="middle" font-size="8">SVG</text>
                             </svg>
                         </div>
-                        <h3 class="text-lg font-medium text-dark">Подарочная упаковка</h3>
+                        <h3 class="text-base font-medium text-dark">Подарочная упаковка</h3>
                         <span class="text-sm text-gray-500">Дополнительная услуга</span>
-                        <p class="text-body text-left mt-3">Упакуем заказ в подарочную бумагу с красивым бантом. Предложение с вариантами упаковки пришлем на согласование.</p>
+                        <p class="text-sm text-body leading-6 text-left mt-3">Упакуем заказ в подарочную бумагу с красивым бантом. Предложение с вариантами упаковки пришлем на согласование.</p>
                     </div>
                 </div>
             </div>
@@ -766,7 +766,7 @@
         <section class="py-16 lg:py-20" id="oplata">
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">Оплата</h2>
-                <p class="text-xl text-body text-center">
+                <p class="text-xl text-body text-left">
                     Полная оплата заказа при получении.<br>
                     Онлайн-предоплата за печать с отправкой по электронной почте кассового чека — 990 р. Оплатите удобным способом: банковской картой, через QR-код приложений банков, через QR-код СБП или наличными по коду платежа.<br>
                     Для юридических лиц оплата по счёту.
@@ -826,25 +826,9 @@
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Вопросы и ответы</h2>
                 
-                <div class="grid lg:grid-cols-2 gap-12 items-start">
-                    <!-- Изображение -->
-                    <div>
-                        <figure>
-                            <img 
-                                src="https://muse.ooo/upload/img/foto-gagarina-na-holste-3300-2330.webp" 
-                                alt="Композиция из фото Ю.Гагарина на холсте и фона с нарисованным плоттером, подрамниками и рулонами для печати" 
-                                class="rounded-lg w-full"
-                                width="800"
-                                height="565"
-                                loading="lazy"
-                                decoding="async"
-                            >
-                            <figcaption class="text-sm text-gray-500 mt-2 text-center">Фото на холсте Ю. Гагарина</figcaption>
-                        </figure>
-                    </div>
-                    
-                    <!-- FAQ Accordion -->
-                    <div class="space-y-0 divide-y divide-gray-200">
+                <div class="grid gap-12 items-start lg:grid-cols-3">
+                    <!-- FAQ Accordion (текст слева, шире) -->
+                    <div class="space-y-0 divide-y divide-gray-200 lg:col-span-2 lg:order-1">
                         <details class="group" open>
                             <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none [&::-webkit-details-marker]:hidden">
                                 <span>Какие бывают размеры?</span>
@@ -981,6 +965,22 @@
                                 <p>Санкт-Петербург, ул. Слуцкая, дом 13, корпус 2. Работаем по предварительной записи.</p>
                             </div>
                         </details>
+                    </div>
+
+                    <!-- Изображение (справа на ПК, меньше) -->
+                    <div class="lg:col-span-1 lg:order-2">
+                        <figure>
+                            <img 
+                                src="https://muse.ooo/upload/img/foto-gagarina-na-holste-3300-2330.webp" 
+                                alt="Композиция из фото Ю.Гагарина на холсте и фона с нарисованным плоттером, подрамниками и рулонами для печати" 
+                                class="rounded-lg w-full"
+                                width="800"
+                                height="565"
+                                loading="lazy"
+                                decoding="async"
+                            >
+                            <figcaption class="text-sm text-gray-500 mt-2 text-center">Фото на холсте Ю. Гагарина</figcaption>
+                        </figure>
                     </div>
                 </div>
             </div>
