@@ -341,6 +341,35 @@ body      = #666666  (текст)
 - `controls` — показать элементы управления
 - Обложка отдельным `<img>` поверх video
 
+### Модальное окно для видео (карусель коротких историй)
+Для карусели видео с модальным окном добавляй:
+- **Свайп на мобильных** (вверх/вниз как в соцсетях)
+- Клавиатурную навигацию (стрелки, Escape)
+- Закрытие по клику на фон
+
+```javascript
+// Touch swipe для мобильных
+let touchStartY = 0;
+let touchEndY = 0;
+
+videoModal?.addEventListener('touchstart', (e) => {
+    touchStartY = e.changedTouches[0].screenY;
+}, { passive: true });
+
+videoModal?.addEventListener('touchend', (e) => {
+    touchEndY = e.changedTouches[0].screenY;
+    const swipeDistance = touchStartY - touchEndY;
+    
+    if (Math.abs(swipeDistance) > 50) {
+        if (swipeDistance > 0) {
+            nextVideo(); // свайп вверх → следующее
+        } else {
+            prevVideo(); // свайп вниз → предыдущее
+        }
+    }
+}, { passive: true });
+```
+
 ---
 
 ## Accessibility (доступность)
@@ -427,12 +456,15 @@ body      = #666666  (текст)
 
 ### Карусели (примеры работ, стили)
 - **`gap-0`** для каруселей с изображениями (примеры работ, галереи, стили)
+- **БЕЗ `rounded-lg`** — изображения в каруселях без закруглений (как в эталоне)
 - Карусели должны быть горизонтально прокручиваемыми
 - Использовать `carousel-scroll` и `snap-center`
 
 ```html
 <div class="carousel-scroll flex gap-0 px-4 min-w-max">
-    <div class="flex-shrink-0 snap-center">...</div>
+    <div class="flex-shrink-0 snap-center">
+        <img src="..." alt="..." class=""><!-- БЕЗ rounded-lg -->
+    </div>
 </div>
 ```
 
