@@ -164,63 +164,79 @@
         .video-cover.video-playing .video-play-icon { display: none; }
         .video-cover.video-playing video { display: block; position: relative; }
         
-        /* Before/After Slider */
-        .before-after-slider {
+        /* Before/After Slider (ba-card) */
+        .ba-card {
             position: relative;
-            width: 100%;
+            aspect-ratio: 3/4;
             overflow: hidden;
-            user-select: none;
+            --pos: 50%;
         }
-        .before-after-slider img {
-            display: block;
-            width: 100%;
-            height: auto;
-        }
-        .before-after-slider .after-image {
+        .ba-card img {
             position: absolute;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            clip-path: inset(0 50% 0 0);
+            pointer-events: none;
+            user-select: none;
         }
-        .before-after-slider .slider-handle {
+        .ba-card .after-image {
+            clip-path: inset(0 0 0 var(--pos));
+        }
+        .ba-card .ba-range {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: ew-resize;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            z-index: 20;
+        }
+        .ba-card .ba-divider {
             position: absolute;
             top: 0;
             bottom: 0;
-            left: 50%;
-            width: 3px;
+            left: var(--pos);
+            width: 2px;
             background: #ccc;
-            cursor: ew-resize;
-            transform: translateX(-50%);
+            transform: translateX(-1px);
+            pointer-events: none;
             z-index: 10;
         }
-        .before-after-slider .slider-handle::before {
+        .ba-card .ba-handle {
+            position: absolute;
+            left: var(--pos);
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 46px;
+            height: 70px;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(0,0,0,0.08);
+            pointer-events: none;
+            z-index: 15;
+        }
+        .ba-card .ba-handle::before {
             content: '';
             position: absolute;
-            top: 50%;
+            top: 10px;
+            bottom: 10px;
             left: 50%;
-            transform: translate(-50%, -50%);
-            width: 44px;
-            height: 44px;
-            background: white;
-            border-radius: 50%;
-            border: 2px solid #ccc;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            width: 1px;
+            background: rgba(0,0,0,0.25);
+            transform: translateX(-0.5px);
         }
-        .before-after-slider .slider-handle::after {
-            content: '◀ ▶';
+        .ba-card .ba-arrow {
             position: absolute;
             top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 12px;
-            color: #000;
-            letter-spacing: 4px;
-            white-space: nowrap;
+            transform: translateY(-50%);
+            font-size: 18px;
             font-weight: bold;
+            color: #000;
         }
+        .ba-card .ba-arrow.l { left: 10px; }
+        .ba-card .ba-arrow.r { right: 10px; }
     </style>
 </head>
 <body class="bg-white overflow-x-hidden">
@@ -315,12 +331,12 @@
                         </nav>
                         
                         <h1 class="text-4xl lg:text-6xl font-light mb-4" itemprop="name">Портрет маслом</h1>
-                        <p class="text-xl lg:text-2xl mb-2 text-gray-300">Изысканный, благородный, живописный</p>
+                        <p class="text-lg lg:text-xl mb-2 text-gray-300">Изысканный, благородный, живописный</p>
                         <p class="text-lg lg:text-xl mb-6 text-gray-200" itemprop="description">Художник напишет цифровой портрет в технике масляной живописи и напечатает его на холсте, по желанию прорисует сверху гелем или маслом</p>
                         
                         <!-- Schema.org Product Info -->
                         <div itemscope itemtype="http://schema.org/Offer" itemprop="offers">
-                            <p class="text-xl lg:text-2xl font-medium mb-6">От 4311 руб. Под заказ.</p>
+                            <p class="text-xl lg:text-2xl mb-6">От 4311 руб. Под заказ.</p>
                             <meta content="4311.00" itemprop="price">
                             <meta content="RUB" itemprop="priceCurrency">
                             <link itemprop="availability" href="http://schema.org/InStock">
@@ -370,7 +386,7 @@
                 </div>
                 
                 <div class="text-center mt-8">
-                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/maslom/" class="inline-block px-8 py-3 bg-white hover:bg-gray-100 text-dark rounded uppercase transition-colors">
+                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/maslom/" class="inline-block px-6 py-2 text-white hover:bg-white hover:text-dark rounded uppercase transition-colors">
                         Смотреть все примеры работ
                     </a>
                 </div>
@@ -435,7 +451,7 @@
                             <!-- Шаг 1 -->
                             <div class="flex gap-4">
                                 <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                                    <span class="text-xl font-bold text-dark">1</span>
+                                    <span class="text-xl font-bold text-primary">1</span>
                                 </div>
                                 <div>
                                     <h3 class="text-xl font-medium text-dark mb-2">Заказ</h3>
@@ -449,7 +465,7 @@
                             <!-- Шаг 2 -->
                             <div class="flex gap-4">
                                 <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                                    <span class="text-xl font-bold text-dark">2</span>
+                                    <span class="text-xl font-bold text-primary">2</span>
                                 </div>
                                 <div>
                                     <h3 class="text-xl font-medium text-dark mb-2">Цифровой портрет</h3>
@@ -463,7 +479,7 @@
                             <!-- Шаг 3 -->
                             <div class="flex gap-4">
                                 <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                                    <span class="text-xl font-bold text-dark">3</span>
+                                    <span class="text-xl font-bold text-primary">3</span>
                                 </div>
                                 <div>
                                     <h3 class="text-xl font-medium text-dark mb-2">Печать и оформление</h3>
@@ -476,7 +492,7 @@
                             <!-- Шаг 4 -->
                             <div class="flex gap-4">
                                 <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                                    <span class="text-xl font-bold text-dark">4</span>
+                                    <span class="text-xl font-bold text-primary">4</span>
                                 </div>
                                 <div>
                                     <h3 class="text-xl font-medium text-dark mb-2">Доставка</h3>
@@ -490,7 +506,7 @@
                             <!-- Шаг 5 -->
                             <div class="flex gap-4">
                                 <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                                    <span class="text-xl font-bold text-dark">5</span>
+                                    <span class="text-xl font-bold text-primary">5</span>
                                 </div>
                                 <div>
                                     <h3 class="text-xl font-medium text-dark mb-2">Оплата</h3>
@@ -608,16 +624,16 @@
                                 </el-tab-list>
                             </div>
                             
-                            <!-- Большие изображения с фиксированной высотой -->
-                            <el-tab-panels class="aspect-[4/3] rounded-lg overflow-hidden bg-gray-100">
-                                <div class="h-full flex items-center justify-center">
-                                    <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-442.webp" alt="Портрет маслом на холсте с лицевой стороны на подрамнике" title="Лицевая сторона портрета маслом на холсте с подрамником" width="442" height="278" class="w-full h-full object-contain" loading="lazy" decoding="async" />
+                            <!-- Большие изображения -->
+                            <el-tab-panels>
+                                <div>
+                                    <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-442.webp" alt="Портрет маслом на холсте с лицевой стороны на подрамнике" title="Лицевая сторона портрета маслом на холсте с подрамником" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
                                 </div>
-                                <div hidden class="h-full flex items-center justify-center">
-                                    <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-442-back.webp" alt="Портрет маслом на холсте с обратной стороны на подрамнике" title="Обратная сторона портрета маслом на холсте с подрамником" width="442" height="278" class="w-full h-full object-contain" loading="lazy" decoding="async" />
+                                <div hidden>
+                                    <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-442-back.webp" alt="Портрет маслом на холсте с обратной стороны на подрамнике" title="Обратная сторона портрета маслом на холсте с подрамником" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
                                 </div>
-                                <div hidden class="h-full flex items-center justify-center">
-                                    <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-555.webp" alt="Портрет на заказ в стиле маслом по фото Моники Беллуччи с цветами в волосах в образе Фриды Кало" title="Живописный портрет маслом девушки" width="555" height="717" class="h-full w-auto object-contain" loading="lazy" decoding="async" />
+                                <div hidden>
+                                    <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-555.webp" alt="Портрет на заказ в стиле маслом по фото Моники Беллуччи с цветами в волосах в образе Фриды Кало" title="Живописный портрет маслом девушки" width="555" height="717" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
                                 </div>
                             </el-tab-panels>
                         </el-tab-group>
@@ -789,15 +805,17 @@
         <!-- Описание -->
         <section class="py-16 lg:py-20" id="opisanie">
             <div class="container">
+                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Описание</h2>
+                
                 <div class="grid lg:grid-cols-3 gap-8">
                     <!-- 1. До/После слайдер -->
                     <div>
-                        <div class="before-after-slider rounded-lg overflow-hidden shadow-lg bg-white" id="before-after">
+                        <div class="ba-card rounded-xl overflow-hidden shadow-2xl" id="before-after">
                             <img 
                                 src="https://muse.ooo/upload/img/oil-1404-5-1000-702-b.webp"
                                 alt="Фото для портрета в стиле маслом"
                                 title="Фото для портрета в стиле Маслом"
-                                class="before-image w-full"
+                                class="before-image"
                                 loading="lazy"
                                 decoding="async"
                                 width="378"
@@ -813,9 +831,14 @@
                                 width="378"
                                 height="265"
                             >
-                            <div class="slider-handle"></div>
+                            <div class="ba-divider"></div>
+                            <div class="ba-handle">
+                                <span class="ba-arrow l">‹</span>
+                                <span class="ba-arrow r">›</span>
+                            </div>
+                            <input type="range" min="0" max="100" value="50" class="ba-range" oninput="this.parentNode.style.setProperty('--pos', this.value + '%')">
                         </div>
-                        <p class="text-center text-body mt-4 text-sm">Потяните за вертикальную линию, чтобы сравнить «До» и «После»</p>
+                        <p class="text-center text-body mt-4 text-sm">Потяните за ползунок, чтобы сравнить «До» и «После»</p>
                     </div>
                     
                     <!-- 2. Видео -->
@@ -846,15 +869,12 @@
                     </div>
                     
                     <!-- 3. Описание текст -->
-                    <div>
-                        <h2 class="text-3xl lg:text-4xl font-light text-dark mb-6">Описание</h2>
-                        <div class="space-y-4 text-body">
-                            <p>Живописный портрет маслом, начиная с XV века, когда были написаны первые работы в этой технике в Голландии, наверное, считается самым популярным и распространенным жанром изобразительного искусства.</p>
-                            <p>Это неудивительно, ведь такой портрет всегда был неким признаком элитарности и аристократизма. Живописные портреты были сложны в исполнении, например, великий Гойя требовал от портретируемого 100 часов позирования.</p>
-                            <p>С другой стороны, известны сотни примеров, когда великих людей изображали и без позирования вовсе. У них просто не было времени. Иногда авторы не видели своих героев в живую вообще, так как жили в другую эпоху. Например, Виктор Васнецов не видел Ивана Грозного.</p>
-                            <p>Сегодня художникам легче: портрет можно написать по фотографии в цифровом виде. Именно написать, просто вместо традиционной кисти и холста художник будет использовать планшет. Здесь самый важный момент — это взаимодействие заказчика и нашего художника, чтобы мы воплотили в жизнь замысел, образ, который надо передать в произведении.</p>
-                            <p class="italic">Muse (греч. Μούσα) — это вдохновение, это Муза</p>
-                        </div>
+                    <div class="space-y-4 text-body">
+                        <p>Живописный портрет маслом, начиная с XV века, когда были написаны первые работы в этой технике в Голландии, наверное, считается самым популярным и распространенным жанром изобразительного искусства.</p>
+                        <p>Это неудивительно, ведь такой портрет всегда был неким признаком элитарности и аристократизма. Живописные портреты были сложны в исполнении, например, великий Гойя требовал от портретируемого 100 часов позирования.</p>
+                        <p>С другой стороны, известны сотни примеров, когда великих людей изображали и без позирования вовсе. У них просто не было времени. Иногда авторы не видели своих героев в живую вообще, так как жили в другую эпоху. Например, Виктор Васнецов не видел Ивана Грозного.</p>
+                        <p>Сегодня художникам легче: портрет можно написать по фотографии в цифровом виде. Именно написать, просто вместо традиционной кисти и холста художник будет использовать планшет. Здесь самый важный момент — это взаимодействие заказчика и нашего художника, чтобы мы воплотили в жизнь замысел, образ, который надо передать в произведении.</p>
+                        <p class="italic">Muse (греч. Μούσα) — это вдохновение, это Муза</p>
                     </div>
                 </div>
             </div>
@@ -947,47 +967,6 @@
             }
         });
 
-        // === Before/After Slider ===
-        (function() {
-            const slider = document.getElementById('before-after');
-            if (!slider) return;
-            
-            const handle = slider.querySelector('.slider-handle');
-            const afterImg = slider.querySelector('.after-image');
-            let isDragging = false;
-            
-            function updateSlider(x) {
-                const rect = slider.getBoundingClientRect();
-                let percentage = ((x - rect.left) / rect.width) * 100;
-                percentage = Math.max(0, Math.min(100, percentage));
-                
-                handle.style.left = percentage + '%';
-                afterImg.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
-            }
-            
-            handle.addEventListener('mousedown', () => isDragging = true);
-            handle.addEventListener('touchstart', () => isDragging = true);
-            
-            document.addEventListener('mouseup', () => isDragging = false);
-            document.addEventListener('touchend', () => isDragging = false);
-            
-            document.addEventListener('mousemove', (e) => {
-                if (isDragging) {
-                    updateSlider(e.clientX);
-                }
-            });
-            
-            document.addEventListener('touchmove', (e) => {
-                if (isDragging && e.touches[0]) {
-                    updateSlider(e.touches[0].clientX);
-                }
-            });
-            
-            // Click anywhere on slider to move handle
-            slider.addEventListener('click', (e) => {
-                updateSlider(e.clientX);
-            });
-        })();
     </script>
 </body>
 </html>
