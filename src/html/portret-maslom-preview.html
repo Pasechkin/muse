@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портрет маслом на холсте с фотографии — заказать в Muse</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4A90E2',
+                        'primary-hover': '#609DE6',
+                        dark: '#252525',
+                        body: '#666666',
+                        secondary: '#FAFAFA',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Tailwind Plus Elements -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1"></script>
+    
+    <style>
+        /* Modern Before/After Slider */
+        .ba-card {
+            position: relative;
+            aspect-ratio: 3/4;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+            --pos: 50%;
+        }
+        .ba-card img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+            user-select: none;
+        }
+        .ba-card .after {
+            clip-path: inset(0 0 0 var(--pos));
+        }
+        .ba-card input[type=range] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: ew-resize;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+        .ba-card .divider {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: var(--pos);
+            width: 2px;
+            background: #fff;
+            transform: translateX(-1px);
+            pointer-events: none;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+        .ba-card .handle {
+            position: absolute;
+            left: var(--pos);
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 46px;
+            height: 70px;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(0,0,0,0.08);
+            pointer-events: none;
+        }
+        .ba-card .handle::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            bottom: 10px;
+            left: 50%;
+            width: 1px;
+            background: rgba(0,0,0,0.25);
+            transform: translateX(-0.5px);
+        }
+        .ba-card .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            font-weight: bold;
+            color: #000;
+        }
+        .ba-card .arrow.l { left: 10px; }
+        .ba-card .arrow.r { right: 10px; }
+        
+        /* Description Grid */
+        .desc-grid {
+            display: grid;
+            gap: 48px;
+            align-items: start;
+        }
+        .desc-grid.has-video {
+            grid-template-columns: 1.2fr 0.9fr 1fr;
+        }
+        @media (max-width: 1199px) {
+            .desc-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
+            .desc-grid .text-col {
+                grid-column: span 2;
+            }
+        }
+        @media (max-width: 767px) {
+            .desc-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .desc-grid .text-col {
+                grid-column: auto;
+            }
+        }
+        
+        /* Video Cover */
+        .video-cover {
+            position: relative;
+            overflow: hidden;
+        }
+        .video-cover .video-play-icon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+        .video-cover.video-playing > div:first-child,
+        .video-cover.video-playing .video-play-icon {
+            display: none;
+        }
+        .video-cover.video-playing iframe {
+            display: block !important;
+            position: relative;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <main>
+        <!-- Характеристики -->
+        <section class="py-16 lg:py-20 bg-white" id="harakteristiki">
+            <div class="container mx-auto px-4 max-w-7xl">
+                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Характеристики</h2>
+            
+                <div class="grid lg:grid-cols-2 gap-12">
+                    <!-- Слайдер изображений -->
+                    <div>
+                        <el-tab-group class="flex flex-col-reverse">
+                            <!-- Миниатюры -->
+                            <div class="mx-auto mt-4 w-full max-w-md">
+                                <el-tab-list class="grid grid-cols-3 gap-3">
+                                    <button class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
+                                        <span class="sr-only">Лицевая сторона портрета маслом</span>
+                                        <span class="absolute inset-0 overflow-hidden rounded">
+                                            <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-442.webp" alt="Портрет маслом на холсте с лицевой стороны на подрамнике" class="size-full object-cover" loading="lazy" decoding="async" />
+                                        </span>
+                                        <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
+                                    </button>
+                                    <button class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
+                                        <span class="sr-only">Обратная сторона портрета маслом</span>
+                                        <span class="absolute inset-0 overflow-hidden rounded">
+                                            <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-442-back.webp" alt="Портрет маслом на холсте с обратной стороны на подрамнике" class="size-full object-cover" loading="lazy" decoding="async" />
+                                        </span>
+                                        <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
+                                    </button>
+                                    <button class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
+                                        <span class="sr-only">Портрет маслом - полный вид</span>
+                                        <span class="absolute inset-0 overflow-hidden rounded">
+                                            <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-555.webp" alt="Портрет на заказ в стиле маслом по фото женщины с цветами в волосах" class="size-full object-cover" loading="lazy" decoding="async" />
+                                        </span>
+                                        <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
+                                    </button>
+                                </el-tab-list>
+                            </div>
+                            
+                            <!-- Большие изображения -->
+                            <el-tab-panels>
+                                <div>
+                                    <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-442.webp" alt="Портрет маслом на холсте с лицевой стороны на подрамнике" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
+                                </div>
+                                <div hidden>
+                                    <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-442-back.webp" alt="Портрет маслом на холсте с обратной стороны на подрамнике" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
+                                </div>
+                                <div hidden>
+                                    <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-555.webp" alt="Портрет на заказ в стиле маслом по фото женщины с цветами в волосах" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
+                                </div>
+                            </el-tab-panels>
+                        </el-tab-group>
+                    </div>
+                    
+                    <!-- Список характеристик -->
+                    <div>
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Цифровой портрет в стиле «Маслом»</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Печать на плотном холсте от 380 г. на кв.м.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Оригинальные латексные чернила HP</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Сосновый подрамник</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Галерейная натяжка холста на подрамник</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Проклейка с обратной стороны защитным скотчем</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Установка креплений типа «Крокодил»</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Упаковка в пупырчатую пленку и картон</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Страхование доставки</span>
+                            </li>
+                        </ul>
+                        
+                        <div class="mt-8 p-4 bg-secondary rounded-lg border border-gray-200">
+                            <p class="text-body text-sm">
+                                Выше приведен список стандартных характеристик работ и материалов. Вы всегда можете: посчитав в калькуляторе выше; прочитав описание по клику на знак вопроса там же; спросив в коммуникаторе или позвонив — подобрать именно то, что нужно Вам.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Описание -->
+        <section class="py-16 lg:py-20 bg-gray-50" id="opisanie">
+            <div class="container mx-auto px-4 max-w-7xl">
+                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Описание</h2>
+                
+                <div class="desc-grid has-video">
+                    <!-- До/После слайдер -->
+                    <div class="ba-card">
+                        <img src="https://muse.ooo/upload/img/oil-1404-5-1000-702-b.webp" alt="До">
+                        <img src="https://muse.ooo/upload/img/oil-1404-5-1000-702-a.webp" class="after" alt="После">
+                        
+                        <div class="divider"></div>
+                        <div class="handle">
+                            <span class="arrow l">‹</span>
+                            <span class="arrow r">›</span>
+                        </div>
+                        
+                        <input type="range" min="0" max="100" value="50" 
+                            oninput="this.parentNode.style.setProperty('--pos', this.value + '%')">
+                    </div>
+                    
+                    <!-- Видео -->
+                    <div class="video-cover rounded-2xl overflow-hidden shadow-2xl" style="background: #000; aspect-ratio: 9/16;">
+                        <img 
+                            src="https://muse.ooo/upload/img/o-oil-portrait-on-canvas-360-648.webp"
+                            alt="Портрет маслом на холсте"
+                            style="width: 100%; height: 100%; object-fit: cover;"
+                        >
+                        <div class="video-play-icon cursor-pointer transition-all hover:bg-black/30" style="background: rgba(0,0,0,0.2);">
+                            <svg width="80" height="80" viewBox="0 0 24 24" fill="white" style="filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                        <iframe 
+                            class="hidden"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                            data-src="https://www.youtube.com/embed/fefB0Rklz98?rel=0&amp;showinfo=0"
+                            style="width: 100%; height: 100%; border: none;"
+                        ></iframe>
+                    </div>
+                    
+                    <!-- Текст -->
+                    <div class="text-col space-y-4 text-body">
+                        <p>Живописный портрет маслом, начиная с XV века, когда были написаны первые работы в этой технике в Голландии, наверное, считается самым популярным и распространенным жанром изобразительного искусства.</p>
+                        <p>Это неудивительно, ведь такой портрет всегда был неким признаком элитарности и аристократизма. Живописные портреты были сложны в исполнении, например, великий Гойя требовал от портретируемого 100 часов позирования.</p>
+                        <p>С другой стороны, известны сотни примеров, когда великих людей изображали и без позирования вовсе. У них просто не было времени. Иногда авторы не видели своих героев в живую вообще, так как жили в другую эпоху. Например, Виктор Васнецов не видел Ивана Грозного.</p>
+                    </div>
+                </div>
+                
+                <!-- Дополнительный текст -->
+                <div class="max-w-4xl mx-auto space-y-4 text-body mt-12">
+                    <p>Сегодня художникам легче: портрет можно написать по фотографии в цифровом виде. Именно написать, просто вместо традиционной кисти и холста художник будет использовать планшет. Здесь самый важный момент — это взаимодействие заказчика и нашего художника, чтобы мы воплотили в жизнь замысел, образ, который надо передать в произведении.</p>
+                    <p class="italic text-center pt-4 text-lg">Muse (греч. Μοῦσα) — это вдохновение, это Муза</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // === Video Cover ===
+        document.querySelectorAll('.video-cover').forEach(cover => {
+            const playIcon = cover.querySelector('.video-play-icon');
+            const iframe = cover.querySelector('iframe');
+            
+            if (playIcon && iframe) {
+                playIcon.addEventListener('click', () => {
+                    const src = iframe.dataset.src;
+                    if (src) {
+                        iframe.src = src + '&autoplay=1';
+                        iframe.classList.remove('hidden');
+                        cover.classList.add('video-playing');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

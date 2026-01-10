@@ -190,8 +190,8 @@
             top: 0;
             bottom: 0;
             left: 50%;
-            width: 4px;
-            background: white;
+            width: 3px;
+            background: #ccc;
             cursor: ew-resize;
             transform: translateX(-50%);
             z-index: 10;
@@ -202,11 +202,12 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             background: white;
             border-radius: 50%;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            border: 2px solid #ccc;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
         }
         .before-after-slider .slider-handle::after {
             content: '◀ ▶';
@@ -214,10 +215,11 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 10px;
-            color: #333;
-            letter-spacing: 2px;
+            font-size: 12px;
+            color: #000;
+            letter-spacing: 4px;
             white-space: nowrap;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -312,13 +314,13 @@
                             </ol>
                         </nav>
                         
-                        <h1 itemprop="name">Портрет маслом</h1>
-                        <p class="text-lg mb-2 text-gray-300">Изысканный, благородный, живописный</p>
-                        <p class="text-xl mb-6 text-gray-200" itemprop="description">Художник напишет цифровой портрет в технике масляной живописи и напечатает его на холсте, по желанию прорисует сверху гелем или маслом</p>
+                        <h1 class="text-4xl lg:text-6xl font-light mb-4" itemprop="name">Портрет маслом</h1>
+                        <p class="text-xl lg:text-2xl mb-2 text-gray-300">Изысканный, благородный, живописный</p>
+                        <p class="text-lg lg:text-xl mb-6 text-gray-200" itemprop="description">Художник напишет цифровой портрет в технике масляной живописи и напечатает его на холсте, по желанию прорисует сверху гелем или маслом</p>
                         
                         <!-- Schema.org Product Info -->
                         <div itemscope itemtype="http://schema.org/Offer" itemprop="offers">
-                            <p class="text-xl font-medium mb-6">От 4311 руб. Под заказ.</p>
+                            <p class="text-xl lg:text-2xl font-medium mb-6">От 4311 руб. Под заказ.</p>
                             <meta content="4311.00" itemprop="price">
                             <meta content="RUB" itemprop="priceCurrency">
                             <link itemprop="availability" href="http://schema.org/InStock">
@@ -356,19 +358,19 @@
         </section>
 
         <!-- Примеры (заглушка для Bitrix) -->
-        <section class="py-16 lg:py-20" id="primery">
+        <section class="bg-dark py-16 lg:py-20" id="primery">
             <div class="container">
-                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">Примеры</h2>
-                <p class="text-center text-body mb-8">Портреты маслом</p>
+                <h2 class="text-3xl lg:text-4xl font-light text-white text-center mb-8">Примеры</h2>
+                <p class="text-center text-gray-300 mb-8">Портреты маслом</p>
                 
                 <!-- Галерея из Bitrix будет здесь -->
-                <div class="text-center text-gray-500 py-12 border-2 border-dashed border-gray-300 rounded-lg">
+                <div class="text-center text-gray-400 py-12 border-2 border-dashed border-gray-600 rounded-lg">
                     <p class="text-lg mb-2">Галерея примеров</p>
                     <p class="text-sm">Будет загружена из Bitrix</p>
                 </div>
                 
                 <div class="text-center mt-8">
-                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/maslom/" class="inline-block px-8 py-3 bg-dark hover:bg-gray-700 text-white rounded uppercase transition-colors">
+                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/maslom/" class="inline-block px-8 py-3 bg-white hover:bg-gray-100 text-dark rounded uppercase transition-colors">
                         Смотреть все примеры работ
                     </a>
                 </div>
@@ -398,10 +400,10 @@
         </section>
 
         <!-- Как заказать -->
-        <section class="bg-dark py-16 lg:py-24" id="kak-zakazat">
+        <section class="py-16 lg:py-24" id="kak-zakazat">
             <div class="container mb-8">
                 <div class="text-center">
-                    <h2 class="text-3xl lg:text-4xl font-light text-white">Как заказать</h2>
+                    <h2 class="text-3xl lg:text-4xl font-light text-dark">Как заказать</h2>
                 </div>
             </div>
             <div class="container">
@@ -427,17 +429,17 @@
                     <!-- Процесс -->
                     <div class="relative">
                         <!-- Пунктирная линия между шагами -->
-                        <div class="absolute left-6 top-12 bottom-12 w-0 border-l-2 border-dashed border-white/50"></div>
+                        <div class="absolute left-6 top-12 bottom-12 w-0 border-l-2 border-dashed border-gray-300"></div>
 
                         <div class="space-y-10 relative">
                             <!-- Шаг 1 -->
                             <div class="flex gap-4">
-                                <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center relative z-10">
-                                    <span class="text-xl font-bold text-white">1</span>
+                                <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
+                                    <span class="text-xl font-bold text-dark">1</span>
                                 </div>
                                 <div>
-                                    <h3 class="text-xl font-medium text-white mb-2">Заказ</h3>
-                                    <p class="text-gray-300">
+                                    <h3 class="text-xl font-medium text-dark mb-2">Заказ</h3>
+                                    <p class="text-body">
                                         В разделе <a class="text-primary underline hover:no-underline" href="#calc">«Цена» ↑</a> можно загрузить фото, подобрать нужный размер, рассчитать стоимость и оформить заказ.<br><br>
                                         Нет времени разбираться? Нажмите любую кнопку <a href="https://muse.ooo/order/" class="text-primary underline hover:no-underline">«Заказать» ↗</a> на сайте и перешлите нам фото. Перезвоним и поможем с выбором.
                                     </p>
@@ -446,12 +448,12 @@
 
                             <!-- Шаг 2 -->
                             <div class="flex gap-4">
-                                <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center relative z-10">
-                                    <span class="text-xl font-bold text-white">2</span>
+                                <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
+                                    <span class="text-xl font-bold text-dark">2</span>
                                 </div>
                                 <div>
-                                    <h3 class="text-xl font-medium text-white mb-2">Цифровой портрет</h3>
-                                    <p class="text-gray-300">
+                                    <h3 class="text-xl font-medium text-dark mb-2">Цифровой портрет</h3>
+                                    <p class="text-body">
                                         В течение часа перезвоним Вам, чтобы обсудить задание. По согласованному заданию выполним эскиз. После подтверждения эскиза напишем портрет. Вносите правки до тех пор, пока не будете полностью удовлетворены работой.<br><br>
                                         Срок создания цифрового портрета — <span id="order-date"></span>.
                                     </p>
@@ -460,12 +462,12 @@
 
                             <!-- Шаг 3 -->
                             <div class="flex gap-4">
-                                <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center relative z-10">
-                                    <span class="text-xl font-bold text-white">3</span>
+                                <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
+                                    <span class="text-xl font-bold text-dark">3</span>
                                 </div>
                                 <div>
-                                    <h3 class="text-xl font-medium text-white mb-2">Печать и оформление</h3>
-                                    <p class="text-gray-300">
+                                    <h3 class="text-xl font-medium text-dark mb-2">Печать и оформление</h3>
+                                    <p class="text-body">
                                         Только после Вашего окончательного подтверждения цифрового портрета картина в стиле «Маслом» будет напечатана на холсте, оформлена и передана в службу доставки.
                                     </p>
                                 </div>
@@ -473,12 +475,12 @@
 
                             <!-- Шаг 4 -->
                             <div class="flex gap-4">
-                                <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center relative z-10">
-                                    <span class="text-xl font-bold text-white">4</span>
+                                <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
+                                    <span class="text-xl font-bold text-dark">4</span>
                                 </div>
                                 <div>
-                                    <h3 class="text-xl font-medium text-white mb-2">Доставка</h3>
-                                    <p class="text-gray-300">
+                                    <h3 class="text-xl font-medium text-dark mb-2">Доставка</h3>
+                                    <p class="text-body">
                                         Бесплатная доставка по Санкт-Петербургу при заказе от 10000 ₽.<br>
                                         Доставка по России транспортными компаниями или Почтой России.
                                     </p>
@@ -487,12 +489,12 @@
 
                             <!-- Шаг 5 -->
                             <div class="flex gap-4">
-                                <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center relative z-10">
-                                    <span class="text-xl font-bold text-white">5</span>
+                                <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
+                                    <span class="text-xl font-bold text-dark">5</span>
                                 </div>
                                 <div>
-                                    <h3 class="text-xl font-medium text-white mb-2">Оплата</h3>
-                                    <p class="text-gray-300">
+                                    <h3 class="text-xl font-medium text-dark mb-2">Оплата</h3>
+                                    <p class="text-body">
                                         Услуги по печати и оформлению портрета на холсте оплачиваются при получении. Работа художника по созданию цифрового портрета — после подтверждения эскиза.
                                     </p>
                                 </div>
@@ -510,43 +512,8 @@
             </div>
             <div class="container">
                 <div class="grid lg:grid-cols-2 gap-12">
-                    <!-- Слайдер изображений (Tailwind Plus Elements) -->
-                    <div>
-                        <el-tab-group class="flex flex-col-reverse">
-                            <!-- Миниатюры -->
-                            <div class="mx-auto mt-4 w-full max-w-md">
-                                <el-tab-list class="grid grid-cols-2 gap-3">
-                                    <button class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
-                                        <span class="sr-only">Лицевая сторона портрета маслом</span>
-                                        <span class="absolute inset-0 overflow-hidden rounded">
-                                            <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-442.webp" alt="Портрет маслом на холсте с лицевой стороны на подрамнике" title="Лицевая сторона портрета маслом на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
-                                        </span>
-                                        <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
-                                    </button>
-                                    <button class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
-                                        <span class="sr-only">Обратная сторона портрета маслом</span>
-                                        <span class="absolute inset-0 overflow-hidden rounded">
-                                            <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-442-back.webp" alt="Портрет маслом на холсте с обратной стороны на подрамнике" title="Обратная сторона портрета маслом на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
-                                        </span>
-                                        <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
-                                    </button>
-                                </el-tab-list>
-                            </div>
-                            
-                            <!-- Большие изображения -->
-                            <el-tab-panels>
-                                <div>
-                                    <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-442.webp" alt="Портрет маслом на холсте с лицевой стороны на подрамнике" title="Лицевая сторона портрета маслом на холсте с подрамником" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
-                                </div>
-                                <div hidden>
-                                    <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-442-back.webp" alt="Портрет маслом на холсте с обратной стороны на подрамнике" title="Обратная сторона портрета маслом на холсте с подрамником" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
-                                </div>
-                            </el-tab-panels>
-                        </el-tab-group>
-                    </div>
-                    
-                    <!-- Список характеристик -->
-                    <div>
+                    <!-- Список характеристик (на ПК слева) -->
+                    <div class="order-2 lg:order-1">
                         <ul class="space-y-3">
                             <li class="flex items-start gap-3">
                                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
@@ -609,6 +576,51 @@
                                 Выше приведен список стандартных характеристик работ и материалов. Вы всегда можете: посчитав в калькуляторе выше; прочитав описание по клику на знак вопроса там же; спросив в коммуникаторе или позвонив — подобрать именно то, что нужно Вам.
                             </p>
                         </div>
+                    </div>
+                    
+                    <!-- Слайдер изображений (на ПК справа, на мобильном сверху) -->
+                    <div class="order-1 lg:order-2">
+                        <el-tab-group class="flex flex-col-reverse">
+                            <!-- Миниатюры -->
+                            <div class="mx-auto mt-4 w-full max-w-md">
+                                <el-tab-list class="grid grid-cols-3 gap-3">
+                                    <button class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
+                                        <span class="sr-only">Лицевая сторона портрета маслом</span>
+                                        <span class="absolute inset-0 overflow-hidden rounded">
+                                            <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-442.webp" alt="Портрет маслом на холсте с лицевой стороны на подрамнике" title="Лицевая сторона портрета маслом на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
+                                        </span>
+                                        <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
+                                    </button>
+                                    <button class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
+                                        <span class="sr-only">Обратная сторона портрета маслом</span>
+                                        <span class="absolute inset-0 overflow-hidden rounded">
+                                            <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-442-back.webp" alt="Портрет маслом на холсте с обратной стороны на подрамнике" title="Обратная сторона портрета маслом на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
+                                        </span>
+                                        <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
+                                    </button>
+                                    <button class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
+                                        <span class="sr-only">Портрет девушки маслом</span>
+                                        <span class="absolute inset-0 overflow-hidden rounded">
+                                            <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-555.webp" alt="Портрет на заказ в стиле маслом по фото Моники Беллуччи с цветами в волосах в образе Фриды Кало" title="Живописный портрет маслом девушки" width="555" height="717" class="size-full object-cover" loading="lazy" decoding="async" />
+                                        </span>
+                                        <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
+                                    </button>
+                                </el-tab-list>
+                            </div>
+                            
+                            <!-- Большие изображения с фиксированной высотой -->
+                            <el-tab-panels class="aspect-[4/3] rounded-lg overflow-hidden bg-gray-100">
+                                <div class="h-full flex items-center justify-center">
+                                    <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-442.webp" alt="Портрет маслом на холсте с лицевой стороны на подрамнике" title="Лицевая сторона портрета маслом на холсте с подрамником" width="442" height="278" class="w-full h-full object-contain" loading="lazy" decoding="async" />
+                                </div>
+                                <div hidden class="h-full flex items-center justify-center">
+                                    <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-442-back.webp" alt="Портрет маслом на холсте с обратной стороны на подрамнике" title="Обратная сторона портрета маслом на холсте с подрамником" width="442" height="278" class="w-full h-full object-contain" loading="lazy" decoding="async" />
+                                </div>
+                                <div hidden class="h-full flex items-center justify-center">
+                                    <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-555.webp" alt="Портрет на заказ в стиле маслом по фото Моники Беллуччи с цветами в волосах в образе Фриды Кало" title="Живописный портрет маслом девушки" width="555" height="717" class="h-full w-auto object-contain" loading="lazy" decoding="async" />
+                                </div>
+                            </el-tab-panels>
+                        </el-tab-group>
                     </div>
                 </div>
             </div>
@@ -778,7 +790,35 @@
         <section class="py-16 lg:py-20" id="opisanie">
             <div class="container">
                 <div class="grid lg:grid-cols-3 gap-8">
-                    <!-- Видео -->
+                    <!-- 1. До/После слайдер -->
+                    <div>
+                        <div class="before-after-slider rounded-lg overflow-hidden shadow-lg bg-white" id="before-after">
+                            <img 
+                                src="https://muse.ooo/upload/img/oil-1404-5-1000-702-b.webp"
+                                alt="Фото для портрета в стиле маслом"
+                                title="Фото для портрета в стиле Маслом"
+                                class="before-image w-full"
+                                loading="lazy"
+                                decoding="async"
+                                width="378"
+                                height="265"
+                            >
+                            <img 
+                                src="https://muse.ooo/upload/img/oil-1404-5-1000-702-a.webp"
+                                alt="Портрет в стиле Маслом"
+                                title="Портрет в стиле Маслом"
+                                class="after-image"
+                                loading="lazy"
+                                decoding="async"
+                                width="378"
+                                height="265"
+                            >
+                            <div class="slider-handle"></div>
+                        </div>
+                        <p class="text-center text-body mt-4 text-sm">Потяните за вертикальную линию, чтобы сравнить «До» и «После»</p>
+                    </div>
+                    
+                    <!-- 2. Видео -->
                     <div>
                         <div class="video-cover aspect-[360/648] rounded-lg overflow-hidden shadow-lg">
                             <img 
@@ -805,67 +845,34 @@
                         <p class="text-center text-body mt-4">Короткое видео — 19 сек. о том, как выглядит картина «маслом» на холсте</p>
                     </div>
                     
-                    <!-- Описание текст -->
+                    <!-- 3. Описание текст -->
                     <div>
                         <h2 class="text-3xl lg:text-4xl font-light text-dark mb-6">Описание</h2>
                         <div class="space-y-4 text-body">
                             <p>Живописный портрет маслом, начиная с XV века, когда были написаны первые работы в этой технике в Голландии, наверное, считается самым популярным и распространенным жанром изобразительного искусства.</p>
                             <p>Это неудивительно, ведь такой портрет всегда был неким признаком элитарности и аристократизма. Живописные портреты были сложны в исполнении, например, великий Гойя требовал от портретируемого 100 часов позирования.</p>
                             <p>С другой стороны, известны сотни примеров, когда великих людей изображали и без позирования вовсе. У них просто не было времени. Иногда авторы не видели своих героев в живую вообще, так как жили в другую эпоху. Например, Виктор Васнецов не видел Ивана Грозного.</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Сравнение До/После и дополнительный текст -->
-                    <div>
-                        <div class="space-y-4 text-body mb-6">
                             <p>Сегодня художникам легче: портрет можно написать по фотографии в цифровом виде. Именно написать, просто вместо традиционной кисти и холста художник будет использовать планшет. Здесь самый важный момент — это взаимодействие заказчика и нашего художника, чтобы мы воплотили в жизнь замысел, образ, который надо передать в произведении.</p>
+                            <p class="italic">Muse (греч. Μούσα) — это вдохновение, это Муза</p>
                         </div>
-                        
-                        <!-- До/После слайдер -->
-                        <div class="before-after-slider rounded-lg overflow-hidden shadow-lg" id="before-after">
-                            <img 
-                                src="https://muse.ooo/upload/img/oil-1404-5-1000-702-b.webp"
-                                alt="Фото для портрета в стиле маслом"
-                                title="Фото для портрета в стиле Маслом"
-                                class="before-image w-full"
-                                loading="lazy"
-                                decoding="async"
-                                width="378"
-                                height="265"
-                            >
-                            <img 
-                                src="https://muse.ooo/upload/img/oil-1404-5-1000-702-a.webp"
-                                alt="Портрет в стиле Маслом"
-                                title="Портрет в стиле Маслом"
-                                class="after-image"
-                                loading="lazy"
-                                decoding="async"
-                                width="378"
-                                height="265"
-                            >
-                            <div class="slider-handle"></div>
-                        </div>
-                        <p class="text-center text-body mt-4 text-sm">Потяните за вертикальную линию, чтобы сравнить «До» и «После»</p>
-                        
-                        <p class="mt-6 text-body italic">Muse (греч. Μούσα) — это вдохновение, это Муза</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CTA -->
-        <section class="py-12 lg:py-16">
-            <div class="container">
-                <div class="bg-secondary rounded-lg p-8 lg:p-12 text-center lg:flex lg:items-center lg:justify-between lg:text-left">
-                    <h3 class="text-2xl lg:text-3xl font-light text-dark mb-6 lg:mb-0">Создай своё произведение искусства</h3>
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-end">
-                        <a href="https://muse.ooo/order/" class="inline-block px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors">
-                            Заказать
-                        </a>
-                        <a href="#callback" class="inline-block px-8 py-3 bg-dark hover:bg-gray-700 text-white rounded uppercase transition-colors">
-                            Обратный звонок
-                        </a>
-                    </div>
+        <!-- CTA (структура как в foto-na-kholste) -->
+        <section class="bg-dark py-24 md:py-32">
+            <div class="container xl:flex xl:items-center xl:justify-between">
+                <h2 class="text-2xl font-light tracking-tight text-white">
+                    Создай своё произведение искусства
+                </h2>
+                <div class="mt-10 flex flex-col md:flex-row items-center gap-4 md:gap-x-6 xl:mt-0 xl:shrink-0">
+                    <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors w-full md:w-auto text-center">
+                        Заказать
+                    </a>
+                    <a href="#callback" class="inline-block px-6 py-2 bg-secondary hover:bg-white text-dark rounded uppercase transition-colors w-full md:w-auto text-center">
+                        Обратный звонок
+                    </a>
                 </div>
             </div>
         </section>
