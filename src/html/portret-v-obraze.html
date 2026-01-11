@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Портрет акварелью по фотографии — заказать в Muse</title>
-    <meta name="description" content="Художник нарисует для Вас цифровой портрет под акварель и напечатает его на холсте или акварельной бумаге. Посмотрите примеры и пришлите фото.">
+    <title>Портрет в образе по фото на холсте — заказать в Muse</title>
+    <meta name="description" content="Художник впишет фото в известную картину и напечатает на холсте. Посмотрите примеры, пришлите фото и свои пожелания.">
     
     <!-- Закрыто от индексации во время разработки -->
     <meta name="robots" content="noindex, nofollow">
@@ -136,7 +136,7 @@
     </style>
     
     <!-- Preload Hero изображения (ускоряет LCP) -->
-    <link rel="preload" as="image" href="https://muse.ooo/upload/img/o-watercolor-couple-555.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="https://muse.ooo/upload/img/queen-portret-v-obraze-fotomontazh-458-260419.webp" fetchpriority="high">
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -194,15 +194,9 @@
        /* Before/After Slider (ba-card) */
 .ba-card {
     position: relative;
-    aspect-ratio: 378/265;
+    aspect-ratio: 378/251;
     overflow: hidden;
     --pos: 50%;
-}
-/* Для акварели: размер блока под картинки 378x251px */
-#before-after {
-    width: 378px;
-    max-width: 100%;
-    aspect-ratio: 378/251;
 }
 .ba-card img {
     position: absolute;
@@ -212,11 +206,6 @@
     object-fit: cover;
     pointer-events: none;
     user-select: none;
-}
-/* Для акварели: картинки в естественном размере без растягивания */
-#before-after img {
-    object-fit: contain;
-    object-position: center;
 }
 .ba-card .after-image {
     clip-path: inset(0 0 0 var(--pos));
@@ -283,16 +272,16 @@
     {
         "@context": "https://schema.org",
         "@type": "Product",
-        "name": "Портрет акварелью",
-        "description": "Художник нарисует для Вас цифровой портрет под акварель и напечатает его на холсте или акварельной бумаге. Посмотрите примеры и пришлите фото",
-        "image": "https://muse.ooo/img/o-watercolor-couple-555.jpg",
+        "name": "Портрет в образе",
+        "description": "Художник впишет фото в известную картину и напечатает на холсте. Посмотрите примеры, пришлите фото и свои пожелания.",
+        "image": "https://muse.ooo/img/o-painting-queen-portrait-1000-1410.jpg",
         "brand": {
             "@type": "Brand",
             "name": "Muse"
         },
         "offers": {
             "@type": "Offer",
-            "url": "https://muse.ooo/portret-na-zakaz/portret-akvarelyu/",
+            "url": "https://muse.ooo/portret-na-zakaz/portret-v-obraze/",
             "priceCurrency": "RUB",
             "price": "4311.00",
             "priceValidUntil": "2026-12-31",
@@ -305,7 +294,7 @@
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "5",
-            "reviewCount": "116"
+            "reviewCount": "198"
         }
     }
     </script>
@@ -331,12 +320,13 @@
             {
                 "@type": "ListItem",
                 "position": 3,
-                "name": "Портрет акварелью",
-                "item": "https://muse.ooo/portret-na-zakaz/portret-akvarelyu/"
+                "name": "Портрет в образе",
+                "item": "https://muse.ooo/portret-na-zakaz/portret-v-obraze/"
             }
         ]
     }
     </script>
+	 <link rel="preload" as="image" href="https://muse.ooo/upload/img/queen-portret-v-obraze-fotomontazh-458-260419.webp" fetchpriority="high">
 </head>
 <body class="bg-white overflow-x-hidden">
         <!-- Header -->
@@ -444,12 +434,12 @@
     <!-- Page Navigator -->
     <nav class="page-navigator">
         <ul>
-            <li><a href="#watercolor" class="inner-link" data-title="Примеры"></a></li>
+            <li><a href="#primery" class="inner-link" data-title="Примеры"></a></li>
             <li><a href="#calc" class="inner-link" data-title="Цена"></a></li>
-            <li><a href="#order" class="inner-link" data-title="Как заказать"></a></li>
-            <li><a href="#work" class="inner-link" data-title="Характеристики"></a></li>
+            <li><a href="#kak-zakazat" class="inner-link" data-title="Как заказать"></a></li>
+            <li><a href="#harakteristiki" class="inner-link" data-title="Характеристики"></a></li>
             <li><a href="#preimushchestva" class="inner-link" data-title="Преимущества"></a></li>
-            <li><a href="#review" class="inner-link" data-title="Отзывы"></a></li>
+            <li><a href="#otzyvy" class="inner-link" data-title="Отзывы"></a></li>
             <li><a href="#opisanie" class="inner-link" data-title="Описание"></a></li>
         </ul>
     </nav>
@@ -471,13 +461,13 @@
                                     <a href="https://muse.ooo/portret-na-zakaz/">Портрет на заказ</a>
                                     <span class="mx-2 text-gray-300">/</span>
                                 </li>
-                                <li class="text-gray-300">Портрет акварелью</li>
+                                <li class="text-gray-300">Портрет в образе</li>
                             </ol>
                         </nav>
                         
-                        <h1 class="text-4xl lg:text-6xl font-light mb-4">Портрет акварелью</h1>
-                        <p class="text-sm mt-2 mb-4 text-gray-300">Красочный, воздушный, легкий</p>
-                        <p class="text-lg lg:text-xl mb-6 text-gray-200">Художник нарисует для Вас цифровой портрет под акварель и напечатает его на холсте или акварельной бумаге.<br>Посмотрите примеры и пришлите фото</p>
+                        <h1 class="text-4xl lg:text-6xl font-light mb-4">Портрет в образе</h1>
+                        <p class="text-sm mt-2 mb-4 text-gray-300">Больше, чем фотомонтаж</p>
+                        <p class="text-lg lg:text-xl mb-6 text-gray-200">Художник впишет фото в известную картину и напечатает на холсте. Посмотрите примеры, пришлите фотографию и свои пожелания</p>
                         
                         <p class="text-lg lg:text-xl mb-6 text-gray-200">От 4311 руб. Под заказ.</p>
                         
@@ -489,11 +479,11 @@
                     <!-- Изображение -->
                     <div class="relative">
                         <img 
-                            src="https://muse.ooo/upload/img/o-watercolor-couple-555.webp"
-                            alt="Портрет пары в акварельном стиле"
-                            title="Портрет акварелью на холсте"
+                            src="https://muse.ooo/upload/img/queen-portret-v-obraze-fotomontazh-458-260419.webp"
+                            alt="Портрет королевы на основе фотомонтажа в образ"
+                            title="Портрет королевы на основе фотомонтажа в образ"
                             width="458"
-                            height="550"
+                            height="646"
                             class="w-full max-w-md mx-auto lg:ml-auto rounded-lg shadow-2xl"
                             fetchpriority="high"
                         >
@@ -503,20 +493,20 @@
         </section>
 
         <!-- Примеры (заглушка для Bitrix) -->
-        <section class="bg-dark py-16 lg:py-20" id="watercolor">
+        <section class="bg-dark py-16 lg:py-20" id="primery">
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-white text-center mb-8">Примеры</h2>
-                <p class="text-center text-gray-300 mb-8">Портреты акварелью</p>
+                <p class="text-center text-gray-300 mb-8">Портреты в образе</p>
                 
                 <!-- Галерея из Bitrix будет здесь -->
-                <div class="text-center text-gray-400 py-12 border-2 border-dashed border-gray-600 rounded-lg bg-dark">
+                <div class="text-center text-gray-400 py-12 border-2 border-dashed border-gray-600 rounded-lg">
                     <p class="text-lg mb-2">Галерея примеров</p>
                     <p class="text-sm">Будет загружена из Bitrix</p>
                 </div>
                 
                 <div class="text-center mt-8">
-                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/akvarel/" class="inline-block px-6 py-2 text-white hover:bg-white hover:text-dark rounded uppercase transition-colors">
-                        смотреть все примеры работ
+                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/v-obraze/" class="inline-block px-6 py-2 text-white hover:bg-white hover:text-dark rounded uppercase transition-colors">
+                        Смотреть все примеры работ
                     </a>
                 </div>
             </div>
@@ -545,7 +535,7 @@
         </section>
 
         <!-- Как заказать -->
-        <section class="py-16 lg:py-24" id="order">
+        <section class="py-16 lg:py-24" id="kak-zakazat">
             <div class="container mb-8">
                 <div class="text-center">
                     <h2 class="text-3xl lg:text-4xl font-light text-dark">Как заказать</h2>
@@ -556,11 +546,11 @@
                     <!-- Изображение -->
                     <div>
                         <img 
-                            src="https://muse.ooo/upload/img/o-watercolor-girl-555.webp"
-                            alt="Портрет девушки в стиле акварель на холсте"
-                            title="Акварельный портрет девушки"
+                            src="https://muse.ooo/upload/img/man-portrait-in-the-image-of-Peter-1.webp"
+                            alt="Портрет молодого человека на основе фотомонтажа в образ Петра I"
+                            title="Портрет молодого человека на основе фотомонтажа в образ Петра I"
                             width="555"
-                            height="687"
+                            height="833"
                             class="w-full max-w-[555px] mx-auto rounded-lg shadow-2xl"
                             loading="lazy"
                             decoding="async"
@@ -581,10 +571,8 @@
                                 <div>
                                     <h3 class="text-xl font-medium text-dark mb-2">Заказ</h3>
                                     <p class="text-body">
-                                        В разделе <a class="text-primary underline hover:no-underline" href="#calc">Цена ↑</a> можно загрузить фото, подобрать нужный размер, рассчитать стоимость портрета и оформить заказ. 
-                                    </p>
-                                    <p class="text-body">
-                                        Нет времени разбираться? <br>Нажмите любую кнопку <a href="https://muse.ooo/order/" class="text-primary underline hover:no-underline">Заказать ↗</a> на сайте и перешлите нам фото. Перезвоним и поможем с выбором.
+                                        В разделе <a class="text-primary underline hover:no-underline" href="#calc">«Цена» ↑</a> можно загрузить фото, подобрать нужный размер, рассчитать стоимость и оформить заказ.<br><br>
+                                        Нет времени разбираться? Нажмите любую кнопку <a href="https://muse.ooo/order/" class="text-primary underline hover:no-underline">«Заказать» ↗</a> на сайте и перешлите нам фото. Перезвоним и поможем с выбором.
                                     </p>
                                 </div>
                             </div>
@@ -597,8 +585,8 @@
                                 <div>
                                     <h3 class="text-xl font-medium text-dark mb-2">Цифровой портрет</h3>
                                     <p class="text-body">
-                                        В течение часа перезвоним Вам, чтобы обсудить задание. По согласованному заданию выполним эскиз. После подтверждения эскиза напишем портрет. Вносите правки до тех пор, пока не будете полностью удовлетворены работой. 
-                                        Срок создания цифрового портрета <span id="order-date"></span>.
+                                        В течение часа перезвоним Вам, чтобы обсудить задание. По согласованному заданию подберем несколько образов и сделаем эскизы. После выбора и подтверждения эскиза напишем портрет. Вносите правки до тех пор, пока не будете полностью удовлетворены работой.<br><br>
+                                        Срок создания цифрового портрета — <span id="order-date"></span>.
                                     </p>
                                 </div>
                             </div>
@@ -609,9 +597,9 @@
                                     <span class="text-xl font-bold text-primary">3</span>
                                 </div>
                                 <div>
-                                    <h3 class="text-xl font-medium text-dark mb-2">Печать и оформление портрета</h3>
+                                    <h3 class="text-xl font-medium text-dark mb-2">Печать и оформление</h3>
                                     <p class="text-body">
-                                        Только после Вашего окончательного подтверждения цифрового портрета картина в стиле "Акварель" будет напечатана, оформлена и передана в службу доставки.
+                                        Только после Вашего окончательного подтверждения цифрового портрета картина в образе будет напечатана на холсте, оформлена и передана в службу доставки.
                                     </p>
                                 </div>
                             </div>
@@ -649,7 +637,7 @@
         </section>
 
         <!-- Характеристики -->
-        <section class="py-16 lg:py-20" id="work">
+        <section class="py-16 lg:py-20" id="harakteristiki">
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Характеристики</h2>
             </div>
@@ -662,13 +650,13 @@
                                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                 </svg>
-                                <span>Портрет в стиле "Акварель"</span>
+                                <span>Цифровой портрет в образе</span>
                             </li>
                             <li class="flex items-start gap-3">
                                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                 </svg>
-                                <span>Плотный натуральный хлопковый холст - 380 г./кв.м.</span>
+                                <span>Печать на плотном холсте от 380 г. на кв.м.</span>
                             </li>
                             <li class="flex items-start gap-3">
                                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
@@ -686,19 +674,19 @@
                                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                 </svg>
-                                <span>Галерейная натяжка</span>
+                                <span>Галерейная натяжка холста на подрамник</span>
                             </li>
                             <li class="flex items-start gap-3">
                                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                 </svg>
-                                <span>C обратной стороны защитный скотч</span>
+                                <span>Проклейка с обратной стороны защитным скотчем</span>
                             </li>
                             <li class="flex items-start gap-3">
                                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                 </svg>
-                                <span>Крепление "Крокодил"</span>
+                                <span>Установка креплений "Крокодил"</span>
                             </li>
                             <li class="flex items-start gap-3">
                                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
@@ -728,23 +716,23 @@
                             <div class="mx-auto mt-4 w-full max-w-md">
                                 <el-tab-list class="grid grid-cols-3 gap-3">
                                     <button class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
-                                        <span class="sr-only">Лицевая сторона портрета акварелью</span>
+                                        <span class="sr-only">Лицевая сторона портрета в образе</span>
                                         <span class="absolute inset-0 overflow-hidden rounded">
-                                            <img src="https://muse.ooo/upload/img/o-portret-akvarelyu-442.webp" alt="Лицевая сторона портрета акварелью на холсте с подрамником" title="Лицевая сторона портрета акварелью на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
+                                            <img src="https://muse.ooo/upload/img/portrait-man-on-canvas-in-frame.webp" alt="Лицевая сторона портрета в образе с подрамником и рамой" title="Лицевая сторона портрета на холсте" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
                                     </button>
                                     <button class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
-                                        <span class="sr-only">Обратная сторона портрета акварелью</span>
+                                        <span class="sr-only">Обратная сторона портрета в образе</span>
                                         <span class="absolute inset-0 overflow-hidden rounded">
-                                            <img src="https://muse.ooo/upload/img/o-portret-akvarelyu-442-back.webp" alt="Портрет акварелью на холсте с обратной стороны на подрамнике" title="Обратная сторона портрета акварелью на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
+                                            <img src="https://muse.ooo/upload/img/portrait-back-442.webp" alt="Фото обратной стороны портрета в образе в раме" title="Обратная сторона портрета в раме" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
                                     </button>
-                                        <button class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
-                                        <span class="sr-only">Обратная сторона портрета акварелью</span>
+                                    <button class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
+                                        <span class="sr-only">Портрет в образе на холсте</span>
                                         <span class="absolute inset-0 overflow-hidden rounded">
-                                            <img src="https://muse.ooo/upload/img/o-portret-akvarelyu-442-back.webp" alt="Портрет акварелью на холсте с обратной стороны на подрамнике" title="Обратная сторона портрета акварелью на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
+                                            <img src="https://muse.ooo/upload/img/portrait-man-on-canvas-in-frame.webp" alt="Портрет в образе на холсте" title="Портрет в образе на холсте" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
                                     </button>
@@ -754,13 +742,13 @@
                             <!-- Большие изображения -->
                             <el-tab-panels>
                                 <div>
-                                    <img src="https://muse.ooo/upload/img/o-portret-akvarelyu-442.webp" alt="Лицевая сторона портрета акварелью на холсте с подрамником" title="Лицевая сторона портрета акварелью на холсте с подрамником" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
+                                    <img src="https://muse.ooo/upload/img/portrait-man-on-canvas-in-frame.webp" alt="Лицевая сторона портрета в образе с подрамником и рамой" title="Лицевая сторона портрета на холсте" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
                                 </div>
                                 <div hidden>
-                                    <img src="https://muse.ooo/upload/img/o-portret-akvarelyu-442-back.webp" alt="Портрет акварелью на холсте с обратной стороны на подрамнике" title="Обратная сторона портрета акварелью на холсте с подрамником" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
+                                    <img src="https://muse.ooo/upload/img/portrait-back-442.webp" alt="Фото обратной стороны портрета в образе в раме" title="Обратная сторона портрета в раме" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
                                 </div>
-								<div hidden>
-                                    <img src="https://muse.ooo/upload/img/o-portret-akvarelyu-442.webp" alt="Лицевая сторона портрета акварелью на холсте с подрамником" title="Лицевая сторона портрета акварелью на холсте с подрамником" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
+                                <div hidden>
+                                    <img src="https://muse.ooo/upload/img/portrait-man-on-canvas-in-frame.webp" alt="Портрет в образе на холсте" title="Портрет в образе на холсте" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
                                 </div>
                             </el-tab-panels>
                         </el-tab-group>
@@ -821,7 +809,7 @@
                         <path d="m1664 2343c78-21 176-43 239 19 50 50 162-52 297 170 13-2 19 0 19 6 25 4 75 56 83 85 10 33 0 58-19 78-19 29-35 48-54 61-26 19-57 23-107 26-1 1-2 3-5 3-7-1-8-7-4-17l-203 22c-27 3-66-10-96-28-37-5-114-31-142-42-75-28-133-106-174-171-29-44-41-59-40-108 6 6 11 12 17 19-8-12-13-19-13-19 1-1 3-3 5-4h-1c-4-1-10-2-15-3 18-10 36-20 53-29 48-33 102-51 160-68zm507 336c-5-20-3-7 4-41-16-24-24-40-41-58-7-4-16-8-26-12-44-16-194-53-208-60-41-22-134-9-210-13-3 3-6 6-9 8 7 42-3 42 49 76 1 1 13 8 30 19 15 7 26 13 27 13l22 18c8 4 87 26 87 26l-2 1 277 23zm-689-234c-2 0-5-1-9-1-4 1-8 2-11 3l20-2z"/>
                      </svg>
                         </div>
-                        <p class="text-lg">55 портретов в акварельном стиле от наших художников на сайте для ознакомления с уровнем работ</p>
+                        <p class="text-lg">Лицо вписывается художником, а не "вставляется онлайн" или "приклеивается". Более 65-ти примеров</p>
                     </div>
 
                     <!-- Преимущество 2: Цифровая работа -->
@@ -842,7 +830,7 @@
                         <path d="M232.7 106.4H93.2c-3 0-5.4 2.4-5.4 5.4 0 3 2.4 5.4 5.4 5.4h139.5c3 0 5.4-2.4 5.4-5.4C238.1 108.8 235.6 106.4 232.7 106.4z" fill=#4a90e2></path>
                      </svg>
                         </div>
-                        <p class="text-lg">Печатаем оригинальными чернилами на плотном материале – срок службы портрета составляет более 50-ти лет</p>
+                        <p class="text-lg">Печатаем оригинальными чернилами на плотном натуральном холсте – срок службы картины более 50-ти лет</p>
                     </div> 
 
                     <!-- Преимущество 4: Соблюдение сроков -->
@@ -884,14 +872,14 @@
                         <path d="M133 81.1l-36.2 36.2 -15.4-15.4c-2.9-2.9-7.7-2.9-10.6 0 -2.9 2.9-2.9 7.7 0 10.6l20.8 20.8c1.5 1.5 3.4 2.2 5.3 2.2 1.9 0 3.8-0.7 5.3-2.2l41.5-41.5c2.9-2.9 2.9-7.7 0-10.6C140.6 78.2 135.9 78.2 133 81.1z" fill=#4A90E2></path>
                      </svg>
                         </div>
-                        <p class="text-lg">Предоставляем официальную гарантию и гордимся каждым из 24-х положительных отзывов на странице</p>
+                        <p class="text-lg">Предоставляем официальную гарантию и гордимся каждым положительным отзывом на странице</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Отзывы -->
-        <section class="bg-secondary py-16 lg:py-20" id="review">
+        <section class="bg-secondary py-16 lg:py-20" id="otzyvy">
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">Отзывы</h2>
                 
@@ -942,7 +930,7 @@
         <div class="space-y-3">
             <!-- Яндекс -->
             <a href="javascript:void(0)" 
-               onclick="BxPopup('https://oauth.yandex.ru/authorize?response_type=code&client_id=16d7eb71dd4f4499b79c6b4ea46b9a35&display=popup&redirect_uri=https%3A%2F%2Fmuse.ooo%2Fbitrix%2Ftools%2Foauth%2Fyandex.php&force_confirm=yes&state=site_id%3Ds1%26backurl%3D%252Fajax%252Fsocservices.php%253Fcheck_key%253D6ccc99698f49c1ccd826a2d6384c520b%26mode%3Dopener%26redirect_url%3D%252Fajax%252Fsocservices.php%253Fbackurl%253D%25252Fportret-na-zakaz%25252Fportret-akvarelyu%25252F', 680, 600)"
+               onclick="BxPopup('https://oauth.yandex.ru/authorize?response_type=code&client_id=16d7eb71dd4f4499b79c6b4ea46b9a35&display=popup&redirect_uri=https%3A%2F%2Fmuse.ooo%2Fbitrix%2Ftools%2Foauth%2Fyandex.php&force_confirm=yes&state=site_id%3Ds1%26backurl%3D%252Fajax%252Fsocservices.php%253Fcheck_key%253D6ccc99698f49c1ccd826a2d6384c520b%26mode%3Dopener%26redirect_url%3D%252Fajax%252Fsocservices.php%253Fbackurl%253D%25252Fportret-na-zakaz%25252Fportret-maslom%25252F', 680, 600)"
                class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 text-dark rounded transition-colors group w-full border border-gray-200">
                 <div class="flex-shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="20" height="20" fill="currentColor">
@@ -954,7 +942,7 @@
 
             <!-- Mail.Ru -->
             <a href="javascript:void(0)" 
-               onclick="BxPopup('https://connect.mail.ru/oauth/authorize?client_id=758285&redirect_uri=https://muse.ooo/ajax/socservices.php?auth_service_id=MyMailRu&backurl=%2Fportret-na-zakaz%2Fportret-akvarelyu%2F&response_type=code&state=site_id%3Ds1%26backurl%3D%2Fportret-na-zakaz%2Fportret-akvarelyu%2F%3Fcheck_key%3D6ccc99698f49c1ccd826a2d6384c520b', 580, 400)"
+               onclick="BxPopup('https://connect.mail.ru/oauth/authorize?client_id=758285&redirect_uri=https://muse.ooo/ajax/socservices.php?auth_service_id=MyMailRu&backurl=%2Fportret-na-zakaz%2Fportret-maslom%2F&response_type=code&state=site_id%3Ds1%26backurl%3D%2Fportret-na-zakaz%2Fportret-maslom%2F%3Fcheck_key%3D6ccc99698f49c1ccd826a2d6384c520b', 580, 400)"
                class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 text-dark rounded transition-colors group w-full border border-gray-200">
                 <div class="flex-shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
@@ -966,7 +954,7 @@
 
             <!-- VK -->
             <a href="javascript:void(0)" 
-               onclick="BxPopup('https://id.vk.ru/authorize?client_id=5605340&v=5.80&redirect_uri=https%3A%2F%2Fmuse.ooo%2Fbitrix%2Ftools%2Foauth%2Fvkontakte.php&scope=email&response_type=code&code_challenge_method=S256&code_challenge=rhEzleLdG8TiGkScUxXVijyW8zCNtH8ffuAZaTMyBaY&state=c2l0ZV9pZD1zMSZiYWNrdXJsPSUyRmFqYXglMkZzb2NzZXJ2aWNlcy5waHAlM0ZjaGVja19rZXklM0Q2Y2NjOTk2OThmNDljMWNjZDgyNmEyZDYzODRjNTIwYiZyZWRpcmVjdF91cmw9JTJGYWpheCUyRnNvY3NlcnZpY2VzLnBocCUzRmJhY2t1cmwlM0QlMjUyRnBvcnRyZXQtbmEtemFrYXolMjUyRnBvcnRyZXQtYWt2YXJlbHl1JTI1MkY%3D', 660, 425)"
+               onclick="BxPopup('https://id.vk.ru/authorize?client_id=5605340&v=5.80&redirect_uri=https%3A%2F%2Fmuse.ooo%2Fbitrix%2Ftools%2Foauth%2Fvkontakte.php&scope=email&response_type=code&code_challenge_method=S256&code_challenge=rhEzleLdG8TiGkScUxXVijyW8zCNtH8ffuAZaTMyBaY&state=c2l0ZV9pZD1zMSZiYWNrdXJsPSUyRmFqYXglMkZzb2NzZXJ2aWNlcy5waHAlM0ZjaGVja19rZXklM0Q2Y2NjOTk2OThmNDljMWNjZDgyNmEyZDYzODRjNTIwYiZyZWRpcmVjdF91cmw9JTJGYWpheCUyRnNvY3NlcnZpY2VzLnBocCUzRmJhY2t1cmwlM0QlMjUyRnBvcnRyZXQtbmEtemFrYXolMjUyRnBvcnRyZXQtbWFzbG9tJTI1MkY%3D', 660, 425)"
                class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 text-dark rounded transition-colors group w-full border border-gray-200">
                 <div class="flex-shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
@@ -978,7 +966,7 @@
 
             <!-- Google -->
             <a href="javascript:void(0)" 
-               onclick="BxPopup('https://accounts.google.com/o/oauth2/auth?client_id=154295471896-ispv3qmrsiov4iv1of6v9qefjq18h8uc.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fmuse.ooo%2Fbitrix%2Ftools%2Foauth%2Fgoogle.php&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&response_type=code&access_type=offline&state=provider%3DGoogleOAuth%26site_id%3Ds1%26backurl%3D%252Fajax%252Fsocservices.php%253Fcheck_key%253D6ccc99698f49c1ccd826a2d6384c520b%26mode%3Dopener%26redirect_url%3D%252Fajax%252Fsocservices.php%253Fbackurl%253D%25252Fportret-na-zakaz%25252Fportret-akvarelyu%25252F', 580, 400)"
+               onclick="BxPopup('https://accounts.google.com/o/oauth2/auth?client_id=154295471896-ispv3qmrsiov4iv1of6v9qefjq18h8uc.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fmuse.ooo%2Fbitrix%2Ftools%2Foauth%2Fgoogle.php&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&response_type=code&access_type=offline&state=provider%3DGoogleOAuth%26site_id%3Ds1%26backurl%3D%252Fajax%252Fsocservices.php%253Fcheck_key%253D6ccc99698f49c1ccd826a2d6384c520b%26mode%3Dopener%26redirect_url%3D%252Fajax%252Fsocservices.php%253Fbackurl%253D%25252Fportret-na-zakaz%25252Fportret-maslom%25252F', 580, 400)"
                class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 text-dark rounded transition-colors group w-full border border-gray-200">
                 <div class="flex-shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" fill="currentColor">
@@ -990,7 +978,7 @@
 
             <!-- Одноклассники -->
             <a href="javascript:void(0)" 
-               onclick="BxPopup('https://www.odnoklassniki.ru/oauth/authorize?client_id=1247491840&redirect_uri=https%3A%2F%2Fmuse.ooo%2Fbitrix%2Ftools%2Foauth%2Fodnoklassniki.php&response_type=code&state=site_id%3Ds1%26backurl%3D%252Fajax%252Fsocservices.php%253Fcheck_key%253D6ccc99698f49c1ccd826a2d6384c520b%26redirect_url%3D%252Fajax%252Fsocservices.php%253Fbackurl%253D%25252Fportret-na-zakaz%25252Fportret-akvarelyu%25252F%26mode%3Dopener', 580, 400)"
+               onclick="BxPopup('https://www.odnoklassniki.ru/oauth/authorize?client_id=1247491840&redirect_uri=https%3A%2F%2Fmuse.ooo%2Fbitrix%2Ftools%2Foauth%2Fodnoklassniki.php&response_type=code&state=site_id%3Ds1%26backurl%3D%252Fajax%252Fsocservices.php%253Fcheck_key%253D6ccc99698f49c1ccd826a2d6384c520b%26redirect_url%3D%252Fajax%252Fsocservices.php%253Fbackurl%253D%25252Fportret-na-zakaz%25252Fportret-maslom%25252F%26mode%3Dopener', 580, 400)"
                class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 text-dark rounded transition-colors group w-full border border-gray-200">
                 <div class="flex-shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 28" fill="currentColor">
@@ -1026,16 +1014,43 @@ function BxPopup(url, width, height) {
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Описание</h2>
           
-               <!-- Grid контейнер БЕЗ видео (2 колонки на десктопе) -->
-        <div class="description-grid-no-video space-y-8 lg:space-y-0">
+               <!-- Grid контейнер -->
+        <div class="description-grid space-y-8 lg:space-y-0">
             
-            <!-- 1. До/После -->
-            <div class="flex flex-col items-center">
+            <!-- 1. Видео (занимает 2 строки) -->
+            <div class="video-column">
+                <div class="video-cover aspect-[360/648] rounded-lg overflow-hidden shadow-lg">
+                    <img 
+                        src="https://muse.ooo/upload/img/o-portret-v-obraze-na-kholste-360-648-2.webp"
+                        alt="Портрет в образе на холсте"
+                        class="w-full h-full object-cover"
+                        loading="lazy"
+                        decoding="async"
+                    >
+                    <div class="video-play-icon cursor-pointer bg-black/20 hover:bg-black/30 transition-colors">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+                    <iframe 
+                        class="hidden"
+                        loading="lazy"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                        data-src="https://www.youtube.com/embed/FVs-JgQe5K8?rel=0&amp;showinfo=0"
+                        title="Портрет в образе на холсте"
+                    ></iframe>
+                </div>
+                <p class="text-center text-gray-600 mt-4 text-sm">Короткое видео - 15 сек. о том, как выглядит картина на холсте</p>
+            </div>
+            
+            <!-- 2. До/После -->
+            <div>
                 <div class="ba-card rounded-xl overflow-hidden shadow-2xl" id="before-after">
                     <img 
-                        src="https://muse.ooo/upload/img/watercolor_b.webp"
-                        alt="Фото для акварельного портрета"
-                        title="Фото для портрета под акварель до"
+                        src="https://muse.ooo/upload/img/painting-b.webp"
+                        alt="Фото для портрета в образе"
+                        title="Фото для портрета"
                         class="before-image"
                         loading="lazy"
                         decoding="async"
@@ -1043,9 +1058,9 @@ function BxPopup(url, width, height) {
                         height="251"
                     >
                     <img 
-                        src="https://muse.ooo/upload/img/watercolor-a.webp"
-                        alt="Акварельный портрет"
-                        title="Акварельный портрет после"
+                        src="https://muse.ooo/upload/img/painting-a.webp"
+                        alt="Портрет в образе полководца"
+                        title="Портрет в образе военного"
                         class="after-image"
                         loading="lazy"
                         decoding="async"
@@ -1059,27 +1074,26 @@ function BxPopup(url, width, height) {
                     </div>
                     <input type="range" min="0" max="100" value="50" class="ba-range" aria-label="Сравнение до и после" oninput="this.parentNode.style.setProperty('--pos', this.value + '%')">
                 </div>
-                <p class="text-center text-gray-600 mt-4 text-sm w-full">Потяните за вертикальную линию, чтобы сравнить "До" и "После"</p>
+                <p class="text-center text-gray-600 mt-4 text-sm">Потяните за ползунок, чтобы сравнить «До» и «После»</p>
             </div>
             
-            <!-- 2. Текст -->
-            <div class="space-y-4 text-gray-600">
-                <p>Акварель – настроение, переданное через рисунок.</p>
+            <!-- 3. Текст (начинается в колонке 2, продолжается в колонке 3) -->
+            <div class="text-column space-y-4 text-gray-600">
+                <p><b>Кто в детстве не мечтал о плаще королевского мушкетера или платье Наташи Ростовой на ее первом балу?</b></p>
                 
-                <p>Акварель известна многим с детства, написанные художником растворенной в воде краской на бумаге работы прекрасны, но увы не долговечны.</p>
+                <p>Став взрослыми, мы конечно изменились, но изменились ли наши самые светлые и чистые мечты.</p>
                 
-                <p>Акварель происходит от латинского слова aqua (вода), роль воды особо подчеркивается и в английском языке, где акварель называют watercolor. Техника акварели находится на грани живописи и рисунка. К живописи ее относят за красочность, а к рисунку потому, что чистое поле листа – не материал, а пространство, активно вовлекаемое в создание композиции.</p>
+                <p>Портрет в образе – это отличный подарок для любого творческого человека, дань уважения родителям, прекрасный способ поздравить коллег, подчеркнуть личное и особое отношение близкому человеку и наконец просто порадовать самого себя.</p>
                 
-                <p>К сожалению, как и водная основа, так и бумага теряют со временем свои качества и акварельный рисунок утрачивает яркость - блекнет и желтеет.</p>
+                <p>Такой <strong>исторический</strong> или <strong>стилизованный портрет</strong> пишется на планшете с помощью пера, точно также как пишутся традиционные картины кистью.</p>
                 
-                <p>Для тех, кто любит акварельный рисунок также как любим его мы, есть следующий выход. Можно стилизовать фото в цифровом виде под акварель, а затем напечатать на холсте или специальной акварельной бумаге. Напечатанное оригинальными чернилами на современном материале произведение будет красочным и воздушным как акварель, но долговечным как музейное полотно.</p>
+                <p>На взгляд Muse, такой стиль – это непобедимое стремление человека к идеалу, к мечте.</p>
                 
-                <p>Творите вместе с Muse, создавая из фотографий прекрасные картины, на которых всегда будет приятно остановить взгляд.</p>
-                
-                <p class="italic">Muse (греч. Μούσα)- это вдохновение, это Mуза</p>
+                <p>Придумывайте и выбирайте свой образ, а мы поможем в его воплощении.</p>
             </div>
             
         </div>
+</div>
     </div>
 </section>
         <!-- CTA (структура как в foto-na-kholste) -->
@@ -1116,7 +1130,7 @@ function BxPopup(url, width, height) {
                             <a href="https://muse.ooo/pechat/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">Печать на холсте</a>
                             <a href="https://muse.ooo/portret-na-zakaz/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">Портреты</a>
                             <a href="https://muse.ooo/pechat/foto-na-kholste/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">Фото на холсте</a>
-                            <a href="https://muse.ooo/portret-na-zakaz/portret-akvarelyu/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">Портрет акварелью</a>
+                            <a href="https://muse.ooo/portret-na-zakaz/portret-v-obraze/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">Портрет в образе</a>
                         </nav>
                         
                         <!-- Вторичные ссылки -->
@@ -1205,6 +1219,14 @@ function BxPopup(url, width, height) {
                 const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
                 orderDateEl.textContent = date.toLocaleDateString('ru-RU', options);
             }
+            
+            const deliveryDateEl = document.getElementById('delivery-date');
+            if (deliveryDateEl) {
+                const date = new Date();
+                date.setDate(date.getDate() + 4); // +4 дня от сегодня
+                const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+                deliveryDateEl.textContent = date.toLocaleDateString('ru-RU', options);
+            }
         })();
 
         // === Page Navigator ===
@@ -1258,6 +1280,27 @@ function BxPopup(url, width, height) {
             
             window.addEventListener('scroll', handleScroll, { passive: true });
             updateActiveLink();
+        })();
+
+        // === Video Cover ===
+        (function() {
+            const videoCovers = document.querySelectorAll('.video-cover');
+            videoCovers.forEach(cover => {
+                const playIcon = cover.querySelector('.video-play-icon');
+                const iframe = cover.querySelector('iframe[data-src]');
+                
+                if (playIcon && iframe) {
+                    playIcon.addEventListener('click', function() {
+                        // Загружаем iframe
+                        iframe.src = iframe.getAttribute('data-src');
+                        iframe.removeAttribute('data-src');
+                        iframe.classList.remove('hidden');
+                        
+                        // Добавляем класс для скрытия обложки
+                        cover.classList.add('video-playing');
+                    });
+                }
+            });
         })();
 
     </script>

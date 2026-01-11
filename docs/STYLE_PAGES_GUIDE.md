@@ -300,6 +300,9 @@ h1 {
 .ba-card .ba-arrow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 18px; font-weight: bold; color: white; text-shadow: 0 0 3px rgba(0,0,0,0.7); }
 .ba-card .ba-arrow.l { left: 10px; }
 .ba-card .ba-arrow.r { right: 10px; }
+
+/* Вертикальный Before/After Slider (360x517) */
+.ba-card-vertical { width: 360px; max-width: 100%; aspect-ratio: 360/517; }
 ```
 
 ---
@@ -847,6 +850,74 @@ function BxPopup(url, width, height) {
         align-items: start;
     }
 }
+```
+
+### 6.7.2 Секция "Описание" с ВЕРТИКАЛЬНЫМ До/После
+
+**Используй этот вариант, если у стиля вертикальные изображения До/После (например, drim-art, graffiti).**
+
+**Размер изображений:** 360×517 (вертикальные)
+
+```html
+<section class="py-16 lg:py-20" id="opisanie">
+    <div class="container">
+        <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Описание</h2>
+  
+        <!-- Grid: текст слева (2 колонки), вертикальное До/После справа (1 колонка) -->
+        <div class="grid lg:grid-cols-3 gap-8 lg:gap-12">
+            
+            <!-- 1. Текст (занимает 2 колонки на десктопе) -->
+            <div class="lg:col-span-2 space-y-4 text-gray-600">
+                <h3 class="text-xl font-medium text-dark">[Подзаголовок из оригинала]</h3>
+                <p>[Абзац 1 из оригинала]</p>
+                <p>[Абзац 2]</p>
+                <p>[Абзац 3]</p>
+                <p>[Абзац 4]</p>
+                <p class="italic">Muse (греч. Μούσα) — это вдохновение, это Муза</p>
+            </div>
+            
+            <!-- 2. Вертикальное До/После -->
+            <div class="flex flex-col items-center">
+                <div class="ba-card ba-card-vertical rounded-xl overflow-hidden shadow-2xl" id="before-after">
+                    <img 
+                        src="[before].webp"
+                        alt="[alt]"
+                        title="[title]"
+                        class="before-image"
+                        loading="lazy"
+                        decoding="async"
+                        width="360"
+                        height="517"
+                    >
+                    <img 
+                        src="[after].webp"
+                        alt="[alt]"
+                        title="[title]"
+                        class="after-image"
+                        loading="lazy"
+                        decoding="async"
+                        width="360"
+                        height="517"
+                    >
+                    <div class="ba-divider"></div>
+                    <div class="ba-handle">
+                        <span class="ba-arrow l">‹</span>
+                        <span class="ba-arrow r">›</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="50" class="ba-range" aria-label="Сравнение до и после" oninput="this.parentNode.style.setProperty('--pos', this.value + '%')">
+                </div>
+                <p class="text-center text-gray-600 mt-4 text-sm">Потяните за вертикальную линию, чтобы сравнить «До» и «После»</p>
+            </div>
+            
+        </div>
+    </div>
+</section>
+```
+
+**Не забудь добавить CSS в критические стили:**
+```css
+/* Вертикальный Before/After Slider (360x517) */
+.ba-card-vertical { width: 360px; max-width: 100%; aspect-ratio: 360/517; }
 ```
 
 ### 6.8 Секция CTA
