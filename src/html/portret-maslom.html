@@ -108,7 +108,35 @@
             white-space: nowrap;
             border: 0;
         }
+		/* Grid layout для десктопа */
+        @media (min-width: 1024px) {
+            .description-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 2rem;
+                align-items: start;
+            }
+            
+            .description-grid .video-column {
+                grid-row: span 2;
+            }
+            
+            .description-grid .text-column {
+                grid-column: 2 / 4;
+            }
+            
+            /* Grid layout для Описания БЕЗ видео */
+            .description-grid-no-video {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+                align-items: start;
+            }
+        }
     </style>
+    
+    <!-- Preload Hero изображения (ускоряет LCP) -->
+    <link rel="preload" as="image" href="https://muse.ooo/upload/img/maslom-portret-1119-458-580_1.webp" fetchpriority="high">
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -155,8 +183,7 @@
         .carousel-scroll { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
         .carousel-scroll::-webkit-scrollbar { display: none; }
         .snap-center { scroll-snap-align: center; }
-        
-        /* Video Cover */
+                /* Video Cover */
         .video-cover { position: relative; overflow: hidden; }
         .video-cover .video-play-icon { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; z-index: 2; transition: all 0.3s ease; }
         .video-cover video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -164,79 +191,80 @@
         .video-cover.video-playing .video-play-icon { display: none; }
         .video-cover.video-playing video { display: block; position: relative; }
         
-        /* Before/After Slider (ba-card) */
-        .ba-card {
-            position: relative;
-            aspect-ratio: 378/265;
-            overflow: hidden;
-            --pos: 50%;
-        }
-        .ba-card img {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            pointer-events: none;
-            user-select: none;
-        }
-        .ba-card .after-image {
-            clip-path: inset(0 0 0 var(--pos));
-        }
-        .ba-card .ba-range {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            cursor: ew-resize;
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            z-index: 20;
-        }
-        .ba-card .ba-divider {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: var(--pos);
-            width: 2px;
-            background: #ccc;
-            transform: translateX(-1px);
-            pointer-events: none;
-            z-index: 10;
-        }
-        .ba-card .ba-handle {
-            position: absolute;
-            left: var(--pos);
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 46px;
-            height: 70px;
-            background: #fff;
-            border-radius: 14px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(0,0,0,0.08);
-            pointer-events: none;
-            z-index: 15;
-        }
-        .ba-card .ba-handle::before {
-            content: '';
-            position: absolute;
-            top: 10px;
-            bottom: 10px;
-            left: 50%;
-            width: 1px;
-            background: rgba(0,0,0,0.25);
-            transform: translateX(-0.5px);
-        }
-        .ba-card .ba-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 18px;
-            font-weight: bold;
-            color: #000;
-        }
-        .ba-card .ba-arrow.l { left: 10px; }
-        .ba-card .ba-arrow.r { right: 10px; }
+       /* Before/After Slider (ba-card) */
+.ba-card {
+    position: relative;
+    aspect-ratio: 378/265;
+    overflow: hidden;
+    --pos: 50%;
+}
+.ba-card img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    user-select: none;
+}
+.ba-card .after-image {
+    clip-path: inset(0 0 0 var(--pos));
+}
+.ba-card .ba-range {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: ew-resize;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    z-index: 20;
+}
+.ba-card .ba-divider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--pos);
+    width: 2px;
+    background: #ccc;
+    transform: translateX(-1px);
+    pointer-events: none;
+    z-index: 10;
+}
+.ba-card .ba-handle {
+    position: absolute;
+    left: var(--pos);
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 46px;
+    height: 70px;
+    /* Убрано: background: #fff; */
+    /* Убрано: border-radius: 14px; */
+    /* Убрано: box-shadow: 0 10px 25px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(0,0,0,0.08); */
+    pointer-events: none;
+    z-index: 15;
+}
+.ba-card .ba-handle::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 50%;
+    width: 1px;
+    background: rgba(0,0,0,0.25);
+    transform: translateX(-0.5px);
+}
+.ba-card .ba-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 0 3px rgba(0,0,0,0.7); /* Добавляем тень для лучшей видимости */
+}
+.ba-card .ba-arrow.l { left: 10px; }
+.ba-card .ba-arrow.r { right: 10px; }
     </style>
 
     <!-- Structured Data: Product -->
@@ -298,6 +326,7 @@
         ]
     }
     </script>
+	 <link rel="preload" as="image" href="https://muse.ooo/upload/img/maslom-portret-1119-458-580_1.webp" fetchpriority="high">
 </head>
 <body class="bg-white overflow-x-hidden">
     <!-- Header (вставьте header из эталона) -->
@@ -827,149 +856,198 @@
         </section>
 
         <!-- Модальное окно для отзыва -->
-        <dialog id="review-modal" class="p-0 rounded-lg shadow-2xl backdrop:bg-black/50 max-w-md w-full">
-            <div class="p-6">
-                <div class="flex items-center justify-between mb-6">
-                    <h3 class="text-xl font-medium text-dark">Представьтесь, пожалуйста</h3>
-                    <button 
-                        type="button"
-                        onclick="document.getElementById('review-modal').close()"
-                        class="text-gray-400 hover:text-gray-600"
-                    >
-                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
+<!-- Модальное окно для отзыва -->
+<!-- Модальное окно для отзыва -->
+<!-- Модальное окно для отзыва -->
+<!-- Модальное окно для отзыва -->
+<dialog id="review-modal" class="p-0 rounded-lg shadow-2xl backdrop:bg-black/70 max-w-md w-full">
+    <div class="p-6 bg-dark text-white rounded-lg">
+        <!-- Заголовок и кнопка закрытия -->
+        <div class="flex items-center justify-between mb-6">
+            <h3 class="text-xl font-medium text-white">Представьтесь, пожалуйста</h3>
+            <button 
+                type="button"
+                onclick="document.getElementById('review-modal').close()"
+                class="text-gray-400 hover:text-white transition-colors p-1 rounded-full hover:bg-gray-800"
+                aria-label="Закрыть окно"
+            >
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Поясняющий текст -->
+        <p class="text-body mb-6 text-gray-300">Выберите социальную сеть для авторизации:</p>
+        
+        <!-- Кнопки авторизации -->
+        <div class="space-y-3">
+            <!-- Яндекс -->
+            <a href="javascript:void(0)" 
+               onclick="BxPopup('https://oauth.yandex.ru/authorize?response_type=code&client_id=16d7eb71dd4f4499b79c6b4ea46b9a35&display=popup&redirect_uri=https%3A%2F%2Fmuse.ooo%2Fbitrix%2Ftools%2Foauth%2Fyandex.php&force_confirm=yes&state=site_id%3Ds1%26backurl%3D%252Fajax%252Fsocservices.php%253Fcheck_key%253D6ccc99698f49c1ccd826a2d6384c520b%26mode%3Dopener%26redirect_url%3D%252Fajax%252Fsocservices.php%253Fbackurl%253D%25252Fportret-na-zakaz%25252Fportret-maslom%25252F', 680, 600)"
+               class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 text-dark rounded transition-colors group w-full border border-gray-200">
+                <div class="flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="20" height="20" fill="currentColor">
+                        <path d="M227.2 0h-45.5c-46.1 0-92.5 34-92.5 110 0 39.4 16.7 70 47.3 87.5L80.5 298.8c-2.7 4.8-2.7 10.2-0.2 14.5C82.8 317.5 87.3 320 92.4 320h28.3c6.4 0 11.4-3.1 13.9-8.6L187 208.8h3.8v98.4c0 6.9 5.9 12.8 12.8 12.8h24.7c7.8 0 13.2-5.4 13.2-13.2V14C241.6 5.8 235.7 0 227.2 0zM190.9 163.2h-6.8c-26.2 0-41.8-21.4-41.8-57.2 0-44.5 19.8-60.4 38.2-60.4h10.3V163.2z"/>
+                    </svg>
                 </div>
-                
-                <p class="text-body mb-6">Выберите социальную сеть для авторизации:</p>
-                
-                <div class="grid grid-cols-2 gap-3">
-                    <!-- Яндекс -->
-                    <a href="#" class="flex items-center justify-center gap-2 px-4 py-3 bg-[#FC3F1D] hover:bg-[#e03515] text-white rounded transition-colors">
-                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M2.04 12c0-5.523 4.476-10 10-10 5.522 0 10 4.477 10 10s-4.478 10-10 10c-5.524 0-10-4.477-10-10zm10.417 4.622h-1.473V7.378h2.049c1.845 0 2.83.876 2.83 2.334 0 1.066-.53 1.777-1.548 2.156l1.953 4.754h-1.59l-1.72-4.324h-.501v4.324zm0-5.276h.49c.96 0 1.473-.416 1.473-1.287 0-.836-.514-1.238-1.473-1.238h-.49v2.525z"/>
-                        </svg>
-                        <span>Яндекс</span>
-                    </a>
-                    
-                    <!-- Mail.Ru -->
-                    <a href="#" class="flex items-center justify-center gap-2 px-4 py-3 bg-[#168DE2] hover:bg-[#1377c0] text-white rounded transition-colors">
-                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm5.5 11.5c0 1.93-1.57 3.5-3.5 3.5h-4c-1.93 0-3.5-1.57-3.5-3.5v-3c0-1.93 1.57-3.5 3.5-3.5h4c1.93 0 3.5 1.57 3.5 3.5v3z"/>
-                        </svg>
-                        <span>Mail.Ru</span>
-                    </a>
-                    
-                    <!-- VK -->
-                    <a href="#" class="flex items-center justify-center gap-2 px-4 py-3 bg-[#0077FF] hover:bg-[#0066dd] text-white rounded transition-colors">
-                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.862-.523-2.049-1.712-1.033-1.033-1.49-1.173-1.744-1.173-.356 0-.458.102-.458.593v1.558c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4 8.684 4 8.256c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.678.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.72c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.372 0 .507.203.507.644v3.49c0 .372.17.507.271.507.22 0 .407-.135.814-.542 1.27-1.422 2.185-3.608 2.185-3.608.118-.254.304-.491.745-.491h1.744c.525 0 .644.27.525.644-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.049.17.491-.085.745-.576.745z"/>
-                        </svg>
-                        <span>VK</span>
-                    </a>
-                    
-                    <!-- Google -->
-                    <a href="#" class="flex items-center justify-center gap-2 px-4 py-3 bg-[#DB4437] hover:bg-[#c53929] text-white rounded transition-colors">
-                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/>
-                        </svg>
-                        <span>Google</span>
-                    </a>
-                    
-                    <!-- Одноклассники -->
-                    <a href="#" class="flex items-center justify-center gap-2 px-4 py-3 bg-[#EE8208] hover:bg-[#d67307] text-white rounded transition-colors col-span-2">
-                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 6.545c1.416 0 2.564 1.148 2.564 2.564S13.416 11.673 12 11.673s-2.564-1.148-2.564-2.564S10.584 6.545 12 6.545zm3.491 9.564c-.382.382-1.065.574-1.861.574h-.003c-.13.003-.26.005-.391.007h-.471c-.131-.002-.261-.004-.391-.007h-.003c-.796 0-1.479-.192-1.861-.574-.383-.383-.383-1.004 0-1.387.383-.382 1.004-.382 1.387 0 .078.078.351.192.868.192.13.003.26.005.391.007h.237c.131-.002.261-.004.391-.007.517 0 .79-.114.868-.192.383-.382 1.004-.382 1.387 0 .383.383.383 1.004 0 1.387zm.934-3.436c-.382.382-.873.48-1.283.262-.007-.004-.655-.349-1.637-.426l1.727 1.727c.383.383.383 1.004 0 1.387-.191.192-.442.287-.694.287s-.502-.096-.693-.287L12 13.778l-1.845 1.845c-.191.191-.442.287-.693.287s-.503-.096-.694-.287c-.382-.383-.382-1.004 0-1.387l1.727-1.727c-.982.077-1.63.422-1.637.426-.41.218-.901.12-1.283-.262-.383-.383-.383-1.004 0-1.387.066-.066.18-.157.35-.25.72-.39 2.31-.997 4.075-.997s3.355.607 4.075.997c.17.093.284.184.35.25.383.383.383 1.004 0 1.387z"/>
-                        </svg>
-                        <span>Одноклассники</span>
-                    </a>
+                <span class="font-medium">Яндекс</span>
+            </a>
+
+            <!-- Mail.Ru -->
+            <a href="javascript:void(0)" 
+               onclick="BxPopup('https://connect.mail.ru/oauth/authorize?client_id=758285&redirect_uri=https://muse.ooo/ajax/socservices.php?auth_service_id=MyMailRu&backurl=%2Fportret-na-zakaz%2Fportret-maslom%2F&response_type=code&state=site_id%3Ds1%26backurl%3D%2Fportret-na-zakaz%2Fportret-maslom%2F%3Fcheck_key%3D6ccc99698f49c1ccd826a2d6384c520b', 580, 400)"
+               class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 text-dark rounded transition-colors group w-full border border-gray-200">
+                <div class="flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M14.6 12.2c0 0.8 0.2 1.2 0.9 1.2 1.4 0 2.3-1.8 2.3-4.7 0-4.5-3.3-6.7-7.4-6.7-4.2 0-8.1 2.8-8.1 8.2 0 5.1 3.4 7.9 8.5 7.9 1.8 0 2.9-0.2 4.7-0.8l0.4 1.6c-1.8 0.6-3.7 0.7-5.1 0.7-6.8 0-10.4-3.7-10.4-9.5 0-5.8 4.2-9.7 10-9.7 6 0 9.2 3.6 9.2 8 0 3.7-1.2 6.6-4.9 6.6-1.7 0-2.8-0.7-2.9-2.2-0.4 1.7-1.6 2.2-3.1 2.2-2.1 0-3.8-1.6-3.8-4.8 0-3.3 1.5-5.3 4.3-5.3 1.5 0 2.4 0.6 2.8 1.5l0.7-1.3h2v7.1h0zM11.7 9c0-1.3-1-1.9-1.8-1.9-0.9 0-1.9 0.7-1.9 2.8 0 1.7 0.7 2.6 1.9 2.6 0.8 0 1.8-0.5 1.8-1.9v-1.7z"/>
+                    </svg>
                 </div>
-                
-                <p class="text-xs text-gray-500 mt-4 text-center">
-                    Авторизация необходима для подтверждения подлинности отзыва
-                </p>
-            </div>
-        </dialog>
+                <span class="font-medium">Mail.Ru</span>
+            </a>
+
+            <!-- VK -->
+            <a href="javascript:void(0)" 
+               onclick="BxPopup('https://id.vk.ru/authorize?client_id=5605340&v=5.80&redirect_uri=https%3A%2F%2Fmuse.ooo%2Fbitrix%2Ftools%2Foauth%2Fvkontakte.php&scope=email&response_type=code&code_challenge_method=S256&code_challenge=rhEzleLdG8TiGkScUxXVijyW8zCNtH8ffuAZaTMyBaY&state=c2l0ZV9pZD1zMSZiYWNrdXJsPSUyRmFqYXglMkZzb2NzZXJ2aWNlcy5waHAlM0ZjaGVja19rZXklM0Q2Y2NjOTk2OThmNDljMWNjZDgyNmEyZDYzODRjNTIwYiZyZWRpcmVjdF91cmw9JTJGYWpheCUyRnNvY3NlcnZpY2VzLnBocCUzRmJhY2t1cmwlM0QlMjUyRnBvcnRyZXQtbmEtemFrYXolMjUyRnBvcnRyZXQtbWFzbG9tJTI1MkY%3D', 660, 425)"
+               class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 text-dark rounded transition-colors group w-full border border-gray-200">
+                <div class="flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M17.8 12.3c0 0 1.6 1.6 2 2.3 0 0 0 0 0 0 0.2 0.3 0.2 0.5 0.1 0.6-0.1 0.3-0.6 0.4-0.7 0.4 0 0-2.8 0-2.9 0-0.2 0-0.6-0.1-1.1-0.4-0.4-0.3-0.8-0.7-1.1-1.1-0.6-0.6-1-1.2-1.5-1.2-0.1 0-0.1 0-0.2 0-0.4 0.1-0.8 0.6-0.8 2 0 0.4-0.3 0.7-0.6 0.7 0 0-1.2 0-1.3 0-0.4 0-2.8-0.2-4.8-2.3-2.5-2.7-4.8-8-4.8-8-0.1-0.3 0.2-0.5 0.5-0.5h2.9c0.4 0 0.5 0.2 0.6 0.4 0.1 0.2 0.5 1.2 1.1 2.3 1 1.8 1.6 2.5 2.1 2.5 0.1 0 0.2 0 0.3-0.1 0.6-0.4 0.5-2.7 0.5-3.1 0-0.1 0-1-0.3-1.5-0.2-0.3-0.6-0.4-0.9-0.5 0.1-0.1 0.2-0.2 0.4-0.3 0.4-0.2 1.2-0.3 2-0.3h0.4c0.9 0 1.1 0.1 1.4 0.1 0.6 0.2 0.6 0.6 0.6 1.9 0 0.4 0 0.8 0 1.4 0 0.1 0 0.2 0 0.4 0 0.7 0 1.5 0.5 1.8 0.1 0 0.1 0.1 0.2 0.1 0.2 0 0.7 0 2.1-2.4 0.6-1.1 1.1-2.3 1.1-2.4 0-0.1 0.1-0.2 0.2-0.3 0.1 0 0.2-0.1 0.2-0.1h3.4c0.4 0 0.6 0.1 0.7 0.2 0.1 0.2 0 0.9-1.6 3-0.3 0.3-0.5 0.7-0.7 0.9-1.4 1.8-1.4 1.9 0.1 3.3z"/>
+                    </svg>
+                </div>
+                <span class="font-medium">ВКонтакте</span>
+            </a>
+
+            <!-- Google -->
+            <a href="javascript:void(0)" 
+               onclick="BxPopup('https://accounts.google.com/o/oauth2/auth?client_id=154295471896-ispv3qmrsiov4iv1of6v9qefjq18h8uc.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fmuse.ooo%2Fbitrix%2Ftools%2Foauth%2Fgoogle.php&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&response_type=code&access_type=offline&state=provider%3DGoogleOAuth%26site_id%3Ds1%26backurl%3D%252Fajax%252Fsocservices.php%253Fcheck_key%253D6ccc99698f49c1ccd826a2d6384c520b%26mode%3Dopener%26redirect_url%3D%252Fajax%252Fsocservices.php%253Fbackurl%253D%25252Fportret-na-zakaz%25252Fportret-maslom%25252F', 580, 400)"
+               class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 text-dark rounded transition-colors group w-full border border-gray-200">
+                <div class="flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" fill="currentColor">
+                        <path d="M32 6v20c0 1.1-0.9 2-2 2h-2v-18.1l-12 8.6-12-8.6v18.2h-2c-1.1 0-2-0.9-2-2v-20c0-0.6 0.2-1.1 0.6-1.4 0.4-0.4 0.9-0.6 1.4-0.6h0.7l13.3 9.7 13.3-9.7h0.7c0.6 0 1.1 0.2 1.4 0.6 0.4 0.4 0.6 0.9 0.6 1.4z"/>
+                    </svg>
+                </div>
+                <span class="font-medium">Google</span>
+            </a>
+
+            <!-- Одноклассники -->
+            <a href="javascript:void(0)" 
+               onclick="BxPopup('https://www.odnoklassniki.ru/oauth/authorize?client_id=1247491840&redirect_uri=https%3A%2F%2Fmuse.ooo%2Fbitrix%2Ftools%2Foauth%2Fodnoklassniki.php&response_type=code&state=site_id%3Ds1%26backurl%3D%252Fajax%252Fsocservices.php%253Fcheck_key%253D6ccc99698f49c1ccd826a2d6384c520b%26redirect_url%3D%252Fajax%252Fsocservices.php%253Fbackurl%253D%25252Fportret-na-zakaz%25252Fportret-maslom%25252F%26mode%3Dopener', 580, 400)"
+               class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 text-dark rounded transition-colors group w-full border border-gray-200">
+                <div class="flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 28" fill="currentColor">
+                        <path d="M10 14.2c-3.9 0-7.1-3.2-7.1-7.1 0-3.9 3.2-7.1 7.1-7.1s7.1 3.2 7.1 7.1c0 3.9-3.2 7.1-7.1 7.1zM10 3.6c-1.9 0-3.5 1.6-3.5 3.5 0 1.9 1.6 3.5 3.5 3.5s3.5-1.6 3.5-3.5c0-1.9-1.6-3.5-3.5-3.5zM18.2 15c0.7 1.4-0.1 2.1-1.9 3.2-1.5 1-3.6 1.3-4.9 1.5l1.1 1.1 4.2 4.2c0.6 0.6 0.6 1.7 0 2.3l-0.2 0.2c-0.6 0.6-1.7 0.6-2.3 0-1-1.1-2.6-2.6-4.2-4.2l-4.2 4.2c-0.6 0.6-1.7 0.6-2.3 0l-0.2-0.2c-0.6-0.6-0.6-1.7 0-2.3 1.1-1.1 2.6-2.6 4.2-4.2l1.1-1.1c-1.3-0.1-3.4-0.5-5-1.5-1.8-1.2-2.6-1.8-1.9-3.2 0.4-0.8 1.5-1.5 3-0.3 0 0 2 1.6 5.2 1.6s5.2-1.6 5.2-1.6c1.5-1.2 2.6-0.5 3 0.3z"/>
+                    </svg>
+                </div>
+                <span class="font-medium">Одноклассники</span>
+            </a>
+        </div>
+        
+        <!-- Подпись -->
+        <div class="mt-6 pt-4 border-t border-gray-700">
+            <p class="text-xs text-gray-400 text-center">
+                Авторизация необходима для подтверждения подлинности отзыва
+            </p>
+        </div>
+    </div>
+</dialog>
+
+<script>
+// Функция для открытия попапа OAuth (оставлена из старой формы)
+function BxPopup(url, width, height) {
+    if (url) {
+        var left = (screen.width/2) - (width/2);
+        var top = (screen.height/2) - (height/2);
+        window.open(url, '', 'width=' + width + ', height=' + height + ', top=' + top + ', left=' + left);
+    }
+}
+</script>
 
         <!-- Описание -->
         <section class="py-16 lg:py-20" id="opisanie">
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Описание</h2>
-                
-                <div class="grid lg:grid-cols-3 gap-8">
-                    <!-- 1. До/После слайдер -->
-                    <div>
-                        <div class="ba-card rounded-xl overflow-hidden shadow-2xl" id="before-after">
-                            <img 
-                                src="https://muse.ooo/upload/img/oil-1404-5-1000-702-b.webp"
-                                alt="Фото для портрета в стиле маслом"
-                                title="Фото для портрета в стиле Маслом"
-                                class="before-image"
-                                loading="lazy"
-                                decoding="async"
-                                width="378"
-                                height="265"
-                            >
-                            <img 
-                                src="https://muse.ooo/upload/img/oil-1404-5-1000-702-a.webp"
-                                alt="Портрет в стиле Маслом"
-                                title="Портрет в стиле Маслом"
-                                class="after-image"
-                                loading="lazy"
-                                decoding="async"
-                                width="378"
-                                height="265"
-                            >
-                            <div class="ba-divider"></div>
-                            <div class="ba-handle">
-                                <span class="ba-arrow l">‹</span>
-                                <span class="ba-arrow r">›</span>
-                            </div>
-                            <input type="range" min="0" max="100" value="50" class="ba-range" oninput="this.parentNode.style.setProperty('--pos', this.value + '%')">
-                        </div>
-                        <p class="text-center text-body mt-4 text-sm">Потяните за ползунок, чтобы сравнить «До» и «После»</p>
+          
+               <!-- Grid контейнер -->
+        <div class="description-grid space-y-8 lg:space-y-0">
+            
+            <!-- 1. Видео (занимает 2 строки) -->
+            <div class="video-column">
+                <div class="video-cover aspect-[360/648] rounded-lg overflow-hidden shadow-lg">
+                    <img 
+                        src="https://muse.ooo/upload/img/o-oil-portrait-on-canvas-360-648.webp"
+                        alt="Портрет маслом на холсте"
+                        class="w-full h-full object-cover"
+                        loading="lazy"
+                        decoding="async"
+                    >
+                    <div class="video-play-icon cursor-pointer bg-black/20 hover:bg-black/30 transition-colors">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
                     </div>
-                    
-                    <!-- 2. Видео -->
-                    <div>
-                        <div class="video-cover aspect-[360/648] rounded-lg overflow-hidden shadow-lg">
-                            <img 
-                                src="https://muse.ooo/upload/img/o-oil-portrait-on-canvas-360-648.webp"
-                                alt="Портрет маслом на холсте"
-                                class="w-full h-full object-cover"
-                                loading="lazy"
-                                decoding="async"
-                            >
-                            <div class="video-play-icon cursor-pointer bg-black/20 hover:bg-black/30 transition-colors">
-                                <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg">
-                                    <path d="M8 5v14l11-7z"/>
-                                </svg>
-                            </div>
-                            <iframe 
-                                class="hidden"
-                                loading="lazy"
-                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen
-                                data-src="https://www.youtube.com/embed/fefB0Rklz98?rel=0&amp;showinfo=0"
-                                title="Портрет маслом на холсте"
-                            ></iframe>
-                        </div>
-                        <p class="text-center text-body mt-4">Короткое видео — 19 сек. о том, как выглядит картина «маслом» на холсте</p>
-                    </div>
-                    
-                    <!-- 3. Описание текст -->
-                    <div class="space-y-4 text-body">
-                        <p>Живописный портрет маслом, начиная с XV века, когда были написаны первые работы в этой технике в Голландии, наверное, считается самым популярным и распространенным жанром изобразительного искусства.</p>
-                        <p>Это неудивительно, ведь такой портрет всегда был неким признаком элитарности и аристократизма. Живописные портреты были сложны в исполнении, например, великий Гойя требовал от портретируемого 100 часов позирования.</p>
-                        <p>С другой стороны, известны сотни примеров, когда великих людей изображали и без позирования вовсе. У них просто не было времени. Иногда авторы не видели своих героев в живую вообще, так как жили в другую эпоху. Например, Виктор Васнецов не видел Ивана Грозного.</p>
-                        <p>Сегодня художникам легче: портрет можно написать по фотографии в цифровом виде. Именно написать, просто вместо традиционной кисти и холста художник будет использовать планшет. Здесь самый важный момент — это взаимодействие заказчика и нашего художника, чтобы мы воплотили в жизнь замысел, образ, который надо передать в произведении.</p>
-                        <p class="italic">Muse (греч. Μούσα) — это вдохновение, это Муза</p>
-                    </div>
+                    <iframe 
+                        class="hidden"
+                        loading="lazy"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                        data-src="https://www.youtube.com/embed/fefB0Rklz98?rel=0&amp;showinfo=0"
+                        title="Портрет маслом на холсте"
+                    ></iframe>
                 </div>
+                <p class="text-center text-gray-600 mt-4 text-sm">Короткое видео — 19 сек. о том, как выглядит картина «маслом» на холсте</p>
             </div>
-        </section>
-
+            
+            <!-- 2. До/После -->
+            <div>
+                <div class="ba-card rounded-xl overflow-hidden shadow-2xl" id="before-after">
+                    <img 
+                        src="https://muse.ooo/upload/img/oil-1404-5-1000-702-b.webp"
+                        alt="Фото для портрета в стиле маслом"
+                        title="Фото для портрета в стиле Маслом"
+                        class="before-image"
+                        loading="lazy"
+                        decoding="async"
+                        width="378"
+                        height="265"
+                    >
+                    <img 
+                        src="https://muse.ooo/upload/img/oil-1404-5-1000-702-a.webp"
+                        alt="Портрет в стиле Маслом"
+                        title="Портрет в стиле Маслом"
+                        class="after-image"
+                        loading="lazy"
+                        decoding="async"
+                        width="378"
+                        height="265"
+                    >
+                    <div class="ba-divider"></div>
+                    <div class="ba-handle">
+                        <span class="ba-arrow l">‹</span>
+                        <span class="ba-arrow r">›</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="50" class="ba-range" aria-label="Сравнение до и после" oninput="this.parentNode.style.setProperty('--pos', this.value + '%')">
+                </div>
+                <p class="text-center text-gray-600 mt-4 text-sm">Потяните за ползунок, чтобы сравнить «До» и «После»</p>
+            </div>
+            
+            <!-- 3. Текст (начинается в колонке 2, продолжается в колонке 3) -->
+            <div class="text-column space-y-4 text-gray-600">
+                <p>Живописный портрет маслом, начиная с XV века, когда были написаны первые работы в этой технике в Голландии, наверное, считается самым популярным и распространенным жанром изобразительного искусства.</p>
+                
+                <p>Это неудивительно, ведь такой портрет всегда был неким признаком элитарности и аристократизма. Живописные портреты были сложны в исполнении, например, великий Гойя требовал от портретируемого 100 часов позирования.</p>
+                
+                <p>С другой стороны, известны сотни примеров, когда великих людей изображали и без позирования вовсе. У них просто не было времени. Иногда авторы не видели своих героев в живую вообще, так как жили в другую эпоху. Например, Виктор Васнецов не видел Ивана Грозного.</p>
+                
+                <p>Сегодня художникам легче: портрет можно написать по фотографии в цифровом виде. Именно написать, просто вместо традиционной кисти и холста художник будет использовать планшет. Здесь самый важный момент — это взаимодействие заказчика и нашего художника, чтобы мы воплотили в жизнь замысел, образ, который надо передать в произведении.</p>
+                
+                <p class="italic">Muse (греч. Μούσα) — это вдохновение, это Муза</p>
+            </div>
+            
+        </div>
+</div>
+    </div>
+</section>
         <!-- CTA (структура как в foto-na-kholste) -->
         <section class="bg-dark py-24 md:py-32">
             <div class="container xl:flex xl:items-center xl:justify-between">
@@ -1097,49 +1175,56 @@
 
         // === Page Navigator ===
         (function() {
-            const links = document.querySelectorAll('.page-navigator a');
+            const nav = document.querySelector('.page-navigator');
+            if (!nav) return;
+            
+            // Проверяем, десктоп ли (>= 1024px)
+            if (window.innerWidth < 1024) return;
+            
+            const links = nav.querySelectorAll('a');
             const sections = document.querySelectorAll('section[id]');
+            
+            if (!links.length || !sections.length) return;
             
             function updateActiveLink() {
                 const scrollPos = window.scrollY + 200;
+                let currentActive = null;
                 
                 sections.forEach(section => {
                     const top = section.offsetTop;
                     const bottom = top + section.offsetHeight;
-                    const id = section.getAttribute('id');
-                    const link = document.querySelector(`.page-navigator a[href="#${id}"]`);
                     
-                    if (link) {
-                        if (scrollPos >= top && scrollPos < bottom) {
-                            link.classList.add('inner-link--active');
-                        } else {
-                            link.classList.remove('inner-link--active');
-                        }
+                    if (scrollPos >= top && scrollPos < bottom) {
+                        currentActive = section.id;
+                    }
+                });
+                
+                links.forEach(link => {
+                    const href = link.getAttribute('href');
+                    const sectionId = href.substring(1);
+                    
+                    if (sectionId === currentActive) {
+                        link.classList.add('inner-link--active');
+                    } else {
+                        link.classList.remove('inner-link--active');
                     }
                 });
             }
             
-            window.addEventListener('scroll', updateActiveLink);
+            let isScrolling = false;
+            function handleScroll() {
+                if (!isScrolling) {
+                    isScrolling = true;
+                    requestAnimationFrame(() => {
+                        updateActiveLink();
+                        isScrolling = false;
+                    });
+                }
+            }
+            
+            window.addEventListener('scroll', handleScroll, { passive: true });
             updateActiveLink();
         })();
-
-        // === Video Cover ===
-        document.querySelectorAll('.video-cover').forEach(cover => {
-            const playIcon = cover.querySelector('.video-play-icon');
-            const iframe = cover.querySelector('iframe');
-            
-            if (playIcon && iframe) {
-                playIcon.addEventListener('click', () => {
-                    const src = iframe.dataset.src;
-                    if (src) {
-                        iframe.src = src + '&autoplay=1';
-                        iframe.classList.remove('hidden');
-                        iframe.classList.add('absolute', 'inset-0', 'w-full', 'h-full');
-                        cover.classList.add('video-playing');
-                    }
-                });
-            }
-        });
 
     </script>
 </body>

@@ -100,7 +100,8 @@ tailwind-project/
 │   ├── COMPONENTS.md          # Каталог компонентов
 │   ├── HOW_TO_CREATE_PAGE.md  # Как создать страницу
 │   ├── LESSONS_LEARNED.md     # Уроки проекта: проблемы и решения
-│   └── PAGES_LIST.md          # Полный список всех страниц для переверстки
+│   ├── PAGES_LIST.md          # Полный список всех страниц для переверстки
+│   └── STYLE_PAGES_GUIDE.md   # Инструкция по переверстке страниц стилей портретов
 │
 ├── tailwind.config.js         # Конфигурация Tailwind
 ├── package.json               # Зависимости
