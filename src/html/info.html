@@ -230,6 +230,27 @@
             .video-modal-prev { left: 10px; top: auto; bottom: 80px; }
             .video-modal-next { right: 10px; top: auto; bottom: 80px; }
         }
+		 /* ===== ПРЕМИАЛЬНЫЕ УЛУЧШЕНИЯ ===== */
+ 
+    /* Улучшенные кнопки */
+    .btn-premium {
+        transition: all 0.3s ease;
+    }
+    
+    .btn-premium:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(74, 144, 226, 0.3);
+    }
+    
+    /* Карточки преимуществ с hover-эффектом */
+    .bg-white.rounded-lg.p-8 {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .bg-white.rounded-lg.p-8:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }      
     </style>
 </head>
 <body class="bg-white overflow-x-hidden">
@@ -265,7 +286,7 @@
                         <path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </a>
-                <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors whitespace-nowrap">
+                <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors whitespace-nowrap btn-premium">
                     Заказать
                 </a>
             </div>
@@ -1140,7 +1161,7 @@
             
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Карточка 1: Опыт -->
-                <div class="bg-white rounded-lg shadow-xl p-8">
+                <div class="bg-white rounded-lg shadow-xl p-8 hover-effect-card">
                     <h3 class="text-xl text-dark mb-4 text-center">Опыт</h3>
                     <div class="w-10 h-10 mx-auto mb-4 text-primary">
                         <svg aria-hidden="true" focusable="false" height=40 viewbox="0 0 325.9 325.9" width=40 xmlns=http://www.w3.org/2000/svg>
@@ -1152,7 +1173,7 @@
                 </div>
                 
                 <!-- Карточка 2: Примеры -->
-                <div class="bg-white rounded-lg shadow-xl p-8">
+                <div class="bg-white rounded-lg shadow-xl p-8 hover-effect-card">
                     <h3 class="text-xl text-dark mb-4 text-center">Примеры</h3>
                     <div class="w-10 h-10 mx-auto mb-4 text-primary">
                         <svg aria-hidden="true" focusable="false" width="40" height="40" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
@@ -1165,7 +1186,7 @@
                 </div>
                 
                 <!-- Карточка 3: Отзывы -->
-                <div class="bg-white rounded-lg shadow-xl p-8">
+                <div class="bg-white rounded-lg shadow-xl p-8 hover-effect-card">
                     <h3 class="text-xl text-dark mb-4 text-center">Отзывы</h3>
                     <div class="w-10 h-10 mx-auto mb-4 text-primary">
                          <svg aria-hidden="true" focusable="false" width="40" height="40" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">

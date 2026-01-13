@@ -220,14 +220,15 @@
     margin: 0;
     z-index: 20;
 }
+/* ИЗМЕНЕНИЕ: СПЛОШНАЯ ТОЛСТАЯ БЕЛАЯ ЛИНИЯ */
 .ba-card .ba-divider {
     position: absolute;
     top: 0;
     bottom: 0;
     left: var(--pos);
-    width: 2px;
-    background: #ccc;
-    transform: translateX(-1px);
+    width: 3px; /* Было 2px */
+    background: #fff; /* Было #ccc */
+    transform: translateX(-1.5px); /* Было -1px */
     pointer-events: none;
     z-index: 10;
 }
@@ -238,9 +239,6 @@
     transform: translate(-50%, -50%);
     width: 46px;
     height: 70px;
-    /* Убрано: background: #fff; */
-    /* Убрано: border-radius: 14px; */
-    /* Убрано: box-shadow: 0 10px 25px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(0,0,0,0.08); */
     pointer-events: none;
     z-index: 15;
 }
@@ -254,18 +252,81 @@
     background: rgba(0,0,0,0.25);
     transform: translateX(-0.5px);
 }
+/* ИЗМЕНЕНИЕ: КРУПНЫЕ СТРЕЛКИ */
 .ba-card .ba-arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 18px;
+    font-size: 24px; /* Было 18px */
     font-weight: bold;
     color: white;
-    text-shadow: 0 0 3px rgba(0,0,0,0.7); /* Добавляем тень для лучшей видимости */
+    text-shadow: 0 0 3px rgba(0,0,0,0.7);
 }
 .ba-card .ba-arrow.l { left: 10px; }
 .ba-card .ba-arrow.r { right: 10px; }
-    </style>
+   /* ===== ПРЕМИАЛЬНЫЕ УЛУЧШЕНИЯ ===== */
+ 
+    /* Улучшенные кнопки */
+    .btn-premium {
+        transition: all 0.3s ease;
+    }
+    
+    .btn-premium:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(74, 144, 226, 0.3);
+    }
+    
+    /* Карточки преимуществ с hover-эффектом */
+    .bg-white.rounded-lg.p-6 {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .bg-white.rounded-lg.p-6:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }        
+    
+    /* Page Navigator улучшение */
+    .page-navigator li a {
+        transition: all 0.3s ease;
+    }
+    
+    .page-navigator li a:hover {
+        transform: scale(1.5);
+    }
+	/* 3D эффект для картинки */
+.canvas-3d {
+    --depth: 30px;
+    position: relative;
+    box-shadow: var(--depth) var(--depth) 50px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease;
+}
+.canvas-3d:hover {
+    transform: translate(-5px, -5px);
+}
+
+/* Разделитель в "Как заказать" */
+.timeline-divider {
+    border-left-width: 3px;
+    border-style: dashed;
+    border-color: rgba(74, 144, 226, 0.3);
+}
+
+/* Список характеристик */
+.characteristics-list li {
+    transition: background-color 0.2s ease;
+    padding: 0.5rem 0;
+}
+.characteristics-list li:nth-child(odd) {
+    background-color: rgba(74, 144, 226, 0.03);
+    border-radius: 4px;
+    padding: 0.5rem 0.75rem;
+    margin: 0 -0.75rem;
+}
+.characteristics-list li:hover {
+    background-color: rgba(74, 144, 226, 0.05);
+}
+</style>
 
     <!-- Structured Data: Product -->
     <script type="application/ld+json">
@@ -326,7 +387,6 @@
         ]
     }
     </script>
-	 <link rel="preload" as="image" href="https://muse.ooo/upload/img/maslom-portret-1119-458-580_1.webp" fetchpriority="high">
 </head>
 <body class="bg-white overflow-x-hidden">
         <!-- Header -->
@@ -361,7 +421,7 @@
                         <path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </a>
-                <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors whitespace-nowrap">
+                <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors whitespace-nowrap btn-premium">
                     Заказать
                 </a>
             </div>
@@ -471,7 +531,7 @@
                         
                         <p class="text-lg lg:text-xl mb-6 text-gray-200">От 4311 руб. Под заказ.</p>
                         
-                        <a href="https://muse.ooo/order/" class="inline-block px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors text-lg">
+                        <a href="https://muse.ooo/order/" class="inline-block px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors text-lg btn-premium">
                             Заказать
                         </a>
                     </div>
@@ -542,25 +602,28 @@
                 </div>
             </div>
             <div class="container">
-                <div class="grid gap-10 xl:grid-cols-2 xl:items-center">
                     <!-- Изображение -->
-                    <div>
+                   
+					<div class="grid gap-10 xl:grid-cols-2 xl:items-center">
+					<div>
+					<div class="canvas-3d w-full max-w-[555px] mx-auto">
                         <img 
                             src="https://muse.ooo/upload/img/oil-painting-woman-05052019-555.webp"
                             alt="Портрет на заказ в стиле маслом по фото Моники Беллуччи с цветами в волосах в образе Фриды Кало"
                             title="Живописный портрет маслом девушки"
                             width="555"
                             height="717"
-                            class="w-full max-w-[555px] mx-auto rounded-lg shadow-2xl"
+                            class="w-full"
                             loading="lazy"
                             decoding="async"
                         >
+						</div>
                     </div>
 
                     <!-- Процесс -->
                     <div class="relative">
                         <!-- Пунктирная линия между шагами -->
-                        <div class="absolute left-6 top-12 bottom-12 w-0 border-l-2 border-dashed border-gray-300"></div>
+                       <div class="absolute left-6 top-12 bottom-12 w-0 timeline-divider"></div>
 
                         <div class="space-y-10 relative">
                             <!-- Шаг 1 -->
@@ -645,7 +708,7 @@
                 <div class="grid lg:grid-cols-2 gap-12">
                     <!-- Список характеристик (на ПК слева) -->
                     <div class="order-2 lg:order-1">
-                        <ul class="space-y-3">
+                        <ul class="space-y-3 characteristics-list">
                             <li class="flex items-start gap-3">
                                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
@@ -1101,7 +1164,7 @@ function BxPopup(url, width, height) {
                     Создай своё произведение искусства
                 </h2>
                 <div class="mt-10 flex flex-col md:flex-row items-center gap-4 md:gap-x-6 xl:mt-0 xl:shrink-0">
-                    <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors w-full md:w-auto text-center">
+                    <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors w-full md:w-auto text-center btn-premium">
                         Заказать
                     </a>
                     <a href="#callback" class="inline-block px-6 py-2 bg-secondary hover:bg-white text-dark rounded uppercase transition-colors w-full md:w-auto text-center">
