@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Портрет в образе по фото на холсте — заказать в Muse</title>
-    <meta name="description" content="Художник впишет фото в известную картину и напечатает на холсте. Посмотрите примеры, пришлите фото и свои пожелания.">
+    <title>Портрет в стиле Граффити — заказать в Muse</title>
+    <meta name="description" content="Художник стилизует для Вас фото в стиле Граффити и напечатает его на холсте. Посмотрите примеры и пришлите фото.">
     
     <!-- Закрыто от индексации во время разработки -->
     <meta name="robots" content="noindex, nofollow">
@@ -133,10 +133,56 @@
                 align-items: start;
             }
         }
+        
+        /* Вертикальный Before/After Slider (360x517) */
+        .ba-card-vertical { 
+            width: 360px; 
+            max-width: 100%; 
+            aspect-ratio: 360/517; 
+        }
+        .ba-card-vertical .after-image {
+            clip-path: inset(var(--pos) 0 0 0);
+        }
+        .ba-card-vertical .ba-divider {
+            top: var(--pos);
+            left: 0;
+            right: 0;
+            bottom: auto;
+            width: 100%;
+            height: 3px;
+            transform: translateY(-1.5px);
+        }
+        .ba-card-vertical .ba-handle {
+            top: var(--pos);
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 46px;
+        }
+        .ba-card-vertical .ba-handle::before {
+            top: 50%;
+            bottom: 50%;
+            left: 10px;
+            right: 10px;
+            width: auto;
+            height: 1px;
+            transform: translateY(-0.5px);
+        }
+        .ba-card-vertical .ba-arrow {
+            left: auto;
+            right: auto;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .ba-card-vertical .ba-arrow.l { top: 10px; left: 50%; transform: translate(-50%, 0); }
+        .ba-card-vertical .ba-arrow.r { bottom: 10px; top: auto; left: 50%; transform: translate(-50%, 0); }
+        .ba-card-vertical .ba-range {
+            cursor: ns-resize;
+        }
     </style>
     
     <!-- Preload Hero изображения (ускоряет LCP) -->
-    <link rel="preload" as="image" href="https://muse.ooo/upload/img/queen-portret-v-obraze-fotomontazh-458-260419.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="https://muse.ooo/upload/img/o-graffiti-dj-458.webp" fetchpriority="high">
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -191,10 +237,10 @@
         .video-cover.video-playing .video-play-icon { display: none; }
         .video-cover.video-playing video { display: block; position: relative; }
         
-      /* Before/After Slider (ba-card) */
+       /* Before/After Slider (ba-card) */
 .ba-card {
     position: relative;
-    aspect-ratio: 378/251;
+    aspect-ratio: 378/265;
     overflow: hidden;
     --pos: 50%;
 }
@@ -220,7 +266,7 @@
     margin: 0;
     z-index: 20;
 }
-/* ИЗМЕНЕНИЕ: СПЛОШНАЯ ТОЛСТАЯ ЛИНИЯ */
+/* ИЗМЕНЕНИЕ: СПЛОШНАЯ ТОЛСТАЯ БЕЛАЯ ЛИНИЯ */
 .ba-card .ba-divider {
     position: absolute;
     top: 0;
@@ -264,7 +310,7 @@
 }
 .ba-card .ba-arrow.l { left: 10px; }
 .ba-card .ba-arrow.r { right: 10px; }
-  /* ===== ПРЕМИАЛЬНЫЕ УЛУЧШЕНИЯ ===== */
+   /* ===== ПРЕМИАЛЬНЫЕ УЛУЧШЕНИЯ ===== */
  
     /* Улучшенные кнопки */
     .btn-premium {
@@ -333,16 +379,17 @@
     {
         "@context": "https://schema.org",
         "@type": "Product",
-        "name": "Портрет в образе",
-        "description": "Художник впишет фото в известную картину и напечатает на холсте. Посмотрите примеры, пришлите фото и свои пожелания.",
-        "image": "https://muse.ooo/img/o-painting-queen-portrait-1000-1410.jpg",
+        "name": "Портрет в стиле Граффити",
+        "description": "Художник стилизует для Вас фото в стиле Граффити и напечатает его на холсте. Посмотрите примеры и пришлите фото.",
+        "image": "https://muse.ooo/img/o-graffiti-dj-458.jpg",
+        "sku": "2625",
         "brand": {
             "@type": "Brand",
             "name": "Muse"
         },
         "offers": {
             "@type": "Offer",
-            "url": "https://muse.ooo/portret-na-zakaz/portret-v-obraze/",
+            "url": "https://muse.ooo/portret-na-zakaz/graffiti-portret/",
             "priceCurrency": "RUB",
             "price": "4311.00",
             "priceValidUntil": "2026-12-31",
@@ -355,7 +402,7 @@
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "5",
-            "reviewCount": "198"
+            "reviewCount": "24"
         }
     }
     </script>
@@ -381,13 +428,12 @@
             {
                 "@type": "ListItem",
                 "position": 3,
-                "name": "Портрет в образе",
-                "item": "https://muse.ooo/portret-na-zakaz/portret-v-obraze/"
+                "name": "Граффити",
+                "item": "https://muse.ooo/portret-na-zakaz/graffiti-portret/"
             }
         ]
     }
     </script>
-	 <link rel="preload" as="image" href="https://muse.ooo/upload/img/queen-portret-v-obraze-fotomontazh-458-260419.webp" fetchpriority="high">
 </head>
 <body class="bg-white overflow-x-hidden">
         <!-- Header -->
@@ -495,13 +541,11 @@
     <!-- Page Navigator -->
     <nav class="page-navigator">
         <ul>
-            <li><a href="#primery" class="inner-link" data-title="Примеры"></a></li>
+            <li><a href="#graffiti" class="inner-link" data-title="Примеры"></a></li>
             <li><a href="#calc" class="inner-link" data-title="Цена"></a></li>
-            <li><a href="#kak-zakazat" class="inner-link" data-title="Как заказать"></a></li>
-            <li><a href="#harakteristiki" class="inner-link" data-title="Характеристики"></a></li>
-            <li><a href="#preimushchestva" class="inner-link" data-title="Преимущества"></a></li>
-            <li><a href="#otzyvy" class="inner-link" data-title="Отзывы"></a></li>
-            <li><a href="#opisanie" class="inner-link" data-title="Описание"></a></li>
+            <li><a href="#order" class="inner-link" data-title="Как заказать"></a></li>
+            <li><a href="#work" class="inner-link" data-title="Характеристики"></a></li>
+            <li><a href="#review" class="inner-link" data-title="Отзывы"></a></li>
         </ul>
     </nav>
 
@@ -522,13 +566,13 @@
                                     <a href="https://muse.ooo/portret-na-zakaz/">Портрет на заказ</a>
                                     <span class="mx-2 text-gray-300">/</span>
                                 </li>
-                                <li class="text-gray-300">Портрет в образе</li>
+                                <li class="text-gray-300">Граффити</li>
                             </ol>
                         </nav>
                         
-                        <h1 class="text-4xl lg:text-6xl font-light mb-4">Портрет в образе</h1>
-                        <p class="text-sm mt-2 mb-4 text-gray-300">Больше, чем фотомонтаж</p>
-                        <p class="text-lg lg:text-xl mb-6 text-gray-200">Художник впишет фото в известную картину и напечатает на холсте. Посмотрите примеры, пришлите фотографию и свои пожелания</p>
+                        <h1 class="text-4xl lg:text-6xl font-light mb-4">Портрет в стиле Граффити</h1>
+                        <p class="text-sm mt-2 mb-4 text-gray-300">Дерзкий, яркий, неординарный</p>
+                        <p class="text-lg lg:text-xl mb-6 text-gray-200">Художник стилизует для Вас фото под "Граффити" и напечатает его на холсте.<br> Посмотрите примеры и пришлите фото</p>
                         
                         <p class="text-lg lg:text-xl mb-6 text-gray-200">От 4311 руб. Под заказ.</p>
                         
@@ -540,11 +584,11 @@
                     <!-- Изображение -->
                     <div class="relative">
                         <img 
-                            src="https://muse.ooo/upload/img/queen-portret-v-obraze-fotomontazh-458-260419.webp"
-                            alt="Портрет королевы на основе фотомонтажа в образ"
-                            title="Портрет королевы на основе фотомонтажа в образ"
+                            src="https://muse.ooo/upload/img/o-graffiti-dj-458.webp"
+                            alt="Портрет музыканта в стиле граффити"
+                            title="Портрет музыканта в стиле граффити"
                             width="458"
-                            height="646"
+                            height="687"
                             class="w-full max-w-md mx-auto lg:ml-auto rounded-lg shadow-2xl"
                             fetchpriority="high"
                         >
@@ -554,10 +598,10 @@
         </section>
 
         <!-- Примеры (заглушка для Bitrix) -->
-        <section class="bg-dark py-16 lg:py-20" id="primery">
+        <section class="bg-dark py-16 lg:py-20" id="graffiti">
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-white text-center mb-8">Примеры</h2>
-                <p class="text-center text-gray-300 mb-8">Портреты в образе</p>
+                <p class="text-center text-gray-300 mb-8">Портреты в стиле Граффити</p>
                 
                 <!-- Галерея из Bitrix будет здесь -->
                 <div class="text-center text-gray-400 py-12 border-2 border-dashed border-gray-600 rounded-lg">
@@ -566,8 +610,8 @@
                 </div>
                 
                 <div class="text-center mt-8">
-                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/v-obraze/" class="inline-block px-6 py-2 text-white hover:bg-white hover:text-dark rounded uppercase transition-colors">
-                        Смотреть все примеры работ
+                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/graffiti/" class="inline-block px-6 py-2 text-white hover:bg-white hover:text-dark rounded uppercase transition-colors">
+                        смотреть все примеры работ
                     </a>
                 </div>
             </div>
@@ -596,34 +640,35 @@
         </section>
 
         <!-- Как заказать -->
-        <section class="py-16 lg:py-24" id="kak-zakazat">
+        <section class="py-16 lg:py-24" id="order">
             <div class="container mb-8">
                 <div class="text-center">
                     <h2 class="text-3xl lg:text-4xl font-light text-dark">Как заказать</h2>
                 </div>
             </div>
             <div class="container">
-                <div class="grid gap-10 xl:grid-cols-2 xl:items-center">
                     <!-- Изображение -->
-                    <div>
+                   
+					<div class="grid gap-10 xl:grid-cols-2 xl:items-center">
+					<div>
 					<div class="canvas-3d w-full max-w-[555px] mx-auto">
                         <img 
-                            src="https://muse.ooo/upload/img/man-portrait-in-the-image-of-Peter-1.webp"
-                            alt="Портрет молодого человека на основе фотомонтажа в образ Петра I"
-                            title="Портрет молодого человека на основе фотомонтажа в образ Петра I"
+                            src="https://muse.ooo/upload/img/o-graffiti-girl-555.webp"
+                            alt="Граффити портрет девушки"
+                            title="Портрет девушки в стиле Граффити"
                             width="555"
-                            height="833"
+                            height="733"
                             class="w-full"
                             loading="lazy"
                             decoding="async"
                         >
+						</div>
                     </div>
-					 </div>
 
                     <!-- Процесс -->
                     <div class="relative">
                         <!-- Пунктирная линия между шагами -->
-                        <div class="absolute left-6 top-12 bottom-12 w-0 timeline-divider"></div>
+                       <div class="absolute left-6 top-12 bottom-12 w-0 timeline-divider"></div>
 
                         <div class="space-y-10 relative">
                             <!-- Шаг 1 -->
@@ -648,7 +693,7 @@
                                 <div>
                                     <h3 class="text-xl font-medium text-dark mb-2">Цифровой портрет</h3>
                                     <p class="text-body">
-                                        В течение часа перезвоним Вам, чтобы обсудить задание. По согласованному заданию подберем несколько образов и сделаем эскизы. После выбора и подтверждения эскиза напишем портрет. Вносите правки до тех пор, пока не будете полностью удовлетворены работой.<br><br>
+                                        В течение часа перезвоним Вам, чтобы обсудить задание. По согласованному заданию выполним эскиз. После подтверждения эскиза напишем портрет. Вносите правки до тех пор, пока не будете полностью удовлетворены работой.<br><br>
                                         Срок создания цифрового портрета — <span id="order-date"></span>.
                                     </p>
                                 </div>
@@ -660,9 +705,9 @@
                                     <span class="text-xl font-bold text-primary">3</span>
                                 </div>
                                 <div>
-                                    <h3 class="text-xl font-medium text-dark mb-2">Печать и оформление</h3>
+                                    <h3 class="text-xl font-medium text-dark mb-2">Печать и оформление портрета на холсте</h3>
                                     <p class="text-body">
-                                        Только после Вашего окончательного подтверждения цифрового портрета картина в образе будет напечатана на холсте, оформлена и передана в службу доставки.
+                                        Только после Вашего окончательного подтверждения цифрового портрета картина в стиле "Граффити" будет напечатана, оформлена и передана в службу доставки.
                                     </p>
                                 </div>
                             </div>
@@ -700,7 +745,7 @@
         </section>
 
         <!-- Характеристики -->
-        <section class="py-16 lg:py-20" id="harakteristiki">
+        <section class="py-16 lg:py-20" id="work">
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Характеристики</h2>
             </div>
@@ -713,19 +758,19 @@
                                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                 </svg>
-                                <span>Цифровой портрет в образе</span>
+                                <span>Портрет в стиле "Граффити"</span>
                             </li>
                             <li class="flex items-start gap-3 py-2"> <!-- Добавлено: py-2 -->
                                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                 </svg>
-                                <span>Печать оригинальными латексными чернилами HP</span>
+                                <span>Печать латексными чернилами</span>
                             </li>
                             <li class="flex items-start gap-3 py-2"> <!-- Добавлено: py-2 -->
                                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                 </svg>
-                                <span>Плотный хлопковый холст - 380 г./кв. м.</span>
+                                <span>Плотный хлопковый холст - 380 г./кв.м.</span>
                             </li>
                             <li class="flex items-start gap-3 py-2"> <!-- Добавлено: py-2 -->
                                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
@@ -779,23 +824,16 @@
                             <div class="mx-auto mt-4 w-full max-w-md">
                                 <el-tab-list class="grid grid-cols-3 gap-3">
                                     <button class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
-                                        <span class="sr-only">Лицевая сторона портрета в образе</span>
+                                        <span class="sr-only">Лицевая сторона картины в стиле Граффити</span>
                                         <span class="absolute inset-0 overflow-hidden rounded">
-                                            <img src="https://muse.ooo/upload/img/portrait-man-on-canvas-in-frame.webp" alt="Лицевая сторона портрета в образе с подрамником и рамой" title="Лицевая сторона портрета на холсте" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
+                                            <img src="https://muse.ooo/upload/img/o-graffiti-442.webp" alt="Портрет в стиле Граффити на холсте с лицевой стороны на подрамнике" title="Лицевая сторона картины в стиле Граффити на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
                                     </button>
                                     <button class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
-                                        <span class="sr-only">Обратная сторона портрета в образе</span>
+                                        <span class="sr-only">Обратная сторона картины в стиле Граффити</span>
                                         <span class="absolute inset-0 overflow-hidden rounded">
-                                            <img src="https://muse.ooo/upload/img/portrait-back-442.webp" alt="Фото обратной стороны портрета в образе в раме" title="Обратная сторона портрета в раме" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
-                                        </span>
-                                        <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
-                                    </button>
-                                    <button class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
-                                        <span class="sr-only">Портрет в образе на холсте</span>
-                                        <span class="absolute inset-0 overflow-hidden rounded">
-                                            <img src="https://muse.ooo/upload/img/portrait-man-on-canvas-in-frame.webp" alt="Портрет в образе на холсте" title="Портрет в образе на холсте" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
+                                            <img src="https://muse.ooo/upload/img/o-graffiti-442-b.webp" alt="Портрет в стиле Граффити на холсте с обратной стороны на подрамнике" title="Обратная сторона картины в стиле Граффити на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
                                     </button>
@@ -805,13 +843,10 @@
                             <!-- Большие изображения -->
                             <el-tab-panels>
                                 <div>
-                                    <img src="https://muse.ooo/upload/img/portrait-man-on-canvas-in-frame.webp" alt="Лицевая сторона портрета в образе с подрамником и рамой" title="Лицевая сторона портрета на холсте" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
+                                    <img src="https://muse.ooo/upload/img/o-graffiti-442.webp" alt="Портрет в стиле Граффити на холсте с лицевой стороны на подрамнике" title="Лицевая сторона картины в стиле Граффити на холсте с подрамником" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
                                 </div>
                                 <div hidden>
-                                    <img src="https://muse.ooo/upload/img/portrait-back-442.webp" alt="Фото обратной стороны портрета в образе в раме" title="Обратная сторона портрета в раме" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
-                                </div>
-                                <div hidden>
-                                    <img src="https://muse.ooo/upload/img/portrait-man-on-canvas-in-frame.webp" alt="Портрет в образе на холсте" title="Портрет в образе на холсте" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
+                                    <img src="https://muse.ooo/upload/img/o-graffiti-442-b.webp" alt="Портрет в стиле Граффити на холсте с обратной стороны на подрамнике" title="Обратная сторона картины в стиле Граффити на холсте с подрамником" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
                                 </div>
                             </el-tab-panels>
                         </el-tab-group>
@@ -830,49 +865,11 @@
                     <!-- Преимущество 1: Примеры работ -->
                     <div class="bg-white rounded-lg p-6 text-left text-dark">
                         <div class="w-16 h-16 mb-4 flex items-center justify-start">
-                            <!-- SVG иконка (вставьте из оригинала) -->
-                              <svg fill="#4A90E2" height=40 viewBox="0 0 4500 4500" width=40 xmlns=http://www.w3.org/2000/svg image-rendering=optimizeQuality shape-rendering=geometricPrecision text-rendering=geometricPrecision>
-                        <path d="m1525 308c-1 88 2 100-60 168-77 84-109 67-174 189-39 71-88 262-115 287-30-37-19-151-13-200 18-149 44-225 176-297 113-61 96-49 186-147z"/>
-                        <path d="m1525 308c-46 176-192 169-258 282-77 130-91 362-91 362"/>
-                        <path d="m857 1192v2c-7 78-7 106-69 163-64 59-132 66-207 61-2 0-4-1-6-1-2-6-5-15-8-26-19-9-28-14-35-18 162-6 251-16 325-181zm-387 206c-54-58 96-70 110-73 183-38 130-18 277-133-74 165-163 175-325 181-14-7-13-3-57-3l-5 28zm5-28c-2 13-3 22-5 28l5-28zm46-14c-1-2-3-4-5-5-4-3-3-3-6-3 4 2 8 5 11 8z"/>
-                        <path d="m857 1192v2c-7 78-7 106-69 163-64 59-132 66-207 61-2 0-4-1-6-1-2-6-5-15-8-26-19-9-28-14-35-18 162-6 251-16 325-181zm-387 206c-54-58 96-70 110-73 183-38 130-18 277-133-74 165-163 175-325 181-14-7-13-3-57-3-2 13-3 22-5 28m51-42c-1-2-3-4-5-5-4-3-3-3-6-3 4 2 8 5 11 8z"/>
-                        <path d="m857 1192c-76 168-167 175-334 182-74 3 18-6 30 66"/>
-                        <path d="m572 1481c-58 2-29 6-86-16-24-62-20-30-11-95 64-1 33-7 92 21 18 61 18 31 5 90z"/>
-                        <path d="m572 1481c-7-15-83-90-97-111"/>
-                        <path d="m842 1515c52-49 39-24 81-56 1 0 1 0 2-1-1 2-1 3-1 5l3-6c4-3 4-3 5-7h-1c5-9 11-13 24-19 9-16 16-40 17-53 37-32 82 61 53 119-13 39-35 52-77 55-56 4-66-4-106-37zm83-57c1 0 1-1 2-1 1-3 2-5 4-7l-2-1c-2 4-3 6-4 9zm30-27c-7 3-17 9-16 16 6-3 11-9 16-16z"/>
-                        <path d="m842 1515c30 0 121-1 132-35 16-5 37-87-2-102"/>
-                        <path d="m1859 2025c20-29 63 44 27 77-24 31-78 30-94 68l-7 14c-65-34 8-116 63-125v1l-1 1c2-2 5-3 9-5-2 1-8 4-7 7 14-4 13-27 10-38zm-16 40c-2 2-3 4-5 9 2-4 3-7 5-9z"/>
-                        <path d="m1859 2025c27 2 20 54 6 58-2 6-114 37-80 101"/>
-                        <path d="m724 2303c12 84 40 225 27 301-6 31-19 89-43 114-11 38-31 24-20 13-2 0-3 1-3 1 0-1-2-24-1-27 23-68 3-161 3-233 1-78-4-103 37-169zm-32 427l4 4c0-4-2-4-4-4z"/>
-                        <path d="m724 2303c-32 102 17 226-8 344-4 18-6 50-19 63 1 8-9 41-7 19"/>
-                        <path d="m798 2862c40 26 77 61 77 113 0 3-2 5-3 2v-2c-2-1-4 18-45-6-52-30-43-61-29-107z"/>
-                        <path d="m798 2862c24 88 79 115 74 115"/>
-                        <path d="m1694 2177c43-31 17-21 76-31 35 15 71 32 42 61-35 1-27 0-61 7-39-19-20-7-57-37z"/>
-                        <path d="m1694 2177c35 0 103-2 118 30"/>
-                        <path d="m2052 2129c40-19 73-35 96 19 10 26 7 42-18 51-5-4-9-8-12-10-30-25-12 20-66-60z"/>
-                        <path d="m857 1192v2c-7 78-7 106-69 163-64 59-132 66-207 61l-6-1c10 27 7 16-3 64-58 2-29 6-86-16-19-50-21-39-16-67-54-58 96-70 110-73 183-38 130-18 277-133z"/>
-                        <path d="m2014 484c28 51 25 96 19 157-1-3-3-7-5-11-2-1-3-1-4-1 0 1 1 3 2 5-120-8-61-7-175 20-3 0-3 0-4 1 0-1 0-1 1-2v-1c-27 29-33 37-73 69-17 16-41 38-63 55-23 34-48 65-68 91-6-53-9-86 23-133 19-42 49-90 72-100l-19 6c10-15 23-33 38-51 27-75 73-157 126-186 77-42 114 13 130 81z"/>
-                        <path d="m1850 71c194-103 366-107 566-18 49-6 102-6 151 3 82 5 156 35 209 106 26 16 50 34 69 53 0-6 1-12 2-20 40 6 18 0 65 20 18 53 19 28 5 76h-10c73 117 39 224-80 340-32 31-70 55-112 69 37 28 62 71 42 104-4 7-27 19-30-7-7 6-13 8-31 9-31 1-51-10-65-28-91 4-114-15-201-48 84-48 157-98 264-43 1 0 1 0 2 1 5-16 5-12 30-40 49-57 140-176 104-256-53-113-97-163-205-223-37-21-72-32-97-57h-1c-3-1-6-1-9-2 5 5 10 11 12 16-35 14-102-6-128-10-157-23-186-20-343-5-155 15-226 58-367 89 60-74 70-83 158-129z"/>
-                        <path d="m2254 163c18-25 52-32 95-15 113 43 103 131 54 109-6 19-19 38-32 55-7 56-50 104-63 92-2-5-3-10-4-15-13-16-41-94-53-132-47-34-20-1-73 2-77 3-34-154 76-96z"/>
-                        <path d="m2943 803c65-16 29-5 74-28 95-47 171 75 80 132-8 34-23 61-66 40-61-31-95-94-111-158 8 5 16 9 23 14z"/>
-                        <path d="m2512 1417c54-17 103-18 165-12 60 6 126 21 167 69 25 15 45 30 47 32 30 26 121 135 70 179-7-28-17-50-29-69-41-34-86-62-114-90-27-27-61-44-98-57-89 29-279 64-300 3-11-36 42-50 92-55z"/>
-                        <path d="m2875 1922v-1 1zm-90-31c7 2 88 22 90 31-1 4-9 6-13 7l-16 23c-30 27-82 34-116 14-27-15-44-34-46-60-13-6-26-13-39-21-3 11-11 20-23 26-26 15-51 8-72-7-9 0-18-2-25-4-16-7-26-17-31-28 0 1 0 1-1 2-12-28-21-60-4-85-45-14-93-19-137-26l59-23c42-8 120 2 163 17 86 31 82 88 211 134z"/>
-                        <path d="m3176 386c23 29 47 74 77 113 33 42 176 198 213 264 24 22 42 45 40 67-1 13-9 20-21 25l16-15c-26 24-55 44-84 64-1 3-1 6-1 8-2 88 26 143 8 193 20 43 32 80 51 123 39 36 61 84 60 134 6 21 11 42 26 77 12 28 43 72 63 101 83 79 80 123 82 238 0 76-21 188-10 250 4 19 79 129 98 147 6 6 10 12 12 17 6 4 13 7 20 11 10 4 12 14 3 15 19 23-5 88-24 130 5 36 14 79 16 112 1 20 1 66-4 112 30 70 18 95-36 190-25-96-25-117-8-179-2-62-11-87-22-157-16-95-12-105 1-148-1-12 2-21 8-30 2-8 4-16 6-26-19-8-49-6-62-46-8-11-14-24-19-37-43-41-72-67-85-132-21-112-13-171-2-258-23-51-61-134-78-142 2 0 0 0 4 1-15-7-16-8-23-22-17-33-87-109-88-117-4-22 23-38 44-44 0-20-2-46-25-75-39-51-57-72-81-93-36-10-70-35-97-61h11c18-57 38-76 85-83 7-16 9-38 1-69-29-104-55-154-22-224-13-22-13-40-1-62-39-64-102-159-138-238 0-1-1-1-1-2-44-37-61-107-24-155 3 9 7 16 9 24 1-1 1-1 2-1z"/>
-                        <path d="m431 1736c67-49 147 113 200 97 4-1 24-10 42-18 7-8 16-15 25-23 3 61 2 107-42 145-11 50-38 150-73 133-2-16-2-33-2-51-1 0-1 0-2-1-1-3-2 0-7-5-65-59-146-193-145-280 1 1 3 2 4 3z"/>
-                        <path d="m1148 3629c104-179 252 241 260 336 5 73 8 196 40 260 40 78 37 156-10 195-1 7-2 11-4 13-4 4-14 5-27 5-24 9-53 12-89 7-22-3-60-10-100-19-41 4-90 11-122 12-215 12-431 2-645 29-104 12-170 18-275 20-159 3-139 27-159-152-11-101-67-396 97-397 152 0 392-90 568-115 199-30 247-26 378-95 35-27 65-59 88-99z"/>
-                        <path d="m1798 3169c32 28 61 57 88 90 37 27 38 57 102 62 21 1 15 21 3 23-12 18-47 50-87 45-8 18-14 34-21 50-1 11-2 21-4 32 8 3 6 13-1 17s-12 2-17-2c0 2-1 3-2 5-12-25-26-57-27-88-25-79-51-157-47-245 4 3 9 7 13 11z"/>
-                        <path d="m453 2500c10-32-9 42 0 0zm-22 85c24 57 72 234 83 297 37-9 43 8 45 29 40 30 100 128 145 167 63 53 112 69 176 138 26 28 79 90 130 139 65 15 88 33 129 88-50 8-79 18-120-27-6-7-10-12-13-16-42-27-86-65-120-96l-12 2c-12-1-79-32-84-40-29-46-93-88-133-126-48-44-56-75-111-120-46-38-71-47-88-87-20-5-39-75-46-106-20-22-25-43-28-75-5-50-7-54-13-104-12-91 28-223 56-309 32-95 59-125 29-222-28-90-21-44-27-100-2-6-2-4-24-47 55-5 67 35 97 78 39 56 52 79 34 152 0 0-19 58-27 68-9 41-26 93-44 175-6 28-10 46-12 57-3 8-8 25-15 53-3 11-6 22-7 32z"/>
-                        <path d="m3153 2944c-45 110-53 108-21 241 4 18 7 32 11 45 8 11 18 21 28 30 52 13 137 52 138 115 0 50-74 31-94 10l-17-20c1 0 2 0 3-1-57-13-100-65-124-128-40-53-56-125-25-196 28-64 50-75 105-104-1 3-3 6-4 8z"/>
-                        <path d="m2004 361c38-62 112-116 175-58 41 39-23 138-52 163-2 4-4 8-7 13l-1-1v2c-10 23-21-14-25-17h-1c-7 17-35 14-47-13-39-93 6-20-61-76 6-5 13-10 19-13z"/>
-                        <path d="m345 1648c-1 22-24 86-5 96 3 2 5 3 7 4 3-6 5-9 16-14 58-28 50 100-31 85-15-3-28-9-37-16-15-6-27-16-35-28-24-37-6-65 18-90l-16 16c9-18 27-38 47-41 9-7 20-9 36-12z"/>
-                        <path d="m1553 1195c46-12 91 13 131 31l-11 2c43 5 84 13 117 20 28 6 50 18 66 34 62 14 70 31 76 116 3 48-2 113-17 166 8 59 10 165-71 145-18-5-49-20-64-41-12-6-24-14-53-24-13-5-32-8-55-10-11 33-25 57-73 64-3 0-5 1-8 1-31 7-69 1-100-7-106 6-128 3-186-46-16 0-29-5-36-20l6-4c-7-3-14-7-23-13-29 75-74 140-128 213-6 7-11 14-16 21 29 70 32 159 3 226 6-1 12 0 17 2 28 11 8 41-18 52l-16 3c-25 14-45 14-81 18 2-3 5-7 8-11h-4c66-78 56-104 46-215 0-6-1-11-1-17-43 51-92 98-149 124-10 5-32 20-49 31-15 20-29 40-43 62-60 87-203 161-201 248 0 11 0 13-8 22l3 3c-6 56-11 131-16 204 13 82 6 191-20 237-41-64-53-249-19-321 0-61 4-121 17-160l-8 23c-9-134 125-187 189-287 16-25 34-50 52-73-3-212-6-179-112-338-17-11-26-20-23-28 2 0 180 42 191 43 72 12 171 18 232-29 38-30 73-56 108-83 13-18 25-37 40-57 10-19 22-41 38-68-1 26-4 50-9 73 2 7 0 16-5 26-5 17-10 34-16 50 22-2 43-4 63-6 7-6 17-15 38-32 39-32 91-46 97 10 80-13 157-19 254 8 43 12 56 28 72 40 1-2 3-4 5-6 4-5 27-24 48-39-4-75-7-211-52-219-53-10-90-28-140-45l-13-4c-45 15-84 17-122-16-18 4-38 12-68 21 8-38 21-58 55-73 12-23 26-37 62-47z"/>
-                        <path d="m3282 2115c23 44 23 86 0 126 9 35 18 70 30 113 3 11 6 22 9 32 24 88 35 147-9 209-14 20-33 41-60 62-74 62-49 5-120 116-29 45-76 138-106 175-39 46-19 7-54 80-37 80-123 307-103 392 5 20 8 40 12 60 34 51 70 111 96 130 58 13 165 22 122 101-8 15-17 29-26 43-9 32-28 65-35 85 56-5 82 5 145-22 151-66 136-154 249-229 47-32 63-51 73-82-5-30-8-62-4-80 13-57 66-42 110-16 53-4 93-25 146-69 20-32 49-45 70-25 23 21 11 43-14 63-30 42-10 114 21 151 2 2 79 82 78 104 65 71 110 114 174 171l43 37 5 4c24 22 50 44 75 67 51 47 97 99 117 165 30 100 116 136 153 208 15 28 22 62 14 106 1 2 2 3 2 5 9 22 1 36-13 43-14 41-143 5-168-4l-12-4c-206-28-411-14-619-3-304 15-572 25-870 20-60 14-116 27-123 26-80-14 2-121 20-154-23-18-38-19-67 0-44 30-64-21-32-38h1c2-2 4-3 6-5 14-21 28-105 56-130l4-17c-16-13-36-36-60-106-27-80-40-91-2-182 2 7 4 14 6 20l1-9c45 97 112 203 214 249-24-38-41-69-47-111l-1-1c-36-48-41-196 14-190 13 2 22 4 30 7 3-1 7-2 10-3-6-30-23-67-34-93-77-175-141-199-162-404-7-62 4-127 27-190 11-53 30-104 53-142 45-78 57-90 130-133l-3 6c19-6 33 3 44 21 29-16 32-43 35-78-9-20-18-32-13-41l-4-4c28-16 32-21 51-34 21-42 48-81 90-105 5-17 8-29 10-65 8-219 123-128 151-293 7-44 7-64 13-100-3-26-4-53-3-77 30 2 40 13 54 42z"/>
-                        <path d="m1262 2096c32 43 31 64 38 121 9 80 14 180-4 259s-49 144 15 202l14 14h-16c-102-5-81-168-75-229 12-126 20-241 28-367zm-253 301c11 23 7 37 0 50 0-6 1-11 1-11-4-16-4-29-1-39z"/>
-                        <path d="m1262 2096c32 43 31 64 38 121 9 80 14 180-4 259s-49 144 15 202l4 4c74 26 119 63 172 131 37 49 77 46 85 145 1 11-11 15-13 3l-1 1c-8-10-16-21-25-32 1 2 2 5 3 8 3 2 3 3 4 9-5 1-4 1-7-1-1 0 0 0 0 0-2 1-6 0-7-2-31-49-130-91-179-115-106-51-118-77-211-139-61-39-174-123-164-206 4-29 13-35 20-40-8-31-8-55-1-73v-1h1c13-33 51-47 100-54 176-86 81-69 149-134 1-28 4-39 13-72 2 3 4 6 6 10 1-8 1-16 2-24z"/>
-                        <path d="m1664 2343c78-21 176-43 239 19 50 50 162-52 297 170 13-2 19 0 19 6 25 4 75 56 83 85 10 33 0 58-19 78-19 29-35 48-54 61-26 19-57 23-107 26-1 1-2 3-5 3-7-1-8-7-4-17l-203 22c-27 3-66-10-96-28-37-5-114-31-142-42-75-28-133-106-174-171-29-44-41-59-40-108 6 6 11 12 17 19-8-12-13-19-13-19 1-1 3-3 5-4h-1c-4-1-10-2-15-3 18-10 36-20 53-29 48-33 102-51 160-68zm507 336c-5-20-3-7 4-41-16-24-24-40-41-58-7-4-16-8-26-12-44-16-194-53-208-60-41-22-134-9-210-13-3 3-6 6-9 8 7 42-3 42 49 76 1 1 13 8 30 19 15 7 26 13 27 13l22 18c8 4 87 26 87 26l-2 1 277 23zm-689-234c-2 0-5-1-9-1-4 1-8 2-11 3l20-2z"/>
+                            <svg height=40 viewBox="0 0 404.666 404.666"width=40 xmlns=http://www.w3.org/2000/svg enable-background="new 0 0 404.666 404.666"version=1.1 xml:space=preserve>
+                        <path d="m136 5.128c2.139-4.486 7.511-6.389 11.997-4.251l3.007 1.434c4.487 2.14 6.39 7.511 4.251 11.997-1.543 3.237-4.769 5.129-8.13 5.129-1.299 0-2.617-0.282-3.867-0.878l-3.007-1.434c-4.488-2.139-6.39-7.51-4.251-11.997zm110.04 82.739l-72.152 34.407c-4.486 2.14-6.389 7.512-4.25 11.998 1.544 3.236 4.769 5.128 8.13 5.128 1.299 0 2.618-0.282 3.868-0.878l72.152-34.407c4.486-2.14 6.389-7.512 4.25-11.998-2.142-4.488-7.515-6.388-11.998-4.25zm-41.247-39.962l41.247 19.669c1.251 0.596 2.569 0.878 3.868 0.878 3.361 0 6.586-1.892 8.13-5.128 2.139-4.486 0.236-9.858-4.25-11.998l-41.247-19.669c-4.49-2.139-9.858-0.236-11.998 4.25-2.139 4.486-0.237 9.858 4.25 11.998zm-79.958 38.843h0.012l79.936-0.101c4.97-6e-3 8.994-4.041 8.988-9.012-6e-3 -4.967-4.034-8.988-9-8.988h-0.012l-79.936 0.101c-4.97 6e-3 -8.994 4.041-8.988 9.012 6e-3 4.966 4.034 8.988 9 8.988zm49.053-53.582l2.652 1.265c1.25 0.596 2.568 0.878 3.867 0.878 3.361 0 6.587-1.892 8.13-5.129 2.139-4.486 0.236-9.857-4.251-11.997l-2.652-1.265c-4.486-2.138-9.857-0.237-11.997 4.251-2.138 4.487-0.236 9.858 4.251 11.997zm-86.324 53.627h0.011l3.333-4e-3c4.971-6e-3 8.995-4.04 8.989-9.011-6e-3 -4.967-4.033-8.989-9-8.989h-0.011l-3.333 4e-3c-4.971 6e-3 -8.995 4.04-8.989 9.011 6e-3 4.967 4.034 8.989 9 8.989zm55.692 50.089l-3.008 1.435c-4.486 2.14-6.389 7.511-4.249 11.997 1.543 3.236 4.768 5.128 8.129 5.128 1.299 0 2.618-0.282 3.868-0.879l3.008-1.435c4.487-2.14 6.389-7.511 4.249-11.997-2.14-4.487-7.513-6.39-11.997-4.249zm199.29 116.21c-4.971 0-9 4.029-9 9v5.203c0 4.971 4.029 9 9 9s9-4.029 9-9v-5.203c0-4.97-4.03-9-9-9zm50.511-92.788v235.36c0 4.971-4.029 9-9 9h-141.22c-4.971 0-9-4.029-9-9v-235.36c0-4.328 3.055-7.942 7.126-8.805 5.591-16.503 18.561-30.016 35.494-38.091l4.246-40.361c0.481-4.581 4.344-8.059 8.95-8.059h47.586c4.606 0 8.469 3.478 8.95 8.059l4.247 40.363c16.934 8.074 29.902 21.586 35.494 38.089 4.072 0.863 7.127 4.477 7.127 8.805zm-97.837-53.201c5.85-1.228 11.957-1.875 18.226-1.875 6.271 0 12.377 0.647 18.229 1.875l-2.537-24.114h-31.382l-2.536 24.114zm-34.576 44.201h105.6c-8.934-16.574-29.666-28.076-52.804-28.076s-43.868 11.503-52.801 28.076zm114.41 18h-23.511v61.39c0 4.971-4.029 9-9 9s-9-4.029-9-9v-31.639c-1.645 2.152-4.238 3.541-7.156 3.541-4.971 0-9-4.029-9-9v-24.292h-65.552v217.36h123.22v-217.36zm-208.4 82.265v45.63h21.466c4.971 0 9 4.029 9 9s-4.029 9-9 9h-30.279c-0.125 2e-3 -0.248 2e-3 -0.373 0h-25.841v45.631h56.493c4.971 0 9 4.029 9 9s-4.029 9-9 9h-167.52c-4.971 0-9-4.029-9-9s4.029-9 9-9h93.031v-45.631h-62.38c-0.125 2e-3 -0.248 2e-3 -0.373 0h-30.278c-4.971 0-9-4.029-9-9s4.029-9 9-9h21.465v-45.63h-21.465c-4.971 0-9-4.029-9-9s4.029-9 9-9h53.736v-45.63h-53.736c-4.971 0-9-4.029-9-9s4.029-9 9-9h82.23c4.971 0 9 4.029 9 9s-4.029 9-9 9h-10.494v45.63h95.789c4.971 0 9 4.029 9 9s-4.029 9-9 9h-21.466zm-18 0h-88.594v45.63h88.594v-45.63z"fill=#4a90e2 />
                      </svg>
                         </div>
-                        <p class="text-lg">Лицо вписывается художником, а не "вставляется онлайн" или "приклеивается". Более 65-ти примеров</p>
+                        <p class="text-lg">7 разных портретов в стиле Граффити от наших художников на сайте для ознакомления с уровнем работ</p>
                     </div>
 
                     <!-- Преимущество 2: Цифровая работа -->
@@ -893,7 +890,7 @@
                         <path d="M232.7 106.4H93.2c-3 0-5.4 2.4-5.4 5.4 0 3 2.4 5.4 5.4 5.4h139.5c3 0 5.4-2.4 5.4-5.4C238.1 108.8 235.6 106.4 232.7 106.4z" fill=#4a90e2></path>
                      </svg>
                         </div>
-                        <p class="text-lg">Печатаем оригинальными чернилами на плотном натуральном холсте – срок службы картины более 50-ти лет</p>
+                        <p class="text-lg">Печатаем оригинальными чернилами на плотном холсте – срок службы портрета составляет более 50-ти лет</p>
                     </div> 
 
                     <!-- Преимущество 4: Соблюдение сроков -->
@@ -942,7 +939,7 @@
         </section>
 
         <!-- Отзывы -->
-        <section class="bg-secondary py-16 lg:py-20" id="otzyvy">
+        <section class="bg-secondary py-16 lg:py-20" id="review">
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">Отзывы</h2>
                 
@@ -965,10 +962,6 @@
         </section>
 
         <!-- Модальное окно для отзыва -->
-<!-- Модальное окно для отзыва -->
-<!-- Модальное окно для отзыва -->
-<!-- Модальное окно для отзыва -->
-<!-- Модальное окно для отзыва -->
 <dialog id="review-modal" class="p-0 rounded-lg shadow-2xl backdrop:bg-black/70 max-w-md w-full">
     <div class="p-6 bg-dark text-white rounded-lg">
         <!-- Заголовок и кнопка закрытия -->
@@ -993,7 +986,7 @@
         <div class="space-y-3">
             <!-- Яндекс -->
             <a href="javascript:void(0)" 
-               onclick="BxPopup('https://oauth.yandex.ru/authorize?response_type=code&client_id=16d7eb71dd4f4499b79c6b4ea46b9a35&display=popup&redirect_uri=https%3A%2F%2Fmuse.ooo%2Fbitrix%2Ftools%2Foauth%2Fyandex.php&force_confirm=yes&state=site_id%3Ds1%26backurl%3D%252Fajax%252Fsocservices.php%253Fcheck_key%253D6ccc99698f49c1ccd826a2d6384c520b%26mode%3Dopener%26redirect_url%3D%252Fajax%252Fsocservices.php%253Fbackurl%253D%25252Fportret-na-zakaz%25252Fportret-maslom%25252F', 680, 600)"
+               onclick="BxPopup('https://oauth.yandex.ru/authorize?response_type=code&client_id=16d7eb71dd4f4499b79c6b4ea46b9a35&display=popup&redirect_uri=https%3A%2F%2Fmuse.ooo%2Fbitrix%2Ftools%2Foauth%2Fyandex.php&force_confirm=yes&state=site_id%3Ds1%26backurl%3D%252Fajax%252Fsocservices.php%253Fcheck_key%253D6ccc99698f49c1ccd826a2d6384c520b%26mode%3Dopener%26redirect_url%3D%252Fajax%252Fsocservices.php%253Fbackurl%253D%25252Fportret-na-zakaz%25252Fgraffiti-portret%25252F', 680, 600)"
                class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 text-dark rounded transition-colors group w-full border border-gray-200">
                 <div class="flex-shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="20" height="20" fill="currentColor">
@@ -1005,7 +998,7 @@
 
             <!-- Mail.Ru -->
             <a href="javascript:void(0)" 
-               onclick="BxPopup('https://connect.mail.ru/oauth/authorize?client_id=758285&redirect_uri=https://muse.ooo/ajax/socservices.php?auth_service_id=MyMailRu&backurl=%2Fportret-na-zakaz%2Fportret-maslom%2F&response_type=code&state=site_id%3Ds1%26backurl%3D%2Fportret-na-zakaz%2Fportret-maslom%2F%3Fcheck_key%3D6ccc99698f49c1ccd826a2d6384c520b', 580, 400)"
+               onclick="BxPopup('https://connect.mail.ru/oauth/authorize?client_id=758285&redirect_uri=https://muse.ooo/ajax/socservices.php?auth_service_id=MyMailRu&backurl=%2Fportret-na-zakaz%2Fgraffiti-portret%2F&response_type=code&state=site_id%3Ds1%26backurl%3D%2Fportret-na-zakaz%2Fgraffiti-portret%2F%3Fcheck_key%3D6ccc99698f49c1ccd826a2d6384c520b', 580, 400)"
                class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 text-dark rounded transition-colors group w-full border border-gray-200">
                 <div class="flex-shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
@@ -1017,7 +1010,7 @@
 
             <!-- VK -->
             <a href="javascript:void(0)" 
-               onclick="BxPopup('https://id.vk.ru/authorize?client_id=5605340&v=5.80&redirect_uri=https%3A%2F%2Fmuse.ooo%2Fbitrix%2Ftools%2Foauth%2Fvkontakte.php&scope=email&response_type=code&code_challenge_method=S256&code_challenge=rhEzleLdG8TiGkScUxXVijyW8zCNtH8ffuAZaTMyBaY&state=c2l0ZV9pZD1zMSZiYWNrdXJsPSUyRmFqYXglMkZzb2NzZXJ2aWNlcy5waHAlM0ZjaGVja19rZXklM0Q2Y2NjOTk2OThmNDljMWNjZDgyNmEyZDYzODRjNTIwYiZyZWRpcmVjdF91cmw9JTJGYWpheCUyRnNvY3NlcnZpY2VzLnBocCUzRmJhY2t1cmwlM0QlMjUyRnBvcnRyZXQtbmEtemFrYXolMjUyRnBvcnRyZXQtbWFzbG9tJTI1MkY%3D', 660, 425)"
+               onclick="BxPopup('https://id.vk.ru/authorize?client_id=5605340&v=5.80&redirect_uri=https%3A%2F%2Fmuse.ooo%2Fbitrix%2Ftools%2Foauth%2Fvkontakte.php&scope=email&response_type=code&code_challenge_method=S256&code_challenge=rhEzleLdG8TiGkScUxXVijyW8zCNtH8ffuAZaTMyBaY&state=c2l0ZV9pZD1zMSZiYWNrdXJsPSUyRmFqYXglMkZzb2NzZXJ2aWNlcy5waHAlM0ZjaGVja19rZXklM0Q2Y2NjOTk2OThmNDljMWNjZDgyNmEyZDYzODRjNTIwYiZyZWRpcmVjdF91cmw9JTJGYWpheCUyRnNvY3NlcnZpY2VzLnBocCUzRmJhY2t1cmwlM0QlMjUyRnBvcnRyZXQtbmEtemFrYXolMjUyRnBvcnRyZXQtZ3JhZmZpdGktcG9ydHJldCUyNTJG%3D', 660, 425)"
                class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 text-dark rounded transition-colors group w-full border border-gray-200">
                 <div class="flex-shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
@@ -1029,7 +1022,7 @@
 
             <!-- Google -->
             <a href="javascript:void(0)" 
-               onclick="BxPopup('https://accounts.google.com/o/oauth2/auth?client_id=154295471896-ispv3qmrsiov4iv1of6v9qefjq18h8uc.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fmuse.ooo%2Fbitrix%2Ftools%2Foauth%2Fgoogle.php&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&response_type=code&access_type=offline&state=provider%3DGoogleOAuth%26site_id%3Ds1%26backurl%3D%252Fajax%252Fsocservices.php%253Fcheck_key%253D6ccc99698f49c1ccd826a2d6384c520b%26mode%3Dopener%26redirect_url%3D%252Fajax%252Fsocservices.php%253Fbackurl%253D%25252Fportret-na-zakaz%25252Fportret-maslom%25252F', 580, 400)"
+               onclick="BxPopup('https://accounts.google.com/o/oauth2/auth?client_id=154295471896-ispv3qmrsiov4iv1of6v9qefjq18h8uc.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fmuse.ooo%2Fbitrix%2Ftools%2Foauth%2Fgoogle.php&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&response_type=code&access_type=offline&state=provider%3DGoogleOAuth%26site_id%3Ds1%26backurl%3D%252Fajax%252Fsocservices.php%253Fcheck_key%253D6ccc99698f49c1ccd826a2d6384c520b%26mode%3Dopener%26redirect_url%3D%252Fajax%252Fsocservices.php%253Fbackurl%253D%25252Fportret-na-zakaz%25252Fgraffiti-portret%25252F', 580, 400)"
                class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 text-dark rounded transition-colors group w-full border border-gray-200">
                 <div class="flex-shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" fill="currentColor">
@@ -1041,7 +1034,7 @@
 
             <!-- Одноклассники -->
             <a href="javascript:void(0)" 
-               onclick="BxPopup('https://www.odnoklassniki.ru/oauth/authorize?client_id=1247491840&redirect_uri=https%3A%2F%2Fmuse.ooo%2Fbitrix%2Ftools%2Foauth%2Fodnoklassniki.php&response_type=code&state=site_id%3Ds1%26backurl%3D%252Fajax%252Fsocservices.php%253Fcheck_key%253D6ccc99698f49c1ccd826a2d6384c520b%26redirect_url%3D%252Fajax%252Fsocservices.php%253Fbackurl%253D%25252Fportret-na-zakaz%25252Fportret-maslom%25252F%26mode%3Dopener', 580, 400)"
+               onclick="BxPopup('https://www.odnoklassniki.ru/oauth/authorize?client_id=1247491840&redirect_uri=https%3A%2F%2Fmuse.ooo%2Fbitrix%2Ftools%2Foauth%2Fodnoklassniki.php&response_type=code&state=site_id%3Ds1%26backurl%3D%252Fajax%252Fsocservices.php%253Fcheck_key%253D6ccc99698f49c1ccd826a2d6384c520b%26redirect_url%3D%252Fajax%252Fsocservices.php%253Fbackurl%253D%25252Fportret-na-zakaz%25252Fgraffiti-portret%25252F%26mode%3Dopener', 580, 400)"
                class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 text-dark rounded transition-colors group w-full border border-gray-200">
                 <div class="flex-shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 28" fill="currentColor">
@@ -1077,60 +1070,32 @@ function BxPopup(url, width, height) {
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Описание</h2>
           
-               <!-- Grid контейнер -->
-        <div class="description-grid space-y-8 lg:space-y-0">
-            
-            <!-- 1. Видео (занимает 2 строки) -->
-            <div class="video-column">
-                <div class="video-cover aspect-[360/648] rounded-lg overflow-hidden shadow-lg">
-                    <img 
-                        src="https://muse.ooo/upload/img/o-portret-v-obraze-na-kholste-360-648-2.webp"
-                        alt="Портрет в образе на холсте"
-                        class="w-full h-full object-cover"
-                        loading="lazy"
-                        decoding="async"
-                    >
-                    <div class="video-play-icon cursor-pointer bg-black/20 hover:bg-black/30 transition-colors">
-                        <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </div>
-                    <iframe 
-                        class="hidden"
-                        loading="lazy"
-                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen
-                        data-src="https://www.youtube.com/embed/FVs-JgQe5K8?rel=0&amp;showinfo=0"
-                        title="Портрет в образе на холсте"
-                    ></iframe>
-                </div>
-                <p class="text-center text-gray-600 mt-4 text-sm">Короткое видео - 15 сек. о том, как выглядит картина на холсте</p>
-            </div>
-            
-            <!-- 2. До/После -->
-            <div>
+                <!-- Grid: текст слева (2 колонки), вертикальное До/После справа (1 колонка) -->
+                <div class="grid lg:grid-cols-3 gap-8 lg:gap-12">
+         <!-- 1. Вертикальное До/После -->
+                     <div>
                 <div class="ba-card rounded-xl overflow-hidden shadow-2xl" id="before-after">
-                    <img 
-                        src="https://muse.ooo/upload/img/painting-b.webp"
-                        alt="Фото для портрета в образе"
-                        title="Фото для портрета"
-                        class="before-image"
-                        loading="lazy"
-                        decoding="async"
-                        width="378"
-                        height="251"
-                    >
-                    <img 
-                        src="https://muse.ooo/upload/img/painting-a.webp"
-                        alt="Портрет в образе полководца"
-                        title="Портрет в образе военного"
-                        class="after-image"
-                        loading="lazy"
-                        decoding="async"
-                        width="378"
-                        height="251"
-                    >
-                    <div class="ba-divider"></div>
+                            <img
+                                src="https://muse.ooo/upload/img/graffiti-portret-b.webp"
+                                alt="Фото для портрета в стиле Граффити"
+                                title="Фото для Граффити портрета до"
+                                class="before-image"
+                                loading="lazy"
+                                decoding="async"
+                                width="360"
+                                height="517"
+                            >
+                            <img
+                                src="https://muse.ooo/upload/img/graffiti-portret-a.webp"
+                                alt="Граффити портрет"
+                                title="Граффити портрет после"
+                                class="after-image"
+                                loading="lazy"
+                                decoding="async"
+                                width="360"
+                                height="517"
+                            >
+                           <div class="ba-divider"></div>
                     <div class="ba-handle">
                         <span class="ba-arrow l">‹</span>
                         <span class="ba-arrow r">›</span>
@@ -1139,26 +1104,37 @@ function BxPopup(url, width, height) {
                 </div>
                 <p class="text-center text-gray-600 mt-4 text-sm">Потяните за ползунок, чтобы сравнить «До» и «После»</p>
             </div>
-            
-            <!-- 3. Текст (начинается в колонке 2, продолжается в колонке 3) -->
-            <div class="text-column space-y-4 text-gray-600">
-                <p><b>Кто в детстве не мечтал о плаще королевского мушкетера или платье Наташи Ростовой на ее первом балу?</b></p>
-                
-                <p>Став взрослыми, мы конечно изменились, но изменились ли наши самые светлые и чистые мечты.</p>
-                
-                <p>Портрет в образе – это отличный подарок для любого творческого человека, дань уважения родителям, прекрасный способ поздравить коллег, подчеркнуть личное и особое отношение близкому человеку и наконец просто порадовать самого себя.</p>
-                
-                <p>Такой <strong>исторический</strong> или <strong>стилизованный портрет</strong> пишется на планшете с помощью пера, точно также как пишутся традиционные картины кистью.</p>
-                
-                <p>На взгляд Muse, такой стиль – это непобедимое стремление человека к идеалу, к мечте.</p>
-                
-                <p>Придумывайте и выбирайте свой образ, а мы поможем в его воплощении.</p>
+                    <!-- 2. Текст (занимает 2 колонки на десктопе) -->
+                    <div class="lg:col-span-2 space-y-4 text-gray-600">
+                        <p>Граффити (от итал. Graffiare - царапать)— это в широком смысле рисунок или текст, который сделан краской на стенах и других поверхностях. Сейчас, эта целая субкультура, балансирующая на грани вандализма и признанного художественного направления.</p>
+                        
+                        <blockquote class="border-l-4 border-primary pl-4 italic text-gray-700">«Это очень разочаровывает, когда понимаешь, что лучшие коллекционеры твоих работ – это сотрудники полицейского управления».</blockquote>
+                        
+                        <p>Бэнкси. Источник: <cite class="text-sm text-gray-500">http://www.banksy.co.uk</cite></p>
+                        
+                        <p>Во многих странах даже запрещено продавать баллончики с краской, тем кому еще нет 18-ти.</p>
+                        
+                        <p>Чаще всего на улице можно увидеть «тег»— это имя автора («райтера») или группы авторов нанесенное на поверхность. Граффити в опасных местах называют «бомбингом» или «троу-ап», их рисуют очень быстро, в 2-3 цвета, жертвуя качеством ради скорости.</p>
+                        
+                        <blockquote class="border-l-4 border-primary pl-4 italic text-gray-700">«Люди смотрят на холст и восхищаются тем, как при помощи мазков кисти передана мысль. Люди смотрят на граффити и восхищаются тем, как при помощи водосточной трубы ты залез туда, куда тебе было нужно»</blockquote>
+                        
+                        <p>Бэнкси. Источник: <cite class="text-sm text-gray-500">http://www.banksy.co.uk</cite></p>
+                        
+                        <p>Красивое и сложное граффити называют— «райтингом»; а если кто-то ещё и деньги заплатил, называют продвижением (так рекламировали свои продукты IBM и Sony).</p>
+                        
+                        <p>Наверное, мысль о балансе граффити между вандализмом и творчеством можно подчеркнуть примером из Австралии, где с одной стороны можно получить 2 года тюрьмы за него, а с другой граффити включено в сборник «Австралийская живопись 1788—2000 годов» как форма изобразительного искусства.</p>
+                        
+                        <p>Скорее всего стиль граффити не подойдет тем, кто проявляет инициативу, только тогда, когда его об этом просят (Бэнкси). Если же чувствуете, что этот стиль Вам близок, то, чтобы нарисовать портрет в этом стиле и напечатать на холсте (внимание, мы не рисуем на стенах), то присылайте фотографии и мы вышлем Вам эскизы.</p>
+                        
+                        <p>Творите вместе с Muse, создавая из фотографий прекрасные картины, на которых всегда будет приятно остановить взгляд.</p>
+                        
+                        <p class="italic">Muse (греч. Μούσα) — это вдохновение, это Муза</p>
+                    </div>
+        
+                   
+                </div>
             </div>
-            
-        </div>
-</div>
-    </div>
-</section>
+        </section>
         <!-- CTA (структура как в foto-na-kholste) -->
         <section class="bg-dark py-24 md:py-32">
             <div class="container xl:flex xl:items-center xl:justify-between">
@@ -1193,7 +1169,7 @@ function BxPopup(url, width, height) {
                             <a href="https://muse.ooo/pechat/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">Печать на холсте</a>
                             <a href="https://muse.ooo/portret-na-zakaz/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">Портреты</a>
                             <a href="https://muse.ooo/pechat/foto-na-kholste/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">Фото на холсте</a>
-                            <a href="https://muse.ooo/portret-na-zakaz/portret-v-obraze/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">Портрет в образе</a>
+                            <a href="https://muse.ooo/portret-na-zakaz/graffiti-portret/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">Граффити</a>
                         </nav>
                         
                         <!-- Вторичные ссылки -->
@@ -1282,14 +1258,6 @@ function BxPopup(url, width, height) {
                 const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
                 orderDateEl.textContent = date.toLocaleDateString('ru-RU', options);
             }
-            
-            const deliveryDateEl = document.getElementById('delivery-date');
-            if (deliveryDateEl) {
-                const date = new Date();
-                date.setDate(date.getDate() + 4); // +4 дня от сегодня
-                const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-                deliveryDateEl.textContent = date.toLocaleDateString('ru-RU', options);
-            }
         })();
 
         // === Page Navigator ===
@@ -1343,27 +1311,6 @@ function BxPopup(url, width, height) {
             
             window.addEventListener('scroll', handleScroll, { passive: true });
             updateActiveLink();
-        })();
-
-        // === Video Cover ===
-        (function() {
-            const videoCovers = document.querySelectorAll('.video-cover');
-            videoCovers.forEach(cover => {
-                const playIcon = cover.querySelector('.video-play-icon');
-                const iframe = cover.querySelector('iframe[data-src]');
-                
-                if (playIcon && iframe) {
-                    playIcon.addEventListener('click', function() {
-                        // Загружаем iframe
-                        iframe.src = iframe.getAttribute('data-src');
-                        iframe.removeAttribute('data-src');
-                        iframe.classList.remove('hidden');
-                        
-                        // Добавляем класс для скрытия обложки
-                        cover.classList.add('video-playing');
-                    });
-                }
-            });
         })();
 
     </script>

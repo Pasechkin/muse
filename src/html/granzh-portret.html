@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Портрет в образе по фото на холсте — заказать в Muse</title>
-    <meta name="description" content="Художник впишет фото в известную картину и напечатает на холсте. Посмотрите примеры, пришлите фото и свои пожелания.">
+    <title>Портрет на холсте по фото в стиле Гранж — заказать в Muse</title>
+    <meta name="description" content="Художник стилизует для Вас фотографию под Гранж и напечатает портрет на холсте. Посмотрите примеры и пришлите фото.">
     
     <!-- Закрыто от индексации во время разработки -->
     <meta name="robots" content="noindex, nofollow">
@@ -108,7 +108,8 @@
             white-space: nowrap;
             border: 0;
         }
-		/* Grid layout для десктопа */
+        
+        /* Grid layout для десктопа */
         @media (min-width: 1024px) {
             .description-grid {
                 display: grid;
@@ -124,19 +125,11 @@
             .description-grid .text-column {
                 grid-column: 2 / 4;
             }
-            
-            /* Grid layout для Описания БЕЗ видео */
-            .description-grid-no-video {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 2rem;
-                align-items: start;
-            }
         }
     </style>
     
     <!-- Preload Hero изображения (ускоряет LCP) -->
-    <link rel="preload" as="image" href="https://muse.ooo/upload/img/queen-portret-v-obraze-fotomontazh-458-260419.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="https://muse.ooo/upload/img/o-grunge-3-458.webp" fetchpriority="high">
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -183,136 +176,144 @@
         .carousel-scroll { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
         .carousel-scroll::-webkit-scrollbar { display: none; }
         .snap-center { scroll-snap-align: center; }
-                /* Video Cover */
+        
+        /* Video Cover */
         .video-cover { position: relative; overflow: hidden; }
-        .video-cover .video-play-icon { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; z-index: 2; transition: all 0.3s ease; }
+        .video-cover .video-play-icon { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; z-index: 2; transition: all 0.3s ease; cursor: pointer; }
+        .video-cover .video-play-icon:hover { background-color: rgba(0, 0, 0, 0.3); }
         .video-cover video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
         .video-cover.video-playing > div:first-child,
         .video-cover.video-playing .video-play-icon { display: none; }
-        .video-cover.video-playing video { display: block; position: relative; }
+        .video-cover.video-playing iframe { display: block; position: relative; }
         
-      /* Before/After Slider (ba-card) */
-.ba-card {
-    position: relative;
-    aspect-ratio: 378/251;
-    overflow: hidden;
-    --pos: 50%;
-}
-.ba-card img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    pointer-events: none;
-    user-select: none;
-}
-.ba-card .after-image {
-    clip-path: inset(0 0 0 var(--pos));
-}
-.ba-card .ba-range {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    cursor: ew-resize;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    z-index: 20;
-}
-/* ИЗМЕНЕНИЕ: СПЛОШНАЯ ТОЛСТАЯ ЛИНИЯ */
-.ba-card .ba-divider {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: var(--pos);
-    width: 3px; /* Было 2px */
-    background: #fff; /* Было #ccc */
-    transform: translateX(-1.5px); /* Было -1px */
-    pointer-events: none;
-    z-index: 10;
-}
-.ba-card .ba-handle {
-    position: absolute;
-    left: var(--pos);
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 46px;
-    height: 70px;
-    pointer-events: none;
-    z-index: 15;
-}
-.ba-card .ba-handle::before {
-    content: '';
-    position: absolute;
-    top: 10px;
-    bottom: 10px;
-    left: 50%;
-    width: 1px;
-    background: rgba(0,0,0,0.25);
-    transform: translateX(-0.5px);
-}
-/* ИЗМЕНЕНИЕ: КРУПНЫЕ СТРЕЛКИ */
-.ba-card .ba-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 24px; /* Было 18px */
-    font-weight: bold;
-    color: white;
-    text-shadow: 0 0 3px rgba(0,0,0,0.7);
-}
-.ba-card .ba-arrow.l { left: 10px; }
-.ba-card .ba-arrow.r { right: 10px; }
-  /* ===== ПРЕМИАЛЬНЫЕ УЛУЧШЕНИЯ ===== */
- 
-    /* Улучшенные кнопки */
-    .btn-premium {
-        transition: all 0.3s ease;
-    }
-    
-    .btn-premium:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(74, 144, 226, 0.3);
-    }
-    
-    /* Карточки преимуществ с hover-эффектом */
-    .bg-white.rounded-lg.p-6 {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    .bg-white.rounded-lg.p-6:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-    }        
-    
-    /* Page Navigator улучшение */
-    .page-navigator li a {
-        transition: all 0.3s ease;
-    }
-    
-    .page-navigator li a:hover {
-        transform: scale(1.5);
-    }
-	/* 3D эффект для картинки */
-.canvas-3d {
-    --depth: 30px;
-    position: relative;
-    box-shadow: var(--depth) var(--depth) 50px rgba(0,0,0,0.4);
-    transition: transform 0.3s ease;
-}
-.canvas-3d:hover {
-    transform: translate(-5px, -5px);
-}
+        /* Before/After Slider (ba-card) */
+        .ba-card {
+            position: relative;
+            aspect-ratio: 378/265;
+            overflow: hidden;
+            --pos: 50%;
+        }
+        .ba-card img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+            user-select: none;
+        }
+        .ba-card .after-image {
+            clip-path: inset(0 0 0 var(--pos));
+        }
+        .ba-card .ba-range {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: ew-resize;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            z-index: 20;
+        }
+        .ba-card .ba-divider {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: var(--pos);
+            width: 3px;
+            background: #fff;
+            transform: translateX(-1.5px);
+            pointer-events: none;
+            z-index: 10;
+        }
+        .ba-card .ba-handle {
+            position: absolute;
+            left: var(--pos);
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 46px;
+            height: 70px;
+            pointer-events: none;
+            z-index: 15;
+        }
+        .ba-card .ba-handle::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            bottom: 10px;
+            left: 50%;
+            width: 1px;
+            background: rgba(0,0,0,0.25);
+            transform: translateX(-0.5px);
+        }
+        .ba-card .ba-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 3px rgba(0,0,0,0.7);
+        }
+        .ba-card .ba-arrow.l { left: 10px; }
+        .ba-card .ba-arrow.r { right: 10px; }
+        
+        /* Вертикальный Before/After Slider (360x517) */
+        .ba-card-vertical { 
+            width: 360px; 
+            max-width: 100%; 
+            aspect-ratio: 360/517; 
+        }
+        
+        /* Улучшенные кнопки */
+        .btn-premium {
+            transition: all 0.3s ease;
+        }
+        
+        .btn-premium:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.3);
+        }
+        
+        /* Карточки преимуществ с hover-эффектом */
+        .bg-white.rounded-lg.p-6 {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .bg-white.rounded-lg.p-6:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Page Navigator улучшение */
+        .page-navigator li a {
+            transition: all 0.3s ease;
+        }
+        
+        .page-navigator li a:hover {
+            transform: scale(1.5);
+        }
+        
+        /* 3D эффект для картинки */
+        .canvas-3d {
+            --depth: 30px;
+            position: relative;
+            box-shadow: var(--depth) var(--depth) 50px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease;
+        }
+        .canvas-3d:hover {
+            transform: translate(-5px, -5px);
+        }
 
-/* Разделитель в "Как заказать" */
-.timeline-divider {
-    border-left-width: 3px;
-    border-style: dashed;
-    border-color: rgba(74, 144, 226, 0.3);
-}
+        /* Разделитель в "Как заказать" */
+        .timeline-divider {
+            border-left-width: 3px;
+            border-style: dashed;
+            border-color: rgba(74, 144, 226, 0.3);
+        }
 
-/* Список характеристик */
+
+       /* Список характеристик */
 .characteristics-list li {
     transition: background-color 0.2s ease;
     padding: 0.375rem 0; /* Уменьшил с 0.5rem до 0.375rem */
@@ -326,23 +327,28 @@
 .characteristics-list li:hover {
     background-color: rgba(74, 144, 226, 0.05);
 }
-</style>
+		/* Если нужно дополнительное выравнивание */
+.grid-cols-3 > div {
+    display: flex;
+    flex-direction: column;
+}
+    </style>
 
     <!-- Structured Data: Product -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "Product",
-        "name": "Портрет в образе",
-        "description": "Художник впишет фото в известную картину и напечатает на холсте. Посмотрите примеры, пришлите фото и свои пожелания.",
-        "image": "https://muse.ooo/img/o-painting-queen-portrait-1000-1410.jpg",
+        "name": "Портрет в стиле Гранж",
+        "description": "Художник стилизует для Вас фотографию под Гранж и напечатает портрет на холсте. Посмотрите примеры и пришлите фото.",
+        "image": "https://muse.ooo/img/o-grunge-3-1440-2150.jpg",
         "brand": {
             "@type": "Brand",
             "name": "Muse"
         },
         "offers": {
             "@type": "Offer",
-            "url": "https://muse.ooo/portret-na-zakaz/portret-v-obraze/",
+            "url": "https://muse.ooo/portret-na-zakaz/granzh-portret/",
             "priceCurrency": "RUB",
             "price": "4311.00",
             "priceValidUntil": "2026-12-31",
@@ -355,7 +361,7 @@
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "5",
-            "reviewCount": "198"
+            "reviewCount": "12"
         }
     }
     </script>
@@ -381,16 +387,15 @@
             {
                 "@type": "ListItem",
                 "position": 3,
-                "name": "Портрет в образе",
-                "item": "https://muse.ooo/portret-na-zakaz/portret-v-obraze/"
+                "name": "Гранж",
+                "item": "https://muse.ooo/portret-na-zakaz/granzh-portret/"
             }
         ]
     }
     </script>
-	 <link rel="preload" as="image" href="https://muse.ooo/upload/img/queen-portret-v-obraze-fotomontazh-458-260419.webp" fetchpriority="high">
 </head>
 <body class="bg-white overflow-x-hidden">
-        <!-- Header -->
+    <!-- Header (вставьте из эталона) -->
     <header class="bg-dark sticky top-0 z-50">
         <nav class="container flex items-center justify-between gap-x-4 py-5">
             <!-- Logo -->
@@ -415,7 +420,7 @@
                 <a href="https://muse.ooo/portret-na-zakaz/" class="text-gray-400 hover:text-white transition-colors uppercase">Портреты</a>
                 <a href="https://muse.ooo/info/dostavka/" class="text-gray-400 hover:text-white transition-colors uppercase">Доставка</a>
                 <a href="#callback" class="text-gray-400 hover:text-white transition-colors uppercase">Обратный звонок</a>
-                <span class="text-gray-400 uppercase border-b border-dotted border-gray-400">Санкт-Петербург</span>
+                <span class="text-gray-400 uppercase border-b border-dotted border-gray-400">Москва</span>
                 <a href="tel:88007076921" class="text-gray-400 hover:text-white transition-colors">8-800-707-69-21</a>
                 <a href="#search" class="text-gray-400 hover:text-white transition-colors">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5">
@@ -470,7 +475,7 @@
                                     <a href="https://muse.ooo/portret-na-zakaz/" class="-mx-3 block rounded-lg px-3 py-2 text-white hover:bg-gray-700 uppercase">Портреты</a>
                                     <a href="https://muse.ooo/info/dostavka/" class="-mx-3 block rounded-lg px-3 py-2 text-white hover:bg-gray-700 uppercase">Доставка</a>
                                     <a href="#callback" class="-mx-3 block rounded-lg px-3 py-2 text-white hover:bg-gray-700 uppercase">Обратный звонок</a>
-                                    <div class="-mx-3 block rounded-lg px-3 py-2 text-white uppercase border-b border-dotted border-white/50">Санкт-Петербург</div>
+                                    <div class="-mx-3 block rounded-lg px-3 py-2 text-white uppercase border-b border-dotted border-white/50">Москва</div>
                                     <a href="tel:88007076921" class="-mx-3 block rounded-lg px-3 py-2 text-white hover:bg-gray-700">8-800-707-69-21</a>
                                     <a href="#search" class="-mx-3 block rounded-lg px-3 py-2 text-white hover:bg-gray-700" aria-label="Поиск">
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5 inline-block mr-2">
@@ -506,7 +511,7 @@
     </nav>
 
     <main>
-        <!-- Hero Section (с изображением справа, как в оригинале) -->
+        <!-- Hero Section -->
         <section class="bg-dark py-12 lg:py-20">
             <div class="container">
                 <div class="grid lg:grid-cols-2 gap-8 items-center">
@@ -522,13 +527,13 @@
                                     <a href="https://muse.ooo/portret-na-zakaz/">Портрет на заказ</a>
                                     <span class="mx-2 text-gray-300">/</span>
                                 </li>
-                                <li class="text-gray-300">Портрет в образе</li>
+                                <li class="text-gray-300">Гранж</li>
                             </ol>
                         </nav>
                         
-                        <h1 class="text-4xl lg:text-6xl font-light mb-4">Портрет в образе</h1>
-                        <p class="text-sm mt-2 mb-4 text-gray-300">Больше, чем фотомонтаж</p>
-                        <p class="text-lg lg:text-xl mb-6 text-gray-200">Художник впишет фото в известную картину и напечатает на холсте. Посмотрите примеры, пришлите фотографию и свои пожелания</p>
+                        <h1 class="text-4xl lg:text-6xl font-light mb-4">Портрет в стиле Гранж</h1>
+                        <p class="text-sm mt-2 mb-4 text-gray-300">Неординарный, непростой, любимый</p>
+                        <p class="text-lg lg:text-xl mb-6 text-gray-200">Художник стилизует для Вас фотографию под "Гранж" и напечатает портрет на холсте. Посмотрите примеры и пришлите фото</p>
                         
                         <p class="text-lg lg:text-xl mb-6 text-gray-200">От 4311 руб. Под заказ.</p>
                         
@@ -540,11 +545,11 @@
                     <!-- Изображение -->
                     <div class="relative">
                         <img 
-                            src="https://muse.ooo/upload/img/queen-portret-v-obraze-fotomontazh-458-260419.webp"
-                            alt="Портрет королевы на основе фотомонтажа в образ"
-                            title="Портрет королевы на основе фотомонтажа в образ"
+                            src="https://muse.ooo/upload/img/o-grunge-3-458.webp"
+                            alt="Портрет Данилы Козловского с Ольгой Зуевой в стиле Гранж"
+                            title="Портрет Данилы Козловского с Ольгой Зуевой в стиле Гранж"
                             width="458"
-                            height="646"
+                            height="687"
                             class="w-full max-w-md mx-auto lg:ml-auto rounded-lg shadow-2xl"
                             fetchpriority="high"
                         >
@@ -557,7 +562,7 @@
         <section class="bg-dark py-16 lg:py-20" id="primery">
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-white text-center mb-8">Примеры</h2>
-                <p class="text-center text-gray-300 mb-8">Портреты в образе</p>
+                <p class="text-center text-gray-300 mb-8">Портреты в стиле Гранж</p>
                 
                 <!-- Галерея из Bitrix будет здесь -->
                 <div class="text-center text-gray-400 py-12 border-2 border-dashed border-gray-600 rounded-lg">
@@ -566,8 +571,8 @@
                 </div>
                 
                 <div class="text-center mt-8">
-                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/v-obraze/" class="inline-block px-6 py-2 text-white hover:bg-white hover:text-dark rounded uppercase transition-colors">
-                        Смотреть все примеры работ
+                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/granzh/" class="inline-block px-6 py-2 text-white hover:bg-white hover:text-dark rounded uppercase transition-colors">
+                        смотреть все примеры работ
                     </a>
                 </div>
             </div>
@@ -577,7 +582,7 @@
         <section class="bg-primary text-white py-6">
             <div class="container">
                 <div class="flex items-center justify-center">
-                    <p class="text-xl">Скидка 20% с 3 по 4 января</p>
+                    <p class="text-xl">Скидка 20% с 13 по 14 января</p>
                 </div>
             </div>
         </section>
@@ -587,9 +592,11 @@
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">Цена</h2>
                 
+                <p class="text-center text-gray-600 mb-4">Если калькулятор отображается не корректно, то сообщите нам и мы сделаем для Вас все расчеты</p>
+                
                 <!-- Калькулятор из Bitrix будет здесь -->
                 <div class="text-center text-gray-500 py-12 border-2 border-dashed border-gray-300 rounded-lg">
-                    <p class="text-lg mb-2">Калькулятор</p>
+                    <p class="text-lg mb-2">загрузка калькулятора</p>
                     <p class="text-sm">Будет загружен из Bitrix</p>
                 </div>
             </div>
@@ -606,19 +613,19 @@
                 <div class="grid gap-10 xl:grid-cols-2 xl:items-center">
                     <!-- Изображение -->
                     <div>
-					<div class="canvas-3d w-full max-w-[555px] mx-auto">
-                        <img 
-                            src="https://muse.ooo/upload/img/man-portrait-in-the-image-of-Peter-1.webp"
-                            alt="Портрет молодого человека на основе фотомонтажа в образ Петра I"
-                            title="Портрет молодого человека на основе фотомонтажа в образ Петра I"
-                            width="555"
-                            height="833"
-                            class="w-full"
-                            loading="lazy"
-                            decoding="async"
-                        >
+                        <div class="canvas-3d w-full max-w-[555px] mx-auto">
+                            <img 
+                                src="https://muse.ooo/upload/img/o-grunge-555-kurt.webp"
+                                alt="Портрет Курта Кобейна в стиле Гранж"
+                                title="Портрет Курта Кобейна"
+                                width="555"
+                                height="663"
+                                class="w-full"
+                                loading="lazy"
+                                decoding="async"
+                            >
+                        </div>
                     </div>
-					 </div>
 
                     <!-- Процесс -->
                     <div class="relative">
@@ -634,8 +641,8 @@
                                 <div>
                                     <h3 class="text-xl font-medium text-dark mb-2">Заказ</h3>
                                     <p class="text-body">
-                                        В разделе <a class="text-primary underline hover:no-underline" href="#calc">«Цена» ↑</a> можно загрузить фото, подобрать нужный размер, рассчитать стоимость и оформить заказ.<br><br>
-                                        Нет времени разбираться? Нажмите любую кнопку <a href="https://muse.ooo/order/" class="text-primary underline hover:no-underline">«Заказать» ↗</a> на сайте и перешлите нам фото. Перезвоним и поможем с выбором.
+                                        В разделе <a class="text-primary underline hover:no-underline" href="#calc">Цена ↑</a> можно загрузить фото, подобрать нужный размер, рассчитать стоимость портрета и оформить заказ.<br><br>
+                                        Нет времени разбираться? Нажмите любую кнопку <a href="https://muse.ooo/order/" class="text-primary underline hover:no-underline">Заказать ↗</a> на сайте и перешлите нам фото. Перезвоним и поможем с выбором.
                                     </p>
                                 </div>
                             </div>
@@ -648,7 +655,7 @@
                                 <div>
                                     <h3 class="text-xl font-medium text-dark mb-2">Цифровой портрет</h3>
                                     <p class="text-body">
-                                        В течение часа перезвоним Вам, чтобы обсудить задание. По согласованному заданию подберем несколько образов и сделаем эскизы. После выбора и подтверждения эскиза напишем портрет. Вносите правки до тех пор, пока не будете полностью удовлетворены работой.<br><br>
+                                        В течение часа перезвоним Вам, чтобы обсудить задание. По согласованному заданию выполним эскиз. После подтверждения эскиза напишем портрет. Вносите правки до тех пор, пока не будете полностью удовлетворены работой.<br><br>
                                         Срок создания цифрового портрета — <span id="order-date"></span>.
                                     </p>
                                 </div>
@@ -660,9 +667,9 @@
                                     <span class="text-xl font-bold text-primary">3</span>
                                 </div>
                                 <div>
-                                    <h3 class="text-xl font-medium text-dark mb-2">Печать и оформление</h3>
+                                    <h3 class="text-xl font-medium text-dark mb-2">Печать и оформление портрета</h3>
                                     <p class="text-body">
-                                        Только после Вашего окончательного подтверждения цифрового портрета картина в образе будет напечатана на холсте, оформлена и передана в службу доставки.
+                                        Только после Вашего окончательного подтверждения цифрового портрета картина в стиле "Гранж" будет напечатана на холсте, оформлена и передана в службу доставки.
                                     </p>
                                 </div>
                             </div>
@@ -675,7 +682,7 @@
                                 <div>
                                     <h3 class="text-xl font-medium text-dark mb-2">Доставка</h3>
                                     <p class="text-body">
-                                        Ориентировочная дата доставки в пункты выдачи Санкт-Петербурга — <span id="delivery-date"></span>.<br>
+                                        Ориентировочная дата доставки в пункты выдачи Москвы — <span id="delivery-date"></span>.<br>
                                         Пункты выдачи смотрите в разделе <a href="https://muse.ooo/info/dostavka/" class="text-primary underline hover:no-underline">Доставка ↗</a>. По согласованию можно вызвать курьера.
                                     </p>
                                 </div>
@@ -700,6 +707,7 @@
         </section>
 
         <!-- Характеристики -->
+               
         <section class="py-16 lg:py-20" id="harakteristiki">
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Характеристики</h2>
@@ -713,7 +721,7 @@
                                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                 </svg>
-                                <span>Цифровой портрет в образе</span>
+                                <span>Портрет в стиле "Гранж"</span>
                             </li>
                             <li class="flex items-start gap-3 py-2"> <!-- Добавлено: py-2 -->
                                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
@@ -767,7 +775,7 @@
                         
                         <div class="mt-8 p-4 bg-secondary rounded-lg border border-gray-200">
                             <p class="text-body text-sm">
-                                Выше приведен список стандартных характеристик работ и материалов. Вы всегда можете: посчитав в калькуляторе выше; прочитав описание по клику на знак вопроса там же; спросив в коммуникаторе или позвонив — подобрать именно то, что нужно Вам.
+                                Выше приведен список стандартных характеристик работ и материалов. Вы всегда можете: посчитав в калькуляторе выше; прочитав описание по клику на знак вопроса там же; спросив в коммуникаторе или позвонив – подобрать именно то, что нужно Вам.
                             </p>
                         </div>
                     </div>
@@ -777,25 +785,18 @@
                         <el-tab-group class="flex flex-col-reverse">
                             <!-- Миниатюры -->
                             <div class="mx-auto mt-4 w-full max-w-md">
-                                <el-tab-list class="grid grid-cols-3 gap-3">
+                                <el-tab-list class="grid grid-cols-2 gap-3">
                                     <button class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
-                                        <span class="sr-only">Лицевая сторона портрета в образе</span>
+                                        <span class="sr-only">Лицевая сторона портрета в стиле Гранж</span>
                                         <span class="absolute inset-0 overflow-hidden rounded">
-                                            <img src="https://muse.ooo/upload/img/portrait-man-on-canvas-in-frame.webp" alt="Лицевая сторона портрета в образе с подрамником и рамой" title="Лицевая сторона портрета на холсте" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
+                                            <img src="https://muse.ooo/upload/img/o-grunge-442.webp" alt="Гранж портрет на холсте с лицевой стороны на подрамнике" title="Лицевая сторона портрета в стиле Гранж на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
                                     </button>
                                     <button class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
-                                        <span class="sr-only">Обратная сторона портрета в образе</span>
+                                        <span class="sr-only">Обратная сторона портрета в стиле Гранж</span>
                                         <span class="absolute inset-0 overflow-hidden rounded">
-                                            <img src="https://muse.ooo/upload/img/portrait-back-442.webp" alt="Фото обратной стороны портрета в образе в раме" title="Обратная сторона портрета в раме" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
-                                        </span>
-                                        <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
-                                    </button>
-                                    <button class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
-                                        <span class="sr-only">Портрет в образе на холсте</span>
-                                        <span class="absolute inset-0 overflow-hidden rounded">
-                                            <img src="https://muse.ooo/upload/img/portrait-man-on-canvas-in-frame.webp" alt="Портрет в образе на холсте" title="Портрет в образе на холсте" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
+                                            <img src="https://muse.ooo/upload/img/o-product-popart-442-back.webp" alt="Гранж портрет на холсте с обратной стороны на подрамнике" title="Обратная сторона портрета в стиле Гранж на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
                                     </button>
@@ -805,13 +806,10 @@
                             <!-- Большие изображения -->
                             <el-tab-panels>
                                 <div>
-                                    <img src="https://muse.ooo/upload/img/portrait-man-on-canvas-in-frame.webp" alt="Лицевая сторона портрета в образе с подрамником и рамой" title="Лицевая сторона портрета на холсте" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
+                                    <img src="https://muse.ooo/upload/img/o-grunge-442.webp" alt="Гранж портрет на холсте с лицевой стороны на подрамнике" title="Лицевая сторона портрета в стиле Гранж на холсте с подрамником" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
                                 </div>
                                 <div hidden>
-                                    <img src="https://muse.ooo/upload/img/portrait-back-442.webp" alt="Фото обратной стороны портрета в образе в раме" title="Обратная сторона портрета в раме" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
-                                </div>
-                                <div hidden>
-                                    <img src="https://muse.ooo/upload/img/portrait-man-on-canvas-in-frame.webp" alt="Портрет в образе на холсте" title="Портрет в образе на холсте" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
+                                    <img src="https://muse.ooo/upload/img/o-product-popart-442-back.webp" alt="Гранж портрет на холсте с обратной стороны на подрамнике" title="Обратная сторона портрета в стиле Гранж на холсте с подрамником" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
                                 </div>
                             </el-tab-panels>
                         </el-tab-group>
@@ -830,71 +828,41 @@
                     <!-- Преимущество 1: Примеры работ -->
                     <div class="bg-white rounded-lg p-6 text-left text-dark">
                         <div class="w-16 h-16 mb-4 flex items-center justify-start">
-                            <!-- SVG иконка (вставьте из оригинала) -->
-                              <svg fill="#4A90E2" height=40 viewBox="0 0 4500 4500" width=40 xmlns=http://www.w3.org/2000/svg image-rendering=optimizeQuality shape-rendering=geometricPrecision text-rendering=geometricPrecision>
-                        <path d="m1525 308c-1 88 2 100-60 168-77 84-109 67-174 189-39 71-88 262-115 287-30-37-19-151-13-200 18-149 44-225 176-297 113-61 96-49 186-147z"/>
-                        <path d="m1525 308c-46 176-192 169-258 282-77 130-91 362-91 362"/>
-                        <path d="m857 1192v2c-7 78-7 106-69 163-64 59-132 66-207 61-2 0-4-1-6-1-2-6-5-15-8-26-19-9-28-14-35-18 162-6 251-16 325-181zm-387 206c-54-58 96-70 110-73 183-38 130-18 277-133-74 165-163 175-325 181-14-7-13-3-57-3l-5 28zm5-28c-2 13-3 22-5 28l5-28zm46-14c-1-2-3-4-5-5-4-3-3-3-6-3 4 2 8 5 11 8z"/>
-                        <path d="m857 1192v2c-7 78-7 106-69 163-64 59-132 66-207 61-2 0-4-1-6-1-2-6-5-15-8-26-19-9-28-14-35-18 162-6 251-16 325-181zm-387 206c-54-58 96-70 110-73 183-38 130-18 277-133-74 165-163 175-325 181-14-7-13-3-57-3-2 13-3 22-5 28m51-42c-1-2-3-4-5-5-4-3-3-3-6-3 4 2 8 5 11 8z"/>
-                        <path d="m857 1192c-76 168-167 175-334 182-74 3 18-6 30 66"/>
-                        <path d="m572 1481c-58 2-29 6-86-16-24-62-20-30-11-95 64-1 33-7 92 21 18 61 18 31 5 90z"/>
-                        <path d="m572 1481c-7-15-83-90-97-111"/>
-                        <path d="m842 1515c52-49 39-24 81-56 1 0 1 0 2-1-1 2-1 3-1 5l3-6c4-3 4-3 5-7h-1c5-9 11-13 24-19 9-16 16-40 17-53 37-32 82 61 53 119-13 39-35 52-77 55-56 4-66-4-106-37zm83-57c1 0 1-1 2-1 1-3 2-5 4-7l-2-1c-2 4-3 6-4 9zm30-27c-7 3-17 9-16 16 6-3 11-9 16-16z"/>
-                        <path d="m842 1515c30 0 121-1 132-35 16-5 37-87-2-102"/>
-                        <path d="m1859 2025c20-29 63 44 27 77-24 31-78 30-94 68l-7 14c-65-34 8-116 63-125v1l-1 1c2-2 5-3 9-5-2 1-8 4-7 7 14-4 13-27 10-38zm-16 40c-2 2-3 4-5 9 2-4 3-7 5-9z"/>
-                        <path d="m1859 2025c27 2 20 54 6 58-2 6-114 37-80 101"/>
-                        <path d="m724 2303c12 84 40 225 27 301-6 31-19 89-43 114-11 38-31 24-20 13-2 0-3 1-3 1 0-1-2-24-1-27 23-68 3-161 3-233 1-78-4-103 37-169zm-32 427l4 4c0-4-2-4-4-4z"/>
-                        <path d="m724 2303c-32 102 17 226-8 344-4 18-6 50-19 63 1 8-9 41-7 19"/>
-                        <path d="m798 2862c40 26 77 61 77 113 0 3-2 5-3 2v-2c-2-1-4 18-45-6-52-30-43-61-29-107z"/>
-                        <path d="m798 2862c24 88 79 115 74 115"/>
-                        <path d="m1694 2177c43-31 17-21 76-31 35 15 71 32 42 61-35 1-27 0-61 7-39-19-20-7-57-37z"/>
-                        <path d="m1694 2177c35 0 103-2 118 30"/>
-                        <path d="m2052 2129c40-19 73-35 96 19 10 26 7 42-18 51-5-4-9-8-12-10-30-25-12 20-66-60z"/>
-                        <path d="m857 1192v2c-7 78-7 106-69 163-64 59-132 66-207 61l-6-1c10 27 7 16-3 64-58 2-29 6-86-16-19-50-21-39-16-67-54-58 96-70 110-73 183-38 130-18 277-133z"/>
-                        <path d="m2014 484c28 51 25 96 19 157-1-3-3-7-5-11-2-1-3-1-4-1 0 1 1 3 2 5-120-8-61-7-175 20-3 0-3 0-4 1 0-1 0-1 1-2v-1c-27 29-33 37-73 69-17 16-41 38-63 55-23 34-48 65-68 91-6-53-9-86 23-133 19-42 49-90 72-100l-19 6c10-15 23-33 38-51 27-75 73-157 126-186 77-42 114 13 130 81z"/>
-                        <path d="m1850 71c194-103 366-107 566-18 49-6 102-6 151 3 82 5 156 35 209 106 26 16 50 34 69 53 0-6 1-12 2-20 40 6 18 0 65 20 18 53 19 28 5 76h-10c73 117 39 224-80 340-32 31-70 55-112 69 37 28 62 71 42 104-4 7-27 19-30-7-7 6-13 8-31 9-31 1-51-10-65-28-91 4-114-15-201-48 84-48 157-98 264-43 1 0 1 0 2 1 5-16 5-12 30-40 49-57 140-176 104-256-53-113-97-163-205-223-37-21-72-32-97-57h-1c-3-1-6-1-9-2 5 5 10 11 12 16-35 14-102-6-128-10-157-23-186-20-343-5-155 15-226 58-367 89 60-74 70-83 158-129z"/>
-                        <path d="m2254 163c18-25 52-32 95-15 113 43 103 131 54 109-6 19-19 38-32 55-7 56-50 104-63 92-2-5-3-10-4-15-13-16-41-94-53-132-47-34-20-1-73 2-77 3-34-154 76-96z"/>
-                        <path d="m2943 803c65-16 29-5 74-28 95-47 171 75 80 132-8 34-23 61-66 40-61-31-95-94-111-158 8 5 16 9 23 14z"/>
-                        <path d="m2512 1417c54-17 103-18 165-12 60 6 126 21 167 69 25 15 45 30 47 32 30 26 121 135 70 179-7-28-17-50-29-69-41-34-86-62-114-90-27-27-61-44-98-57-89 29-279 64-300 3-11-36 42-50 92-55z"/>
-                        <path d="m2875 1922v-1 1zm-90-31c7 2 88 22 90 31-1 4-9 6-13 7l-16 23c-30 27-82 34-116 14-27-15-44-34-46-60-13-6-26-13-39-21-3 11-11 20-23 26-26 15-51 8-72-7-9 0-18-2-25-4-16-7-26-17-31-28 0 1 0 1-1 2-12-28-21-60-4-85-45-14-93-19-137-26l59-23c42-8 120 2 163 17 86 31 82 88 211 134z"/>
-                        <path d="m3176 386c23 29 47 74 77 113 33 42 176 198 213 264 24 22 42 45 40 67-1 13-9 20-21 25l16-15c-26 24-55 44-84 64-1 3-1 6-1 8-2 88 26 143 8 193 20 43 32 80 51 123 39 36 61 84 60 134 6 21 11 42 26 77 12 28 43 72 63 101 83 79 80 123 82 238 0 76-21 188-10 250 4 19 79 129 98 147 6 6 10 12 12 17 6 4 13 7 20 11 10 4 12 14 3 15 19 23-5 88-24 130 5 36 14 79 16 112 1 20 1 66-4 112 30 70 18 95-36 190-25-96-25-117-8-179-2-62-11-87-22-157-16-95-12-105 1-148-1-12 2-21 8-30 2-8 4-16 6-26-19-8-49-6-62-46-8-11-14-24-19-37-43-41-72-67-85-132-21-112-13-171-2-258-23-51-61-134-78-142 2 0 0 0 4 1-15-7-16-8-23-22-17-33-87-109-88-117-4-22 23-38 44-44 0-20-2-46-25-75-39-51-57-72-81-93-36-10-70-35-97-61h11c18-57 38-76 85-83 7-16 9-38 1-69-29-104-55-154-22-224-13-22-13-40-1-62-39-64-102-159-138-238 0-1-1-1-1-2-44-37-61-107-24-155 3 9 7 16 9 24 1-1 1-1 2-1z"/>
-                        <path d="m431 1736c67-49 147 113 200 97 4-1 24-10 42-18 7-8 16-15 25-23 3 61 2 107-42 145-11 50-38 150-73 133-2-16-2-33-2-51-1 0-1 0-2-1-1-3-2 0-7-5-65-59-146-193-145-280 1 1 3 2 4 3z"/>
-                        <path d="m1148 3629c104-179 252 241 260 336 5 73 8 196 40 260 40 78 37 156-10 195-1 7-2 11-4 13-4 4-14 5-27 5-24 9-53 12-89 7-22-3-60-10-100-19-41 4-90 11-122 12-215 12-431 2-645 29-104 12-170 18-275 20-159 3-139 27-159-152-11-101-67-396 97-397 152 0 392-90 568-115 199-30 247-26 378-95 35-27 65-59 88-99z"/>
-                        <path d="m1798 3169c32 28 61 57 88 90 37 27 38 57 102 62 21 1 15 21 3 23-12 18-47 50-87 45-8 18-14 34-21 50-1 11-2 21-4 32 8 3 6 13-1 17s-12 2-17-2c0 2-1 3-2 5-12-25-26-57-27-88-25-79-51-157-47-245 4 3 9 7 13 11z"/>
-                        <path d="m453 2500c10-32-9 42 0 0zm-22 85c24 57 72 234 83 297 37-9 43 8 45 29 40 30 100 128 145 167 63 53 112 69 176 138 26 28 79 90 130 139 65 15 88 33 129 88-50 8-79 18-120-27-6-7-10-12-13-16-42-27-86-65-120-96l-12 2c-12-1-79-32-84-40-29-46-93-88-133-126-48-44-56-75-111-120-46-38-71-47-88-87-20-5-39-75-46-106-20-22-25-43-28-75-5-50-7-54-13-104-12-91 28-223 56-309 32-95 59-125 29-222-28-90-21-44-27-100-2-6-2-4-24-47 55-5 67 35 97 78 39 56 52 79 34 152 0 0-19 58-27 68-9 41-26 93-44 175-6 28-10 46-12 57-3 8-8 25-15 53-3 11-6 22-7 32z"/>
-                        <path d="m3153 2944c-45 110-53 108-21 241 4 18 7 32 11 45 8 11 18 21 28 30 52 13 137 52 138 115 0 50-74 31-94 10l-17-20c1 0 2 0 3-1-57-13-100-65-124-128-40-53-56-125-25-196 28-64 50-75 105-104-1 3-3 6-4 8z"/>
-                        <path d="m2004 361c38-62 112-116 175-58 41 39-23 138-52 163-2 4-4 8-7 13l-1-1v2c-10 23-21-14-25-17h-1c-7 17-35 14-47-13-39-93 6-20-61-76 6-5 13-10 19-13z"/>
-                        <path d="m345 1648c-1 22-24 86-5 96 3 2 5 3 7 4 3-6 5-9 16-14 58-28 50 100-31 85-15-3-28-9-37-16-15-6-27-16-35-28-24-37-6-65 18-90l-16 16c9-18 27-38 47-41 9-7 20-9 36-12z"/>
-                        <path d="m1553 1195c46-12 91 13 131 31l-11 2c43 5 84 13 117 20 28 6 50 18 66 34 62 14 70 31 76 116 3 48-2 113-17 166 8 59 10 165-71 145-18-5-49-20-64-41-12-6-24-14-53-24-13-5-32-8-55-10-11 33-25 57-73 64-3 0-5 1-8 1-31 7-69 1-100-7-106 6-128 3-186-46-16 0-29-5-36-20l6-4c-7-3-14-7-23-13-29 75-74 140-128 213-6 7-11 14-16 21 29 70 32 159 3 226 6-1 12 0 17 2 28 11 8 41-18 52l-16 3c-25 14-45 14-81 18 2-3 5-7 8-11h-4c66-78 56-104 46-215 0-6-1-11-1-17-43 51-92 98-149 124-10 5-32 20-49 31-15 20-29 40-43 62-60 87-203 161-201 248 0 11 0 13-8 22l3 3c-6 56-11 131-16 204 13 82 6 191-20 237-41-64-53-249-19-321 0-61 4-121 17-160l-8 23c-9-134 125-187 189-287 16-25 34-50 52-73-3-212-6-179-112-338-17-11-26-20-23-28 2 0 180 42 191 43 72 12 171 18 232-29 38-30 73-56 108-83 13-18 25-37 40-57 10-19 22-41 38-68-1 26-4 50-9 73 2 7 0 16-5 26-5 17-10 34-16 50 22-2 43-4 63-6 7-6 17-15 38-32 39-32 91-46 97 10 80-13 157-19 254 8 43 12 56 28 72 40 1-2 3-4 5-6 4-5 27-24 48-39-4-75-7-211-52-219-53-10-90-28-140-45l-13-4c-45 15-84 17-122-16-18 4-38 12-68 21 8-38 21-58 55-73 12-23 26-37 62-47z"/>
-                        <path d="m3282 2115c23 44 23 86 0 126 9 35 18 70 30 113 3 11 6 22 9 32 24 88 35 147-9 209-14 20-33 41-60 62-74 62-49 5-120 116-29 45-76 138-106 175-39 46-19 7-54 80-37 80-123 307-103 392 5 20 8 40 12 60 34 51 70 111 96 130 58 13 165 22 122 101-8 15-17 29-26 43-9 32-28 65-35 85 56-5 82 5 145-22 151-66 136-154 249-229 47-32 63-51 73-82-5-30-8-62-4-80 13-57 66-42 110-16 53-4 93-25 146-69 20-32 49-45 70-25 23 21 11 43-14 63-30 42-10 114 21 151 2 2 79 82 78 104 65 71 110 114 174 171l43 37 5 4c24 22 50 44 75 67 51 47 97 99 117 165 30 100 116 136 153 208 15 28 22 62 14 106 1 2 2 3 2 5 9 22 1 36-13 43-14 41-143 5-168-4l-12-4c-206-28-411-14-619-3-304 15-572 25-870 20-60 14-116 27-123 26-80-14 2-121 20-154-23-18-38-19-67 0-44 30-64-21-32-38h1c2-2 4-3 6-5 14-21 28-105 56-130l4-17c-16-13-36-36-60-106-27-80-40-91-2-182 2 7 4 14 6 20l1-9c45 97 112 203 214 249-24-38-41-69-47-111l-1-1c-36-48-41-196 14-190 13 2 22 4 30 7 3-1 7-2 10-3-6-30-23-67-34-93-77-175-141-199-162-404-7-62 4-127 27-190 11-53 30-104 53-142 45-78 57-90 130-133l-3 6c19-6 33 3 44 21 29-16 32-43 35-78-9-20-18-32-13-41l-4-4c28-16 32-21 51-34 21-42 48-81 90-105 5-17 8-29 10-65 8-219 123-128 151-293 7-44 7-64 13-100-3-26-4-53-3-77 30 2 40 13 54 42z"/>
-                        <path d="m1262 2096c32 43 31 64 38 121 9 80 14 180-4 259s-49 144 15 202l14 14h-16c-102-5-81-168-75-229 12-126 20-241 28-367zm-253 301c11 23 7 37 0 50 0-6 1-11 1-11-4-16-4-29-1-39z"/>
-                        <path d="m1262 2096c32 43 31 64 38 121 9 80 14 180-4 259s-49 144 15 202l4 4c74 26 119 63 172 131 37 49 77 46 85 145 1 11-11 15-13 3l-1 1c-8-10-16-21-25-32 1 2 2 5 3 8 3 2 3 3 4 9-5 1-4 1-7-1-1 0 0 0 0 0-2 1-6 0-7-2-31-49-130-91-179-115-106-51-118-77-211-139-61-39-174-123-164-206 4-29 13-35 20-40-8-31-8-55-1-73v-1h1c13-33 51-47 100-54 176-86 81-69 149-134 1-28 4-39 13-72 2 3 4 6 6 10 1-8 1-16 2-24z"/>
-                        <path d="m1664 2343c78-21 176-43 239 19 50 50 162-52 297 170 13-2 19 0 19 6 25 4 75 56 83 85 10 33 0 58-19 78-19 29-35 48-54 61-26 19-57 23-107 26-1 1-2 3-5 3-7-1-8-7-4-17l-203 22c-27 3-66-10-96-28-37-5-114-31-142-42-75-28-133-106-174-171-29-44-41-59-40-108 6 6 11 12 17 19-8-12-13-19-13-19 1-1 3-3 5-4h-1c-4-1-10-2-15-3 18-10 36-20 53-29 48-33 102-51 160-68zm507 336c-5-20-3-7 4-41-16-24-24-40-41-58-7-4-16-8-26-12-44-16-194-53-208-60-41-22-134-9-210-13-3 3-6 6-9 8 7 42-3 42 49 76 1 1 13 8 30 19 15 7 26 13 27 13l22 18c8 4 87 26 87 26l-2 1 277 23zm-689-234c-2 0-5-1-9-1-4 1-8 2-11 3l20-2z"/>
+                           <svg height=40 viewBox="0 0 511.999 511.999"width=40 xmlns=http://www.w3.org/2000/svg enable-background="new 0 0 511.999 511.999"version=1.1 xml:space=preserve>
+                        <circle cx=240.97 cy=85.086 fill=#4a90e2 r=40.579 />
+                        <path d="m222.69 376.42c-7.11 11.42-20.724 16.31-33.205 12.618-6.308-1.866-11.622-5.75-15.328-10.812l-28.108 104.15c-3.381 12.527 4.034 25.424 16.562 28.805 12.526 3.38 25.424-4.035 28.805-16.563l32.376-119.96-1.102 1.77z"fill=#4a90e2 />
+                        <path d="m293.64 138.6h-82.163l-100.8-130.97c-6.597-8.567-18.89-10.168-27.458-3.573-8.569 6.595-10.168 18.889-3.572 27.458 114.61 148.9 107.11 139.46 109.27 141.36v48.468l79.621-16.047c9.01-6.249 52.292-36.263 61.942-42.955-6.696-11.181-17.328-23.741-36.836-23.741z"fill=#4a90e2 />
+                        <path d="m382.64 478.8l-90.025-198.56v-16.081l-38.664 62.083h7.926l77.965 171.96c5.361 11.823 19.285 17.053 31.101 11.698 11.818-5.359 17.055-19.283 11.697-31.101z"fill=#4a90e2 />
+                        <path d="m435.48 189.64c-1.875-5.843-6.241-10.189-11.546-12.256l-26.247 18.202c-4.23 2.933-9.183 4.483-14.323 4.483-1.545 0-3.074-0.143-4.57-0.42l-50.418 34.964c5.089 4.454 12.217 6.053 18.877 3.916l75.568-24.26c10.298-3.307 15.964-14.332 12.659-24.629z"fill=#4a90e2 />
+                        <path d="m429.6 142.84c-0.113 0-0.226 4e-3 -0.34 0.014l-67.366 5.526c-2.57 0.211-3.945 3.131-2.478 5.246l4.721 6.807-88.559 61.413-164.14 33.081c-4.048 0.816-7.178 4.036-7.878 8.106s1.173 8.151 4.717 10.272l54.481 32.63c14.886 8.916 23.871 25.11 23.558 42.461l-0.222 12.318c-0.095 5.266 3.337 9.947 8.388 11.441 5.06 1.495 10.482-0.576 13.261-5.039l77.048-123.71 92.436-64.102c1.47 2.052 3.785 3.152 6.139 3.152 1.481 0 2.977-0.436 4.288-1.344l44.304-30.723c3.332-2.308 1.679-7.545-2.359-7.545zm-214.14 184.12c-1.536 5.005-6.838 7.824-11.853 6.288-5.009-1.537-7.824-6.843-6.288-11.851 1.535-5.004 6.837-7.824 11.853-6.288 5.009 1.535 7.824 6.841 6.288 11.851zm7.923-20.364c-3.972 2.755-9.43 1.772-12.19-2.206l-22.814-32.897c-2.758-3.978-1.768-9.436 2.206-12.191 3.975-2.757 9.432-1.769 12.19 2.206l22.814 32.898c2.757 3.975 1.77 9.433-2.206 12.19z"fill=#4a90e2 />
                      </svg>
+                         
                         </div>
-                        <p class="text-lg">Лицо вписывается художником, а не "вставляется онлайн" или "приклеивается". Более 65-ти примеров</p>
+                        <p class="text-lg">19 портретов в стилистике "Гранж" от наших художников на сайте для ознакомления с уровнем работ</p>
                     </div>
 
                     <!-- Преимущество 2: Цифровая работа -->
-                     <div class="bg-white rounded-lg p-6 text-left text-dark">
+                    <div class="bg-white rounded-lg p-6 text-left text-dark">
                         <div class="w-16 h-16 mb-4 flex items-center justify-start">
-                             <svg height="40" viewBox="0 0 460.94 460.94" width="40" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 460.94 460.94" version="1.1" xml:space="preserve">
-    <path d="m460.79 405.15l-50.215-221c-0.621-2.732-3.049-4.67-5.851-4.67h-43.754l48.841-99.472c1.759-3.583 2.018-7.637 0.729-11.415s-3.973-6.828-7.556-8.587l-20.394-10.013c-7.398-3.633-16.37-0.569-20.001 6.828l-60.227 122.66h-234.62c-2.802 0-5.23 1.938-5.851 4.67l-21.138 93.03c-8.74-1.196-16.592-5.761-22.01-12.951-6.358-8.438-8.335-19.102-5.423-29.258l25.009-87.224c4.077-14.222 17.258-24.155 32.053-24.155h156.94c19.337 0 36.564-12.282 42.868-30.563l2.458-7.128c1.08-3.133-0.583-6.548-3.716-7.628s-6.548 0.583-7.628 3.716l-2.458 7.128c-4.635 13.442-17.303 22.474-31.523 22.474h-156.94c-20.12 0-38.044 13.507-43.588 32.847l-25.009 87.226c-3.96 13.811-1.272 28.313 7.375 39.787 7.16 9.501 17.445 15.634 28.927 17.466l-26.41 116.23c-0.404 1.78 0.023 3.646 1.162 5.073 1.138 1.426 2.864 2.257 4.689 2.257h437.41c1.825 0 3.551-0.831 4.689-2.257s1.566-3.293 1.162-5.073zm-363.84-87.67h-53.048l14.769-65h49.4l-11.121 65zm30.14-105h159.07l-30.339 61.79c-3.097 6.307-3.552 13.442-1.282 20.091 1.543 4.52 4.222 8.445 7.759 11.469l-4.88 9.939c-1.46 2.975-0.233 6.57 2.741 8.03 0.851 0.418 1.752 0.616 2.64 0.616 2.216 0 4.347-1.233 5.39-3.357l4.764-9.703c2.118 0.543 4.282 0.826 6.456 0.826 2.861 0 5.734-0.473 8.521-1.424 6.649-2.27 12.017-6.993 15.113-13.3l41.724-84.977h33.792l28.899 158h-307.4l27.034-158zm246.27-150.37c0.511-1.041 1.56-1.646 2.648-1.646 0.435 0 0.877 0.097 1.293 0.301l20.394 10.013c0.953 0.468 1.342 1.261 1.489 1.692s0.324 1.296-0.144 2.249l-106.77 217.45c-1.684 3.43-4.603 5.998-8.219 7.232-3.617 1.234-7.497 0.986-10.925-0.697-3.43-1.684-5.999-4.603-7.233-8.219s-0.987-7.496 0.697-10.925l106.77-217.45zm-300.83 129.37h223.94l-4.419 9h-170.02c-2.923 0-5.421 2.107-5.914 4.988l-5.991 35.012h-48.726l11.133-49zm-47.488 209l16.132-71h53.721l-7.869 45.988c-0.298 1.743 0.188 3.528 1.328 4.88s2.818 2.132 4.586 2.132h321.71c1.78 0 3.469-0.791 4.608-2.158 1.14-1.368 1.614-3.17 1.293-4.922l-31.094-170c-0.521-2.85-3.004-4.92-5.902-4.92h-32.9l4.419-9h44.856l47.489 209h-422.38z" class="active-path" fill="#4A90E2"/>
-</svg>
+                            <svg height=40 viewBox="0 0 460.94 460.94"width=40 xmlns=http://www.w3.org/2000/svg enable-background="new 0 0 460.94 460.94"version=1.1 xml:space=preserve>
+                        <path d="m460.79 405.15l-50.215-221c-0.621-2.732-3.049-4.67-5.851-4.67h-43.754l48.841-99.472c1.759-3.583 2.018-7.637 0.729-11.415s-3.973-6.828-7.556-8.587l-20.394-10.013c-7.398-3.633-16.37-0.569-20.001 6.828l-60.227 122.66h-234.62c-2.802 0-5.23 1.938-5.851 4.67l-21.138 93.03c-8.74-1.196-16.592-5.761-22.01-12.951-6.358-8.438-8.335-19.102-5.423-29.258l25.009-87.224c4.077-14.222 17.258-24.155 32.053-24.155h156.94c19.337 0 36.564-12.282 42.868-30.563l2.458-7.128c1.08-3.133-0.583-6.548-3.716-7.628s-6.548 0.583-7.628 3.716l-2.458 7.128c-4.635 13.442-17.303 22.474-31.523 22.474h-156.94c-20.12 0-38.044 13.507-43.588 32.847l-25.009 87.226c-3.96 13.811-1.272 28.313 7.375 39.787 7.16 9.501 17.445 15.634 28.927 17.466l-26.41 116.23c-0.404 1.78 0.023 3.646 1.162 5.073 1.138 1.426 2.864 2.257 4.689 2.257h437.41c1.825 0 3.551-0.831 4.689-2.257s1.566-3.293 1.162-5.073zm-363.84-87.67h-53.048l14.769-65h49.4l-11.121 65zm30.14-105h159.07l-30.339 61.79c-3.097 6.307-3.552 13.442-1.282 20.091 1.543 4.52 4.222 8.445 7.759 11.469l-4.88 9.939c-1.46 2.975-0.233 6.57 2.741 8.03 0.851 0.418 1.752 0.616 2.64 0.616 2.216 0 4.347-1.233 5.39-3.357l4.764-9.703c2.118 0.543 4.282 0.826 6.456 0.826 2.861 0 5.734-0.473 8.521-1.424 6.649-2.27 12.017-6.993 15.113-13.3l41.724-84.977h33.792l28.899 158h-307.4l27.034-158zm246.27-150.37c0.511-1.041 1.56-1.646 2.648-1.646 0.435 0 0.877 0.097 1.293 0.301l20.394 10.013c0.953 0.468 1.342 1.261 1.489 1.692s0.324 1.296-0.144 2.249l-106.77 217.45c-1.684 3.43-4.603 5.998-8.219 7.232-3.617 1.234-7.497 0.986-10.925-0.697-3.43-1.684-5.999-4.603-7.233-8.219s-0.987-7.496 0.697-10.925l106.77-217.45zm-300.83 129.37h223.94l-4.419 9h-170.02c-2.923 0-5.421 2.107-5.914 4.988l-5.991 35.012h-48.726l11.133-49zm-47.488 209l16.132-71h53.721l-7.869 45.988c-0.298 1.743 0.188 3.528 1.328 4.88s2.818 2.132 4.586 2.132h321.71c1.78 0 3.469-0.791 4.608-2.158 1.14-1.368 1.614-3.17 1.293-4.922l-31.094-170c-0.521-2.85-3.004-4.92-5.902-4.92h-32.9l4.419-9h44.856l47.489 209h-422.38z"fill=#4A90E2 class=active-path data-old_color=" rgb(74, 144, 226)"data-original=#4A90E2 />
+                     </svg>
+                           
                         </div>
                         <p class="text-lg">Для 100% сходства, учёта пожеланий, правок и быстрого согласования пишем портреты в цифровом виде</p>
                     </div>
 
                     <!-- Преимущество 3: Качество печати -->
-                     <div class="bg-white rounded-lg p-6 text-left text-dark">
+                    <div class="bg-white rounded-lg p-6 text-left text-dark">
                         <div class="w-16 h-16 mb-4 flex items-center justify-start">
-                             <svg height=40 viewbox="0 0 325.9 325.9" width=40 xmlns=http://www.w3.org/2000/svg>
-                        <path d="M297.4 47.8h-24.5v-7.1c0-9.3-7.5-16.8-16.8-16.8H69.7c-9.3 0-16.8 7.5-16.8 16.8v7.1H28.5C12.7 47.8 0 60.5 0 76.2v39.8c0 12.6 8.3 23.2 19.7 27v115.7L9.5 289.6c-1.6 5 1 10.3 6 11.9 1 0.3 2 0.5 3 0.5 4 0 7.7-2.5 9-6.5l10.7-32.4h0.4v-1.3L48.8 230.9c1.6-5-1-10.3-6-11.9 -1.4-0.5-2.8-0.5-4.2-0.4v-74.1h22.9v111.4h202.9V144.5h17.2v69.4c-2.4-1.9-5.7-2.5-8.8-1.5 -5 1.6-7.6 7-6 11.9l21.3 64.6c1.3 4 5 6.5 9 6.5 1 0 2-0.2 3-0.5 5-1.6 7.6-7 6-11.9l-6.6-19.9h1V144.2c14.3-1.5 25.4-13.5 25.4-28.2V76.2C325.9 60.5 313.1 47.8 297.4 47.8zM63.7 40.7c0-3.3 2.7-6 6-6H256.1c3.3 0 6 2.7 6 6v7.1H63.7V40.7zM253.6 144.5v100.6H72.3V144.5 123.9c0-8.1 4.1-19.5 8.9-24.8l8.7-9.6h146l8.7 9.6c4.8 5.3 8.9 16.7 8.9 24.8v20.6H253.6z" fill=#4a90e2></path>
-                        <path d="M232.7 106.4H93.2c-3 0-5.4 2.4-5.4 5.4 0 3 2.4 5.4 5.4 5.4h139.5c3 0 5.4-2.4 5.4-5.4C238.1 108.8 235.6 106.4 232.7 106.4z" fill=#4a90e2></path>
+                            <svg height=40 viewbox="0 0 325.9 325.9"width=40 xmlns=http://www.w3.org/2000/svg>
+                        <path d="M297.4 47.8h-24.5v-7.1c0-9.3-7.5-16.8-16.8-16.8H69.7c-9.3 0-16.8 7.5-16.8 16.8v7.1H28.5C12.7 47.8 0 60.5 0 76.2v39.8c0 12.6 8.3 23.2 19.7 27v115.7L9.5 289.6c-1.6 5 1 10.3 6 11.9 1 0.3 2 0.5 3 0.5 4 0 7.7-2.5 9-6.5l10.7-32.4h0.4v-1.3L48.8 230.9c1.6-5-1-10.3-6-11.9 -1.4-0.5-2.8-0.5-4.2-0.4v-74.1h22.9v111.4h202.9V144.5h17.2v69.4c-2.4-1.9-5.7-2.5-8.8-1.5 -5 1.6-7.6 7-6 11.9l21.3 64.6c1.3 4 5 6.5 9 6.5 1 0 2-0.2 3-0.5 5-1.6 7.6-7 6-11.9l-6.6-19.9h1V144.2c14.3-1.5 25.4-13.5 25.4-28.2V76.2C325.9 60.5 313.1 47.8 297.4 47.8zM63.7 40.7c0-3.3 2.7-6 6-6H256.1c3.3 0 6 2.7 6 6v7.1H63.7V40.7zM253.6 144.5v100.6H72.3V144.5 123.9c0-8.1 4.1-19.5 8.9-24.8l8.7-9.6h146l8.7 9.6c4.8 5.3 8.9 16.7 8.9 24.8v20.6H253.6z"fill=#4a90e2 class=fil101></path>
+                        <path d="M232.7 106.4H93.2c-3 0-5.4 2.4-5.4 5.4 0 3 2.4 5.4 5.4 5.4h139.5c3 0 5.4-2.4 5.4-5.4C238.1 108.8 235.6 106.4 232.7 106.4z"fill=#4a90e2 class=fil101></path>
                      </svg>
+                           
                         </div>
-                        <p class="text-lg">Печатаем оригинальными чернилами на плотном натуральном холсте – срок службы картины более 50-ти лет</p>
-                    </div> 
+                        <p class="text-lg">Печатаем оригинальными чернилами на плотном холсте – срок службы портрета составляет более 50-ти лет</p>
+                    </div>
 
                     <!-- Преимущество 4: Соблюдение сроков -->
                     <div class="bg-white rounded-lg p-6 text-left text-dark">
@@ -907,35 +875,38 @@
                         <path d="m305.94 152.44c-15.648-5.458-32.449-8.436-49.935-8.436-4.418 0-8 3.582-8 8v144c0 2.122 0.843 4.156 2.343 5.657l101.82 101.82c1.562 1.562 3.609 2.343 5.657 2.343s4.095-0.781 5.657-2.343c28.708-28.709 44.519-66.879 44.519-107.48 0-12.752-1.587-25.139-4.559-36.983-0.059-0.333-0.14-0.661-0.242-0.985-3.191-12.364-7.909-24.12-13.929-35.062-0.219-0.518-0.498-1.014-0.831-1.485-5.697-10.086-12.508-19.463-20.273-27.956-0.236-0.319-0.489-0.629-0.778-0.918-0.157-0.157-0.322-0.3-0.488-0.44-16.381-17.486-36.835-31.107-59.836-39.336-0.368-0.162-0.744-0.295-1.129-0.399zm17.065 25.25l-59 59v-25.372l41.846-41.847c5.933 2.346 11.662 5.096 17.154 8.219zm27.448 20.553l-86.448 86.447v-25.372l72.705-72.705c4.834 3.576 9.428 7.459 13.743 11.63zm21.403 26.596l-87.851 87.851-12.686-12.686 89.979-89.978c3.835 4.688 7.366 9.635 10.558 14.813zm14.76 33.241l-78.611 78.611-12.686-12.687 84.418-84.418c2.723 5.948 5.027 12.126 6.879 18.494zm5.389 37.924c0 1.597-0.036 3.188-0.091 4.776l-59.909 59.91-12.686-12.686 71.313-71.313c0.901 6.311 1.373 12.758 1.373 19.313zm-103.3-132.02l-24.701 24.702v-28.454c8.464 0.494 16.719 1.774 24.701 3.752zm68.96 222.36l-14.347-14.347 45.205-45.205c-5.071 22.015-15.582 42.408-30.858 59.552z"/>
                      </g>
                   </svg>
+                           
                         </div>
                         <p class="text-lg">Крайне ответственно относимся к соблюдению сроков выполнения работ. Не беремся, если не успеваем</p>
                     </div>
 
-                    <!-- Преимущество 5: Цена -->
-                   <div class="bg-white rounded-lg p-6 text-left text-dark">
+                    <!-- Преимущество 5: Выгодная цена -->
+                    <div class="bg-white rounded-lg p-6 text-left text-dark">
                         <div class="w-16 h-16 mb-4 flex items-center justify-start">
-                           <svg height=40 viewbox="0 0 612 612" width=40 xmlns=http://www.w3.org/2000/svg>
+                            <svg height=40 viewbox="0 0 612 612"width=40 xmlns=http://www.w3.org/2000/svg>
 					 
-                        <path d="M592.9 306c0-79.2-32.1-150.9-84-202.9C456.9 51.2 385.2 19.1 306 19.1s-150.9 32.1-202.8 84C51.2 155.1 19.1 226.8 19.1 306s32.1 151 84 202.9 123.6 84 202.8 84c79.2 0 150.9-32.1 202.9-84C560.8 457 592.9 385.2 592.9 306L592.9 306zM522.4 89.6C577.8 145 612 221.5 612 306c0 84.5-34.2 161-89.6 216.4C467 577.8 390.5 612 306 612s-161-34.2-216.4-89.6C34.3 467 0 390.5 0 306c0-84.5 34.2-161 89.6-216.4C145 34.3 221.5 0 306 0 390.5 0 467 34.2 522.4 89.6z" fill=#4a90e2></path>
-                        <path d="M296.5 439.9c5.3 0 9.6 4.3 9.6 9.6 0 5.3-4.3 9.6-9.6 9.6h-76.5c-5.3 0-9.6-4.3-9.6-9.6s4.3-9.6 9.6-9.6H296.5z" fill=#4a90e2></path>
-                        <path d="M334.7 344.3c-5.3 0-9.6-4.3-9.6-9.6 0-5.3 4.3-9.6 9.6-9.6 18.5 0 35.2-7.5 47.3-19.6l0.5-0.5c11.8-12 19.1-28.6 19.1-46.8 0-18.5-7.5-35.2-19.6-47.3l-0.5-0.5c-12.1-11.8-28.6-19.1-46.8-19.1H220c-5.3 0-9.6-4.3-9.6-9.6 0-5.3 4.3-9.6 9.6-9.6h114.8c23.4 0 44.7 9.4 60.2 24.7l0.6 0.6c15.6 15.6 25.2 37.1 25.2 60.9 0 23.4-9.4 44.7-24.6 60.2l-0.6 0.6C380 334.6 358.5 344.3 334.7 344.3z" fill=#4a90e2></path>
-                        <path d="M219.9 344.3c-5.3 0-9.6-4.3-9.6-9.6 0-5.3 4.3-9.6 9.6-9.6H334.7c5.3 0 9.6 4.3 9.6 9.6s-4.3 9.6-9.6 9.6H219.9z" fill=#4a90e2></path>
-                        <path d="M267.7 449.5c0 5.3-4.3 9.6-9.6 9.6 -5.3 0-9.6-4.3-9.6-9.6V181.7c0-5.3 4.3-9.6 9.6-9.6 5.3 0 9.6 4.3 9.6 9.6V449.5z" fill=#4a90e2></path>
-                        <path d="M219.9 382.5c-5.3 0-9.6-4.3-9.6-9.6 0-5.3 4.3-9.6 9.6-9.6h133.9c5.3 0 9.6 4.3 9.6 9.6 0 5.3-4.3 9.6-9.6 9.6H219.9z" fill=#4a90e2></path>
+                        <path d="M592.9 306c0-79.2-32.1-150.9-84-202.9C456.9 51.2 385.2 19.1 306 19.1s-150.9 32.1-202.8 84C51.2 155.1 19.1 226.8 19.1 306s32.1 151 84 202.9 123.6 84 202.8 84c79.2 0 150.9-32.1 202.9-84C560.8 457 592.9 385.2 592.9 306L592.9 306zM522.4 89.6C577.8 145 612 221.5 612 306c0 84.5-34.2 161-89.6 216.4C467 577.8 390.5 612 306 612s-161-34.2-216.4-89.6C34.3 467 0 390.5 0 306c0-84.5 34.2-161 89.6-216.4C145 34.3 221.5 0 306 0 390.5 0 467 34.2 522.4 89.6z"fill=#4a90e2></path>
+                        <path d="M296.5 439.9c5.3 0 9.6 4.3 9.6 9.6 0 5.3-4.3 9.6-9.6 9.6h-76.5c-5.3 0-9.6-4.3-9.6-9.6s4.3-9.6 9.6-9.6H296.5z"fill=#4a90e2></path>
+                        <path d="M334.7 344.3c-5.3 0-9.6-4.3-9.6-9.6 0-5.3 4.3-9.6 9.6-9.6 18.5 0 35.2-7.5 47.3-19.6l0.5-0.5c11.8-12 19.1-28.6 19.1-46.8 0-18.5-7.5-35.2-19.6-47.3l-0.5-0.5c-12.1-11.8-28.6-19.1-46.8-19.1H220c-5.3 0-9.6-4.3-9.6-9.6 0-5.3 4.3-9.6 9.6-9.6h114.8c23.4 0 44.7 9.4 60.2 24.7l0.6 0.6c15.6 15.6 25.2 37.1 25.2 60.9 0 23.4-9.4 44.7-24.6 60.2l-0.6 0.6C380 334.6 358.5 344.3 334.7 344.3z"fill=#4a90e2></path>
+                        <path d="M219.9 344.3c-5.3 0-9.6-4.3-9.6-9.6 0-5.3 4.3-9.6 9.6-9.6H334.7c5.3 0 9.6 4.3 9.6 9.6s-4.3 9.6-9.6 9.6H219.9z"fill=#4a90e2></path>
+                        <path d="M267.7 449.5c0 5.3-4.3 9.6-9.6 9.6 -5.3 0-9.6-4.3-9.6-9.6V181.7c0-5.3 4.3-9.6 9.6-9.6 5.3 0 9.6 4.3 9.6 9.6V449.5z"fill=#4a90e2></path>
+                        <path d="M219.9 382.5c-5.3 0-9.6-4.3-9.6-9.6 0-5.3 4.3-9.6 9.6-9.6h133.9c5.3 0 9.6 4.3 9.6 9.6 0 5.3-4.3 9.6-9.6 9.6H219.9z"fill=#4a90e2></path>
                      </svg>
+                            
                         </div>
                         <p class="text-lg">Предлагаем выгодную цену благодаря полному циклу собственного производства: от эскиза до оформления в багет</p>
                     </div>
 
                     <!-- Преимущество 6: Гарантия -->
-                   <div class="bg-white rounded-lg p-6 text-left text-dark">
+                    <div class="bg-white rounded-lg p-6 text-left text-dark">
                         <div class="w-16 h-16 mb-4 flex items-center justify-start">
-                            <svg height=40 viewbox="0 0 214.3 214.3" width=40 xmlns=http://www.w3.org/2000/svg>
-                        <path d="M196.9 55.2c-0.1-5.8-0.2-11.2-0.2-16.5 0-4.1-3.4-7.5-7.5-7.5 -32.1 0-56.5-9.2-76.9-29 -2.9-2.8-7.5-2.8-10.5 0 -20.4 19.8-44.8 29-76.8 29 -4.1 0-7.5 3.4-7.5 7.5 0 5.3-0.1 10.8-0.2 16.5 -1 53.8-2.4 127.6 87.3 158.7 0.8 0.3 1.6 0.4 2.5 0.4 0.8 0 1.7-0.1 2.5-0.4C199.4 182.7 198 109 196.9 55.2zM107.1 198.8c-77-28-75.8-89.2-74.8-143.4 0.1-3.2 0.1-6.4 0.2-9.5 30-1.3 54.1-10.4 74.6-28.3 20.6 17.9 44.6 27 74.6 28.3 0 3.1 0.1 6.2 0.2 9.5C183 109.6 184.1 170.8 107.1 198.8z" fill=#4A90E2></path>
-                        <path d="M133 81.1l-36.2 36.2 -15.4-15.4c-2.9-2.9-7.7-2.9-10.6 0 -2.9 2.9-2.9 7.7 0 10.6l20.8 20.8c1.5 1.5 3.4 2.2 5.3 2.2 1.9 0 3.8-0.7 5.3-2.2l41.5-41.5c2.9-2.9 2.9-7.7 0-10.6C140.6 78.2 135.9 78.2 133 81.1z" fill=#4A90E2></path>
+                            <svg height=40 viewbox="0 0 214.3 214.3"width=40 xmlns=http://www.w3.org/2000/svg>
+                        <path d="M196.9 55.2c-0.1-5.8-0.2-11.2-0.2-16.5 0-4.1-3.4-7.5-7.5-7.5 -32.1 0-56.5-9.2-76.9-29 -2.9-2.8-7.5-2.8-10.5 0 -20.4 19.8-44.8 29-76.8 29 -4.1 0-7.5 3.4-7.5 7.5 0 5.3-0.1 10.8-0.2 16.5 -1 53.8-2.4 127.6 87.3 158.7 0.8 0.3 1.6 0.4 2.5 0.4 0.8 0 1.7-0.1 2.5-0.4C199.4 182.7 198 109 196.9 55.2zM107.1 198.8c-77-28-75.8-89.2-74.8-143.4 0.1-3.2 0.1-6.4 0.2-9.5 30-1.3 54.1-10.4 74.6-28.3 20.6 17.9 44.6 27 74.6 28.3 0 3.1 0.1 6.2 0.2 9.5C183 109.6 184.1 170.8 107.1 198.8z"fill=#4A90E2></path>
+                        <path d="M133 81.1l-36.2 36.2 -15.4-15.4c-2.9-2.9-7.7-2.9-10.6 0 -2.9 2.9-2.9 7.7 0 10.6l20.8 20.8c1.5 1.5 3.4 2.2 5.3 2.2 1.9 0 3.8-0.7 5.3-2.2l41.5-41.5c2.9-2.9 2.9-7.7 0-10.6C140.6 78.2 135.9 78.2 133 81.1z"fill=#4A90E2></path>
                      </svg>
+                            
                         </div>
-                        <p class="text-lg">Предоставляем официальную гарантию и гордимся каждым положительным отзывом на странице</p>
+                        <p class="text-lg">Предоставляем официальную гарантию и гордимся каждым из 6-и положительных отзывов на странице</p>
                     </div>
                 </div>
             </div>
@@ -958,18 +929,14 @@
                         onclick="document.getElementById('review-modal').showModal()"
                         class="inline-block px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors"
                     >
-                        Оставить отзыв
+                        ОСТАВИТЬ ОТЗЫВ
                     </button>
                 </div>
             </div>
         </section>
 
         <!-- Модальное окно для отзыва -->
-<!-- Модальное окно для отзыва -->
-<!-- Модальное окно для отзыва -->
-<!-- Модальное окно для отзыва -->
-<!-- Модальное окно для отзыва -->
-<dialog id="review-modal" class="p-0 rounded-lg shadow-2xl backdrop:bg-black/70 max-w-md w-full">
+        <dialog id="review-modal" class="p-0 rounded-lg shadow-2xl backdrop:bg-black/70 max-w-md w-full">
     <div class="p-6 bg-dark text-white rounded-lg">
         <!-- Заголовок и кнопка закрытия -->
         <div class="flex items-center justify-between mb-6">
@@ -1061,105 +1028,98 @@
     </div>
 </dialog>
 
-<script>
-// Функция для открытия попапа OAuth (оставлена из старой формы)
-function BxPopup(url, width, height) {
-    if (url) {
-        var left = (screen.width/2) - (width/2);
-        var top = (screen.height/2) - (height/2);
-        window.open(url, '', 'width=' + width + ', height=' + height + ', top=' + top + ', left=' + left);
-    }
-}
-</script>
-
-        <!-- Описание -->
+                <!-- Описание -->
         <section class="py-16 lg:py-20" id="opisanie">
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Описание</h2>
           
-               <!-- Grid контейнер -->
-        <div class="description-grid space-y-8 lg:space-y-0">
-            
-            <!-- 1. Видео (занимает 2 строки) -->
-            <div class="video-column">
-                <div class="video-cover aspect-[360/648] rounded-lg overflow-hidden shadow-lg">
-                    <img 
-                        src="https://muse.ooo/upload/img/o-portret-v-obraze-na-kholste-360-648-2.webp"
-                        alt="Портрет в образе на холсте"
-                        class="w-full h-full object-cover"
-                        loading="lazy"
-                        decoding="async"
-                    >
-                    <div class="video-play-icon cursor-pointer bg-black/20 hover:bg-black/30 transition-colors">
-                        <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
+                <!-- Grid контейнер с тремя колонками одинаковой высоты -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+                    
+                    <!-- 1. Видео -->
+                    <div class="flex flex-col">
+                        <div class="video-cover aspect-[360/648] rounded-lg overflow-hidden shadow-lg flex-shrink-0">
+                            <img 
+                                src="https://muse.ooo/upload/img/o-grange-on-canvas.webp"
+                                alt="Гранж портрет на холсте"
+                                class="w-full h-full object-cover"
+                                loading="lazy"
+                                decoding="async"
+                            >
+                            <div class="video-play-icon cursor-pointer bg-black/20 hover:bg-black/30 transition-colors">
+                                <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                            </div>
+                            <iframe 
+                                class="hidden"
+                                loading="lazy"
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen
+                                data-src="https://www.youtube.com/embed/LDwmAOvMvN8?rel=0&showinfo=0"
+                                title="Гранж портрет на холсте"
+                            ></iframe>
+                        </div>
+                        <p class="text-center text-gray-600 mt-4 text-sm flex-shrink-0">Короткое видео - 13 сек. о том, как выглядит портрет на холсте</p>
                     </div>
-                    <iframe 
-                        class="hidden"
-                        loading="lazy"
-                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen
-                        data-src="https://www.youtube.com/embed/FVs-JgQe5K8?rel=0&amp;showinfo=0"
-                        title="Портрет в образе на холсте"
-                    ></iframe>
-                </div>
-                <p class="text-center text-gray-600 mt-4 text-sm">Короткое видео - 15 сек. о том, как выглядит картина на холсте</p>
-            </div>
-            
-            <!-- 2. До/После -->
-            <div>
-                <div class="ba-card rounded-xl overflow-hidden shadow-2xl" id="before-after">
-                    <img 
-                        src="https://muse.ooo/upload/img/painting-b.webp"
-                        alt="Фото для портрета в образе"
-                        title="Фото для портрета"
-                        class="before-image"
-                        loading="lazy"
-                        decoding="async"
-                        width="378"
-                        height="251"
-                    >
-                    <img 
-                        src="https://muse.ooo/upload/img/painting-a.webp"
-                        alt="Портрет в образе полководца"
-                        title="Портрет в образе военного"
-                        class="after-image"
-                        loading="lazy"
-                        decoding="async"
-                        width="378"
-                        height="251"
-                    >
-                    <div class="ba-divider"></div>
-                    <div class="ba-handle">
-                        <span class="ba-arrow l">‹</span>
-                        <span class="ba-arrow r">›</span>
+                    
+                    <!-- 2. Вертикальное До/После -->
+                    <div class="flex flex-col items-center">
+                        <div class="ba-card ba-card-vertical rounded-xl overflow-hidden shadow-2xl" id="before-after">
+                            <img 
+                                src="https://muse.ooo/upload/img/o-grange-photo-before.webp"
+                                alt="Фото для портрета в стиле Гранж"
+                                title="Фото для портрета"
+                                class="before-image"
+                                loading="lazy"
+                                decoding="async"
+                                width="378"
+                                height="529"
+                            >
+                            <img 
+                                src="https://muse.ooo/upload/img/o-grange-photo-after.webp"
+                                alt="Портрет в стиле Гранж"
+                                title="Портрет в стиле Гранж"
+                                class="after-image"
+                                loading="lazy"
+                                decoding="async"
+                                width="378"
+                                height="529"
+                            >
+                            <div class="ba-divider"></div>
+                            <div class="ba-handle">
+                                <span class="ba-arrow l">‹</span>
+                                <span class="ba-arrow r">›</span>
+                            </div>
+                            <input type="range" min="0" max="100" value="50" class="ba-range" aria-label="Сравнение до и после" oninput="this.parentNode.style.setProperty('--pos', this.value + '%')">
+                        </div>
+                        <p class="text-center text-gray-600 mt-4 text-sm">Потяните за вертикальную линию, чтобы сравнить "До" и "После"</p>
                     </div>
-                    <input type="range" min="0" max="100" value="50" class="ba-range" aria-label="Сравнение до и после" oninput="this.parentNode.style.setProperty('--pos', this.value + '%')">
+                    
+                    <!-- 3. Текст -->
+                    <div class="flex flex-col">
+                        <div class="space-y-4 text-gray-600 flex-grow">
+                            <p>В основе портрета придание фотографии некоторой потертости. Обычно фон удаляется и заменяется на новый, а фото героя или перерисовывается в цифровом виде или стилизуется.</p>
+                            
+                            <p>Это как рваные джинсы в магазине.</p>
+                            
+                            <p>Этот стиль в изобразительном искусстве продолжает музыкальные традиции, наследуя некую антигламурность, демократичность, альтернативность – тихие и почти домашнее образы, немного сырые и шероховатые, но внутренне безгранично заряженные на успех, готовые в любой момент взорваться оглушительным и ниспровергающим существующих кумиров новым и доселе неизвестным творчеством.</p>
+                            
+                            <p>Именно так, как когда-то Nirvana потеснила с первых строчек хит-парадов короля поп-музыки Майкла Джексона.</p>
+                            
+                            <p>"Гранж" – это богатый внутренний мир и неординарный образ до поры до времени скрытый от постороннего взгляда под искусственно затертой палитрой. Портрет в стиле "Гранж" – это прекрасный подарок для нестандартного человека, ваш знак признания его способности раскрыть свой талант.</p>
+                            
+                            <p>Творите вместе с Muse, создавая из фотографий прекрасные картины, на которых всегда будет приятно остановить взгляд.</p>
+                            
+                            <p class="italic">Muse (греч. Μούσα) - это вдохновение, это Mуза</p>
+                        </div>
+                    </div>
+                    
                 </div>
-                <p class="text-center text-gray-600 mt-4 text-sm">Потяните за ползунок, чтобы сравнить «До» и «После»</p>
             </div>
-            
-            <!-- 3. Текст (начинается в колонке 2, продолжается в колонке 3) -->
-            <div class="text-column space-y-4 text-gray-600">
-                <p><b>Кто в детстве не мечтал о плаще королевского мушкетера или платье Наташи Ростовой на ее первом балу?</b></p>
-                
-                <p>Став взрослыми, мы конечно изменились, но изменились ли наши самые светлые и чистые мечты.</p>
-                
-                <p>Портрет в образе – это отличный подарок для любого творческого человека, дань уважения родителям, прекрасный способ поздравить коллег, подчеркнуть личное и особое отношение близкому человеку и наконец просто порадовать самого себя.</p>
-                
-                <p>Такой <strong>исторический</strong> или <strong>стилизованный портрет</strong> пишется на планшете с помощью пера, точно также как пишутся традиционные картины кистью.</p>
-                
-                <p>На взгляд Muse, такой стиль – это непобедимое стремление человека к идеалу, к мечте.</p>
-                
-                <p>Придумывайте и выбирайте свой образ, а мы поможем в его воплощении.</p>
-            </div>
-            
-        </div>
-</div>
-    </div>
-</section>
-        <!-- CTA (структура как в foto-na-kholste) -->
+        </section>
+
+        <!-- CTA -->
         <section class="bg-dark py-24 md:py-32">
             <div class="container xl:flex xl:items-center xl:justify-between">
                 <h2 class="text-2xl font-light tracking-tight text-white">
@@ -1177,7 +1137,6 @@ function BxPopup(url, width, height) {
         </section>
 
     </main>
-
     <!-- Footer (вставьте footer из эталона) -->
      <!-- Footer -->
     <footer class="bg-dark text-white py-8 lg:py-12">
@@ -1193,7 +1152,7 @@ function BxPopup(url, width, height) {
                             <a href="https://muse.ooo/pechat/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">Печать на холсте</a>
                             <a href="https://muse.ooo/portret-na-zakaz/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">Портреты</a>
                             <a href="https://muse.ooo/pechat/foto-na-kholste/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">Фото на холсте</a>
-                            <a href="https://muse.ooo/portret-na-zakaz/portret-v-obraze/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">Портрет в образе</a>
+                            <a href="https://muse.ooo/portret-na-zakaz/portret-maslom/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">Портрет маслом</a>
                         </nav>
                         
                         <!-- Вторичные ссылки -->
@@ -1270,10 +1229,17 @@ function BxPopup(url, width, height) {
             </div>
         </div>
     </footer>
-
-    <!-- JavaScript -->
     <script>
-        // === Дата заказа ===
+        // Функция для открытия попапа OAuth
+        function BxPopup(url, width, height) {
+            if (url) {
+                var left = (screen.width/2) - (width/2);
+                var top = (screen.height/2) - (height/2);
+                window.open(url, '', 'width=' + width + ', height=' + height + ', top=' + top + ', left=' + left);
+            }
+        }
+
+        // Дата заказа (через 2 дня)
         (function() {
             const orderDateEl = document.getElementById('order-date');
             if (orderDateEl) {
@@ -1282,28 +1248,45 @@ function BxPopup(url, width, height) {
                 const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
                 orderDateEl.textContent = date.toLocaleDateString('ru-RU', options);
             }
-            
+        })();
+
+        // Дата доставки (через 4 дня)
+        (function() {
             const deliveryDateEl = document.getElementById('delivery-date');
             if (deliveryDateEl) {
                 const date = new Date();
-                date.setDate(date.getDate() + 4); // +4 дня от сегодня
+                date.setDate(date.getDate() + 4);
                 const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
                 deliveryDateEl.textContent = date.toLocaleDateString('ru-RU', options);
             }
         })();
 
-        // === Page Navigator ===
+        // Video Cover - воспроизведение видео по клику
+        (function() {
+            const videoCovers = document.querySelectorAll('.video-cover');
+            videoCovers.forEach(cover => {
+                const playIcon = cover.querySelector('.video-play-icon');
+                const iframe = cover.querySelector('iframe');
+                
+                if (playIcon && iframe) {
+                    playIcon.addEventListener('click', function() {
+                        const src = iframe.getAttribute('data-src');
+                        if (src) {
+                            iframe.src = src;
+                            cover.classList.add('video-playing');
+                        }
+                    });
+                }
+            });
+        })();
+
+        // Page Navigator - подсветка активной секции
         (function() {
             const nav = document.querySelector('.page-navigator');
-            if (!nav) return;
-            
-            // Проверяем, десктоп ли (>= 1024px)
-            if (window.innerWidth < 1024) return;
+            if (!nav || window.innerWidth < 1024) return;
             
             const links = nav.querySelectorAll('a');
             const sections = document.querySelectorAll('section[id]');
-            
-            if (!links.length || !sections.length) return;
             
             function updateActiveLink() {
                 const scrollPos = window.scrollY + 200;
@@ -1312,16 +1295,13 @@ function BxPopup(url, width, height) {
                 sections.forEach(section => {
                     const top = section.offsetTop;
                     const bottom = top + section.offsetHeight;
-                    
                     if (scrollPos >= top && scrollPos < bottom) {
                         currentActive = section.id;
                     }
                 });
                 
                 links.forEach(link => {
-                    const href = link.getAttribute('href');
-                    const sectionId = href.substring(1);
-                    
+                    const sectionId = link.getAttribute('href').substring(1);
                     if (sectionId === currentActive) {
                         link.classList.add('inner-link--active');
                     } else {
@@ -1331,7 +1311,7 @@ function BxPopup(url, width, height) {
             }
             
             let isScrolling = false;
-            function handleScroll() {
+            window.addEventListener('scroll', () => {
                 if (!isScrolling) {
                     isScrolling = true;
                     requestAnimationFrame(() => {
@@ -1339,33 +1319,10 @@ function BxPopup(url, width, height) {
                         isScrolling = false;
                     });
                 }
-            }
+            }, { passive: true });
             
-            window.addEventListener('scroll', handleScroll, { passive: true });
             updateActiveLink();
         })();
-
-        // === Video Cover ===
-        (function() {
-            const videoCovers = document.querySelectorAll('.video-cover');
-            videoCovers.forEach(cover => {
-                const playIcon = cover.querySelector('.video-play-icon');
-                const iframe = cover.querySelector('iframe[data-src]');
-                
-                if (playIcon && iframe) {
-                    playIcon.addEventListener('click', function() {
-                        // Загружаем iframe
-                        iframe.src = iframe.getAttribute('data-src');
-                        iframe.removeAttribute('data-src');
-                        iframe.classList.remove('hidden');
-                        
-                        // Добавляем класс для скрытия обложки
-                        cover.classList.add('video-playing');
-                    });
-                }
-            });
-        })();
-
     </script>
 </body>
 </html>
