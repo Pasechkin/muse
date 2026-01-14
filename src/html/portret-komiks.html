@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Дрим-арт портрет по фото на холсте – заказать в Muse</title>
-    <meta name="description" content="Художник напишет портрет в стиле дрим-арт и напечатает его на холсте, посмотрите примеры и пришлите фото.">
+    <title>Портрет в стиле комикс по фотографии — заказать в Muse</title>
+    <meta name="description" content="Художник нарисует для Вас портрет в стиле комикс. Напечатает на холсте. Посмотрите примеры, пришлите фотографию и свои пожелания.">
     
     <!-- Закрыто от индексации во время разработки -->
     <meta name="robots" content="noindex, nofollow">
@@ -136,7 +136,7 @@
     </style>
     
     <!-- Preload Hero изображения (ускоряет LCP) -->
-    <link rel="preload" as="image" href="https://muse.ooo/upload/img/dream-couple-o-458.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="https://muse.ooo/upload/img/comics-458-man.webp" fetchpriority="high">
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -183,18 +183,11 @@
         .carousel-scroll { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
         .carousel-scroll::-webkit-scrollbar { display: none; }
         .snap-center { scroll-snap-align: center; }
-                /* Video Cover */
-        .video-cover { position: relative; overflow: hidden; }
-        .video-cover .video-play-icon { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; z-index: 2; transition: all 0.3s ease; }
-        .video-cover video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-        .video-cover.video-playing > div:first-child,
-        .video-cover.video-playing .video-play-icon { display: none; }
-        .video-cover.video-playing video { display: block; position: relative; }
         
        /* Before/After Slider (ba-card) */
 .ba-card {
     position: relative;
-    aspect-ratio: 378/265;
+    aspect-ratio: 378/251;
     overflow: hidden;
     --pos: 50%;
 }
@@ -220,15 +213,14 @@
     margin: 0;
     z-index: 20;
 }
-/* ТОЛСТАЯ СПЛОШНАЯ ЛИНИЯ (БЫЛО width: 2px) */
 .ba-card .ba-divider {
     position: absolute;
     top: 0;
     bottom: 0;
     left: var(--pos);
-    width: 3px; /* ТОЛСТАЯ ЛИНИЯ! */
-    background: #fff; /* Белый цвет */
-    transform: translateX(-2.5px); /* Центрируем */
+    width: 3px;
+    background: #fff;
+    transform: translateX(-1.5px);
     pointer-events: none;
     z-index: 10;
 }
@@ -263,14 +255,7 @@
 }
 .ba-card .ba-arrow.l { left: 10px; }
 .ba-card .ba-arrow.r { right: 10px; }
-
-/* Вертикальный Before/After Slider (360x517) */
-.ba-card-vertical { 
-    width: 360px; 
-    max-width: 100%; 
-    aspect-ratio: 360/517; 
-}
-/* ===== ПРЕМИАЛЬНЫЕ УЛУЧШЕНИЯ ===== */
+   /* ===== ПРЕМИАЛЬНЫЕ УЛУЧШЕНИЯ ===== */
  
     /* Улучшенные кнопки */
     .btn-premium {
@@ -318,16 +303,15 @@
     border-color: rgba(74, 144, 226, 0.3);
 }
 
-/* Визуальная иерархия в характеристиках */
-        /* Список характеристик */
+/* Список характеристик */
 .characteristics-list li {
     transition: background-color 0.2s ease;
-    padding: 0.375rem 0; /* Уменьшил с 0.5rem до 0.375rem */
+    padding: 0.375rem 0;
 }
 .characteristics-list li:nth-child(odd) {
     background-color: rgba(74, 144, 226, 0.03);
     border-radius: 4px;
-    padding: 0.375rem 0.75rem; /* Уменьшил с 0.5rem до 0.375rem */
+    padding: 0.375rem 0.75rem;
     margin: 0 -0.75rem;
 }
 .characteristics-list li:hover {
@@ -335,22 +319,21 @@
 }
 </style>
 
-
     <!-- Structured Data: Product -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "Product",
-        "name": "Дрим-арт портрет",
-        "description": "Художник напишет портрет в стиле дрим-арт и напечатает его на холсте, посмотрите примеры и пришлите фото",
-        "image": "https://muse.ooo/img/dream-art-458-cover-couple.jpg",
+        "name": "Портрет в стиле комикс",
+        "description": "Художник нарисует для Вас портрет в стиле комикс. Напечатает на холсте. Посмотрите примеры, пришлите фотографию и свои пожелания",
+        "image": "https://muse.ooo/upload/img/comics-458-man.webp",
         "brand": {
             "@type": "Brand",
             "name": "Muse"
         },
         "offers": {
             "@type": "Offer",
-            "url": "https://muse.ooo/portret-na-zakaz/drim-art-portret/",
+            "url": "https://muse.ooo/portret-na-zakaz/portret-komiks/",
             "priceCurrency": "RUB",
             "price": "4311.00",
             "priceValidUntil": "2026-12-31",
@@ -363,7 +346,7 @@
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "5",
-            "reviewCount": "165"
+            "reviewCount": "21"
         }
     }
     </script>
@@ -389,15 +372,15 @@
             {
                 "@type": "ListItem",
                 "position": 3,
-                "name": "Дрим-арт",
-                "item": "https://muse.ooo/portret-na-zakaz/drim-art-portret/"
+                "name": "Комикс",
+                "item": "https://muse.ooo/portret-na-zakaz/portret-komiks/"
             }
         ]
     }
     </script>
 </head>
 <body class="bg-white overflow-x-hidden">
-        <!-- Header -->
+     <!-- Header -->
     <header class="bg-dark sticky top-0 z-50">
         <nav class="container flex items-center justify-between gap-x-4 py-5">
             <!-- Logo -->
@@ -498,20 +481,19 @@
             </dialog>
         </el-dialog>
     </header>
-
     <!-- Page Navigator -->
     <nav class="page-navigator">
         <ul>
-            <li><a href="#dream-art" class="inner-link" data-title="Примеры"></a></li>
+            <li><a href="#primery" class="inner-link" data-title="Примеры"></a></li>
             <li><a href="#calc" class="inner-link" data-title="Цена"></a></li>
-            <li><a href="#order" class="inner-link" data-title="Как заказать"></a></li>
-            <li><a href="#specifications" class="inner-link" data-title="Характеристики"></a></li>
-            <li><a href="#review" class="inner-link" data-title="Отзывы"></a></li>
+            <li><a href="#kak-zakazat" class="inner-link" data-title="Как заказать"></a></li>
+            <li><a href="#harakteristiki" class="inner-link" data-title="Характеристики"></a></li>
+            <li><a href="#otzyvy" class="inner-link" data-title="Отзывы"></a></li>
         </ul>
     </nav>
 
     <main>
-        <!-- Hero Section (с изображением справа, как в оригинале) -->
+        <!-- Hero Section -->
         <section class="bg-dark py-12 lg:py-20">
             <div class="container">
                 <div class="grid lg:grid-cols-2 gap-8 items-center">
@@ -527,13 +509,13 @@
                                     <a href="https://muse.ooo/portret-na-zakaz/">Портрет на заказ</a>
                                     <span class="mx-2 text-gray-300">/</span>
                                 </li>
-                                <li class="text-gray-300">Дрим-арт</li>
+                                <li class="text-gray-300">Комикс</li>
                             </ol>
                         </nav>
                         
-                        <h1 class="text-4xl lg:text-6xl font-light mb-4">Дрим-арт портрет</h1>
-                        <p class="text-sm mt-2 mb-4 text-gray-300">Мечтательный, праздничный, эффектный</p>
-                        <p class="text-lg lg:text-xl mb-6 text-gray-200">Художник напишет портрет в стиле дрим-арт и напечатает его на холсте, посмотрите примеры и пришлите фото</p>
+                        <h1 class="text-4xl lg:text-6xl font-light mb-4">Портрет в стиле комикс</h1>
+                        <p class="text-sm mt-2 mb-4 text-gray-300">Захватывающий, интересный, красочный</p>
+                        <p class="text-lg lg:text-xl mb-6 text-gray-200">Художник нарисует для Вас портрет в стиле комикс. Напечатает на холсте. Посмотрите примеры, пришлите фотографию и свои пожелания</p>
                         
                         <p class="text-lg lg:text-xl mb-6 text-gray-200">От 4311 руб. Под заказ.</p>
                         
@@ -545,11 +527,10 @@
                     <!-- Изображение -->
                     <div class="relative">
                         <img 
-                            src="https://muse.ooo/upload/img/dream-couple-o-458.webp"
-                            alt="Портрет пары по фото в стиле дрим-арт"
-                            title="Портрет пары по фото в стиле дрим-арт"
+                            src="https://muse.ooo/upload/img/comics-458-man.webp"
+                            alt="Портрет мужчины в стиле Комикс"
                             width="458"
-                            height="662"
+                            height="641"
                             class="w-full max-w-md mx-auto lg:ml-auto rounded-lg shadow-2xl"
                             fetchpriority="high"
                         >
@@ -559,10 +540,10 @@
         </section>
 
         <!-- Примеры (заглушка для Bitrix) -->
-        <section class="bg-dark py-16 lg:py-20" id="dream-art">
+        <section class="bg-dark py-16 lg:py-20" id="primery">
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-white text-center mb-8">Примеры</h2>
-                <p class="text-center text-gray-300 mb-8">Дрим-арт портреты</p>
+                <p class="text-center text-gray-300 mb-8">Комиксы</p>
                 
                 <!-- Галерея из Bitrix будет здесь -->
                 <div class="text-center text-gray-400 py-12 border-2 border-dashed border-gray-600 rounded-lg">
@@ -571,7 +552,7 @@
                 </div>
                 
                 <div class="text-center mt-8">
-                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/drim-art/" class="inline-block px-6 py-2 text-white hover:bg-white hover:text-dark rounded uppercase transition-colors">
+                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/komiks/" class="inline-block px-6 py-2 text-white hover:bg-white hover:text-dark rounded uppercase transition-colors">
                         смотреть все примеры работ
                     </a>
                 </div>
@@ -601,7 +582,7 @@
         </section>
 
         <!-- Как заказать -->
-        <section class="py-16 lg:py-24" id="order">
+        <section class="py-16 lg:py-24" id="kak-zakazat">
             <div class="container mb-8">
                 <div class="text-center">
                     <h2 class="text-3xl lg:text-4xl font-light text-dark">Как заказать</h2>
@@ -612,23 +593,23 @@
                     <!-- Изображение -->
                     <div>
                         <div class="canvas-3d w-full max-w-[555px] mx-auto">
-    <img 
-        src="https://muse.ooo/upload/img/dream-art-girl-555-grey.webp"
-        alt="Портрет девушки в стиле Дрим-арт на сером фоне"
-        title="Портрет девушки в стиле Дрим-арт"
-        width="555"
-        height="829"
-		class="w-full"
-        loading="lazy"
-        decoding="async"
-    >
-</div>
+                            <img 
+                                src="https://muse.ooo/upload/img/сomiсs-9721-555.webp"
+                                alt="Векторный портрет девушки в стиле Комикс в образе Капитана Аме́рики"
+                                title="Портрет девушки в стиле Комикс"
+                                width="555"
+                                height="833"
+                                class="w-full"
+                                loading="lazy"
+                                decoding="async"
+                            >
+                        </div>
                     </div>
 
                     <!-- Процесс -->
                     <div class="relative">
                         <!-- Пунктирная линия между шагами -->
-                      <div class="absolute left-6 top-12 bottom-12 w-0 timeline-divider"></div>
+                        <div class="absolute left-6 top-12 bottom-12 w-0 timeline-divider"></div>
 
                         <div class="space-y-10 relative">
                             <!-- Шаг 1 -->
@@ -639,7 +620,7 @@
                                 <div>
                                     <h3 class="text-xl font-medium text-dark mb-2">Заказ</h3>
                                     <p class="text-body">
-                                        В разделе <a class="text-primary underline hover:no-underline" href="#calc">«Цена» ↑</a> можно загрузить фото, подобрать нужный размер, рассчитать стоимость и оформить заказ.<br><br>
+                                        В разделе <a class="text-primary underline hover:no-underline" href="#calc">«Цена» ↑</a> можно загрузить фото, подобрать нужный размер, рассчитать стоимость портрета и оформить заказ.<br><br>
                                         Нет времени разбираться? Нажмите любую кнопку <a href="https://muse.ooo/order/" class="text-primary underline hover:no-underline">«Заказать» ↗</a> на сайте и перешлите нам фото. Перезвоним и поможем с выбором.
                                     </p>
                                 </div>
@@ -653,7 +634,8 @@
                                 <div>
                                     <h3 class="text-xl font-medium text-dark mb-2">Цифровой портрет</h3>
                                     <p class="text-body">
-                                        В течение 1-го часа позвоним, чтобы обсудить задание. По согласованному заданию, выполним эскиз. После подтверждения эскиза напишем портрет. Вносите правки, до тех пор, пока не будете удовлетворены работой. Срок создания цифрового портрета — <span id="order-date"></span>.
+                                        В течение часа перезвоним Вам, чтобы обсудить задание. По согласованному заданию выполним эскиз. После подтверждения эскиза нарисуем портрет. Вносите правки до тех пор, пока не будете полностью удовлетворены работой.<br><br>
+                                        Срок создания цифрового портрета — <span id="order-date"></span>.
                                     </p>
                                 </div>
                             </div>
@@ -664,9 +646,9 @@
                                     <span class="text-xl font-bold text-primary">3</span>
                                 </div>
                                 <div>
-                                    <h3 class="text-xl font-medium text-dark mb-2">Печать и оформление</h3>
+                                    <h3 class="text-xl font-medium text-dark mb-2">Печать и оформление портрета на холсте</h3>
                                     <p class="text-body">
-                                        Только после Вашего подтверждения цифрового портрета картина в стиле дрим-арт будет напечатана на холсте, оформлена и передана в службу доставки.
+                                        Только после Вашего окончательного подтверждения цифрового портрета картина в стиле «Комикс» будет напечатана на холсте, оформлена и передана в службу доставки.
                                     </p>
                                 </div>
                             </div>
@@ -704,7 +686,7 @@
         </section>
 
         <!-- Характеристики -->
-        <section class="py-16 lg:py-20" id="specifications">
+        <section class="py-16 lg:py-20" id="harakteristiki">
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Характеристики</h2>
             </div>
@@ -713,68 +695,67 @@
                     <!-- Список характеристик (на ПК слева) -->
                     <div class="order-2 lg:order-1">
                         <ul class="space-y-2 characteristics-list">
-    <li class="flex items-start gap-3 py-2">
-        <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-        </svg>
-        <span>Цифровой портрет в стиле дрим-арт</span>
-    </li>
-    <li class="flex items-start gap-3 py-2">
-        <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-        </svg>
-        <span>Печать на плотном холсте от 380 г. на кв.м.</span>
-    </li>
-    <li class="flex items-start gap-3 py-2">
-        <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-        </svg>
-        <span>Оригинальные латексные чернила HP</span>
-    </li>
-    <li class="flex items-start gap-3 py-2">
-        <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-        </svg>
-        <span>Сосновый подрамник</span>
-    </li>
-    <li class="flex items-start gap-3 py-2">
-        <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-        </svg>
-        <span>Галерейная натяжка холста на подрамник</span>
-    </li>
-    <li class="flex items-start gap-3 py-2">
-        <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-        </svg>
-        <span>Проклейка с обратной стороны защитным скотчем</span>
-    </li>
-    <li class="flex items-start gap-3 py-2">
-        <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-        </svg>
-        <span>Установка креплений "Крокодил"</span>
-    </li>
-    <li class="flex items-start gap-3 py-2">
-        <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-        </svg>
-        <span>Упаковка в пупырчатую пленку и картон</span>
-    </li>
-    <li class="flex items-start gap-3 py-2">
-        <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-        </svg>
-        <span>Страхование доставки</span>
-    </li>
-</ul>
+                            <li class="flex items-start gap-3 py-2">
+                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Картина в стиле "Комикс"</span>
+                            </li>
+                            <li class="flex items-start gap-3 py-2">
+                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Печать оригинальными латексными чернилами</span>
+                            </li>
+                            <li class="flex items-start gap-3 py-2">
+                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Плотный хлопковый холст - 380 г./кв. м.</span>
+                            </li>
+                            <li class="flex items-start gap-3 py-2">
+                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Галерейная натяжка</span>
+                            </li>
+                            <li class="flex items-start gap-3 py-2">
+                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Сосновый подрамник</span>
+                            </li>
+                            <li class="flex items-start gap-3 py-2">
+                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>C обратной стороны защитный скотч</span>
+                            </li>
+                            <li class="flex items-start gap-3 py-2">
+                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Крепление "Крокодил"</span>
+                            </li>
+                            <li class="flex items-start gap-3 py-2">
+                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Упаковка в пупырчатую пленку и картон</span>
+                            </li>
+                            <li class="flex items-start gap-3 py-2">
+                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Страхование доставки</span>
+                            </li>
+                        </ul>
                         
                         <div class="mt-8 p-4 bg-secondary rounded-lg border border-gray-200">
                             <p class="text-body text-sm">
-                                Выше приведен список стандартных характеристик работ и материалов. Вы всегда можете: посчитав в калькуляторе выше; прочитав описание по клику на знак вопроса там же; спросив в коммуникаторе или позвонив — подобрать именно то, что нужно Вам.
+                                Выше приведен список стандартных характеристик работ и материалов. Вы всегда можете: посчитав в калькуляторе выше; прочитав описание по клику на знак вопроса там же; спросив в коммуникаторе или позвонив – подобрать именно то, что нужно Вам.
                             </p>
                         </div>
-                       
                     </div>
                     
                     <!-- Слайдер изображений (на ПК справа, на мобильном сверху) -->
@@ -782,18 +763,18 @@
                         <el-tab-group class="flex flex-col-reverse">
                             <!-- Миниатюры -->
                             <div class="mx-auto mt-4 w-full max-w-md">
-                                <el-tab-list class="grid grid-cols-3 gap-3">
+                                <el-tab-list class="grid grid-cols-2 gap-3">
                                     <button class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
-                                        <span class="sr-only">Лицевая сторона дрим-арт портрета</span>
+                                        <span class="sr-only">Лицевая сторона портрета в стиле Комикс</span>
                                         <span class="absolute inset-0 overflow-hidden rounded">
-                                            <img src="https://muse.ooo/upload/img/dream-art-442.webp" alt="Дрим-арт на холсте с лицевой стороны на подрамнике" title="Лицевая сторона дрим-арт портрета на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
+                                            <img src="https://muse.ooo/upload/img/portrait-on-canvas-in-comics-style-442.webp" alt="Векторный портрет в стиле Комикс на холсте с лицевой стороны на подрамнике" title="Лицевая сторона векторного портрета в стиле Комикс на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
                                     </button>
                                     <button class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
-                                        <span class="sr-only">Обратная сторона дрим-арт портрета</span>
+                                        <span class="sr-only">Обратная сторона портрета в стиле Комикс</span>
                                         <span class="absolute inset-0 overflow-hidden rounded">
-                                            <img src="https://muse.ooo/upload/img/dream-art-442-back.webp" alt="Дрим арт на холсте с обратной стороны на подрамнике" title="Обратная сторона дрим арт портрета на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
+                                            <img src="https://muse.ooo/upload/img/comics-portrait-on-canvas-442-back.webp" alt="Векторный портрет в стиле Комикс на холсте с обратной стороны на подрамнике" title="Обратная сторона векторного портрета в стиле Комикс на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
                                     </button>
@@ -803,10 +784,10 @@
                             <!-- Большие изображения -->
                             <el-tab-panels>
                                 <div>
-                                    <img src="https://muse.ooo/upload/img/dream-art-442.webp" alt="Дрим-арт на холсте с лицевой стороны на подрамнике" title="Лицевая сторона дрим-арт портрета на холсте с подрамником" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
+                                    <img src="https://muse.ooo/upload/img/portrait-on-canvas-in-comics-style-442.webp" alt="Векторный портрет в стиле Комикс на холсте с лицевой стороны на подрамнике" title="Лицевая сторона векторного портрета в стиле Комикс на холсте с подрамником" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
                                 </div>
                                 <div hidden>
-                                    <img src="https://muse.ooo/upload/img/dream-art-442-back.webp" alt="Дрим арт на холсте с обратной стороны на подрамнике" title="Обратная сторона дрим арт портрета на холсте с подрамником" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
+                                    <img src="https://muse.ooo/upload/img/comics-portrait-on-canvas-442-back.webp" alt="Векторный портрет в стиле Комикс на холсте с обратной стороны на подрамнике" title="Обратная сторона векторного портрета в стиле Комикс на холсте с подрамником" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
                                 </div>
                             </el-tab-panels>
                         </el-tab-group>
@@ -822,79 +803,41 @@
             </div>
             <div class="container">
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Преимущество 1: Примеры работ -->
+                    <!-- Преимущество 1 -->
                     <div class="bg-white rounded-lg p-6 text-left text-dark">
                         <div class="w-16 h-16 mb-4 flex items-center justify-start">
-                            <!-- SVG иконка (вставьте из оригинала) -->
-                              <svg fill="#4A90E2" height=40 viewBox="0 0 4500 4500" width=40 xmlns=http://www.w3.org/2000/svg image-rendering=optimizeQuality shape-rendering=geometricPrecision text-rendering=geometricPrecision>
-                        <path d="m1525 308c-1 88 2 100-60 168-77 84-109 67-174 189-39 71-88 262-115 287-30-37-19-151-13-200 18-149 44-225 176-297 113-61 96-49 186-147z"/>
-                        <path d="m1525 308c-46 176-192 169-258 282-77 130-91 362-91 362"/>
-                        <path d="m857 1192v2c-7 78-7 106-69 163-64 59-132 66-207 61-2 0-4-1-6-1-2-6-5-15-8-26-19-9-28-14-35-18 162-6 251-16 325-181zm-387 206c-54-58 96-70 110-73 183-38 130-18 277-133-74 165-163 175-325 181-14-7-13-3-57-3l-5 28zm5-28c-2 13-3 22-5 28l5-28zm46-14c-1-2-3-4-5-5-4-3-3-3-6-3 4 2 8 5 11 8z"/>
-                        <path d="m857 1192v2c-7 78-7 106-69 163-64 59-132 66-207 61-2 0-4-1-6-1-2-6-5-15-8-26-19-9-28-14-35-18 162-6 251-16 325-181zm-387 206c-54-58 96-70 110-73 183-38 130-18 277-133-74 165-163 175-325 181-14-7-13-3-57-3-2 13-3 22-5 28m51-42c-1-2-3-4-5-5-4-3-3-3-6-3 4 2 8 5 11 8z"/>
-                        <path d="m857 1192c-76 168-167 175-334 182-74 3 18-6 30 66"/>
-                        <path d="m572 1481c-58 2-29 6-86-16-24-62-20-30-11-95 64-1 33-7 92 21 18 61 18 31 5 90z"/>
-                        <path d="m572 1481c-7-15-83-90-97-111"/>
-                        <path d="m842 1515c52-49 39-24 81-56 1 0 1 0 2-1-1 2-1 3-1 5l3-6c4-3 4-3 5-7h-1c5-9 11-13 24-19 9-16 16-40 17-53 37-32 82 61 53 119-13 39-35 52-77 55-56 4-66-4-106-37zm83-57c1 0 1-1 2-1 1-3 2-5 4-7l-2-1c-2 4-3 6-4 9zm30-27c-7 3-17 9-16 16 6-3 11-9 16-16z"/>
-                        <path d="m842 1515c30 0 121-1 132-35 16-5 37-87-2-102"/>
-                        <path d="m1859 2025c20-29 63 44 27 77-24 31-78 30-94 68l-7 14c-65-34 8-116 63-125v1l-1 1c2-2 5-3 9-5-2 1-8 4-7 7 14-4 13-27 10-38zm-16 40c-2 2-3 4-5 9 2-4 3-7 5-9z"/>
-                        <path d="m1859 2025c27 2 20 54 6 58-2 6-114 37-80 101"/>
-                        <path d="m724 2303c12 84 40 225 27 301-6 31-19 89-43 114-11 38-31 24-20 13-2 0-3 1-3 1 0-1-2-24-1-27 23-68 3-161 3-233 1-78-4-103 37-169zm-32 427l4 4c0-4-2-4-4-4z"/>
-                        <path d="m724 2303c-32 102 17 226-8 344-4 18-6 50-19 63 1 8-9 41-7 19"/>
-                        <path d="m798 2862c40 26 77 61 77 113 0 3-2 5-3 2v-2c-2-1-4 18-45-6-52-30-43-61-29-107z"/>
-                        <path d="m798 2862c24 88 79 115 74 115"/>
-                        <path d="m1694 2177c43-31 17-21 76-31 35 15 71 32 42 61-35 1-27 0-61 7-39-19-20-7-57-37z"/>
-                        <path d="m1694 2177c35 0 103-2 118 30"/>
-                        <path d="m2052 2129c40-19 73-35 96 19 10 26 7 42-18 51-5-4-9-8-12-10-30-25-12 20-66-60z"/>
-                        <path d="m857 1192v2c-7 78-7 106-69 163-64 59-132 66-207 61l-6-1c10 27 7 16-3 64-58 2-29 6-86-16-19-50-21-39-16-67-54-58 96-70 110-73 183-38 130-18 277-133z"/>
-                        <path d="m2014 484c28 51 25 96 19 157-1-3-3-7-5-11-2-1-3-1-4-1 0 1 1 3 2 5-120-8-61-7-175 20-3 0-3 0-4 1 0-1 0-1 1-2v-1c-27 29-33 37-73 69-17 16-41 38-63 55-23 34-48 65-68 91-6-53-9-86 23-133 19-42 49-90 72-100l-19 6c10-15 23-33 38-51 27-75 73-157 126-186 77-42 114 13 130 81z"/>
-                        <path d="m1850 71c194-103 366-107 566-18 49-6 102-6 151 3 82 5 156 35 209 106 26 16 50 34 69 53 0-6 1-12 2-20 40 6 18 0 65 20 18 53 19 28 5 76h-10c73 117 39 224-80 340-32 31-70 55-112 69 37 28 62 71 42 104-4 7-27 19-30-7-7 6-13 8-31 9-31 1-51-10-65-28-91 4-114-15-201-48 84-48 157-98 264-43 1 0 1 0 2 1 5-16 5-12 30-40 49-57 140-176 104-256-53-113-97-163-205-223-37-21-72-32-97-57h-1c-3-1-6-1-9-2 5 5 10 11 12 16-35 14-102-6-128-10-157-23-186-20-343-5-155 15-226 58-367 89 60-74 70-83 158-129z"/>
-                        <path d="m2254 163c18-25 52-32 95-15 113 43 103 131 54 109-6 19-19 38-32 55-7 56-50 104-63 92-2-5-3-10-4-15-13-16-41-94-53-132-47-34-20-1-73 2-77 3-34-154 76-96z"/>
-                        <path d="m2943 803c65-16 29-5 74-28 95-47 171 75 80 132-8 34-23 61-66 40-61-31-95-94-111-158 8 5 16 9 23 14z"/>
-                        <path d="m2512 1417c54-17 103-18 165-12 60 6 126 21 167 69 25 15 45 30 47 32 30 26 121 135 70 179-7-28-17-50-29-69-41-34-86-62-114-90-27-27-61-44-98-57-89 29-279 64-300 3-11-36 42-50 92-55z"/>
-                        <path d="m2875 1922v-1 1zm-90-31c7 2 88 22 90 31-1 4-9 6-13 7l-16 23c-30 27-82 34-116 14-27-15-44-34-46-60-13-6-26-13-39-21-3 11-11 20-23 26-26 15-51 8-72-7-9 0-18-2-25-4-16-7-26-17-31-28 0 1 0 1-1 2-12-28-21-60-4-85-45-14-93-19-137-26l59-23c42-8 120 2 163 17 86 31 82 88 211 134z"/>
-                        <path d="m3176 386c23 29 47 74 77 113 33 42 176 198 213 264 24 22 42 45 40 67-1 13-9 20-21 25l16-15c-26 24-55 44-84 64-1 3-1 6-1 8-2 88 26 143 8 193 20 43 32 80 51 123 39 36 61 84 60 134 6 21 11 42 26 77 12 28 43 72 63 101 83 79 80 123 82 238 0 76-21 188-10 250 4 19 79 129 98 147 6 6 10 12 12 17 6 4 13 7 20 11 10 4 12 14 3 15 19 23-5 88-24 130 5 36 14 79 16 112 1 20 1 66-4 112 30 70 18 95-36 190-25-96-25-117-8-179-2-62-11-87-22-157-16-95-12-105 1-148-1-12 2-21 8-30 2-8 4-16 6-26-19-8-49-6-62-46-8-11-14-24-19-37-43-41-72-67-85-132-21-112-13-171-2-258-23-51-61-134-78-142 2 0 0 0 4 1-15-7-16-8-23-22-17-33-87-109-88-117-4-22 23-38 44-44 0-20-2-46-25-75-39-51-57-72-81-93-36-10-70-35-97-61h11c18-57 38-76 85-83 7-16 9-38 1-69-29-104-55-154-22-224-13-22-13-40-1-62-39-64-102-159-138-238 0-1-1-1-1-2-44-37-61-107-24-155 3 9 7 16 9 24 1-1 1-1 2-1z"/>
-                        <path d="m431 1736c67-49 147 113 200 97 4-1 24-10 42-18 7-8 16-15 25-23 3 61 2 107-42 145-11 50-38 150-73 133-2-16-2-33-2-51-1 0-1 0-2-1-1-3-2 0-7-5-65-59-146-193-145-280 1 1 3 2 4 3z"/>
-                        <path d="m1148 3629c104-179 252 241 260 336 5 73 8 196 40 260 40 78 37 156-10 195-1 7-2 11-4 13-4 4-14 5-27 5-24 9-53 12-89 7-22-3-60-10-100-19-41 4-90 11-122 12-215 12-431 2-645 29-104 12-170 18-275 20-159 3-139 27-159-152-11-101-67-396 97-397 152 0 392-90 568-115 199-30 247-26 378-95 35-27 65-59 88-99z"/>
-                        <path d="m1798 3169c32 28 61 57 88 90 37 27 38 57 102 62 21 1 15 21 3 23-12 18-47 50-87 45-8 18-14 34-21 50-1 11-2 21-4 32 8 3 6 13-1 17s-12 2-17-2c0 2-1 3-2 5-12-25-26-57-27-88-25-79-51-157-47-245 4 3 9 7 13 11z"/>
-                        <path d="m453 2500c10-32-9 42 0 0zm-22 85c24 57 72 234 83 297 37-9 43 8 45 29 40 30 100 128 145 167 63 53 112 69 176 138 26 28 79 90 130 139 65 15 88 33 129 88-50 8-79 18-120-27-6-7-10-12-13-16-42-27-86-65-120-96l-12 2c-12-1-79-32-84-40-29-46-93-88-133-126-48-44-56-75-111-120-46-38-71-47-88-87-20-5-39-75-46-106-20-22-25-43-28-75-5-50-7-54-13-104-12-91 28-223 56-309 32-95 59-125 29-222-28-90-21-44-27-100-2-6-2-4-24-47 55-5 67 35 97 78 39 56 52 79 34 152 0 0-19 58-27 68-9 41-26 93-44 175-6 28-10 46-12 57-3 8-8 25-15 53-3 11-6 22-7 32z"/>
-                        <path d="m3153 2944c-45 110-53 108-21 241 4 18 7 32 11 45 8 11 18 21 28 30 52 13 137 52 138 115 0 50-74 31-94 10l-17-20c1 0 2 0 3-1-57-13-100-65-124-128-40-53-56-125-25-196 28-64 50-75 105-104-1 3-3 6-4 8z"/>
-                        <path d="m2004 361c38-62 112-116 175-58 41 39-23 138-52 163-2 4-4 8-7 13l-1-1v2c-10 23-21-14-25-17h-1c-7 17-35 14-47-13-39-93 6-20-61-76 6-5 13-10 19-13z"/>
-                        <path d="m345 1648c-1 22-24 86-5 96 3 2 5 3 7 4 3-6 5-9 16-14 58-28 50 100-31 85-15-3-28-9-37-16-15-6-27-16-35-28-24-37-6-65 18-90l-16 16c9-18 27-38 47-41 9-7 20-9 36-12z"/>
-                        <path d="m1553 1195c46-12 91 13 131 31l-11 2c43 5 84 13 117 20 28 6 50 18 66 34 62 14 70 31 76 116 3 48-2 113-17 166 8 59 10 165-71 145-18-5-49-20-64-41-12-6-24-14-53-24-13-5-32-8-55-10-11 33-25 57-73 64-3 0-5 1-8 1-31 7-69 1-100-7-106 6-128 3-186-46-16 0-29-5-36-20l6-4c-7-3-14-7-23-13-29 75-74 140-128 213-6 7-11 14-16 21 29 70 32 159 3 226 6-1 12 0 17 2 28 11 8 41-18 52l-16 3c-25 14-45 14-81 18 2-3 5-7 8-11h-4c66-78 56-104 46-215 0-6-1-11-1-17-43 51-92 98-149 124-10 5-32 20-49 31-15 20-29 40-43 62-60 87-203 161-201 248 0 11 0 13-8 22l3 3c-6 56-11 131-16 204 13 82 6 191-20 237-41-64-53-249-19-321 0-61 4-121 17-160l-8 23c-9-134 125-187 189-287 16-25 34-50 52-73-3-212-6-179-112-338-17-11-26-20-23-28 2 0 180 42 191 43 72 12 171 18 232-29 38-30 73-56 108-83 13-18 25-37 40-57 10-19 22-41 38-68-1 26-4 50-9 73 2 7 0 16-5 26-5 17-10 34-16 50 22-2 43-4 63-6 7-6 17-15 38-32 39-32 91-46 97 10 80-13 157-19 254 8 43 12 56 28 72 40 1-2 3-4 5-6 4-5 27-24 48-39-4-75-7-211-52-219-53-10-90-28-140-45l-13-4c-45 15-84 17-122-16-18 4-38 12-68 21 8-38 21-58 55-73 12-23 26-37 62-47z"/>
-                        <path d="m3282 2115c23 44 23 86 0 126 9 35 18 70 30 113 3 11 6 22 9 32 24 88 35 147-9 209-14 20-33 41-60 62-74 62-49 5-120 116-29 45-76 138-106 175-39 46-19 7-54 80-37 80-123 307-103 392 5 20 8 40 12 60 34 51 70 111 96 130 58 13 165 22 122 101-8 15-17 29-26 43-9 32-28 65-35 85 56-5 82 5 145-22 151-66 136-154 249-229 47-32 63-51 73-82-5-30-8-62-4-80 13-57 66-42 110-16 53-4 93-25 146-69 20-32 49-45 70-25 23 21 11 43-14 63-30 42-10 114 21 151 2 2 79 82 78 104 65 71 110 114 174 171l43 37 5 4c24 22 50 44 75 67 51 47 97 99 117 165 30 100 116 136 153 208 15 28 22 62 14 106 1 2 2 3 2 5 9 22 1 36-13 43-14 41-143 5-168-4l-12-4c-206-28-411-14-619-3-304 15-572 25-870 20-60 14-116 27-123 26-80-14 2-121 20-154-23-18-38-19-67 0-44 30-64-21-32-38h1c2-2 4-3 6-5 14-21 28-105 56-130l4-17c-16-13-36-36-60-106-27-80-40-91-2-182 2 7 4 14 6 20l1-9c45 97 112 203 214 249-24-38-41-69-47-111l-1-1c-36-48-41-196 14-190 13 2 22 4 30 7 3-1 7-2 10-3-6-30-23-67-34-93-77-175-141-199-162-404-7-62 4-127 27-190 11-53 30-104 53-142 45-78 57-90 130-133l-3 6c19-6 33 3 44 21 29-16 32-43 35-78-9-20-18-32-13-41l-4-4c28-16 32-21 51-34 21-42 48-81 90-105 5-17 8-29 10-65 8-219 123-128 151-293 7-44 7-64 13-100-3-26-4-53-3-77 30 2 40 13 54 42z"/>
-                        <path d="m1262 2096c32 43 31 64 38 121 9 80 14 180-4 259s-49 144 15 202l14 14h-16c-102-5-81-168-75-229 12-126 20-241 28-367zm-253 301c11 23 7 37 0 50 0-6 1-11 1-11-4-16-4-29-1-39z"/>
-                        <path d="m1262 2096c32 43 31 64 38 121 9 80 14 180-4 259s-49 144 15 202l4 4c74 26 119 63 172 131 37 49 77 46 85 145 1 11-11 15-13 3l-1 1c-8-10-16-21-25-32 1 2 2 5 3 8 3 2 3 3 4 9-5 1-4 1-7-1-1 0 0 0 0 0-2 1-6 0-7-2-31-49-130-91-179-115-106-51-118-77-211-139-61-39-174-123-164-206 4-29 13-35 20-40-8-31-8-55-1-73v-1h1c13-33 51-47 100-54 176-86 81-69 149-134 1-28 4-39 13-72 2 3 4 6 6 10 1-8 1-16 2-24z"/>
-                        <path d="m1664 2343c78-21 176-43 239 19 50 50 162-52 297 170 13-2 19 0 19 6 25 4 75 56 83 85 10 33 0 58-19 78-19 29-35 48-54 61-26 19-57 23-107 26-1 1-2 3-5 3-7-1-8-7-4-17l-203 22c-27 3-66-10-96-28-37-5-114-31-142-42-75-28-133-106-174-171-29-44-41-59-40-108 6 6 11 12 17 19-8-12-13-19-13-19 1-1 3-3 5-4h-1c-4-1-10-2-15-3 18-10 36-20 53-29 48-33 102-51 160-68zm507 336c-5-20-3-7 4-41-16-24-24-40-41-58-7-4-16-8-26-12-44-16-194-53-208-60-41-22-134-9-210-13-3 3-6 6-9 8 7 42-3 42 49 76 1 1 13 8 30 19 15 7 26 13 27 13l22 18c8 4 87 26 87 26l-2 1 277 23zm-689-234c-2 0-5-1-9-1-4 1-8 2-11 3l20-2z"/>
+                             <svg height=40 viewBox="0 0 896.275 896.275"width=40 xmlns=http://www.w3.org/2000/svg enable-background="new 0 0 896.275 896.275"version=1.1 xml:space=preserve>
+                        <path d="m741.37 0l-152.15 184.44c-41.758-23.773-91.697-35.617-142.94-35.617-51.609 0-100.07 12.018-142.03 36.165l-148.91-184.98-0.104 463.28c-0.748 12.105 0 24.436 0 37.271 0 177.25 72.321 329.37 175.79 394.85-58.271-75.131-108.72-156.68-85.348-235.88 133.93-5.393 148.09-6.104 148.09-6.104l47.305 38.557 58.178-38.557c97.408 0.695 143.38 2.713 143.38 2.713 6.035 49.635-2.592 158.49-85.869 240.14 104.16-65.043 177.91-217.7 177.91-395.7 0-12.469-0.547-24.52-0.547-36.295l7.242-464.28zm-360.66 522.43c-13.982 5.6-45.296 24.051-59.844 28.521-14.548 4.486-34.67 7.27-42.504 0-7.834-7.271-33.009-31.322-38.035-36.904-5.035-5.617-8.392-50.365 21.252-48.105 30.191 2.279 111.86 35.791 116.9 37.461 5.034 1.687 16.218 13.425 2.235 19.027zm267.26-8.383c-5.025 5.582-30.207 29.635-38.025 36.904-7.854 7.27-27.957 4.486-42.504 0-14.539-4.471-45.861-22.924-59.844-28.521-14-5.602-2.801-17.34 2.227-19.027 5.035-1.67 86.703-35.182 116.9-37.461 29.65-2.26 26.294 42.488 21.242 48.105z"fill=#4a90e2 />
                      </svg>
                         </div>
-                        <p class="text-lg">Более 130-ти примеров в стиле дрим-арт на сайте для ознакомления с уровнем работ наших художников</p>
+                        <p class="text-lg">46 портретов в стиле Комикс от наших художников предствалено на сайте для ознакомления</p>
                     </div>
 
-                    <!-- Преимущество 2: Цифровая работа -->
-                     <div class="bg-white rounded-lg p-6 text-left text-dark">
-                        <div class="w-16 h-16 mb-4 flex items-center justify-start">
-                             <svg height="40" viewBox="0 0 460.94 460.94" width="40" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 460.94 460.94" version="1.1" xml:space="preserve">
-    <path d="m460.79 405.15l-50.215-221c-0.621-2.732-3.049-4.67-5.851-4.67h-43.754l48.841-99.472c1.759-3.583 2.018-7.637 0.729-11.415s-3.973-6.828-7.556-8.587l-20.394-10.013c-7.398-3.633-16.37-0.569-20.001 6.828l-60.227 122.66h-234.62c-2.802 0-5.23 1.938-5.851 4.67l-21.138 93.03c-8.74-1.196-16.592-5.761-22.01-12.951-6.358-8.438-8.335-19.102-5.423-29.258l25.009-87.224c4.077-14.222 17.258-24.155 32.053-24.155h156.94c19.337 0 36.564-12.282 42.868-30.563l2.458-7.128c1.08-3.133-0.583-6.548-3.716-7.628s-6.548 0.583-7.628 3.716l-2.458 7.128c-4.635 13.442-17.303 22.474-31.523 22.474h-156.94c-20.12 0-38.044 13.507-43.588 32.847l-25.009 87.226c-3.96 13.811-1.272 28.313 7.375 39.787 7.16 9.501 17.445 15.634 28.927 17.466l-26.41 116.23c-0.404 1.78 0.023 3.646 1.162 5.073 1.138 1.426 2.864 2.257 4.689 2.257h437.41c1.825 0 3.551-0.831 4.689-2.257s1.566-3.293 1.162-5.073zm-363.84-87.67h-53.048l14.769-65h49.4l-11.121 65zm30.14-105h159.07l-30.339 61.79c-3.097 6.307-3.552 13.442-1.282 20.091 1.543 4.52 4.222 8.445 7.759 11.469l-4.88 9.939c-1.46 2.975-0.233 6.57 2.741 8.03 0.851 0.418 1.752 0.616 2.64 0.616 2.216 0 4.347-1.233 5.39-3.357l4.764-9.703c2.118 0.543 4.282 0.826 6.456 0.826 2.861 0 5.734-0.473 8.521-1.424 6.649-2.27 12.017-6.993 15.113-13.3l41.724-84.977h33.792l28.899 158h-307.4l27.034-158zm246.27-150.37c0.511-1.041 1.56-1.646 2.648-1.646 0.435 0 0.877 0.097 1.293 0.301l20.394 10.013c0.953 0.468 1.342 1.261 1.489 1.692s0.324 1.296-0.144 2.249l-106.77 217.45c-1.684 3.43-4.603 5.998-8.219 7.232-3.617 1.234-7.497 0.986-10.925-0.697-3.43-1.684-5.999-4.603-7.233-8.219s-0.987-7.496 0.697-10.925l106.77-217.45zm-300.83 129.37h223.94l-4.419 9h-170.02c-2.923 0-5.421 2.107-5.914 4.988l-5.991 35.012h-48.726l11.133-49zm-47.488 209l16.132-71h53.721l-7.869 45.988c-0.298 1.743 0.188 3.528 1.328 4.88s2.818 2.132 4.586 2.132h321.71c1.78 0 3.469-0.791 4.608-2.158 1.14-1.368 1.614-3.17 1.293-4.922l-31.094-170c-0.521-2.85-3.004-4.92-5.902-4.92h-32.9l4.419-9h44.856l47.489 209h-422.38z" class="active-path" fill="#4A90E2"/>
-</svg>
-                        </div>
-                        <p class="text-lg">Для 100% сходства, учёта пожеланий, правок и быстрого согласования пишем портреты в цифровом виде</p>
-                    </div>
-
-                    <!-- Преимущество 3: Качество печати -->
-                     <div class="bg-white rounded-lg p-6 text-left text-dark">
-                        <div class="w-16 h-16 mb-4 flex items-center justify-start">
-                             <svg height=40 viewbox="0 0 325.9 325.9" width=40 xmlns=http://www.w3.org/2000/svg>
-                        <path d="M297.4 47.8h-24.5v-7.1c0-9.3-7.5-16.8-16.8-16.8H69.7c-9.3 0-16.8 7.5-16.8 16.8v7.1H28.5C12.7 47.8 0 60.5 0 76.2v39.8c0 12.6 8.3 23.2 19.7 27v115.7L9.5 289.6c-1.6 5 1 10.3 6 11.9 1 0.3 2 0.5 3 0.5 4 0 7.7-2.5 9-6.5l10.7-32.4h0.4v-1.3L48.8 230.9c1.6-5-1-10.3-6-11.9 -1.4-0.5-2.8-0.5-4.2-0.4v-74.1h22.9v111.4h202.9V144.5h17.2v69.4c-2.4-1.9-5.7-2.5-8.8-1.5 -5 1.6-7.6 7-6 11.9l21.3 64.6c1.3 4 5 6.5 9 6.5 1 0 2-0.2 3-0.5 5-1.6 7.6-7 6-11.9l-6.6-19.9h1V144.2c14.3-1.5 25.4-13.5 25.4-28.2V76.2C325.9 60.5 313.1 47.8 297.4 47.8zM63.7 40.7c0-3.3 2.7-6 6-6H256.1c3.3 0 6 2.7 6 6v7.1H63.7V40.7zM253.6 144.5v100.6H72.3V144.5 123.9c0-8.1 4.1-19.5 8.9-24.8l8.7-9.6h146l8.7 9.6c4.8 5.3 8.9 16.7 8.9 24.8v20.6H253.6z" fill=#4a90e2></path>
-                        <path d="M232.7 106.4H93.2c-3 0-5.4 2.4-5.4 5.4 0 3 2.4 5.4 5.4 5.4h139.5c3 0 5.4-2.4 5.4-5.4C238.1 108.8 235.6 106.4 232.7 106.4z" fill=#4a90e2></path>
-                     </svg>
-                        </div>
-                        <p class="text-lg">Печатаем оригинальными чернилами на плотном холсте — срок службы портрета составляет более 50-ти лет</p>
-                    </div> 
-
-                    <!-- Преимущество 4: Соблюдение сроков -->
+                    <!-- Преимущество 2 -->
                     <div class="bg-white rounded-lg p-6 text-left text-dark">
                         <div class="w-16 h-16 mb-4 flex items-center justify-start">
-                            <svg height=40 viewBox="0 0 512 512" width=40 xmlns=http://www.w3.org/2000/svg enable-background="new 0 0 512 512" version=1.1 xml:space=preserve>
+                            <svg class="" width="40" height="40" enable-background="new 0 0 460.94 460.94" version="1.1" viewBox="0 0 460.94 460.94" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                        <path class="active-path" d="m460.79 405.15l-50.215-221c-0.621-2.732-3.049-4.67-5.851-4.67h-43.754l48.841-99.472c1.759-3.583 2.018-7.637 0.729-11.415s-3.973-6.828-7.556-8.587l-20.394-10.013c-7.398-3.633-16.37-0.569-20.001 6.828l-60.227 122.66h-234.62c-2.802 0-5.23 1.938-5.851 4.67l-21.138 93.03c-8.74-1.196-16.592-5.761-22.01-12.951-6.358-8.438-8.335-19.102-5.423-29.258l25.009-87.224c4.077-14.222 17.258-24.155 32.053-24.155h156.94c19.337 0 36.564-12.282 42.868-30.563l2.458-7.128c1.08-3.133-0.583-6.548-3.716-7.628s-6.548 0.583-7.628 3.716l-2.458 7.128c-4.635 13.442-17.303 22.474-31.523 22.474h-156.94c-20.12 0-38.044 13.507-43.588 32.847l-25.009 87.226c-3.96 13.811-1.272 28.313 7.375 39.787 7.16 9.501 17.445 15.634 28.927 17.466l-26.41 116.23c-0.404 1.78 0.023 3.646 1.162 5.073 1.138 1.426 2.864 2.257 4.689 2.257h437.41c1.825 0 3.551-0.831 4.689-2.257s1.566-3.293 1.162-5.073zm-363.84-87.67h-53.048l14.769-65h49.4l-11.121 65zm30.14-105h159.07l-30.339 61.79c-3.097 6.307-3.552 13.442-1.282 20.091 1.543 4.52 4.222 8.445 7.759 11.469l-4.88 9.939c-1.46 2.975-0.233 6.57 2.741 8.03 0.851 0.418 1.752 0.616 2.64 0.616 2.216 0 4.347-1.233 5.39-3.357l4.764-9.703c2.118 0.543 4.282 0.826 6.456 0.826 2.861 0 5.734-0.473 8.521-1.424 6.649-2.27 12.017-6.993 15.113-13.3l41.724-84.977h33.792l28.899 158h-307.4l27.034-158zm246.27-150.37c0.511-1.041 1.56-1.646 2.648-1.646 0.435 0 0.877 0.097 1.293 0.301l20.394 10.013c0.953 0.468 1.342 1.261 1.489 1.692s0.324 1.296-0.144 2.249l-106.77 217.45c-1.684 3.43-4.603 5.998-8.219 7.232-3.617 1.234-7.497 0.986-10.925-0.697-3.43-1.684-5.999-4.603-7.233-8.219s-0.987-7.496 0.697-10.925l106.77-217.45zm-300.83 129.37h223.94l-4.419 9h-170.02c-2.923 0-5.421 2.107-5.914 4.988l-5.991 35.012h-48.726l11.133-49zm-47.488 209l16.132-71h53.721l-7.869 45.988c-0.298 1.743 0.188 3.528 1.328 4.88s2.818 2.132 4.586 2.132h321.71c1.78 0 3.469-0.791 4.608-2.158 1.14-1.368 1.614-3.17 1.293-4.922l-31.094-170c-0.521-2.85-3.004-4.92-5.902-4.92h-32.9l4.419-9h44.856l47.489 209h-422.38z" fill="#4A90E2" data-old_color=" rgb(74, 144, 226)" data-original="#4A90E2" />
+                     </svg>
+                        </div>
+                        <p class="text-lg">Для 100% сходства, учёта пожеланий, правок и быстрого согласования рисуем комиксы в цифровом виде</p>
+                    </div>
+
+                    <!-- Преимущество 3 -->
+                    <div class="bg-white rounded-lg p-6 text-left text-dark">
+                        <div class="w-16 h-16 mb-4 flex items-center justify-start">
+                            <svg height="40" viewbox="0 0 325.9 325.9" width="40" xmlns="http://www.w3.org/2000/svg">
+                        <path class="fil101" d="M297.4 47.8h-24.5v-7.1c0-9.3-7.5-16.8-16.8-16.8H69.7c-9.3 0-16.8 7.5-16.8 16.8v7.1H28.5C12.7 47.8 0 60.5 0 76.2v39.8c0 12.6 8.3 23.2 19.7 27v115.7L9.5 289.6c-1.6 5 1 10.3 6 11.9 1 0.3 2 0.5 3 0.5 4 0 7.7-2.5 9-6.5l10.7-32.4h0.4v-1.3L48.8 230.9c1.6-5-1-10.3-6-11.9 -1.4-0.5-2.8-0.5-4.2-0.4v-74.1h22.9v111.4h202.9V144.5h17.2v69.4c-2.4-1.9-5.7-2.5-8.8-1.5 -5 1.6-7.6 7-6 11.9l21.3 64.6c1.3 4 5 6.5 9 6.5 1 0 2-0.2 3-0.5 5-1.6 7.6-7 6-11.9l-6.6-19.9h1V144.2c14.3-1.5 25.4-13.5 25.4-28.2V76.2C325.9 60.5 313.1 47.8 297.4 47.8zM63.7 40.7c0-3.3 2.7-6 6-6H256.1c3.3 0 6 2.7 6 6v7.1H63.7V40.7zM253.6 144.5v100.6H72.3V144.5 123.9c0-8.1 4.1-19.5 8.9-24.8l8.7-9.6h146l8.7 9.6c4.8 5.3 8.9 16.7 8.9 24.8v20.6H253.6z" fill="#4a90e2"></path>
+                        <path class="fil101" d="M232.7 106.4H93.2c-3 0-5.4 2.4-5.4 5.4 0 3 2.4 5.4 5.4 5.4h139.5c3 0 5.4-2.4 5.4-5.4C238.1 108.8 235.6 106.4 232.7 106.4z" fill="#4a90e2"></path>
+                     </svg>
+                        </div>
+                        <p class="text-lg">Печатаем оригинальными чернилами на плотном хлопковом холсте – срок службы портрета составляет более 50-ти лет</p>
+                    </div>
+
+                    <!-- Преимущество 4 -->
+                    <div class="bg-white rounded-lg p-6 text-left text-dark">
+                        <div class="w-16 h-16 mb-4 flex items-center justify-start">
+                             <svg height=40 viewBox="0 0 512 512" width=40 xmlns=http://www.w3.org/2000/svg enable-background="new 0 0 512 512" version=1.1 xml:space=preserve>
                      <g fill=#4a90e2>
                         <path d="m408.74 143.26c-11.363-11.362-23.771-21.299-37.003-29.729l14.438-25.008 16.143 9.32c1.26 0.728 2.635 1.073 3.993 1.073 2.765 0 5.454-1.435 6.936-4.001 2.209-3.826 0.898-8.719-2.928-10.928l-45.883-26.49c-3.827-2.211-8.719-0.899-10.928 2.928-2.209 3.826-0.898 8.719 2.928 10.928l15.883 9.17-14.387 24.919c-28.689-15.393-60.65-24.082-93.927-25.286v-0.966c18.236-3.716 32-19.878 32-39.195 0-22.056-17.944-40-40-40s-40 17.944-40 40c0 19.316 13.764 35.479 32 39.195v0.966c-54.694 1.979-105.83 24.199-144.74 63.104-40.797 40.798-63.265 95.04-63.265 152.74s22.468 111.94 63.265 152.74 95.039 63.265 152.74 63.265 111.94-22.468 152.74-63.265 63.265-95.04 63.265-152.74-22.468-111.94-63.265-152.74zm-176.74-103.26c0-13.233 10.767-24 24-24s24 10.767 24 24c0 10.429-6.689 19.321-16 22.624v-22.624c0-4.418-3.582-8-8-8s-8 3.582-8 8v22.624c-9.311-3.303-16-12.195-16-22.624zm24 456c-110.28 0-200-89.72-200-200s89.72-200 200-200 200 89.72 200 200-89.72 200-200 200z"/>
                         <path d="m412.77 199.63c-2.317-3.762-7.244-4.935-11.007-2.616-3.762 2.317-4.933 7.245-2.616 11.007 16.258 26.393 24.851 56.816 24.851 87.981 0 92.636-75.364 168-168 168s-168-75.364-168-168 75.364-168 168-168c31.154 0 61.567 8.587 87.953 24.834 3.763 2.315 8.69 1.146 11.006-2.618 2.317-3.762 1.145-8.69-2.618-11.007-28.908-17.8-62.223-27.209-96.341-27.209-101.46 0-184 82.542-184 184s82.542 184 184 184 184-82.542 184-184c0-34.13-9.416-67.455-27.228-96.372z"/>
@@ -906,38 +849,38 @@
                         <p class="text-lg">Крайне ответственно относимся к соблюдению сроков выполнения работ. Не беремся, если не успеваем</p>
                     </div>
 
-                    <!-- Преимущество 5: Цена -->
-                   <div class="bg-white rounded-lg p-6 text-left text-dark">
+                    <!-- Преимущество 5 -->
+                    <div class="bg-white rounded-lg p-6 text-left text-dark">
                         <div class="w-16 h-16 mb-4 flex items-center justify-start">
-                           <svg height=40 viewbox="0 0 612 612" width=40 xmlns=http://www.w3.org/2000/svg>
+                            <svg height=40 viewbox="0 0 612 612"width=40 xmlns=http://www.w3.org/2000/svg>
 					 
-                        <path d="M592.9 306c0-79.2-32.1-150.9-84-202.9C456.9 51.2 385.2 19.1 306 19.1s-150.9 32.1-202.8 84C51.2 155.1 19.1 226.8 19.1 306s32.1 151 84 202.9 123.6 84 202.8 84c79.2 0 150.9-32.1 202.9-84C560.8 457 592.9 385.2 592.9 306L592.9 306zM522.4 89.6C577.8 145 612 221.5 612 306c0 84.5-34.2 161-89.6 216.4C467 577.8 390.5 612 306 612s-161-34.2-216.4-89.6C34.3 467 0 390.5 0 306c0-84.5 34.2-161 89.6-216.4C145 34.3 221.5 0 306 0 390.5 0 467 34.2 522.4 89.6z" fill=#4a90e2></path>
-                        <path d="M296.5 439.9c5.3 0 9.6 4.3 9.6 9.6 0 5.3-4.3 9.6-9.6 9.6h-76.5c-5.3 0-9.6-4.3-9.6-9.6s4.3-9.6 9.6-9.6H296.5z" fill=#4a90e2></path>
-                        <path d="M334.7 344.3c-5.3 0-9.6-4.3-9.6-9.6 0-5.3 4.3-9.6 9.6-9.6 18.5 0 35.2-7.5 47.3-19.6l0.5-0.5c11.8-12 19.1-28.6 19.1-46.8 0-18.5-7.5-35.2-19.6-47.3l-0.5-0.5c-12.1-11.8-28.6-19.1-46.8-19.1H220c-5.3 0-9.6-4.3-9.6-9.6 0-5.3 4.3-9.6 9.6-9.6h114.8c23.4 0 44.7 9.4 60.2 24.7l0.6 0.6c15.6 15.6 25.2 37.1 25.2 60.9 0 23.4-9.4 44.7-24.6 60.2l-0.6 0.6C380 334.6 358.5 344.3 334.7 344.3z" fill=#4a90e2></path>
-                        <path d="M219.9 344.3c-5.3 0-9.6-4.3-9.6-9.6 0-5.3 4.3-9.6 9.6-9.6H334.7c5.3 0 9.6 4.3 9.6 9.6s-4.3 9.6-9.6 9.6H219.9z" fill=#4a90e2></path>
-                        <path d="M267.7 449.5c0 5.3-4.3 9.6-9.6 9.6 -5.3 0-9.6-4.3-9.6-9.6V181.7c0-5.3 4.3-9.6 9.6-9.6 5.3 0 9.6 4.3 9.6 9.6V449.5z" fill=#4a90e2></path>
-                        <path d="M219.9 382.5c-5.3 0-9.6-4.3-9.6-9.6 0-5.3 4.3-9.6 9.6-9.6h133.9c5.3 0 9.6 4.3 9.6 9.6 0 5.3-4.3 9.6-9.6 9.6H219.9z" fill=#4a90e2></path>
+                        <path d="M592.9 306c0-79.2-32.1-150.9-84-202.9C456.9 51.2 385.2 19.1 306 19.1s-150.9 32.1-202.8 84C51.2 155.1 19.1 226.8 19.1 306s32.1 151 84 202.9 123.6 84 202.8 84c79.2 0 150.9-32.1 202.9-84C560.8 457 592.9 385.2 592.9 306L592.9 306zM522.4 89.6C577.8 145 612 221.5 612 306c0 84.5-34.2 161-89.6 216.4C467 577.8 390.5 612 306 612s-161-34.2-216.4-89.6C34.3 467 0 390.5 0 306c0-84.5 34.2-161 89.6-216.4C145 34.3 221.5 0 306 0 390.5 0 467 34.2 522.4 89.6z"fill=#4a90e2></path>
+                        <path d="M296.5 439.9c5.3 0 9.6 4.3 9.6 9.6 0 5.3-4.3 9.6-9.6 9.6h-76.5c-5.3 0-9.6-4.3-9.6-9.6s4.3-9.6 9.6-9.6H296.5z"fill=#4a90e2></path>
+                        <path d="M334.7 344.3c-5.3 0-9.6-4.3-9.6-9.6 0-5.3 4.3-9.6 9.6-9.6 18.5 0 35.2-7.5 47.3-19.6l0.5-0.5c11.8-12 19.1-28.6 19.1-46.8 0-18.5-7.5-35.2-19.6-47.3l-0.5-0.5c-12.1-11.8-28.6-19.1-46.8-19.1H220c-5.3 0-9.6-4.3-9.6-9.6 0-5.3 4.3-9.6 9.6-9.6h114.8c23.4 0 44.7 9.4 60.2 24.7l0.6 0.6c15.6 15.6 25.2 37.1 25.2 60.9 0 23.4-9.4 44.7-24.6 60.2l-0.6 0.6C380 334.6 358.5 344.3 334.7 344.3z"fill=#4a90e2></path>
+                        <path d="M219.9 344.3c-5.3 0-9.6-4.3-9.6-9.6 0-5.3 4.3-9.6 9.6-9.6H334.7c5.3 0 9.6 4.3 9.6 9.6s-4.3 9.6-9.6 9.6H219.9z"fill=#4a90e2></path>
+                        <path d="M267.7 449.5c0 5.3-4.3 9.6-9.6 9.6 -5.3 0-9.6-4.3-9.6-9.6V181.7c0-5.3 4.3-9.6 9.6-9.6 5.3 0 9.6 4.3 9.6 9.6V449.5z"fill=#4a90e2></path>
+                        <path d="M219.9 382.5c-5.3 0-9.6-4.3-9.6-9.6 0-5.3 4.3-9.6 9.6-9.6h133.9c5.3 0 9.6 4.3 9.6 9.6 0 5.3-4.3 9.6-9.6 9.6H219.9z"fill=#4a90e2></path>
                      </svg>
                         </div>
                         <p class="text-lg">Предлагаем выгодную цену благодаря полному циклу собственного производства: от эскиза до оформления в багет</p>
                     </div>
 
-                    <!-- Преимущество 6: Гарантия -->
-                   <div class="bg-white rounded-lg p-6 text-left text-dark">
+                    <!-- Преимущество 6 -->
+                    <div class="bg-white rounded-lg p-6 text-left text-dark">
                         <div class="w-16 h-16 mb-4 flex items-center justify-start">
-                            <svg height=40 viewbox="0 0 214.3 214.3" width=40 xmlns=http://www.w3.org/2000/svg>
-                        <path d="M196.9 55.2c-0.1-5.8-0.2-11.2-0.2-16.5 0-4.1-3.4-7.5-7.5-7.5 -32.1 0-56.5-9.2-76.9-29 -2.9-2.8-7.5-2.8-10.5 0 -20.4 19.8-44.8 29-76.8 29 -4.1 0-7.5 3.4-7.5 7.5 0 5.3-0.1 10.8-0.2 16.5 -1 53.8-2.4 127.6 87.3 158.7 0.8 0.3 1.6 0.4 2.5 0.4 0.8 0 1.7-0.1 2.5-0.4C199.4 182.7 198 109 196.9 55.2zM107.1 198.8c-77-28-75.8-89.2-74.8-143.4 0.1-3.2 0.1-6.4 0.2-9.5 30-1.3 54.1-10.4 74.6-28.3 20.6 17.9 44.6 27 74.6 28.3 0 3.1 0.1 6.2 0.2 9.5C183 109.6 184.1 170.8 107.1 198.8z" fill=#4A90E2></path>
-                        <path d="M133 81.1l-36.2 36.2 -15.4-15.4c-2.9-2.9-7.7-2.9-10.6 0 -2.9 2.9-2.9 7.7 0 10.6l20.8 20.8c1.5 1.5 3.4 2.2 5.3 2.2 1.9 0 3.8-0.7 5.3-2.2l41.5-41.5c2.9-2.9 2.9-7.7 0-10.6C140.6 78.2 135.9 78.2 133 81.1z" fill=#4A90E2></path>
+                           <svg height=40 viewbox="0 0 214.3 214.3"width=40 xmlns=http://www.w3.org/2000/svg>
+                        <path d="M196.9 55.2c-0.1-5.8-0.2-11.2-0.2-16.5 0-4.1-3.4-7.5-7.5-7.5 -32.1 0-56.5-9.2-76.9-29 -2.9-2.8-7.5-2.8-10.5 0 -20.4 19.8-44.8 29-76.8 29 -4.1 0-7.5 3.4-7.5 7.5 0 5.3-0.1 10.8-0.2 16.5 -1 53.8-2.4 127.6 87.3 158.7 0.8 0.3 1.6 0.4 2.5 0.4 0.8 0 1.7-0.1 2.5-0.4C199.4 182.7 198 109 196.9 55.2zM107.1 198.8c-77-28-75.8-89.2-74.8-143.4 0.1-3.2 0.1-6.4 0.2-9.5 30-1.3 54.1-10.4 74.6-28.3 20.6 17.9 44.6 27 74.6 28.3 0 3.1 0.1 6.2 0.2 9.5C183 109.6 184.1 170.8 107.1 198.8z"fill=#4A90E2></path>
+                        <path d="M133 81.1l-36.2 36.2 -15.4-15.4c-2.9-2.9-7.7-2.9-10.6 0 -2.9 2.9-2.9 7.7 0 10.6l20.8 20.8c1.5 1.5 3.4 2.2 5.3 2.2 1.9 0 3.8-0.7 5.3-2.2l41.5-41.5c2.9-2.9 2.9-7.7 0-10.6C140.6 78.2 135.9 78.2 133 81.1z"fill=#4A90E2></path>
                      </svg>
                         </div>
-                        <p class="text-lg">Предоставляем официальную гарантию и гордимся каждым положительным отзывом на странице</p>
+                        <p class="text-lg">Предоставляем официальную гарантию и гордимся каждым из 10-и положительных отзывов на странице</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Отзывы -->
-        <section class="bg-secondary py-16 lg:py-20" id="review">
+        <section class="bg-secondary py-16 lg:py-20" id="otzyvy">
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">Отзывы</h2>
                 
@@ -960,7 +903,8 @@
         </section>
 
         <!-- Модальное окно для отзыва -->
-<dialog id="review-modal" class="p-0 rounded-lg shadow-2xl backdrop:bg-black/70 max-w-md w-full">
+
+       <dialog id="review-modal" class="p-0 rounded-lg shadow-2xl backdrop:bg-black/70 max-w-md w-full">
     <div class="p-6 bg-dark text-white rounded-lg">
         <!-- Заголовок и кнопка закрытия -->
         <div class="flex items-center justify-between mb-6">
@@ -1052,46 +996,48 @@
     </div>
 </dialog>
 
-<script>
-// Функция для открытия попапа OAuth (оставлена из старой формы)
-function BxPopup(url, width, height) {
-    if (url) {
-        var left = (screen.width/2) - (width/2);
-        var top = (screen.height/2) - (height/2);
-        window.open(url, '', 'width=' + width + ', height=' + height + ', top=' + top + ', left=' + left);
-    }
-}
-</script>
+
+        <script>
+        // Функция для открытия попапа OAuth (оставлена из старой формы)
+        function BxPopup(url, width, height) {
+            if (url) {
+                var left = (screen.width/2) - (width/2);
+                var top = (screen.height/2) - (height/2);
+                window.open(url, '', 'width=' + width + ', height=' + height + ', top=' + top + ', left=' + left);
+            }
+        }
+        </script>
 
         <!-- Описание -->
         <section class="py-16 lg:py-20" id="opisanie">
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Описание</h2>
           
-                <!-- Grid: текст слева (2 колонки), вертикальное До/После справа (1 колонка) -->
-                <div class="grid lg:grid-cols-3 gap-8 lg:gap-12">
-                    <!-- 1. Вертикальное До/После -->
-                    <div class="flex flex-col items-center">
-                        <div class="ba-card ba-card-vertical rounded-xl overflow-hidden shadow-2xl" id="before-after">
+                <!-- Grid контейнер БЕЗ видео (2 колонки на десктопе) -->
+                <div class="description-grid-no-video space-y-8 lg:space-y-0">
+                    
+                    <!-- 1. До/После -->
+                    <div>
+                        <div class="ba-card rounded-xl overflow-hidden shadow-2xl" id="before-after">
                             <img 
-                                src="https://muse.ooo/upload/img/drim-art-b.webp"
-                                alt="Фото для портрета в стиле дрим-арт"
-                                title="Фото для портрета в стиле Дрим-арт"
+                                src="https://muse.ooo/upload/img/komiks-b.webp"
+                                alt="Фото для портрета в стиле Комикс"
+                                title="Фото для Комикс портрета до"
                                 class="before-image"
                                 loading="lazy"
                                 decoding="async"
-                                width="360"
-                                height="517"
+                                width="378"
+                                height="251"
                             >
                             <img 
-                                src="https://muse.ooo/upload/img/drim-art-a.webp"
-                                alt="Портрет в стиле дрим-арт"
-                                title="Дрим-арт после"
+                                src="https://muse.ooo/upload/img/komiks-a.webp"
+                                alt="Портрет в стиле комикс"
+                                title="Портрет комикс после"
                                 class="after-image"
                                 loading="lazy"
                                 decoding="async"
-                                width="360"
-                                height="517"
+                                width="378"
+                                height="251"
                             >
                             <div class="ba-divider"></div>
                             <div class="ba-handle">
@@ -1100,24 +1046,24 @@ function BxPopup(url, width, height) {
                             </div>
                             <input type="range" min="0" max="100" value="50" class="ba-range" aria-label="Сравнение до и после" oninput="this.parentNode.style.setProperty('--pos', this.value + '%')">
                         </div>
-                        <p class="text-center text-gray-600 mt-4 text-sm">Потяните за вертикальную линию, чтобы сравнить "До" и "После"</p>
+                        <p class="text-center text-gray-600 mt-4 text-sm">Потяните за вертикальную линию, чтобы сравнить «До» и «После»</p>
                     </div>
-					<!-- 2. Текст (занимает 2 колонки на десктопе) -->
-					<div class="lg:col-span-2 space-y-4 text-gray-600">
-                        <p>Портрет в стиле дрим-арт (от англ. Dream – мечта) пишется художником по фотографии в технике цифровой живописи на ярком, насыщенном, контрастном абстрактном фоне. Такой фон - отличие Dream Art от других стилей. Фон исполняется в цветовой гамме, которая гармонирует с гаммой портретируемых: цветом одежды, волосами, кожей...</p>
+                    
+                    <!-- 2. Текст -->
+                    <div class="space-y-4 text-gray-600">
+                        <p>Портрет в стиле изображений из комиксов или современных цифровых героев: черный контур, яркие цвета, а иногда растровые точки и текст. Портрет пишется художником в цифровом виде. Срок исполнения от 1 дня.</p>
                         
-                        <p>Для лучшего результата просим Вас подобрать фото, как можно с более высоким разрешением и крупным планом. Если, например, Вы хотите сделать портрет пары, но нет общей хорошей фотографии, то лучше прислать героев по отдельности, чтобы мы скомпоновали их в единый портрет. Если Вы делаете подарок, который будет сюрпризом и берете фото из соцсетей, то постарайтесь выгрузить фото в самом высоком качестве.</p>
+                        <p>Есть легенда, что первую свою работу в стиле комикса Рой Лихтенштейн нарисовал по просьбе сына, который попросил: «Папа, нарисуй мне что-нибудь такое же красивое, как комикс». Он нарисовал - «Смотри, Микки». Шел 1961 год. Потом было много работ в этом стиле. Одна из них – «Медсестра» была продана в 2015 году за 95 400 000 $. Обычно Лихтенштейн просматривал комиксы, вырезал приглянувшуюся картинку, а затем перерисовывал ее карандашом на холст в своем авторском стиле. После раскрашивания поп-арт считался законченным. Очень часто он использовал растровые точки. В то время печатные машины создавали изображение из маленьких точек, которые были почти не видны человеку. У Лихтенштейна эти точки были специально увеличены. Часто его работы (как и в комиксах) сопровождались нарисованным текстом многоточием, позволяя зрителю самому дорисовывать картинку. Например, «Oh, Jeff..., I love you, too... But...».</p>
                         
-                        <p>После утверждения Вами эскиза портрет печатается на холсте и натягивается на подрамник галерейным способом. По вашему желанию можно подобрать и оформить работу в багетную раму. Но даже и без багета Вы получаете отличную картину, готовую для развески на стену или для вручения в качестве подарка, который произведет впечатление на любом празднике.</p>
+                        <p>Творите вместе с Muse, создавая из фотографий прекрасные картины, на которых всегда будет приятно остановить взгляд.</p>
                         
-                        <p>Портрет в этом стиле получается экспрессивным и ярким, как полёт фантазии или красочный фейерверк в прекрасном сне. В общем, не картина, а мечта.</p>
-                        
-                        <p class="italic">Muse (греч. Μούσα) - это вдохновение, это Mуза</p>
+                        <p class="italic">Muse (греч. Μούσα) — это вдохновение, это Муза</p>
                     </div>
                     
                 </div>
             </div>
         </section>
+
         <!-- CTA (структура как в foto-na-kholste) -->
         <section class="bg-dark py-24 md:py-32">
             <div class="container xl:flex xl:items-center xl:justify-between">
@@ -1248,9 +1194,9 @@ function BxPopup(url, width, height) {
             const deliveryDateEl = document.getElementById('delivery-date');
             if (deliveryDateEl) {
                 const date = new Date();
-                date.setDate(date.getDate() + 4);
-                const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-                deliveryDateEl.textContent = date.toLocaleDateString('ru-RU', options);
+                date.setDate(date.getDate() + 3);
+                const options = { day: 'numeric', month: 'long' };
+                deliveryDateEl.textContent = date.toLocaleDateString('ru-RU', options) + '.';
             }
         })();
 
@@ -1310,4 +1256,3 @@ function BxPopup(url, width, height) {
     </script>
 </body>
 </html>
-
