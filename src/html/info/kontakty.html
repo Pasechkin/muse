@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты – Muse</title>
+    <meta name="description" content="Контакты студии Muse: адреса, телефоны, карта проезда в Москве и Санкт-Петербурге.">
+
+    <!-- Закрыто от индексации во время разработки -->
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Критический CSS -->
+    <style>
+        /* ===== БАЗОВЫЕ СТИЛИ ===== */
+        :root {
+            --primary: #4A90E2;
+            --primary-hover: #609DE6;
+            --dark: #252525;
+            --body: #666666;
+            --secondary: #FAFAFA;
+        }
+
+        body {
+            background-color: #fff;
+            color: #666666;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        @media (min-width: 1170px) {
+            .container { max-width: 1170px; }
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 2.25rem;
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        @media (min-width: 1024px) {
+            h1 { font-size: 3rem; }
+        }
+
+        /* Breadcrumbs */
+        .breadcrumbs { font-size: 0.875rem; color: #9ca3af; }
+        .breadcrumbs a { color: #9ca3af; text-decoration: none; }
+        .breadcrumbs a:hover { text-decoration: underline; }
+
+        /* Screen reader only */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                container: {
+                    center: true,
+                    padding: '1rem',
+                    screens: {
+                        '2xl': '1170px'
+                    }
+                },
+                extend: {
+                    colors: {
+                        primary: '#4A90E2',
+                        'primary-hover': '#609DE6',
+                        dark: '#252525',
+                        body: '#666666',
+                        secondary: '#FAFAFA',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white overflow-x-hidden">
+
+    <!-- Header (вставьте из эталона) -->
+
+    <main>
+        <!-- Hero & Breadcrumbs -->
+        <section class="pt-8 pb-8 lg:pt-12 lg:pb-12 bg-secondary">
+            <div class="container">
+                <!-- Breadcrumbs -->
+                <nav class="breadcrumbs mb-4" aria-label="Хлебные крошки">
+                    <ol class="flex items-center space-x-2">
+                        <li><a href="/" class="hover:text-primary transition-colors">Главная</a></li>
+                        <li>/</li>
+                        <li class="text-dark">Контакты</li>
+                    </ol>
+                </nav>
+
+                <h1 class="text-dark">Контакты</h1>
+            </div>
+        </section>
+
+        <!-- Contact Details -->
+        <section class="py-12 lg:py-16 bg-white">
+            <div class="container">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Moscow -->
+                    <div>
+                        <h2 class="text-2xl font-light text-dark mb-6">Москва</h2>
+                        <div class="space-y-4 text-body text-lg">
+                            <p>127550, Россия, г. Москва, ул. Прянишникова дом 19А строение 9</p>
+
+                            <!-- Map -->
+                            <div class="w-full h-[400px] bg-gray-100 rounded-lg overflow-hidden my-6">
+                                <iframe src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=82862448491" width="100%" height="100%" frameborder="0" allowfullscreen="true" style="position:relative;"></iframe>
+                            </div>
+
+                            <p>
+                                <span class="font-medium text-dark">Email:</span> <a href="mailto:zakaz@muse.ooo" class="text-primary hover:underline">zakaz@muse.ooo</a>
+                            </p>
+                            <p>
+                                <span class="font-medium text-dark">Телефон:</span> <a href="tel:+74954091869" class="text-primary hover:underline">+7 (495) 409-18-69</a>
+                            </p>
+                            <p>
+                                <span class="font-medium text-dark">WhatsApp:</span> <a href="whatsapp://send?phone=74954091869" class="text-primary hover:underline">+7 (495) 409-18-69</a>
+                            </p>
+                            <div class="pt-4 border-t border-gray-100 mt-4">
+                                <p>Мы открыты ежедневно с 10.00 до 19.00</p>
+                                <p>Прием заявок в онлайн сервисе 24 часа.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- St. Petersburg -->
+                    <div>
+                        <h2 class="text-2xl font-light text-dark mb-6">Санкт-Петербург</h2>
+                        <div class="space-y-4 text-body text-lg">
+                            <p>196620, Россия, г. Санкт-Петербург, г. Павловск ул. Слуцкая, 13 к 2</p>
+
+                            <!-- Map -->
+                            <div class="w-full h-[400px] bg-gray-100 rounded-lg overflow-hidden my-6">
+                                <iframe src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=2855807336" width="100%" height="100%" frameborder="0" allowfullscreen="true" style="position:relative;"></iframe>
+                            </div>
+
+                            <p>
+                                <span class="font-medium text-dark">Email:</span> <a href="mailto:info@muse.ooo" class="text-primary hover:underline">info@muse.ooo</a>
+                            </p>
+                            <p>
+                                <span class="font-medium text-dark">Телефон:</span> <a href="tel:+78124081869" class="text-primary hover:underline">+7 (812) 408-18-69</a>
+                            </p>
+                            <p>
+                                <span class="font-medium text-dark">WhatsApp:</span> <a href="whatsapp://send?phone=74954091869" class="text-primary hover:underline">+7 (495) 409-18-69</a>
+                            </p>
+                            <div class="pt-4 border-t border-gray-100 mt-4">
+                                <p>Прием заявок в онлайн сервисе 24 часа.</p>
+                                <p>Мы открыты ежедневно с 10.00 до 19.00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Requisites -->
+        <section class="py-8 bg-secondary border-t border-gray-200">
+            <div class="container text-center">
+                <p class="text-body text-sm">ИНН 782575923262 ОГРНИП 316784700066112</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (вставьте из эталона) -->
+
+</body>
+</html>
