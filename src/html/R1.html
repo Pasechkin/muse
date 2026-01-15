@@ -236,6 +236,27 @@ document.getElementById('query').addEventListener('keypress', function(e) {
     }
 });
 
+// Функция для очистки HTML из текста
+function cleanText(text) {
+    if (!text) return '';
+    
+    // Удаляем все HTML теги
+    text = text.replace(/<[^>]*>/g, ' ');
+    
+    // Удаляем специальные символы, оставляем только буквы, цифры, пробелы и основные знаки препинания
+    text = text.replace(/[^\w\s\u0400-\u04FF.,!?;:'"()\-–—]/gu, ' ');
+    
+    // Заменяем множественные пробелы на один
+    text = text.replace(/\s+/g, ' ').trim();
+    
+    // Обрезаем слишком длинный текст
+    if (text.length > 200) {
+        text = text.substring(0, 200) + '...';
+    }
+    
+    return text;
+}
+
 // Функция для экранирования HTML
 function escapeHtml(text) {
     if (!text) return '';
@@ -245,6 +266,75 @@ function escapeHtml(text) {
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;');
+}
+
+// Функция для извлечения года из даты
+function extractYear(dateStr) {
+    if (!dateStr) return '';
+    
+    // Пытаемся найти год в различных форматах
+    const yearMatch = dateStr.match(/\b\d{4}\b/);
+    return yearMatch ? yearMatch[0] : '';
+}
+
+// Функция для получения чистого имени художника
+function getCleanArtist(meta) {
+    // Пробуем разные поля в порядке приоритета
+    const artistFields = [
+        meta.Artist?.value,
+        meta.Creator?.value,
+        meta.Author?.value,
+        meta.Painter?.value
+    ];
+    
+    for (const field of artistFields) {
+        if (field && field.trim()) {
+            const clean = cleanText(field);
+            if (clean && clean !== 'Unknown') {
+                return clean;
+            }
+        }
+    }
+    
+    return 'Неизвестный художник';
+}
+
+// Функция для получения чистого названия
+function getCleanTitle(pageTitle, meta) {
+    // Пробуем поле ObjectName
+    if (meta.ObjectName?.value) {
+        const clean = cleanText(meta.ObjectName.value);
+        if (clean && clean.trim()) {
+            return clean;
+        }
+    }
+    
+    // Пробуем поле ImageDescription
+    if (meta.ImageDescription?.value) {
+        const clean = cleanText(meta.ImageDescription.value);
+        if (clean && clean.trim()) {
+            return clean;
+        }
+    }
+    
+    // Используем название файла как запасной вариант
+    let title = pageTitle
+        .replace('File:', '')
+        .replace(/\.[^/.]+$/, '') // Удаляем расширение
+        .replace(/_/g, ' ')
+        .replace(/\([^)]*\)/g, '') // Удаляем текст в скобках
+        .replace(/^\d+\s*[-–]\s*/, '') // Удаляем цифры в начале
+        .replace(/\bby\b|\bиз\b/gi, '') // Удаляем "by", "из"
+        .replace(/\b(a|an|the)\b/gi, '') // Удаляем артикли
+        .replace(/\s+/g, ' ')
+        .trim();
+    
+    // Если слишком длинное, обрезаем
+    if (title.length > 50) {
+        title = title.substring(0, 50) + '...';
+    }
+    
+    return title || 'Без названия';
 }
 
 async function search() {
@@ -262,13 +352,12 @@ async function search() {
         </div>
     `;
 
-    // Оптимизированный поисковый запрос
+    // Более целенаправленные запросы
     const searchQueries = [
-        `${q} painting`,
-        `${q} картина`,
-        `"${q}" artwork`,
+        `"${q}" painting`,  // Точное совпадение + painting
         `${q} oil on canvas`,
-        `${q} художник`,
+        `"${q}" artwork`,
+        `${q} картины`,      // Для русских запросов
         `${q} picture`
     ];
 
@@ -282,7 +371,7 @@ async function search() {
             '&generator=search' +
             '&gsrsearch=' + encodeURIComponent(searchQuery) +
             '&gsrnamespace=6' +
-            '&gsrlimit=30' +
+            '&gsrlimit=20' + // Меньше результатов, но релевантнее
             '&prop=imageinfo' +
             '&iiprop=url|extmetadata|mime|size|dimensions' +
             '&iiurlwidth=800' +
@@ -298,14 +387,12 @@ async function search() {
                 allPages = allPages.concat(pages);
             }
             
-            // Если нашли достаточно результатов, останавливаемся
-            if (allPages.length >= 50) break;
+            if (allPages.length >= 30) break;
             
         } catch (e) {
             console.error('Ошибка запроса:', e);
         }
         
-        // Небольшая задержка между запросами
         await new Promise(resolve => setTimeout(resolve, 100));
     }
 
@@ -325,15 +412,15 @@ async function search() {
         const img = page.imageinfo?.[0];
         if (!img?.url) return false;
         
-        // 1. Только изображения
+        // Только изображения
         if (!img.mime?.startsWith('image/')) return false;
         
-        // 2. Проверяем расширение файла
+        // Проверяем расширение файла
         const fileName = page.title.toLowerCase();
         const badExtensions = ['.svg', '.pdf', '.ogg', '.webm', '.tiff', '.ico', '.svgz'];
         if (badExtensions.some(ext => fileName.endsWith(ext))) return false;
         
-        // 3. Исключаем фотографии музеев, выставок и т.д.
+        // Исключаем фотографии музеев, выставок и т.д.
         const skipWords = [
             'museum', 'gallery', 'exhibition', 'expo', 'hall',
             'frame', 'framed', 'photo', 'photograph', 'photography',
@@ -345,47 +432,21 @@ async function search() {
         ];
         
         const title = page.title.toLowerCase();
-        const desc = (img.extmetadata?.ImageDescription?.value || '').toLowerCase();
+        const meta = img.extmetadata || {};
+        const desc = (meta.ImageDescription?.value || '').toLowerCase();
         
         if (skipWords.some(word => title.includes(word) || desc.includes(word))) {
             return false;
         }
         
-        // 4. Должно быть достаточно большим
-        if (img.size && img.size < 80000) return false; // < 80KB
+        // Должно быть достаточно большим
+        if (img.size && img.size < 80000) return false;
         
-        // 5. Проверяем соотношение сторон (картины обычно прямоугольные)
+        // Проверяем соотношение сторон
         if (img.width && img.height) {
             const ratio = img.width / img.height;
-            // Пропускаем слишком квадратные или слишком длинные
             if (ratio < 0.5 || ratio > 3) return false;
-            // Пропускаем слишком маленькие
             if (img.width < 600 || img.height < 400) return false;
-        }
-        
-        // 6. Проверяем метаданные на наличие признаков картины
-        const meta = img.extmetadata || {};
-        const categories = (meta.Categories?.value || '').toLowerCase();
-        const artist = (meta.Artist?.value || '').toLowerCase();
-        
-        // Ключевые слова, указывающие на картину
-        const artKeywords = [
-            'painting', 'oil on canvas', 'watercolor', 'drawing',
-            'artwork', 'masterpiece', 'canvas', 'painter',
-            'холст', 'масло', 'акварель', 'рисунок', 'картина',
-            'art', 'fine art', 'музей', 'галерея', 'коллекция'
-        ];
-        
-        const isArtwork = artKeywords.some(keyword => 
-            categories.includes(keyword) || 
-            desc.includes(keyword) ||
-            artist.includes(keyword) ||
-            title.includes(keyword)
-        );
-        
-        if (!isArtwork) {
-            // Если нет явных признаков, пропускаем
-            return false;
         }
         
         return true;
@@ -410,12 +471,11 @@ async function search() {
                 <div class="tips">
                     <h4>Примеры хороших запросов:</h4>
                     <ul>
-                        <li>Илья Репин (Ilya Repin)</li>
-                        <li>Иван Айвазовский (Ivan Aivazovsky)</li>
-                        <li>Ван Гог (Vincent van Gogh)</li>
-                        <li>Девочка с персиками (Girl with Peaches)</li>
-                        <li>Девятый вал (The Ninth Wave)</li>
-                        <li>Бурлаки на Волге (Barge Haulers on the Volga)</li>
+                        <li><strong>Илья Репин</strong> (Ilya Repin)</li>
+                        <li><strong>Иван Айвазовский</strong> (Ivan Aivazovsky)</li>
+                        <li><strong>Винсент ван Гог</strong> (Vincent van Gogh)</li>
+                        <li><strong>Бурлаки на Волге</strong> (Barge Haulers)</li>
+                        <li><strong>Девятый вал</strong> (The Ninth Wave)</li>
                     </ul>
                 </div>
             </div>
@@ -423,27 +483,26 @@ async function search() {
         return;
     }
 
-    // Создаем карточки с экранированием HTML
-    filteredPages.slice(0, 24).forEach(page => {
+    // Создаем карточки с чистым текстом
+    filteredPages.slice(0, 20).forEach(page => {
         const img = page.imageinfo[0];
         const meta = img.extmetadata || {};
         
-        const title = escapeHtml(meta.ObjectName?.value || 
-                     page.title
-                        .replace('File:', '')
-                        .replace(/\.[^/.]+$/, '')
-                        .replace(/_/g, ' ')
-                        .replace(/\(.*?\)/g, '')
-                        .trim());
+        // Получаем чистые данные
+        const title = getCleanTitle(page.title, meta);
+        const artist = getCleanArtist(meta);
+        const year = extractYear(meta.Date?.value || meta.CreationDate?.value || '');
         
-        const artist = escapeHtml(meta.Artist?.value || 
-                      meta.Creator?.value || 
-                      meta.Author?.value || 
-                      'Неизвестный художник');
-        
-        const date = meta.Date?.value || meta.CreationDate?.value || '';
-        const license = escapeHtml(meta.LicenseShortName?.value || '');
-        const year = date.match(/\d{4}/)?.[0] || '';
+        // Получаем лицензию (упрощенную)
+        let license = 'CC';
+        if (meta.LicenseShortName?.value) {
+            const licenseText = cleanText(meta.LicenseShortName.value);
+            if (licenseText.includes('CC')) {
+                license = 'CC';
+            } else if (licenseText.includes('PD')) {
+                license = 'Public Domain';
+            }
+        }
         
         const card = document.createElement('div');
         card.className = 'card';
@@ -452,17 +511,17 @@ async function search() {
             <div class="image-container">
                 <img src="${escapeHtml(img.url)}" 
                      loading="lazy" 
-                     alt="${title}"
+                     alt="${escapeHtml(title)}"
                      onerror="this.onerror=null; this.style.opacity='0.5'">
                 ${img.width && img.height ? 
                     `<div class="dimensions">${img.width}×${img.height}</div>` : ''}
             </div>
             <div class="info">
-                <div class="title" title="${title}">${title}</div>
-                <div class="artist" title="${artist}">${artist}</div>
+                <div class="title" title="${escapeHtml(title)}">${escapeHtml(title)}</div>
+                <div class="artist" title="${escapeHtml(artist)}">${escapeHtml(artist)}</div>
                 <div class="meta">
-                    <span class="license">${license || 'CC'}</span>
-                    ${year ? `<span class="year">${year}</span>` : ''}
+                    <span class="license">${escapeHtml(license)}</span>
+                    ${year ? `<span class="year">${escapeHtml(year)}</span>` : ''}
                 </div>
             </div>
         `;
@@ -478,12 +537,12 @@ async function search() {
     const tips = document.createElement('div');
     tips.className = 'tips';
     tips.innerHTML = `
-        <h4>💡 Как искать лучше:</h4>
+        <h4>🎯 Советы по поиску:</h4>
         <ul>
-            <li>Используйте английские названия для лучших результатов</li>
-            <li>Указывайте полное имя художника: "Ilya Repin"</li>
-            <li>Для русских художников можно искать на русском: "Репин"</li>
-            <li>Добавляйте "painting" или "картина" к названию</li>
+            <li><strong>Используйте английские названия</strong> для лучших результатов</li>
+            <li><strong>Для русских художников:</strong> "Ilya Repin", "Ivan Aivazovsky"</li>
+            <li><strong>Для картин:</strong> добавьте "painting" или "картина"</li>
+            <li><strong>Примеры:</strong> "Repin paintings", "Van Gogh sunflowers"</li>
         </ul>
     `;
     
