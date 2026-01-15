@@ -52,130 +52,138 @@
 
     <script>
 
-        document.getElementById('query').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') search();
+    // Обработка Enter
+    document.getElementById('query').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') search();
+    });
+
+    // Функция очистки названия от лишнего мусора Википедии
+    function cleanTitle(title) {
+        return title.replace('File:', '').replace(/\.[^/.]+$/, "").replace(/_/g, ' ');
+    }
+
+    async function search() {
+        const queryInput = document.getElementById('query').value.trim();
+        if (!queryInput) return;
+
+        const resultsContainer = document.getElementById('results');
+        resultsContainer.innerHTML = `
+            <div class="col-span-full text-center py-20">
+                <div class="text-6xl mb-4 animate-bounce">🚀</div>
+                <div class="text-xl text-blue-600 font-medium">Быстрый поиск по архивам...</div>
+            </div>
+        `;
+
+        // Формируем поисковый запрос для CirrusSearch
+        // Ищем картинки, исключаем мусор, ищем ключевые слова живописи
+        const searchQuery = `${queryInput} (incategory:Paintings OR "painting" OR "oil on canvas") -incategory:Monuments -incategory:Statues -incategory:Coins`;
+        
+        const params = new URLSearchParams({
+            action: "query",
+            format: "json",
+            origin: "*",
+            generator: "search",
+            gsrsearch: searchQuery,
+            gsrnamespace: "6", // Только пространство имен "Файлы"
+            gsrlimit: "50",
+            prop: "imageinfo",
+            iiprop: "url|size|extmetadata|dimensions",
+            iiurlwidth: "600" // Для превью
         });
 
-        function getThumbUrl(url, width = 800) {
-            if (!url) return '';
-            const fileName = url.split('/Special:FilePath/')[1];
-            return `https://commons.wikimedia.org/wiki/Special:FilePath/${fileName}?width=${width}`;
-        }
+        try {
+            const response = await fetch(`https://commons.wikimedia.org/w/api.php?${params}`);
+            const data = await response.json();
 
-        async function search() {
-            const queryInput = document.getElementById('query').value.trim();
-            if (!queryInput) return;
-
-            const resultsContainer = document.getElementById('results');
-            resultsContainer.innerHTML = `
-                <div class="col-span-full text-center py-20">
-                    <div class="text-6xl mb-6 animate-spin">⏳</div>
-                    <div class="text-xl text-indigo-600 font-medium font-serif">Ищем шедевры в архивах...</div>
-                </div>
-            `;
-
-            // Умный запрос: ищет и по автору, и по названию
-            const sparqlQuery = `
-            SELECT DISTINCT ?item ?itemLabel ?artistLabel ?image ?date WHERE {
-              {
-                # 1. Ищем картины, где в названии есть это слово
-                SERVICE wikibase:mwapi {
-                  bd:serviceParam wikibase:api "EntitySearch" .
-                  bd:serviceParam wikibase:endpoint "www.wikidata.org" .
-                  bd:serviceParam mwapi:search "${queryInput}" .
-                  bd:serviceParam mwapi:language "ru" .
-                  ?item wikibase:apiOutputItem mwapi:item .
-                }
-                ?item wdt:P31 wd:Q3305213 . # Это картина
-              }
-              UNION
-              {
-                # 2. Ищем художника с таким именем и берем его картины
-                SERVICE wikibase:mwapi {
-                  bd:serviceParam wikibase:api "EntitySearch" .
-                  bd:serviceParam wikibase:endpoint "www.wikidata.org" .
-                  bd:serviceParam mwapi:search "${queryInput}" .
-                  bd:serviceParam mwapi:language "ru" .
-                  ?artistEntity wikibase:apiOutputItem mwapi:item .
-                }
-                ?item wdt:P170 ?artistEntity . 
-                ?item wdt:P31 wd:Q3305213 . # Это картина
-              }
-
-              ?item wdt:P18 ?image . # Обязательно с картинкой
-              
-              OPTIONAL { ?item wdt:P170 ?artist . }
-              OPTIONAL { ?item wdt:P571 ?date . }
-              
-              SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" . }
+            if (!data.query || !data.query.pages) {
+                resultsContainer.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500 text-xl">Ничего не найдено. Попробуйте изменить запрос.</div>`;
+                return;
             }
-            LIMIT 100
-            `;
 
-            try {
-                const url = `https://query.wikidata.org/sparql?query=${encodeURIComponent(sparqlQuery)}&format=json`;
-                const response = await fetch(url, { headers: { 'Accept': 'application/sparql-results+json' } });
-                const data = await response.json();
-                const bindings = data.results.bindings;
-
-                if (bindings.length === 0) {
-                    resultsContainer.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500">Ничего не найдено. Попробуйте уточнить имя (напр. "Клод Моне").</div>`;
-                    return;
-                }
-
-                // Удаление дублей (если картина попала в оба условия поиска)
-                const unique = [];
-                const seen = new Set();
-                bindings.forEach(b => {
-                    if (!seen.has(b.item.value)) {
-                        seen.add(b.item.value);
-                        unique.push(b);
-                    }
+            const pages = Object.values(data.query.pages);
+            
+            // Фильтрация и подготовка данных
+            let artworks = pages
+                .map(page => {
+                    const info = page.imageinfo[0];
+                    const meta = info.extmetadata || {};
+                    
+                    return {
+                        title: meta.ObjectName ? meta.ObjectName.value : cleanTitle(page.title),
+                        artist: meta.Artist ? meta.Artist.value.replace(/<\/?[^>]+(>|$)/g, "") : "Не указан",
+                        url: info.url,
+                        thumb: info.thumburl,
+                        width: info.width,
+                        height: info.height,
+                        pixels: info.width * info.height
+                    };
+                })
+                // Фильтр: минимум 2000 пикселей по одной из сторон
+                .filter(item => item.width >= 2000 || item.height >= 2000)
+                // Фильтр: убираем явные фото зданий/памятников по словам в названии
+                .filter(item => {
+                    const stopWords = ['monument', 'statue', 'museum', 'building', 'street', 'plaque', 'entrance'];
+                    return !stopWords.some(word => item.title.toLowerCase().includes(word));
                 });
 
-                displayResults(unique, queryInput);
-            } catch (e) {
-                resultsContainer.innerHTML = `<div class="col-span-full text-center py-12 text-red-500 font-bold">Сервер Wikidata занят. Пожалуйста, подождите 5 секунд и нажмите поиск снова.</div>`;
-            }
-        }
+            // Убираем дубликаты (оставляем самый большой файл для похожих названий)
+            const uniqueArtworks = [];
+            const seenTitles = new Map();
 
-        function displayResults(items, query) {
-            const results = document.getElementById('results');
-            results.innerHTML = `<div class="col-span-full mb-8 border-b pb-4"><h2 class="text-2xl font-serif text-gray-800 italic">Найдено работ: ${items.length}</h2></div>`;
-
-            items.forEach(item => {
-                const title = item.itemLabel?.value || 'Картина';
-                const artist = item.artistLabel?.value || 'Автор не указан';
-                const imgThumb = getThumbUrl(item.image.value, 600);
-                const imgFull = item.image.value;
-                let year = '';
-                if (item.date?.value) {
-                    const match = item.date.value.match(/\d{4}/);
-                    if (match) year = match[0];
+            artworks.forEach(item => {
+                const shortTitle = item.title.substring(0, 15).toLowerCase(); // Берем начало названия для сравнения
+                if (!seenTitles.has(shortTitle) || seenTitles.get(shortTitle).pixels < item.pixels) {
+                    seenTitles.set(shortTitle, item);
                 }
-
-                const card = document.createElement('div');
-                card.className = 'group bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden';
-                card.innerHTML = `
-                    <div class="aspect-[3/4] bg-gray-50 overflow-hidden relative">
-                        <img src="${imgThumb}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                    </div>
-                    <div class="p-4 bg-white">
-                        <h3 class="font-bold text-gray-900 text-sm leading-tight mb-1 line-clamp-2">${title}</h3>
-                        <p class="text-xs text-gray-500 mb-4">${artist} ${year ? `| ${year}` : ''}</p>
-                        <a href="${imgFull}" target="_blank" class="block text-center border-2 border-black py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors">Скачать оригинал</a>
-                    </div>
-                `;
-                results.appendChild(card);
             });
-        }
+            
+            displayResults(Array.from(seenTitles.values()), queryInput);
 
-        window.quickSearch = function(val) {
-            document.getElementById('query').value = val;
-            search();
+        } catch (error) {
+            console.error(error);
+            resultsContainer.innerHTML = `<div class="col-span-full text-center py-12 text-red-500">Ошибка связи с сервером.</div>`;
         }
+    }
 
-    </script>
+    function displayResults(items, query) {
+        const results = document.getElementById('results');
+        results.innerHTML = `
+            <div class="col-span-full mb-8 border-b pb-4 flex justify-between items-end">
+                <h2 class="text-2xl font-bold">Результаты: ${query}</h2>
+                <span class="text-sm text-gray-400">Найдено файлов высокого качества: ${items.length}</span>
+            </div>
+        `;
+
+        items.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'group bg-white rounded-xl shadow-md hover:shadow-2xl transition-all overflow-hidden border border-gray-100';
+            card.innerHTML = `
+                <div class="aspect-square bg-gray-100 overflow-hidden relative">
+                    <img src="${item.thumb}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute top-2 right-2 bg-black/60 text-white text-[10px] px-2 py-1 rounded-md backdrop-blur-sm">
+                        ${item.width} x ${item.height} px
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-bold text-gray-900 text-sm mb-1 truncate" title="${item.title}">${item.title}</h3>
+                    <p class="text-xs text-gray-500 mb-4 truncate">${item.artist}</p>
+                    <div class="flex gap-2">
+                        <a href="${item.url}" target="_blank" class="flex-1 text-center bg-gray-900 text-white text-[10px] py-2 rounded uppercase font-bold hover:bg-indigo-600 transition-colors">
+                            Открыть оригинал
+                        </a>
+                    </div>
+                </div>
+            `;
+            results.appendChild(card);
+        });
+    }
+
+    window.quickSearch = function(val) {
+        document.getElementById('query').value = val;
+        search();
+    }
+</script>
+
 
 
 
