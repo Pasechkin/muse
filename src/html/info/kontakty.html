@@ -39,13 +39,9 @@
 
         /* Typography */
         h1 {
-            font-size: 2.25rem;
             font-weight: 300;
             line-height: 1.2;
             margin-bottom: 1rem;
-        }
-        @media (min-width: 1024px) {
-            h1 { font-size: 3rem; }
         }
 
         /* Breadcrumbs */
@@ -64,6 +60,27 @@
             clip: rect(0, 0, 0, 0);
             white-space: nowrap;
             border: 0;
+        }
+
+        /* Tabs Styles */
+        .tab-btn {
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .tab-btn.active {
+            border-bottom-color: var(--primary);
+            color: var(--dark);
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 
@@ -109,65 +126,77 @@
                     </ol>
                 </nav>
 
-                <h1 class="text-dark">Контакты</h1>
+                <h1 class="text-4xl lg:text-5xl text-dark">Контакты</h1>
             </div>
         </section>
 
-        <!-- Contact Details -->
+        <!-- Contact Details with Tabs -->
         <section class="py-12 lg:py-16 bg-white">
             <div class="container">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    <!-- Moscow -->
-                    <div>
-                        <h2 class="text-2xl font-light text-dark mb-6">Москва</h2>
-                        <div class="space-y-4 text-body text-lg">
-                            <p>127550, Россия, г. Москва, ул. Прянишникова дом 19А строение 9</p>
+                <!-- Tabs Navigation -->
+                <div class="flex border-b border-gray-200 mb-8 overflow-x-auto">
+                    <button
+                        class="tab-btn active px-6 py-3 text-lg font-medium text-body hover:text-dark focus:outline-none"
+                        data-tab="moscow"
+                    >
+                        Москва
+                    </button>
+                    <button
+                        class="tab-btn px-6 py-3 text-lg font-medium text-body hover:text-dark focus:outline-none"
+                        data-tab="spb"
+                    >
+                        Санкт-Петербург
+                    </button>
+                </div>
 
-                            <!-- Map -->
-                            <div class="w-full h-[400px] bg-gray-100 rounded-lg overflow-hidden my-6">
-                                <iframe src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=82862448491" width="100%" height="100%" frameborder="0" allowfullscreen="true" style="position:relative;"></iframe>
-                            </div>
+                <!-- Moscow Content -->
+                <div id="moscow" class="tab-content active">
+                    <div class="space-y-4 text-body text-lg max-w-3xl">
+                        <p>127550, Россия, г. Москва, ул. Прянишникова дом 19А строение 9</p>
 
-                            <p>
-                                <span class="font-medium text-dark">Email:</span> <a href="mailto:zakaz@muse.ooo" class="text-primary hover:underline">zakaz@muse.ooo</a>
-                            </p>
-                            <p>
-                                <span class="font-medium text-dark">Телефон:</span> <a href="tel:+74954091869" class="text-primary hover:underline">+7 (495) 409-18-69</a>
-                            </p>
-                            <p>
-                                <span class="font-medium text-dark">WhatsApp:</span> <a href="whatsapp://send?phone=74954091869" class="text-primary hover:underline">+7 (495) 409-18-69</a>
-                            </p>
-                            <div class="pt-4 border-t border-gray-100 mt-4">
-                                <p>Мы открыты ежедневно с 10.00 до 19.00</p>
-                                <p>Прием заявок в онлайн сервисе 24 часа.</p>
-                            </div>
+                        <!-- Map -->
+                        <div class="w-full h-[400px] bg-gray-100 rounded-lg overflow-hidden my-6">
+                            <iframe src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=82862448491" width="100%" height="100%" frameborder="0" allowfullscreen="true" style="position:relative;"></iframe>
+                        </div>
+
+                        <p>
+                            <span class="font-medium text-dark">Email:</span> <a href="mailto:zakaz@muse.ooo" class="text-primary hover:underline">zakaz@muse.ooo</a>
+                        </p>
+                        <p>
+                            <span class="font-medium text-dark">Телефон:</span> <a href="tel:+74954091869" class="text-primary hover:underline">+7 (495) 409-18-69</a>
+                        </p>
+                        <p>
+                            <span class="font-medium text-dark">WhatsApp:</span> <a href="whatsapp://send?phone=74954091869" class="text-primary hover:underline">+7 (495) 409-18-69</a>
+                        </p>
+                        <div class="pt-4 border-t border-gray-100 mt-4">
+                            <p>Мы открыты ежедневно с 10.00 до 19.00</p>
+                            <p>Прием заявок в онлайн сервисе 24 часа.</p>
                         </div>
                     </div>
+                </div>
 
-                    <!-- St. Petersburg -->
-                    <div>
-                        <h2 class="text-2xl font-light text-dark mb-6">Санкт-Петербург</h2>
-                        <div class="space-y-4 text-body text-lg">
-                            <p>196620, Россия, г. Санкт-Петербург, г. Павловск ул. Слуцкая, 13 к 2</p>
+                <!-- St. Petersburg Content -->
+                <div id="spb" class="tab-content">
+                    <div class="space-y-4 text-body text-lg max-w-3xl">
+                        <p>196620, Россия, г. Санкт-Петербург, г. Павловск ул. Слуцкая, 13 к 2</p>
 
-                            <!-- Map -->
-                            <div class="w-full h-[400px] bg-gray-100 rounded-lg overflow-hidden my-6">
-                                <iframe src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=2855807336" width="100%" height="100%" frameborder="0" allowfullscreen="true" style="position:relative;"></iframe>
-                            </div>
+                        <!-- Map -->
+                        <div class="w-full h-[400px] bg-gray-100 rounded-lg overflow-hidden my-6">
+                            <iframe src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=2855807336" width="100%" height="100%" frameborder="0" allowfullscreen="true" style="position:relative;"></iframe>
+                        </div>
 
-                            <p>
-                                <span class="font-medium text-dark">Email:</span> <a href="mailto:info@muse.ooo" class="text-primary hover:underline">info@muse.ooo</a>
-                            </p>
-                            <p>
-                                <span class="font-medium text-dark">Телефон:</span> <a href="tel:+78124081869" class="text-primary hover:underline">+7 (812) 408-18-69</a>
-                            </p>
-                            <p>
-                                <span class="font-medium text-dark">WhatsApp:</span> <a href="whatsapp://send?phone=74954091869" class="text-primary hover:underline">+7 (495) 409-18-69</a>
-                            </p>
-                            <div class="pt-4 border-t border-gray-100 mt-4">
-                                <p>Прием заявок в онлайн сервисе 24 часа.</p>
-                                <p>Мы открыты ежедневно с 10.00 до 19.00</p>
-                            </div>
+                        <p>
+                            <span class="font-medium text-dark">Email:</span> <a href="mailto:info@muse.ooo" class="text-primary hover:underline">info@muse.ooo</a>
+                        </p>
+                        <p>
+                            <span class="font-medium text-dark">Телефон:</span> <a href="tel:+78124081869" class="text-primary hover:underline">+7 (812) 408-18-69</a>
+                        </p>
+                        <p>
+                            <span class="font-medium text-dark">WhatsApp:</span> <a href="whatsapp://send?phone=74954091869" class="text-primary hover:underline">+7 (495) 409-18-69</a>
+                        </p>
+                        <div class="pt-4 border-t border-gray-100 mt-4">
+                            <p>Прием заявок в онлайн сервисе 24 часа.</p>
+                            <p>Мы открыты ежедневно с 10.00 до 19.00</p>
                         </div>
                     </div>
                 </div>
@@ -184,5 +213,29 @@
 
     <!-- Footer (вставьте из эталона) -->
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    btn.classList.add('active');
+
+                    // Hide all contents
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    // Show target content
+                    const targetId = btn.getAttribute('data-tab');
+                    const targetContent = document.getElementById(targetId);
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
