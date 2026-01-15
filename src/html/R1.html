@@ -6,13 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .image-container img {
-            object-fit: contain;
-            transition: transform 0.5s ease;
-        }
-        .card:hover .image-container img {
-            transform: scale(1.05);
-        }
         .gradient-bg {
             background: linear-gradient(45deg, #f5f5f5 25%, #e0e0e0 25%, #e0e0e0 50%, #f5f5f5 50%, #f5f5f5 75%, #e0e0e0 75%);
             background-size: 20px 20px;
@@ -226,7 +219,7 @@
                 }
             });
 
-            // СТРОГАЯ фильтрация по качеству - ИСПРАВЛЕННАЯ ВЕРСИЯ
+            // СТРОГАЯ фильтрация по качеству
             const filteredPages = uniquePages.filter(page => {
                 const img = page.imageinfo?.[0];
                 if (!img?.url) return false;
@@ -344,7 +337,7 @@
             `;
             results.appendChild(qualityInfo);
 
-            // Создаем карточки с информацией о качестве
+            // Создаем карточки с правильным отображением пропорций
             filteredPages.forEach(page => {
                 const img = page.imageinfo[0];
                 const meta = img.extmetadata || {};
@@ -373,19 +366,21 @@
                 // Размер файла в МБ
                 const fileSizeMB = img.size ? (img.size / (1024 * 1024)).toFixed(1) : '';
                 
-                // Определяем ориентацию для подсказки
+                // Определяем ориентацию
                 const orientation = img.width > img.height ? 'горизонтальная' : 
-                                  img.height > img.width ? 'вертикальная' : 'квадратная';
+                                img.height > img.width ? 'вертикальная' : 'квадратная';
                 
                 const card = document.createElement('div');
                 card.className = 'group bg-white rounded-xl shadow-md hover:shadow-xl border border-gray-200 hover:border-indigo-300 cursor-pointer transition-all duration-300 hover:-translate-y-2 overflow-hidden';
                 
+                // ИСПРАВЛЕНИЕ: правильное отображение вертикальных картин
                 card.innerHTML = `
-                    <div class="h-56 gradient-bg relative overflow-hidden">
+                    <div class="relative overflow-hidden gradient-bg flex items-center justify-center" style="min-height: 200px; max-height: 320px;">
                         <img src="${escapeHtml(img.url)}" 
-                             class="w-full h-full"
+                             class="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500"
                              loading="lazy" 
                              alt="${escapeHtml(title)}"
+                             style="width: auto; height: auto;"
                              onerror="this.onerror=null; this.classList.add('opacity-50');">
                         <div class="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-3 py-1 rounded-full backdrop-blur-sm">
                             ${img.width}×${img.height}
