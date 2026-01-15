@@ -52,14 +52,15 @@
 
     <script>
 
-    // Обработка Enter
+    // Обработка нажатия Enter
     document.getElementById('query').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') search();
     });
 
-    // Функция очистки названия от лишнего мусора Википедии
-    function cleanTitle(title) {
-        return title.replace('File:', '').replace(/\.[^/.]+$/, "").replace(/_/g, ' ');
+    // Очистка текста от HTML-тегов (для имен художников)
+    function cleanText(text) {
+        if (!text) return "";
+        return text.replace(/<\/?[^>]+(>|$)/g, "");
     }
 
     async function search() {
@@ -67,28 +68,27 @@
         if (!queryInput) return;
 
         const resultsContainer = document.getElementById('results');
+        
+        // Очищаем результаты и показываем лоадер
         resultsContainer.innerHTML = `
             <div class="col-span-full text-center py-20">
-                <div class="text-6xl mb-4 animate-bounce">🚀</div>
-                <div class="text-xl text-blue-600 font-medium">Быстрый поиск по архивам...</div>
+                <div class="text-6xl mb-4 animate-bounce">🎨</div>
+                <div class="text-xl text-blue-600 font-medium">Ищем шедевры: ${queryInput}...</div>
             </div>
         `;
 
-        // Формируем поисковый запрос для CirrusSearch
-        // Ищем картинки, исключаем мусор, ищем ключевые слова живописи
-        const searchQuery = `${queryInput} (incategory:Paintings OR "painting" OR "oil on canvas") -incategory:Monuments -incategory:Statues -incategory:Coins`;
-        
+        // Простой и надежный запрос к Викискладу
         const params = new URLSearchParams({
             action: "query",
             format: "json",
             origin: "*",
             generator: "search",
-            gsrsearch: searchQuery,
-            gsrnamespace: "6", // Только пространство имен "Файлы"
-            gsrlimit: "50",
+            gsrnamespace: "6", // Только файлы
+            gsrsearch: `intitle:${queryInput} painting`, // Ищем слово "painting" в названии или описании
+            gsrlimit: "60",
             prop: "imageinfo",
             iiprop: "url|size|extmetadata|dimensions",
-            iiurlwidth: "600" // Для превью
+            iiurlwidth: "500"
         });
 
         try {
@@ -96,82 +96,84 @@
             const data = await response.json();
 
             if (!data.query || !data.query.pages) {
-                resultsContainer.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500 text-xl">Ничего не найдено. Попробуйте изменить запрос.</div>`;
+                resultsContainer.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500 text-xl">Ничего не найдено. Попробуйте ввести фамилию художника (например, Шишкин).</div>`;
                 return;
             }
 
             const pages = Object.values(data.query.pages);
             
-            // Фильтрация и подготовка данных
-            let artworks = pages
-                .map(page => {
-                    const info = page.imageinfo[0];
-                    const meta = info.extmetadata || {};
-                    
-                    return {
-                        title: meta.ObjectName ? meta.ObjectName.value : cleanTitle(page.title),
-                        artist: meta.Artist ? meta.Artist.value.replace(/<\/?[^>]+(>|$)/g, "") : "Не указан",
-                        url: info.url,
-                        thumb: info.thumburl,
-                        width: info.width,
-                        height: info.height,
-                        pixels: info.width * info.height
-                    };
-                })
-                // Фильтр: минимум 2000 пикселей по одной из сторон
-                .filter(item => item.width >= 2000 || item.height >= 2000)
-                // Фильтр: убираем явные фото зданий/памятников по словам в названии
-                .filter(item => {
-                    const stopWords = ['monument', 'statue', 'museum', 'building', 'street', 'plaque', 'entrance'];
-                    return !stopWords.some(word => item.title.toLowerCase().includes(word));
-                });
+            // 1. Собираем данные и фильтруем по размеру (минимум 2000px)
+            let items = pages.map(page => {
+                const info = page.imageinfo[0];
+                const meta = info.extmetadata || {};
+                return {
+                    id: page.pageid,
+                    title: meta.ObjectName ? cleanText(meta.ObjectName.value) : page.title.replace('File:', '').replace(/\.[^/.]+$/, ""),
+                    artist: meta.Artist ? cleanText(meta.Artist.value) : "Художник не указан",
+                    url: info.url,
+                    thumb: info.thumburl,
+                    width: info.width,
+                    height: info.height,
+                    res: Math.max(info.width, info.height)
+                };
+            })
+            .filter(item => item.res >= 2000) // Только высокое разрешение
+            .filter(item => {
+                // Убираем памятники и монеты
+                const lowerTitle = item.title.toLowerCase();
+                return !lowerTitle.includes('monument') && !lowerTitle.includes('statue') && !lowerTitle.includes('coin');
+            });
 
-            // Убираем дубликаты (оставляем самый большой файл для похожих названий)
-            const uniqueArtworks = [];
-            const seenTitles = new Map();
-
-            artworks.forEach(item => {
-                const shortTitle = item.title.substring(0, 15).toLowerCase(); // Берем начало названия для сравнения
-                if (!seenTitles.has(shortTitle) || seenTitles.get(shortTitle).pixels < item.pixels) {
-                    seenTitles.set(shortTitle, item);
+            // 2. УМНОЕ УДАЛЕНИЕ ДУБЛИКАТОВ
+            // Если названия очень похожи, оставляем тот файл, где разрешение больше
+            const uniqueMap = new Map();
+            items.forEach(item => {
+                // Создаем "ключ" из первых 30 символов названия (чтобы Садко 1 и Садко 2 считались дублями)
+                const key = item.title.substring(0, 30).toLowerCase().trim();
+                if (!uniqueMap.has(key) || uniqueMap.get(key).res < item.res) {
+                    uniqueMap.set(key, item);
                 }
             });
-            
-            displayResults(Array.from(seenTitles.values()), queryInput);
+
+            const finalResults = Array.from(uniqueMap.values());
+            displayResults(finalResults, queryInput);
 
         } catch (error) {
             console.error(error);
-            resultsContainer.innerHTML = `<div class="col-span-full text-center py-12 text-red-500">Ошибка связи с сервером.</div>`;
+            resultsContainer.innerHTML = `<div class="col-span-full text-center py-12 text-red-500">Ошибка загрузки. Попробуйте еще раз.</div>`;
         }
     }
 
     function displayResults(items, query) {
         const results = document.getElementById('results');
         results.innerHTML = `
-            <div class="col-span-full mb-8 border-b pb-4 flex justify-between items-end">
-                <h2 class="text-2xl font-bold">Результаты: ${query}</h2>
-                <span class="text-sm text-gray-400">Найдено файлов высокого качества: ${items.length}</span>
+            <div class="col-span-full mb-8 border-b pb-4">
+                <h2 class="text-2xl font-bold text-gray-800">Результаты по запросу: ${query}</h2>
+                <p class="text-sm text-gray-500">Найдено подходящих полотен: ${items.length}</p>
             </div>
         `;
 
+        if (items.length === 0) {
+            results.innerHTML += `<div class="col-span-full text-center py-12 text-gray-400">Нет изображений подходящего качества (от 2000px).</div>`;
+            return;
+        }
+
         items.forEach(item => {
             const card = document.createElement('div');
-            card.className = 'group bg-white rounded-xl shadow-md hover:shadow-2xl transition-all overflow-hidden border border-gray-100';
+            card.className = 'group bg-white rounded-xl shadow-sm hover:shadow-xl transition-all overflow-hidden border border-gray-100';
             card.innerHTML = `
-                <div class="aspect-square bg-gray-100 overflow-hidden relative">
+                <div class="aspect-square bg-gray-50 overflow-hidden relative">
                     <img src="${item.thumb}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute top-2 right-2 bg-black/60 text-white text-[10px] px-2 py-1 rounded-md backdrop-blur-sm">
+                    <div class="absolute bottom-2 right-2 bg-black/70 text-white text-[10px] px-2 py-1 rounded">
                         ${item.width} x ${item.height} px
                     </div>
                 </div>
                 <div class="p-4">
-                    <h3 class="font-bold text-gray-900 text-sm mb-1 truncate" title="${item.title}">${item.title}</h3>
-                    <p class="text-xs text-gray-500 mb-4 truncate">${item.artist}</p>
-                    <div class="flex gap-2">
-                        <a href="${item.url}" target="_blank" class="flex-1 text-center bg-gray-900 text-white text-[10px] py-2 rounded uppercase font-bold hover:bg-indigo-600 transition-colors">
-                            Открыть оригинал
-                        </a>
-                    </div>
+                    <h3 class="font-bold text-gray-900 text-sm mb-1 line-clamp-2" title="${item.title}">${item.title}</h3>
+                    <p class="text-xs text-gray-500 mb-4 italic">${item.artist}</p>
+                    <a href="${item.url}" target="_blank" class="block text-center border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white text-[10px] py-2 rounded uppercase font-bold transition-colors">
+                        Скачать для печати
+                    </a>
                 </div>
             `;
             results.appendChild(card);
@@ -182,6 +184,7 @@
         document.getElementById('query').value = val;
         search();
     }
+
 </script>
 
 
