@@ -51,57 +51,18 @@
     </div>
 
 <script>
-    document.getElementById('query').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') search();
-    });
-
-    // Расширенная карта для точного попадания в категории музея
-    const artistCategoryMap = {
-        "моне": "Paintings by Claude Monet",
-        "мане": "Paintings by Édouard Manet",
-        "ван гог": "Paintings by Vincent van Gogh",
-        "репин": "Paintings by Ilya Repin",
-        "шишкин": "Paintings by Ivan Shishkin",
-        "айвазовский": "Paintings by Ivan Aivazovsky",
-        "серов": "Paintings by Valentin Serov",
-        "брюллов": "Paintings by Karl Bryullov",
-        "куинджи": "Paintings by Arkhip Kuindzhi",
-        "да винчи": "Paintings by Leonardo da Vinci",
-        "климт": "Paintings by Gustav Klimt",
-        "ренуар": "Paintings by Pierre-Auguste Renoir"
-    };
-
-    function cleanText(text) {
-        if (!text) return "";
-        return text.replace(/<\/?[^>]+(>|$)/g, "").trim();
-    }
-
-    async function search() {
+   async function search() {
         const queryInput = document.getElementById('query').value.trim();
         if (!queryInput) return;
 
         const resultsContainer = document.getElementById('results');
-        resultsContainer.innerHTML = `
-            <div class="col-span-full text-center py-20">
-                <div class="text-6xl mb-4 animate-pulse">🖼️</div>
-                <div class="text-xl text-indigo-600 font-medium">Отбираем лучшие репродукции без рам...</div>
-            </div>
-        `;
+        resultsContainer.innerHTML = `<div class="col-span-full text-center py-20"><div class="text-6xl mb-4 animate-spin">🌀</div><div class="text-xl text-indigo-600">Глубокий поиск по всем архивам...</div></div>`;
 
         const lowerInput = queryInput.toLowerCase();
-        let category = "";
-        for (let key in artistCategoryMap) {
-            if (lowerInput.includes(key)) {
-                category = artistCategoryMap[key];
-                break;
-            }
-        }
+        let englishName = artistMap[lowerInput] || "";
 
-        // Если нашли категорию художника - ищем строго в ней. 
-        // Если нет - ищем общим поиском, но с фильтрами.
-        const searchQuery = category 
-            ? `incategory:"${category}" -incategory:Frames` 
-            : `${queryInput} painting -frame -framed -museum -wall -interior`;
+        // Упрощаем запрос: просто слова. Это даст максимум результатов.
+        const searchQuery = `${queryInput} ${englishName} painting`;
 
         const params = new URLSearchParams({
             action: "query",
@@ -110,7 +71,7 @@
             generator: "search",
             gsrnamespace: "6",
             gsrsearch: searchQuery,
-            gsrlimit: "100", // Берем больше, чтобы было из чего фильтровать
+            gsrlimit: "150", // Увеличиваем лимит выборки
             prop: "imageinfo",
             iiprop: "url|size|extmetadata|dimensions",
             iiurlwidth: "500"
@@ -121,7 +82,7 @@
             const data = await response.json();
 
             if (!data.query || !data.query.pages) {
-                resultsContainer.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500">Ничего не найдено.</div>`;
+                resultsContainer.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500 text-xl">Ничего не найдено.</div>`;
                 return;
             }
 
@@ -131,10 +92,9 @@
                 if (!page.imageinfo || !page.imageinfo[0]) return null;
                 const info = page.imageinfo[0];
                 const meta = info.extmetadata || {};
-                const title = meta.ObjectName ? cleanText(meta.ObjectName.value) : page.title.replace('File:', '').replace(/\.[^/.]+$/, "").replace(/_/g, ' ');
                 
                 return {
-                    title: title,
+                    title: meta.ObjectName ? cleanText(meta.ObjectName.value) : page.title.replace('File:', '').replace(/\.[^/.]+$/, "").replace(/_/g, ' '),
                     artist: meta.Artist ? cleanText(meta.Artist.value) : "Художник",
                     url: info.url,
                     thumb: info.thumburl,
@@ -144,62 +104,27 @@
                 };
             })
             .filter(item => item !== null)
-            // Жесткий фильтр на мусор (рамы, интерьеры, фото из залов)
+            // МЯГКИЙ ФИЛЬТР: Убираем только явные фото памятников и интерьеров
             .filter(item => {
-                const badWords = ['frame', 'framed', 'museum', 'wall', 'interior', 'exhibition', 'room', 'display'];
-                const textForCheck = (item.title + item.url).toLowerCase();
-                return !badWords.some(word => textForCheck.includes(word));
+                const badWords = ['statue', 'monument', 'memorial', 'interior', 'exhibition', 'facade'];
+                const text = item.title.toLowerCase();
+                return !badWords.some(word => text.includes(word));
             })
-            .filter(item => item.res >= 1800); // Держим планку качества
+            // ПОРОГ КАЧЕСТВА: 1200px (для тестов, чтобы видеть больше работ)
+            .filter(item => item.res >= 1200);
 
-            // Убираем дубликаты
+            // Удаление дублей (оставляем лучший вариант из похожих)
             const uniqueMap = new Map();
             items.forEach(item => {
-                const key = item.title.substring(0, 25).toLowerCase();
+                const key = item.title.substring(0, 20).toLowerCase();
                 if (!uniqueMap.has(key) || uniqueMap.get(key).res < item.res) uniqueMap.set(key, item);
             });
 
             displayResults(Array.from(uniqueMap.values()), queryInput);
 
         } catch (error) {
-            resultsContainer.innerHTML = `<div class="col-span-full text-center py-12 text-red-500 font-bold">Ошибка: ${error.message}</div>`;
+            resultsContainer.innerHTML = `<div class="col-span-full text-center py-12 text-red-500">Ошибка связи.</div>`;
         }
-    }
-
-    function displayResults(items, query) {
-        const results = document.getElementById('results');
-        results.innerHTML = `
-            <div class="col-span-full mb-8 border-b pb-4 flex justify-between items-center">
-                <h2 class="text-2xl font-bold text-gray-800">Чистые репродукции: ${query}</h2>
-                <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold uppercase">Качество подтверждено</span>
-            </div>
-        `;
-
-        items.forEach(item => {
-            const card = document.createElement('div');
-            card.className = 'group bg-white rounded-xl shadow-sm hover:shadow-2xl transition-all border border-gray-100 overflow-hidden flex flex-col';
-            card.innerHTML = `
-                <div class="aspect-[4/3] bg-gray-100 overflow-hidden relative">
-                    <img src="${item.thumb}" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-1000">
-                    <div class="absolute top-2 left-2 bg-white/90 px-2 py-1 rounded text-[10px] font-bold shadow-sm">
-                        HD: ${item.width} px
-                    </div>
-                </div>
-                <div class="p-4 flex-grow flex flex-col">
-                    <h3 class="font-bold text-gray-900 text-sm mb-1 line-clamp-2 flex-grow">${item.title}</h3>
-                    <p class="text-[10px] text-gray-400 mb-4 uppercase tracking-tighter">${item.artist}</p>
-                    <a href="${item.url}" target="_blank" class="block text-center bg-indigo-600 text-white text-[10px] py-2.5 rounded-lg font-bold hover:bg-black transition-colors">
-                        Скачать оригинал
-                    </a>
-                </div>
-            `;
-            results.appendChild(card);
-        });
-    }
-
-    window.quickSearch = function(val) {
-        document.getElementById('query').value = val;
-        search();
     }
 </script>
 
