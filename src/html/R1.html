@@ -1,633 +1,441 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<title>Muse — поиск репродукций</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body { 
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
-    padding:20px; 
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
-}
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    background: white;
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-}
-h2 { 
-    color: #333; 
-    margin-bottom: 25px;
-    text-align: center;
-    font-weight: 300;
-    letter-spacing: 1px;
-}
-.search-box {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 30px;
-    justify-content: center;
-}
-input { 
-    padding: 15px 20px; 
-    width: 400px; 
-    font-size: 16px; 
-    border: 2px solid #e0e0e0; 
-    border-radius: 50px; 
-    transition: all 0.3s;
-    outline: none;
-}
-input:focus { 
-    border-color: #667eea; 
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
-button { 
-    padding: 15px 30px; 
-    font-size: 16px; 
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-    color:white; 
-    border:none; 
-    border-radius: 50px; 
-    cursor:pointer;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-button:hover { 
-    transform: translateY(-2px); 
-    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-}
-
-.results {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 25px;
-    margin-top: 30px;
-}
-
-.card { 
-    background: white; 
-    border-radius: 15px; 
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    transition: all 0.3s ease;
-    overflow: hidden;
-    cursor: pointer;
-    border: 1px solid #f0f0f0;
-}
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    border-color: #667eea;
-}
-
-.image-container {
-    height: 220px;
-    overflow: hidden;
-    position: relative;
-    background: #f8f9fa;
-}
-
-.image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    transition: transform 0.5s ease;
-}
-
-.card:hover .image-container img {
-    transform: scale(1.05);
-}
-
-.info { 
-    padding: 20px; 
-    border-top: 1px solid #f0f0f0;
-}
-
-.title { 
-    font-weight: 600;
-    font-size: 16px;
-    color: #333;
-    margin-bottom: 8px;
-    line-height: 1.4;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.artist { 
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 10px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px dashed #eee;
-}
-
-.license { 
-    font-size: 12px; 
-    color: #888;
-    background: #f8f9fa;
-    padding: 3px 8px;
-    border-radius: 12px;
-}
-
-.year { 
-    font-size: 12px; 
-    color: #667eea;
-    font-weight: 500;
-}
-
-.dimensions {
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
-    background: rgba(0,0,0,0.7);
-    color: white;
-    padding: 3px 8px;
-    border-radius: 12px;
-    font-size: 11px;
-    backdrop-filter: blur(5px);
-}
-
-.loading {
-    text-align: center;
-    padding: 60px 20px;
-    color: #667eea;
-    font-size: 18px;
-}
-
-.empty-state {
-    text-align: center;
-    padding: 60px 20px;
-    color: #666;
-}
-
-.empty-state h3 {
-    font-weight: 300;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-.tips {
-    background: #f8f9fa;
-    border-radius: 10px;
-    padding: 20px;
-    margin-top: 30px;
-    border-left: 4px solid #667eea;
-}
-
-.tips h4 {
-    color: #333;
-    margin-bottom: 10px;
-    font-weight: 600;
-}
-
-.tips ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    color: #666;
-    line-height: 1.8;
-}
-
-.tips li:before {
-    content: "•";
-    color: #667eea;
-    font-weight: bold;
-    display: inline-block;
-    width: 1em;
-    margin-left: -1em;
-}
-</style>
+    <meta charset="UTF-8">
+    <title>Muse — поиск репродукций</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .image-container img {
+            object-fit: contain;
+            transition: transform 0.5s ease;
+        }
+        .card:hover .image-container img {
+            transform: scale(1.05);
+        }
+        .gradient-bg {
+            background: linear-gradient(45deg, #f5f5f5 25%, #e0e0e0 25%, #e0e0e0 50%, #f5f5f5 50%, #f5f5f5 75%, #e0e0e0 75%);
+            background-size: 20px 20px;
+        }
+        .text-ellipsis-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .text-ellipsis-1 {
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-gradient-to-br from-indigo-500 to-purple-600 min-h-screen p-4 md:p-6">
+    <div class="max-w-7xl mx-auto bg-white rounded-2xl shadow-2xl p-6 md:p-8">
+        <h1 class="text-3xl md:text-4xl font-light text-gray-800 text-center mb-6 tracking-wide">
+            🎨 Muse — Поиск высококачественных произведений искусства
+        </h1>
+        
+        <div class="flex flex-col md:flex-row gap-4 mb-8 justify-center items-center">
+            <input id="query" 
+                   class="px-6 py-4 w-full md:w-96 text-lg border-2 border-gray-300 rounded-full 
+                          focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200
+                          transition-all duration-300"
+                   placeholder="Введите имя художника или название картины..."
+                   autocomplete="off">
+            <button onclick="search()"
+                    class="px-8 py-4 text-lg bg-gradient-to-r from-indigo-500 to-purple-600 
+                           text-white font-semibold rounded-full hover:shadow-lg 
+                           hover:-translate-y-0.5 active:translate-y-0 
+                           transition-all duration-300 whitespace-nowrap">
+                Поиск
+            </button>
+        </div>
 
-<div class="container">
-    <h2>🎨 Muse — Поиск художественных произведений</h2>
-    
-    <div class="search-box">
-        <input id="query" placeholder="Введите имя художника или название картины...">
-        <button onclick="search()">Поиск</button>
+        <div id="results" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
     </div>
 
-    <div id="results" class="results"></div>
-</div>
-
-<script>
-
-// Добавляем поиск по нажатию Enter
-document.getElementById('query').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        search();
-    }
-});
-
-// Функция для очистки HTML из текста
-function cleanText(text) {
-    if (!text) return '';
-    
-    // Удаляем все HTML теги
-    text = text.replace(/<[^>]*>/g, ' ');
-    
-    // Удаляем специальные символы, оставляем только буквы, цифры, пробелы и основные знаки препинания
-    text = text.replace(/[^\w\s\u0400-\u04FF.,!?;:'"()\-–—]/gu, ' ');
-    
-    // Заменяем множественные пробелы на один
-    text = text.replace(/\s+/g, ' ').trim();
-    
-    // Обрезаем слишком длинный текст
-    if (text.length > 200) {
-        text = text.substring(0, 200) + '...';
-    }
-    
-    return text;
-}
-
-// Функция для экранирования HTML
-function escapeHtml(text) {
-    if (!text) return '';
-    return text
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-}
-
-// Функция для извлечения года из даты
-function extractYear(dateStr) {
-    if (!dateStr) return '';
-    
-    // Пытаемся найти год в различных форматах
-    const yearMatch = dateStr.match(/\b\d{4}\b/);
-    return yearMatch ? yearMatch[0] : '';
-}
-
-// Функция для получения чистого имени художника
-function getCleanArtist(meta) {
-    // Пробуем разные поля в порядке приоритета
-    const artistFields = [
-        meta.Artist?.value,
-        meta.Creator?.value,
-        meta.Author?.value,
-        meta.Painter?.value
-    ];
-    
-    for (const field of artistFields) {
-        if (field && field.trim()) {
-            const clean = cleanText(field);
-            if (clean && clean !== 'Unknown') {
-                return clean;
+    <script>
+        // Добавляем поиск по нажатию Enter
+        document.getElementById('query').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                search();
             }
-        }
-    }
-    
-    return 'Неизвестный художник';
-}
+        });
 
-// Функция для получения чистого названия
-function getCleanTitle(pageTitle, meta) {
-    // Пробуем поле ObjectName
-    if (meta.ObjectName?.value) {
-        const clean = cleanText(meta.ObjectName.value);
-        if (clean && clean.trim()) {
-            return clean;
-        }
-    }
-    
-    // Пробуем поле ImageDescription
-    if (meta.ImageDescription?.value) {
-        const clean = cleanText(meta.ImageDescription.value);
-        if (clean && clean.trim()) {
-            return clean;
-        }
-    }
-    
-    // Используем название файла как запасной вариант
-    let title = pageTitle
-        .replace('File:', '')
-        .replace(/\.[^/.]+$/, '') // Удаляем расширение
-        .replace(/_/g, ' ')
-        .replace(/\([^)]*\)/g, '') // Удаляем текст в скобках
-        .replace(/^\d+\s*[-–]\s*/, '') // Удаляем цифры в начале
-        .replace(/\bby\b|\bиз\b/gi, '') // Удаляем "by", "из"
-        .replace(/\b(a|an|the)\b/gi, '') // Удаляем артикли
-        .replace(/\s+/g, ' ')
-        .trim();
-    
-    // Если слишком длинное, обрезаем
-    if (title.length > 50) {
-        title = title.substring(0, 50) + '...';
-    }
-    
-    return title || 'Без названия';
-}
-
-async function search() {
-    const q = document.getElementById('query').value.trim();
-    if (!q) {
-        alert('Пожалуйста, введите запрос');
-        return;
-    }
-
-    const results = document.getElementById('results');
-    results.innerHTML = `
-        <div class="loading">
-            <div style="font-size:48px;margin-bottom:20px;">🎨</div>
-            <div>Ищу высококачественные произведения искусства...</div>
-            <div style="font-size:14px;color:#666;margin-top:10px;">
-                Ищу изображения высокого разрешения (от 2000 пикселей)
-            </div>
-        </div>
-    `;
-
-    // Целевые запросы для высококачественных изображений
-    const searchQueries = [
-        \`"\${q}" high resolution painting\`,
-        \`\${q} high quality artwork\`,
-        \`"\${q}" large painting\`,
-        \`\${q} digital restoration\`,
-        \`\${q} scan painting\`,
-        \`"\${q}" museum quality\`
-    ];
-
-    let allPages = [];
-    
-    // Ищем только высококачественные изображения
-    for (const searchQuery of searchQueries) {
-        const url =
-            'https://commons.wikimedia.org/w/api.php' +
-            '?action=query' +
-            '&generator=search' +
-            '&gsrsearch=' + encodeURIComponent(searchQuery) +
-            '&gsrnamespace=6' +
-            '&gsrlimit=50' +
-            '&prop=imageinfo' +
-            '&iiprop=url|extmetadata|mime|size|dimensions' +
-            '&iiurlwidth=1200' + // Увеличиваем ширину для превью
-            '&format=json' +
-            '&origin=*';
-
-        try {
-            const res = await fetch(url);
-            const data = await res.json();
+        // Функция для очистки HTML из текста
+        function cleanText(text) {
+            if (!text) return '';
             
-            if (data.query?.pages) {
-                const pages = Object.values(data.query.pages);
-                console.log(\`Найдено по запросу "\${searchQuery}": \${pages.length} изображений\`);
-                allPages = allPages.concat(pages);
+            text = text.replace(/<[^>]*>/g, ' ');
+            text = text.replace(/[^\w\s\u0400-\u04FF.,!?;:'"()\-–—]/gu, ' ');
+            text = text.replace(/\s+/g, ' ').trim();
+            
+            if (text.length > 200) {
+                text = text.substring(0, 200) + '...';
             }
             
-        } catch (e) {
-            console.error('Ошибка запроса:', e);
+            return text;
         }
-        
-        await new Promise(resolve => setTimeout(resolve, 300));
-    }
 
-    // Удаляем дубликаты
-    const uniquePages = [];
-    const seenTitles = new Set();
-    
-    allPages.forEach(page => {
-        if (!seenTitles.has(page.title)) {
-            seenTitles.add(page.title);
-            uniquePages.push(page);
+        // Функция для экранирования HTML
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
         }
-    });
 
-    // СТРОГАЯ фильтрация по качеству
-    const filteredPages = uniquePages.filter(page => {
-        const img = page.imageinfo?.[0];
-        if (!img?.url) return false;
-        
-        // 1. Только изображения
-        if (!img.mime?.startsWith('image/')) return false;
-        
-        // 2. Только JPEG, PNG, WebP (качественные форматы)
-        const fileName = page.title.toLowerCase();
-        const goodExtensions = ['.jpg', '.jpeg', '.png', '.webp'];
-        if (!goodExtensions.some(ext => fileName.endsWith(ext))) return false;
-        
-        // 3. Исключаем всё лишнее
-        const skipWords = [
-            'museum', 'gallery', 'exhibition', 'expo', 'hall',
-            'frame', 'framed', 'photo', 'photograph', 'photography',
-            'photographer', 'scan', 'scanned', 'cropped', 'thumbnail',
-            'thumb', 'icon', 'logo', 'signature', 'stamp', 'poster',
-            'ticket', 'map', 'diagram', 'graph', 'chart', 'building',
-            'exterior', 'interior', 'room', 'wall', 'ceiling',
-            'selfie', 'portrait photo', 'photographic', 'exhibit',
-            'small', 'tiny', 'mini', 'low', 'preview', 'sample',
-            'detail', 'fragment', 'portion', 'section'
-        ];
-        
-        const title = page.title.toLowerCase();
-        const meta = img.extmetadata || {};
-        const desc = (meta.ImageDescription?.value || '').toLowerCase();
-        
-        if (skipWords.some(word => title.includes(word) || desc.includes(word))) {
-            return false;
+        // Функция для извлечения года из даты
+        function extractYear(dateStr) {
+            if (!dateStr) return '';
+            const yearMatch = dateStr.match(/\b\d{4}\b/);
+            return yearMatch ? yearMatch[0] : '';
         }
-        
-        // 4. СТРОГИЙ ФИЛЬТР ПО РАЗМЕРУ И РАЗРЕШЕНИЮ
-        if (img.width && img.height) {
-            // ОБЯЗАТЕЛЬНО: хотя бы одна сторона >= 2000 пикселей
-            if (img.width < 2000 && img.height < 2000) {
-                return false;
+
+        // Функция для получения чистого имени художника
+        function getCleanArtist(meta) {
+            const artistFields = [
+                meta.Artist?.value,
+                meta.Creator?.value,
+                meta.Author?.value,
+                meta.Painter?.value
+            ];
+            
+            for (const field of artistFields) {
+                if (field && field.trim()) {
+                    const clean = cleanText(field);
+                    if (clean && clean !== 'Unknown') {
+                        return clean;
+                    }
+                }
             }
             
-            // Дополнительно: соотношение сторон для картин
-            const ratio = img.width / img.height;
-            if (ratio < 0.6 || ratio > 2.5) {
-                return false; // слишком квадратные или слишком длинные
+            return 'Неизвестный художник';
+        }
+
+        // Функция для получения чистого названия
+        function getCleanTitle(pageTitle, meta) {
+            if (meta.ObjectName?.value) {
+                const clean = cleanText(meta.ObjectName.value);
+                if (clean && clean.trim()) {
+                    return clean;
+                }
             }
             
-            // Минимальный размер файла для высокого разрешения
-            if (img.size && img.size < 300000) { // меньше 300KB
-                return false;
+            if (meta.ImageDescription?.value) {
+                const clean = cleanText(meta.ImageDescription.value);
+                if (clean && clean.trim()) {
+                    return clean;
+                }
             }
-        } else {
-            // Если нет информации о размере, пропускаем
-            return false;
+            
+            let title = pageTitle
+                .replace('File:', '')
+                .replace(/\.[^/.]+$/, '')
+                .replace(/_/g, ' ')
+                .replace(/\([^)]*\)/g, '')
+                .replace(/^\d+\s*[-–]\s*/, '')
+                .replace(/\bby\b|\bиз\b/gi, '')
+                .replace(/\b(a|an|the)\b/gi, '')
+                .replace(/\s+/g, ' ')
+                .trim();
+            
+            if (title.length > 50) {
+                title = title.substring(0, 50) + '...';
+            }
+            
+            return title || 'Без названия';
         }
-        
-        // 5. Проверяем метаданные на наличие признаков высококачественного изображения
-        const metaKeywords = [
-            'high resolution', 'high quality', 'high-resolution',
-            'large', 'digital restoration', 'scan', 'scanned',
-            'museum quality', 'professional', '高清', '高画質'
-        ];
-        
-        const isHighQuality = metaKeywords.some(keyword => 
-            desc.includes(keyword.toLowerCase()) ||
-            title.includes(keyword.toLowerCase())
-        );
-        
-        // Если явно указано высокое качество - берем даже с чуть меньшим разрешением
-        if (!isHighQuality && (img.width < 2500 && img.height < 2500)) {
-            // Для неявно высококачественных требуем еще больше
-            return false;
-        }
-        
-        return true;
-    });
 
-    // Сортируем по разрешению (самые большие первыми)
-    filteredPages.sort((a, b) => {
-        const imgA = a.imageinfo?.[0];
-        const imgB = b.imageinfo?.[0];
-        const maxA = imgA ? Math.max(imgA.width, imgA.height) : 0;
-        const maxB = imgB ? Math.max(imgB.width, imgB.height) : 0;
-        return maxB - maxA;
-    });
+        async function search() {
+            const q = document.getElementById('query').value.trim();
+            if (!q) {
+                alert('Пожалуйста, введите запрос');
+                return;
+            }
 
-    // Отображаем результаты
-    results.innerHTML = '';
-    
-    if (filteredPages.length === 0) {
-        results.innerHTML = \`
-            <div class="empty-state">
-                <div style="font-size:72px;margin-bottom:20px;">🔍</div>
-                <h3>Высококачественные произведения не найдены</h3>
-                <p>Попробуйте:</p>
-                <div class="tips">
-                    <h4>Стратегии поиска высококачественных изображений:</h4>
-                    <ul>
-                        <li>Используйте английские названия: <strong>"Ilya Repin high resolution"</strong></li>
-                        <li>Добавьте "museum quality": <strong>"Repin museum quality"</strong></li>
-                        <li>Попробуйте "digital restoration": <strong>"Aivazovsky digital restoration"</strong></li>
-                        <li>Ищите конкретные картины: <strong>"Barge Haulers on the Volga high quality"</strong></li>
-                    </ul>
-                    <p style="margin-top:15px;color:#667eea;font-size:13px;">
-                        <strong>Фильтры:</strong> показываются только изображения с разрешением от 2000 пикселей
-                    </p>
+            const results = document.getElementById('results');
+            results.innerHTML = `
+                <div class="col-span-full text-center py-16">
+                    <div class="text-5xl mb-6">🎨</div>
+                    <div class="text-xl text-indigo-600 mb-2">Ищу высококачественные произведения искусства...</div>
+                    <div class="text-sm text-gray-500">
+                        Ищу изображения с максимальной стороной от 2000 пикселей
+                        (вертикальные и горизонтальные картины)
+                    </div>
                 </div>
-            </div>
-        \`;
-        return;
-    }
+            `;
 
-    // Показываем информацию о качестве
-    const qualityInfo = document.createElement('div');
-    qualityInfo.style.cssText = 'margin-bottom: 20px; padding: 15px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px; font-size: 14px;';
-    qualityInfo.innerHTML = \`
-        <div style="display:flex;align-items:center;justify-content:space-between;">
-            <div>
-                <strong>🎯 Найдено высококачественных произведений: \${filteredPages.length}</strong>
-                <div style="font-size:12px;opacity:0.9;margin-top:5px;">
-                    Показаны только изображения с разрешением от 2000 пикселей
-                </div>
-            </div>
-            <div style="background:rgba(255,255,255,0.2);padding:5px 10px;border-radius:20px;font-size:12px;">
-                \${filteredPages.length > 0 ? \`Макс. разрешение: \${Math.max(...filteredPages.map(p => Math.max(p.imageinfo[0].width, p.imageinfo[0].height)))}px\` : ''}
-            </div>
-        </div>
-    \`;
-    results.appendChild(qualityInfo);
+            // Целевые запросы для высококачественных изображений
+            const searchQueries = [
+                q + ' high resolution painting',
+                q + ' high quality artwork',
+                q + ' large painting',
+                q + ' digital restoration',
+                q + ' scan painting',
+                q + ' museum quality'
+            ];
 
-    // Создаем карточки с информацией о качестве
-    filteredPages.forEach(page => {
-        const img = page.imageinfo[0];
-        const meta = img.extmetadata || {};
-        
-        // Получаем чистые данные
-        const title = getCleanTitle(page.title, meta);
-        const artist = getCleanArtist(meta);
-        const year = extractYear(meta.Date?.value || meta.CreationDate?.value || '');
-        
-        // Определяем качество по разрешению
-        let qualityBadge = '';
-        const maxDimension = Math.max(img.width, img.height);
-        if (maxDimension >= 4000) {
-            qualityBadge = '<span style="background:#4CAF50;color:white;padding:2px 8px;border-radius:12px;font-size:11px;margin-left:5px;">4K+</span>';
-        } else if (maxDimension >= 3000) {
-            qualityBadge = '<span style="background:#2196F3;color:white;padding:2px 8px;border-radius:12px;font-size:11px;margin-left:5px;">3K+</span>';
-        } else if (maxDimension >= 2000) {
-            qualityBadge = '<span style="background:#FF9800;color:white;padding:2px 8px;border-radius:12px;font-size:11px;margin-left:5px;">HD</span>';
-        }
-        
-        // Размер файла в МБ
-        const fileSizeMB = img.size ? (img.size / (1024 * 1024)).toFixed(1) : '';
-        
-        const card = document.createElement('div');
-        card.className = 'card';
-        
-        card.innerHTML = \`
-            <div class="image-container">
-                <img src="\${escapeHtml(img.url)}" 
-                     loading="lazy" 
-                     alt="\${escapeHtml(title)}"
-                     onerror="this.onerror=null; this.style.opacity='0.5';">
-                <div class="dimensions" style="display:flex;flex-direction:column;align-items:flex-end;">
-                    <div>\${img.width}×\${img.height}</div>
-                    \${fileSizeMB ? \`<div style="font-size:10px;margin-top:2px;">\${fileSizeMB} MB</div>\` : ''}
-                </div>
-            </div>
-            <div class="info">
-                <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-                    <div class="title" title="\${escapeHtml(title)}" style="flex:1;">\${escapeHtml(title)}</div>
-                    \${qualityBadge}
-                </div>
-                <div class="artist" title="\${escapeHtml(artist)}">\${escapeHtml(artist)}</div>
-                <div class="meta">
-                    <span class="license">Public Domain</span>
-                    \${year ? \`<span class="year">\${escapeHtml(year)}</span>\` : ''}
-                </div>
-            </div>
-        \`;
-        
-        card.onclick = () => {
-            // Открываем в новой вкладке с информацией о разрешении
-            const win = window.open(\`https://commons.wikimedia.org/wiki/\${encodeURIComponent(page.title)}\`, '_blank');
-            // Можно добавить информацию в консоль для отладки
-            console.log('Открыто изображение:', {
-                title: title,
-                resolution: \`\${img.width}×\${img.height}\`,
-                size: fileSizeMB + ' MB',
-                url: img.url
+            let allPages = [];
+            
+            // Ищем только высококачественные изображения
+            for (const searchQuery of searchQueries) {
+                const url =
+                    'https://commons.wikimedia.org/w/api.php' +
+                    '?action=query' +
+                    '&generator=search' +
+                    '&gsrsearch=' + encodeURIComponent(searchQuery) +
+                    '&gsrnamespace=6' +
+                    '&gsrlimit=50' +
+                    '&prop=imageinfo' +
+                    '&iiprop=url|extmetadata|mime|size|dimensions' +
+                    '&iiurlwidth=1200' +
+                    '&format=json' +
+                    '&origin=*';
+
+                try {
+                    const res = await fetch(url);
+                    const data = await res.json();
+                    
+                    if (data.query?.pages) {
+                        const pages = Object.values(data.query.pages);
+                        console.log('Найдено по запросу "' + searchQuery + '": ' + pages.length + ' изображений');
+                        allPages = allPages.concat(pages);
+                    }
+                    
+                } catch (e) {
+                    console.error('Ошибка запроса:', e);
+                }
+                
+                await new Promise(resolve => setTimeout(resolve, 300));
+            }
+
+            // Удаляем дубликаты
+            const uniquePages = [];
+            const seenTitles = new Set();
+            
+            allPages.forEach(page => {
+                if (!seenTitles.has(page.title)) {
+                    seenTitles.add(page.title);
+                    uniquePages.push(page);
+                }
             });
-        };
-        
-        results.appendChild(card);
-    });
 
-    // Добавляем информацию о фильтрах
-    const filterInfo = document.createElement('div');
-    filterInfo.className = 'tips';
-    filterInfo.innerHTML = \`
-        <h4>⚙️ Примененные фильтры качества:</h4>
-        <ul>
-            <li><strong>Разрешение:</strong> от 2000 пикселей по меньшей стороне</li>
-            <li><strong>Форматы:</strong> только JPG, PNG, WebP</li>
-            <li><strong>Качество:</strong> исключены превью, миниатюры, сканы низкого качества</li>
-            <li><strong>Содержание:</strong> только произведения искусства (исключены фотографии музеев, рамы и т.д.)</li>
-        </ul>
-        <p style="margin-top:10px;color:#666;font-size:13px;">
-            <strong>Совет:</strong> Нажмите на любую карточку, чтобы открыть оригинал на Wikimedia Commons.
-            Для скачивания в максимальном разрешении нажмите "View original file" на странице Commons.
-        </p>
-    \`;
-    
-    results.appendChild(filterInfo);
-}
-</script>
+            // СТРОГАЯ фильтрация по качеству - ИСПРАВЛЕННАЯ ВЕРСИЯ
+            const filteredPages = uniquePages.filter(page => {
+                const img = page.imageinfo?.[0];
+                if (!img?.url) return false;
+                
+                // 1. Только изображения
+                if (!img.mime?.startsWith('image/')) return false;
+                
+                // 2. Только качественные форматы
+                const fileName = page.title.toLowerCase();
+                const goodExtensions = ['.jpg', '.jpeg', '.png', '.webp'];
+                if (!goodExtensions.some(ext => fileName.endsWith(ext))) return false;
+                
+                // 3. Исключаем всё лишнее
+                const skipWords = [
+                    'museum', 'gallery', 'exhibition', 'expo', 'hall',
+                    'frame', 'framed', 'photo', 'photograph', 'photography',
+                    'photographer', 'scan', 'scanned', 'cropped', 'thumbnail',
+                    'thumb', 'icon', 'logo', 'signature', 'stamp', 'poster',
+                    'ticket', 'map', 'diagram', 'graph', 'chart', 'building',
+                    'exterior', 'interior', 'room', 'wall', 'ceiling',
+                    'selfie', 'portrait photo', 'photographic', 'exhibit',
+                    'small', 'tiny', 'mini', 'low', 'preview', 'sample',
+                    'detail', 'fragment', 'portion', 'section'
+                ];
+                
+                const title = page.title.toLowerCase();
+                const meta = img.extmetadata || {};
+                const desc = (meta.ImageDescription?.value || '').toLowerCase();
+                
+                if (skipWords.some(word => title.includes(word) || desc.includes(word))) {
+                    return false;
+                }
+                
+                // 4. СТРОГИЙ ФИЛЬТР ПО РАЗМЕРУ И РАЗРЕШЕНИЮ
+                if (img.width && img.height) {
+                    // ХОТЯ БЫ ОДНА СТОРОНА >= 2000 пикселей (максимальная сторона)
+                    const maxSide = Math.max(img.width, img.height);
+                    if (maxSide < 2000) {
+                        return false;
+                    }
+                    
+                    // Проверяем соотношение сторон
+                    const ratio = img.width / img.height;
+                    if (ratio < 0.3 || ratio > 3.5) {
+                        return false;
+                    }
+                    
+                    // Минимальный размер файла
+                    if (img.size && img.size < 200000) {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+                
+                return true;
+            });
 
+            // Сортируем по максимальному разрешению
+            filteredPages.sort((a, b) => {
+                const imgA = a.imageinfo?.[0];
+                const imgB = b.imageinfo?.[0];
+                const maxA = imgA ? Math.max(imgA.width, imgA.height) : 0;
+                const maxB = imgB ? Math.max(imgB.width, imgB.height) : 0;
+                return maxB - maxA;
+            });
 
+            // Отображаем результаты
+            results.innerHTML = '';
+            
+            if (filteredPages.length === 0) {
+                results.innerHTML = `
+                    <div class="col-span-full text-center py-16">
+                        <div class="text-7xl mb-6">🔍</div>
+                        <h3 class="text-2xl font-light text-gray-800 mb-6">Высококачественные произведения не найдены</h3>
+                        <div class="max-w-2xl mx-auto bg-gray-50 rounded-xl p-6 border-l-4 border-indigo-500">
+                            <h4 class="text-lg font-semibold text-gray-800 mb-4">Стратегии поиска высококачественных изображений:</h4>
+                            <ul class="text-gray-600 space-y-2">
+                                <li>• Используйте английские названия: <strong>"Ilya Repin high resolution"</strong></li>
+                                <li>• Добавьте "museum quality": <strong>"Repin museum quality"</strong></li>
+                                <li>• Попробуйте "digital restoration": <strong>"Aivazovsky digital restoration"</strong></li>
+                                <li>• Ищите конкретные картины: <strong>"Barge Haulers on the Volga high quality"</strong></li>
+                            </ul>
+                            <p class="mt-4 text-sm text-indigo-600">
+                                <strong>Фильтры:</strong> показываются изображения с максимальной стороной от 2000 пикселей
+                            </p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            // Показываем информацию о качестве
+            const maxResolution = filteredPages.length > 0 ? 
+                Math.max(...filteredPages.map(p => {
+                    const img = p.imageinfo[0];
+                    return Math.max(img.width, img.height);
+                })) : 0;
+            
+            const qualityInfo = document.createElement('div');
+            qualityInfo.className = 'col-span-full mb-6 p-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl';
+            qualityInfo.innerHTML = `
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div>
+                        <div class="font-bold text-lg">🎯 Найдено высококачественных произведений: ${filteredPages.length}</div>
+                        <div class="text-sm opacity-90 mt-1">
+                            Показаны изображения с максимальной стороной от 2000 пикселей
+                            (вертикальные и горизонтальные картины)
+                        </div>
+                    </div>
+                    <div class="mt-3 md:mt-0 bg-white/20 px-4 py-2 rounded-full text-sm">
+                        Макс. разрешение: ${maxResolution}px
+                    </div>
+                </div>
+            `;
+            results.appendChild(qualityInfo);
+
+            // Создаем карточки с информацией о качестве
+            filteredPages.forEach(page => {
+                const img = page.imageinfo[0];
+                const meta = img.extmetadata || {};
+                
+                // Получаем чистые данные
+                const title = getCleanTitle(page.title, meta);
+                const artist = getCleanArtist(meta);
+                const year = extractYear(meta.Date?.value || meta.CreationDate?.value || '');
+                
+                // Определяем качество по разрешению
+                let qualityBadge = '';
+                const maxDimension = Math.max(img.width, img.height);
+                let qualityClass = '';
+                
+                if (maxDimension >= 4000) {
+                    qualityBadge = '4K+';
+                    qualityClass = 'bg-green-500';
+                } else if (maxDimension >= 3000) {
+                    qualityBadge = '3K+';
+                    qualityClass = 'bg-blue-500';
+                } else if (maxDimension >= 2000) {
+                    qualityBadge = 'HD';
+                    qualityClass = 'bg-orange-500';
+                }
+                
+                // Размер файла в МБ
+                const fileSizeMB = img.size ? (img.size / (1024 * 1024)).toFixed(1) : '';
+                
+                // Определяем ориентацию для подсказки
+                const orientation = img.width > img.height ? 'горизонтальная' : 
+                                  img.height > img.width ? 'вертикальная' : 'квадратная';
+                
+                const card = document.createElement('div');
+                card.className = 'group bg-white rounded-xl shadow-md hover:shadow-xl border border-gray-200 hover:border-indigo-300 cursor-pointer transition-all duration-300 hover:-translate-y-2 overflow-hidden';
+                
+                card.innerHTML = `
+                    <div class="h-56 gradient-bg relative overflow-hidden">
+                        <img src="${escapeHtml(img.url)}" 
+                             class="w-full h-full"
+                             loading="lazy" 
+                             alt="${escapeHtml(title)}"
+                             onerror="this.onerror=null; this.classList.add('opacity-50');">
+                        <div class="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-3 py-1 rounded-full backdrop-blur-sm">
+                            ${img.width}×${img.height}
+                            <div class="text-xs opacity-80">${orientation}</div>
+                            ${fileSizeMB ? `<div class="text-xs opacity-80">${fileSizeMB} MB</div>` : ''}
+                        </div>
+                    </div>
+                    <div class="p-4 border-t border-gray-100">
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="font-semibold text-gray-800 text-ellipsis-2 group-hover:text-indigo-600 transition-colors" title="${escapeHtml(title)}">
+                                ${escapeHtml(title)}
+                            </div>
+                            ${qualityBadge ? `<span class="${qualityClass} text-white text-xs px-2 py-1 rounded-full ml-2 whitespace-nowrap">${qualityBadge}</span>` : ''}
+                        </div>
+                        <div class="text-gray-600 text-sm text-ellipsis-1 mb-3" title="${escapeHtml(artist)}">
+                            ${escapeHtml(artist)}
+                        </div>
+                        <div class="flex justify-between items-center pt-3 border-t border-gray-100">
+                            <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">Public Domain</span>
+                            ${year ? `<span class="text-xs font-medium text-indigo-600">${escapeHtml(year)}</span>` : ''}
+                        </div>
+                    </div>
+                `;
+                
+                card.onclick = () => {
+                    window.open('https://commons.wikimedia.org/wiki/' + encodeURIComponent(page.title), '_blank');
+                };
+                
+                results.appendChild(card);
+            });
+
+            // Добавляем информацию о фильтрах
+            const filterInfo = document.createElement('div');
+            filterInfo.className = 'col-span-full mt-8 bg-gray-50 rounded-xl p-6 border-l-4 border-indigo-500';
+            filterInfo.innerHTML = `
+                <h4 class="text-lg font-semibold text-gray-800 mb-4">⚙️ Примененные фильтры качества:</h4>
+                <ul class="text-gray-600 space-y-2">
+                    <li>• <strong>Разрешение:</strong> максимальная сторона от 2000 пикселей (подходят вертикальные и горизонтальные)</li>
+                    <li>• <strong>Форматы:</strong> только JPG, PNG, WebP</li>
+                    <li>• <strong>Качество:</strong> исключены превью, миниатюры, сканы низкого качества</li>
+                    <li>• <strong>Содержание:</strong> только произведения искусства (исключены фотографии музеев, рамы и т.д.)</li>
+                </ul>
+                <p class="mt-4 text-sm text-gray-500">
+                    <strong>Совет:</strong> Нажмите на любую карточку, чтобы открыть оригинал на Wikimedia Commons.
+                    Для скачивания в максимальном разрешении нажмите "View original file" на странице Commons.
+                </p>
+            `;
+            
+            results.appendChild(filterInfo);
+        }
+    </script>
 </body>
 </html>
