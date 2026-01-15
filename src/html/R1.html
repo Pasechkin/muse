@@ -19,6 +19,33 @@ button { padding:10px }
 .info { padding:10px }
 .title { font-weight:bold }
 .artist { color:#555 }
+/* Добавьте эти стили в <style> */
+.card img {
+  height: 200px;
+  width: 100%;
+  object-fit: contain;
+  background: linear-gradient(45deg, #f5f5f5 25%, #e0e0e0 25%, #e0e0e0 50%, #f5f5f5 50%, #f5f5f5 75%, #e0e0e0 75%);
+  background-size: 20px 20px;
+}
+
+.title, .artist {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Кнопка поиска при наведении */
+button:hover {
+  background: #0056b3;
+  cursor: pointer;
+}
+
+/* Поле ввода при фокусе */
+input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0,123,255,.25);
+}
 </style>
 </head>
 <body>
@@ -35,74 +62,113 @@ async function search() {
   if (!q) return;
 
   const results = document.getElementById('results');
-  results.innerHTML = 'Загрузка...';
+  results.innerHTML = '<div style="text-align:center;padding:20px;">🔍 Ищу изображения...</div>';
 
-  // 1. Поиск файлов
-  const searchUrl =
+  // Ключевое изменение №1: добавляем фильтры прямо в поисковый запрос
+  const searchQuery = q + ' filetype:jpg|jpeg|png|gif|webp';
+  
+  const url =
     'https://commons.wikimedia.org/w/api.php' +
     '?action=query' +
-    '&list=search' +
-    '&srsearch=' + encodeURIComponent(q) +
-    '&srnamespace=6' +
-    '&srlimit=10' +
+    '&generator=search' +
+    '&gsrsearch=' + encodeURIComponent(searchQuery) +
+    '&gsrnamespace=6' +
+    '&gsrlimit=30' + // Увеличиваем лимит
+    '&prop=imageinfo' +
+    '&iiprop=url|extmetadata|mime' + // Добавляем mime
+    '&iiurlwidth=400' + // Оптимальный размер для превью
     '&format=json' +
     '&origin=*';
 
   try {
-    const res = await fetch(searchUrl);
+    const res = await fetch(url);
     const data = await res.json();
 
     results.innerHTML = '';
-
-    if (!data.query?.search?.length) {
+    
+    if (!data.query || !data.query.pages) {
       results.innerHTML = 'Ничего не найдено';
       return;
     }
 
-    // 2. Получаем информацию по каждому файлу
-    for (const item of data.query.search) {
-      const title = item.title;
-
-      const fileUrl =
-        'https://commons.wikimedia.org/w/api.php' +
-        '?action=query' +
-        '&titles=' + encodeURIComponent(title) +
-        '&prop=imageinfo' +
-        '&iiprop=url|extmetadata' +
-        '&format=json' +
-        '&origin=*';
-
-      const fileRes = await fetch(fileUrl);
-      const fileData = await fileRes.json();
-
-      const page = Object.values(fileData.query.pages)[0];
+    const pages = Object.values(data.query.pages);
+    let foundImages = 0;
+    
+    pages.forEach(page => {
       const img = page.imageinfo?.[0];
-      if (!img) continue;
-
+      if (!img?.url) return;
+      
+      // Ключевое изменение №2: фильтруем НЕ-изображения
+      const fileName = page.title.toLowerCase();
+      
+      // Пропускаем ненужные форматы
+      const badExtensions = ['.svg', '.pdf', '.ogg', '.webm', '.mid', '.djvu', '.oga', '.ogv'];
+      if (badExtensions.some(ext => fileName.endsWith(ext))) {
+        return; // пропускаем этот файл
+      }
+      
+      // Проверяем, что это действительно изображение
+      if (img.mime && !img.mime.startsWith('image/')) {
+        return; // пропускаем не-изображения
+      }
+      
+      // Отображаем только JPG, PNG, GIF, WebP
+      const goodExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp'];
+      if (!goodExtensions.some(ext => fileName.endsWith(ext))) {
+        return; // пропускаем другие форматы
+      }
+      
+      foundImages++;
+      
       const meta = img.extmetadata || {};
-
-      const artwork = meta.ObjectName?.value || title.replace('File:', '');
+      const title = meta.ObjectName?.value || 
+                   page.title.replace('File:', '').replace(/\.[^/.]+$/, '');
       const artist = meta.Artist?.value || 'Автор неизвестен';
-
+      const license = meta.LicenseShortName?.value || '';
+      
       const card = document.createElement('div');
       card.className = 'card';
-
+      
       card.innerHTML = `
-        <img src="${img.url}">
+        <img src="${img.url}" loading="lazy" alt="${title}" 
+             onerror="this.src='https://via.placeholder.com/300x200?text=Ошибка+загрузки'">
         <div class="info">
-          <div class="title">${artwork}</div>
-          <div class="artist">${artist}</div>
+          <div class="title" title="${title}">${title.length > 40 ? title.substring(0, 40) + '...' : title}</div>
+          <div class="artist">${artist.length > 30 ? artist.substring(0, 30) + '...' : artist}</div>
+          <div class="license">${license}</div>
         </div>
       `;
-
+      
       results.appendChild(card);
+    });
+    
+    if (foundImages === 0) {
+      results.innerHTML = `
+        <div style="text-align:center;padding:40px;color:#666;">
+          <div style="font-size:48px;margin-bottom:20px;">🖼️</div>
+          <h3>Изображений не найдено</h3>
+          <p>Попробуйте другой запрос, например:<br>
+          <i>Van Gogh, Monet, Leonardo da Vinci, landscape</i></p>
+        </div>
+      `;
     }
-
+    
   } catch (e) {
     console.error(e);
-    results.innerHTML = 'Ошибка загрузки';
+    results.innerHTML = `
+      <div style="text-align:center;padding:20px;color:#d32f2f;">
+        Ошибка загрузки. Проверьте подключение к интернету.
+      </div>
+    `;
   }
 }
+
+// Добавьте это для поиска по нажатию Enter
+document.getElementById('query').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') {
+    search();
+  }
+});
 </script>
 
 </body>
