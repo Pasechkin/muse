@@ -46,6 +46,47 @@ input:focus {
   border-color: #007bff;
   box-shadow: 0 0 0 2px rgba(0,123,255,.25);
 }
+/* Вставьте в <style> */
+.card {
+  transition: transform 0.2s, box-shadow 0.2s;
+  background: white;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.card img {
+  transition: opacity 0.3s;
+}
+
+.card:hover img {
+  opacity: 0.9;
+}
+
+/* Фильтры для поиска */
+.filters {
+  margin: 15px 0;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 5px 12px;
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.filter-btn.active {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
 </style>
 </head>
 <body>
@@ -57,15 +98,20 @@ input:focus {
 <div id="results" class="results"></div>
 
 <script>
-async function search() {
+async function searchArtworks() {
   const q = document.getElementById('query').value.trim();
   if (!q) return;
 
   const results = document.getElementById('results');
-  results.innerHTML = '<div style="text-align:center;padding:20px;">🔍 Ищу изображения...</div>';
+  results.innerHTML = '<div style="text-align:center;padding:20px;">🎨 Ищу произведения искусства...</div>';
 
-  // Ключевое изменение №1: добавляем фильтры прямо в поисковый запрос
-  const searchQuery = q + ' filetype:jpg|jpeg|png|gif|webp';
+  // СТРАТЕГИЯ 1: Искать в категориях "paintings by" и "artworks by"
+  // Это даст именно художественные произведения
+  
+  const searchQuery = 
+    `"${q}"` + // Точное совпадение названия
+    ` (category:paintings OR category:artworks)` +
+    ` filetype:jpg|jpeg|png`;
   
   const url =
     'https://commons.wikimedia.org/w/api.php' +
@@ -73,10 +119,12 @@ async function search() {
     '&generator=search' +
     '&gsrsearch=' + encodeURIComponent(searchQuery) +
     '&gsrnamespace=6' +
-    '&gsrlimit=30' + // Увеличиваем лимит
-    '&prop=imageinfo' +
-    '&iiprop=url|extmetadata|mime' + // Добавляем mime
-    '&iiurlwidth=400' + // Оптимальный размер для превью
+    '&gsrlimit=50' + // Больше результатов для фильтрации
+    '&prop=imageinfo|categories' + // Добавляем категории
+    '&iiprop=url|extmetadata|mime|size' + // И размер файла
+    '&clprop=sortkey' +
+    '&cllimit=10' +
+    '&iiurlwidth=800' + // Больше ширина для качества
     '&format=json' +
     '&origin=*';
 
@@ -87,88 +135,185 @@ async function search() {
     results.innerHTML = '';
     
     if (!data.query || !data.query.pages) {
-      results.innerHTML = 'Ничего не найдено';
+      results.innerHTML = 'Произведений искусства не найдено';
       return;
     }
 
     const pages = Object.values(data.query.pages);
-    let foundImages = 0;
+    let foundArtworks = 0;
+    
+    // Сортируем по размеру файла - большие обычно лучше
+    pages.sort((a, b) => {
+      const sizeA = a.imageinfo?.[0]?.size || 0;
+      const sizeB = b.imageinfo?.[0]?.size || 0;
+      return sizeB - sizeA; // Большие файлы первыми
+    });
     
     pages.forEach(page => {
       const img = page.imageinfo?.[0];
       if (!img?.url) return;
       
-      // Ключевое изменение №2: фильтруем НЕ-изображения
+      // ФИЛЬТР 1: Только большие изображения (больше 100KB)
+      if (img.size && img.size < 100000) { // меньше 100KB
+        return; // пропускаем маленькие превью
+      }
+      
+      // ФИЛЬТР 2: Проверяем разрешение
+      if (img.width && img.height) {
+        // Пропускаем слишком маленькие или квадратные (возможно, иконки)
+        if (img.width < 800 && img.height < 600) return;
+      }
+      
+      // ФИЛЬТР 3: Проверяем по названию файла
       const fileName = page.title.toLowerCase();
       
-      // Пропускаем ненужные форматы
-      const badExtensions = ['.svg', '.pdf', '.ogg', '.webm', '.mid', '.djvu', '.oga', '.ogv'];
-      if (badExtensions.some(ext => fileName.endsWith(ext))) {
-        return; // пропускаем этот файл
+      // Пропускаем явно не художественные файлы
+      const skipWords = [
+        'frame', 'framed', 'museum', 'gallery', 'exhibition',
+        'photo', 'photograph', 'scan', 'cropped', 'thumb',
+        'icon', 'logo', 'signature', 'stamp', 'poster',
+        'sketch', 'study', 'preparatory'
+      ];
+      
+      if (skipWords.some(word => fileName.includes(word))) {
+        return;
       }
       
-      // Проверяем, что это действительно изображение
-      if (img.mime && !img.mime.startsWith('image/')) {
-        return; // пропускаем не-изображения
-      }
-      
-      // Отображаем только JPG, PNG, GIF, WebP
-      const goodExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp'];
-      if (!goodExtensions.some(ext => fileName.endsWith(ext))) {
-        return; // пропускаем другие форматы
-      }
-      
-      foundImages++;
-      
+      // ФИЛЬТР 4: Проверяем метаданные
       const meta = img.extmetadata || {};
+      const description = (meta.ImageDescription?.value || '').toLowerCase();
+      const categories = (meta.Categories?.value || '').toLowerCase();
+      
+      // Ищем ключевые слова, указывающие на произведение искусства
+      const artKeywords = [
+        'painting', 'oil on canvas', 'watercolor', 'drawing',
+        'artwork', 'masterpiece', 'canvas', 'painter',
+        'холст', 'масло', 'акварель', 'рисунок', 'картина'
+      ];
+      
+      const isLikelyArtwork = 
+        artKeywords.some(keyword => 
+          description.includes(keyword) || 
+          categories.includes(keyword) ||
+          fileName.includes(keyword)
+        );
+      
+      if (!isLikelyArtwork && foundArtworks > 0) {
+        // Если уже есть хорошие результаты, пропускаем сомнительные
+        return;
+      }
+      
+      foundArtworks++;
+      
+      // Форматируем информацию
       const title = meta.ObjectName?.value || 
-                   page.title.replace('File:', '').replace(/\.[^/.]+$/, '');
-      const artist = meta.Artist?.value || 'Автор неизвестен';
+                   page.title
+                     .replace('File:', '')
+                     .replace(/\.[^/.]+$/, '')
+                     .replace(/_/g, ' ');
+      
+      const artist = meta.Artist?.value || 
+                    meta.Creator?.value || 
+                    'Художник неизвестен';
+      
+      const date = meta.Date?.value || meta.CreationDate?.value || '';
+      const medium = meta.Medium?.value || '';
       const license = meta.LicenseShortName?.value || '';
+      
+      const dimensions = img.width && img.height 
+        ? `${img.width}×${img.height} px` 
+        : '';
       
       const card = document.createElement('div');
       card.className = 'card';
+      card.style.cursor = 'pointer';
       
       card.innerHTML = `
-        <img src="${img.url}" loading="lazy" alt="${title}" 
-             onerror="this.src='https://via.placeholder.com/300x200?text=Ошибка+загрузки'">
+        <div style="position:relative;">
+          <img src="${img.url}" 
+               loading="lazy" 
+               alt="${title}"
+               style="height:250px;object-fit:contain;">
+          ${dimensions ? `<div style="position:absolute;bottom:5px;right:5px;background:rgba(0,0,0,0.7);color:white;padding:2px 5px;border-radius:3px;font-size:11px;">${dimensions}</div>` : ''}
+        </div>
         <div class="info">
-          <div class="title" title="${title}">${title.length > 40 ? title.substring(0, 40) + '...' : title}</div>
-          <div class="artist">${artist.length > 30 ? artist.substring(0, 30) + '...' : artist}</div>
-          <div class="license">${license}</div>
+          <div class="title" title="${title}">
+            ${title.length > 35 ? title.substring(0, 35) + '...' : title}
+          </div>
+          <div class="artist">${artist.length > 25 ? artist.substring(0, 25) + '...' : artist}</div>
+          <div style="display:flex;justify-content:space-between;margin-top:5px;">
+            <span class="license">${license}</span>
+            ${date ? `<span style="font-size:12px;color:#666;">${date.substring(0,4)}</span>` : ''}
+          </div>
+          ${medium ? `<div style="font-size:11px;color:#888;margin-top:3px;">${medium.substring(0,30)}</div>` : ''}
         </div>
       `;
       
+      // Открыть в новом окне при клике
+      card.onclick = () => {
+        window.open(`https://commons.wikimedia.org/wiki/${encodeURIComponent(page.title)}`, '_blank');
+      };
+      
       results.appendChild(card);
+      
+      // Ограничиваем количество результатов для качества
+      if (foundArtworks >= 15) {
+        return;
+      }
     });
     
-    if (foundImages === 0) {
-      results.innerHTML = `
-        <div style="text-align:center;padding:40px;color:#666;">
-          <div style="font-size:48px;margin-bottom:20px;">🖼️</div>
-          <h3>Изображений не найдено</h3>
-          <p>Попробуйте другой запрос, например:<br>
-          <i>Van Gogh, Monet, Leonardo da Vinci, landscape</i></p>
-        </div>
+    if (foundArtworks === 0) {
+      // Попробуем альтернативный поиск
+      tryAlternativeSearch(q);
+    } else {
+      // Показываем подсказку
+      const hint = document.createElement('div');
+      hint.style.cssText = 'margin-top:20px;padding:15px;background:#f0f8ff;border-radius:5px;font-size:14px;color:#555;';
+      hint.innerHTML = `
+        <strong>🎯 Советы для лучшего поиска:</strong><br>
+        • Используйте английские названия: "Ilya Repin", "Aivazovsky"<br>
+        • Добавьте "painting": "Repin painting", "Barge Haulers"<br>
+        • Попробуйте точное название: "The Ninth Wave", "Bogatyrs"
       `;
+      results.appendChild(hint);
     }
     
   } catch (e) {
     console.error(e);
-    results.innerHTML = `
-      <div style="text-align:center;padding:20px;color:#d32f2f;">
-        Ошибка загрузки. Проверьте подключение к интернету.
-      </div>
-    `;
+    results.innerHTML = 'Ошибка загрузки';
   }
 }
 
-// Добавьте это для поиска по нажатию Enter
-document.getElementById('query').addEventListener('keypress', function(e) {
-  if (e.key === 'Enter') {
-    search();
+// Альтернативный поиск для сложных запросов
+async function tryAlternativeSearch(query) {
+  const results = document.getElementById('results');
+  
+  // Пробуем разные стратегии поиска
+  const searchVariants = [
+    `${query} painting`,  // англ
+    `${query} картина`,   // рус
+    `"${query}" artwork`,
+    `"${query}" oil on canvas`
+  ];
+  
+  for (const variant of searchVariants) {
+    const url = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(variant)}&gsrnamespace=6&gsrlimit=10&prop=imageinfo&iiprop=url|extmetadata&format=json&origin=*`;
+    
+    const res = await fetch(url);
+    const data = await res.json();
+    
+    if (data.query?.pages) {
+      const pages = Object.values(data.query.pages);
+      if (pages.length > 0) {
+        // Показать результаты
+        break;
+      }
+    }
   }
-});
+}
+
+// Заменить вызов search() на searchArtworks()
+// <button onclick="searchArtworks()">Найти</button>
 </script>
 
 </body>
