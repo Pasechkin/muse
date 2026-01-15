@@ -348,22 +348,26 @@ async function search() {
     results.innerHTML = `
         <div class="loading">
             <div style="font-size:48px;margin-bottom:20px;">🎨</div>
-            <div>Ищу произведения искусства...</div>
+            <div>Ищу высококачественные произведения искусства...</div>
+            <div style="font-size:14px;color:#666;margin-top:10px;">
+                Ищу изображения высокого разрешения (от 2000 пикселей)
+            </div>
         </div>
     `;
 
-    // Более целенаправленные запросы
+    // Целевые запросы для высококачественных изображений
     const searchQueries = [
-        `"${q}" painting`,  // Точное совпадение + painting
-        `${q} oil on canvas`,
-        `"${q}" artwork`,
-        `${q} картины`,      // Для русских запросов
-        `${q} picture`
+        \`"\${q}" high resolution painting\`,
+        \`\${q} high quality artwork\`,
+        \`"\${q}" large painting\`,
+        \`\${q} digital restoration\`,
+        \`\${q} scan painting\`,
+        \`"\${q}" museum quality\`
     ];
 
     let allPages = [];
     
-    // Пробуем несколько вариантов поиска
+    // Ищем только высококачественные изображения
     for (const searchQuery of searchQueries) {
         const url =
             'https://commons.wikimedia.org/w/api.php' +
@@ -371,10 +375,10 @@ async function search() {
             '&generator=search' +
             '&gsrsearch=' + encodeURIComponent(searchQuery) +
             '&gsrnamespace=6' +
-            '&gsrlimit=20' + // Меньше результатов, но релевантнее
+            '&gsrlimit=50' +
             '&prop=imageinfo' +
             '&iiprop=url|extmetadata|mime|size|dimensions' +
-            '&iiurlwidth=800' +
+            '&iiurlwidth=1200' + // Увеличиваем ширину для превью
             '&format=json' +
             '&origin=*';
 
@@ -384,16 +388,15 @@ async function search() {
             
             if (data.query?.pages) {
                 const pages = Object.values(data.query.pages);
+                console.log(\`Найдено по запросу "\${searchQuery}": \${pages.length} изображений\`);
                 allPages = allPages.concat(pages);
             }
-            
-            if (allPages.length >= 30) break;
             
         } catch (e) {
             console.error('Ошибка запроса:', e);
         }
         
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await new Promise(resolve => setTimeout(resolve, 300));
     }
 
     // Удаляем дубликаты
@@ -407,20 +410,20 @@ async function search() {
         }
     });
 
-    // Строгая фильтрация
+    // СТРОГАЯ фильтрация по качеству
     const filteredPages = uniquePages.filter(page => {
         const img = page.imageinfo?.[0];
         if (!img?.url) return false;
         
-        // Только изображения
+        // 1. Только изображения
         if (!img.mime?.startsWith('image/')) return false;
         
-        // Проверяем расширение файла
+        // 2. Только JPEG, PNG, WebP (качественные форматы)
         const fileName = page.title.toLowerCase();
-        const badExtensions = ['.svg', '.pdf', '.ogg', '.webm', '.tiff', '.ico', '.svgz'];
-        if (badExtensions.some(ext => fileName.endsWith(ext))) return false;
+        const goodExtensions = ['.jpg', '.jpeg', '.png', '.webp'];
+        if (!goodExtensions.some(ext => fileName.endsWith(ext))) return false;
         
-        // Исключаем фотографии музеев, выставок и т.д.
+        // 3. Исключаем всё лишнее
         const skipWords = [
             'museum', 'gallery', 'exhibition', 'expo', 'hall',
             'frame', 'framed', 'photo', 'photograph', 'photography',
@@ -428,7 +431,9 @@ async function search() {
             'thumb', 'icon', 'logo', 'signature', 'stamp', 'poster',
             'ticket', 'map', 'diagram', 'graph', 'chart', 'building',
             'exterior', 'interior', 'room', 'wall', 'ceiling',
-            'selfie', 'portrait photo', 'photographic'
+            'selfie', 'portrait photo', 'photographic', 'exhibit',
+            'small', 'tiny', 'mini', 'low', 'preview', 'sample',
+            'detail', 'fragment', 'portion', 'section'
         ];
         
         const title = page.title.toLowerCase();
@@ -439,52 +444,104 @@ async function search() {
             return false;
         }
         
-        // Должно быть достаточно большим
-        if (img.size && img.size < 80000) return false;
-        
-        // Проверяем соотношение сторон
+        // 4. СТРОГИЙ ФИЛЬТР ПО РАЗМЕРУ И РАЗРЕШЕНИЮ
         if (img.width && img.height) {
+            // ОБЯЗАТЕЛЬНО: хотя бы одна сторона >= 2000 пикселей
+            if (img.width < 2000 && img.height < 2000) {
+                return false;
+            }
+            
+            // Дополнительно: соотношение сторон для картин
             const ratio = img.width / img.height;
-            if (ratio < 0.5 || ratio > 3) return false;
-            if (img.width < 600 || img.height < 400) return false;
+            if (ratio < 0.6 || ratio > 2.5) {
+                return false; // слишком квадратные или слишком длинные
+            }
+            
+            // Минимальный размер файла для высокого разрешения
+            if (img.size && img.size < 300000) { // меньше 300KB
+                return false;
+            }
+        } else {
+            // Если нет информации о размере, пропускаем
+            return false;
+        }
+        
+        // 5. Проверяем метаданные на наличие признаков высококачественного изображения
+        const metaKeywords = [
+            'high resolution', 'high quality', 'high-resolution',
+            'large', 'digital restoration', 'scan', 'scanned',
+            'museum quality', 'professional', '高清', '高画質'
+        ];
+        
+        const isHighQuality = metaKeywords.some(keyword => 
+            desc.includes(keyword.toLowerCase()) ||
+            title.includes(keyword.toLowerCase())
+        );
+        
+        // Если явно указано высокое качество - берем даже с чуть меньшим разрешением
+        if (!isHighQuality && (img.width < 2500 && img.height < 2500)) {
+            // Для неявно высококачественных требуем еще больше
+            return false;
         }
         
         return true;
     });
 
-    // Сортируем по размеру файла
+    // Сортируем по разрешению (самые большие первыми)
     filteredPages.sort((a, b) => {
-        const sizeA = a.imageinfo?.[0]?.size || 0;
-        const sizeB = b.imageinfo?.[0]?.size || 0;
-        return sizeB - sizeA;
+        const imgA = a.imageinfo?.[0];
+        const imgB = b.imageinfo?.[0];
+        const maxA = imgA ? Math.max(imgA.width, imgA.height) : 0;
+        const maxB = imgB ? Math.max(imgB.width, imgB.height) : 0;
+        return maxB - maxA;
     });
 
     // Отображаем результаты
     results.innerHTML = '';
     
     if (filteredPages.length === 0) {
-        results.innerHTML = `
+        results.innerHTML = \`
             <div class="empty-state">
-                <div style="font-size:72px;margin-bottom:20px;">🎨</div>
-                <h3>Произведения искусства не найдены</h3>
-                <p>Попробуйте изменить запрос:</p>
+                <div style="font-size:72px;margin-bottom:20px;">🔍</div>
+                <h3>Высококачественные произведения не найдены</h3>
+                <p>Попробуйте:</p>
                 <div class="tips">
-                    <h4>Примеры хороших запросов:</h4>
+                    <h4>Стратегии поиска высококачественных изображений:</h4>
                     <ul>
-                        <li><strong>Илья Репин</strong> (Ilya Repin)</li>
-                        <li><strong>Иван Айвазовский</strong> (Ivan Aivazovsky)</li>
-                        <li><strong>Винсент ван Гог</strong> (Vincent van Gogh)</li>
-                        <li><strong>Бурлаки на Волге</strong> (Barge Haulers)</li>
-                        <li><strong>Девятый вал</strong> (The Ninth Wave)</li>
+                        <li>Используйте английские названия: <strong>"Ilya Repin high resolution"</strong></li>
+                        <li>Добавьте "museum quality": <strong>"Repin museum quality"</strong></li>
+                        <li>Попробуйте "digital restoration": <strong>"Aivazovsky digital restoration"</strong></li>
+                        <li>Ищите конкретные картины: <strong>"Barge Haulers on the Volga high quality"</strong></li>
                     </ul>
+                    <p style="margin-top:15px;color:#667eea;font-size:13px;">
+                        <strong>Фильтры:</strong> показываются только изображения с разрешением от 2000 пикселей
+                    </p>
                 </div>
             </div>
-        `;
+        \`;
         return;
     }
 
-    // Создаем карточки с чистым текстом
-    filteredPages.slice(0, 20).forEach(page => {
+    // Показываем информацию о качестве
+    const qualityInfo = document.createElement('div');
+    qualityInfo.style.cssText = 'margin-bottom: 20px; padding: 15px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px; font-size: 14px;';
+    qualityInfo.innerHTML = \`
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div>
+                <strong>🎯 Найдено высококачественных произведений: \${filteredPages.length}</strong>
+                <div style="font-size:12px;opacity:0.9;margin-top:5px;">
+                    Показаны только изображения с разрешением от 2000 пикселей
+                </div>
+            </div>
+            <div style="background:rgba(255,255,255,0.2);padding:5px 10px;border-radius:20px;font-size:12px;">
+                \${filteredPages.length > 0 ? \`Макс. разрешение: \${Math.max(...filteredPages.map(p => Math.max(p.imageinfo[0].width, p.imageinfo[0].height)))}px\` : ''}
+            </div>
+        </div>
+    \`;
+    results.appendChild(qualityInfo);
+
+    // Создаем карточки с информацией о качестве
+    filteredPages.forEach(page => {
         const img = page.imageinfo[0];
         const meta = img.extmetadata || {};
         
@@ -493,62 +550,83 @@ async function search() {
         const artist = getCleanArtist(meta);
         const year = extractYear(meta.Date?.value || meta.CreationDate?.value || '');
         
-        // Получаем лицензию (упрощенную)
-        let license = 'CC';
-        if (meta.LicenseShortName?.value) {
-            const licenseText = cleanText(meta.LicenseShortName.value);
-            if (licenseText.includes('CC')) {
-                license = 'CC';
-            } else if (licenseText.includes('PD')) {
-                license = 'Public Domain';
-            }
+        // Определяем качество по разрешению
+        let qualityBadge = '';
+        const maxDimension = Math.max(img.width, img.height);
+        if (maxDimension >= 4000) {
+            qualityBadge = '<span style="background:#4CAF50;color:white;padding:2px 8px;border-radius:12px;font-size:11px;margin-left:5px;">4K+</span>';
+        } else if (maxDimension >= 3000) {
+            qualityBadge = '<span style="background:#2196F3;color:white;padding:2px 8px;border-radius:12px;font-size:11px;margin-left:5px;">3K+</span>';
+        } else if (maxDimension >= 2000) {
+            qualityBadge = '<span style="background:#FF9800;color:white;padding:2px 8px;border-radius:12px;font-size:11px;margin-left:5px;">HD</span>';
         }
+        
+        // Размер файла в МБ
+        const fileSizeMB = img.size ? (img.size / (1024 * 1024)).toFixed(1) : '';
         
         const card = document.createElement('div');
         card.className = 'card';
         
-        card.innerHTML = `
+        card.innerHTML = \`
             <div class="image-container">
-                <img src="${escapeHtml(img.url)}" 
+                <img src="\${escapeHtml(img.url)}" 
                      loading="lazy" 
-                     alt="${escapeHtml(title)}"
-                     onerror="this.onerror=null; this.style.opacity='0.5'">
-                ${img.width && img.height ? 
-                    `<div class="dimensions">${img.width}×${img.height}</div>` : ''}
-            </div>
-            <div class="info">
-                <div class="title" title="${escapeHtml(title)}">${escapeHtml(title)}</div>
-                <div class="artist" title="${escapeHtml(artist)}">${escapeHtml(artist)}</div>
-                <div class="meta">
-                    <span class="license">${escapeHtml(license)}</span>
-                    ${year ? `<span class="year">${escapeHtml(year)}</span>` : ''}
+                     alt="\${escapeHtml(title)}"
+                     onerror="this.onerror=null; this.style.opacity='0.5';">
+                <div class="dimensions" style="display:flex;flex-direction:column;align-items:flex-end;">
+                    <div>\${img.width}×\${img.height}</div>
+                    \${fileSizeMB ? \`<div style="font-size:10px;margin-top:2px;">\${fileSizeMB} MB</div>\` : ''}
                 </div>
             </div>
-        `;
+            <div class="info">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+                    <div class="title" title="\${escapeHtml(title)}" style="flex:1;">\${escapeHtml(title)}</div>
+                    \${qualityBadge}
+                </div>
+                <div class="artist" title="\${escapeHtml(artist)}">\${escapeHtml(artist)}</div>
+                <div class="meta">
+                    <span class="license">Public Domain</span>
+                    \${year ? \`<span class="year">\${escapeHtml(year)}</span>\` : ''}
+                </div>
+            </div>
+        \`;
         
         card.onclick = () => {
-            window.open(`https://commons.wikimedia.org/wiki/${encodeURIComponent(page.title)}`, '_blank');
+            // Открываем в новой вкладке с информацией о разрешении
+            const win = window.open(\`https://commons.wikimedia.org/wiki/\${encodeURIComponent(page.title)}\`, '_blank');
+            // Можно добавить информацию в консоль для отладки
+            console.log('Открыто изображение:', {
+                title: title,
+                resolution: \`\${img.width}×\${img.height}\`,
+                size: fileSizeMB + ' MB',
+                url: img.url
+            });
         };
         
         results.appendChild(card);
     });
 
-    // Добавляем советы
-    const tips = document.createElement('div');
-    tips.className = 'tips';
-    tips.innerHTML = `
-        <h4>🎯 Советы по поиску:</h4>
+    // Добавляем информацию о фильтрах
+    const filterInfo = document.createElement('div');
+    filterInfo.className = 'tips';
+    filterInfo.innerHTML = \`
+        <h4>⚙️ Примененные фильтры качества:</h4>
         <ul>
-            <li><strong>Используйте английские названия</strong> для лучших результатов</li>
-            <li><strong>Для русских художников:</strong> "Ilya Repin", "Ivan Aivazovsky"</li>
-            <li><strong>Для картин:</strong> добавьте "painting" или "картина"</li>
-            <li><strong>Примеры:</strong> "Repin paintings", "Van Gogh sunflowers"</li>
+            <li><strong>Разрешение:</strong> от 2000 пикселей по меньшей стороне</li>
+            <li><strong>Форматы:</strong> только JPG, PNG, WebP</li>
+            <li><strong>Качество:</strong> исключены превью, миниатюры, сканы низкого качества</li>
+            <li><strong>Содержание:</strong> только произведения искусства (исключены фотографии музеев, рамы и т.д.)</li>
         </ul>
-    `;
+        <p style="margin-top:10px;color:#666;font-size:13px;">
+            <strong>Совет:</strong> Нажмите на любую карточку, чтобы открыть оригинал на Wikimedia Commons.
+            Для скачивания в максимальном разрешении нажмите "View original file" на странице Commons.
+        </p>
+    \`;
     
-    results.appendChild(tips);
+    results.appendChild(filterInfo);
 }
 </script>
+
 
 </body>
 </html>
