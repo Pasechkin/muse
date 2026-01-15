@@ -3,28 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Muse — поиск репродукций</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body { font-family: Arial, sans-serif; background:#fafafa; padding:20px }
-input { padding:10px; width:300px; font-size:16px }
-button { padding:10px 14px; font-size:16px }
+body { font-family: Arial, sans-serif; padding:20px; background:#fafafa }
+input { padding:10px; width:280px }
+button { padding:10px }
 .results {
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
   gap:20px;
   margin-top:20px;
 }
-.card {
-  background:#fff;
-  border-radius:6px;
-  box-shadow:0 2px 8px rgba(0,0,0,.1);
-  overflow:hidden;
-}
-.card img { width:100%; display:block }
-.info { padding:10px; font-size:14px }
-.title { font-weight:bold; margin-bottom:6px }
+.card { background:#fff; border-radius:6px; box-shadow:0 2px 8px rgba(0,0,0,.1) }
+.card img { width:100% }
+.info { padding:10px }
+.title { font-weight:bold }
 .artist { color:#555 }
-.license { font-size:12px; color:#888 }
 </style>
 </head>
 <body>
@@ -43,45 +37,52 @@ async function search() {
   const results = document.getElementById('results');
   results.innerHTML = 'Загрузка...';
 
-  const url =
+  // 1. Поиск файлов
+  const searchUrl =
     'https://commons.wikimedia.org/w/api.php' +
     '?action=query' +
-    '&generator=search' +
-    '&gsrsearch=' + encodeURIComponent(q) +
-    '&gsrnamespace=6' +        // <<< ВОТ КЛЮЧ
-    '&gsrlimit=20' +
-    '&prop=imageinfo' +
-    '&iiprop=url|extmetadata' +
+    '&list=search' +
+    '&srsearch=' + encodeURIComponent(q) +
+    '&srnamespace=6' +
+    '&srlimit=10' +
     '&format=json' +
     '&origin=*';
 
   try {
-    const res = await fetch(url);
+    const res = await fetch(searchUrl);
     const data = await res.json();
 
     results.innerHTML = '';
 
-    if (!data.query || !data.query.pages) {
+    if (!data.query?.search?.length) {
       results.innerHTML = 'Ничего не найдено';
       return;
     }
 
-    Object.values(data.query.pages).forEach(page => {
+    // 2. Получаем информацию по каждому файлу
+    for (const item of data.query.search) {
+      const title = item.title;
+
+      const fileUrl =
+        'https://commons.wikimedia.org/w/api.php' +
+        '?action=query' +
+        '&titles=' + encodeURIComponent(title) +
+        '&prop=imageinfo' +
+        '&iiprop=url|extmetadata' +
+        '&format=json' +
+        '&origin=*';
+
+      const fileRes = await fetch(fileUrl);
+      const fileData = await fileRes.json();
+
+      const page = Object.values(fileData.query.pages)[0];
       const img = page.imageinfo?.[0];
-      if (!img?.url) return;
+      if (!img) continue;
 
       const meta = img.extmetadata || {};
 
-      const title =
-        meta.ObjectName?.value ||
-        page.title.replace('File:', '');
-
-      const artist =
-        meta.Artist?.value ||
-        'Автор неизвестен';
-
-      const license =
-        meta.LicenseShortName?.value || '';
+      const artwork = meta.ObjectName?.value || title.replace('File:', '');
+      const artist = meta.Artist?.value || 'Автор неизвестен';
 
       const card = document.createElement('div');
       card.className = 'card';
@@ -89,14 +90,13 @@ async function search() {
       card.innerHTML = `
         <img src="${img.url}">
         <div class="info">
-          <div class="title">${title}</div>
+          <div class="title">${artwork}</div>
           <div class="artist">${artist}</div>
-          <div class="license">${license}</div>
         </div>
       `;
 
       results.appendChild(card);
-    });
+    }
 
   } catch (e) {
     console.error(e);
@@ -107,3 +107,4 @@ async function search() {
 
 </body>
 </html>
+
