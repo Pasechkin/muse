@@ -1,7 +1,7 @@
 # Инструкция по переверстке страниц стилей портретов
 
-> **Эталон:** `tailwind-project/src/html/portret-maslom.html`  
-> **Оригинал:** `portret-na-zakaz/portret-maslom/index.php` → [muse.ooo/portret-na-zakaz/portret-maslom/](https://muse.ooo/portret-na-zakaz/portret-maslom/)
+> **Эталон:** `tailwind-project/src/html/portret-na-zakaz/style/portret-maslom.html`  
+> **Расположение:** `tailwind-project/src/html/portret-na-zakaz/style/`
 
 Этот документ описывает процесс переверстки 18 страниц стилей портретов с Bootstrap 3 + Bitrix на Tailwind CSS.
 
@@ -25,28 +25,28 @@
 
 ## 1. Список страниц для переверстки
 
-| # | Стиль | Slug | Статус |
+| # | Стиль | Файл | Статус |
 |---|-------|------|--------|
-| 1 | Маслом | `portret-maslom` | ✅ Эталон |
-| 2 | Акварель | `portret-akvarelyu` | ⏳ |
-| 3 | Бьюти | `portret-byuti` | ⏳ |
-| 4 | В образе | `portret-v-obraze` | ⏳ |
-| 5 | Детский | `detskij-portret` | ⏳ |
-| 6 | Гранж | `portret-granzh` | ⏳ |
-| 7 | Граффити | `portret-graffiti` | ⏳ |
-| 8 | Дрим-арт | `portret-drim-art` | ⏳ |
-| 9 | Женский | `zhenskij-portret` | ⏳ |
-| 10 | Из слов | `portret-iz-slov` | ⏳ |
-| 11 | Карандаш | `portret-karandashom` | ⏳ |
-| 12 | Комикс | `portret-komiks` | ⏳ |
-| 13 | Мужской | `muzhskoj-portret` | ⏳ |
-| 14 | Лоу-поли | `portret-lou-poli` | ⏳ |
-| 15 | Мозаика | `portret-mozaika` | ⏳ |
-| 16 | Парный | `parnyj-portret` | ⏳ |
-| 17 | Поп-арт | `portret-pop-art` | ⏳ |
-| 18 | Фэнтези | `portret-fentezi` | ⏳ |
+| 1 | Маслом | `portret-maslom.html` | ✅ Эталон |
+| 2 | Акварель | `portret-akvarelyu.html` | ✅ |
+| 3 | Бьюти-арт | `beauty-art-portret.html` | ✅ |
+| 4 | В образе | `portret-v-obraze.html` | ✅ |
+| 5 | Гранж | `granzh-portret.html` | ✅ |
+| 6 | Граффити | `graffiti-portret.html` | ✅ |
+| 7 | Дрим-арт | `drim-art-portret.html` | ✅ |
+| 8 | Из слов | `portret-iz-slov.html` | ✅ |
+| 9 | Карандаш | `portret-karandashom.html` | ✅ |
+| 10 | Комикс | `portret-komiks.html` | ✅ |
+| 11 | Лоу-поли | `low-poly-portret.html` | ✅ |
+| 12 | Фотомозаика | `fotomozaika.html` | ✅ |
+| 13 | Поп-арт | `pop-art-portret.html` | ✅ |
+| 14 | Фэнтези | `fantasy-art-portret.html` | ✅ |
+| 15 | Flower Art | `portret-flower-art.html` | ✅ |
+| 16 | Love is... | `love-is-portret.html` | ✅ |
+| 17 | Шарж | `sharzh-po-foto.html` | ✅ |
+| 18 | WPAP | `wpap-portret.html` | ✅ |
 
-> **Примечание:** Шарж, Семейный, Flower, Love is..., WPAP — это подстили или отдельные страницы, уточнить при необходимости.
+> **✅ Все 18 страниц переверстаны!**
 
 ---
 
