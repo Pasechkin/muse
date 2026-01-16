@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вопросы и ответы – Muse</title>
+    <meta name="description" content="Ответы на часто задаваемые вопросы о печати на холсте, подготовке изображений и услугах студии Muse.">
+    
+    <!-- Закрыто от индексации во время разработки -->
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Критический CSS -->
+    <style>
+        /* ===== БАЗОВЫЕ СТИЛИ ===== */
+        :root {
+            --primary: #4A90E2;
+            --primary-hover: #609DE6;
+            --dark: #252525;
+            --body: #666666;
+            --secondary: #FAFAFA;
+        }
+        
+        body {
+            background-color: #fff;
+            color: #666666;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        @media (min-width: 1170px) {
+            .container { max-width: 1170px; }
+        }
+        
+        /* Typography */
+        h1 {
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-weight: 300;
+            line-height: 1.3;
+            color: var(--dark);
+        }
+        
+        /* Breadcrumbs */
+        .breadcrumbs { font-size: 0.875rem; color: #9ca3af; }
+        .breadcrumbs a { color: #9ca3af; text-decoration: none; }
+        .breadcrumbs a:hover { text-decoration: underline; }
+        
+        /* Screen reader only */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                container: {
+                    center: true,
+                    padding: '1rem',
+                    screens: {
+                        '2xl': '1170px'
+                    }
+                },
+                extend: {
+                    colors: {
+                        primary: '#4A90E2',
+                        'primary-hover': '#609DE6',
+                        dark: '#252525',
+                        body: '#666666',
+                        secondary: '#FAFAFA',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white overflow-x-hidden">
+
+    <!-- Header (вставьте из эталона) -->
+
+    <main>
+        <!-- Hero & Breadcrumbs -->
+        <section class="pt-8 pb-8 lg:pt-12 lg:pb-12 bg-secondary">
+            <div class="container">
+                <!-- Breadcrumbs -->
+                <nav class="breadcrumbs mb-4" aria-label="Хлебные крошки">
+                    <ol class="flex items-center space-x-2">
+                        <li><a href="/" class="hover:text-primary transition-colors">Главная</a></li>
+                        <li>/</li>
+                        <li><a href="/info/" class="hover:text-primary transition-colors">О нас</a></li>
+                        <li>/</li>
+                        <li class="text-dark">Вопросы и ответы</li>
+                    </ol>
+                </nav>
+                
+                <h1 class="text-4xl lg:text-5xl text-dark">Вопросы и ответы</h1>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="py-16 lg:py-24 bg-white">
+            <div class="container max-w-4xl">
+                
+                <!-- Category: Изображение -->
+                <div class="mb-12">
+                    <h2 class="text-3xl mb-6">Изображение</h2>
+                    <div class="space-y-0 divide-y divide-gray-200 border-t border-b border-gray-200">
+                        <!-- Q1 -->
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Какие форматы изображений принимаются в печать?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Мы работаем практически со всеми распространенными форматами изображений. Через интернет-сервис Muse можно загрузить наиболее популярные форматы. Если же у вас другой формат, то, пожалуйста, свяжитесь с нами. Мы предложим вам переслать его по e-mail или любым другим доступным способом.</p>
+                                </div>
+                            </div>
+                        </details>
+                        <!-- Q2 -->
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Вы можете сканировать и напечатать изображение?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Да, конечно. Если у вас нет изображения в электронном виде, а есть, например, старая фотография или рисунок, то вы можете привезти ее нам, выслать почтовым сервисом или передать нашему курьеру. Мы бережно её отсканируем, напечатаем и вернем ее вместе с заказанной работой.</p>
+                                </div>
+                            </div>
+                        </details>
+                        <!-- Q3 -->
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Изображение, которое я вижу на своем мониторе будет ли соответствовать вашей печати?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Как правило, настройки различных дисплеев отличаются друг от друга, поэтому оттенки изображения на вашем мониторе могут быть не абсолютно точно такими, как при печати. В нашем сервисе мы используем профессиональное оборудование, которое проходит регулярную настройку в соответствии с регламентами производителя. Это делается для того, чтобы напечатанное изображение максимально соответствовало цифровому образу оригинала. Для профессиональных фотографов, дизайнеров и художников мы можем выслать ICC-профиль. Для заказчиков всегда готовы предоставить цветопробу — отпечаток небольшого формата, который позволит оценить качество печати.</p>
+                                </div>
+                            </div>
+                        </details>
+                        <!-- Q4 -->
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Разместил заказ, а затем оказалось, что мое изображение не годиться для печати, как быть?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Мы ценим ваше время и каждое фото. В случае, если оно будет не совсем пригодным для выбранных форматов и материалов для печати, то вместе мы найдем решение: можем сделать ресайз изображения (повысить его качество программными методами); можем использовать художественные эффекты; заменить фотобумагу на холст, который немного скрадывает недостатки исходника; использовать меньшие форматы или добавить еще фотографий и напечатать фотоколлаж. Перед отправкой на печать мы обязательно свяжемся с вами, обсудим заказ и только после вашего одобрения он будет напечатан.</p>
+                                </div>
+                            </div>
+                        </details>
+                        <!-- Q5 -->
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Я хочу заменить фотографию, которую разместил для печати. Как это можно сделать?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Мы автоматически не печатаем изображения, размещенные в нашем сервисе. Прежде чем отправить изображение на печать, мы должны согласовать его с вами как с заказчиком. Только после вашего одобрения изображение будет напечатано.</p>
+                                </div>
+                            </div>
+                        </details>
+                        <!-- Q6 -->
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Что делать, я не могу загрузить свое фото?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Вы всегда сможете удобно и привычно передать нам изображение в электронном виде: по e-mail, через любые облачные сервисы (Яндекс, Mail.ru и т.д.) или документом через WhatsApp.</p>
+                                </div>
+                            </div>
+                        </details>
+                        <!-- Q7 -->
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Возможна ли печать фото из соцсетей?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Мы умеем работать с изображениями из VK и т. д., а также с изображениями, сделанными на смартфоны. У это направление даже представлено как отдельная услуга. В разделе с ее описанием вы можете найти подробности.</p>
+                                </div>
+                            </div>
+                        </details>
+                        <!-- Q8 -->
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Где взять изображения (фото) для печати?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Вы можете воспользоваться фотобанком (фотобанк — это хранилище фотографий, векторов, видео в котором можно приобрести необходимое изображение за сравнительно небольшие деньги). Плюс фотобанка в том, что в нем просто огромное хранилище изображений, например, их 51 миллион в <a href="https://www.shutterstock.com/ru/" target="_blank" rel="nofollow" class="text-primary underline hover:no-underline">Shutterstock</a>.</p>
+                                    <p>Обычно искать изображение в фотобанке не так сложно. Пользователь вводит ключевое слово, близкое по смыслу к тому, что хочет напечатать на холсте или фотобумаге и выбирает то изображение, которое ему больше всего понравилось. У каждого изображения есть свой уникальный номер. Этот номер нужно сообщить нам любым удобным для вас способом.</p>
+                                    <p>Наш сервис работает с данным сайтом на особых условиях, поэтому стоимость скачивания такого изображения через нас будет стоить недорого.</p>
+                                    <p>Существуют также бесплатные фотобанки. В них выбор обычно не так широк, но есть и просто потрясающие фотографии. Пример такого бесплатного фотобанка <a href="https://unsplash.com/" target="_blank" rel="nofollow" class="text-primary underline hover:no-underline">Unsplash</a>.</p>
+                                    <p>На наш взгляд, самый лучший вариант – это сообщить нам о том, какое изображение вы бы хотели напечатать. Мы сможем подобрать для вас несколько вариантов или подсказать оптимальный путь для подбора.</p>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <!-- Category: Печать на холсте -->
+                <div class="mb-12">
+                    <h2 class="text-3xl mb-6">Печать на холсте</h2>
+                    <div class="space-y-0 divide-y divide-gray-200 border-t border-b border-gray-200">
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Как вы печатаете на холсте?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Печатаем на японском плоттере Epson SC-P 7000 оригинальными пигментными чернилами. В качестве материала используем натуральный холст из хлопка и льна компании Lomond. Подробно прочитать о печати на холсте можно в специальной статье <a href="https://muse.ooo/blog/pechat-na-kholste-foto-i-reproduktsiy/" class="text-primary underline hover:no-underline">"Печать на холсте фотографий и репродукций"</a>.</p>
+                                </div>
+                            </div>
+                        </details>
+                        
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Кому подойдет печать латексными чернилами на HP Latex 315?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Для бытовых или повседневных фотографий, портретов, изображений из интернета рекомендуем HP Latex 315. Секрет в том, что фактурная поверхность холста сглаживает возможные недостатки исходного снимка или изображения.</p>
+                                    <p>Его ключевое преимущество — более низкая стоимость отпечатка по сравнению, например, с тем же Epson SC-P 7000 при высоком качестве печати обычных повседневных фотографий на фактурных материалах. HP Latex 315 печатает с разрешением 1200 х 1200 dpi, размер капли 12 пиколитров, цвет точки формируется из 6 цветов.</p>
+                                </div>
+                            </div>
+                        </details>
+
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Какие изображения лучше печатать на Epson SC-P 7000?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Для высококачественных профессиональных фотографий рекомендуем Epson SC-P 7000:</p>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>В струйной печати изображение формируется из точек. В Epson SC-P 7000 минимальный диаметр точки составляет 20 микрон, что в 3 раза меньше средней толщины волос. Размер капли составляет 1,5 пиколитра, что как минимум в 2 раза меньше, чем у конкурирующих экосольвентных чернил. Представьте, что эти капли летят на запечатываемую поверхность со скоростью 40 млн. шт. в секунду. Этот поток управляется одной из самых дорогих в истории Epson разработок — «технологией печати следующего поколения» <a href="https://corporate.epson/en/technology/search-by-products/other/precision-core.html" target="_blank" rel="nofollow" class="text-primary underline hover:no-underline">PrecisionCore</a>. Она отвечает за формирование точки нужного размера, её форму, а также за её точное расположение на поверхности. Именно форма, размер точки и её расположение в нужном месте сейчас считаются более актуальными критериями качества, чем разрешение (которое у Epson SC-P 7000 составляет 2880 х 1440 dpi).</li>
+                                        <li>Нужный цвет точки на Epson SC-P 7000 получается путем смешения 10 цветов (против 4-х у конкурирующих технологий). Такой 10-цветный набор пигментных чернил Epson UltraChrome HDX передаёт 98% шкалы Pantone. С чернилами UltraChrome HDX получаются высококачественные отпечатки, и что особенно важно для картин, долговечные. По результатам тестирования срок хранения таких отпечатков может составлять до 60-ти лет.</li>
+                                        <li>Такое оборудование используют в своей работе признанные в мире <a href="https://epson.com/pro-photo-print-your-legacy-pro-imaging" target="_blank" rel="nofollow" class="text-primary underline hover:no-underline">фотографы</a>.</li>
+                                        <li>Epson SC-P 7000 был специально создан именно для художественной печати и соответствует <a href="https://www.fineart.co.uk/artsure-approved-materials.aspx" target="_blank" rel="nofollow" class="text-primary underline hover:no-underline">стандартам</a> международной гильдии Fine Art Trade Guild.</li>
+                                    </ul>
+                                    <p>Подробно прочитать о печати на холсте можно в специальной статье <a href="https://muse.ooo/blog/pechat-na-kholste-foto-i-reproduktsiy/" class="text-primary underline hover:no-underline">"Печать на холсте фотографий и репродукций"</a>.</p>
+                                </div>
+                            </div>
+                        </details>
+
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Можно ли использовать для печати на холсте фото с низким разрешением?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Конечно, напечатать изображение уже с высоким качеством всегда легче. Но ситуации бывают разные, и иногда наиболее любимые фотографии "не дотягивают" до стандартов печати. Одной из своих задач Muse ставит работу именно с такими изображениями. Мы постараемся сделать всё возможное с точки зрения отношения и программного обеспечения, чтобы вы остались довольны результатом. Просто сообщите нам о задаче, и мы будем вместе искать достойное решение.</p>
+                                </div>
+                            </div>
+                        </details>
+
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Какого разрешения мне необходимо изображение, чтобы отпечаток на холсте получился качественным?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Существуют специальные таблицы, по которым можно понять, какое качество должно быть у оригинала для использования его при печати. Но один из секретов печати именно на холсте — это то, что он немного скрадывает (если они есть) недостатки оригинального изображения. Если вы сомневаетесь в качестве исходного изображения, то позвоните или напишите, и мы вместе найдем решение:</p>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>можно повысить качество оригинала 4-мя разными программными методами (это так называемый ресайз);</li>
+                                        <li>можно применить художественный эффект, например преобразование фотографии в рисунок карандашом или акварель;</li>
+                                        <li>можно добавить еще фотографий и напечатать фотоколлаж.</li>
+                                    </ul>
+                                    <p>В целом выход можно найти, если четко понимать задачу</p>
+                                </div>
+                            </div>
+                        </details>
+
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Натяжка на подрамник, что это такое?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Есть несколько видов натяжки на подрамник холста. Самых распространенных два. Классический – это когда холст крепится к деревянному каркасу (подрамнику) скобами на торце. Обычно после этого изображение оформляется в багет, и скобы закрываются им и становятся не видны. Галерейный – это крепление холста с скобами с обратной стороны подрамника. Тогда на торцах картины остается только холст, обычно в этом случае на торце продолжается основное изображение, и багет используют реже.</p>
+                                </div>
+                            </div>
+                        </details>
+
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Зачем нужно покрытие холста лаком и гелем?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Для того, чтобы холст защитить от вредоносного воздействия пыли и света, его обычно покрывают лаком. Можно нанести его спреем, но правильнее использовать валик, тогда покрытие будет равномерным. Когда лак высохнет, то особенно в случае репродукций или стилизованных под живопись портретов можно нанести слой текстурного геля. Это тонкая ручная работа, которая делается кистью. Задача художника в данном случае заключается в том, чтобы повторить мазки исходного изображения, придать ему реализм, объем, глубину и максимально приблизить отпечаток на холсте к оригиналу.</p>
+                                </div>
+                            </div>
+                        </details>
+
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Почему латексная печать дороже экосольвентной?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Чаще всего печать на латексном плоттере дороже, чем печать на распространенном экосольвенте до 3 раз, но она экологически безвредна для человека, что подтверждено <a href="https://spot.ul.com/main-app/products/detail/5ad1e9dd55b0e82d946a315a?page_type=Products%20Catalog" target="_blank" rel="nofollow" class="text-primary underline hover:no-underline">сертификатами безопасности</a> латексных чернил.</p>
+                                    <p>Конкурирующая технология дешёвой печати на холсте может быть экологически опасна для здоровья, если экономия происходит за счет использования чернил с содержанием циклогексанона. Проверить наличие сертификата безопасности можно спросив марку чернил и введя ее здесь: <a href="https://spot.ul.com/" target="_blank" rel="nofollow" class="text-primary underline hover:no-underline">www.spot.ul.com</a>.</p>
+                                    <p>Также важно, что у конкурирующих экосольвентных технологий чаще всего используется 4 цвета. Использование 4 цветов против 6 цветов у латексных чернил ограничивает реалистичность цветопередачи и богатство полутонов.</p>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <!-- Category: Печать на фотобумаге -->
+                <div class="mb-12">
+                    <h2 class="text-3xl mb-6">Печать на фотобумаге</h2>
+                    <div class="space-y-0 divide-y divide-gray-200 border-t border-b border-gray-200">
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Как вы печатаете на бумаге?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Мы печатаем оригинальными пигментными HD чернилами на новейшем плоттере SC-P 7000 японской компании Epson. В качестве материалов используем отлично себя зарекомендовавшую фотобумагу Lomond. Технология и материалы — довольно обширный вопрос на который мы постарались ответить в специальной статье на нашем сайте <a href="https://muse.ooo/blog/pechat-foto-i-reproduktsiy-na-fotobumage/" class="text-primary underline hover:no-underline">"Печать фотографий и репродукций на бумаге"</a>.</p>
+                                </div>
+                            </div>
+                        </details>
+
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>На какой фотобумаге вы печатаете?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>В своей работе, конечно, мы используем фотобумагу, исходя из ваших требований:</p>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>матовую фотобумагу, ее шероховатая и неглазированная поверхность отражает падающий свет под разными углами, как бы рассеивая его. Изображения после печати на ней не дают бликов, а цвет имеет глубину;</li>
+                                        <li>акварельную фотобумагу, она тоже матовая, но имеет более выраженную текстуру, имитируя бумагу для художников;</li>
+                                        <li>глянцевую фотобумагу, она подойдет, если хотят получить идеально гладкое и яркое изображение с эффектом отраженного света;</li>
+                                        <li>плотную полуглянцевую фотобумагу мы обычно используем для цветопроб и различных видов печати для интерьера.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <!-- Category: Основные термины-словарь -->
+                <div class="mb-12">
+                    <h2 class="text-3xl mb-6">Основные термины-словарь</h2>
+                    <div class="space-y-0 divide-y divide-gray-200 border-t border-b border-gray-200">
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Что такое фотомозаика?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Фотомозаика – это изображение, созданное из сотен или тысяч маленьких фотографий. На расстоянии виден единый образ, но если приблизиться и присмотреться, то заметно, что он состоит из многих и многих отдельных изображений. Примеры и подробная информация в разделе <a href="https://muse.ooo/portret-na-zakaz/fotomozaika/" class="text-primary underline hover:no-underline">«Фотомозаика»</a>.</p>
+                                </div>
+                            </div>
+                        </details>
+
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Что такое портрет в стиле дрим-арт?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Портрет в стиле дрим-арт (от англ. Dream – мечта) пишется художником по фотографии в технике цифровой живописи на ярком, насыщенном, контрастном абстрактном фоне. Такой фон — отличие Dream Art от других стилей. Фон исполняется в цветовой гамме, которая гармонирует с гаммой портретируемых: цветом одежды, волосами, кожей... Примеры и подробная информация в разделе <a href="https://muse.ooo/portret-na-zakaz/drim-art-portret/" class="text-primary underline hover:no-underline">«Дрим-арт»</a>.</p>
+                                </div>
+                            </div>
+                        </details>
+
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Что такое монтаж на задник?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Чтобы фотография или холст со временем не провисли, не «пошли волнами», их необходимо монтировать на какую-то плотную и жесткую основу. Для холста применяется подрамник, а для фотографии используют стандартный картон, музейный картон, пенокартон и двухсторонний шлифованный MDF.</p>
+                                </div>
+                            </div>
+                        </details>
+
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Что такое паспарту?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Паспарту — это обычно довольно плотный лист бумаги или картона с отверстием посередине. Вырез по центру бывает прямоугольной, квадратной, круглой или овальной формы. Паспарту служит защитой изображения (прежде всего фотобумаги) от вредного взаимодействия со стеклом. С другой стороны, является важным предметом декора — помогает гармонизировать связку: изображение, багет, интерьер. Часто паспарту используют вместе со стеклом для оформления фотографий или некоторых видов картин, например, акварели. Подробнее о паспарту читайте в специальной статье на нашем сайте <a href="https://muse.ooo/blog/paspartu/" class="text-primary underline hover:no-underline">"Что такое паспарту и как его правильно подобрать?"</a>.</p>
+                                </div>
+                            </div>
+                        </details>
+
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Что такое холст?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Холст — в терминах Muse — это плотный материал с ярко выраженной текстурой плетения с тонким слоем полимера на лицевой стороне, необходимым для печати на нем. Холсты делятся на натуральные (из хлопка и льна) и на синтетические. Синтетические бывают полностью искусственные – 100% полиэстера или смешанные: 35% хлопка и 65% полиэстера.</p>
+                                </div>
+                            </div>
+                        </details>
+
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Что такое багет?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Под термином «багетная рамка» или «багет» обычно понимается деревянный декорированный профиль. Призванный выступать элементом плавного перехода от самой картины к окружающему ее пространству, он не менее успешно справляется с задачей продолжения авторского сюжета. Подробнее о багете можно прочитать в специальной статье на нашем сайте <a href="https://muse.ooo/blog/ramka-dlya-foto-i-kartin/" class="text-primary underline hover:no-underline">"Что такое багет и зачем он нужен?"</a>.</p>
+                                </div>
+                            </div>
+                        </details>
+
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Что такое постер?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Постер - исторически был синонимом (или английским переводом) слова плакат, афиша. Обычно это было яркое и широкоформатное изображение с текстом, которое использовали в агитационных или рекламных целях. Сегодня у постера появилось второе значение, которое и используется в терминах Muse — это изображение напечатанное специально для декора интерьера, чаще всего с изображениями знаменитостей: актеров, спортсменов, музыкантов или графики с использованием текстов.</p>
+                                </div>
+                            </div>
+                        </details>
+
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Что такое репродукция?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Под репродукцией мы подразумеваем воспроизведение предмета изобразительного искусства или фотографии при помощи художественной печати на холсте или фотобумаге. На наш взгляд, при изготовлении репродукции принципиально важно:</p>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>качественное изображение картины или фотографии в цифровом виде;</li>
+                                        <li>использование для печати специального оборудования — принтеров или плоттеров, предназначенных именно для художественного воспроизведения картин или фотографий;</li>
+                                        <li>использование чернил, которые разработаны для этих целей и гарантируют не только передачу изображения на носитель, но и сохраняют свои высокие качества в течение многих десятилетий;</li>
+                                        <li>использование качественного носителя — бумаги или холста;</li>
+                                        <li>профессиональная настройка оборудования и профессиональный подбор материалов для печати для их грамотного сочетания.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </details>
+
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                <span>Какие бывают виды стекла?</span>
+                                <svg class="size-5 flex-shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p>Стекло необходимо для защиты фотобумаги от УФ-излучения и от распределенной в воздухе пыли. Для оформления репродукции или фотографии в багет у нас применяется три вида стекла:</p>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>обычное, но отполированное стекло;</li>
+                                        <li>акриловое стекло, которое прочнее и лучше пропускает свет;</li>
+                                        <li>антибликовое стекло – полируется только внутренняя сторона, наружная обладает фактурой, поэтому позволяет избежать зеркального эффекта.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <!-- Ask Question -->
+                <div class="pt-8 border-t border-gray-200">
+                    <div class="max-w-xl mx-auto">
+                        <h3 class="text-2xl font-light text-dark text-center mb-6">Задать свой вопрос</h3>
+                        <form class="space-y-4" action="#" method="POST">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-dark mb-1">Имя</label>
+                                <input type="text" id="name" name="name" class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Ваше имя">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-dark mb-1">E-mail</label>
+                                <input type="email" id="email" name="email" class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="example@mail.ru" required>
+                            </div>
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-dark mb-1">Ваш вопрос</label>
+                                <textarea id="message" name="message" rows="4" class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-y" placeholder="Напишите ваш вопрос..." required></textarea>
+                            </div>
+                            <div class="text-center pt-2">
+                                <button type="submit" class="inline-block px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors">
+                                    Отправить
+                                </button>
+                            </div>
+                            <p class="text-sm text-center text-body mt-4">
+                                Или напишите нам на <a href="mailto:info@muse.ooo" class="text-primary hover:underline">info@muse.ooo</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (вставьте из эталона) -->
+
+</body>
+</html>
