@@ -57,21 +57,23 @@
     <!-- Header (вставьте из эталона) -->
 
     <main class="py-12 bg-white">
+        <!-- Стандартный контейнер 1170px -->
         <div class="container">
 
-            <!-- Breadcrumbs (Left aligned in container) -->
-            <nav class="mb-8 text-sm text-gray-400" aria-label="Хлебные крошки">
-                <ol class="flex items-center space-x-2">
-                    <li><a href="/" class="hover:text-primary transition-colors">Главная</a></li>
-                    <li class="text-gray-300">/</li>
-                    <li><a href="/blog/" class="hover:text-primary transition-colors">Блог</a></li>
-                    <li class="text-gray-300">/</li>
-                    <li class="text-body truncate">Что такое багет?</li>
-                </ol>
-            </nav>
+            <!-- Ограничитель ширины 4xl (896px) для контента блога, центрированный -->
+            <div class="max-w-4xl mx-auto">
 
-            <!-- Content Wrapper (Centered, max-w-3xl) -->
-            <div class="max-w-3xl mx-auto">
+                <!-- Breadcrumbs -->
+                <nav class="mb-8 text-sm text-gray-400" aria-label="Хлебные крошки">
+                    <ol class="flex items-center space-x-2">
+                        <li><a href="/" class="hover:text-primary transition-colors">Главная</a></li>
+                        <li class="text-gray-300">/</li>
+                        <li><a href="/blog/" class="hover:text-primary transition-colors">Блог</a></li>
+                        <li class="text-gray-300">/</li>
+                        <li class="text-body truncate">Что такое багет?</li>
+                    </ol>
+                </nav>
+
                 <!-- Article Header -->
                 <header class="mb-8">
                     <div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
@@ -82,8 +84,8 @@
                     </h1>
                 </header>
 
-                <!-- Article Content -->
-                <article class="prose max-w-none text-body space-y-6">
+                <!-- Article Content: prose-lg (18px), max-w-none (на всю ширину 4xl) -->
+                <article class="prose prose-lg max-w-none text-body space-y-6">
                     <!-- Table of Contents -->
                     <div class="bg-gray-50 p-6 rounded-lg border border-gray-100 my-8">
                         <h2 class="text-xl font-medium text-dark mb-4 mt-0">Содержание</h2>
