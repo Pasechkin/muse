@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Печать на холсте фотографий и репродукций - Muse</title>
+    <meta name="description" content="В XVI веке холст (canvas) стал одним из традиционных материалов в живописи и активно используется художниками до сих пор.">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Link to Tailwind Output CSS -->
+    <link href="../css/output.css" rel="stylesheet">
+    
+    <!-- Критический CSS (из эталона) -->
+    <style>
+        :root {
+            --primary: #4A90E2;
+            --primary-hover: #609DE6;
+            --dark: #252525;
+            --body: #666666;
+            --secondary: #FAFAFA;
+        }
+        body { background-color: var(--secondary); color: var(--body); overflow-x: hidden; }
+        .container { padding-left: 1rem; padding-right: 1rem; margin: 0 auto; }
+        @media (min-width: 1170px) { .container { max-width: 1170px; } }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+    </style>
+
+    <!-- Tailwind CSS CDN (для разработки) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                container: {
+                    center: true,
+                    padding: '1rem',
+                    screens: { '2xl': '1170px' }
+                },
+                extend: {
+                    colors: {
+                        primary: '#4A90E2',
+                        'primary-hover': '#609DE6',
+                        dark: '#252525',
+                        body: '#666666',
+                        secondary: '#FAFAFA',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Tailwind Plus Elements -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1"></script>
+</head>
+<body class="bg-secondary text-body antialiased">
+
+    <!-- Header placeholder -->
+    <!-- Header (вставьте из эталона) -->
+
+    <main class="py-12 bg-white">
+        <!-- Глобальный контейнер (ограничивает ширину до 1170px через CSS) -->
+        <div class="container">
+            <!-- Внутренний враппер для контента блога (ограничивает ширину до 4xl и центрирует) -->
+            <div class="max-w-4xl mx-auto">
+            
+                <!-- Breadcrumbs -->
+                <nav class="mb-8 text-sm text-gray-400" aria-label="Хлебные крошки">
+                    <ol class="flex items-center space-x-2">
+                        <li><a href="https://muse.ooo/" class="hover:text-primary transition-colors">Главная</a></li>
+                        <li class="text-gray-300">/</li>
+                        <li><a href="https://muse.ooo/blog/" class="hover:text-primary transition-colors">Блог</a></li>
+                        <li class="text-gray-300">/</li>
+                        <li class="text-body truncate">Печать на холсте фотографий и репродукций</li>
+                    </ol>
+                </nav>
+
+                <!-- Article Header -->
+                <header class="mb-8">
+                    <div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
+                        <time datetime="2015-12-16">16 декабря 2015 года</time>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl lg:text-5xl font-light text-dark mb-6 leading-tight">
+                        Печать на холсте фотографий и репродукций
+                    </h1>
+                </header>
+
+                <!-- Article Content -->
+                <article class="prose prose-lg max-w-none text-body space-y-6">
+
+                    <!-- Table of Contents -->
+                    <div class="bg-gray-50 p-6 rounded-lg border border-gray-100 my-8">
+                        <h2 class="text-xl font-medium text-dark mb-4 mt-0">Содержание</h2>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li><a href="#types" class="text-primary hover:underline">Какие бывают виды холстов для печати?</a></li>
+                            <li><a href="#inks" class="text-primary hover:underline">Какими чернилами печатают на холсте?</a></li>
+                            <li><a href="#equipment" class="text-primary hover:underline">На чем печатают на холсте?</a></li>
+                        </ul>
+                    </div>
+
+                    <h2 id="types" class="text-2xl font-light text-dark mt-10 mb-4">Какие бывают виды холстов для печати?</h2>
+                    
+                    <p>
+                        В XVI веке холст (canvas) стал одним из традиционных материалов в живописи и активно используется художниками до сих пор.
+                    </p>
+
+                    <figure class="my-8">
+                        <img src="https://muse.ooo/upload/img/7b07f7cdd07608c9999c1bead8632eb2.webp" 
+                             alt="Холст художника" 
+                             class="max-w-full h-auto rounded-lg mx-auto" loading="lazy">
+                        <figcaption class="text-center text-sm text-gray-500 mt-2">Холст художника</figcaption>
+                    </figure>
+
+                    <p>
+                        С появлением цифровой печати на нём начали изготавливать репродукции и фотографии. Уникальность холста заключается в его неповторимой плетёной фактуре. Именно благодаря ей полученный отпечаток похож на оригинальное произведение искусства, нарисованное автором от руки.
+                    </p>
+
+                    <figure class="my-8">
+                        <img src="https://muse.ooo/upload/img/31466a503e810e1f7794ee1ebd5cedbb.webp" 
+                             alt="Пример печати на холсте репродукции картины" 
+                             class="max-w-full h-auto rounded-lg mx-auto" loading="lazy">
+                        <figcaption class="text-center text-sm text-gray-500 mt-2">Пример печати на холсте репродукции картины</figcaption>
+                    </figure>
+
+                    <p>Холсты бывают натуральные и синтетические.</p>
+
+                    <p>
+                        Натуральные холсты – это не подобие, а настоящее полотно художника, поэтому распечатка них выглядит более оригинально, однако он требует бережного отношения и боится влаги. Обычно после печати для защиты натуральный холст покрывают лаком. Он препятствует проникновению влаги, пыли, а также повышает износостойкость при механическом воздействии. Грубо говоря лучше очистить от пыли лаковую пленку, чем красочный слой. Дополнительно лак создает глянцевое покрытие, которое цениться многими заказчиками.
+                        Для печати репродукций картин, написанных масляными красками, рекомендуется выбирать холсты потолще (условно от 300-350 г/м²). Поверхность у такого холста грубая, что придает холсту тот самый внешний вид рукотворной ткани. Вес и прочность такого холста позволяют покрывать их после печати и обработки лаком специальными гелями, которые имитируют мазки кистью масляной краской.
+                    </p>
+
+                    <p>
+                        Для графики и фотографий можно использовать тонко тканые холсты. Поверхность у них более гладкая и белая, с равномерным переплетением нитей.
+                        Для профессиональной масляной живописи самым распространенным материалом является лён, так как он долговечнее, а также лучше противостоит перепаду температур и влажности чем хлопок. Но у льна сама по себе фактура достаточно грубая и зернистая в сравнении с хлопком.
+                    </p>
+
+                    <figure class="my-8">
+                        <img src="https://muse.ooo/upload/img/86cb537756533d02a693daafc1292e3c.webp" 
+                             alt="Примеры натуральных холстов: лен, хлопок, хлопковый холст для печати" 
+                             class="max-w-full h-auto rounded-lg mx-auto" loading="lazy">
+                        <figcaption class="text-center text-sm text-gray-500 mt-2">Примеры натуральных холстов: лен, хлопок, хлопковый холст для печати</figcaption>
+                    </figure>
+
+                    <p>
+                        Натуральные холсты в большинстве своем матовые, но есть производители, которые делают специально более глянцевую поверхность, чем она смотрится в естественном виде.
+                    </p>
+
+                    <p>
+                        У синтетических холстов свои преимущества – они не так боятся влаги и почти не деформируются при изменении влажности. Они ровные, что смотрится при печати с высоким разрешением фотографий или графики, а также они могут быть абсолютно белыми или других цветов на выбор. Под синтетическими холстами в данной статье понимаются холсты нити, которых состоят как из хлопка, так из полиэстера (35% на 65%). Они бывают как матовые, так и глянцевые. Популярный и недорогой вариант для печати. Бывают холсты на 100% состоящие из полиэстера они подходят для печати работ не имеющих художественную ценность. Печать на таких холстах очень дешевая.
+                    </p>
+
+                    <h2 id="inks" class="text-2xl font-light text-dark mt-10 mb-4">Какими чернилами печатают на холсте?</h2>
+
+                    <p>Сегодня для струйной печати на холсте используются следующие чернила:</p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>пигментные;</li>
+                        <li>чернила на водной основе или водорастворимые;</li>
+                        <li>экосольвентные;</li>
+                        <li>латексные;</li>
+                        <li>ультрафиолетовые.</li>
+                    </ul>
+
+                    <p>
+                        Пигментные чернила - своеобразный стандарт, рекомендуемый производителями оборудования для бескомпромиссного качества печати репродукций и фотографий на холсте. Используются, в том числе для подготовки профессиональных музейных и галерейных выставок. По существу, пигментные чернила— это взвесь мелких частиц цветного неорганического пигмента (красящего вещества) в воде со специальными добавками. При печати пигментные чернила как бы прилипают к поверхности холста, не осыпаются и не проникают внутрь между волокнами, сохраняют устойчивую и стабильную структуру по истечению длительного времени. Гарантия производителей на яркость пигментных красок измеряется десятилетиями.
+                    </p>
+
+                    <p>
+                        Водорастворимые чернила ярче чем пигментные, но повешенная на стену репродукция или фотография под воздействием солнечных лучей быстро выцветает даже под лаком. Такой вид печати подходит скорее всего больше для печати фотоальбомов. Водорастворимые чернила – это однородный раствор красителя в воде с незначительным содержанием добавок. При попадании на холст чернила пропитывают его верхний слой (отсюда их яркость и цветовой охват) и слега растекаются.
+                    </p>
+
+                    <p>
+                        Экосольвентные чернила (или в целом группа чернил с использованием растворителя: сольвентные, низкосольвентные, экосольвентные, биосльвентные и т.д.) – это быстро развивающаяся технология струйной печати, которая еще недавно рекомендовалась только для рекламы на улице, но сейчас уже широко используется для интерьеров. Грубо говоря, отличие классических пигментных чернил в том, что в них вода заменена на растворитель (сольвент), который протравливает верхний слой холста и фиксирует в нем пигмент. Сейчас все производители работают над уменьшением вреда для здоровья человека от использования растворителя. Последние поколения таких чернил уже сертифицируются на использование в жилых помещениях. Наверное, стоит учитывать наличие или отсутствие такого сертификата, тем кто заботиться о своем здоровье и здоровье близких.
+                    </p>
+
+                    <p>
+                        Латексные чернила – по своему составу они очень похожи на пигментные, но содержат в своем составе дополнительный полимер, который при печати расплавляется и образует защитную пленку поверх холста. Латексные чернила, как и сольвентные пришли в интерьерную печать для дома из рекламного бизнеса, где предъявляются особенно жёсткие условия к эксплуатационным условиям, например, на уличных билбордах. Несмотря на это латексные чернила уже получили различные сертификаты безопасности и не считаются опасными для здоровья и использования дома. В том числе и для печати картин и фотографий на холсте.
+                        Ультрафиолетовые чернила - эти чернила, которые застывают (фотополимеризируются) под воздействием ультрафиолетового излучения, образуя пленку на запечатываемом холсте.
+                    </p>
+
+                    <p>
+                        Главное преимущество УФ-чернил – это возможность прочно закрепляться на самых разнообразных поверхностях (в том числе гофрированных и шероховатых): металле, пластике, коже, стекле, дереве, зеркале, МДФ, резина и холсте.
+                        УФ-чернила насыщенные, яркие, жиро- и водоустойчивы, создают долговечные изображения с высокой стойкостью к стиранию и химически активным веществам. Считается, что они имеют совсем незначительный запах, но при длительном контакте с кожей УФ-отверждаемые чернила могут вызвать аллергическую реакцию.
+                    </p>
+
+                    <h2 id="equipment" class="text-2xl font-light text-dark mt-10 mb-4">На чем печатают на холсте?</h2>
+
+                    <p>
+                        Этот вопрос тесно связан с предыдущим. Можно разделить оборудование для печати на холстах на две совсем неодинаковые группы:
+                        Специализированные плоттеры для фотографической или художественной печати. Плоттеры для фотографической или художественной печати обычно печатают пигментными чернилами.
+                    </p>
+
+                    <figure class="my-8">
+                        <img src="https://muse.ooo/upload/img/6019acf874d3b29722af50b4fe5be143.webp" 
+                             alt="Плоттер для печати картин и фотографий высокого качества" 
+                             class="max-w-full h-auto rounded-lg mx-auto" loading="lazy">
+                        <figcaption class="text-center text-sm text-gray-500 mt-2">Плоттер для печати картин и фотографий высокого качества</figcaption>
+                    </figure>
+
+                    <p>
+                        На что нужно обратить внимание. Первое, на цветопередачу плоттера, также важно учитывать и размер капли, которой может печатать плоттер и разрешение при печати. Но этим темам будут посвящены отдельные статьи.
+                    </p>
+                    <p>
+                        Цветопередача – это сложный комплексный вопрос, который зависит от многих факторов, включая человеческий. На правильно настроенном (откалиброванном), но простом оборудовании можно сделать отпечатки лучше, чем на профессиональном, но без правильных настроек.
+                        Тем не менее в печати базовая цветовая модель CMYK (C – cyan, голубой; M – magenta, пурпурный; Y – yellow, желтый; K – key blacK, черный). Смешение этих цветов теоретически позволяет получить любые другие.
+                    </p>
+
+                    <figure class="my-8">
+                        <img src="https://muse.ooo/upload/img/9a06ed80ae289f2c042a117bc7bd6558.webp" 
+                             alt="Цветовые схемы для печати на холсте: 4 цвета, 6 цветов" 
+                             class="max-w-full h-auto rounded-lg mx-auto" loading="lazy">
+                        <figcaption class="text-center text-sm text-gray-500 mt-2">Цветовые схемы для печати на холсте: 4 цвета, 6 цветов</figcaption>
+                    </figure>
+
+                    <p>
+                        Однако, принтеры CMYK плохо справляются с градиентами (плавные переходы из цвета в цвет). Для расширения цветового охвата и улучшения естественности цветопередачи к базовым цветам CMYK производители стали добавлять дополнительные цвета. Например, в 1994 году была предложена цветовая модель Pantone Hexachrome (CMYKOG). К четырем цветам CMYK были добавлены два новых цвета: зеленый (G) и оранжевый (О). Благодаря чему стали доступны многие оттенки Pantone (до 90%), в то время как CMYK передавала порядка 50%. А как вы думаете, какой цветовой охват у некоторых знаменитых картин?
+                    </p>
+
+                    <p>Сегодня на рынке представлены модели, которые печатают:</p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>0-12 цветными пигментными чернилами с охватом 98%-99%;</li>
+                        <li>8- цветными экосольвентными чернилами с охватом около 95% палитры Pantone;</li>
+                        <li>тексными принтерами и УФ- принтерами с печатью 6-цветами.</li>
+                    </ul>
+
+                    <figure class="my-8">
+                        <img src="https://muse.ooo/upload/img/8cf451710c1ad39282640f36073474e5.webp" 
+                             alt="Разница между 6 и 8 цветами при печати" 
+                             class="max-w-full h-auto rounded-lg mx-auto" loading="lazy">
+                        <figcaption class="text-center text-sm text-gray-500 mt-2">Разница между 6 и 8 цветами при печати</figcaption>
+                    </figure>
+
+                    <figure class="my-8">
+                        <img src="https://muse.ooo/upload/img/1483f7cc4085e353f6c594a94916aef7.webp" 
+                             alt="Разница в печати между 10 и 12 цветами" 
+                             class="max-w-full h-auto rounded-lg mx-auto" loading="lazy">
+                        <figcaption class="text-center text-sm text-gray-500 mt-2">Разница в печати между 10 и 12 цветами. Фото с сайта printer-ploter.ru</figcaption>
+                    </figure>
+
+                    <p>
+                        В сервисе Muse мы печатаем <a href="https://muse.ooo/pechat/foto-na-kholste/" class="text-primary hover:underline">фото ↗</a>, <a href="https://muse.ooo/pechat/fotokollazh-na-kholste/" class="text-primary hover:underline">фотоколлажи ↗</a>, <a href="https://muse.ooo/pechat/modulnaya-kartina/" class="text-primary hover:underline">модульные картины ↗</a> и <a href="https://muse.ooo/portret-na-zakaz/" class="text-primary hover:underline">портреты на холсте ↗</a> компании Lomond, печатаем на оборудовании для художественной печати Epson SC-P6000 оригинальными пигментными чернилами - это мы делаем для того, чтобы наши заказчики получили продукцию самого высокого на качества, именно так изготавливают репродукции во многих музеях мира.
+                    </p>
+
+                    <p class="text-right text-gray-500 mt-8">
+                        Автор: Анна Анна
+                    </p>
+                </article>
+
+                <!-- Promo Banner -->
+                <div class="my-12">
+                    <div class="bg-primary text-white py-8 px-6 rounded-lg text-center shadow-lg">
+                        <p class="text-xs uppercase tracking-widest opacity-80 mb-2">Акция</p>
+                        <p class="text-2xl font-light mb-4">Скидка 20% c 15 по 16 января</p>
+                        <a href="https://muse.ooo/portret-na-zakaz/" class="inline-block px-6 py-2 bg-white text-primary hover:bg-gray-100 rounded uppercase transition-colors font-medium">
+                            Портреты на холсте
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Similar Articles -->
+                <section class="mt-16 pt-8 border-t border-gray-200">
+                    <h2 class="text-2xl font-light text-dark mb-8">Похожие статьи</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Article Card 1 -->
+                        <article class="flex flex-col group">
+                            <a href="https://muse.ooo/blog/portret-dlya-pokoleniy/" class="block overflow-hidden rounded-lg mb-4">
+                                <img 
+                                    src="https://muse.ooo/upload/ammina.optimizer/jpg-webp/q80/upload/iblock/0a0/0a070cdb2dab0335510d262bb0d94e86.webp" 
+                                    alt="Плоттер для печати на холсте и фотобумаге" 
+                                    class="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500"
+                                    loading="lazy"
+                                >
+                            </a>
+                            <div class="flex items-center gap-3 text-xs text-gray-400 mb-2">
+                                <time datetime="2016-05-22">22 мая 2016</time>
+                            </div>
+                            <h3 class="text-xl font-medium text-dark mb-2 group-hover:text-primary transition-colors">
+                                <a href="https://muse.ooo/blog/portret-dlya-pokoleniy/">Портрет для поколений</a>
+                            </h3>
+                            <a href="https://muse.ooo/blog/portret-dlya-pokoleniy/" class="text-primary text-sm font-medium hover:underline inline-flex items-center mt-auto">
+                                Подробнее
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </a>
+                        </article>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer placeholder -->
+    <!-- Footer (вставьте из эталона) -->
+
+    <!-- Back to top (из эталона) -->
+    <a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-white text-dark hover:bg-dark hover:text-white border border-gray-300 hover:border-dark transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6"><path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+
+    <script>
+        // Simple Back to Top script
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.remove('opacity-0', 'pointer-events-none');
+            } else {
+                backToTopButton.classList.add('opacity-0', 'pointer-events-none');
+            }
+        });
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+
+</body>
+</html>
