@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Что такое фотоколлаж? - Muse</title>
+    <meta name="description" content="Стараясь сделать свой дом более уютным и самобытным, мы прибегаем к разнообразным приемам украшения окружающего нас пространства, и одним из них является фотоколлаж.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Link to Tailwind Output CSS -->
+    <link href="css/output.css" rel="stylesheet">
+
+    <!-- Критический CSS (из эталона) -->
+    <style>
+        :root {
+            --primary: #4A90E2;
+            --primary-hover: #609DE6;
+            --dark: #252525;
+            --body: #666666;
+            --secondary: #FAFAFA;
+        }
+        body { background-color: var(--secondary); color: var(--body); overflow-x: hidden; }
+        .container { padding-left: 1rem; padding-right: 1rem; margin: 0 auto; }
+        @media (min-width: 1170px) { .container { max-width: 1170px; } }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+    </style>
+
+    <!-- Tailwind CSS CDN (для разработки) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                container: {
+                    center: true,
+                    padding: '1rem',
+                    screens: { '2xl': '1170px' }
+                },
+                extend: {
+                    colors: {
+                        primary: '#4A90E2',
+                        'primary-hover': '#609DE6',
+                        dark: '#252525',
+                        body: '#666666',
+                        secondary: '#FAFAFA',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Tailwind Plus Elements -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1"></script>
+</head>
+<body class="bg-secondary text-body antialiased">
+
+    <!-- Header placeholder -->
+    <!-- Header (вставьте из эталона) -->
+
+    <main class="py-12 bg-white">
+        <div class="container max-w-4xl mx-auto px-4">
+
+            <!-- Breadcrumbs -->
+            <nav class="mb-8 text-sm text-gray-400" aria-label="Хлебные крошки">
+                <ol class="flex items-center space-x-2">
+                    <li><a href="https://muse.ooo/" class="hover:text-primary transition-colors">Главная</a></li>
+                    <li class="text-gray-300">/</li>
+                    <li><a href="https://muse.ooo/blog/" class="hover:text-primary transition-colors">Блог</a></li>
+                    <li class="text-gray-300">/</li>
+                    <li class="text-body truncate">Что такое фотоколлаж?</li>
+                </ol>
+            </nav>
+
+            <!-- Article Header -->
+            <header class="mb-8">
+                <div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
+                    <time datetime="2016-02-06">06.02.2016</time>
+                </div>
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-light text-dark mb-6 leading-tight">
+                    Что такое фотоколлаж?
+                </h1>
+            </header>
+
+            <!-- Article Content -->
+            <article class="prose prose-lg max-w-none text-body space-y-6">
+                <!-- Table of Contents -->
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-100 my-8">
+                    <h2 class="text-xl font-medium text-dark mb-4 mt-0">Содержание</h2>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li><a href="#collage" class="text-primary hover:underline">Что такое коллаж?</a></li>
+                        <li><a href="#photocollage" class="text-primary hover:underline">Что такое фотоколлаж?</a></li>
+                        <li><a href="#rules" class="text-primary hover:underline">Правила подборки фотографий для коллажа</a></li>
+                    </ul>
+                </div>
+
+                <p>
+                    Стараясь сделать свой дом более уютным и самобытным, мы прибегаем к разнообразным приемам украшения окружающего нас пространства, и одним из них является фотоколлаж. Единое полотно, творчески сотканное из нескольких фото - фотоколлаж собирает по крупицам яркие моменты прошедшего дня рождения, новогоднего праздника, свадьбы или другого памятного события - становится неким порталом в счастливые мгновенья каждой семьи.
+                </p>
+
+                <h2 id="collage" class="text-3xl lg:text-4xl font-light text-dark mt-12 mb-6">Что такое коллаж?</h2>
+
+                <p>
+                    Согласно словарному определению, «коллаж» или «papier collee», в переводе с французского означает «приклеенная бумага» – это один из технических приемов изобразительного искусства, основанный на создании единой стилевой композиции из наклеенных на бумагу или холст элементов, отличных от фона по цвету и фактуре. Схожий с аппликацией, данный прием оригинален тем, что в качестве исходного материала могут выступать и объемные фигуры.
+                </p>
+
+                <figure class="my-8">
+                    <img src="https://muse.ooo/upload/img/o-Still-Life-with-Chair-Caning.webp"
+                         alt="Коллаж Пабло Пикассо. Натюрморт со сломанным стулом"
+                         class="max-w-full h-auto rounded-lg mx-auto shadow-sm" loading="lazy">
+                    <figcaption class="text-center text-sm text-gray-500 mt-2">
+                        Пабло Пикассо. Натюрморт со сломанным стулом. Still Life with Chair Caning. 1912. Источник: <a href="http://khanacademy.org/humanities/art-1010/early-abstraction/cubism/a/picasso-still-life-with-chair-caning" class="text-primary hover:underline" target="_blank" rel="nofollow">Khanacademy.org&nbsp;↗</a>
+                    </figcaption>
+                </figure>
+
+                <p>
+                    В частности, Пабло Пикассо в своей знаменитой работе за основу взял стул. Гранью между коллажем и инкрустацией выступает фактор композиции произведения. Если в коллаже элементы составляют единое целое, то в случае инкрустации один элемент выступает «инструментом» декорирования поверхности другого (например, инкрустация ювелирного украшения драгоценными камнями).
+                </p>
+
+                <p>
+                    История популяризации коллажа весьма неоднозначна. Эта техника стала использоваться с тех пор, как в Китае была изобретена бумага, но общественное признание и терминологическое выражение он получил много позже во Франции благодаря творчеству мэтров художественной живописи Жоржа Брака, Пабло Пикассо и Анри Матисса.
+                </p>
+
+                <p>
+                    Жорж Брак в качестве основы коллажа использовал газетные вырезки. Покрывая их краской, он стремился к достижению эффекта живописи.
+                </p>
+
+                <figure class="my-8">
+                    <img src="https://muse.ooo/upload/img/o-Fruit-dish-and-Glass.webp"
+                         alt="Жорж Брак. Блюдо с фруктами и стакан"
+                         class="max-w-full h-auto rounded-lg mx-auto shadow-sm" loading="lazy">
+                    <figcaption class="text-center text-sm text-gray-500 mt-2">
+                        Жорж Брак. Блюдо с фруктами и стакан. Fruit dish and Glass, 1912. Источник: <a href="https://en.wikipedia.org/wiki/Fruit_Dish_and_Glass" class="text-primary hover:underline" target="_blank" rel="nofollow">Wikipedia&nbsp;↗</a>
+                    </figcaption>
+                </figure>
+
+                <p>
+                    Что касается Анри Матисса, то его техника была несколько отличной – он разрывал кусочки цветной бумаги и создавал из них цельную композицию.
+                </p>
+
+                <figure class="my-8">
+                    <img src="https://muse.ooo/upload/img/o-The-Snail.webp"
+                         alt="Анри Матисс. Улитка"
+                         class="max-w-full h-auto rounded-lg mx-auto shadow-sm" loading="lazy">
+                    <figcaption class="text-center text-sm text-gray-500 mt-2">
+                        Анри Матисс. Улитка. The Snail. 1953. Источник: <a href="https://en.wikipedia.org/wiki/Fruit_Dish_and_Glass" class="text-primary hover:underline" target="_blank" rel="nofollow">Wikipedia&nbsp;↗</a>
+                    </figcaption>
+                </figure>
+
+                <p>
+                    Так как все трое известных художников дружили, сегодня сложно сказать наверняка, кто является автором этого популярного термина. Тем не менее уже одно его появление стало началом нового этапа развития этого удивительного творческого приема.
+                </p>
+
+                <p>
+                    Позже в Европе коллаж стал толчком к развитию поп-арта (переходным звеном от коллажа к поп-арту считается картина Ричарда Гамильтона «Что именно делает наши жилища такими особенными, такими привлекательными?».
+                </p>
+
+                <figure class="my-8">
+                    <img src="https://muse.ooo/upload/img/o-Just-what-is-it-that-makes-today-is-homes-so-different-so-appealing.webp"
+                         alt="Ричард Гамильтон. Что именно делает наши жилища такими особенными, такими привлекательными?"
+                         class="max-w-full h-auto rounded-lg mx-auto shadow-sm" loading="lazy">
+                    <figcaption class="text-center text-sm text-gray-500 mt-2">
+                        Ричард Гамильтон. Что именно делает наши жилища такими особенными, такими привлекательными?. Just what is it that makes today's homes so different, so appealing? 1956. Источник: <a href="http://en.wikipedia.org/" class="text-primary hover:underline" target="_blank" rel="nofollow">Wikipedia&nbsp;↗</a>
+                    </figcaption>
+                </figure>
+
+                <p>
+                    В России одним из первооткрывателей этого приема стал Аристарх Васильевич Лентулов и его картина «Василий Блаженный». Он красочно насытил свое произведение вкраплением кусочков позолоченной и серебряной фольги.
+                </p>
+
+                <figure class="my-8">
+                    <img src="https://muse.ooo/upload/img/o-Basil-the-Blessed.webp"
+                         alt="А.В. Лентулов. Василий Блаженный"
+                         class="max-w-full h-auto rounded-lg mx-auto shadow-sm" loading="lazy">
+                    <figcaption class="text-center text-sm text-gray-500 mt-2">
+                        А.В. Лентулов. Василий Блаженный. 1913. Источник: <a href="http://ru.wikipedia.org/wiki/Лентулов,_Аристарх_Васильевич" class="text-primary hover:underline" target="_blank" rel="nofollow">Wikipedia&nbsp;↗</a>
+                    </figcaption>
+                </figure>
+
+                <p>
+                    Говоря о советской школе, то нужно отметить, что коллаж и фотомонтаж широко использовался в плакатах той эпохи.
+                </p>
+
+                <figure class="my-8">
+                    <img src="https://muse.ooo/upload/img/o-Lingis-books-on-all-branches-of-knowledge.webp"
+                         alt="А. М. Родченко. Ленгиз: книги по всем отраслям знания"
+                         class="max-w-full h-auto rounded-lg mx-auto shadow-sm" loading="lazy">
+                    <figcaption class="text-center text-sm text-gray-500 mt-2">
+                        А. М. Родченко. Ленгиз: книги по всем отраслям знания. 1925. Источник: <a href="http://arts-museum.ru/events/archive/2014/rodchenko_stepanova/index.php" class="text-primary hover:underline" target="_blank" rel="nofollow">ГМИИ им. А.С. Пушкина&nbsp;↗</a>
+                    </figcaption>
+                </figure>
+
+                <h2 id="photocollage" class="text-3xl lg:text-4xl font-light text-dark mt-12 mb-6">Что такое фотоколлаж?</h2>
+
+                <p>
+                    Испокон веков принято считать, что художественная фотография – это отдельный вид изобразительного искусства. В 1843 году рамки этого понятия были несколько раздвинуты, Д.Хилл и Р.Адамсон придумали создать композицию - фотомонтаж из 500 фотографий. На свет появился первый в мире фотоколлаж и фотомонтаж, который получил название «Заседание Свободной церкви в Шотландии».
+                </p>
+
+                <figure class="my-8">
+                    <img src="https://muse.ooo/upload/img/o-A-meeting-of-the-Free-Church-in-Scotland.webp"
+                         alt="Д. Хилл и Р. Адамсон. Заседание Свободной церкви в Шотландии"
+                         class="max-w-full h-auto rounded-lg mx-auto shadow-sm" loading="lazy">
+                    <figcaption class="text-center text-sm text-gray-500 mt-2">
+                        Д. Хилл и Р. Адамсон. Заседание Свободной церкви в Шотландии. 1843. Источник: <a href="https://en.wikipedia.org/wiki/David_Octavius_Hill" class="text-primary hover:underline" target="_blank" rel="nofollow">Wikipedia&nbsp;↗</a>
+                    </figcaption>
+                </figure>
+
+                <p>
+                    Сегодня трактовка определения «фотоколлаж» имеет несколько вариаций. В этой статье мы будем отталкиваться от определения фотоколлажа как произведения, объединяющего несколько схожих по смыслу и тематике фотографий.
+                </p>
+                <p>
+                    Итак, как можно сделать фотоколлаж из фото? Рассмотрим следующие варианты:
+                </p>
+
+                <h3 class="text-2xl font-normal text-dark mt-8 mb-4">Традиционный фотоколлаж</h3>
+
+                <figure class="my-8">
+                    <img src="https://muse.ooo/upload/img/o-Traditional-photo-collage.webp"
+                         alt="Традиционный фотоколлаж. Пример"
+                         class="max-w-full h-auto rounded-lg mx-auto shadow-sm" loading="lazy">
+                    <figcaption class="text-center text-sm text-gray-500 mt-2">Традиционный фотоколлаж. Пример.</figcaption>
+                </figure>
+
+                <p>
+                    Идеальная «модель», предполагающая фокусировку внимания на каждом изображении в равной мере. Отличный выбор вне зависимости от тематики. Своеобразная дань традициям, в которой центром дизайнерской композиции является изображение, а не макет.
+                </p>
+
+                <h3 class="text-2xl font-normal text-dark mt-8 mb-4">Тематический фотоколлаж</h3>
+
+                <figure class="my-8">
+                    <img src="https://muse.ooo/upload/img/o-Thematic-collage.webp"
+                         alt="Тематический фотоколлаж. Пример"
+                         class="max-w-full h-auto rounded-lg mx-auto shadow-sm" loading="lazy">
+                    <figcaption class="text-center text-sm text-gray-500 mt-2">Тематический фотоколлаж. Пример.</figcaption>
+                </figure>
+
+                <p>
+                    Все элементы коллажа связывает один общий сюжет. Именно поэтому данному варианту отдают предпочтение, когда конечной целью творческого процесса является создание композиции, отражающей динамику: путешествия, дня рождения или свадьбы. Изюминкой этого жанра является фотоколлаж с надписями, иллюстрациями или рисунками.
+                </p>
+
+                <h3 class="text-2xl font-normal text-dark mt-8 mb-4">Модный фотоколлаж</h3>
+
+                <figure class="my-8">
+                    <img src="https://muse.ooo/upload/img/o-fashion-photo-collage.webp"
+                         alt="Модный фотоколлаж. Пример"
+                         class="max-w-full h-auto rounded-lg mx-auto shadow-sm" loading="lazy">
+                    <figcaption class="text-center text-sm text-gray-500 mt-2">Модный фотоколлаж. Пример.</figcaption>
+                </figure>
+
+                <p>
+                    Здесь акцент ставится именно на макете. Шаблон фотоколлажа тонко подчёркивает тематику собранных вместе фото, с легкостью оживляет статические изображения и создает эффект удивления и восторга.
+                </p>
+
+                <h3 class="text-2xl font-normal text-dark mt-8 mb-4">Силуэтный фотоколлаж</h3>
+
+                <figure class="my-8">
+                    <img src="https://muse.ooo/upload/img/o-Silhouette-collage.webp"
+                         alt="Силуэтный фотоколлаж. Пример"
+                         class="max-w-full h-auto rounded-lg mx-auto shadow-sm" loading="lazy">
+                    <figcaption class="text-center text-sm text-gray-500 mt-2">Силуэтный фотоколлаж. Пример.</figcaption>
+                </figure>
+
+                <p>
+                    Оригинальная композиция фотографий, представляющая собой силуэт. Такая композиция оказывает на зрителя двойное воздействие – как самими фотографиями, так и силуэтом, в который они заключены. Свадьба, Новый год, фотоколлаж на юбилей, фотоколлаж детский - любое праздничное событие, освещенное таким креативным способом, станет приятным воспоминанием на долгие годы.
+                </p>
+
+                <h2 id="rules" class="text-3xl lg:text-4xl font-light text-dark mt-12 mb-6">Правила подборки фотографий для коллажа</h2>
+
+                <p><strong>Тема и настроение.</strong> Прежде чем с головой окунуться в создание фотоколлажа, необходимо определиться с тематикой. Если за основу будет взята свадьба, то фотографий со дня рождения бабушки в принципе быть не может. Нужно выбрать только те фото, которые бы максимально отображали тот памятный день.</p>
+
+                <p><strong>Композиция.</strong> Помимо тематики, тщательным образом должна быть продумана общая композиция художественного произведения. Это может быть фотоколлаж из фото, а можно и добавить разнообразные надписи, зеркала или клипарт, главное, чтобы все смотрелось гармонично, а их интеграция в общий сюжет была оправданной.</p>
+
+                <p><strong>Разрешение фотографий.</strong> Снимки, которые будут взяты за основу фотоколлажа, непременно должны быть качественными. В особенности если ваше будущее творение будет иметь большой формат. Качество при увеличении размеров исходного фото может страдать, поэтому следует исключить все возможные риски заранее.</p>
+
+                <p><strong>Соответствие размеров.</strong> Сделать коллаж геометрически ровным легче при выборе фотографий одного формата. В случае с макетом неправильной формы или необычного фотоколлажа выбор фото менее притязательный. Однако в этом случае нужно изначально выбрать главное изображение (центр коллажа), которое в дальнейшем будет задавать основной тон композиции.</p>
+
+                <p><strong>Свет и тень.</strong> Обратите внимание на угол света и тени на предметах и лицах ваших фото. Если получится подобрать памятные снимки с одинаковыми характеристиками, композиция обязательно получается эффектной и привлекательной.</p>
+
+                <p><strong>Яркость и контрастность.</strong> Современные фоторедакторы творят настоящие чудеса. Хотите сделать фотоколлаж из фотографий «ровным» и выдержанным в одних тонах, просто воспользуйтесь новинками в мире программного обеспечения. Тусклые фотографии, вообще, желательно из коллажа исключить. Однако если они особо вам дороги, попробуйте их поместить в левом верхнем углу, и вы увидите, что они не будут так выделяться.</p>
+
+                <p><strong>Общий интерьер помещения.</strong> Немаловажную роль играет интерьер. Продумайте заранее место для фотоколлажа на стене, и тогда шансов на успех будет намного больше. В качестве инструмента единения фона и интерьерного решения можно использовать фон для фотоколлажа.</p>
+
+                <p>
+                    Создавать удивительные композиции, сотканные из множества разнообразных элементов, любят художники и дети – истинные ценители многогранности современной жизни.
+                </p>
+
+                <p>
+                    Попробуйте сделать <a href="https://muse.ooo/pechat/fotokollazh-na-kholste/" class="text-primary hover:underline">фотоколлаж на холсте&nbsp;↗</a>, и вы!
+                </p>
+
+                <p class="text-right text-gray-500 mt-8">
+                    Автор: Анна Анна
+                </p>
+            </article>
+
+            <!-- Promo Banner -->
+            <div class="my-12">
+                <div class="bg-primary text-white py-8 px-6 rounded-lg text-center shadow-lg">
+                    <p class="text-xs uppercase tracking-widest opacity-80 mb-2">Акция</p>
+                    <p class="text-2xl font-light mb-4">Скидка 20% c 15 по 16 января</p>
+                    <a href="https://muse.ooo/portret-na-zakaz/" class="inline-block px-6 py-2 bg-white text-primary hover:bg-gray-100 rounded uppercase transition-colors font-medium">
+                        Портреты на холсте
+                    </a>
+                </div>
+            </div>
+
+            <!-- Similar Articles -->
+            <section class="mt-16 pt-8 border-t border-gray-200">
+                <h2 class="text-2xl font-light text-dark mb-8">Похожие статьи</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Article Card 1 -->
+                    <article class="flex flex-col group">
+                        <a href="https://muse.ooo/blog/portret-dlya-pokoleniy/" class="block overflow-hidden rounded-lg mb-4">
+                            <img
+                                src="https://muse.ooo/upload/ammina.optimizer/jpg-webp/q80/upload/iblock/0a0/0a070cdb2dab0335510d262bb0d94e86.webp"
+                                alt="Плоттер для печати на холсте и фотобумаге"
+                                class="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500"
+                                loading="lazy"
+                            >
+                        </a>
+                        <div class="flex items-center gap-3 text-xs text-gray-400 mb-2">
+                            <time datetime="2016-05-22">22 мая 2016</time>
+                        </div>
+                        <h3 class="text-xl font-medium text-dark mb-2 group-hover:text-primary transition-colors">
+                            <a href="https://muse.ooo/blog/portret-dlya-pokoleniy/">Портрет для поколений</a>
+                        </h3>
+                        <a href="https://muse.ooo/blog/portret-dlya-pokoleniy/" class="text-primary text-sm font-medium hover:underline inline-flex items-center mt-auto">
+                            Подробнее
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </article>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer placeholder -->
+    <!-- Footer (вставьте из эталона) -->
+
+    <!-- Back to top (из эталона) -->
+    <a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-white text-dark hover:bg-dark hover:text-white border border-gray-300 hover:border-dark transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6"><path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+
+    <script>
+        // Simple Back to Top script
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.remove('opacity-0', 'pointer-events-none');
+            } else {
+                backToTopButton.classList.add('opacity-0', 'pointer-events-none');
+            }
+        });
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+
+</body>
+</html>
