@@ -152,7 +152,7 @@
 ## Примечания
 
 - **Эталонная страница:** `portret-na-zakaz-po-foto-na-kholste-sankt-peterburg.html`
-- **Общие скрипты:** `js/scripts.js` — подключен к основным страницам
+- **Общие скрипты:** `js/nav.js` (Page Navigator, Back to Top) + inline скрипты для компонентов
 - **CDN:** Используется для разработки, для продакшена — `output.css`
 - **Инструкции:** см. `AI_INSTRUCTIONS.md` и `DESIGN_SYSTEM.md`
 

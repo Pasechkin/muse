@@ -47,8 +47,8 @@ npm run preview     # Просмотр в браузере
 
 | Документ | Описание |
 |----------|----------|
-| [docs/COMPONENTS.md](docs/COMPONENTS.md) | Каталог компонентов |
 | [docs/HOW_TO_CREATE_PAGE.md](docs/HOW_TO_CREATE_PAGE.md) | Как создать страницу |
+| [docs/PURE_TAILWIND_GUIDE.md](docs/PURE_TAILWIND_GUIDE.md) | Переверстка на чистый Tailwind |
 | [docs/LESSONS_LEARNED.md](docs/LESSONS_LEARNED.md) | Уроки проекта |
 
 ---
@@ -78,8 +78,7 @@ npm run preview     # Просмотр в браузере
 ```
 tailwind-project/
 ├── src/html/              # HTML страницы (55 файлов)
-│   ├── js/scripts.js      # Общие скрипты
-│   ├── css/output.css     # Скомпилированный CSS
+│   ├── js/nav.js          # Page Navigator + Back to Top
 │   ├── blog/              # Блог (20 страниц)
 │   ├── info/              # Info (3 страницы)
 │   └── portret-na-zakaz/  # Портреты (style/, object/)
@@ -92,7 +91,7 @@ tailwind-project/
 ## Технические особенности
 
 - **CSS:** Tailwind CDN для разработки, output.css для продакшена
-- **Скрипты:** Общие функции в `js/scripts.js`
+- **Скрипты:** `js/nav.js` (Page Navigator, Back to Top) + inline скрипты
 - **Контейнер:** 1170px, padding 15px
 - **Брейкпоинты:** sm=640, md=768, lg=1024, xl=1280
 

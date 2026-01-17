@@ -35,7 +35,7 @@
 
 - ✅ **55 страниц** полностью переверстаны на Tailwind CSS
 - ✅ **Дизайн-система** — цвета, типографика, отступы
-- ✅ **Общие скрипты** — вынесены в `js/scripts.js`
+- ✅ **Общие скрипты** — `js/nav.js` + inline скрипты
 - ✅ **Документация** — обновлена
 
 ### Что ожидает
@@ -50,24 +50,17 @@
 
 ```
 tailwind-project/
-├── src/
-│   ├── html/                  # Готовые страницы (55 файлов)
-│   │   ├── index.html         # Главная
-│   │   ├── js/scripts.js      # Общие скрипты
-│   │   ├── css/output.css     # Скомпилированный CSS
-│   │   ├── blog/              # Блог (20 страниц)
-│   │   ├── info/              # Info (3 страницы)
-│   │   └── portret-na-zakaz/  # Портреты
-│   │       ├── style/         # Стили (18 страниц)
-│   │       └── object/        # Объекты (5 страниц)
-│   │
-│   ├── components/            # Переиспользуемые компоненты
-│   ├── design-system/         # Токены и типографика
-│   └── input.css              # Главный CSS файл
+├── src/html/                  # Готовые страницы (55 файлов)
+│   ├── index.html             # Главная
+│   ├── js/nav.js              # Page Navigator + Back to Top
+│   ├── blog/                  # Блог (20 страниц)
+│   ├── info/                  # Info (3 страницы)
+│   └── portret-na-zakaz/      # Портреты
+│       ├── style/             # Стили (18 страниц)
+│       └── object/            # Объекты (5 страниц)
 │
 ├── docs/                      # Документация
 │   ├── DESIGN_SYSTEM.md       # Дизайн-система
-│   ├── COMPONENTS.md          # Каталог компонентов
 │   ├── PAGES_LIST.md          # Список всех страниц
 │   └── ...
 │
@@ -87,7 +80,8 @@ tailwind-project/
 
 ### Скрипты
 
-- **Общие функции:** `js/scripts.js` (карусель, навигация, формы)
+- **Общие функции:** `js/nav.js` (Page Navigator, Back to Top)
+- **Inline скрипты:** Video Cover, Carousel Scroll, Video Modal, Typed.js
 - **Tailwind Plus Elements:** CDN для мобильного меню
 
 ### Брейкпоинты (стандартные Tailwind)

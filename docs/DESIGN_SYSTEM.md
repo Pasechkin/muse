@@ -909,6 +909,141 @@ JavaScript для подсветки активной секции находи�
 <a class="opacity-70 hover:opacity-100 transition-opacity">Ссылка</a>
 ```
 
+---
+
+### FAQ Accordion (аккордеон вопросов-ответов)
+
+Нативный HTML аккордеон без JavaScript, использует `<details>` и `<summary>`.
+
+```html
+<div class="space-y-0 divide-y divide-gray-200">
+    <!-- Вопрос 1 (открыт по умолчанию) -->
+    <details class="group" open>
+        <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none [&::-webkit-details-marker]:hidden">
+            <span>Какие бывают размеры?</span>
+            <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+            </svg>
+        </summary>
+        <div class="pb-4 text-body">
+            <p>Ответ на вопрос...</p>
+        </div>
+    </details>
+    
+    <!-- Вопрос 2 -->
+    <details class="group">
+        <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none [&::-webkit-details-marker]:hidden">
+            <span>Сколько стоит?</span>
+            <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+            </svg>
+        </summary>
+        <div class="pb-4 text-body">
+            <p>Ответ на вопрос...</p>
+        </div>
+    </details>
+</div>
+```
+
+**Ключевые классы:**
+- `group` — для связи с дочерними элементами
+- `group-open:rotate-180` — поворот стрелки при открытии
+- `[&::-webkit-details-marker]:hidden` — скрывает стандартный маркер браузера
+- `divide-y divide-gray-200` — разделители между вопросами
+- `open` — атрибут для открытия по умолчанию
+
+**Schema.org разметка (для SEO):**
+```html
+<div itemscope itemtype="http://schema.org/FAQPage">
+    <details itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+        <summary>
+            <span itemprop="name">Вопрос?</span>
+        </summary>
+        <div itemprop="acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+            <div itemprop="text">Ответ...</div>
+        </div>
+    </details>
+</div>
+```
+
+**Преимущества:**
+- ✅ Без JavaScript — работает нативно
+- ✅ Доступность — работает с клавиатурой
+- ✅ SEO — поддерживает Schema.org
+
+---
+
+### Tabs (вкладки)
+
+Переключение между контентом с подчеркиванием активной вкладки.
+
+```html
+<!-- Tabs Navigation -->
+<div class="flex border-b border-gray-200 mb-8 overflow-x-auto">
+    <button 
+        class="px-6 py-3 text-lg font-medium text-body hover:text-dark focus:outline-none border-b-2 border-primary text-dark transition-colors" 
+        data-tab="moscow"
+    >
+        Москва
+    </button>
+    <button 
+        class="px-6 py-3 text-lg font-medium text-body hover:text-dark focus:outline-none border-b-2 border-transparent transition-colors" 
+        data-tab="spb"
+    >
+        Санкт-Петербург
+    </button>
+</div>
+
+<!-- Tab Content -->
+<div id="moscow" class="tab-content block">
+    <p>Контент для Москвы...</p>
+</div>
+<div id="spb" class="tab-content hidden">
+    <p>Контент для Санкт-Петербурга...</p>
+</div>
+```
+
+**CSS (критический):**
+```css
+.tab-content { animation: fadeIn 0.3s ease-in-out; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+```
+
+**JavaScript (inline перед `</body>`):**
+```javascript
+document.querySelectorAll('[data-tab]').forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Деактивировать все кнопки
+        document.querySelectorAll('[data-tab]').forEach(b => {
+            b.classList.remove('border-primary', 'text-dark');
+            b.classList.add('border-transparent');
+        });
+        // Скрыть весь контент
+        document.querySelectorAll('.tab-content').forEach(c => {
+            c.classList.add('hidden');
+            c.classList.remove('block');
+        });
+        // Активировать кликнутую кнопку
+        btn.classList.remove('border-transparent');
+        btn.classList.add('border-primary', 'text-dark');
+        // Показать контент
+        const target = document.getElementById(btn.dataset.tab);
+        if (target) {
+            target.classList.remove('hidden');
+            target.classList.add('block');
+        }
+    });
+});
+```
+
+**Ключевые классы:**
+- `border-b-2 border-primary` — подчеркивание активной вкладки
+- `border-transparent` — неактивная вкладка
+- `overflow-x-auto` — горизонтальная прокрутка на мобильных
+- `hidden` / `block` — переключение видимости контента
+
+---
+
 ### Timeline/Steps (шаги процесса)
 
 Вертикальная линия с пронумерованными шагами.
@@ -946,6 +1081,154 @@ JavaScript для подсветки активной секции находи�
 - Линия: `border-l-[3px] border-dashed border-primary/30`
 - Круг с номером: `w-12 h-12 rounded-full border-2 border-primary`
 - `z-10` на кругах чтобы перекрывать линию
+
+---
+
+### Video Modal (модальное окно с видео)
+
+Полноэкранное модальное окно для просмотра видео с навигацией.
+
+**CSS (в `<style>`):**
+```css
+.video-modal { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; }
+.video-modal.active { display: flex; }
+.video-modal-content { position: relative; max-width: 400px; width: 100%; max-height: 90vh; }
+.video-modal video { width: 100%; max-height: 80vh; border-radius: 8px; }
+.video-modal-close, .video-modal-mute, .video-modal-prev, .video-modal-next { position: absolute; background: rgba(255,255,255,0.2); border: none; color: white; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; z-index: 10; }
+.video-modal-close:hover, .video-modal-mute:hover, .video-modal-prev:hover, .video-modal-next:hover { background: rgba(255,255,255,0.3); }
+.video-modal-close { top: 10px; right: 10px; }
+.video-modal-mute { top: 10px; left: 10px; }
+.video-modal-prev { top: 50%; left: -60px; transform: translateY(-50%); }
+.video-modal-next { top: 50%; right: -60px; transform: translateY(-50%); }
+@media (max-width: 600px) { .video-modal-prev { left: 10px; top: auto; bottom: 80px; } .video-modal-next { right: 10px; top: auto; bottom: 80px; } }
+```
+
+**HTML:**
+```html
+<!-- Триггеры (карточки видео в карусели) -->
+<div class="video-card cursor-pointer relative overflow-hidden" data-video="https://example.com/video.webm">
+    <img src="poster.jpg" alt="..." class="w-[223px] h-[396px] object-cover">
+    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4">
+        <p class="text-sm text-white/90 mb-2">Описание видео</p>
+        <div class="flex items-center gap-2 text-white/80 text-sm">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <span>0:43</span>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно -->
+<div class="video-modal">
+    <div class="video-modal-content">
+        <video controls></video>
+        <button class="video-modal-close">×</button>
+        <button class="video-modal-mute">🔊</button>
+        <button class="video-modal-prev">‹</button>
+        <button class="video-modal-next">›</button>
+    </div>
+</div>
+```
+
+**JavaScript (inline перед `</body>`):**
+```javascript
+(function() {
+    const modal = document.querySelector('.video-modal');
+    if (!modal) return;
+    
+    const video = modal.querySelector('video');
+    const closeBtn = modal.querySelector('.video-modal-close');
+    const muteBtn = modal.querySelector('.video-modal-mute');
+    const prevBtn = modal.querySelector('.video-modal-prev');
+    const nextBtn = modal.querySelector('.video-modal-next');
+    
+    // Ищем карточки с data-video
+    const videoCards = Array.from(document.querySelectorAll('.video-card[data-video]'));
+    let currentIndex = 0;
+    
+    function openModal(index) {
+        currentIndex = index;
+        const trigger = videoCards[index];
+        if (trigger && video) {
+            video.src = trigger.dataset.video;
+            video.muted = false;
+            modal.classList.add('active');
+            video.play();
+        }
+    }
+    
+    function closeModal() {
+        modal.classList.remove('active');
+        if (video) { video.pause(); video.src = ''; }
+    }
+    
+    videoCards.forEach((trigger, index) => {
+        trigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            openModal(index);
+        });
+    });
+    
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (muteBtn) muteBtn.addEventListener('click', () => { 
+        if (video) {
+            video.muted = !video.muted;
+            muteBtn.querySelector('.mute-icon')?.classList.toggle('hidden', !video.muted);
+            muteBtn.querySelector('.unmute-icon')?.classList.toggle('hidden', video.muted);
+        }
+    });
+    if (prevBtn) prevBtn.addEventListener('click', () => { if (currentIndex > 0) openModal(currentIndex - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', () => { if (currentIndex < videoCards.length - 1) openModal(currentIndex + 1); });
+    
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('active')) closeModal(); });
+})();
+```
+
+---
+
+### Typed.js (эффект печатающегося текста)
+
+Анимация печатающегося текста с мигающим курсором.
+
+**CSS (в критическом CSS):**
+```css
+.typed-cursor { display: inline-block; width: 3px; background-color: var(--primary); animation: blink 1s infinite; margin-left: 2px; }
+@keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+```
+
+**HTML:**
+```html
+<h1 class="text-4xl lg:text-6xl font-light text-white mb-4">
+    Печатаем <span id="typed-text" class="text-primary"></span><span class="typed-cursor">&nbsp;</span>
+    <br class="hidden sm:block">на холсте и пишем портреты по фото
+</h1>
+```
+
+**JavaScript (inline перед `</body>`):**
+```html
+<!-- Typed.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const typedEl = document.getElementById('typed-text');
+    if (typedEl) {
+        new Typed('#typed-text', {
+            strings: ['фото', 'картины', 'репродукции', 'портреты'],
+            typeSpeed: 100,
+            backSpeed: 50,
+            backDelay: 2000,
+            loop: true
+        });
+    }
+});
+</script>
+```
+
+**Особенности:**
+- Библиотека: [Typed.js](https://github.com/mattboldt/typed.js/)
+- CDN: `https://cdn.jsdelivr.net/npm/typed.js@2.0.12`
+- Курсор стилизуется через CSS, не через библиотеку
 
 ---
 

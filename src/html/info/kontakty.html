@@ -11,72 +11,9 @@
     
     <!-- Критический CSS -->
     <style>
-        /* ===== БАЗОВЫЕ СТИЛИ ===== */
-        :root {
-            --primary: #4A90E2;
-            --primary-hover: #609DE6;
-            --dark: #252525;
-            --body: #666666;
-            --secondary: #FAFAFA;
-        }
-        
-        body {
-            background-color: #fff;
-            color: #666666;
-            overflow-x: hidden;
-        }
-        
-        .container {
-            width: 100%;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-        @media (min-width: 1170px) {
-            .container { max-width: 1170px; }
-        }
-        
-        /* Typography */
-        h1 {
-            font-weight: 300;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-        }
-        
-        /* Breadcrumbs */
-        .breadcrumbs { font-size: 0.875rem; color: #9ca3af; }
-        .breadcrumbs a { color: #9ca3af; text-decoration: none; }
-        .breadcrumbs a:hover { text-decoration: underline; }
-        
-        /* Screen reader only */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-
-        /* Tabs Styles */
-        .tab-btn {
-            border-bottom: 2px solid transparent;
-            transition: all 0.3s ease;
-        }
-        .tab-btn.active {
-            border-bottom-color: var(--primary);
-            color: var(--dark);
-        }
+        /* Минимальный CSS для анимации табов */
         .tab-content {
-            display: none;
             animation: fadeIn 0.3s ease-in-out;
-        }
-        .tab-content.active {
-            display: block;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -108,6 +45,9 @@
             }
         }
     </script>
+    
+    <!-- Tailwind Plus Elements -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1"></script>
 </head>
 <body class="bg-white overflow-x-hidden">
 
@@ -143,7 +83,7 @@
                         <path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </a>
-                <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors whitespace-nowrap btn-premium">
+                <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors whitespace-nowrap">
                     Заказать
                 </a>
             </div>
@@ -218,7 +158,7 @@
             <div class="container">
                 <!-- Breadcrumbs -->
         
-                <nav class="breadcrumbs mb-4" aria-label="Хлебные крошки">
+                <nav class="text-sm text-gray-400 mb-4" aria-label="Хлебные крошки">
                     <ol class="flex items-center space-x-2">
                         <li><a href="/" class="hover:text-primary transition-colors">Главная</a></li>
                         <li>/</li>
@@ -228,23 +168,23 @@
                     </ol>
                 </nav>
                 
-                <h1 class="text-4xl lg:text-5xl text-dark">Контакты</h1>
+                <h1 class="text-4xl lg:text-6xl font-light text-dark">Контакты</h1>
             </div>
         </section>
 
         <!-- Contact Details with Tabs -->
-        <section class="py-12 lg:py-16 bg-white">
+        <section class="py-16 lg:py-24 bg-white">
             <div class="container">
                 <!-- Tabs Navigation -->
                 <div class="flex border-b border-gray-200 mb-8 overflow-x-auto">
                     <button 
-                        class="tab-btn active px-6 py-3 text-lg font-medium text-body hover:text-dark focus:outline-none" 
+                        class="px-6 py-3 text-lg font-medium text-body hover:text-dark focus:outline-none border-b-2 border-primary text-dark transition-colors" 
                         data-tab="moscow"
                     >
                         Москва
                     </button>
                     <button 
-                        class="tab-btn px-6 py-3 text-lg font-medium text-body hover:text-dark focus:outline-none" 
+                        class="px-6 py-3 text-lg font-medium text-body hover:text-dark focus:outline-none border-b-2 border-transparent transition-colors" 
                         data-tab="spb"
                     >
                         Санкт-Петербург
@@ -252,7 +192,7 @@
                 </div>
 
                 <!-- Moscow Content -->
-                <div id="moscow" class="tab-content active">
+                <div id="moscow" class="tab-content block">
                     <div class="space-y-4 text-body text-lg max-w-3xl">
                         <p>127550, Россия, г. Москва, ул. Прянишникова дом 19А строение 9</p>
                         
@@ -278,7 +218,7 @@
                 </div>
 
                 <!-- St. Petersburg Content -->
-                <div id="spb" class="tab-content">
+                <div id="spb" class="tab-content hidden">
                     <div class="space-y-4 text-body text-lg max-w-3xl">
                         <p>196620, Россия, г. Санкт-Петербург, г. Павловск ул. Слуцкая, 13 к 2</p>
                         
@@ -399,23 +339,31 @@
     </footer>
  <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabBtns = document.querySelectorAll('[data-tab]');
             const tabContents = document.querySelectorAll('.tab-content');
 
             tabBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    // Remove active class from all buttons
-                    tabBtns.forEach(b => b.classList.remove('active'));
-                    // Add active class to clicked button
-                    btn.classList.add('active');
-
-                    // Hide all contents
-                    tabContents.forEach(content => content.classList.remove('active'));
-                    // Show target content
+                    // Убрать active стили у всех кнопок
+                    tabBtns.forEach(b => {
+                        b.classList.remove('border-primary', 'text-dark');
+                        b.classList.add('border-transparent');
+                    });
+                    // Скрыть весь контент
+                    tabContents.forEach(content => {
+                        content.classList.add('hidden');
+                        content.classList.remove('block');
+                    });
+                    
+                    // Добавить active стили к кликнутой кнопке
+                    btn.classList.remove('border-transparent');
+                    btn.classList.add('border-primary', 'text-dark');
+                    // Показать целевой контент
                     const targetId = btn.getAttribute('data-tab');
                     const targetContent = document.getElementById(targetId);
                     if (targetContent) {
-                        targetContent.classList.add('active');
+                        targetContent.classList.remove('hidden');
+                        targetContent.classList.add('block');
                     }
                 });
             });
