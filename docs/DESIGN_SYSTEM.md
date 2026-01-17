@@ -909,6 +909,44 @@ JavaScript для подсветки активной секции находи�
 <a class="opacity-70 hover:opacity-100 transition-opacity">Ссылка</a>
 ```
 
+### Timeline/Steps (шаги процесса)
+
+Вертикальная линия с пронумерованными шагами.
+
+```html
+<div class="relative">
+    <!-- Пунктирная линия между шагами -->
+    <div class="absolute left-6 top-12 bottom-12 w-0 border-l-[3px] border-dashed border-primary/30"></div>
+    <div class="space-y-8 relative">
+        <!-- Шаг 1 -->
+        <div class="flex gap-4">
+            <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center relative z-10">
+                <span class="text-xl font-bold text-white">1</span>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold text-white mb-2">Заголовок шага</h3>
+                <p class="text-gray-300">Описание шага...</p>
+            </div>
+        </div>
+        <!-- Шаг 2 -->
+        <div class="flex gap-4">
+            <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center relative z-10">
+                <span class="text-xl font-bold text-white">2</span>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold text-white mb-2">Заголовок шага</h3>
+                <p class="text-gray-300">Описание шага...</p>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+**Особенности:**
+- Линия: `border-l-[3px] border-dashed border-primary/30`
+- Круг с номером: `w-12 h-12 rounded-full border-2 border-primary`
+- `z-10` на кругах чтобы перекрывать линию
+
 ---
 
 ## Grid системы
