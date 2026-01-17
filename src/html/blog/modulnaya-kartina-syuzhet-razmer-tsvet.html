@@ -7,9 +7,6 @@
     <meta name="description" content="Создание оригинального, стильного дизайна – мечта любого ценителя комфорта и красоты. Вне зависимости от типа декорируемого помещения (жилая квартира, дом или офис), в нем важна каждая подобранная деталь. Одним из популярных предметов интерьера XXI века является модульная картина.">
     <meta name="robots" content="noindex, nofollow">
     
-    <!-- Link to Tailwind Output CSS -->
-    <link href="css/output.css" rel="stylesheet">
-    
     <!-- Критический CSS (из эталона) -->
     <style>
         :root {
@@ -19,9 +16,7 @@
             --body: #666666;
             --secondary: #FAFAFA;
         }
-        body { background-color: var(--secondary); color: var(--body); overflow-x: hidden; }
-        .container { padding-left: 1rem; padding-right: 1rem; margin: 0 auto; }
-        @media (min-width: 1170px) { .container { max-width: 1170px; } }
+        body { background-color: #fff; color: var(--body); overflow-x: hidden; }
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
     </style>
 
@@ -51,7 +46,7 @@
     <!-- Tailwind Plus Elements -->
     <script type="module" src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1"></script>
 </head>
-<body class="bg-secondary text-body antialiased">
+<body class="bg-white text-body antialiased">
 
     <!-- Header placeholder -->
     <!-- Header (вставьте из эталона) -->
@@ -75,7 +70,7 @@
                 <div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
                     <time datetime="2016-01-24">24 января 2016 года</time>
                 </div>
-                <h1 class="text-3xl md:text-4xl lg:text-5xl font-light text-dark mb-6 leading-tight">
+                <h1 class="text-4xl lg:text-6xl font-light text-dark mb-6 leading-tight">
                     4-е совета по подбору модульной картины
                 </h1>
             </header>
@@ -237,9 +232,21 @@
                     Многие перед принятием окончательного решения о покупке того или иного произведения искусства хотели бы быть уверены наверняка, что оно гармонично впишется в интерьер их квартиры. Сделать это сегодня возможно, однако, вам понадобиться профессиональная поддержка и помощь. Обратившись в сервис Muse, вы сможете воспользоваться данной услугой на выгодных условиях. Если вы пришлете фотографию вашей комнаты и варианты приглянувшихся картин, то мы сделаем вам макет вашей <a href="https://muse.ooo/pechat/modulnaya-kartina/" class="text-primary hover:underline">модульной картины ↗</a> применимо к именно вашему интерьеру.
                 </p>
 
-                <p class="text-right text-gray-500 mt-8">
-                    Автор: Анна Анна
-                </p>
+                <div class="flex items-center justify-end gap-3 mt-8">
+                    <span class="text-gray-500">Автор:</span>
+                    <a href="https://muse.ooo/info/" 
+                       class="flex items-center gap-2 text-primary hover:underline"
+                       title="О студии Muse и авторе">
+                        <img src="https://muse.ooo/upload/imgsite/anna-60-2.webp" 
+                             alt="Фото автора Анны" 
+                             class="w-10 h-10 rounded-full object-cover"
+                             width="40" 
+                             height="40"
+                             loading="lazy"
+                             decoding="async">
+                        <span>Анна</span>
+                    </a>
+                </div>
             </article>
 
             <!-- Promo Banner -->

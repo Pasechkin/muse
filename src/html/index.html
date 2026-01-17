@@ -9,11 +9,8 @@
     <!-- Закрыто от индексации во время разработки -->
     <meta name="robots" content="noindex, nofollow">
     
-    <!-- Критический CSS (универсальный для всех страниц) -->
+    <!-- Критический CSS -->
     <style>
-        /* ===== БАЗОВЫЕ СТИЛИ ===== */
-        
-        /* CSS переменные для цветов */
         :root {
             --primary: #4A90E2;
             --primary-hover: #609DE6;
@@ -21,86 +18,8 @@
             --body: #666666;
             --secondary: #FAFAFA;
         }
-        
-        /* Body */
-        body {
-            background-color: #fff;
-            color: #666666;
-            overflow-x: hidden;
-        }
-        
-        /* Контейнер */
-        .container {
-            width: 100%;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-        @media (min-width: 1170px) {
-            .container { max-width: 1170px; }
-        }
-        
-        /* ===== HEADER ===== */
-        
-        header.bg-dark { background-color: #252525; }
-        header.sticky { position: sticky; top: 0; z-index: 50; }
-        header nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            padding-top: 1.25rem;
-            padding-bottom: 1.25rem;
-        }
-        
-        /* H1 - заголовок страницы */
-        h1 {
-            font-size: 2.25rem;
-            font-weight: 300;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-        }
-        @media (min-width: 1024px) {
-            h1 { font-size: 3rem; }
-        }
-        
-        /* Lead текст */
-        .lead, .text-xl {
-            font-size: 1.25rem;
-            line-height: 1.75rem;
-        }
-        
-        /* ===== БАЗОВЫЕ УТИЛИТЫ ===== */
-        
-        .flex-shrink-0 { flex-shrink: 0; }
-        .relative { position: relative; }
-        .overflow-hidden { overflow: hidden; }
-        .inline-block { display: inline-block; }
-        .flex { display: flex; }
-        .items-center { align-items: center; }
-        .text-white { color: #fff; }
-        .bg-primary { background-color: #4A90E2; }
-        .rounded { border-radius: 0.25rem; }
-        .uppercase { text-transform: uppercase; }
-        .transition-colors {
-            transition-property: color, background-color, border-color;
-            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-            transition-duration: 150ms;
-        }
-        
-        /* Screen reader only (скрыт визуально, доступен для screen readers) */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
+        body { background-color: #fff; color: var(--body); overflow-x: hidden; }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
     </style>
     
     <!-- Tailwind CSS CDN -->
@@ -132,21 +51,9 @@
     <script type="module" src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1"></script>
     
     <style>
-        /* Carousel - кастомный CSS для горизонтальной прокрутки (нет в Tailwind) */
+        /* Carousel - кастомный CSS (нет в Tailwind) */
         .carousel-scroll { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
         .carousel-scroll::-webkit-scrollbar { display: none; }
-        .snap-center { scroll-snap-align: center; }
-		/* ===== ПРЕМИАЛЬНЫЕ УЛУЧШЕНИЯ ===== */
- 
-    /* Улучшенные кнопки */
-    .btn-premium {
-        transition: all 0.3s ease;
-    }
-    
-    .btn-premium:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(74, 144, 226, 0.3);
-    }
     </style>
 </head>
 <body class="bg-white overflow-x-hidden">
@@ -182,7 +89,7 @@
                         <path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </a>
-                <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors whitespace-nowrap btn-premium">
+                <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-all whitespace-nowrap hover:-translate-y-0.5 hover:shadow-lg">
                     Заказать
                 </a>
             </div>
@@ -253,35 +160,33 @@
     </header>
 
     <!-- Hero Section -->
-    <header>
-        <section class="relative h-[65vh] lg:h-screen overflow-hidden bg-dark">
-            <video class="absolute inset-0 w-full h-full object-cover hidden lg:block" autoplay loop muted playsinline preload="none" title="Ролик про стили портретов от Muse.">
-                <source src="https://muse.ooo/video/portret-po-foto.webm" media="(min-width: 1024px)" type="video/webm">
-                <source src="https://muse.ooo/video/portret-po-foto.mp4" media="(min-width: 1024px)" type="video/mp4">
-            </video>
-            <div class="absolute inset-0 bg-dark opacity-20 lg:opacity-20"></div>
-            <div class="container h-full flex items-center relative z-10">
-                <div class="max-w-2xl">
-                    <p class="text-4xl lg:text-5xl font-light text-white mb-4">Создай своё произведение искусства</p>
-                    <h1 class="text-xl text-white/90 mb-8">Картины по фото: портреты маслом и печать на холсте</h1>
-                    <a href="https://muse.ooo/order/" class="inline-block px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors text-lg btn-premium">
-                        Заказать
-                    </a>
-                </div>
+    <section class="relative h-[65vh] lg:h-screen overflow-hidden bg-dark">
+        <video class="absolute inset-0 w-full h-full object-cover hidden lg:block" autoplay loop muted playsinline preload="none" title="Ролик про стили портретов от Muse.">
+            <source src="https://muse.ooo/video/portret-po-foto.webm" media="(min-width: 1024px)" type="video/webm">
+            <source src="https://muse.ooo/video/portret-po-foto.mp4" media="(min-width: 1024px)" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 bg-dark/20"></div>
+        <div class="container h-full flex items-center relative z-10">
+            <div class="max-w-2xl">
+                <h1 class="text-4xl lg:text-5xl font-light text-white mb-4">Создай своё произведение искусства</h1>
+                <p class="text-xl text-white/90 mb-8">Картины по фото: портреты маслом и печать на холсте</p>
+                <a href="https://muse.ooo/order/" class="inline-block px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-all text-lg hover:-translate-y-0.5 hover:shadow-lg">
+                    Заказать
+                </a>
             </div>
-        </section>
-    </header>
+        </div>
+    </section>
 
     <!-- Блок акции -->
     <div class="bg-primary text-white py-6">
         <div class="container">
             <div class="flex items-center justify-center">
-                <p class="lead">Скидка 20% с 3 по 4 января</p>
+                <p class="text-xl">Скидка 20% с 3 по 4 января</p>
             </div>
         </div>
     </div>
 
-    <main class="main-container">
+    <main>
         <!-- Секция Преимущества -->
         <section class="bg-secondary py-16 lg:py-24">
             <div class="container">
@@ -692,7 +597,7 @@
                     Создай своё произведение искусства
                 </h2>
                 <div class="mt-10 flex flex-col md:flex-row items-center gap-4 md:gap-x-6 xl:mt-0 xl:shrink-0">
-                    <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors w-full md:w-auto text-center btn-premium">
+                    <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-all w-full md:w-auto text-center hover:-translate-y-0.5 hover:shadow-lg">
                         Заказать
                     </a>
                     <a href="#callback" class="inline-block px-6 py-2 bg-dark hover:bg-gray-700 text-white rounded uppercase transition-colors w-full md:w-auto text-center">

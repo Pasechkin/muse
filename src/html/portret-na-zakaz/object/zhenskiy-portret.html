@@ -87,73 +87,6 @@
             overflow-x: hidden;
         }
         
-        /* Контейнер */
-        .container {
-            width: 100%;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-        @media (min-width: 1170px) {
-            .container { max-width: 1170px; }
-        }
-        
-        /* ===== HEADER ===== */
-        
-        header.bg-dark { background-color: #222222; }
-        header.sticky { position: sticky; top: 0; z-index: 50; }
-        header nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            padding-top: 1.25rem;
-            padding-bottom: 1.25rem;
-        }
-        
-        /* ===== ДЛЯ ВНУТРЕННИХ СТРАНИЦ (не главная) ===== */
-        
-        /* Хлебные крошки */
-        .breadcrumbs { font-size: 0.875rem; color: #9ca3af; }
-        .breadcrumbs a { color: #9ca3af; text-decoration: none; }
-        .breadcrumbs a:hover { text-decoration: underline; }
-        
-        /* H1 - заголовок страницы */
-        h1 {
-            font-size: 2.25rem;
-            font-weight: 300;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-        }
-        @media (min-width: 1024px) {
-            h1 { font-size: 3rem; }
-        }
-        
-        /* Lead текст под H1 */
-        .text-xl {
-            font-size: 1.25rem;
-            line-height: 1.75rem;
-        }
-        
-        /* ===== БАЗОВЫЕ УТИЛИТЫ ===== */
-        
-        .flex-shrink-0 { flex-shrink: 0; }
-        .relative { position: relative; }
-        .overflow-hidden { overflow: hidden; }
-        .inline-block { display: inline-block; }
-        .flex { display: flex; }
-        .items-center { align-items: center; }
-        .text-white { color: #fff; }
-        .bg-primary { background-color: var(--primary); }
-        .rounded { border-radius: 0.25rem; }
-        .uppercase { text-transform: uppercase; }
-        .transition-colors {
-            transition-property: color, background-color, border-color;
-            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-            transition-duration: 150ms;
-        }
-        
         /* Screen reader only (скрыт визуально, доступен для screen readers) */
         .sr-only {
             position: absolute;
@@ -209,81 +142,19 @@
         .page-navigator ul li { list-style: none; }
         .page-navigator ul li:not(:last-child) { margin-bottom: 1.85714286em; }
         @media (max-width: 1023px) { .page-navigator { display: none !important; } }
-        .page-navigator li a { width: 8px; height: 8px; background: #fff; border-radius: 50%; transition: all 0.2s ease; display: block; position: relative; opacity: 0.5; }
+        .page-navigator li a { width: 8px; height: 8px; background: #fff; border-radius: 50%; transition: all 0.3s ease; display: block; position: relative; opacity: 0.5; }
         .page-navigator li a:hover, .page-navigator li a.inner-link--active { opacity: 1; }
         .page-navigator li a[data-title]:before { content: attr(data-title); position: absolute; right: 12px; top: -14px; background: #222; color: #fff; border-radius: 6px; padding: 4px 8px; display: inline-block; white-space: nowrap; font-size: 12px; opacity: 0; transition: all 0.2s ease; }
         .page-navigator li a[data-title]:hover:before { opacity: 1; }
+        .page-navigator li a:hover { transform: scale(1.5); }
         
         /* Carousel */
         .carousel-scroll { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
         .carousel-scroll::-webkit-scrollbar { display: none; }
-        .snap-center { scroll-snap-align: center; }
-        
-        /* Video Cover */
-        .video-cover { position: relative; overflow: hidden; }
-        .video-cover .video-play-icon { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; z-index: 2; transition: all 0.3s ease; }
-        .video-cover video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-        .video-cover iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        .video-cover.video-playing > :first-child,
-        .video-cover.video-playing .video-play-icon { display: none; }
-        .video-cover.video-playing video, .video-cover.video-playing iframe { display: block; }
         
         /* Ken Burns Effect */
         @keyframes kenburns { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
         .ken-burns-img { animation: kenburns 20s ease-out forwards; }
-
-	   /* ===== ПРЕМИАЛЬНЫЕ УЛУЧШЕНИЯ ===== */
- 
-    /* Улучшенные кнопки */
-    .btn-premium {
-        transition: all 0.3s ease;
-    }
-    
-    .btn-premium:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(74, 144, 226, 0.3);
-    }
-    
-    /* Карточки преимуществ с hover-эффектом */
-    .bg-white.rounded-lg.p-6 {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    .bg-white.rounded-lg.p-6:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-    }        
-    
-    /* Page Navigator улучшение */
-    .page-navigator li a {
-        transition: all 0.3s ease;
-    }
-    
-    .page-navigator li a:hover {
-        transform: scale(1.5);
-    }	
-
-/* Разделитель в "Как заказать" */
-.timeline-divider {
-    border-left-width: 3px;
-    border-style: dashed;
-    border-color: rgba(74, 144, 226, 0.3);
-}
-
-/* Список характеристик */
-.characteristics-list li {
-    transition: background-color 0.2s ease;
-    padding: 0.375rem 0; /* Уменьшил с 0.5rem до 0.375rem */
-}
-.characteristics-list li:nth-child(odd) {
-    background-color: rgba(74, 144, 226, 0.03);
-    border-radius: 4px;
-    padding: 0.375rem 0.75rem; /* Уменьшил с 0.5rem до 0.375rem */
-    margin: 0 -0.75rem;
-}
-.characteristics-list li:hover {
-    background-color: rgba(74, 144, 226, 0.05);
-}
 </style>
 </head>
 <body class="bg-white overflow-x-hidden">
@@ -295,7 +166,7 @@
     </a>
  <!-- Header -->
     <header class="bg-dark sticky top-0 z-50">
-        <nav class="container flex items-center justify-between gap-x-4 py-5">
+        <nav class="mx-auto px-4 max-w-[1170px] flex items-center justify-between gap-x-4 py-5">
             <!-- Logo -->
             <div class="flex-shrink-0">
                 <a href="https://muse.ooo/" class="-m-1.5 p-1.5 flex items-center">
@@ -325,7 +196,7 @@
                         <path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </a>
-                <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors whitespace-nowrap btn-premium">
+                <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30 whitespace-nowrap">
                     Заказать
                 </a>
             </div>
@@ -435,17 +306,17 @@
                 <div class="absolute inset-0 bg-black/40"></div>
             </div>
             
-            <div class="container h-full flex items-center relative z-10 text-white">
+            <div class="mx-auto px-4 max-w-[1170px] h-full flex items-center relative z-10 text-white">
                 <div class="max-w-3xl">
-                    <nav class="breadcrumbs mb-4" aria-label="Breadcrumb">
+                    <nav class="text-sm text-gray-400 mb-4" aria-label="Breadcrumb">
                         <ol class="flex list-none p-0">
                             <li class="flex items-center">
-                                <a href="https://muse.ooo/">Главная</a>
-                                <span class="mx-2 text-gray-300">/</span>
+                                <a href="https://muse.ooo/" class="hover:underline">Главная</a>
+                                <span class="mx-2">/</span>
                             </li>
                             <li class="flex items-center">
-                                <a href="https://muse.ooo/portret-na-zakaz/">Портрет на заказ</a>
-                                <span class="mx-2 text-gray-300">/</span>
+                                <a href="https://muse.ooo/portret-na-zakaz/" class="hover:underline">Портрет на заказ</a>
+                                <span class="mx-2">/</span>
                             </li>
                             <li class="text-gray-300">Женский портрет</li>
                         </ol>
@@ -456,7 +327,7 @@
                         Художник нарисует для Вас женский портрет и напечатает его на холсте. Посмотрите примеры, выберите стиль и пришлите фото
                     </p>
                     
-                    <a href="https://muse.ooo/order/" class="inline-block px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors text-lg btn-premium">
+                    <a href="https://muse.ooo/order/" class="inline-block px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30 text-lg">
                         Заказать
                     </a>
                 </div>
@@ -465,7 +336,7 @@
 
         <!-- Promo Banner (1:1 как в эталоне). Порядок блока — как на старой странице -->
         <section class="bg-primary text-white py-6">
-            <div class="container">
+            <div class="mx-auto px-4 max-w-[1170px]">
                 <div class="flex items-center justify-center">
                     <p class="text-xl">Скидка 20% с 3 по 4 января</p>
                 </div>
@@ -474,7 +345,7 @@
 
         <!-- Секция Стили портретов -->
         <section class="bg-dark py-16 lg:py-20" id="stili-portretov">
-            <div class="container mb-8">
+            <div class="mx-auto px-4 max-w-[1170px] mb-8">
                 <div class="text-center">
                     <h2 class="text-3xl lg:text-4xl font-light text-white mb-4">Выберите свой стиль</h2>
                     <p class="text-base lg:text-lg text-gray-300 mb-8">Чтобы рассчитать стоимость, узнать о характеристиках и сроках исполнения, пожалуйста перейдите на подробную страницу стиля по ссылке «Цена». Перейти на страницу стиля можно и из раздела «Портфолио» кликнув по понравившемуся портрету. Он откроется в большом размере, и ссылка «Цена» там тоже будет.</p>
@@ -592,7 +463,7 @@
 
         <!-- Примеры (заглушка для Bitrix) -->
         <section class="bg-dark py-16 lg:py-20" id="primery-portretov">
-            <div class="container">
+            <div class="mx-auto px-4 max-w-[1170px]">
                 <h2 class="text-3xl lg:text-4xl font-light text-white text-center mb-8">Портфолио</h2>
                 <p class="text-center text-gray-300 mb-8">Портреты по фото</p>
                 
@@ -612,7 +483,7 @@
       
         <!-- Цена (Калькулятор - placeholder) -->
         <section class="py-16 lg:py-20" id="calc">
-            <div class="container">
+            <div class="mx-auto px-4 max-w-[1170px]">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">Цена</h2>
                 <div class="text-center text-body">
                     <p><!-- Здесь будет калькулятор Bitrix --></p>
@@ -623,7 +494,7 @@
 
         <!-- Отзывы -->
         <section class="bg-secondary py-16 lg:py-20" id="review">
-            <div class="container">
+            <div class="mx-auto px-4 max-w-[1170px]">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">Отзывы</h2>
                 
                 <!-- Заглушка для отзывов из Bitrix -->
@@ -748,12 +619,12 @@ function BxPopup(url, width, height) {
 </script>
 
         <section class="bg-dark py-24 md:py-32">
-            <div class="container xl:flex xl:items-center xl:justify-between">
+            <div class="mx-auto px-4 max-w-[1170px] xl:flex xl:items-center xl:justify-between">
                 <h2 class="text-2xl font-light tracking-tight text-white">
                     Создай своё произведение искусства
                 </h2>
                 <div class="mt-10 flex flex-col md:flex-row items-center gap-4 md:gap-x-6 xl:mt-0 xl:shrink-0">
-                    <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors w-full md:w-auto text-center btn-premium">
+                    <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30 w-full md:w-auto text-center">
                         Заказать
                     </a>
                     <a href="#callback" class="inline-block px-6 py-2 bg-secondary hover:bg-white text-dark rounded uppercase transition-colors w-full md:w-auto text-center">
@@ -765,7 +636,7 @@ function BxPopup(url, width, height) {
     </main>
 
      <footer class="bg-dark text-white py-8 lg:py-12">
-        <div class="container">
+        <div class="mx-auto px-4 max-w-[1170px]">
             <!-- Верхняя часть футера: меню навигации -->
             <div class="mb-8 pb-8 border-b border-gray-700">
                 <div class="relative">
@@ -856,214 +727,74 @@ function BxPopup(url, width, height) {
     </footer>
 
 
-    <!-- Scripts -->
+    <!-- Navigation Scripts -->
+    <script src="../../js/nav.js"></script>
+
+    <!-- Carousel Scroll (drag + wheel + защита от случайного клика) -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const pageNavigator = document.getElementById('page-navigator');
-            const backToTopButton = document.getElementById('back-to-top');
-            const navLinks = document.querySelectorAll('.page-navigator .inner-link');
-            
-            // Smooth scroll for inner links
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
-                    const targetElement = document.getElementById(targetId);
-                    if (targetElement) {
-                        const offsetTop = targetElement.offsetTop - 100;
-                        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-                    }
-                });
-            });
-
-            // Back to top button
-            function toggleBackToTop() {
-                if (backToTopButton) {
-                    if (window.scrollY > 300 && window.innerWidth >= 768) {
-                        backToTopButton.classList.remove('opacity-0', 'pointer-events-none');
-                        backToTopButton.classList.add('opacity-100');
-                    } else {
-                        backToTopButton.classList.add('opacity-0', 'pointer-events-none');
-                        backToTopButton.classList.remove('opacity-100');
-                    }
-                }
+    document.querySelectorAll('.carousel-scroll').forEach(function(carousel) {
+        // Прокрутка колесиком мыши
+        carousel.addEventListener('wheel', function(e) {
+            if (window.innerWidth < 1024) return;
+            if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) {
+                e.preventDefault();
+                carousel.scrollBy({ left: e.deltaY * 0.6, behavior: 'auto' });
             }
-
-            if (backToTopButton) {
-                backToTopButton.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
-            }
-
-            // Show/hide page navigator (как в эталоне)
-            function toggleDesktopElements() {
-                if (pageNavigator) {
-                    pageNavigator.style.display = window.innerWidth >= 1024 ? 'block' : 'none';
-                }
-            }
-
-            // Active section highlighting for page navigator
-            function updateActiveLink() {
-                const sections = document.querySelectorAll('section[id]');
-                const scrollPos = window.scrollY + 200;
-                
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.offsetHeight;
-                    const sectionId = section.getAttribute('id');
-                    const navLink = document.querySelector(`.page-navigator a[href="#${sectionId}"]`);
-                    
-                    if (navLink) {
-                        if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                            navLinks.forEach(link => link.classList.remove('inner-link--active'));
-                            navLink.classList.add('inner-link--active');
-                        }
-                    }
-                });
-            }
-
-            // Video Cover functionality (video + iframe[data-src])
-            const videoCovers = document.querySelectorAll('.video-cover');
-            videoCovers.forEach(function(cover) {
-                const playIcon = cover.querySelector('.video-play-icon');
-                const video = cover.querySelector('video');
-                const iframe = cover.querySelector('iframe[data-src]');
-                
-                if (!playIcon) return;
-
-                playIcon.addEventListener('click', function() {
-                    cover.classList.add('video-playing');
-
-                    if (video) {
-                        video.classList.remove('hidden');
-                        video.play();
-                    }
-
-                    if (iframe) {
-                        iframe.src = iframe.getAttribute('data-src');
-                        iframe.removeAttribute('data-src');
-                        iframe.classList.remove('hidden');
-                    }
-                });
-            });
-
-            // Прокрутка каруселей колесиком мыши на ПК (как в эталоне)
-            (function() {
-                const carousels = document.querySelectorAll('.carousel-scroll');
-                
-                carousels.forEach(carousel => {
-                    const observer = new IntersectionObserver((entries) => {
-                        entries.forEach(entry => {
-                            carousel.dataset.visible = entry.isIntersecting ? 'true' : 'false';
-                        });
-                    }, { threshold: 0.1 });
-                    
-                    if (carousel) {
-                        observer.observe(carousel);
-                    }
-
-                    carousel.addEventListener('wheel', (e) => {
-                        if (window.innerWidth < 1024 || carousel.dataset.visible !== 'true') return;
-                        const rect = carousel.getBoundingClientRect();
-                        const isOverCarousel = e.clientX >= rect.left && e.clientX <= rect.right &&
-                                             e.clientY >= rect.top && e.clientY <= rect.bottom;
-                        if (isOverCarousel && Math.abs(e.deltaX) < Math.abs(e.deltaY)) {
-                            e.preventDefault();
-                            carousel.scrollBy({
-                                left: e.deltaY * 0.6,
-                                behavior: 'auto'
-                            });
-                        }
-                    }, { passive: false });
-
-                    let isDown = false;
-                    let startX = 0;
-                    let startScrollLeft = 0;
-                    let hasMoved = false;
-                    let clickBlocked = false;
-                    const DRAG_THRESHOLD = 5;
-                    
-                    carousel.style.cursor = 'grab';
-                    
-                    carousel.addEventListener('mousedown', (e) => {
-                        if (window.innerWidth < 1024) return;
-                        isDown = true;
-                        hasMoved = false;
-                        clickBlocked = false;
-                        carousel.style.cursor = 'grabbing';
-                        startX = e.pageX;
-                        startScrollLeft = carousel.scrollLeft;
-                        e.preventDefault();
-                    });
-
-                    carousel.addEventListener('mousemove', (e) => {
-                        if (!isDown || window.innerWidth < 1024) return;
-                        e.preventDefault();
-                        const moveDistance = Math.abs(e.pageX - startX);
-                        if (moveDistance > DRAG_THRESHOLD) {
-                            hasMoved = true;
-                            clickBlocked = true;
-                        }
-                        const walk = (e.pageX - startX) * 1.2;
-                        const newScroll = startScrollLeft - walk;
-                        carousel.scrollLeft = newScroll;
-                    });
-
-                    carousel.addEventListener('click', (e) => {
-                        if (clickBlocked && window.innerWidth >= 1024) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            clickBlocked = false;
-                        }
-                    }, true);
-
-                    carousel.addEventListener('mouseleave', () => {
-                        if (isDown) {
-                            isDown = false;
-                            hasMoved = false;
-                            carousel.style.cursor = 'grab';
-                        }
-                    });
-
-                    carousel.addEventListener('mouseup', () => {
-                        if (isDown) {
-                            isDown = false;
-                            carousel.style.cursor = 'grab';
-                            if (hasMoved) {
-                                clickBlocked = true;
-                                setTimeout(() => {
-                                    clickBlocked = false;
-                                }, 100);
-                            }
-                            hasMoved = false;
-                        }
-                    });
-                });
-            })();
-
-            // Initialize
-            toggleBackToTop();
-            toggleDesktopElements();
-
-            // Throttle scroll events
-            let ticking = false;
-            window.addEventListener('scroll', function() {
-                if (!ticking) {
-                    window.requestAnimationFrame(function() {
-                        toggleBackToTop();
-                        updateActiveLink();
-                        ticking = false;
-                    });
-                    ticking = true;
-                }
-            });
-
-            window.addEventListener('resize', function() {
-                toggleDesktopElements();
-                toggleBackToTop();
-            });
+        }, { passive: false });
+        
+        // Drag-to-scroll с защитой от случайного клика
+        var isDown = false, startX, startScrollLeft, hasMoved = false, clickBlocked = false;
+        var DRAG_THRESHOLD = 5;
+        carousel.style.cursor = 'grab';
+        
+        carousel.addEventListener('mousedown', function(e) {
+            if (window.innerWidth < 1024) return;
+            isDown = true;
+            hasMoved = false;
+            clickBlocked = false;
+            carousel.style.cursor = 'grabbing';
+            startX = e.pageX;
+            startScrollLeft = carousel.scrollLeft;
+            e.preventDefault();
         });
+        
+        carousel.addEventListener('mousemove', function(e) {
+            if (!isDown || window.innerWidth < 1024) return;
+            e.preventDefault();
+            var moveDistance = Math.abs(e.pageX - startX);
+            if (moveDistance > DRAG_THRESHOLD) {
+                hasMoved = true;
+                clickBlocked = true;
+            }
+            carousel.scrollLeft = startScrollLeft - (e.pageX - startX) * 1.2;
+        });
+        
+        // Блокировка клика после перетаскивания
+        carousel.addEventListener('click', function(e) {
+            if (clickBlocked && window.innerWidth >= 1024) {
+                e.preventDefault();
+                e.stopPropagation();
+                clickBlocked = false;
+            }
+        }, true);
+        
+        carousel.addEventListener('mouseup', function() {
+            isDown = false;
+            carousel.style.cursor = 'grab';
+            if (hasMoved) {
+                clickBlocked = true;
+                setTimeout(function() { clickBlocked = false; }, 100);
+            }
+        });
+        
+        carousel.addEventListener('mouseleave', function() {
+            if (isDown) {
+                isDown = false;
+                hasMoved = false;
+                carousel.style.cursor = 'grab';
+            }
+        });
+    });
     </script>
 </body>
 </html>

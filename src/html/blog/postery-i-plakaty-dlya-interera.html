@@ -7,9 +7,6 @@
     <meta name="description" content="Возвращение модных тенденций на сегодняшний день подобно бумерангу. Декорирование интерьера плакатами и постерами не новая идея, но особенно актуальна в настоящее время.">
     <meta name="robots" content="noindex, nofollow">
     
-    <!-- Link to Tailwind Output CSS -->
-    <link href="css/output.css" rel="stylesheet">
-    
     <!-- Критический CSS (из эталона) -->
     <style>
         :root {
@@ -19,9 +16,7 @@
             --body: #666666;
             --secondary: #FAFAFA;
         }
-        body { background-color: var(--secondary); color: var(--body); overflow-x: hidden; }
-        .container { padding-left: 1rem; padding-right: 1rem; margin: 0 auto; }
-        @media (min-width: 1170px) { .container { max-width: 1170px; } }
+        body { background-color: #fff; color: var(--body); overflow-x: hidden; }
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
     </style>
 
@@ -51,7 +46,7 @@
     <!-- Tailwind Plus Elements -->
     <script type="module" src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1"></script>
 </head>
-<body class="bg-secondary text-body antialiased">
+<body class="bg-white text-body antialiased">
 
     <!-- Header placeholder -->
     <!-- Header (вставьте из эталона) -->
@@ -60,7 +55,7 @@
         <div class="container max-w-4xl mx-auto px-4">
             
             <!-- Breadcrumbs -->
-            <nav class="mb-8 text-sm text-gray-400" aria-label="Хлебные крошки">
+            <nav class="text-sm text-gray-400 mb-4" aria-label="Хлебные крошки">
                 <ol class="flex items-center space-x-2">
                     <li><a href="https://muse.ooo/" class="hover:text-primary transition-colors">Главная</a></li>
                     <li class="text-gray-300">/</li>
@@ -75,7 +70,7 @@
                 <div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
                     <time datetime="2016-01-22">22 января 2016 года</time>
                 </div>
-                <h1 class="text-3xl md:text-4xl lg:text-5xl font-light text-dark mb-6 leading-tight">
+                <h1 class="text-4xl lg:text-6xl font-light text-dark mb-6 leading-tight">
                     Модные печатные постеры и плакаты в интерьере
                 </h1>
             </header>
@@ -284,9 +279,22 @@
                     Всегда готовым вам помочь подборе подходящего варианта оформления, дизайне, печати и в сервисе Muse. Вы всегда можете сделать заказ интерьерных плакатов, <a href="https://muse.ooo/pechat/reproduktsiya/" class="text-primary hover:underline">репродукций картин ↗</a>, <a href="https://muse.ooo/pechat/foto-v-ramke/" class="text-primary hover:underline">фото в рамке ↗</a> специально для вашего интерьера или задач.
                 </p>
 
-                <p class="text-right text-gray-500 mt-8">
-                    Автор: Анна Анна
-                </p>
+                <!-- Подпись автора -->
+                <div class="flex items-center justify-end gap-3 mt-8">
+                    <span class="text-gray-500">Автор:</span>
+                    <a href="https://muse.ooo/info/" 
+                       class="flex items-center gap-2 text-primary hover:underline"
+                       title="О студии Muse и авторе">
+                        <img src="https://muse.ooo/upload/imgsite/anna-60-2.webp" 
+                             alt="Фото автора Анны" 
+                             class="w-10 h-10 rounded-full object-cover"
+                             width="40" 
+                             height="40"
+                             loading="lazy"
+                             decoding="async">
+                        <span>Анна</span>
+                    </a>
+                </div>
             </article>
 
             <!-- Promo Banner -->

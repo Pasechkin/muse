@@ -9,11 +9,8 @@
     <!-- Закрыто от индексации во время разработки -->
     <meta name="robots" content="noindex, nofollow">
     
-    <!-- Критический CSS (универсальный для всех страниц) -->
+    <!-- Критический CSS -->
     <style>
-        /* ===== БАЗОВЫЕ СТИЛИ ===== */
-        
-        /* CSS переменные для цветов */
         :root {
             --primary: #4A90E2;
             --primary-hover: #609DE6;
@@ -21,93 +18,8 @@
             --body: #666666;
             --secondary: #FAFAFA;
         }
-        
-        /* Body */
-        body {
-            background-color: #fff;
-            color: #666666;
-            overflow-x: hidden;
-        }
-        
-        /* Контейнер */
-        .container {
-            width: 100%;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-        @media (min-width: 1170px) {
-            .container { max-width: 1170px; }
-        }
-        
-        /* ===== HEADER ===== */
-        
-        header.bg-dark { background-color: #252525; }
-        header.sticky { position: sticky; top: 0; z-index: 50; }
-        header nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            padding-top: 1.25rem;
-            padding-bottom: 1.25rem;
-        }
-        
-        /* ===== ДЛЯ ВНУТРЕННИХ СТРАНИЦ (не главная) ===== */
-        
-        /* Хлебные крошки */
-        .breadcrumbs { font-size: 0.875rem; color: #9ca3af; }
-        .breadcrumbs a { color: #9ca3af; text-decoration: none; }
-        .breadcrumbs a:hover { text-decoration: underline; }
-        
-        /* H1 - заголовок страницы */
-        h1 {
-            font-size: 2.25rem;
-            font-weight: 300;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-        }
-        @media (min-width: 1024px) {
-            h1 { font-size: 3rem; }
-        }
-        
-        /* Lead текст под H1 */
-        .text-xl {
-            font-size: 1.25rem;
-            line-height: 1.75rem;
-        }
-        
-        /* ===== БАЗОВЫЕ УТИЛИТЫ ===== */
-        
-        .flex-shrink-0 { flex-shrink: 0; }
-        .relative { position: relative; }
-        .overflow-hidden { overflow: hidden; }
-        .inline-block { display: inline-block; }
-        .flex { display: flex; }
-        .items-center { align-items: center; }
-        .text-white { color: #fff; }
-        .bg-primary { background-color: #4A90E2; }
-        .rounded { border-radius: 0.25rem; }
-        .uppercase { text-transform: uppercase; }
-        .transition-colors {
-            transition-property: color, background-color, border-color;
-            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-            transition-duration: 150ms;
-        }
-        
-        /* Screen reader only (скрыт визуально, доступен для screen readers) */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
+        body { background-color: #fff; color: var(--body); overflow-x: hidden; }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
     </style>
     
     <!-- Tailwind CSS CDN -->
@@ -146,49 +58,14 @@
         .page-navigator ul li { list-style: none; }
         .page-navigator ul li:not(:last-child) { margin-bottom: 1.85714286em; }
         @media (max-width: 1023px) { .page-navigator { display: none !important; } }
-        .page-navigator li a { width: 8px; height: 8px; background: #fff; border-radius: 50%; transition: all 0.2s ease; display: block; position: relative; opacity: 0.5; }
-        .page-navigator li a:hover, .page-navigator li a.inner-link--active { opacity: 1; }
+        .page-navigator li a { width: 8px; height: 8px; background: #fff; border-radius: 50%; transition: all 0.3s ease; display: block; position: relative; opacity: 0.5; }
+        .page-navigator li a:hover, .page-navigator li a.inner-link--active { opacity: 1; transform: scale(1.5); }
         .page-navigator li a[data-title]:before { content: attr(data-title); position: absolute; right: 12px; top: -14px; background: #222; color: #fff; border-radius: 6px; padding: 4px 8px; display: inline-block; white-space: nowrap; font-size: 12px; opacity: 0; transition: all 0.2s ease; }
         .page-navigator li a[data-title]:hover:before { opacity: 1; }
-        
         /* Carousel */
         .carousel-scroll { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
         .carousel-scroll::-webkit-scrollbar { display: none; }
-        .snap-center { scroll-snap-align: center; }
-        
-        
-    /* ===== ПРЕМИАЛЬНЫЕ УЛУЧШЕНИЯ ===== */
- 
-    /* Улучшенные кнопки */
-    .btn-premium {
-        transition: all 0.3s ease;
-    }
-    
-    .btn-premium:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(74, 144, 226, 0.3);
-    }
-    
-    /* Карточки преимуществ с hover-эффектом */
-    .bg-white.rounded-lg.p-6 {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    .bg-white.rounded-lg.p-6:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-    }        
-    
-    /* Page Navigator улучшение */
-    .page-navigator li a {
-        transition: all 0.3s ease;
-    }
-    
-    .page-navigator li a:hover {
-        transform: scale(1.5);
-    }	
-
-</style>
+    </style>
 </head>
 <body class="bg-white overflow-x-hidden">
     <!-- Header -->
@@ -223,7 +100,7 @@
                         <path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </a>
-                <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors whitespace-nowrap btn-premium">
+                <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-all whitespace-nowrap hover:-translate-y-0.5 hover:shadow-lg">
                     Заказать
                 </a>
             </div>
@@ -294,8 +171,7 @@
     </header>
 
     <!-- Hero Section -->
-    <header>
-        <section class="relative h-[65vh] lg:h-screen overflow-hidden bg-dark">
+    <section class="relative h-[65vh] lg:h-screen overflow-hidden bg-dark">
             <video class="absolute inset-0 w-full h-full object-cover hidden lg:block" autoplay loop muted playsinline preload="none" title="Фоновый ролик о печати на холсте">
                 <source src="https://muse.ooo/video/pechat-na-holste-video.webm" media="(min-width: 1024px)" type="video/webm">
                 <source src="https://muse.ooo/video/pechat-na-holste-2.mp4" media="(min-width: 1024px)" type="video/mp4">
@@ -311,17 +187,16 @@
                             <li class="text-gray-100">Печать на холсте в Петербурге</li>
                         </ol>
                     </nav>
-                    <h1 class="text-4xl lg:text-5xl font-light text-white mb-4">Печать на холсте в Петербурге</h1>
+                    <h1 class="text-4xl lg:text-6xl font-light text-white mb-4">Печать на холсте в Петербурге</h1>
                     <p class="text-xl text-white/90 mb-8">
                         Печать на холсте – цена от 2451 ₽, срок от 1 дня, гарантия 5 лет – помощь с обработкой, размеры и оформление на выбор, доставка заказа по СПб
                     </p>
-                    <a href="https://muse.ooo/order/" class="inline-block px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors text-lg btn-premium">
+                    <a href="https://muse.ooo/order/" class="inline-block px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-all text-lg hover:-translate-y-0.5 hover:shadow-lg">
                         Заказать
                     </a>
                 </div>
             </div>
-        </section>
-    </header>
+    </section>
 
     <!-- Promo Banner -->
     <section class="bg-primary text-white py-6">
@@ -456,15 +331,12 @@
                 <div class="flex flex-col lg:flex-row">
                     <div class="lg:w-1/2 relative aspect-video">
                         <video
-                            muted
-                            loop
-                            playsinline
-                            preload="none"
+                            autoplay muted loop playsinline preload="none"
                             poster="https://muse.ooo/upload/imgsite/print-on-canvas-poster-2.webp"
                             title="Картины напечатанные на холсте"
-                            class="lazy-video absolute inset-0 w-full h-full object-cover lg:relative lg:min-h-[500px]"
-                            data-src="https://muse.ooo/video/print-on-canvas-a-comp.webm"
+                            class="absolute inset-0 w-full h-full object-cover lg:relative lg:min-h-[500px]"
                         >
+                            <source src="https://muse.ooo/video/print-on-canvas-a-comp.webm" type="video/webm">
                         </video>
                     </div>
                     <div class="lg:w-1/2 flex items-center p-8 lg:p-16">
@@ -637,26 +509,26 @@
                                 <div class="text-body" itemprop="text">
                                     <p class="font-semibold mb-2">Цены на самые востребованные размеры печати на холсте</p>
                                     <div class="overflow-x-auto mb-4">
-                                        <table class="w-full text-sm text-left border-collapse min-w-[400px]">
+                                        <table class="w-full text-left border-collapse">
                                             <thead>
-                                                <tr class="bg-gray-100">
-                                                    <th class="px-3 py-2 border border-gray-300 font-semibold text-dark">Размеры, см</th>
-                                                    <th class="px-3 py-2 border border-gray-300 font-semibold text-dark">В рулоне, руб.</th>
-                                                    <th class="px-3 py-2 border border-gray-300 font-semibold text-dark">На подрамнике, руб.</th>
+                                                <tr class="border-b border-gray-200">
+                                                    <th class="py-2 pr-4 font-medium">Размеры, см</th>
+                                                    <th class="py-2 pr-4 font-medium">В рулоне, руб.</th>
+                                                    <th class="py-2 font-medium">На подрамнике, руб.</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr><td class="px-3 py-2 border border-gray-300">30×40</td><td class="px-3 py-2 border border-gray-300">2653</td><td class="px-3 py-2 border border-gray-300">2773</td></tr>
-                                                <tr><td class="px-3 py-2 border border-gray-300">40×40</td><td class="px-3 py-2 border border-gray-300">2813</td><td class="px-3 py-2 border border-gray-300">2973</td></tr>
-                                                <tr><td class="px-3 py-2 border border-gray-300">40×50</td><td class="px-3 py-2 border border-gray-300">2973</td><td class="px-3 py-2 border border-gray-300">3173</td></tr>
-                                                <tr><td class="px-3 py-2 border border-gray-300">40×60</td><td class="px-3 py-2 border border-gray-300">3133</td><td class="px-3 py-2 border border-gray-300">3373</td></tr>
-                                                <tr><td class="px-3 py-2 border border-gray-300">50×50</td><td class="px-3 py-2 border border-gray-300">3162</td><td class="px-3 py-2 border border-gray-300">3412</td></tr>
-                                                <tr><td class="px-3 py-2 border border-gray-300">50×70</td><td class="px-3 py-2 border border-gray-300">3541</td><td class="px-3 py-2 border border-gray-300">3891</td></tr>
-                                                <tr><td class="px-3 py-2 border border-gray-300">60×60</td><td class="px-3 py-2 border border-gray-300">3570</td><td class="px-3 py-2 border border-gray-300">3930</td></tr>
-                                                <tr><td class="px-3 py-2 border border-gray-300">60×80</td><td class="px-3 py-2 border border-gray-300">4007</td><td class="px-3 py-2 border border-gray-300">4487</td></tr>
-                                                <tr><td class="px-3 py-2 border border-gray-300">60×90</td><td class="px-3 py-2 border border-gray-300">4225</td><td class="px-3 py-2 border border-gray-300">4765</td></tr>
-                                                <tr><td class="px-3 py-2 border border-gray-300">80×120</td><td class="px-3 py-2 border border-gray-300">5667</td><td class="px-3 py-2 border border-gray-300">6627</td></tr>
-                                                <tr><td class="px-3 py-2 border border-gray-300">90×120</td><td class="px-3 py-2 border border-gray-300">6060</td><td class="px-3 py-2 border border-gray-300">7140</td></tr>
+                                            <tbody class="text-sm">
+                                                <tr class="border-b border-gray-100"><td class="py-2 pr-4">30×40</td><td class="py-2 pr-4">2653</td><td>2773</td></tr>
+                                                <tr class="border-b border-gray-100"><td class="py-2 pr-4">40×40</td><td class="py-2 pr-4">2813</td><td>2973</td></tr>
+                                                <tr class="border-b border-gray-100"><td class="py-2 pr-4">40×50</td><td class="py-2 pr-4">2973</td><td>3173</td></tr>
+                                                <tr class="border-b border-gray-100"><td class="py-2 pr-4">40×60</td><td class="py-2 pr-4">3133</td><td>3373</td></tr>
+                                                <tr class="border-b border-gray-100"><td class="py-2 pr-4">50×50</td><td class="py-2 pr-4">3162</td><td>3412</td></tr>
+                                                <tr class="border-b border-gray-100"><td class="py-2 pr-4">50×70</td><td class="py-2 pr-4">3541</td><td>3891</td></tr>
+                                                <tr class="border-b border-gray-100"><td class="py-2 pr-4">60×60</td><td class="py-2 pr-4">3570</td><td>3930</td></tr>
+                                                <tr class="border-b border-gray-100"><td class="py-2 pr-4">60×80</td><td class="py-2 pr-4">4007</td><td>4487</td></tr>
+                                                <tr class="border-b border-gray-100"><td class="py-2 pr-4">60×90</td><td class="py-2 pr-4">4225</td><td>4765</td></tr>
+                                                <tr class="border-b border-gray-100"><td class="py-2 pr-4">80×120</td><td class="py-2 pr-4">5667</td><td>6627</td></tr>
+                                                <tr><td class="py-2 pr-4">90×120</td><td class="py-2 pr-4">6060</td><td>7140</td></tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -858,7 +730,7 @@
                     Создай своё произведение искусства
                 </h2>
                 <div class="mt-10 flex flex-col md:flex-row items-center gap-4 md:gap-x-6 xl:mt-0 xl:shrink-0">
-                    <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors w-full md:w-auto text-center btn-premium">
+                    <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-all w-full md:w-auto text-center hover:-translate-y-0.5 hover:shadow-lg">
                         Заказать
                     </a>
                     <a href="#callback" class="inline-block px-6 py-2 bg-dark hover:bg-gray-700 text-white rounded uppercase transition-colors w-full md:w-auto text-center">
@@ -961,280 +833,7 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const pageNavigator = document.getElementById('page-navigator');
-            const backToTopButton = document.getElementById('back-to-top');
-            const navLinks = document.querySelectorAll('.page-navigator .inner-link');
-            
-            // Smooth scroll for inner links
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
-                    const targetElement = document.getElementById(targetId);
-                    if (targetElement) {
-                        const offsetTop = targetElement.offsetTop - 100;
-                        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-                    }
-                });
-            });
-
-            // Back to top button
-            function toggleBackToTop() {
-                if (backToTopButton) {
-                    if (window.scrollY > 300 && window.innerWidth >= 768) {
-                        backToTopButton.classList.remove('opacity-0', 'pointer-events-none');
-                        backToTopButton.classList.add('opacity-100');
-                    } else {
-                        backToTopButton.classList.add('opacity-0', 'pointer-events-none');
-                        backToTopButton.classList.remove('opacity-100');
-                    }
-                }
-            }
-
-            if (backToTopButton) {
-                backToTopButton.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
-            }
-
-            // Show/hide page navigator
-            function toggleDesktopElements() {
-                if (pageNavigator) {
-                    pageNavigator.style.display = window.innerWidth >= 1024 ? 'block' : 'none';
-                }
-            }
-
-            // Active section highlighting for page navigator
-            function updateActiveLink() {
-                const sections = document.querySelectorAll('section[id]');
-                const scrollPos = window.scrollY + 200;
-                
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.offsetHeight;
-                    const sectionId = section.getAttribute('id');
-                    const navLink = document.querySelector(`.page-navigator a[href="#${sectionId}"]`);
-                    
-                    if (navLink) {
-                        if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                            navLinks.forEach(link => link.classList.remove('inner-link--active'));
-                            navLink.classList.add('inner-link--active');
-                        }
-                    }
-                });
-            }
-
-            window.addEventListener('scroll', function() {
-                toggleBackToTop();
-                updateActiveLink();
-            });
-            window.addEventListener('resize', function() {
-                toggleDesktopElements();
-                toggleBackToTop();
-            });
-
-            toggleBackToTop();
-            toggleDesktopElements();
-            updateActiveLink();
-
-            // Прокрутка каруселей колесиком мыши на ПК
-            (function() {
-                const carousels = document.querySelectorAll('.carousel-scroll');
-                
-                carousels.forEach(carousel => {
-                    const observer = new IntersectionObserver((entries) => {
-                        entries.forEach(entry => {
-                            carousel.dataset.visible = entry.isIntersecting ? 'true' : 'false';
-                        });
-                    }, { threshold: 0.1 });
-                    
-                    if (carousel) {
-                        observer.observe(carousel);
-                    }
-
-                    carousel.addEventListener('wheel', (e) => {
-                        if (window.innerWidth < 1024 || carousel.dataset.visible !== 'true') return;
-                        const rect = carousel.getBoundingClientRect();
-                        const isOverCarousel = e.clientX >= rect.left && e.clientX <= rect.right &&
-                                             e.clientY >= rect.top && e.clientY <= rect.bottom;
-                        if (isOverCarousel && Math.abs(e.deltaX) < Math.abs(e.deltaY)) {
-                            e.preventDefault();
-                            carousel.scrollBy({
-                                left: e.deltaY * 0.6,
-                                behavior: 'auto'
-                            });
-                        }
-                    }, { passive: false });
-
-                    let isDown = false;
-                    let startX = 0;
-                    let startScrollLeft = 0;
-                    let hasMoved = false;
-                    let clickBlocked = false;
-                    const DRAG_THRESHOLD = 5;
-                    
-                    carousel.style.cursor = 'grab';
-                    
-                    carousel.addEventListener('mousedown', (e) => {
-                        if (window.innerWidth < 1024) return;
-                        isDown = true;
-                        hasMoved = false;
-                        clickBlocked = false;
-                        carousel.style.cursor = 'grabbing';
-                        startX = e.pageX;
-                        startScrollLeft = carousel.scrollLeft;
-                        e.preventDefault();
-                    });
-
-                    carousel.addEventListener('mousemove', (e) => {
-                        if (!isDown || window.innerWidth < 1024) return;
-                        e.preventDefault();
-                        const moveDistance = Math.abs(e.pageX - startX);
-                        if (moveDistance > DRAG_THRESHOLD) {
-                            hasMoved = true;
-                            clickBlocked = true;
-                        }
-                        const walk = (e.pageX - startX) * 1.2;
-                        const newScroll = startScrollLeft - walk;
-                        carousel.scrollLeft = newScroll;
-                    });
-
-                    carousel.addEventListener('click', (e) => {
-                        if (clickBlocked && window.innerWidth >= 1024) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            clickBlocked = false;
-                        }
-                    }, true);
-
-                    carousel.addEventListener('mouseleave', () => {
-                        if (isDown) {
-                            isDown = false;
-                            hasMoved = false;
-                            carousel.style.cursor = 'grab';
-                        }
-                    });
-
-                    carousel.addEventListener('mouseup', () => {
-                        if (isDown) {
-                            isDown = false;
-                            carousel.style.cursor = 'grab';
-                            if (hasMoved) {
-                                clickBlocked = true;
-                                setTimeout(() => {
-                                    clickBlocked = false;
-                                }, 100);
-                            }
-                            hasMoved = false;
-                        }
-                    });
-                });
-            })();
-        });
-    </script>
-
-    <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "Organization",
-          "@id": "https://muse.ooo/#organization",
-          "name": "Muse",
-          "url": "https://muse.ooo/",
-          "logo": "https://muse.ooo/img/logo_muse_dark.png"
-        },
-        {
-          "@type": "LocalBusiness",
-          "@id": "https://muse.ooo/#spb-office",
-          "name": "Студия Muse — печать на холсте и портреты в Санкт-Петербурге",
-          "url": "https://muse.ooo/info/kontakty/#spb",
-          "telephone": "+78124081869",
-          "email": "info@muse.ooo",
-          "priceRange": "2451-30000 RUB",
-          "image": "https://muse.ooo/upload/imgreg/pechat-na-holste-sankt-peterburg-1.webp",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Слуцкая ул., дом 13, корпус 2",
-            "addressLocality": "Санкт-Петербург (Павловск)",
-            "addressCountry": "RU",
-            "postalCode": "196620"
-          },
-          "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": 59.673856,
-            "longitude": 30.435728
-          },
-          "areaServed": { "@type": "City", "name": "Санкт-Петербург" },
-          "openingHours": "Mo-Su 10:00-19:00"
-        },
-        {
-          "@type": "Service",
-          "@id": "https://muse.ooo/pechat-na-kholste-sankt-peterburg/#service",
-          "name": "Печать на холсте в Санкт-Петербурге",
-          "description": "Печать на холсте – цена от 2451 ₽, срок от 1 дня, гарантия 5 лет – помощь с обработкой, размеры и оформление на выбор, доставка заказа по СПб",
-          "url": "https://muse.ooo/pechat-na-kholste-sankt-peterburg/",
-          "provider": { "@id": "https://muse.ooo/#spb-office" },
-          "areaServed": { "@type": "City", "name": "Санкт-Петербург" }
-        },
-        {
-          "@type": "WebPage",
-          "@id": "https://muse.ooo/pechat-na-kholste-sankt-peterburg/#webpage",
-          "url": "https://muse.ooo/pechat-na-kholste-sankt-peterburg/",
-          "name": "Печать на холсте в Санкт-Петербурге — Muse",
-          "mainEntity": { "@id": "https://muse.ooo/pechat-na-kholste-sankt-peterburg/#service" }
-        }
-      ]
-    }
-    </script>
-
-    <!-- Отложенная загрузка видео -->
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const lazyVideos = document.querySelectorAll('video.lazy-video');
-        
-        if ('IntersectionObserver' in window) {
-            const videoObserver = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
-                        const video = entry.target;
-                        const src = video.dataset.src;
-                        if (src) {
-                            const source = document.createElement('source');
-                            source.src = src;
-                            source.type = 'video/webm';
-                            video.appendChild(source);
-                            video.load();
-                            video.play();
-                        }
-                        videoObserver.unobserve(video);
-                    }
-                });
-            }, { rootMargin: '100px' });
-
-            lazyVideos.forEach(function(video) {
-                videoObserver.observe(video);
-            });
-        } else {
-            // Fallback для старых браузеров
-            lazyVideos.forEach(function(video) {
-                const src = video.dataset.src;
-                if (src) {
-                    const source = document.createElement('source');
-                    source.src = src;
-                    source.type = 'video/webm';
-                    video.appendChild(source);
-                    video.load();
-                    video.play();
-                }
-            });
-        }
-    });
-    </script>
+    <!-- Navigation Scripts -->
+    <script src="js/nav.js"></script>
 </body>
 </html>

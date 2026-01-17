@@ -7,9 +7,6 @@
     <meta name="description" content="В XVI веке холст (canvas) стал одним из традиционных материалов в живописи и активно используется художниками до сих пор.">
     <meta name="robots" content="noindex, nofollow">
     
-    <!-- Link to Tailwind Output CSS -->
-    <link href="../css/output.css" rel="stylesheet">
-    
     <!-- Критический CSS (из эталона) -->
     <style>
         :root {
@@ -19,9 +16,7 @@
             --body: #666666;
             --secondary: #FAFAFA;
         }
-        body { background-color: var(--secondary); color: var(--body); overflow-x: hidden; }
-        .container { padding-left: 1rem; padding-right: 1rem; margin: 0 auto; }
-        @media (min-width: 1170px) { .container { max-width: 1170px; } }
+        body { background-color: #fff; color: var(--body); overflow-x: hidden; }
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
     </style>
 
@@ -51,19 +46,16 @@
     <!-- Tailwind Plus Elements -->
     <script type="module" src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1"></script>
 </head>
-<body class="bg-secondary text-body antialiased">
+<body class="bg-white text-body antialiased">
 
     <!-- Header placeholder -->
     <!-- Header (вставьте из эталона) -->
 
     <main class="py-12 bg-white">
-        <!-- Глобальный контейнер (ограничивает ширину до 1170px через CSS) -->
-        <div class="container">
-            <!-- Внутренний враппер для контента блога (ограничивает ширину до 4xl и центрирует) -->
-            <div class="max-w-4xl mx-auto">
+        <div class="container max-w-4xl mx-auto px-4">
             
                 <!-- Breadcrumbs -->
-                <nav class="mb-8 text-sm text-gray-400" aria-label="Хлебные крошки">
+                <nav class="text-sm text-gray-400 mb-4" aria-label="Хлебные крошки">
                     <ol class="flex items-center space-x-2">
                         <li><a href="https://muse.ooo/" class="hover:text-primary transition-colors">Главная</a></li>
                         <li class="text-gray-300">/</li>
@@ -78,7 +70,7 @@
                     <div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
                         <time datetime="2015-12-16">16 декабря 2015 года</time>
                     </div>
-                    <h1 class="text-3xl md:text-4xl lg:text-5xl font-light text-dark mb-6 leading-tight">
+                    <h1 class="text-4xl lg:text-6xl font-light text-dark mb-6 leading-tight">
                         Печать на холсте фотографий и репродукций
                     </h1>
                 </header>
@@ -238,9 +230,21 @@
                         В сервисе Muse мы печатаем <a href="https://muse.ooo/pechat/foto-na-kholste/" class="text-primary hover:underline">фото ↗</a>, <a href="https://muse.ooo/pechat/fotokollazh-na-kholste/" class="text-primary hover:underline">фотоколлажи ↗</a>, <a href="https://muse.ooo/pechat/modulnaya-kartina/" class="text-primary hover:underline">модульные картины ↗</a> и <a href="https://muse.ooo/portret-na-zakaz/" class="text-primary hover:underline">портреты на холсте ↗</a> компании Lomond, печатаем на оборудовании для художественной печати Epson SC-P6000 оригинальными пигментными чернилами - это мы делаем для того, чтобы наши заказчики получили продукцию самого высокого на качества, именно так изготавливают репродукции во многих музеях мира.
                     </p>
 
-                    <p class="text-right text-gray-500 mt-8">
-                        Автор: Анна Анна
-                    </p>
+                    <div class="flex items-center justify-end gap-3 mt-8">
+                        <span class="text-gray-500">Автор:</span>
+                        <a href="https://muse.ooo/info/" 
+                           class="flex items-center gap-2 text-primary hover:underline"
+                           title="О студии Muse и авторе">
+                            <img src="https://muse.ooo/upload/imgsite/anna-60-2.webp" 
+                                 alt="Фото автора Анны" 
+                                 class="w-10 h-10 rounded-full object-cover"
+                                 width="40" 
+                                 height="40"
+                                 loading="lazy"
+                                 decoding="async">
+                            <span>Анна</span>
+                        </a>
+                    </div>
                 </article>
 
                 <!-- Promo Banner -->
@@ -282,7 +286,6 @@
                     </div>
                 </section>
 
-            </div>
         </div>
     </main>
 

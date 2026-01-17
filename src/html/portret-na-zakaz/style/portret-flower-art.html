@@ -11,127 +11,29 @@
     
     <!-- Критический CSS (универсальный для страниц стилей портретов) -->
     <style>
-        /* ===== БАЗОВЫЕ СТИЛИ ===== */
-        
-        /* CSS переменные для цветов */
+        /* CSS переменные */
         :root {
             --primary: #4A90E2;
             --primary-hover: #609DE6;
             --dark: #252525;
             --body: #666666;
-            --secondary: #FAFAFA;
         }
-        
+
         /* Body */
-        body {
-            background-color: #fff;
-            color: #666666;
-            overflow-x: hidden;
+        body { 
+            background-color: #fff; 
+            color: #666; 
+            overflow-x: hidden; 
         }
-        
-        /* Контейнер */
-        .container {
-            width: 100%;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-        @media (min-width: 1170px) {
-            .container { max-width: 1170px; }
-        }
-        
-        /* ===== HEADER ===== */
-        
-        header.bg-dark { background-color: #252525; }
-        header.sticky { position: sticky; top: 0; z-index: 50; }
-        header nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            padding-top: 1.25rem;
-            padding-bottom: 1.25rem;
-        }
-        
-        /* ===== ДЛЯ ВНУТРЕННИХ СТРАНИЦ (не главная) ===== */
-        
-        /* Хлебные крошки */
-        .breadcrumbs { font-size: 0.875rem; color: #9ca3af; }
-        .breadcrumbs a { color: #9ca3af; text-decoration: none; }
-        .breadcrumbs a:hover { text-decoration: underline; }
-        
-        /* H1 - заголовок страницы */
-        h1 {
-            font-size: 2.25rem;
-            font-weight: 300;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-        }
-        @media (min-width: 1024px) {
-            h1 { font-size: 3rem; }
-        }
-        
-        /* Lead текст под H1 */
-        .text-xl {
-            font-size: 1.25rem;
-            line-height: 1.75rem;
-        }
-        
-        /* ===== БАЗОВЫЕ УТИЛИТЫ ===== */
-        
-        .flex-shrink-0 { flex-shrink: 0; }
-        .relative { position: relative; }
-        .overflow-hidden { overflow: hidden; }
-        .inline-block { display: inline-block; }
-        .flex { display: flex; }
-        .items-center { align-items: center; }
-        .text-white { color: #fff; }
-        .bg-primary { background-color: #4A90E2; }
-        .rounded { border-radius: 0.25rem; }
-        .uppercase { text-transform: uppercase; }
-        .transition-colors {
-            transition-property: color, background-color, border-color;
-            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-            transition-duration: 150ms;
-        }
-        
-        /* Screen reader only (скрыт визуально, доступен для screen readers) */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-		/* Grid layout для десктопа */
-        @media (min-width: 1024px) {
-            .description-grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
-                gap: 2rem;
-                align-items: start;
-            }
-            
-            .description-grid .video-column {
-                grid-row: span 2;
-            }
-            
-            .description-grid .text-column {
-                grid-column: 2 / 4;
-            }
-            
-            /* Grid layout для Описания БЕЗ видео */
-            .description-grid-no-video {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 2rem;
-                align-items: start;
-            }
+
+        /* SR-only (accessibility) */
+        .sr-only { 
+            position: absolute; 
+            width: 1px; height: 1px; 
+            padding: 0; margin: -1px; 
+            overflow: hidden; 
+            clip: rect(0,0,0,0); 
+            border: 0; 
         }
     </style>
     
@@ -174,176 +76,30 @@
         .page-navigator ul li { list-style: none; }
         .page-navigator ul li:not(:last-child) { margin-bottom: 1.85714286em; }
         @media (max-width: 1023px) { .page-navigator { display: none !important; } }
-        .page-navigator li a { width: 8px; height: 8px; background: #fff; border-radius: 50%; transition: all 0.2s ease; display: block; position: relative; opacity: 0.5; }
+        .page-navigator li a { width: 8px; height: 8px; background: #fff; border-radius: 50%; transition: all 0.3s ease; display: block; position: relative; opacity: 0.5; }
         .page-navigator li a:hover, .page-navigator li a.inner-link--active { opacity: 1; }
         .page-navigator li a[data-title]:before { content: attr(data-title); position: absolute; right: 12px; top: -14px; background: #222; color: #fff; border-radius: 6px; padding: 4px 8px; display: inline-block; white-space: nowrap; font-size: 12px; opacity: 0; transition: all 0.2s ease; }
         .page-navigator li a[data-title]:hover:before { opacity: 1; }
+        .page-navigator li a:hover { transform: scale(1.5); }
         
-        /* Carousel */
+        /* ba-card */
+        .ba-card { --pos: 50%; }
+        .ba-card .after-image { clip-path: inset(0 0 0 var(--pos)); }
+        .ba-card .ba-divider { left: var(--pos); }
+        .ba-card .ba-handle { left: var(--pos); }
+        
+        /* canvas-3d */
+        .canvas-3d { --depth: 30px; position: relative; box-shadow: var(--depth) var(--depth) 50px rgba(0,0,0,0.4); transition: transform 0.3s ease; }
+        .canvas-3d:hover { transform: translate(-5px, -5px); }
+        
+        /* carousel-scroll */
         .carousel-scroll { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
         .carousel-scroll::-webkit-scrollbar { display: none; }
-        .snap-center { scroll-snap-align: center; }
-                /* Video Cover */
-        .video-cover { position: relative; overflow: hidden; }
-        .video-cover .video-play-icon { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; z-index: 2; transition: all 0.3s ease; }
-        .video-cover video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-        .video-cover.video-playing > div:first-child,
-        .video-cover.video-playing .video-play-icon { display: none; }
-        .video-cover.video-playing video { display: block; position: relative; }
         
-       /* Before/After Slider (ba-card) */
-.ba-card {
-    position: relative;
-    aspect-ratio: 378/265;
-    overflow: hidden;
-    --pos: 50%;
-}
-.ba-card img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    pointer-events: none;
-    user-select: none;
-}
-.ba-card .after-image {
-    clip-path: inset(0 0 0 var(--pos));
-}
-.ba-card .ba-range {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    cursor: ew-resize;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    z-index: 20;
-}
-/* ИЗМЕНЕНИЕ: СПЛОШНАЯ ТОЛСТАЯ БЕЛАЯ ЛИНИЯ */
-.ba-card .ba-divider {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: var(--pos);
-    width: 3px; /* Было 2px */
-    background: #fff; /* Было #ccc */
-    transform: translateX(-1.5px); /* Было -1px */
-    pointer-events: none;
-    z-index: 10;
-}
-.ba-card .ba-handle {
-    position: absolute;
-    left: var(--pos);
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 46px;
-    height: 70px;
-    pointer-events: none;
-    z-index: 15;
-}
-.ba-card .ba-handle::before {
-    content: '';
-    position: absolute;
-    top: 10px;
-    bottom: 10px;
-    left: 50%;
-    width: 1px;
-    background: rgba(0,0,0,0.25);
-    transform: translateX(-0.5px);
-}
-/* ИЗМЕНЕНИЕ: КРУПНЫЕ СТРЕЛКИ */
-.ba-card .ba-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 24px; /* Было 18px */
-    font-weight: bold;
-    color: white;
-    text-shadow: 0 0 3px rgba(0,0,0,0.7);
-}
-.ba-card .ba-arrow.l { left: 10px; }
-.ba-card .ba-arrow.r { right: 10px; }
-   /* ===== ПРЕМИАЛЬНЫЕ УЛУЧШЕНИЯ ===== */
- 
-    /* Улучшенные кнопки */
-    .btn-premium {
-        transition: all 0.3s ease;
-    }
-    
-    .btn-premium:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(74, 144, 226, 0.3);
-    }
-    
-    /* Карточки преимуществ с hover-эффектом */
-    .bg-white.rounded-lg.p-6 {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    .bg-white.rounded-lg.p-6:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-    }        
-    
-    /* Page Navigator улучшение */
-    .page-navigator li a {
-        transition: all 0.3s ease;
-    }
-    
-    .page-navigator li a:hover {
-        transform: scale(1.5);
-    }
-	/* 3D эффект для картинки */
-.canvas-3d {
-    --depth: 30px;
-    position: relative;
-    box-shadow: var(--depth) var(--depth) 50px rgba(0,0,0,0.4);
-    transition: transform 0.3s ease;
-}
-.canvas-3d:hover {
-    transform: translate(-5px, -5px);
-}
-
-/* Разделитель в "Как заказать" */
-.timeline-divider {
-    border-left-width: 3px;
-    border-style: dashed;
-    border-color: rgba(74, 144, 226, 0.3);
-}
-
-/* Список характеристик */
-.characteristics-list li {
-    transition: background-color 0.2s ease;
-    padding: 0.375rem 0; /* Уменьшил с 0.5rem до 0.375rem */
-}
-.characteristics-list li:nth-child(odd) {
-    background-color: rgba(74, 144, 226, 0.03);
-    border-radius: 4px;
-    padding: 0.375rem 0.75rem; /* Уменьшил с 0.5rem до 0.375rem */
-    margin: 0 -0.75rem;
-}
-.characteristics-list li:hover {
-    background-color: rgba(74, 144, 226, 0.05);
-}
-/* чтобы dialog не просвечивал body */
-dialog {
-  background: #252525;
-  border: 0;
-  padding: 0;
-}
-
-/* чтобы закрытый dialog вообще не влиял */
-dialog:not([open]) {
-  display: none;
-}
-
-/* страховка от белого фона */
-body {
-  background: #252525;
-}
-
-</style>
+        /* dialog */
+        dialog { background: #252525; border: 0; padding: 0; }
+        dialog:not([open]) { display: none; }
+    </style>
 
     <!-- Structured Data: Product -->
     <script type="application/ld+json">
@@ -406,10 +162,22 @@ body {
     </script>
 </head>
 <body class="bg-white overflow-x-hidden">
+   <!-- Back to Top Button -->
+   <a href="#" id="back-to-top" 
+      class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center 
+             rounded-full bg-white text-dark hover:bg-dark hover:text-white 
+             border border-gray-300 hover:border-dark transition-colors 
+             z-50 opacity-0 pointer-events-none" 
+      aria-label="Наверх">
+       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
+           <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+       </svg>
+   </a>
+   
    <!-- Header (вставьте из эталона) -->
      <!-- Header -->
     <header class="bg-dark sticky top-0 z-50">
-        <nav class="container flex items-center justify-between gap-x-4 py-5">
+        <nav class="mx-auto px-4 max-w-[1170px] flex items-center justify-between gap-x-4 py-5">
             <!-- Logo -->
             <div class="flex-shrink-0">
                 <a href="https://muse.ooo/" class="-m-1.5 p-1.5 flex items-center">
@@ -439,7 +207,7 @@ body {
                         <path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </a>
-                <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors whitespace-nowrap btn-premium">
+                <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30 whitespace-nowrap">
                     Заказать
                 </a>
             </div>
@@ -525,19 +293,19 @@ body {
     <main>
         <!-- Hero Section (с изображением справа, как в оригинале) -->
         <section class="bg-dark py-12 lg:py-20">
-            <div class="container">
+            <div class="mx-auto px-4 max-w-[1170px]">
                 <div class="grid lg:grid-cols-2 gap-8 items-center">
                     <!-- Текстовый блок -->
                     <div class="text-white">
-                        <nav class="breadcrumbs mb-4" aria-label="Breadcrumb">
+                        <nav class="text-sm text-gray-400 mb-4" aria-label="Breadcrumb">
                             <ol class="flex list-none p-0">
                                 <li class="flex items-center">
-                                    <a href="https://muse.ooo/">Главная</a>
-                                    <span class="mx-2 text-gray-300">/</span>
+                                    <a href="https://muse.ooo/" class="hover:underline">Главная</a>
+                                    <span class="mx-2">/</span>
                                 </li>
                                 <li class="flex items-center">
-                                    <a href="https://muse.ooo/portret-na-zakaz/">Портрет на заказ</a>
-                                    <span class="mx-2 text-gray-300">/</span>
+                                    <a href="https://muse.ooo/portret-na-zakaz/" class="hover:underline">Портрет на заказ</a>
+                                    <span class="mx-2">/</span>
                                 </li>
                                 <li class="text-gray-300">Портрет Flower Art</li>
                             </ol>
@@ -549,7 +317,7 @@ body {
                         
                         <p class="text-lg lg:text-xl mb-6 text-gray-200">От 4311 руб. Под заказ.</p>
                         
-                        <a href="https://muse.ooo/order/" class="inline-block px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors text-lg btn-premium">
+                        <a href="https://muse.ooo/order/" class="inline-block px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30 text-lg">
                             Заказать
                         </a>
                     </div>
@@ -572,7 +340,7 @@ body {
 
         <!-- Примеры (заглушка для Bitrix) -->
         <section class="bg-dark py-16 lg:py-20" id="flower">
-            <div class="container">
+            <div class="mx-auto px-4 max-w-[1170px]">
                 <h2 class="text-3xl lg:text-4xl font-light text-white text-center mb-8">Примеры</h2>
                 <p class="text-center text-gray-300 mb-8">Портреты в стиле Flower Art</p>
                 
@@ -592,7 +360,7 @@ body {
 
         <!-- Promo Banner -->
         <section class="bg-primary text-white py-6">
-            <div class="container">
+            <div class="mx-auto px-4 max-w-[1170px]">
                 <div class="flex items-center justify-center">
                     <p class="text-xl">Скидка 20% с 13 по 14 января</p>
                 </div>
@@ -601,7 +369,7 @@ body {
 
         <!-- Цена (заглушка для калькулятора Bitrix) -->
         <section class="py-16 lg:py-20" id="calc">
-            <div class="container">
+            <div class="mx-auto px-4 max-w-[1170px]">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">Цена</h2>
                 
                 <div class="text-center mb-4">
@@ -618,12 +386,12 @@ body {
 
         <!-- Как заказать -->
         <section class="py-16 lg:py-24" id="order">
-            <div class="container mb-8">
+            <div class="mx-auto px-4 max-w-[1170px] mb-8">
                 <div class="text-center">
                     <h2 class="text-3xl lg:text-4xl font-light text-dark">Как заказать</h2>
                 </div>
             </div>
-            <div class="container">
+            <div class="mx-auto px-4 max-w-[1170px]">
                     <!-- Изображение -->
                    
 					<div class="grid gap-10 xl:grid-cols-2 xl:items-center">
@@ -645,7 +413,7 @@ body {
                     <!-- Процесс -->
                     <div class="relative">
                         <!-- Пунктирная линия между шагами -->
-                       <div class="absolute left-6 top-12 bottom-12 w-0 timeline-divider"></div>
+                       <div class="absolute left-6 top-12 bottom-12 border-l-2 border-dashed border-primary/30"></div>
 
                         <div class="space-y-10 relative">
                             <!-- Шаг 1 -->
@@ -673,7 +441,7 @@ body {
                                     <h3 class="text-xl font-medium text-dark mb-2">Цифровой портрет</h3>
                                     <p class="text-body">
                                         В течение часа перезвоним Вам, чтобы обсудить задание. По согласованному заданию выполним эскиз. После подтверждения эскиза напишем портрет. Вносите правки до тех пор, пока не будете полностью удовлетворены работой. 
-                                        Срок создания цифрового портрета — <span id="order-date"></span>.
+                                        Срок создания цифрового портрета — <span>3 января</span>.
                                     </p>
                                 </div>
                             </div>
@@ -699,7 +467,7 @@ body {
                                 <div>
                                     <h3 class="text-xl font-medium text-dark mb-2">Доставка</h3>
                                     <p class="text-body">
-                                        Ориентировочная дата доставки в пункты выдачи Санкт-Петербурга — <span id="delivery-date"></span>.<br>
+                                        Ориентировочная дата доставки в пункты выдачи Санкт-Петербурга — <span>6 января</span>.<br>
                                         Пункты выдачи смотрите в разделе <a href="https://muse.ooo/info/dostavka/" class="text-primary underline hover:no-underline">Доставка ↗</a>. По согласованию можно вызвать курьера.
                                     </p>
                                 </div>
@@ -725,63 +493,63 @@ body {
 
         <!-- Характеристики -->
         <section class="py-16 lg:py-20" id="work">
-            <div class="container">
+            <div class="mx-auto px-4 max-w-[1170px]">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Характеристики</h2>
             </div>
-            <div class="container">
+            <div class="mx-auto px-4 max-w-[1170px]">
                 <div class="grid lg:grid-cols-2 gap-12">
                     <!-- Список характеристик (на ПК слева) -->
                     <div class="order-2 lg:order-1">
-                        <ul class="space-y-2 characteristics-list"> <!-- Изменено: space-y-3 → space-y-2 -->
-                            <li class="flex items-start gap-3 py-2"> <!-- Добавлено: py-2 -->
+                        <ul class="space-y-1">
+                            <li class="flex items-start gap-3 py-1.5 odd:bg-primary/5 odd:rounded odd:px-3 odd:-mx-3">
                                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                 </svg>
                                 <span>Картина в стиле Flower Art</span>
                             </li>
-                            <li class="flex items-start gap-3 py-2"> <!-- Добавлено: py-2 -->
+                            <li class="flex items-start gap-3 py-1.5 odd:bg-primary/5 odd:rounded odd:px-3 odd:-mx-3">
                                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                 </svg>
                                 <span>Печать оригинальными латексными чернилами HP</span>
                             </li>
-                            <li class="flex items-start gap-3 py-2"> <!-- Добавлено: py-2 -->
+                            <li class="flex items-start gap-3 py-1.5 odd:bg-primary/5 odd:rounded odd:px-3 odd:-mx-3">
                                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                 </svg>
                                 <span>Плотный хлопковый холст - 380 г./кв. м.</span>
                             </li>
-                            <li class="flex items-start gap-3 py-2"> <!-- Добавлено: py-2 -->
+                            <li class="flex items-start gap-3 py-1.5 odd:bg-primary/5 odd:rounded odd:px-3 odd:-mx-3">
                                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                 </svg>
                                 <span>Галерейная натяжка</span>
                             </li>
-                            <li class="flex items-start gap-3 py-2"> <!-- Добавлено: py-2 -->
+                            <li class="flex items-start gap-3 py-1.5 odd:bg-primary/5 odd:rounded odd:px-3 odd:-mx-3">
                                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                 </svg>
                                 <span>Сосновый подрамник</span>
                             </li>
-                            <li class="flex items-start gap-3 py-2"> <!-- Добавлено: py-2 -->
+                            <li class="flex items-start gap-3 py-1.5 odd:bg-primary/5 odd:rounded odd:px-3 odd:-mx-3">
                                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                 </svg>
                                 <span>C обратной стороны защитный скотч</span>
                             </li>
-                            <li class="flex items-start gap-3 py-2"> <!-- Добавлено: py-2 -->
+                            <li class="flex items-start gap-3 py-1.5 odd:bg-primary/5 odd:rounded odd:px-3 odd:-mx-3">
                                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                 </svg>
                                 <span>Крепление "Крокодил"</span>
                             </li>
-                            <li class="flex items-start gap-3 py-2"> <!-- Добавлено: py-2 -->
+                            <li class="flex items-start gap-3 py-1.5 odd:bg-primary/5 odd:rounded odd:px-3 odd:-mx-3">
                                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                 </svg>
                                 <span>Упаковка в пупырчатую пленку и картон</span>
                             </li>
-                            <li class="flex items-start gap-3 py-2"> <!-- Добавлено: py-2 -->
+                            <li class="flex items-start gap-3 py-1.5 odd:bg-primary/5 odd:rounded odd:px-3 odd:-mx-3">
                                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                 </svg>
@@ -837,10 +605,10 @@ body {
 
         <!-- Преимущества (на голубом фоне) -->
         <section class="bg-primary py-16 lg:py-24" id="preimushchestva">
-            <div class="container mb-12">
+            <div class="mx-auto px-4 max-w-[1170px] mb-12">
                 <h2 class="text-3xl lg:text-4xl font-light text-white text-center">Преимущества</h2>
             </div>
-            <div class="container">
+            <div class="mx-auto px-4 max-w-[1170px]">
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Преимущество 1: Примеры работ -->
                     <div class="bg-white rounded-lg p-6 text-left text-dark">
@@ -958,7 +726,7 @@ body {
 
         <!-- Отзывы -->
         <section class="bg-secondary py-16 lg:py-20" id="review">
-            <div class="container">
+            <div class="mx-auto px-4 max-w-[1170px]">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">Отзывы</h2>
                 
                 <!-- Заглушка для отзывов из Bitrix -->
@@ -1087,20 +855,20 @@ function BxPopup(url, width, height) {
 
         <!-- Описание -->
         <section class="py-16 lg:py-20" id="opisanie">
-            <div class="container">
+            <div class="mx-auto px-4 max-w-[1170px]">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Описание</h2>
           
-                <!-- Grid контейнер БЕЗ видео (2 колонки на десктопе) -->
-                <div class="description-grid-no-video space-y-8 lg:space-y-0">
+                <!-- Flex контейнер: изображение слева, текст в 2 колонки справа -->
+                <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
                     
-                    <!-- 1. До/После слева -->
-                    <div>
-                        <div class="ba-card rounded-xl overflow-hidden shadow-2xl" id="before-after">
+                    <!-- Левая: До/После с sticky -->
+                    <div class="lg:sticky lg:top-24 self-start">
+                        <div class="ba-card relative w-full aspect-[378/251] overflow-hidden rounded-xl shadow-2xl max-w-[500px] mx-auto lg:mx-0">
                             <img 
                                 src="https://muse.ooo/upload/img/flower-art-b.webp"
                                 alt="Фото для портрета в стиле Flower-Art"
                                 title="Фото для flower-art портрета до"
-                                class="before-image"
+                                class="absolute inset-0 w-full h-full object-contain pointer-events-none select-none before-image"
                                 loading="lazy"
                                 decoding="async"
                                 width="378"
@@ -1110,33 +878,33 @@ function BxPopup(url, width, height) {
                                 src="https://muse.ooo/upload/img/flower-art-a.webp"
                                 alt="Flower-Art портрет"
                                 title="Flower-Art портрет после"
-                                class="after-image"
+                                class="after-image absolute inset-0 w-full h-full object-contain pointer-events-none select-none"
                                 loading="lazy"
                                 decoding="async"
                                 width="378"
                                 height="251"
                             >
-                            <div class="ba-divider"></div>
-                            <div class="ba-handle">
-                                <span class="ba-arrow l">‹</span>
-                                <span class="ba-arrow r">›</span>
+                            <input type="range" class="absolute inset-0 opacity-0 cursor-ew-resize w-full h-full m-0 z-20" min="0" max="100" value="50" aria-label="Сравнение до и после" oninput="this.parentNode.style.setProperty('--pos', this.value + '%')">
+                            <div class="ba-divider absolute top-0 bottom-0 w-[3px] bg-white -translate-x-1/2 pointer-events-none z-10"></div>
+                            <div class="ba-handle absolute top-1/2 -translate-x-1/2 -translate-y-1/2 w-[46px] h-[70px] pointer-events-none z-[15]">
+                                <span class="absolute top-1/2 -translate-y-1/2 left-2.5 text-2xl font-bold text-white drop-shadow-lg">‹</span>
+                                <span class="absolute top-1/2 -translate-y-1/2 right-2.5 text-2xl font-bold text-white drop-shadow-lg">›</span>
                             </div>
-                            <input type="range" min="0" max="100" value="50" class="ba-range" aria-label="Сравнение до и после" oninput="this.parentNode.style.setProperty('--pos', this.value + '%')">
                         </div>
                         <p class="text-center text-gray-600 mt-4 text-sm">Потяните за вертикальную линию, чтобы сравнить «До» и «После»</p>
                     </div>
                     
-                    <!-- 2. Текст справа -->
-                    <div class="space-y-4 text-gray-600">
-                        <p>Один из основателей импрессионизма Клод Моне считал, что в мире нет ничего прекраснее двух вещей – цветов и живописи. Мы добавили еще женский образ – вот так получился этот новый для нас стиль 🌷 Flower Art.</p>
+                    <!-- Правая: Текст в 2 колонки -->
+                    <div class="flex-1 columns-1 lg:columns-2 gap-8 text-gray-600 text-base leading-relaxed">
+                        <p class="break-inside-avoid mb-4">Один из основателей импрессионизма Клод Моне считал, что в мире нет ничего прекраснее двух вещей – цветов и живописи. Мы добавили еще женский образ – вот так получился этот новый для нас стиль 🌷 Flower Art.</p>
                         
-                        <p>Портреты в стиле Flower Art с художественным оформлением акварельными элементами - это необычный и очень красивый подарок как себе, так и близким. Очень эффектно смотрится на холсте.</p>
+                        <p class="break-inside-avoid mb-4">Портреты в стиле Flower Art с художественным оформлением акварельными элементами — это необычный и очень красивый подарок как себе, так и близким. Очень эффектно смотрится на холсте.</p>
                         
-                        <p>Чем качественнее будет ваша фотография, тем лучше получится портрет. Большой выбор фона для портрета, возможность создания индивидуального оформления.</p>
+                        <p class="break-inside-avoid mb-4">Чем качественнее будет ваша фотография, тем лучше получится портрет. Большой выбор фона для портрета, возможность создания индивидуального оформления.</p>
                         
-                        <p>Творите вместе с Muse, создавая из фотографий прекрасные картины, на которых всегда будет приятно остановить взгляд.</p>
+                        <p class="break-inside-avoid mb-4">Творите вместе с Muse, создавая из фотографий прекрасные картины, на которых всегда будет приятно остановить взгляд.</p>
                         
-                        <p class="italic">Muse (греч. Μούσα)- это вдохновение, это Mуза</p>
+                        <p class="break-inside-avoid italic text-gray-500 text-sm pt-4 border-t border-gray-200">Muse (греч. Μούσα) — это вдохновение, это Mуза</p>
                     </div>
                     
                 </div>
@@ -1144,12 +912,12 @@ function BxPopup(url, width, height) {
         </section>
          <!-- CTA -->
         <section class="bg-dark py-24 md:py-32">
-            <div class="container xl:flex xl:items-center xl:justify-between">
+            <div class="mx-auto px-4 max-w-[1170px] xl:flex xl:items-center xl:justify-between">
                 <h2 class="text-2xl font-light tracking-tight text-white">
                     Создай своё произведение искусства
                 </h2>
                 <div class="mt-10 flex flex-col md:flex-row items-center gap-4 md:gap-x-6 xl:mt-0 xl:shrink-0">
-                    <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors w-full md:w-auto text-center btn-premium">
+                    <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30 w-full md:w-auto text-center">
                         Заказать
                     </a>
                     <a href="#callback" class="inline-block px-6 py-2 bg-secondary hover:bg-white text-dark rounded uppercase transition-colors w-full md:w-auto text-center">
@@ -1163,7 +931,7 @@ function BxPopup(url, width, height) {
 
     <!-- Footer (вставьте из эталона) -->
     <footer class="bg-dark text-white py-8 lg:py-12">
-        <div class="container">
+        <div class="mx-auto px-4 max-w-[1170px]">
             <!-- Верхняя часть футера: меню навигации -->
             <div class="mb-8 pb-8 border-b border-gray-700">
                 <div class="relative">
@@ -1253,83 +1021,24 @@ function BxPopup(url, width, height) {
         </div>
     </footer>
 
-    <!-- JavaScript -->
+    <!-- Navigation Scripts -->
+    <script src="../../js/nav.js"></script>
+    
+    <!-- Video Cover -->
     <script>
-        // === Дата заказа ===
-        (function() {
-            const orderDateEl = document.getElementById('order-date');
-            if (orderDateEl) {
-                const date = new Date();
-                date.setDate(date.getDate() + 2);
-                const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-                orderDateEl.textContent = date.toLocaleDateString('ru-RU', options);
-            }
-        })();
-
-        // === Дата доставки ===
-        (function() {
-            const deliveryDateEl = document.getElementById('delivery-date');
-            if (deliveryDateEl) {
-                const date = new Date();
-                date.setDate(date.getDate() + 4);
-                const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-                deliveryDateEl.textContent = date.toLocaleDateString('ru-RU', options);
-            }
-        })();
-
-        // === Page Navigator ===
-        (function() {
-            const nav = document.querySelector('.page-navigator');
-            if (!nav) return;
-            
-            // Проверяем, десктоп ли (>= 1024px)
-            if (window.innerWidth < 1024) return;
-            
-            const links = nav.querySelectorAll('a');
-            const sections = document.querySelectorAll('section[id]');
-            
-            if (!links.length || !sections.length) return;
-            
-            function updateActiveLink() {
-                const scrollPos = window.scrollY + 200;
-                let currentActive = null;
-                
-                sections.forEach(section => {
-                    const top = section.offsetTop;
-                    const bottom = top + section.offsetHeight;
-                    
-                    if (scrollPos >= top && scrollPos < bottom) {
-                        currentActive = section.id;
-                    }
-                });
-                
-                links.forEach(link => {
-                    const href = link.getAttribute('href');
-                    const sectionId = href.substring(1);
-                    
-                    if (sectionId === currentActive) {
-                        link.classList.add('inner-link--active');
-                    } else {
-                        link.classList.remove('inner-link--active');
-                    }
-                });
-            }
-            
-            let isScrolling = false;
-            function handleScroll() {
-                if (!isScrolling) {
-                    isScrolling = true;
-                    requestAnimationFrame(() => {
-                        updateActiveLink();
-                        isScrolling = false;
-                    });
+    // Video Cover
+    document.querySelectorAll('[data-video-cover]').forEach(function(cover) {
+        const playBtn = cover.querySelector('[data-play-btn]');
+        if (playBtn) {
+            playBtn.addEventListener('click', function() {
+                cover.classList.add('video-playing');
+                const iframe = cover.querySelector('iframe');
+                if (iframe && iframe.dataset.src) {
+                    iframe.src = iframe.dataset.src + '&autoplay=1';
                 }
-            }
-            
-            window.addEventListener('scroll', handleScroll, { passive: true });
-            updateActiveLink();
-        })();
-
+            });
+        }
+    });
     </script>
 </body>
 </html>
