@@ -49,7 +49,7 @@ npm run preview     # Просмотр в браузере
 |----------|----------|
 | [docs/HOW_TO_CREATE_PAGE.md](docs/HOW_TO_CREATE_PAGE.md) | Как создать страницу |
 | [docs/PURE_TAILWIND_GUIDE.md](docs/PURE_TAILWIND_GUIDE.md) | Переверстка на чистый Tailwind |
-| [docs/LESSONS_LEARNED.md](docs/LESSONS_LEARNED.md) | Уроки проекта |
+| [docs/INTEGRATION_BITRIX.md](docs/INTEGRATION_BITRIX.md) | Подготовка к Bitrix |
 
 ---
 

@@ -402,9 +402,9 @@ $arResult = $arResult['ELEMENT']; // Данные элемента
 ## Вопросы и поддержка
 
 При возникновении вопросов:
-1. Обратитесь к документации компонентов в `docs/COMPONENTS.md`
+1. Изучите дизайн-систему в `docs/DESIGN_SYSTEM.md`
 2. Проверьте примеры в `src/html/`
-3. Изучите дизайн-систему в `docs/DESIGN_SYSTEM.md`
+3. Обратитесь к инструкции `docs/PURE_TAILWIND_GUIDE.md`
 
 ---
 
