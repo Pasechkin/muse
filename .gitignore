@@ -1,25 +1,16 @@
-# Dependencies - НЕ загружать в GitHub
 node_modules/
-package-lock.json
-
-# Build outputs - НЕ загружать в GitHub
-src/css/output.css
-src/html/css/output.css
-
-# Environment - НЕ загружать в GitHub
-.env
-.env.local
-
-# IDE - НЕ загружать в GitHub
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS - НЕ загружать в GitHub
+.pytest_cache/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
 .DS_Store
-Thumbs.db
-
-# Logs - НЕ загружать в GitHub
-*.log
-npm-debug.log*
+.env
+.venv
+env/
+venv/
+dist/
+build/
+coverage/
+.coverage
+.cache

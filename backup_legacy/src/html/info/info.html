@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О студии Muse — печать на холсте и портреты по фото</title>
+    <meta name="description" content="Узнайте больше о студии Muse: кто мы, чем занимаемся, и почему нам доверяют. Печать на холсте, портреты по фото, картины на заказ — с любовью и вниманием к деталям">
+
+    <!-- Закрыто от индексации во время разработки -->
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Preconnect и Preload для производительности -->
+    <link rel="preconnect" href="https://muse.ooo">
+    <link rel="preload" as="image" href="https://muse.ooo/upload/img/pavlosk-office.webp" fetchpriority="high">
+
+    <!-- Критический CSS -->
+    <style>
+        :root {
+            --primary: #4A90E2;
+            --primary-hover: #609DE6;
+            --dark: #252525;
+            --body: #666666;
+            --secondary: #FAFAFA;
+        }
+        body { background-color: #fff; color: var(--body); overflow-x: hidden; }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+        /* Ken Burns Effect */
+        @keyframes kenburns { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
+        .ken-burns-img { animation: kenburns 20s ease-out forwards; }
+        /* Typed.js cursor */
+        .typed-cursor { display: inline-block; width: 3px; background-color: var(--primary); animation: blink 1s infinite; margin-left: 2px; }
+        @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+    </style>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                container: {
+                    center: true,
+                    padding: '1rem',
+                    screens: {
+                        '2xl': '1170px'
+                    }
+                },
+                extend: {
+                    colors: {
+                        primary: '#4A90E2',
+                        'primary-hover': '#609DE6',
+                        dark: '#252525',
+                        body: '#666666',
+                        secondary: '#FAFAFA',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Tailwind Plus Elements -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1"></script>
+
+    <style>
+        /* Carousel */
+        .carousel-scroll { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
+        .carousel-scroll::-webkit-scrollbar { display: none; }
+        /* Video Cover */
+        .video-cover { position: relative; overflow: hidden; }
+        .video-cover .video-play-icon { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; z-index: 2; transition: all 0.3s ease; }
+        .video-cover video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        .video-cover.video-playing > div:first-child, .video-cover.video-playing .video-play-icon { display: none; }
+        .video-cover.video-playing video { display: block; position: relative; }
+        /* Video Modal */
+        .video-modal { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; }
+        .video-modal.active { display: flex; }
+        .video-modal-content { position: relative; max-width: 400px; width: 100%; max-height: 90vh; }
+        .video-modal video { width: 100%; max-height: 80vh; border-radius: 8px; }
+        .video-modal-close, .video-modal-mute, .video-modal-prev, .video-modal-next { position: absolute; background: rgba(255,255,255,0.2); border: none; color: white; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; z-index: 10; }
+        .video-modal-close:hover, .video-modal-mute:hover, .video-modal-prev:hover, .video-modal-next:hover { background: rgba(255,255,255,0.3); }
+        .video-modal-close { top: 10px; right: 10px; }
+        .video-modal-mute { top: 10px; left: 10px; }
+        .video-modal-prev { top: 50%; left: -60px; transform: translateY(-50%); }
+        .video-modal-next { top: 50%; right: -60px; transform: translateY(-50%); }
+        @media (max-width: 600px) { .video-modal-prev { left: 10px; top: auto; bottom: 80px; } .video-modal-next { right: 10px; top: auto; bottom: 80px; } }
+    </style>
+</head>
+<body class="bg-white overflow-x-hidden">
+    <!-- Header -->
+    <header class="bg-dark sticky top-0 z-50">
+        <nav class="container flex items-center justify-between gap-x-4 py-5">
+            <!-- Logo -->
+            <div class="flex-shrink-0">
+                <a href="https://muse.ooo/" class="-m-1.5 p-1.5 flex items-center">
+                    <svg height="26" viewBox="0 0 1285 359" width="74" xmlns="http://www.w3.org/2000/svg" class="h-7 w-auto">
+                        <defs><style>.fil0{fill:#fefefe}.fil1{fill:#fefefe;fill-rule:nonzero}</style></defs>
+                        <path class="fil0" d="M10 359l353 0-63-63-226 0-64 63zm364-10l0-285c-24 7-45 18-64 34l0 188 64 63zm-374-285l0 285 63-63 0-188c-19-16-40-27-63-34z"/>
+                        <path class="fil0" d="M300 0c-49 0-92 28-113 68-22-40-65-68-114-68-27 0-52 8-73 23 82 9 149 79 187 166 37-87 104-157 187-166-21-15-47-23-74-23z"/>
+                        <path class="fil0" d="M494 20c-11-11-27-18-45-17-16 1-26 8-32 17 36 0 60 19 77 48 17-29 41-48 78-48-7-9-17-16-33-17-17-1-33 6-45 17z"/>
+                        <path class="fil1" d="M1152 178c4-24 18-40 41-40 22 0 36 16 39 40l-80 0zm46 114c34 0 59-13 77-35l-31-28c-14 14-27 20-45 20-24 0-41-13-47-37l132 0c0-5 1-10 1-14 0-54-29-103-92-103-55 0-94 45-94 99 0 58 42 98 99 98z"/>
+                        <path class="fil1" d="M1008 291c41 0 73-19 73-61 0-35-31-48-57-57-21-7-39-12-39-22 0-8 7-14 20-14 14 0 32 7 51 18l21-37c-21-14-47-22-71-22-38 0-69 21-69 60 0 37 30 50 56 57 21 7 39 10 39 22 0 9-7 15-22 15-18 0-39-8-60-23l-23 36c25 19 55 28 81 28z"/>
+                        <path class="fil1" d="M792 291c24 0 46-15 56-25l0 22 55 0 0-189-58 0 0 107c0 21-13 43-33 43-19 0-31-13-31-39l0-111-54 0 0 122c0 43 24 70 65 70z"/>
+                        <path class="fil1" d="M623 95c-30 0-49 17-60 28-10-16-25-27-46-28-25-1-43 15-53 26l0-22-55 0 0 189 58 0 0-109c0-22 15-41 33-41 18 0 29 11 29 36l0 114 12 0 34 0 8 0 0-139c5-5 12-11 24-11 16 0 30 11 30 38l0 112 54 0 0-123c0-43-26-70-68-70z"/>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden xl:flex xl:items-center xl:gap-x-6">
+                <a href="https://muse.ooo/pechat/" class="text-gray-400 hover:text-white transition-colors uppercase">Печать</a>
+                <a href="https://muse.ooo/portret-na-zakaz/" class="text-gray-400 hover:text-white transition-colors uppercase">Портреты</a>
+                <a href="https://muse.ooo/info/dostavka/" class="text-gray-400 hover:text-white transition-colors uppercase">Доставка</a>
+                <a href="#callback" class="text-gray-400 hover:text-white transition-colors uppercase">Обратный звонок</a>
+                <span class="text-gray-400 uppercase border-b border-dotted border-gray-400">Санкт-Петербург</span>
+                <a href="tel:88007076921" class="text-gray-400 hover:text-white transition-colors">8-800-707-69-21</a>
+                <a href="#search" class="text-gray-400 hover:text-white transition-colors">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5">
+                        <path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </a>
+                <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-all hover:-translate-y-0.5 hover:shadow-lg whitespace-nowrap">
+                    Заказать
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="flex xl:hidden items-center">
+                <button type="button" command="show-modal" commandfor="mobile-menu" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white">
+                    <span class="sr-only">Открыть меню</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                        <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <el-dialog>
+            <dialog id="mobile-menu" class="backdrop:bg-transparent xl:hidden">
+                <div tabindex="0" class="fixed inset-0 focus:outline-none">
+                    <el-dialog-panel class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-dark p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-700">
+                        <div class="flex items-center gap-x-6">
+                            <a href="https://muse.ooo/" class="-m-1.5 p-1.5 flex items-center">
+                                <svg height="26" viewBox="0 0 1285 359" width="74" xmlns="http://www.w3.org/2000/svg" class="h-7 w-auto">
+                                    <defs><style>.fil0{fill:#fefefe}.fil1{fill:#fefefe;fill-rule:nonzero}</style></defs>
+                                    <path class="fil0" d="M10 359l353 0-63-63-226 0-64 63zm364-10l0-285c-24 7-45 18-64 34l0 188 64 63zm-374-285l0 285 63-63 0-188c-19-16-40-27-63-34z"/>
+                                    <path class="fil0" d="M300 0c-49 0-92 28-113 68-22-40-65-68-114-68-27 0-52 8-73 23 82 9 149 79 187 166 37-87 104-157 187-166-21-15-47-23-74-23z"/>
+                                    <path class="fil0" d="M494 20c-11-11-27-18-45-17-16 1-26 8-32 17 36 0 60 19 77 48 17-29 41-48 78-48-7-9-17-16-33-17-17-1-33 6-45 17z"/>
+                                    <path class="fil1" d="M1152 178c4-24 18-40 41-40 22 0 36 16 39 40l-80 0zm46 114c34 0 59-13 77-35l-31-28c-14 14-27 20-45 20-24 0-41-13-47-37l132 0c0-5 1-10 1-14 0-54-29-103-92-103-55 0-94 45-94 99 0 58 42 98 99 98z"/>
+                                    <path class="fil1" d="M1008 291c41 0 73-19 73-61 0-35-31-48-57-57-21-7-39-12-39-22 0-8 7-14 20-14 14 0 32 7 51 18l21-37c-21-14-47-22-71-22-38 0-69 21-69 60 0 37 30 50 56 57 21 7 39 10 39 22 0 9-7 15-22 15-18 0-39-8-60-23l-23 36c25 19 55 28 81 28z"/>
+                                    <path class="fil1" d="M792 291c24 0 46-15 56-25l0 22 55 0 0-189-58 0 0 107c0 21-13 43-33 43-19 0-31-13-31-39l0-111-54 0 0 122c0 43 24 70 65 70z"/>
+                                    <path class="fil1" d="M623 95c-30 0-49 17-60 28-10-16-25-27-46-28-25-1-43 15-53 26l0-22-55 0 0 189 58 0 0-109c0-22 15-41 33-41 18 0 29 11 29 36l0 114 12 0 34 0 8 0 0-139c5-5 12-11 24-11 16 0 30 11 30 38l0 112 54 0 0-123c0-43-26-70-68-70z"/>
+                                </svg>
+                            </a>
+                            <button type="button" command="close" commandfor="mobile-menu" class="ml-auto -m-2.5 rounded-md p-2.5 text-white">
+                                <span class="sr-only">Закрыть меню</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                                    <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="mt-6 flow-root">
+                            <div class="-my-6 divide-y divide-gray-700">
+                                <div class="space-y-2 py-6">
+                                    <a href="https://muse.ooo/pechat/" class="-mx-3 block rounded-lg px-3 py-2 text-white hover:bg-gray-700 uppercase">Печать</a>
+                                    <a href="https://muse.ooo/portret-na-zakaz/" class="-mx-3 block rounded-lg px-3 py-2 text-white hover:bg-gray-700 uppercase">Портреты</a>
+                                    <a href="https://muse.ooo/info/dostavka/" class="-mx-3 block rounded-lg px-3 py-2 text-white hover:bg-gray-700 uppercase">Доставка</a>
+                                    <a href="#callback" class="-mx-3 block rounded-lg px-3 py-2 text-white hover:bg-gray-700 uppercase">Обратный звонок</a>
+                                    <div class="-mx-3 block rounded-lg px-3 py-2 text-white uppercase border-b border-dotted border-white/50">Санкт-Петербург</div>
+                                    <a href="tel:88007076921" class="-mx-3 block rounded-lg px-3 py-2 text-white hover:bg-gray-700">8-800-707-69-21</a>
+                                    <a href="#search" class="-mx-3 block rounded-lg px-3 py-2 text-white hover:bg-gray-700" aria-label="Поиск">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5 inline-block mr-2">
+                                            <path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                        Поиск
+                                    </a>
+                                    <div class="pt-4">
+                                        <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors w-full text-center">
+                                            Заказать
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </el-dialog-panel>
+                </div>
+            </dialog>
+        </el-dialog>
+    </header>
+
+    <main>
+    <!-- Hero Section with Ken Burns -->
+    <section class="relative h-[70vh] overflow-hidden bg-dark">
+        <!-- Ken Burns Background -->
+        <div class="absolute inset-0 overflow-hidden">
+            <img
+                src="https://muse.ooo/upload/img/pavlosk-office.webp"
+                alt="Фото офиса с плоттерами, портретами и мольбертом"
+                title="Фото офиса"
+                width="2500"
+                height="1645"
+                class="ken-burns-img absolute inset-0 w-full h-full object-cover object-top"
+                decoding="async"
+                fetchpriority="high"
+            >
+        </div>
+        <!-- Overlay -->
+        <div class="absolute inset-0 bg-dark/50"></div>
+        <!-- Content -->
+        <div class="container h-full flex items-center relative z-10">
+            <div class="max-w-2xl">
+                <!-- Breadcrumbs -->
+                <nav class="mb-4 text-sm text-gray-300" aria-label="Хлебные крошки">
+                    <ol class="flex items-center space-x-2">
+                        <li><a href="https://muse.ooo/" class="text-gray-300 hover:text-white transition-colors">Главная</a></li>
+                        <li class="text-gray-400">/</li>
+                        <li class="text-gray-100">О нас</li>
+                    </ol>
+                </nav>
+                <h1 class="text-4xl lg:text-6xl font-light text-white mb-4">
+                    Печатаем <span id="typed-text" class="text-primary"></span><span class="typed-cursor">&nbsp;</span><br class="hidden sm:block">на холсте и пишем портреты по фото
+                </h1>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promo Banner -->
+    <section class="bg-primary text-white py-6">
+        <div class="container">
+            <div class="flex items-center justify-center">
+                <p class="text-xl">Скидка 20% с 9 по 10 января</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- О студии Muse -->
+    <section class="bg-secondary py-16 lg:py-20">
+        <div class="container">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">О студии Muse - своими словами</h2>
+
+                <div class="text-lg text-body leading-relaxed space-y-6">
+                    <p>
+                        Здравствуйте! В 2015 году мы с супругой
+                        <span class="inline-flex items-center">Анной
+                            <img
+                                src="https://muse.ooo/upload/imgsite/anna-60-2.webp"
+                                loading="lazy"
+                                decoding="async"
+                                fetchpriority="low"
+                                title="Фото Анны"
+                                alt="Фото сооснователя Анны"
+                                width="60"
+                                height="60"
+                                class="w-[60px] h-[60px] rounded-full ml-1 flex-shrink-0"
+                            >
+                        </span>
+                        отказались от отпуска и занялись тем, к чему чувствовали призвание. К тому моменту я уже больше 15 лет проработал с <a href="https://www.itweek.ru/themes/detail.php?ID=86510" target="_blank" rel="noopener nofollow" class="text-primary underline hover:no-underline">печатной техникой ↗</a> и в <a href="https://www.spbcioclub.ru/news/2011/shkola-vysshego-pilotazha-ot-microsoft-pervyy-interaktivnyy-trening-v-peterburge" target="_blank" rel="noopener nofollow" class="text-primary underline hover:no-underline">маркетинге ↗</a>, а Анна всю жизнь была связана с творчеством: писала маслом, увлекалась дизайном. Накопленные деньги мы вложили в покупку плоттера, аренду помещения и запуск сайта. Так появилась студия Muse.
+                    </p>
+
+                    <p>
+                        Сначала мы думали, что будем просто печатать на холсте: фотографии, фотоколлажи, репродукции, модульные и интерьерные картины. Но быстро стало понятно: людям нужна не просто печать, а что-то своё — личное, с историей. Кто-то присылал старую фотографию, кто-то — снимок с телефона. Часто такие изображения были слишком низкого качества для печати — и тогда мы начали работать с цифровыми художниками, чтобы по таким снимкам создавать портреты.
+                    </p>
+
+                    <p>С тех пор мы выстроили студию вокруг простой идеи Анны:</p>
+
+                    <!-- Цитата -->
+                    <div class="relative pl-5 border-l-[3px] border-gray-300">
+                        <p class="italic text-body">
+                            «Делаем так, как хотели бы получить сами, если бы готовили подарок близкому. Поэтому каждая работа — личная».
+                        </p>
+                    </div>
+
+                    <p>
+                        Наш слоган «Создай своё произведение искусства» — не просто красивая фраза. Это приглашение к сотрудничеству. Люди разные, и трудно всё угадать. Расскажите, что именно вы хотите. Поправьте, если что-то не так. И если в итоге вы скажете: «Вот! То, что нужно» — значит, мы всё сделали правильно. Вместе.
+                    </p>
+
+                    <!-- Подпись -->
+                    <p class="text-right flex items-center justify-end gap-2">
+                        Андрей,
+                        <img
+                            src="https://muse.ooo/upload/imgsite/andrej-60-2.webp"
+                            loading="lazy"
+                            decoding="async"
+                            fetchpriority="low"
+                            title="Фото Андрея"
+                            alt="Фото основателя Muse Андрея"
+                            width="60"
+                            height="60"
+                            class="w-[60px] h-[60px] rounded-full flex-shrink-0"
+                        >
+                        основатель студии Muse
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Наши авторы: Заголовок -->
+    <section class="py-12 lg:py-16">
+        <div class="container">
+            <h2 class="text-3xl lg:text-4xl font-light text-dark text-center">Наши авторы</h2>
+        </div>
+    </section>
+
+    <!-- Автор 1: Анастасия (изображение слева) -->
+    <section class="py-8 lg:py-12">
+        <div class="container">
+            <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                <div class="order-2 lg:order-1">
+                    <img
+                        src="https://muse.ooo/upload/imgsite/anastasiya-ko-360-540-2.webp"
+                        loading="lazy"
+                        decoding="async"
+                        fetchpriority="low"
+                        title="Автопортрет художника Анастасии"
+                        alt="Автопортрет художника Анастасии в стиле под масло"
+                        width="360"
+                        height="540"
+                        class="rounded-lg shadow-xl mx-auto lg:mx-0"
+                    >
+                </div>
+                <div class="order-1 lg:order-2">
+                    <h3 class="text-2xl font-medium text-dark mb-4">Анастасия</h3>
+                    <p class="text-body mb-4">
+                        Художник. Художественное образование и дополнительное образование в области цифровой графики: ретушь, дизайн, живопись. Опыт написания цифровых портретов с 2019 года. Смотрите мои <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/anastasia_ko/" rel="nofollow" class="text-primary underline hover:no-underline">работы в стиле маслом, в образе и шаржи ↗</a> для студии Muse.
+                    </p>
+                    <p class="text-lg text-body italic">
+                        "Я рисую портреты, потому что в каждом лице скрыта уникальная история, которую невозможно полностью воссоздать или повторить. Моя миссия — не просто запечатлеть черты, а создать художественный образ, который сохранит суть момента навсегда."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Автор 2: Анна (изображение справа) -->
+    <section class="py-8 lg:py-12">
+        <div class="container">
+            <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                <div>
+                    <h3 class="text-2xl font-medium text-dark mb-4">Анна</h3>
+                    <p class="text-body mb-4">
+                        Художник с образованием в области художественного оформления и графического дизайна. Имею опыт в классической живописи, фотографии и ретуши. Специализируюсь на портретах с 2018 года. В моем портфолио <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/anna_m/" rel="nofollow" class="text-primary underline hover:no-underline">более 150 работ в стиле акварель и маслом ↗</a> для Muse.
+                    </p>
+                    <p class="text-lg text-body italic">
+                        "Я люблю рисовать лица, потому что портрет передает не просто черты человека. С помощью портрета можно показать нечто большее, что сразу может быть не заметно. Через портрет художник рассказывает о человеке, показывая его лучшие стороны. А сколько света и красоты, эмоций и жизненного опыта в этих лицах! Именно это восхищает и вдохновляет меня на творчество!"
+                    </p>
+                </div>
+                <div>
+                    <img
+                        src="https://muse.ooo/upload/imgsite/anna-ma-360-540.webp"
+                        loading="lazy"
+                        decoding="async"
+                        fetchpriority="low"
+                        title="Автопортрет художника Анны"
+                        alt="Автопортрет художника Анны в стиле под масло"
+                        width="360"
+                        height="540"
+                        class="rounded-lg shadow-xl mx-auto lg:mx-0 lg:ml-auto"
+                    >
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Автор 3: Артём (изображение слева) -->
+    <section class="py-8 lg:py-12">
+        <div class="container">
+            <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                <div class="order-2 lg:order-1">
+                    <img
+                        src="https://muse.ooo/upload/imgsite/artem-360-540.webp"
+                        loading="lazy"
+                        decoding="async"
+                        fetchpriority="low"
+                        title="Автопортрет художника Артёма"
+                        alt="Автопортрет художника Артёма в стиле под масло"
+                        width="360"
+                        height="540"
+                        class="rounded-lg shadow-xl mx-auto lg:mx-0"
+                    >
+                </div>
+                <div class="order-1 lg:order-2">
+                    <h3 class="text-2xl font-medium text-dark mb-4">Артём</h3>
+                    <p class="text-body mb-4">
+                        Художник. Художественное образование и образование в области дизайна, выпускник НГПУ. Опыт работы в области портретной живописи с 2019 года. Создаю уникальные образы, передавая эмоции и характер. Смотрите мои <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/artem/" rel="nofollow" class="text-primary underline hover:no-underline">портреты в стиле маслом, дрим-арт и других ↗</a> для студии Muse.
+                    </p>
+                    <p class="text-lg text-body italic">
+                        "Я рисую портреты на компьютере, потому что мне нравится экспериментировать с цветами и текстурами. Видеть, как на экране постепенно проявляется характер и эмоции людей. Цифровые инструменты дают возможность мгновенно вносить изменения и пробовать новые идеи, добиваясь идеального результата. В каждом штрихе этого творческого процесса я нахожу радость, погружаясь в мир искусства и самовыражения."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Автор 4: Павел (изображение справа) -->
+    <section class="py-8 lg:py-12">
+        <div class="container">
+            <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                <div>
+                    <h3 class="text-2xl font-medium text-dark mb-4">Павел</h3>
+                    <p class="text-body mb-4">
+                        Художник. Художественное образование и дополнительное образование в области дизайна. Автор учебных пособий по цифровой живописи. Обучаю других дизайнеров-художников. Опыт работы с 2018 года. Посмотрите мои <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/pavel/" rel="nofollow" class="text-primary underline hover:no-underline">портреты в разных стилях, включая под масло ↗</a> для студии Muse.
+                    </p>
+                    <p class="text-lg text-body italic">
+                        "Я занимаюсь творчеством много лет. Таким образом я оставляю след в этом мире. Я рисую портреты, потому что для меня это процесс медитации, который позволяет забыть о суете и погрузиться в гармонию со своим творческим «я». Мне нравится уникальность людей, мимика, их настроение — всё это хочется запечатлеть и сохранить на память."
+                    </p>
+                </div>
+                <div>
+                    <img
+                        src="https://muse.ooo/upload/imgsite/pavel-360-540.webp"
+                        loading="lazy"
+                        decoding="async"
+                        fetchpriority="low"
+                        title="Автопортрет художника Павла"
+                        alt="Автопортрет художника Павла в стиле под масло"
+                        width="360"
+                        height="540"
+                        class="rounded-lg shadow-xl mx-auto lg:mx-0 lg:ml-auto"
+                    >
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Автор 5: Софья (изображение слева) -->
+    <section class="py-8 lg:py-12">
+        <div class="container">
+            <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                <div class="order-2 lg:order-1">
+                    <img
+                        src="https://muse.ooo/upload/imgsite/sofya-u-360-540.webp"
+                        loading="lazy"
+                        decoding="async"
+                        fetchpriority="low"
+                        title="Автопортрет художника Софьи"
+                        alt="Автопортрет художника Софьи в стиле под масло"
+                        width="360"
+                        height="540"
+                        class="rounded-lg shadow-xl mx-auto lg:mx-0"
+                    >
+                </div>
+                <div class="order-1 lg:order-2">
+                    <h3 class="text-2xl font-medium text-dark mb-4">Софья</h3>
+                    <p class="text-body mb-4">
+                        Художник. Профессиональное образование по специальности художник-живописец, педагог, выпускница НХУ. Опыт работы с 2015 года. Посмотрите мои <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/sofya_u/" rel="nofollow" class="text-primary underline hover:no-underline">портреты в стиле акварель и масло ↗</a> для студии Muse.
+                    </p>
+                    <p class="text-lg text-body italic">
+                        "В создании картины мне важно передать ощущение живости, словно портрет одушевлён. Чтобы в нём виделась схожесть и ощущались эмоции, выраженные человеком. Это главное, ведь искусство создаётся для зрителя, вызывая у него яркие положительные чувства и сохраняя память о значимых событиях в жизни."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Автор 6: Татьяна (изображение справа) -->
+    <section class="py-8 lg:py-12">
+        <div class="container">
+            <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                <div>
+                    <h3 class="text-2xl font-medium text-dark mb-4">Татьяна</h3>
+                    <p class="text-body mb-4">
+                        Художник. Художественное образование и дополнительное образование по цифровой живописи. Опыт художника-портретиста с 2019 года. Посмотрите более 200 моих работ в <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/tatyana_n/" rel="nofollow" class="text-primary underline hover:no-underline">стиле акварель и карандаш ↗</a> для Muse.
+                    </p>
+                    <p class="text-lg text-body italic">
+                        "Рисование всегда занимало важное место в моей жизни. Я создаю портреты, потому что люблю передавать эмоции людей и вдохновляюсь возможностью запечатлеть их на холсте. Лицо каждого человека — это отдельная история, которую я стараюсь раскрыть через своё искусство, пользуясь возможностями современных цифровых технологий и инструментов."
+                    </p>
+                </div>
+                <div>
+                    <img
+                        src="https://muse.ooo/upload/imgsite/tatyana-n-360-540.webp"
+                        loading="lazy"
+                        decoding="async"
+                        fetchpriority="low"
+                        title="Автопортрет художника Татьяны"
+                        alt="Автопортрет художника Татьяны в акварельном стиле"
+                        width="360"
+                        height="540"
+                        class="rounded-lg shadow-xl mx-auto lg:mx-0 lg:ml-auto"
+                    >
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Автор 7: Ирина (изображение слева) -->
+    <section class="py-8 lg:py-12">
+        <div class="container">
+            <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                <div class="order-2 lg:order-1">
+                    <img
+                        src="https://muse.ooo/upload/imgsite/irina-360-540.webp"
+                        loading="lazy"
+                        decoding="async"
+                        fetchpriority="low"
+                        title="Портрет дизайнера Ирины"
+                        alt="Портрет дизайнера Ирины в стиле под масло"
+                        width="360"
+                        height="540"
+                        class="rounded-lg shadow-xl mx-auto lg:mx-0"
+                    >
+                </div>
+                <div class="order-1 lg:order-2">
+                    <h3 class="text-2xl font-medium text-dark mb-4">Ирина</h3>
+                    <p class="text-body mb-4">
+                        Дизайнер. Образование в области цифровой графики: ретушь, дизайн. Опыт работы с 2019 года. Смотрите мои <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/irina/" rel="nofollow" class="text-primary underline hover:no-underline">фотомозаики и портреты из слов ↗</a> на странице студии Muse.
+                    </p>
+                    <p class="text-lg text-body italic">
+                        "Я люблю создавать мозаики и коллажи потому что они рассказывают историю человека, семьи, сохраняют самые важные моменты. Моя задача — создавать работы, которые не только радуют глаз, но и оставляют след в сердцах людей."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Результаты в цифрах + Видео -->
+    <section class="bg-dark text-white py-16 lg:py-20">
+        <div class="container">
+            <div class="grid lg:grid-cols-2 gap-12 items-start">
+                <!-- Левая колонка: Результаты -->
+                <div>
+                    <h2 class="text-2xl lg:text-3xl font-light mb-8 text-center lg:text-left">Результаты в цифрах</h2>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start gap-2"><svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span>Обработано 8000+ изображений — от портретов до коллажей и репродукций</span></li>
+                        <li class="flex items-start gap-2"><svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span>Написано и размещено в <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/" class="text-primary underline hover:no-underline">портфолио ↗</a> — свыше 6000 портретов</span></li>
+                        <li class="flex items-start gap-2"><svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span>Напечатано 2000+ фотоколлажей, фото на холсте, модульных и интерьерных картин, репродукций</span></li>
+                        <li class="flex items-start gap-2"><svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span>Натянуто 8000+ холстов на подрамники вручную</span></li>
+                        <li class="flex items-start gap-2"><svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span>Использовано 2000 м² холста</span></li>
+                        <li class="flex items-start gap-2"><svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span>Покрыто гелем более 400 м² холста — для текстуры и глубины</span></li>
+                        <li class="flex items-start gap-2"><svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span>100 м² покрыто акрилом и поталью кисточкой</span></li>
+                        <li class="flex items-start gap-2"><svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span>Оформлено в багетную раму 1500+ работ</span></li>
+                        <li class="flex items-start gap-2"><svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span>Написано 150+ портретов маслом на заказ</span></li>
+                    </ul>
+                    <p class="mt-6 text-gray-300">За каждой цифрой — работа с душой, индивидуальный подход и ваше доверие. Спасибо, что выбираете Muse.</p>
+                </div>
+
+                <!-- Правая колонка: Видео -->
+                <div>
+                    <h2 class="text-2xl lg:text-3xl font-light mb-8 text-center lg:text-left">Как мы создаём портреты</h2>
+                    <div class="video-cover rounded-lg shadow-xl aspect-video cursor-pointer" id="main-video-cover">
+                        <div class="absolute inset-0">
+                            <img
+                                src="https://muse.ooo/img/portret-na-zakaz-cover-555.webp"
+                                loading="lazy"
+                                decoding="async"
+                                title="Видео о создании портретов от Muse"
+                                alt="Обложка для видео: Портрет на заказ по фото. Печать на холсте. Вопрос-ответ."
+                                width="555"
+                                height="358"
+                                class="w-full h-full object-cover rounded-lg"
+                            >
+                        </div>
+                        <div class="video-play-icon absolute inset-0 flex items-center justify-center cursor-pointer z-10 bg-black/20 hover:bg-black/30 transition-colors">
+                            <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                        <video
+                            title="Процесс создания портрета в студии Muse"
+                            aria-label="Видео: как создаются и печатаются портреты на холсте"
+                            preload="none"
+                            controls
+                            playsinline
+                            class="hidden"
+                        >
+                            <source src="https://muse.ooo/video/portret-po-foto-na-zakaz-na-holste.webm" type="video/webm">
+                            Ваш браузер не поддерживает воспроизведение видео.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Короткие истории о создании картин -->
+    <section class="bg-dark text-white py-16 lg:py-20">
+        <div class="container">
+            <h2 class="text-2xl lg:text-3xl font-light text-center mb-8">Короткие истории о создании картин</h2>
+        </div>
+
+        <!-- Карусель видео -->
+        <div class="carousel-scroll flex gap-0 px-4 lg:px-8 pb-4" id="video-stories-carousel">
+            <!-- Видео 1 -->
+            <div class="video-card flex-shrink-0 snap-center cursor-pointer relative overflow-hidden" data-video="https://muse.ooo/video/semejnyj-portret-po-foto-na-holste-akvarel-35159.webm" data-index="0">
+                <img
+                    src="https://muse.ooo/upload/imgsite/semejnyj-portret-po-foto-na-holste-akvarel-35159-223-396.webp"
+                    loading="lazy"
+                    decoding="async"
+                    title="Обложка для видео об изготовлении портрета на холсте в акварельном стиле"
+                    alt="Обложка для видео о портрете, на котором изображена семья: мама, папа и маленький ребенок, в стиле акварель"
+                    width="223"
+                    height="396"
+                    class="w-[223px] h-[396px] object-cover"
+                >
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4">
+                    <p class="text-sm text-white/90 mb-2">Печать, натяжка на подрамник, покрытие лаком, готовый портрет и исходное фото.</p>
+                    <div class="flex items-center gap-2 text-white/80 text-sm">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <span>0:43</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Видео 2 -->
+            <div class="video-card flex-shrink-0 snap-center cursor-pointer relative overflow-hidden" data-video="https://muse.ooo/video/portret-molodogo-cheloveka-na-motocikle-po-foto-v-stile-granzh-35174.webm" data-index="1">
+                <img
+                    src="https://muse.ooo/upload/imgsite/portret-molodogo-cheloveka-na-motocikle-po-foto-v-stile-granzh-35174-223-396.webp"
+                    loading="lazy"
+                    decoding="async"
+                    title="Обложка для видео об изготовлении портрета на холсте в стиле гранж"
+                    alt="Обложка для видео о портрете, на котором изображен молодой человек на мотоцикле в стиле гранж"
+                    width="223"
+                    height="396"
+                    class="w-[223px] h-[396px] object-cover"
+                >
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4">
+                    <p class="text-sm text-white/90 mb-2">Печать, изготовление подрамника, натяжка, покрытие лаком, готовый портрет и исходное фото.</p>
+                    <div class="flex items-center gap-2 text-white/80 text-sm">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <span>0:42</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Видео 3 -->
+            <div class="video-card flex-shrink-0 snap-center cursor-pointer relative overflow-hidden" data-video="https://muse.ooo/video/portret-pary-po-foto-v-stile-pod-maslo-s-prorisovkoj-akrilom-35189.webm" data-index="2">
+                <img
+                    src="https://muse.ooo/upload/imgsite/portret-pary-po-foto-v-stile-pod-maslo-s-prorisovkoj-akrilom-35189-223-396.webp"
+                    loading="lazy"
+                    decoding="async"
+                    title="Обложка для видео о покрытии портрета на холсте акриловой краской"
+                    alt="Обложка для видео о портрете на холсте, на котором изображена пара, прорисованная акриловой краской"
+                    width="223"
+                    height="396"
+                    class="w-[223px] h-[396px] object-cover"
+                >
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4">
+                    <p class="text-sm text-white/90 mb-2">Портрет на холсте, его покрытие акриловой краской художником, готовый портрет в раме.</p>
+                    <div class="flex items-center gap-2 text-white/80 text-sm">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <span>1:08</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Видео 4 -->
+            <div class="video-card flex-shrink-0 snap-center cursor-pointer relative overflow-hidden" data-video="https://muse.ooo/video/portret-semi-pod-maslo-35191.webm" data-index="3">
+                <img
+                    src="https://muse.ooo/upload/imgsite/portret-semi-pod-maslo-35191-223-396.webp"
+                    loading="lazy"
+                    decoding="async"
+                    title="Обложка для видео об изготовлении портрета на холсте в стиле под масло"
+                    alt="Обложка для видео о портрете, на котором изображена супружеская пара с двумя дочерьми, в стиле под масло"
+                    width="223"
+                    height="396"
+                    class="w-[223px] h-[396px] object-cover"
+                >
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4">
+                    <p class="text-sm text-white/90 mb-2">Печать, изготовление подрамника, натяжка, покрытие лаком, оформление в багет и подарочную упаковку.</p>
+                    <div class="flex items-center gap-2 text-white/80 text-sm">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <span>1:29</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Видео 5 -->
+            <div class="video-card flex-shrink-0 snap-center cursor-pointer relative overflow-hidden" data-video="https://muse.ooo/video/svadebnaya-kartina-v-stile-byuti-s-potalyu-35233.webm" data-index="4">
+                <img
+                    src="https://muse.ooo/upload/imgsite/svadebnaya-kartina-v-stile-byuti-s-potalyu-35233-223-396.webp"
+                    loading="lazy"
+                    decoding="async"
+                    title="Обложка для видео об изготовлении портрета на холсте с покрытием поталью"
+                    alt="Обложка для видео о портрете, на котором изображена свадебная сцена с женихом, невестой, её родителями и двумя маленькими сестрами"
+                    width="223"
+                    height="396"
+                    class="w-[223px] h-[396px] object-cover"
+                >
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4">
+                    <p class="text-sm text-white/90 mb-2">Печать на холсте, натяжка на подрамник, покрытие лаком, покрытие поталью.</p>
+                    <div class="flex items-center gap-2 text-white/80 text-sm">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <span>1:30</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Видео 6 -->
+            <div class="video-card flex-shrink-0 snap-center cursor-pointer relative overflow-hidden" data-video="https://muse.ooo/video/kartina_v_stile_pod_maslo_s_prorisovkoj_akrilom-35240.webm" data-index="5">
+                <img
+                    src="https://muse.ooo/upload/imgsite/kartina_v_stile_pod_maslo_s_prorisovkoj_akrilom-35240-223-396.webp"
+                    loading="lazy"
+                    decoding="async"
+                    title="Обложка для видео об изготовлении портрета дамы с цветами с покрытием акрилом"
+                    alt="Обложка для видео об изготовлении портрета на холсте дамы с цветами с покрытием акрилом"
+                    width="223"
+                    height="396"
+                    class="w-[223px] h-[396px] object-cover"
+                >
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4">
+                    <p class="text-sm text-white/90 mb-2">Печать на холсте, натяжка на подрамник, покрытие акриловой краской художником, оформление в раму.</p>
+                    <div class="flex items-center gap-2 text-white/80 text-sm">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <span>0:35</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Видео 7 -->
+            <div class="video-card flex-shrink-0 snap-center cursor-pointer relative overflow-hidden" data-video="https://muse.ooo/video/portret-devushki-s-rozami-pod-maslo-35361.webm" data-index="6">
+                <img
+                    src="https://muse.ooo/upload/imgsite/portret-devushki-s-rozami-pod-maslo-35361-223-396.webp"
+                    loading="lazy"
+                    decoding="async"
+                    title="Обложка для видео об изготовлении портрета дамы с розами на холсте"
+                    alt="Обложка для видео об изготовлении портрета дамы с розами на холсте в стиле под масло"
+                    width="223"
+                    height="396"
+                    class="w-[223px] h-[396px] object-cover"
+                >
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4">
+                    <p class="text-sm text-white/90 mb-2">Печать, натяжка на подрамник, покрытие лаком, готовый портрет, фото до и после отрисовки.</p>
+                    <div class="flex items-center gap-2 text-white/80 text-sm">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <span>0:33</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Видео 8 -->
+            <div class="video-card flex-shrink-0 snap-center cursor-pointer relative overflow-hidden" data-video="https://muse.ooo/video/portret-pary-v-obraze-s-potalyu.webm" data-index="7">
+                <img
+                    src="https://muse.ooo/upload/imgsite/portret-pary-v-obraze-s-potalyu-223-396.webp"
+                    loading="lazy"
+                    decoding="async"
+                    title="Обложка для видео об изготовлении портрета в образе"
+                    alt="Обложка для видео изготовления портрета супружеской пары в царском образе"
+                    width="223"
+                    height="396"
+                    class="w-[223px] h-[396px] object-cover"
+                >
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4">
+                    <p class="text-sm text-white/90 mb-2">Печать на холсте, натяжка на подрамник, нанесение жидкой золотой потали, оформление в багет.</p>
+                    <div class="flex items-center gap-2 text-white/80 text-sm">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <span>0:47</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Видео 9 -->
+            <div class="video-card flex-shrink-0 snap-center cursor-pointer relative overflow-hidden" data-video="https://muse.ooo/video/portret-devushki-pod-maslo-35639.webm" data-index="8">
+                <img
+                    src="https://muse.ooo/upload/imgsite/portret-devushki-pod-maslo-35639-223-396.webp"
+                    loading="lazy"
+                    decoding="async"
+                    title="Обложка для видео о написании и изготовлении портрета в стиле под масло"
+                    alt="Обложка для видео о написании и изготовлении портрета женщины с длинными каштановыми волосами в стиле под масло"
+                    width="223"
+                    height="396"
+                    class="w-[223px] h-[396px] object-cover"
+                >
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4">
+                    <p class="text-sm text-white/90 mb-2">Написание портрета в стиле под масло в цифровом формате, его печать на холсте и оформление в раму.</p>
+                    <div class="flex items-center gap-2 text-white/80 text-sm">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <span>0:41</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Модалка для видео -->
+    <div class="video-modal" id="video-modal">
+        <div class="video-modal-content">
+            <button class="video-modal-close" aria-label="Закрыть">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+            <button class="video-modal-mute" aria-label="Включить звук">
+                <svg class="w-6 h-6 mute-icon" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+                </svg>
+                <svg class="w-6 h-6 unmute-icon hidden" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                </svg>
+            </button>
+            <button class="video-modal-prev" aria-label="Предыдущее видео">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+                </svg>
+            </button>
+            <video id="modal-video" preload="none" controls playsinline></video>
+            <button class="video-modal-next" aria-label="Следующее видео">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- СМИ о нас -->
+    <section class="py-16 lg:py-20">
+        <div class="container">
+            <h2 class="text-2xl lg:text-3xl font-light text-dark text-center mb-8">СМИ о нас</h2>
+        </div>
+
+        <div class="carousel-scroll flex gap-6 px-4 lg:px-8 pb-4 items-center justify-center">
+            <a href="https://volg.mk.ru/culture/2024/12/13/volgogradcam-rasskazali-kak-sozdat-kartinu-na-kholste.html" target="_blank" rel="noopener noreferrer" class="flex-shrink-0 snap-center">
+                <img src="https://www.muse.ooo/upload/imgsite/mk-ru.webp"
+                    loading="lazy"
+                    decoding="async"
+                    title="Сетевое издание МК в Волгограде»"
+                    alt="Логотип сетевого издания МК в Волгограде"
+                    width="124"
+                    height="85"
+                    class="grayscale hover:grayscale-0 transition-all"
+                >
+            </a>
+            <a href="https://www.panram.ru/partners/news/iskusstvo-na-zakaz-kartiny-po-foto/" target="_blank" rel="noopener noreferrer" class="flex-shrink-0 snap-center">
+                <img src="https://www.muse.ooo/upload/imgsite/panram-ru.webp"
+                    loading="lazy"
+                    decoding="async"
+                    title="Информационный интернет-портал Панорама, Ростов-на-Дону"
+                    alt="Логотип информационного интернет-портала Панорама, Ростов-на-Дону"
+                    width="124"
+                    height="85"
+                    class="grayscale hover:grayscale-0 transition-all"
+                >
+            </a>
+            <a href="https://komiinform.ru/nt/9699" target="_blank" rel="noopener noreferrer" class="flex-shrink-0 snap-center">
+                <img src="https://www.muse.ooo/upload/imgsite/komiinform.webp"
+                    loading="lazy"
+                    decoding="async"
+                    title="Информационное агентство Комиинформ"
+                    alt="Логотип информационного агентства Комиинформ"
+                    width="124"
+                    height="85"
+                    class="grayscale hover:grayscale-0 transition-all"
+                >
+            </a>
+            <a href="https://progorodsamara.ru/interesnoe/view/kartina-po-foto-na-zakaz-trend-2025-kotoryj-privnosit-iskusstvo-v-vas-interer" target="_blank" rel="noopener noreferrer" class="flex-shrink-0 snap-center">
+                <img src="https://www.muse.ooo/upload/imgsite/progorodsamara-ru.webp"
+                    loading="lazy"
+                    decoding="async"
+                    title="Сетевое издание PROGORODSAMARA (ПРОГОРОДСАМАРА)"
+                    alt="Логотип сетевого издания PROGORODSAMARA (ПРОГОРОДСАМАРА)"
+                    width="124"
+                    height="85"
+                    class="grayscale hover:grayscale-0 transition-all"
+                >
+            </a>
+            <a href="https://www.sport-weekend.com/pochemu-horoshim-podarkom-stanet-kartina-po-foto-na-zakaz.htm" target="_blank" rel="noopener noreferrer" class="flex-shrink-0 snap-center">
+                <img src="https://www.muse.ooo/upload/imgsite/sport-weekend-com.webp"
+                    loading="lazy"
+                    decoding="async"
+                    title="Сетевое издание СПОРТ УИК-ЭНД"
+                    alt="Логотип сетевого издания СПОРТ УИК-ЭНД"
+                    width="124"
+                    height="85"
+                    class="grayscale hover:grayscale-0 transition-all"
+                >
+            </a>
+            <a href="https://dtf.ru/topraiting/3175329-izgotovlenie-portretov-po-foto-v-moskve-top-10-luchshih-hudozhnikov-i-kompanii-reiting-2024" target="_blank" rel="noopener noreferrer" class="flex-shrink-0 snap-center">
+                <img src="https://www.muse.ooo/upload/imgsite/dtf-ru.webp"
+                    loading="lazy"
+                    decoding="async"
+                    title="Платформа DTF"
+                    alt="Логотип платформы DTF"
+                    width="124"
+                    height="85"
+                    class="grayscale hover:grayscale-0 transition-all"
+                >
+            </a>
+            <a href="https://ufa.bfm.ru/news/64603" target="_blank" rel="noopener noreferrer" class="flex-shrink-0 snap-center">
+                <img src="https://www.muse.ooo/upload/imgsite/bfm-ufa-ru.webp"
+                    loading="lazy"
+                    decoding="async"
+                    title="Портал BFM Уфа"
+                    alt="Логотип портала BFM Уфа"
+                    width="124"
+                    height="85"
+                    class="grayscale hover:grayscale-0 transition-all"
+                >
+            </a>
+            <a href="https://www.kommersant.ru/doc/7403326?erid=2VfnxweWfHr" target="_blank" rel="noopener noreferrer" class="flex-shrink-0 snap-center">
+                <img src="https://www.muse.ooo/upload/imgsite/kommersant-ru.webp"
+                    loading="lazy"
+                    decoding="async"
+                    title="Сетевое издание Коммерсантъ"
+                    alt="Логотип сетевого издания Коммерсантъ"
+                    width="124"
+                    height="85"
+                    class="grayscale hover:grayscale-0 transition-all"
+                >
+            </a>
+            <a href="https://www.rbc.ru/life/news/634d990c9a7947ddafab9de4" target="_blank" rel="noopener noreferrer" class="flex-shrink-0 snap-center">
+                <img src="https://www.muse.ooo/upload/imgsite/rbc.webp"
+                    loading="lazy"
+                    decoding="async"
+                    title="Информационное агентство РБК"
+                    alt="Логотип информационного агентства РБК"
+                    width="124"
+                    height="85"
+                    class="grayscale hover:grayscale-0 transition-all"
+                >
+            </a>
+        </div>
+    </section>
+
+    <!-- Примеры наших работ -->
+    <section class="py-16 lg:py-20">
+        <div class="container">
+            <h2 class="text-2xl lg:text-3xl font-light text-dark text-center mb-8">Примеры наших работ</h2>
+        </div>
+
+        <div class="carousel-scroll flex gap-0 px-4 lg:px-8 pb-4">
+            <div class="flex-shrink-0 snap-center">
+                <img loading="lazy" decoding="async" width="241" height="181" alt="Девушка с собственным черно-белым фотопортретом, напечатанном на холсте" title="Пример печати на холсте фото" src="https://muse.ooo/upload/img/foto-na-holste-devushke.webp" >
+            </div>
+            <div class="flex-shrink-0 snap-center">
+                <img loading="lazy" decoding="async" width="241" height="181" alt="Пример печати на холсте картины с зимним пейзажем в рамке" title="Пример печати на холсте пейзажа" src="https://muse.ooo/upload/imgsite/pechat-na-holste-kartiny-s-zimnim-pejzazhem.webp" >
+            </div>
+            <div class="flex-shrink-0 snap-center">
+                <img loading="lazy" decoding="async" width="241" height="181" alt="Два фото на холсте на заказ под интерьер прихожей с изображением животных" title="Пример печати на холсте фото" src="https://muse.ooo/upload/img/bolshie-fotografii-na-stene.webp" >
+            </div>
+            <div class="flex-shrink-0 snap-center">
+                <img loading="lazy" decoding="async" width="241" height="181" alt="Ребенок, сидя на диване, рассматривает холст по фото на заказ с его собственными фотографиями" title="Пример печати на холсте фотоколлажа" src="https://muse.ooo/upload/img/detskie-foto-na-holste.webp" >
+            </div>
+            <div class="flex-shrink-0 snap-center">
+                <img loading="lazy" decoding="async" width="241" height="181" alt="Пример печати на холсте женского портрета, обрамленного в багет" title="Пример печати на холсте портрета" src="https://muse.ooo/upload/imgsite/pechat-na-holste-portreta-zhenshchiny-220424.webp" >
+            </div>
+            <div class="flex-shrink-0 snap-center">
+                <img loading="lazy" decoding="async" width="241" height="181" alt="Пример печати на холсте модульной картины с роботом в лесу" title="Пример печати на холсте модульной картины" src="https://muse.ooo/upload/imgsite/pechat-na-holste-modulnoj-kartiny-220424.webp" >
+            </div>
+            <div class="flex-shrink-0 snap-center">
+                <img loading="lazy" decoding="async" width="241" height="181" alt="Пример печати на холсте модульной картины с воздушными шарами" title="Пример печати на холсте модульной картины" src="https://muse.ooo/upload/imgsite/pechat-na-holste-modulnoj-kartiny-s-vozdushnymi-sharami.webp" >
+            </div>
+            <div class="flex-shrink-0 snap-center">
+                <img loading="lazy" decoding="async" width="241" height="181" alt="Печать на холсте репродукции картины Мона Лиза в багетной раме" title="Пример печати на холсте репродукции" src="https://muse.ooo/upload/imgsite/pechat-na-holste-reprodukcii-kartiny-mona-liza.webp" >
+            </div>
+            <div class="flex-shrink-0 snap-center">
+                <img loading="lazy" decoding="async" width="241" height="181" alt="Печать на холсте репродукции картины Девушка с жемчужной сережкой в багетной раме" title="Пример печати на холсте репродукции" src="https://muse.ooo/upload/imgsite/pechat-na-holste-reprodukcii-kartiny-devushka-s-zhemchuzhnoj-serezhkoj.webp" >
+            </div>
+            <div class="flex-shrink-0 snap-center">
+                <img loading="lazy" decoding="async" width="241" height="181" alt="На фото изображены три человека: две женщины и мужчина; мужчина держит в руках портрет, напечатанный на холсте в акварельном стиле в рамке, на котором изображены те же две женщины; это его подарок для этих дам" title="Пример печати на холсте портрета в акварельном стиле" src="https://muse.ooo/upload/imgsite/pechat-na-holste-akvarel-devushki-1.webp" >
+            </div>
+            <div class="flex-shrink-0 snap-center">
+                <img loading="lazy" decoding="async" width="241" height="181" alt="На фото изображена девушка, сидящая на траве рядом с черной собакой; обстановка вокруг — двор с зеленью и ясным небом; девушка держит в руках подарок — портрет на холсте, обрамленный в багет, на котором изображена она же, окруженная цветами, в стиле под масло" title="Пример печати на холсте портрета под масло" src="https://muse.ooo/upload/imgsite/pechat-na-holste-portret-maslo-devushka-32.webp" >
+            </div>
+            <div class="flex-shrink-0 snap-center">
+                <img loading="lazy" decoding="async" width="241" height="181" alt="На фото изображены мужчина и женщина, которые держат в руках подарок — портрет на холсте по их фото в стиле под масло в раме" title="Пример печати на холсте портрета под масло" src="https://muse.ooo/upload/imgsite/pechat-na-holste-portret-maslo-para-36.webp" >
+            </div>
+            <div class="flex-shrink-0 snap-center">
+                <img loading="lazy" decoding="async" width="241" height="181" alt="На фото изображена свадьба; жених и невеста сидят за столом, который украшен белой скатертью и цветочными композициями; на заднем плане видна надпись, выполненная в золотистом цвете; перед столом стоит портрет молодоженов в акварельном стиле, напечатанный на холсте" title="Пример печати на холсте портрета в акварельном стиле" src="https://muse.ooo/upload/imgsite/pechat-na-holste-akvarel-para-2.webp" >
+            </div>
+            <div class="flex-shrink-0 snap-center">
+                <img loading="lazy" decoding="async" width="241" height="181" alt="На фото изображена девочка, которая сидит на диване с узором, на ней надета светло-фиолетовая рубашка с рисунком, она держит в руках портрет на холсте в белой рамке; на портрете она сама, с улыбкой, в синей одежде, портрет выполнен в акварельном стиле" title="Пример печати на холсте портрета в акварельном стиле" src="https://muse.ooo/upload/imgsite/pechat-na-holste-akvarel-devochka-24.webp" >
+            </div>
+            <div class="flex-shrink-0 snap-center">
+                <img loading="lazy" decoding="async" width="241" height="181" alt="На фотографии изображен букет красных роз, стоящий в фиолетовой вазе, и портрет пары по фото на холсте с надписью «Любовь — это...»" title="Пример печати на холсте портрета в стиле Love is..." src="https://muse.ooo/upload/imgsite/pechat-na-holste-para-love-is-45.webp" >
+            </div>
+            <div class="flex-shrink-0 snap-center">
+                <img loading="lazy" decoding="async" width="241" height="181" alt="На фото изображена женщина, которая держит большой портрет на холсте в стиле фэнтези в образах эльфов с изображением своей семьи; на портрете она в центре с луком, рядом с ней мужчина с мечом, а по бокам двое детей, мальчик держит магический светящийся шар, а девочка кинжал; фон портрета — густой лес с зелёной растительностью, что создаёт атмосферу сказочного мира" title="Пример печати на холсте портрета в стиле фэнтези" src="https://muse.ooo/upload/imgsite/pechat-na-holste-fentezi-portret-semya-16.webp" >
+            </div>
+            <div class="flex-shrink-0 snap-center">
+                <img loading="lazy" decoding="async" width="241" height="181" alt="На фото изображена семейная сцена: пожилой мужчина, который держит в руках портрет по фото в стиле под масло, напечатанный на холсте, на портрете изображены он сам, еще один дедушка, его сын и внук; рядом с мужчиной сидит его сын и внук; на заднем плане видны воздушные шары" title="Пример печати на холсте портрета под масло" src="https://muse.ooo/upload/imgsite/pechat-na-holste-portret-maslo-muzhchiny-semi-3.webp" >
+            </div>
+            <div class="flex-shrink-0 snap-center">
+                <img loading="lazy" decoding="async" width="241" height="181" alt="Подруга дарит поп-арт портрет девушке; портрет выполнен по фото в цифровом виде по фотографии и напечатан на холсте" title="Пример печати на холсте портрета в стиле поп-арт" src="https://muse.ooo/upload/imgsite/pechat-na-holste-pop-art-portret-devushka-8.webp" >
+            </div>
+            <div class="flex-shrink-0 snap-center">
+                <img loading="lazy" decoding="async" width="241" height="181" alt=". Группа людей стоит на улице — это гости; в центре именинник, в руках у него цветы и его портрет по фото на холсте в образе генерала XIX века" title="Пример печати на холсте портрета в образе" src="https://muse.ooo/upload/imgsite/pechat-na-holste-portret-v-obraze-muzhchina-26.webp" >
+            </div>
+            <div class="flex-shrink-0 snap-center">
+                <img loading="lazy" decoding="async" width="241" height="181" alt="На фото группа людей, собравшихся в помещении храма; большинство из них одеты в белые одежды, а женщины и девочки носят платки; в центре группы находятся дети, а взрослые стоят по бокам и сзади; одна из женщин и две девочки держат в руках большую фотомозаику с изображением церкви; атмосфера на фото выглядит торжественной и праздничной" title="Пример печати на холсте фотомозаики" src="https://muse.ooo/upload/imgsite/pechat-na-holste-fotomozaika-hram-29.webp" >
+            </div>
+            <div class="flex-shrink-0 snap-center">
+                <img loading="lazy" decoding="async" width="241" height="181" alt="На фото семья из пяти человек, включая пожилую женщину; она стоит в центре и держит в руках подарок — портрет; все выглядят счастливыми и улыбаются; на портрете представлена вся семья пожилой женщины полностью — 10 человек, включая 5 на фото; портрет выполнен в стиле под масло и оформлен в белую багетную раму; также видны все члены семьи; атмосфера на фото тёплая и семейная" title="Пример печати на холсте портрета под масло" src="https://muse.ooo/upload/imgsite/pechat-na-holste-portret-maslo-semya-31.webp" >
+            </div>
+            <div class="flex-shrink-0 snap-center">
+                <img loading="lazy" decoding="async" width="241" height="181" alt=". На фото изображена группа людей, стоящих в помещении, которые улыбаются и позируют для снимка; в центре седой мужчина в черной одежде, он держит большую картину на холсте в раме, на которой он изображен в морской форме гражданского флота, стоящим за пультом управления судном; портрет выполнен в стиле под масло" title="Пример печати на холсте портрета под масло" src="https://muse.ooo/upload/imgsite/pechat-na-holste-portret-maslo-muzhchina-22.webp" >
+            </div>
+        </div>
+    </section>
+
+    <!-- Почему нам можно доверять -->
+    <section class="bg-primary py-16 lg:py-20">
+        <div class="container">
+            <h2 class="text-2xl lg:text-3xl font-light text-white text-center mb-12">Почему нам можно доверять</h2>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Карточка 1: Опыт -->
+                <div class="bg-white rounded-lg shadow-xl p-8 hover-effect-card">
+                    <h3 class="text-xl text-dark mb-4 text-center">Опыт</h3>
+                    <div class="w-10 h-10 mx-auto mb-4 text-primary">
+                        <svg aria-hidden="true" focusable="false" height=40 viewbox="0 0 325.9 325.9" width=40 xmlns=http://www.w3.org/2000/svg>
+                     <path d="M297.4 47.8h-24.5v-7.1c0-9.3-7.5-16.8-16.8-16.8H69.7c-9.3 0-16.8 7.5-16.8 16.8v7.1H28.5C12.7 47.8 0 60.5 0 76.2v39.8c0 12.6 8.3 23.2 19.7 27v115.7L9.5 289.6c-1.6 5 1 10.3 6 11.9 1 0.3 2 0.5 3 0.5 4 0 7.7-2.5 9-6.5l10.7-32.4h0.4v-1.3L48.8 230.9c1.6-5-1-10.3-6-11.9 -1.4-0.5-2.8-0.5-4.2-0.4v-74.1h22.9v111.4h202.9V144.5h17.2v69.4c-2.4-1.9-5.7-2.5-8.8-1.5 -5 1.6-7.6 7-6 11.9l21.3 64.6c1.3 4 5 6.5 9 6.5 1 0 2-0.2 3-0.5 5-1.6 7.6-7 6-11.9l-6.6-19.9h1V144.2c14.3-1.5 25.4-13.5 25.4-28.2V76.2C325.9 60.5 313.1 47.8 297.4 47.8zM63.7 40.7c0-3.3 2.7-6 6-6H256.1c3.3 0 6 2.7 6 6v7.1H63.7V40.7zM253.6 144.5v100.6H72.3V144.5 123.9c0-8.1 4.1-19.5 8.9-24.8l8.7-9.6h146l8.7 9.6c4.8 5.3 8.9 16.7 8.9 24.8v20.6H253.6z" fill=#4a90e2 class=fil101></path>
+                     <path d="M232.7 106.4H93.2c-3 0-5.4 2.4-5.4 5.4 0 3 2.4 5.4 5.4 5.4h139.5c3 0 5.4-2.4 5.4-5.4C238.1 108.8 235.6 106.4 232.7 106.4z" fill=#4a90e2 class=fil101></path>
+                  </svg>
+                    </div>
+                    <p class="text-body">Собственное производство с 2015 года. Работаем без посредников — от печати до упаковки.</p>
+                </div>
+
+                <!-- Карточка 2: Примеры -->
+                <div class="bg-white rounded-lg shadow-xl p-8 hover-effect-card">
+                    <h3 class="text-xl text-dark mb-4 text-center">Примеры</h3>
+                    <div class="w-10 h-10 mx-auto mb-4 text-primary">
+                        <svg aria-hidden="true" focusable="false" width="40" height="40" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                     <path fill="#4a90e2" d="M2.9 55.9L0 58.8v394.4l2.9 2.9 2.9 2.9h500.4l2.9-2.9 2.9-2.9V58.8l-2.9-2.9-2.9-2.9H5.8l-2.9 2.9zM494 256v185H18V71h476v185z"/>
+                     <path fill="#4a90e2" d="M130 151.6c-9.3 2.5-16.2 6.4-23.1 13.3-12.5 12.5-17.2 28.5-13.4 44.9 5.3 22.6 24.7 38.2 47.6 38.2 27.1 0 48.9-21.6 48.9-48.5 0-4.5-.7-10.6-1.6-13.6-7.3-25-34.2-40.7-58.4-34.3zm22.3 18.4c14 5.2 22.6 20.6 19.6 35-1.5 7.2-3.2 10.6-8.3 15.8-10 10.5-24.6 12.7-37.8 5.5-17.4-9.5-21.1-33.6-7.5-48.2 9.1-9.5 21.9-12.6 34-8.1z"/>
+                     <path fill="#4a90e2" d="M349.8 203.7c-.9.2-21.3 22-45.3 48.4-24.1 26.3-44.1 47.9-44.4 47.9-.3 0-10.2-9.6-22.1-21.4-13.1-13.1-22.5-21.7-24.1-22.1-1.7-.4-3.8-.1-5.5.8-4.1 2.2-151.5 132.2-153.6 135.5-1 1.5-1.8 3.7-1.8 5 0 3.4 5.2 8.2 8.9 8.2 3.6 0-1.3 4.2 86.6-73.3l63-55.6 46.5 46.5c27.9 27.8 47.3 46.4 48.5 46.5 7.5.4 11.1-3.1 10.6-10.5-.1-1.2-9.6-11.6-22.3-24.3L272.6 313l3.5-3.7c2-2.1 20.1-21.9 40.4-44.1 20.2-22.2 37.1-40.2 37.5-40 .5.2 23 20.5 50 45.3 27 24.7 50.5 45.6 52.2 46.3 2.7 1.2 3.7 1.2 6.3-.1 4.2-2 6.2-6.6 4.6-10.5-1-2.5-95.2-90.1-107.4-100-3.7-3-5.9-3.6-9.9-2.5z"/>
+                  </svg>
+                    </div>
+                    <p class="text-body">6000+ цифровых портретов в 18 стилях. Большое портфолио с примерами на заказ — под любую идею и настроение.</p>
+                </div>
+
+                <!-- Карточка 3: Отзывы -->
+                <div class="bg-white rounded-lg shadow-xl p-8 hover-effect-card">
+                    <h3 class="text-xl text-dark mb-4 text-center">Отзывы</h3>
+                    <div class="w-10 h-10 mx-auto mb-4 text-primary">
+                         <svg aria-hidden="true" focusable="false" width="40" height="40" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                     <path fill="#4a90e2" d="M282.5 42.9c-1.6 1-3.7 2.7-4.6 3.7-.9 1-8.9 17.4-17.8 36.4-8.9 18.9-16.5 34.8-17 35.3-.4.4-18 3.4-38.9 6.7-41.4 6.3-42.3 6.6-45.6 13.4-1.9 4-2 10.2-.3 13.3.7 1.3 13.7 15 28.9 30.6l27.6 28.4-4.1 25.7-4.2 25.7-11-.7c-25.8-1.5-50.7 5.6-69.3 19.9-7.4 5.7-17.9 16.9-23.1 24.6l-4.1 6-3.7-2.4c-4.5-3.1-11.2-3.6-15.8-1.3-2.9 1.6-35.1 27.5-40.6 32.8-5.9 5.6-7.3 11.6-4.2 17.7 2.8 5.6 86.3 108.3 89.8 110.5 3.6 2.1 10.9 2.4 14.7.4 4.9-2.6 42.4-33.6 44.1-36.6 2-3.3 2.4-10.2.8-14.2-.5-1.5-.7-2.9-.2-3.2.4-.3 4.3-1.4 8.7-2.5 19.5-5.1 41.5-6.4 59.4-3.6 5.2.8 13.8 2.2 19 3 12.4 2 32.3 2 42.5 0 26.3-5 56.2-20.2 85.5-43.5 12.4-9.8 38.8-36 48.4-48 16.5-20.7 28.4-41.6 30.7-54 1.1-6 1-7-.9-11.3-1.7-3.8-3-5.2-6.4-6.7-5.5-2.5-8-2.5-16.4.1-13.7 4.2-42.9 21.3-68.4 40-10.1 7.4-9.6 7.3-9.2 3.1.1-2.1-2.6-21.2-6.1-42.7l-6.5-38.9 27-27.6c14.9-15.1 27.9-28.9 28.9-30.5 2.3-3.6 2.5-10.5.4-14.5-3.3-6.4-4.7-6.8-45.6-13.1-20.9-3.2-38.4-6.1-38.8-6.3-.4-.3-8.1-16.3-17.1-35.6-9.1-19.4-17.6-36.3-19-37.7-4.7-4.7-12.2-5.7-17.5-2.4zM307 95.2c11.3 24.1 17.3 35.7 19 37 2 1.4 11 3.1 39.5 7.4 20.4 3.1 37.6 5.7 38.3 6 .8.2-10.1 12.2-26.8 29.2-15.4 15.8-28.4 29.8-28.7 31.1-.3 1.4 2.2 19.7 5.6 40.9 3.5 21.1 6.1 38.5 5.9 38.6-1.4 1.1-13.5-4.7-38.3-18.4-19.5-10.8-30-16-32-16-1.9 0-10.1 3.9-22.9 11l-19.9 11-6.2-2.5c-3.4-1.3-8.8-3.1-12-4-3.2-.8-5.9-1.6-6-1.7-.1-.2 1.8-12.9 4.3-28.3 2.5-15.7 4.3-29.1 3.9-30.6-.4-1.5-12-14.2-28.3-30.8-15.2-15.6-27.2-28.6-26.8-29.1.5-.4 17.5-3.3 37.9-6.3 28.5-4.3 37.5-6 39.5-7.5 2.3-1.8 7.2-11.7 31.3-63 2.7-5.7 5.2-10.1 5.5-9.7.4.3 8.1 16.4 17.2 35.7zm155.5 170c-1.4 4.9-7.6 17-12.7 25-12.2 19.1-37.6 47.1-58.1 64.1-13.7 11.4-32.2 23.7-45.2 30.1-28.2 13.8-48.1 16.6-80.3 10.9-13.7-2.4-18.3-2.7-35.7-2.7-21.8 0-31.2 1.4-49.6 7.3l-8.8 2.9-31.1-38.4c-17-21.1-31-38.6-31-39 0-1.6 7.4-12.6 12.7-18.6 8-9.4 17.2-16.4 27.8-21.4 13.8-6.4 21.3-7.9 39-7.8 21.4.2 30.4 2.1 56.6 12.2 18.5 7.2 37.7 9.5 76.4 9 24.3-.3 27.4-.1 31.2 1.5 2.3 1 4.4 2.5 4.7 3.4 1.9 4.8-11.1 17-25.9 24.3-15.6 7.8-21.7 8.3-60.6 4.9-25.7-2.2-36.8-2-45.9.7-2.7.8-5.4 2.3-6 3.4-1.6 3.1-1.2 7.8 1 10 2.3 2.3 4.9 2.4 15.5.9 6.3-1 12.3-.8 35.3 1.1 29.5 2.4 42.2 2.3 52.7-.4 8.4-2.2 22.7-9.6 31-16.1 48.9-38.3 82.9-61 101-67.6 6.4-2.4 6.8-2.3 6 .3zm-159.1 10 13.1 7.3-9 .3c-8.6.3-32.5-1.3-37.3-2.5-2-.5-.8-1.5 8-6.4 5.6-3.2 10.7-5.8 11.2-5.9.4 0 6.7 3.3 14 7.2zm-175.8 98c22.4 27.6 40.7 50.8 40.8 51.5.1.7-8 7.8-17.8 15.8-17.2 13.9-18.1 14.5-19.7 12.8-3.4-3.5-80.9-99.7-80.9-100.4 0-.9 35.1-29.8 36.2-29.8.4-.1 19 22.5 41.4 50.1z"/>
+                  </svg>
+                    </div>
+                    <p class="text-body">Сотни отзывов заказчиков. На сайте, в Яндекс, Google и ВКонтакте — с фото готовых работ.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Студия Muse (юридическая информация) -->
+    <section class="bg-primary py-16 lg:py-20">
+        <div class="container">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="text-white">
+                    <h2 class="text-2xl lg:text-3xl font-light mb-6">Студия Muse</h2>
+                    <p class="leading-relaxed">
+                        ИП Пасечкин Андрей Игоревич<br>
+                        Свидетельство о государственной регистрации<br>
+                        в качестве ИП<br>
+                        ОГРН/ОГРНИП 316784700066112<br>
+                        № 40802810306000006070<br>
+                        СТ-ПЕТЕРБУРГСКИЙ Ф-Л ПАО "ПРОМСВЯЗЬБАНК"<br>
+                        № 30101810000000000920<br>
+                        БИК 044030920
+                    </p>
+                </div>
+                <div class="text-center">
+                    <img
+                        alt="Фото свидетельства о госрегистрации"
+                        decoding="async"
+                        loading="lazy"
+                        width="543"
+                        height="768"
+                        src="https://muse.ooo/upload/img/o-ip.webp"
+                        class="max-w-xs mx-auto rounded-lg shadow-xl"
+                    >
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section class="bg-dark text-white py-16 lg:py-20">
+        <div class="container">
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Москва -->
+                <div>
+                    <h3 class="text-xl font-medium mb-4">Москва</h3>
+                    <p class="text-gray-300 mb-2">127550, ул. Прянишникова, д. 19А, строение 9.</p>
+                    <p class="text-gray-300 mb-2">Телефон: <a href="tel:+74954091869" class="text-primary hover:underline">+7 (495) 409–18–69</a>.</p>
+                    <p class="text-gray-300 mb-4">Электронная почта: <a href="mailto:info@muse.ooo" class="text-primary hover:underline">info@muse.ooo</a>.</p>
+
+                    <!-- Яндекс рейтинг Москва -->
+                    <div class="w-[150px] h-[50px] overflow-hidden">
+                        <iframe
+                            src="https://yandex.ru/sprav/widget/rating-badge/82862448491?type=rating&theme=dark"
+                            width="150"
+                            height="50"
+                            style="border: none;"
+                            title="Рейтинг Яндекс Москва"
+                        ></iframe>
+                    </div>
+                </div>
+
+                <!-- Санкт-Петербург -->
+                <div>
+                    <h3 class="text-xl font-medium mb-4">Санкт-Петербург</h3>
+                    <p class="text-gray-300 mb-2">196620, ул. Слуцкая, д. 13, корп. 2.</p>
+                    <p class="text-gray-300 mb-2">Телефон: <a href="tel:+78124081869" class="text-primary hover:underline">+7 (812) 408–18–69</a>.</p>
+                    <p class="text-gray-300 mb-4">Электронная почта: <a href="mailto:info@muse.ooo" class="text-primary hover:underline">info@muse.ooo</a>.</p>
+
+                    <!-- Яндекс рейтинг СПб -->
+                    <div class="w-[150px] h-[50px] overflow-hidden">
+                        <iframe
+                            src="https://yandex.ru/sprav/widget/rating-badge/2855807336?type=rating&theme=dark"
+                            width="150"
+                            height="50"
+                            style="border: none;"
+                            title="Рейтинг Яндекс Санкт-Петербург"
+                        ></iframe>
+                    </div>
+                </div>
+
+                <!-- Часы работы и соцсети -->
+                <div>
+                    <h4 class="text-xl font-medium mb-4">Часы работы:</h4>
+                    <p class="text-gray-300 mb-4">
+                        Понедельник — воскресенье: 10–19 по Москве.<br>
+                        Прием заявок онлайн: 24 часа.
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <!-- Back to Top Button -->
+    <a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-white text-dark hover:bg-dark hover:text-white border border-gray-300 hover:border-dark transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
+            <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+
+ <!-- Footer -->
+    <footer class="bg-dark text-white py-8 lg:py-12">
+        <div class="container">
+            <!-- Верхняя часть футера: меню навигации -->
+            <div class="mb-8 pb-8 border-b border-gray-700">
+                <div class="relative">
+                    <div class="flex flex-col">
+                        <!-- Основные ссылки -->
+                        <nav class="flex flex-col lg:flex-row flex-wrap gap-4 lg:gap-6">
+                            <a href="https://muse.ooo/info/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">О нас</a>
+                            <a href="https://muse.ooo/info/kontakty/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">Контакты</a>
+                            <a href="https://muse.ooo/pechat/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">Печать на холсте</a>
+                            <a href="https://muse.ooo/portret-na-zakaz/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">Портреты</a>
+                            <a href="https://muse.ooo/pechat/foto-na-kholste/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">Фото на холсте</a>
+                            <a href="https://muse.ooo/portret-na-zakaz/portret-maslom/" class="text-sm text-white font-semibold hover:text-white transition-colors uppercase tracking-wide">Портрет маслом</a>
+                        </nav>
+
+                        <!-- Вторичные ссылки -->
+                        <nav class="flex flex-col lg:flex-row flex-wrap gap-4 lg:gap-6 mt-6 lg:mt-6">
+                            <a href="https://muse.ooo/info/avtorstvo/" class="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide">Авторское право</a>
+                            <a href="https://muse.ooo/info/faq/" class="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide">Вопросы и ответы</a>
+                            <a href="https://muse.ooo/info/guarantee/" class="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide">Гарантия</a>
+                            <a href="https://muse.ooo/info/partnerstvo/" class="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide">Партнёрство</a>
+                            <a href="https://muse.ooo/info/dostavka/#cities" class="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide">Доставка</a>
+                            <a href="https://muse.ooo/info/oplata/" class="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide">Оплата</a>
+                            <a href="https://muse.ooo/blog/" class="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide">Блог</a>
+                        </nav>
+                    </div>
+
+                    <!-- Соцсети: справа на десктопе -->
+                    <div class="hidden lg:flex gap-3 items-center absolute top-0 right-0 flex-shrink-0">
+                        <a href="whatsapp://send?phone=74954091869" target="_blank" rel="noopener nofollow" title="WhatsApp" class="w-10 h-10 flex items-center justify-center rounded-lg bg-transparent hover:bg-gray-700 transition-colors" aria-label="WhatsApp">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        </a>
+                        <a href="https://vk.com/artwork.muse" target="_blank" rel="noopener nofollow" title="ВКонтакте" class="w-10 h-10 flex items-center justify-center rounded-lg bg-transparent hover:bg-gray-700 transition-colors" aria-label="ВКонтакте">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744z"/></svg>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCTrgAxErjCIU3EbsHJEtSPw" target="_blank" rel="noopener nofollow" title="YouTube" class="w-10 h-10 flex items-center justify-center rounded-lg bg-transparent hover:bg-gray-700 transition-colors" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </a>
+                        <a href="https://ru.pinterest.com/museooo/" target="_blank" rel="noopener nofollow" title="Pinterest" class="w-10 h-10 flex items-center justify-center rounded-lg bg-transparent hover:bg-gray-700 transition-colors" aria-label="Pinterest">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white"><path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/></svg>
+                        </a>
+                        <a href="https://t.me/Muse_ooo" target="_blank" rel="noopener nofollow" title="Telegram" class="w-10 h-10 flex items-center justify-center rounded-lg bg-transparent hover:bg-gray-700 transition-colors" aria-label="Telegram">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                        </a>
+                    </div>
+
+                    <!-- Соцсети: на мобильных -->
+                    <div class="flex lg:hidden gap-3 items-center mt-6">
+                        <a href="whatsapp://send?phone=74954091869" target="_blank" rel="noopener nofollow" title="WhatsApp" class="w-10 h-10 flex items-center justify-center rounded-lg bg-transparent hover:bg-gray-700 transition-colors" aria-label="WhatsApp">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        </a>
+                        <a href="https://vk.com/artwork.muse" target="_blank" rel="noopener nofollow" title="ВКонтакте" class="w-10 h-10 flex items-center justify-center rounded-lg bg-transparent hover:bg-gray-700 transition-colors" aria-label="ВКонтакте">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744z"/></svg>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCTrgAxErjCIU3EbsHJEtSPw" target="_blank" rel="noopener nofollow" title="YouTube" class="w-10 h-10 flex items-center justify-center rounded-lg bg-transparent hover:bg-gray-700 transition-colors" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </a>
+                        <a href="https://ru.pinterest.com/museooo/" target="_blank" rel="noopener nofollow" title="Pinterest" class="w-10 h-10 flex items-center justify-center rounded-lg bg-transparent hover:bg-gray-700 transition-colors" aria-label="Pinterest">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white"><path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/></svg>
+                        </a>
+                        <a href="https://t.me/Muse_ooo" target="_blank" rel="noopener nofollow" title="Telegram" class="w-10 h-10 flex items-center justify-center rounded-lg bg-transparent hover:bg-gray-700 transition-colors" aria-label="Telegram">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Нижняя часть футера: контакты, реквизиты -->
+            <div class="space-y-3 text-sm text-gray-300">
+                <div class="flex flex-wrap gap-4">
+                    <span>ИНН 782575923262</span>
+                    <span>ОГРНИП 316784700066112</span>
+                </div>
+                <nav class="flex flex-wrap gap-4">
+                    <a href="https://muse.ooo/karta-sayta/" class="hover:text-white transition-colors">Карта сайта</a>
+                    <a href="https://muse.ooo/info/politika_konfidentsialnosti_sayta/" class="hover:text-white transition-colors">Политика конфиденциальности</a>
+                    <a href="https://muse.ooo/info/oferta/" class="hover:text-white transition-colors">Публичная оферта</a>
+                </nav>
+                <div class="space-y-1">
+                    <div><a href="tel:88007076921" class="underline hover:text-white transition-colors">Бесплатный звонок по России: 8-800-707-69-21</a></div>
+                    <div><a href="tel:+74954091869" class="underline hover:text-white transition-colors">Москва: +7-495-409-18-69</a></div>
+                    <div><a href="tel:+78124081869" class="underline hover:text-white transition-colors">Санкт-Петербург: +7-812-408-18-69</a></div>
+                </div>
+                <div class="pt-2">
+                    <span>&copy; 2015-2026 Muse</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JSON-LD Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "AboutPage",
+          "@id": "https://muse.ooo/info/#webpage",
+          "url": "https://muse.ooo/info/",
+          "name": "О студии Muse",
+          "description": "История студии Muse: семейный бизнес, основанный в 2015 году. Печать на холсте и портреты на заказ с душой и вниманием к деталям.",
+          "mainEntity": {
+            "@id": "https://muse.ooo/#organization"
+          },
+          "video": {
+             "@type": "VideoObject",
+             "name": "Как мы создаём портреты на холсте",
+             "description": "Полный цикл работы студии Muse: от фото до готовой картины",
+             "thumbnailUrl": "https://muse.ooo/img/portret-na-zakaz-cover-555.webp",
+             "uploadDate": "2025-05-18T08:00:00+08:00",
+             "duration": "PT3M15S",
+             "contentUrl": "https://muse.ooo/video/portret-po-foto-na-zakaz-na-holste.webm"
+          }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://muse.ooo/#organization",
+          "name": "Студия Muse",
+          "legalName": "Студия Muse",
+          "url": "https://muse.ooo",
+          "logo": "https://muse.ooo/img/logo_muse_dark.png",
+          "foundingDate": "2015",
+          "founders": [
+            {
+              "@type": "Person",
+              "name": "Андрей",
+              "jobTitle": "Маркетолог, работа с техникой"
+            },
+            {
+              "@type": "Person",
+              "name": "Анна",
+              "jobTitle": "Художник, дизайнер"
+            }
+          ],
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "telephone": "+7-495-409-18-69",
+              "contactType": "customer service",
+              "areaServed": "RU",
+              "availableLanguage": "Russian"
+            },
+            {
+              "@type": "ContactPoint",
+              "telephone": "+7-812-408-18-69",
+              "contactType": "customer service",
+              "areaServed": "RU",
+              "availableLanguage": "Russian"
+            }
+          ],
+          "sameAs": [
+            "https://vk.com/artwork.muse",
+            "https://t.me/Muse_ooo",
+            "https://www.youtube.com/channel/UCTrgAxErjCIU3EbsHJEtSPw",
+            "https://ru.pinterest.com/museooo"
+          ]
+        }
+      ]
+    }
+    </script>
+
+    <!-- Navigation Scripts -->
+    <script src="../js/nav.js"></script>
+
+    <!-- Video Cover -->
+    <script>
+    document.querySelectorAll('.video-cover').forEach(function(cover) {
+        const playBtn = cover.querySelector('.video-play-icon');
+        if (playBtn) {
+            playBtn.addEventListener('click', function() {
+                cover.classList.add('video-playing');
+                const video = cover.querySelector('video');
+                if (video) {
+                    video.classList.remove('hidden');
+                    video.play();
+                }
+            });
+        }
+    });
+    </script>
+
+    <!-- Carousel Scroll (drag + wheel на десктопе) -->
+    <script>
+    document.querySelectorAll('.carousel-scroll').forEach(function(carousel) {
+        carousel.addEventListener('wheel', function(e) {
+            if (window.innerWidth < 1024) return;
+            if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) {
+                e.preventDefault();
+                carousel.scrollBy({ left: e.deltaY * 0.6, behavior: 'auto' });
+            }
+        }, { passive: false });
+
+        let isDown = false, startX, startScrollLeft, hasMoved = false, clickBlocked = false;
+        const DRAG_THRESHOLD = 5;
+        carousel.style.cursor = 'grab';
+
+        carousel.addEventListener('mousedown', function(e) {
+            if (window.innerWidth < 1024) return;
+            isDown = true; hasMoved = false; clickBlocked = false;
+            carousel.style.cursor = 'grabbing';
+            startX = e.pageX; startScrollLeft = carousel.scrollLeft;
+            e.preventDefault();
+        });
+
+        carousel.addEventListener('mousemove', function(e) {
+            if (!isDown || window.innerWidth < 1024) return;
+            e.preventDefault();
+            if (Math.abs(e.pageX - startX) > DRAG_THRESHOLD) { hasMoved = true; clickBlocked = true; }
+            carousel.scrollLeft = startScrollLeft - (e.pageX - startX) * 1.2;
+        });
+
+        carousel.addEventListener('mouseup', function() {
+            if (isDown) {
+                isDown = false; carousel.style.cursor = 'grab';
+                if (hasMoved) { clickBlocked = true; setTimeout(() => { clickBlocked = false; }, 100); }
+            }
+        });
+
+        carousel.addEventListener('mouseleave', function() {
+            if (isDown) { isDown = false; hasMoved = false; carousel.style.cursor = 'grab'; }
+        });
+
+        carousel.addEventListener('click', function(e) {
+            if (clickBlocked && window.innerWidth >= 1024) { e.preventDefault(); e.stopPropagation(); clickBlocked = false; }
+        }, true);
+    });
+    </script>
+
+    <!-- Video Modal -->
+    <script>
+    (function() {
+        const modal = document.querySelector('.video-modal');
+        if (!modal) return;
+
+        const video = modal.querySelector('video');
+        const closeBtn = modal.querySelector('.video-modal-close');
+        const muteBtn = modal.querySelector('.video-modal-mute');
+        const prevBtn = modal.querySelector('.video-modal-prev');
+        const nextBtn = modal.querySelector('.video-modal-next');
+
+        // Ищем карточки с data-video (секция "Короткие истории")
+        const videoCards = Array.from(document.querySelectorAll('.video-card[data-video]'));
+        let currentIndex = 0;
+
+        function openModal(index) {
+            currentIndex = index;
+            const trigger = videoCards[index];
+            if (trigger && video) {
+                video.src = trigger.dataset.video;
+                video.muted = false;
+                modal.classList.add('active');
+                video.play();
+            }
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            if (video) { video.pause(); video.src = ''; }
+        }
+
+        videoCards.forEach((trigger, index) => {
+            trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                openModal(index);
+            });
+        });
+
+        if (closeBtn) closeBtn.addEventListener('click', closeModal);
+        if (muteBtn) muteBtn.addEventListener('click', () => {
+            if (video) {
+                video.muted = !video.muted;
+                muteBtn.querySelector('.mute-icon')?.classList.toggle('hidden', !video.muted);
+                muteBtn.querySelector('.unmute-icon')?.classList.toggle('hidden', video.muted);
+            }
+        });
+        if (prevBtn) prevBtn.addEventListener('click', () => { if (currentIndex > 0) openModal(currentIndex - 1); });
+        if (nextBtn) nextBtn.addEventListener('click', () => { if (currentIndex < videoCards.length - 1) openModal(currentIndex + 1); });
+
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('active')) closeModal(); });
+    })();
+    </script>
+
+    <!-- Typed.js -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const typedEl = document.getElementById('typed-text');
+        if (typedEl) {
+            new Typed('#typed-text', {
+                strings: ['фото', 'картины', 'репродукции', 'портреты'],
+                typeSpeed: 100,
+                backSpeed: 50,
+                backDelay: 2000,
+                loop: true
+            });
+        }
+    });
+    </script>
+</body>
+</html>
