@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@theme {
+    --color-primary: #4A90E2;
+    --color-primary-hover: #609DE6;
+    --color-dark: #252525;
+    --color-body: #666666;
+    --color-secondary: #FAFAFA;
+}
+
+/* === ВАШИ КОМПОНЕНТЫ === */
+
+@layer components {
+    /* Навигатор (точки справа) */
+    .page-navigator {
+        @apply fixed top-1/2 -translate-y-1/2 z-[9999] hidden lg:block;
+        right: 1.85714286em; 
+    }
+
+    .page-navigator ul {
+        @apply inline-block p-[0.928em] rounded-[1.85em] bg-black/40 hover:bg-black/60 transition-colors;
+    }
+
+    .page-navigator li {
+        @apply list-none mb-[1.85em] last:mb-0;
+    }
+
+    .page-navigator a {
+        @apply block w-2 h-2 bg-white rounded-full opacity-50 relative transition-all duration-300 hover:opacity-100 hover:scale-150;
+    }
+
+    /* Тултипы навигатора */
+    .page-navigator li a[data-title]:before {
+        @apply content-[attr(data-title)] absolute -top-3.5 right-3 
+               bg-[#222] text-white rounded-md px-2 py-1 
+               inline-block whitespace-nowrap text-xs opacity-0 transition-all duration-200;
+    }
+
+    .page-navigator li a[data-title]:hover:before {
+        @apply opacity-100;
+    }
+}
+
+/* === УТИЛИТЫ === */
+
+@layer utilities {
+    /* Карусель */
+    .carousel-scroll {
+        @apply flex overflow-x-auto snap-x snap-mandatory scroll-smooth;
+
+        /* Скрытие скроллбара */
+        scrollbar-width: none;      /* Firefox */
+        -ms-overflow-style: none;   /* IE/Edge */
+    }
+
+    .carousel-scroll::-webkit-scrollbar {
+        display: none;
+    }
+}

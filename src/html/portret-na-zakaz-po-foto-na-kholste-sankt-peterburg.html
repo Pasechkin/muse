@@ -23,32 +23,11 @@
     </style>
     
     <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                container: {
-                    center: true,
-                    padding: '1rem',
-                    screens: {
-                        '2xl': '1170px'
-                    }
-                },
-                extend: {
-                    colors: {
-                        primary: '#4A90E2',
-                        'primary-hover': '#609DE6',
-                        dark: '#252525',
-                        body: '#666666',
-                        secondary: '#FAFAFA',
-                    }
-                }
-            }
-        }
-    </script>
+
+
     
     <!-- Tailwind Plus Elements -->
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1"></script>
+    
     
     <style>
         /* Page Navigator */
@@ -72,6 +51,8 @@
         .video-cover.video-playing > div:first-child, .video-cover.video-playing .video-play-icon { display: none; }
         .video-cover.video-playing video { display: block; position: relative; }
     </style>
+<link rel="stylesheet" href="css/output.css">
+    <link rel="canonical" href="https://muse.ooo/portret-na-zakaz-po-foto-na-kholste-sankt-peterburg/">
 </head>
 <body class="bg-white overflow-x-hidden">
     <!-- Header -->
@@ -1231,22 +1212,7 @@
     <!-- Navigation Scripts -->
     <script src="js/nav.js"></script>
 
-    <!-- Video Cover -->
-    <script>
-    document.querySelectorAll('.video-cover').forEach(function(cover) {
-        const playBtn = cover.querySelector('.video-play-icon');
-        if (playBtn) {
-            playBtn.addEventListener('click', function() {
-                cover.classList.add('video-playing');
-                const video = cover.querySelector('video');
-                if (video) {
-                    video.classList.remove('hidden');
-                    video.play();
-                }
-            });
-        }
-    });
-    </script>
+    <!-- Video Cover handlers moved to `src/html/js/nav.js` -->
 
     <!-- Carousel Scroll (drag + wheel на десктопе) -->
     <script>

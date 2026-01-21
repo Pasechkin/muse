@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Блог – Muse</title>
+    <meta name="description" content="Статьи о печати на холсте, фотографии, дизайне интерьера и искусстве. Полезные советы и рекомендации от студии Muse.">
+
+    <meta name="robots" content="noindex, nofollow">
+
+    <style>
+        /* ===== БАЗОВЫЕ СТИЛИ ===== */
+        :root {
+            --primary: #4A90E2;
+            --primary-hover: #609DE6;
+            --dark: #252525;
+            --body: #666666;
+            --secondary: #FAFAFA;
+        }
+
+        body {
+            background-color: #fff;
+            color: #666666;
+            overflow-x: hidden;
+        }
+
+        /* Screen reader only */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                container: {
+                    center: true,
+                    padding: '1rem',
+                    screens: {
+                        '2xl': '1170px'
+                    }
+                },
+                extend: {
+                    colors: {
+                        primary: '#4A90E2',
+                        'primary-hover': '#609DE6',
+                        dark: '#252525',
+                        body: '#666666',
+                        secondary: '#FAFAFA',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white overflow-x-hidden">
+
+    <main>
+
+        <section class="pt-8 pb-8 lg:pt-12 lg:pb-12 bg-secondary">
+            <div class="container">
+
+                <nav class="text-sm text-gray-400 mb-4" aria-label="Хлебные крошки">
+                    <ol class="flex items-center space-x-2">
+                        <li><a href="/" class="hover:text-primary transition-colors">Главная</a></li>
+                        <li>/</li>
+                        <li class="text-dark">Блог</li>
+                    </ol>
+                </nav>
+
+                <h1 class="text-4xl lg:text-6xl font-light text-dark">Блог</h1>
+            </div>
+        </section>
+
+        <section class="py-12 lg:py-16 bg-white">
+            <div class="container">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                    <article class="flex flex-col h-full bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+                        <a href="https://muse.ooo/blog/pechat-na-kholste-i-fotobumage-lomond/" class="block h-48 overflow-hidden">
+                            <img src="https://muse.ooo/upload/ammina.optimizer/jpg-webp/q80/upload/iblock/943/icc_lomond_epson.webp" alt="Печать на холсте и фотобумаге Lomond" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" loading="lazy">
+                        </a>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="text-sm text-gray-400 mb-2">28.06.2016</div>
+                            <h3 class="text-xl font-medium mb-3">
+                                <a href="https://muse.ooo/blog/pechat-na-kholste-i-fotobumage-lomond/" class="text-dark hover:text-primary transition-colors">Печать на холсте и фотобумаге Lomond</a>
+                            </h3>
+                            <div class="mt-auto pt-4">
+                                <a href="https://muse.ooo/blog/pechat-na-kholste-i-fotobumage-lomond/" class="text-primary hover:underline">Подробнее →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="flex flex-col h-full bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+                        <a href="https://muse.ooo/blog/fotobumaga-dlya-khudozhestvennoy-pechati/" class="block h-48 overflow-hidden">
+                            <img src="https://muse.ooo/upload/ammina.optimizer/jpg-webp/q80/upload/iblock/a9d/fotobumaga_dlya_pechati.webp" alt="Фотобумага для художественной печати" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" loading="lazy">
+                        </a>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="text-sm text-gray-400 mb-2">14.06.2016</div>
+                            <h3 class="text-xl font-medium mb-3">
+                                <a href="https://muse.ooo/blog/fotobumaga-dlya-khudozhestvennoy-pechati/" class="text-dark hover:text-primary transition-colors">Фотобумага для художественной печати</a>
+                            </h3>
+                            <p class="text-body text-sm mb-4 line-clamp-3">Качество фотографии зависит от ряда внешних факторов, одним из которых является тип используемого носителя (фотобумаги)...</p>
+                            <div class="mt-auto">
+                                <a href="https://muse.ooo/blog/fotobumaga-dlya-khudozhestvennoy-pechati/" class="text-primary hover:underline">Подробнее →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="flex flex-col h-full bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+                        <a href="https://muse.ooo/blog/rukovodstvo-po-pechati-na-kholste/" class="block h-48 overflow-hidden">
+                            <img src="https://muse.ooo/upload/ammina.optimizer/jpg-webp/q80/upload/iblock/ca5/rukovodstvo_polzovatelya.webp" alt="Руководство по печати на холсте" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" loading="lazy">
+                        </a>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="text-sm text-gray-400 mb-2">14.06.2016</div>
+                            <h3 class="text-xl font-medium mb-3">
+                                <a href="https://muse.ooo/blog/rukovodstvo-po-pechati-na-kholste/" class="text-dark hover:text-primary transition-colors">Руководство по печати на холсте</a>
+                            </h3>
+                            <p class="text-body text-sm mb-4 line-clamp-3">Печать на холсте – отличный способ превратить обычную фотографию в стильное украшение интерьера, запечатлеть памятные моменты...</p>
+                            <div class="mt-auto">
+                                <a href="https://muse.ooo/blog/rukovodstvo-po-pechati-na-kholste/" class="text-primary hover:underline">Подробнее →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="flex flex-col h-full bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+                        <a href="https://muse.ooo/blog/portret-dlya-pokoleniy/" class="block h-48 overflow-hidden">
+                            <img src="https://muse.ooo/upload/ammina.optimizer/jpg-webp/q80/upload/iblock/0a0/0a070cdb2dab0335510d262bb0d94e86.webp" alt="Портрет для поколений" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" loading="lazy">
+                        </a>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="text-sm text-gray-400 mb-2">22.05.2016</div>
+                            <h3 class="text-xl font-medium mb-3">
+                                <a href="https://muse.ooo/blog/portret-dlya-pokoleniy/" class="text-dark hover:text-primary transition-colors">Портрет для поколений</a>
+                            </h3>
+                            <p class="text-body text-sm mb-4 line-clamp-3">23 мая введено в строй новое оборудование - японский широкоформатный плоттер для фото и художественной печати Epson Sure Color P6000...</p>
+                            <div class="mt-auto">
+                                <a href="https://muse.ooo/blog/portret-dlya-pokoleniy/" class="text-primary hover:underline">Подробнее →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="flex flex-col h-full bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+                        <a href="https://muse.ooo/blog/kollazh-i-fotokollazh/" class="block h-48 overflow-hidden">
+                            <img src="https://muse.ooo/upload/ammina.optimizer/jpg-webp/q80/upload/iblock/115/115587028062be948a0e4399a2c2fc2e.webp" alt="Что такое фотоколлаж?" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" loading="lazy">
+                        </a>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="text-sm text-gray-400 mb-2">06.02.2016</div>
+                            <h3 class="text-xl font-medium mb-3">
+                                <a href="https://muse.ooo/blog/kollazh-i-fotokollazh/" class="text-dark hover:text-primary transition-colors">Что такое фотоколлаж?</a>
+                            </h3>
+                            <p class="text-body text-sm mb-4 line-clamp-3">Создавать удивительные композиции, сотканные из множества разнообразных элементов, любят художники и дети – истинные ценители...</p>
+                            <div class="mt-auto">
+                                <a href="https://muse.ooo/blog/kollazh-i-fotokollazh/" class="text-primary hover:underline">Подробнее →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="flex flex-col h-full bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+                        <a href="https://muse.ooo/blog/preimushchestva-pechati-foto-na-kholste/" class="block h-48 overflow-hidden">
+                            <img src="https://muse.ooo/upload/ammina.optimizer/jpg-webp/q80/upload/iblock/cdd/cdd50fee1d12ac7363be0f75059a6c1b.webp" alt="7 преимуществ печати фото на холсте" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" loading="lazy">
+                        </a>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="text-sm text-gray-400 mb-2">27.01.2016</div>
+                            <h3 class="text-xl font-medium mb-3">
+                                <a href="https://muse.ooo/blog/preimushchestva-pechati-foto-na-kholste/" class="text-dark hover:text-primary transition-colors">7 преимуществ печати фото на холсте</a>
+                            </h3>
+                            <p class="text-body text-sm mb-4 line-clamp-3">Желание путешествовать во времени – хрустальная мечта многих поколений. Находясь в поиске формулы для изобретения машины времени...</p>
+                            <div class="mt-auto">
+                                <a href="https://muse.ooo/blog/preimushchestva-pechati-foto-na-kholste/" class="text-primary hover:underline">Подробнее →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="flex flex-col h-full bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+                        <a href="https://muse.ooo/blog/modulnaya-kartina-syuzhet-razmer-tsvet/" class="block h-48 overflow-hidden">
+                            <img src="https://muse.ooo/upload/ammina.optimizer/jpg-webp/q80/upload/iblock/a16/a16a061f8505c0cdc6cbc311dc3abd8e.webp" alt="4-е совета по подбору модульной картины" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" loading="lazy">
+                        </a>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="text-sm text-gray-400 mb-2">24.01.2016</div>
+                            <h3 class="text-xl font-medium mb-3">
+                                <a href="https://muse.ooo/blog/modulnaya-kartina-syuzhet-razmer-tsvet/" class="text-dark hover:text-primary transition-colors">4-е совета по подбору модульной картины</a>
+                            </h3>
+                            <p class="text-body text-sm mb-4 line-clamp-3">Одним из ярких и стильных дизайнерских решений современности является модульная картина. Представляющая собой креативную композицию...</p>
+                            <div class="mt-auto">
+                                <a href="https://muse.ooo/blog/modulnaya-kartina-syuzhet-razmer-tsvet/" class="text-primary hover:underline">Подробнее →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="flex flex-col h-full bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+                        <a href="https://muse.ooo/blog/oformlenie-sten-fotografiyami/" class="block h-48 overflow-hidden">
+                            <img src="https://muse.ooo/upload/ammina.optimizer/jpg-webp/q80/upload/iblock/ed2/ed2a283d28dfe7b1727763e5603e6450.webp" alt="Как оформить стену фотографиями?" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" loading="lazy">
+                        </a>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="text-sm text-gray-400 mb-2">23.01.2016</div>
+                            <h3 class="text-xl font-medium mb-3">
+                                <a href="https://muse.ooo/blog/oformlenie-sten-fotografiyami/" class="text-dark hover:text-primary transition-colors">Как оформить стену фотографиями?</a>
+                            </h3>
+                            <p class="text-body text-sm mb-4 line-clamp-3">Оформление фотографиями стены - идеальная возможность совместить декорирование интерьера и творческую самореализацию...</p>
+                            <div class="mt-auto">
+                                <a href="https://muse.ooo/blog/oformlenie-sten-fotografiyami/" class="text-primary hover:underline">Подробнее →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="flex flex-col h-full bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+                        <a href="https://muse.ooo/blog/postery-i-plakaty-dlya-interera/" class="block h-48 overflow-hidden">
+                            <img src="https://muse.ooo/upload/ammina.optimizer/jpg-webp/q80/upload/iblock/df6/df6de126ac91249f78151825e169ea63.webp" alt="Модные постеры и плакаты в интерьере" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" loading="lazy">
+                        </a>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="text-sm text-gray-400 mb-2">22.01.2016</div>
+                            <h3 class="text-xl font-medium mb-3">
+                                <a href="https://muse.ooo/blog/postery-i-plakaty-dlya-interera/" class="text-dark hover:text-primary transition-colors">Модные постеры и плакаты в интерьере</a>
+                            </h3>
+                            <p class="text-body text-sm mb-4 line-clamp-3">Новое – хорошо позабытое старое. Как показывает практика, модным тенденциям свойственна цикличность. Набирающие популярность...</p>
+                            <div class="mt-auto">
+                                <a href="https://muse.ooo/blog/postery-i-plakaty-dlya-interera/" class="text-primary hover:underline">Подробнее →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+
+                <nav class="flex items-center justify-between border-t border-gray-200 mt-12 pt-4">
+
+                    <div class="flex flex-1">
+                        <span class="inline-flex items-center text-sm font-medium text-gray-400">
+                            <svg viewBox="0 0 20 20" fill="currentColor" class="mr-2 w-5 h-5">
+                                <path fill-rule="evenodd" d="M18 10a.75.75 0 0 1-.75.75H4.66l2.1 1.95a.75.75 0 1 1-1.02 1.1l-3.5-3.25a.75.75 0 0 1 0-1.1l3.5-3.25a.75.75 0 1 1 1.02 1.1l-2.1 1.95h12.59A.75.75 0 0 1 18 10Z" clip-rule="evenodd"/>
+                            </svg>
+                            Новые статьи
+                        </span>
+                    </div>
+
+                    <div class="hidden md:flex gap-2">
+                        <span class="px-4 py-2 text-sm font-medium text-primary border-b-2 border-primary">1</span>
+                        <a href="/blog/page-2.html" class="px-4 py-2 text-sm text-gray-500 hover:text-primary transition-colors">2</a>
+                    </div>
+
+                    <div class="flex flex-1 justify-end">
+                        <a href="/blog/page-2.html" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-primary transition-colors">
+                            Старые статьи
+                            <svg viewBox="0 0 20 20" fill="currentColor" class="ml-2 w-5 h-5">
+                                <path fill-rule="evenodd" d="M2 10a.75.75 0 0 1 .75-.75h12.59l-2.1-1.95a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.1-1.95H2.75A.75.75 0 0 1 2 10Z" clip-rule="evenodd"/>
+                            </svg>
+                        </a>
+                    </div>
+                </nav>
+
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>
+
+

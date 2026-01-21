@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -62,32 +62,11 @@
     <link rel="preload" as="image" href="https://muse.ooo/upload/img/sharzh-po-foto-458-vasserman.webp" fetchpriority="high">
     
     <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                container: {
-                    center: true,
-                    padding: '1rem',
-                    screens: {
-                        '2xl': '1170px'
-                    }
-                },
-                extend: {
-                    colors: {
-                        primary: '#4A90E2',
-                        'primary-hover': '#609DE6',
-                        dark: '#252525',
-                        body: '#666666',
-                        secondary: '#FAFAFA',
-                    }
-                }
-            }
-        }
-    </script>
+
+
     
     <!-- Tailwind Plus Elements -->
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1"></script>
+    
     
     <style>
         /* Page Navigator */
@@ -179,6 +158,8 @@
         ]
     }
     </script>
+<link rel="stylesheet" href="../../css/output.css">
+    <link rel="canonical" href="https://muse.ooo/portret-na-zakaz/style/sharzh-po-foto/">
 </head>
 <body class="bg-white overflow-x-hidden">
     <!-- Back to Top Button -->
@@ -408,7 +389,7 @@
                 <div class="grid gap-10 xl:grid-cols-2 xl:items-center">
                     <!-- Изображение -->
                     <div>
-                        <div class="canvas-3d w-full max-w-[555px] mx-auto">
+                        <div class="canvas-3d w-full max-w-[555px] mx-auto" style="--depth: 30px;">
                             <img 
                                 src="https://muse.ooo/upload/img/o-caricature-555.webp"
                                 alt="Свадебный шарж по фото с женихом и невестой в образе супергероев"
@@ -1018,22 +999,6 @@
 
     <!-- Navigation Scripts -->
     <script src="../../js/nav.js"></script>
-    
-    <!-- Video Cover -->
-    <script>
-    // Video Cover
-    document.querySelectorAll('[data-video-cover]').forEach(function(cover) {
-        const playBtn = cover.querySelector('[data-play-btn]');
-        if (playBtn) {
-            playBtn.addEventListener('click', function() {
-                cover.classList.add('video-playing');
-                const iframe = cover.querySelector('iframe');
-                if (iframe && iframe.dataset.src) {
-                    iframe.src = iframe.dataset.src + '&autoplay=1';
-                }
-            });
-        }
-    });
-    </script>
 </body>
 </html>
+

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -41,32 +41,11 @@
     <link rel="preload" as="image" href="https://muse.ooo/upload/img/o-fantasy-458-woman.webp" fetchpriority="high">
     
     <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                container: {
-                    center: true,
-                    padding: '1rem',
-                    screens: {
-                        '2xl': '1170px'
-                    }
-                },
-                extend: {
-                    colors: {
-                        primary: '#4A90E2',
-                        'primary-hover': '#609DE6',
-                        dark: '#252525',
-                        body: '#666666',
-                        secondary: '#FAFAFA',
-                    }
-                }
-            }
-        }
-    </script>
+
+
     
     <!-- Tailwind Plus Elements -->
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1"></script>
+    
     
     <style>
         /* Page Navigator */
@@ -82,15 +61,11 @@
         .page-navigator li a[data-title]:hover:before { opacity: 1; }
         .page-navigator li a:hover { transform: scale(1.5); }
         
-        /* Before/After Slider (ba-card) */
-        .ba-card { --pos: 50%; }
-        .ba-card .after-image { clip-path: inset(0 0 0 var(--pos)); }
-        .ba-card .ba-divider { left: var(--pos); }
-        .ba-card .ba-handle { left: var(--pos); }
+        /* Page Navigator moved to src/input.css */
         
-        /* canvas-3d */
-        .canvas-3d { --depth: 30px; position: relative; box-shadow: var(--depth) var(--depth) 50px rgba(0,0,0,0.4); transition: transform 0.3s ease; }
-        .canvas-3d:hover { transform: translate(-5px, -5px); }
+        /* Carousel moved to ../../css/output.css */
+        
+        /* Grid layout для Описания БЕЗ видео */
         
         /* carousel-scroll */
         .carousel-scroll { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
@@ -156,6 +131,8 @@
         ]
     }
     </script>
+<link rel="stylesheet" href="../../css/output.css">
+    <link rel="canonical" href="https://muse.ooo/portret-na-zakaz/style/fantasy-art-portret/">
 </head>
 <body class="bg-white overflow-x-hidden">
         <!-- Back to Top Button -->
@@ -386,7 +363,7 @@
                    
 					<div class="grid gap-10 xl:grid-cols-2 xl:items-center">
 					<div>
-					<div class="canvas-3d w-full max-w-[555px] mx-auto">
+					<div class="canvas-3d w-full max-w-[555px] mx-auto" style="--depth: 30px;">
                         <img 
                             src="https://muse.ooo/upload/img/fantasy-art-555-2.webp"
                             alt="Fantasy Art портрет пары в образе сказочных королевских персон"
@@ -1005,23 +982,7 @@ function BxPopup(url, width, height) {
     <!-- Scripts -->
     <!-- Navigation Scripts -->
     <script src="../../js/nav.js"></script>
-
-    <!-- Video Cover -->
-    <script>
-    // Video Cover
-    document.querySelectorAll('[data-video-cover]').forEach(function(cover) {
-        const playBtn = cover.querySelector('[data-play-btn]');
-        if (playBtn) {
-            playBtn.addEventListener('click', function() {
-                cover.classList.add('video-playing');
-                const iframe = cover.querySelector('iframe');
-                if (iframe && iframe.dataset.src) {
-                    iframe.src = iframe.dataset.src + '&autoplay=1';
-                }
-            });
-        }
-    });
-    </script>
 </body>
 </html>
+
 

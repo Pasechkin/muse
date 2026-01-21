@@ -1,5 +1,210 @@
 @import "tailwindcss";
 
-/* Минимальный файл для сборки output.css */
-/* Все стили — через Tailwind CDN в HTML страницах */
-/* Этот файл нужен только для продакшен-сборки */
+@theme {
+  /* Colors */
+  --color-primary: #4A90E2;
+  --color-primary-hover: #609DE6;
+  --color-primary-active: #3483DE;
+  --color-primary-1: #31639C;
+  --color-primary-2: #465773;
+  --color-dark: #252525;
+  --color-body: #666666;
+  --color-secondary: #FAFAFA;
+  --color-white: #FFFFFF;
+
+  /* Font Family */
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-light: 300;
+
+  /* Font Sizes */
+  --text-h1: 3.14285714em;
+  --text-h1--line-height: 1.31818182em;
+
+  --text-h2: 2.35714286em;
+  --text-h2--line-height: 1.36363636em;
+
+  --text-h3: 1.78571429em;
+  --text-h3--line-height: 1.5em;
+
+  --text-h4: 1.35714286em;
+  --text-h4--line-height: 1.36842105em;
+
+  --text-h5: 1em;
+  --text-h5--line-height: 1.85714286em;
+
+  --text-h6: 0.85714286em;
+  --text-h6--line-height: 2.16666667em;
+
+  --text-lead: 1.35714286em;
+  --text-lead--line-height: 1.68421053em;
+
+  --text-body: 1em;
+  --text-body--line-height: 1.85714286em;
+
+  /* Ken Burns animation registered as a theme variable */
+  --animate-ken-burns: kenburns 20s ease-out forwards;
+
+  @keyframes kenburns {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+  }
+}
+
+/*
+  Container Configuration
+  -----------------------
+  1. Center the container: `margin-inline: auto`.
+  2. Add padding: `padding-inline: 1rem`.
+  3. Override max-width at 2xl (1536px) to be 1170px (from original config).
+*/
+
+@layer utilities {
+  .container {
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+
+  /* === Page Navigator === */
+  .page-navigator { position: fixed; top: 50%; transform: translateY(-50%); right: 1.85714286em; z-index: 9999; }
+  .page-navigator ul { display: inline-block; padding: 0.92857143em; background: rgba(0, 0, 0, 0.4); border-radius: 1.85714286em; }
+  .page-navigator ul:hover { background: rgba(0, 0, 0, 0.6); }
+  .page-navigator ul li { list-style: none; }
+  .page-navigator ul li:not(:last-child) { margin-bottom: 1.85714286em; }
+  @media (max-width: 1023px) { .page-navigator { display: none !important; } }
+  .page-navigator li a { width: 8px; height: 8px; background: #fff; border-radius: 50%; transition: all 0.3s ease; display: block; position: relative; opacity: 0.5; }
+  .page-navigator li a:hover, .page-navigator li a.inner-link--active { opacity: 1; }
+  .page-navigator li a[data-title]:before { content: attr(data-title); position: absolute; right: 12px; top: -14px; background: #222; color: #fff; border-radius: 6px; padding: 4px 8px; display: inline-block; white-space: nowrap; font-size: 12px; opacity: 0; transition: all 0.2s ease; }
+  .page-navigator li a[data-title]:hover:before { opacity: 1; }
+  .page-navigator li a:hover { transform: scale(1.5); }
+
+  /* === Карусель === */
+  .carousel-scroll {
+    @apply w-full flex overflow-x-auto snap-x snap-mandatory scroll-smooth;
+
+    /* Скрытие скроллбара */
+    scrollbar-width: none;      /* Firefox */
+    -ms-overflow-style: none;   /* IE/Edge */
+  }
+
+  .carousel-scroll::-webkit-scrollbar {
+    display: none;              /* Chrome/Safari */
+  }
+
+  /* Carousel arrow SVG helper to ensure CSS rotation works on SVG */
+  .carousel-arrow {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  /* Ken Burns helper classes */
+  .ken-burns-img { animation: var(--animate-ken-burns); }
+  .animate-ken-burns { animation: var(--animate-ken-burns); }
+
+  /* === Before/After — support legacy `.ba-card` markup === */
+  .ba-card {
+    --pos: 50%;
+    position: relative;
+  }
+
+  .ba-card .after-image {
+    clip-path: inset(0 0 0 var(--pos));
+  }
+
+  .ba-card .ba-divider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--pos);
+    width: 3px;
+    background: white;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 10;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1170px;
+  }
+}
+
+/* === 3D Canvas Effect (Tailwind v4 Utility) === */
+@utility canvas-3d {
+  --depth: 30px;
+  position: relative;
+  box-shadow: var(--depth) var(--depth) 50px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translate(-5px, -5px);
+    box-shadow: calc(var(--depth) + 10px) calc(var(--depth) + 10px) 60px rgba(0, 0, 0, 0.45);
+  }
+}
+
+/* === Before/After Slider (Tailwind v4 Utility) === */
+@utility before-after-slider {
+  --pos: 50%;
+  position: relative;
+
+  & .after-image {
+    clip-path: inset(0 0 0 var(--pos));
+  }
+
+  & .divider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--pos);
+    width: 3px;
+    background: white;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  & .slider-handle {
+    position: absolute;
+    top: 50% !important;
+    left: var(--pos) !important;
+    width: 20px !important;
+    height: 20px !important;
+    transform: translate(-50%, -50%) !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    box-sizing: border-box;
+    pointer-events: none;
+    z-index: 15;
+  }
+}
+
+/* Before/After handle visuals (final) */
+.before-after-slider .ba-handle, #before-after .ba-handle, .ba-card .ba-handle {
+  position: absolute !important;
+  box-sizing: border-box;
+  width: 24px !important;
+  height: 24px !important;
+  top: 50% !important;
+  left: var(--pos, 50%) !important;
+  transform: translate(-50%, -50%) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(0,0,0,0.1) !important;
+  border-radius: 9999px !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3) !important;
+  z-index: 15 !important;
+  pointer-events: none !important;
+}
+
+.before-after-slider .ba-handle svg, #before-after .ba-handle svg, .ba-card .ba-handle svg {
+  color: #333 !important;
+  width: 14px !important;
+  height: 14px !important;
+}

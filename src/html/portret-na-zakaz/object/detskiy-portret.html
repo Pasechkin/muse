@@ -100,56 +100,15 @@
     </style>
     
     <!-- Tailwind CSS CDN (как в эталоне) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                container: {
-                    center: true,
-                    padding: '1rem',
-                    screens: {
-                        '2xl': '1170px'
-                    }
-                },
-                extend: {
-                    colors: {
-                        primary: '#4a90e2',
-                        'primary-hover': '#4382cb',
-                        dark: '#222222',
-                        body: '#444444',
-                        secondary: '#f8f8f8'
-                    }
-                }
-            }
-        }
-    </script>
+
+
     
     <!-- Tailwind Plus Elements -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
     
-    <!-- Некритические стили (загружаются после Tailwind) -->
-    <style>
-        /* Page Navigator */
-        .page-navigator { position: fixed; top: 50%; transform: translateY(-50%); right: 1.85714286em; z-index: 9999; }
-        .page-navigator ul { display: inline-block; padding: 0.92857143em; background: rgba(0, 0, 0, 0.4); border-radius: 1.85714286em; }
-        .page-navigator ul:hover { background: rgba(0, 0, 0, 0.6); }
-        .page-navigator ul li { list-style: none; }
-        .page-navigator ul li:not(:last-child) { margin-bottom: 1.85714286em; }
-        @media (max-width: 1023px) { .page-navigator { display: none !important; } }
-        .page-navigator li a { width: 8px; height: 8px; background: #fff; border-radius: 50%; transition: all 0.3s ease; display: block; position: relative; opacity: 0.5; }
-        .page-navigator li a:hover, .page-navigator li a.inner-link--active { opacity: 1; }
-        .page-navigator li a[data-title]:before { content: attr(data-title); position: absolute; right: 12px; top: -14px; background: #222; color: #fff; border-radius: 6px; padding: 4px 8px; display: inline-block; white-space: nowrap; font-size: 12px; opacity: 0; transition: all 0.2s ease; }
-        .page-navigator li a[data-title]:hover:before { opacity: 1; }
-        .page-navigator li a:hover { transform: scale(1.5); }
-        
-        /* Carousel */
-        .carousel-scroll { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
-        .carousel-scroll::-webkit-scrollbar { display: none; }
-        
-        /* Ken Burns Effect */
-        @keyframes kenburns { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
-        .ken-burns-img { animation: kenburns 20s ease-out forwards; }
-    </style>
+    <!-- Page Navigator, Carousel and Ken Burns moved to `src/input.css` (compiled into output.css) -->
+<link rel="stylesheet" href="../../css/output.css">
+    <link rel="canonical" href="https://muse.ooo/portret-na-zakaz/object/detskiy-portret/">
 </head>
 <body class="bg-white overflow-x-hidden">
     <!-- Back to Top Button -->
@@ -578,16 +537,7 @@
     </div>
 </dialog>
 
-<script>
-// Функция для открытия попапа OAuth (оставлена из старой формы)
-function BxPopup(url, width, height) {
-    if (url) {
-        var left = (screen.width/2) - (width/2);
-        var top = (screen.height/2) - (height/2);
-        window.open(url, '', 'width=' + width + ', height=' + height + ', top=' + top + ', left=' + left);
-    }
-}
-</script>
+<!-- BxPopup moved to `src/html/js/nav.js` (kept global there). Inline function removed to centralize scripts. -->
 
         
 
@@ -705,87 +655,7 @@ function BxPopup(url, width, height) {
     <!-- Navigation Scripts -->
     <script src="../../js/nav.js"></script>
     
-    <!-- Video Cover -->
-    <script>
-    document.querySelectorAll('[data-video-cover]').forEach(function(cover) {
-        const playBtn = cover.querySelector('[data-play-btn]');
-        if (playBtn) {
-            playBtn.addEventListener('click', function() {
-                cover.classList.add('video-playing');
-                const iframe = cover.querySelector('iframe');
-                if (iframe && iframe.dataset.src) {
-                    iframe.src = iframe.dataset.src + '&autoplay=1';
-                }
-            });
-        }
-    });
-    </script>
+
     
-    <!-- Carousel Scroll (drag + wheel + защита от случайного клика) -->
-    <script>
-    document.querySelectorAll('.carousel-scroll').forEach(function(carousel) {
-        // Прокрутка колесиком мыши
-        carousel.addEventListener('wheel', function(e) {
-            if (window.innerWidth < 1024) return;
-            if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) {
-                e.preventDefault();
-                carousel.scrollBy({ left: e.deltaY * 0.6, behavior: 'auto' });
-            }
-        }, { passive: false });
-        
-        // Drag-to-scroll с защитой от случайного клика
-        var isDown = false, startX, startScrollLeft, hasMoved = false, clickBlocked = false;
-        var DRAG_THRESHOLD = 5;
-        carousel.style.cursor = 'grab';
-        
-        carousel.addEventListener('mousedown', function(e) {
-            if (window.innerWidth < 1024) return;
-            isDown = true;
-            hasMoved = false;
-            clickBlocked = false;
-            carousel.style.cursor = 'grabbing';
-            startX = e.pageX;
-            startScrollLeft = carousel.scrollLeft;
-            e.preventDefault();
-        });
-        
-        carousel.addEventListener('mousemove', function(e) {
-            if (!isDown || window.innerWidth < 1024) return;
-            e.preventDefault();
-            var moveDistance = Math.abs(e.pageX - startX);
-            if (moveDistance > DRAG_THRESHOLD) {
-                hasMoved = true;
-                clickBlocked = true;
-            }
-            carousel.scrollLeft = startScrollLeft - (e.pageX - startX) * 1.2;
-        });
-        
-        // Блокировка клика после перетаскивания
-        carousel.addEventListener('click', function(e) {
-            if (clickBlocked && window.innerWidth >= 1024) {
-                e.preventDefault();
-                e.stopPropagation();
-                clickBlocked = false;
-            }
-        }, true);
-        
-        carousel.addEventListener('mouseup', function() {
-            isDown = false;
-            carousel.style.cursor = 'grab';
-            if (hasMoved) {
-                clickBlocked = true;
-                setTimeout(function() { clickBlocked = false; }, 100);
-            }
-        });
-        
-        carousel.addEventListener('mouseleave', function() {
-            if (isDown) {
-                isDown = false;
-                hasMoved = false;
-                carousel.style.cursor = 'grab';
-            }
-        });
-    });
-    </script>
-</body>
+    <!-- Carousel Scroll moved to `src/html/js/nav.js` --></body>
 </html>

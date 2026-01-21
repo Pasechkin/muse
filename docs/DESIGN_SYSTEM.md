@@ -623,42 +623,56 @@ tailwind.config = {
 
 ## Интерактивные компоненты
 
-Компоненты, требующие CSS и/или JavaScript.
+Компоненты, требующие CSS и/или JavaScript. Начиная с версии Tailwind v4, основные эффекты вынесены в глобальные утилиты в `input.css`.
 
-### Before/After Slider (ba-card)
+### Слайдер "До/После" (.before-after-slider)
 
-Слайдер сравнения "До" и "После" с перетаскиваемой линией.
-
-**Минимальный CSS (обязательно):**
-```css
-.ba-card { --pos: 50%; }
-.ba-card .after-image { clip-path: inset(0 0 0 var(--pos)); }
-.ba-card .ba-divider { left: var(--pos); }
-.ba-card .ba-handle { left: var(--pos); }
-```
+Используется для сравнения оригинала фото и готового портрета.
 
 **HTML:**
 ```html
-<div class="ba-card relative w-full aspect-[378/265] overflow-hidden rounded-xl shadow-2xl">
-    <img class="absolute inset-0 w-full h-full object-cover pointer-events-none select-none" src="before.jpg" alt="До">
-    <img class="after-image absolute inset-0 w-full h-full object-cover pointer-events-none select-none" src="after.jpg" alt="После">
-    <input type="range" class="absolute inset-0 opacity-0 cursor-ew-resize w-full h-full m-0 z-20" min="0" max="100" value="50" oninput="this.parentNode.style.setProperty('--pos', this.value + '%')">
+<div class="before-after-slider relative w-full aspect-[378/265] overflow-hidden rounded-xl shadow-2xl" style="--pos: 50%;">
+    <!-- Изображение "До" (фоновое) -->
+    <img class="absolute inset-0 w-full h-full object-cover pointer-events-none select-none" 
+         src="img/before.jpg" alt="Оригинал">
+    
+    <!-- Изображение "После" (обрезаемое) -->
+    <img class="after-image absolute inset-0 w-full h-full object-cover pointer-events-none select-none" 
+         src="img/after.jpg" alt="Результат">
+    
+    <!-- Контроллер (ползунок) -->
+    <input type="range" min="0" max="100" value="50" 
+           class="absolute inset-0 opacity-0 cursor-ew-resize w-full h-full m-0 z-20" 
+           oninput="this.parentNode.style.setProperty('--pos', this.value + '%')">
+    
+    <!-- Визуальный разделитель -->
     <div class="ba-divider absolute top-0 bottom-0 w-[3px] bg-white -translate-x-1/2 pointer-events-none z-10"></div>
+    
+    <!-- Ручка (Handle) -->
     <div class="ba-handle absolute top-1/2 -translate-x-1/2 -translate-y-1/2 w-[46px] h-[70px] pointer-events-none z-[15]">
-        <span class="absolute top-1/2 -translate-y-1/2 left-2.5 text-2xl font-bold text-white drop-shadow-lg">‹</span>
-        <span class="absolute top-1/2 -translate-y-1/2 right-2.5 text-2xl font-bold text-white drop-shadow-lg">›</span>
+        <span class="absolute top-1/2 -translate-y-1/2 -left-4 text-2xl font-bold text-white drop-shadow-xl select-none">‹</span>
+        <span class="absolute top-1/2 -translate-y-1/2 -right-4 text-2xl font-bold text-white drop-shadow-xl select-none">›</span>
     </div>
 </div>
 ```
 
-**Aspect Ratio по размерам изображений:**
-- Горизонтальные: `aspect-[378/265]` или `aspect-[653/434]`
-- Вертикальные: `aspect-[360/517]`
-- Квадратные: `aspect-square` + `max-w-[400px]`
+### 3D Эффект Холста (.canvas-3d)
 
-### Video Cover
+Создает эффект объема и глубины для изображений картин.
 
-Видео с обложкой и кнопкой Play. По клику запускается видео.
+**HTML:**
+```html
+<div class="canvas-3d" style="--depth: 25px;">
+    <img src="img/portrait.jpg" alt="Портрет на холсте">
+</div>
+```
+
+**Настройки:**
+- `--depth`: Глубина "подрамника" (по умолчанию 20px).
+
+---
+
+## Визуальные эффекты
 
 **HTML:**
 ```html

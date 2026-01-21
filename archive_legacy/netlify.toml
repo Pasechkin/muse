@@ -1,0 +1,20 @@
+[build]
+  command = "npm run build:once && npm run copy-css"
+  publish = "src/html"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+
+
+
+
+
+
+
+
+
+
+

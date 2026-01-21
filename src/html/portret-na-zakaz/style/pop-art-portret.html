@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -41,61 +41,15 @@
     <link rel="preload" as="image" href="https://muse.ooo/upload/img/o-pop-art-458.webp" fetchpriority="high">
     
     <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                container: {
-                    center: true,
-                    padding: '1rem',
-                    screens: {
-                        '2xl': '1170px'
-                    }
-                },
-                extend: {
-                    colors: {
-                        primary: '#4A90E2',
-                        'primary-hover': '#609DE6',
-                        dark: '#252525',
-                        body: '#666666',
-                        secondary: '#FAFAFA',
-                    }
-                }
-            }
-        }
-    </script>
+
+
     
     <!-- Tailwind Plus Elements -->
     <script type="module" src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1"></script>
     
     <style>
-        /* Page Navigator */
-        .page-navigator { position: fixed; top: 50%; transform: translateY(-50%); right: 1.85714286em; z-index: 9999; }
-        .page-navigator ul { display: inline-block; padding: 0.92857143em; background: rgba(0, 0, 0, 0.4); border-radius: 1.85714286em; }
-        .page-navigator ul:hover { background: rgba(0, 0, 0, 0.6); }
-        .page-navigator ul li { list-style: none; }
-        .page-navigator ul li:not(:last-child) { margin-bottom: 1.85714286em; }
-        @media (max-width: 1023px) { .page-navigator { display: none !important; } }
-        .page-navigator li a { width: 8px; height: 8px; background: #fff; border-radius: 50%; transition: all 0.2s ease; display: block; position: relative; opacity: 0.5; }
-        .page-navigator li a:hover, .page-navigator li a.inner-link--active { opacity: 1; }
-        .page-navigator li a[data-title]:before { content: attr(data-title); position: absolute; right: 12px; top: -14px; background: #222; color: #fff; border-radius: 6px; padding: 4px 8px; display: inline-block; white-space: nowrap; font-size: 12px; opacity: 0; transition: all 0.2s ease; }
-        .page-navigator li a[data-title]:hover:before { opacity: 1; }
-        .page-navigator li a:hover { transform: scale(1.5); }
-        
-        /* Carousel */
-        .carousel-scroll { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
-        .carousel-scroll::-webkit-scrollbar { display: none; }
-        
-        /* Before/After Slider (ba-card) */
-        .ba-card { --pos: 50%; }
-        .ba-card .after-image { clip-path: inset(0 0 0 var(--pos)); }
-        .ba-card .ba-divider { left: var(--pos); }
-        .ba-card .ba-handle { left: var(--pos); }
-        
-        /* canvas-3d */
-        .canvas-3d { --depth: 30px; position: relative; box-shadow: var(--depth) var(--depth) 50px rgba(0,0,0,0.4); transition: transform 0.3s ease; }
-        .canvas-3d:hover { transform: translate(-5px, -5px); }
-</style>
+        /* CSS Definitions moved to src/input.css */
+    </style>
 
     <!-- Structured Data: Product -->
     <script type="application/ld+json">
@@ -156,6 +110,7 @@
         ]
     }
     </script>
+<link rel="stylesheet" href="../../css/output.css">
 </head>
 <body class="bg-white overflow-x-hidden">
     <!-- Back to Top Button -->
@@ -386,7 +341,7 @@
                    
 					<div class="grid gap-10 xl:grid-cols-2 xl:items-center">
 					<div>
-					<div class="canvas-3d w-full max-w-[555px] mx-auto">
+					<div class="canvas-3d w-full max-w-[555px] mx-auto" style="--depth: 30px;" style="--depth: 30px;">
                         <img 
                             src="https://muse.ooo/upload/img/o-monroe.webp"
                             alt="Поп-арт портрет девушки в очках"
@@ -795,7 +750,9 @@
         </section>
 
         <!-- Модальное окно для отзыва -->
-        <dialog id="review-modal" class="p-0 rounded-lg shadow-2xl backdrop:bg-black/70 max-w-md w-full">
+        <dialog id="review-modal" class="p-0 bg-transparent border-none outline-none backdrop:bg-black/60 m-auto overflow-visible">
+    <div class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6" onclick="if(event.target === this) this.closest('dialog').close()">
+        <div class="bg-dark text-white rounded-lg shadow-2xl max-w-md w-full p-6 relative">
     <div class="p-6 bg-dark text-white rounded-lg">
         <!-- Заголовок и кнопка закрытия -->
         <div class="flex items-center justify-between mb-6">
@@ -884,19 +841,9 @@
                 Авторизация необходима для подтверждения подлинности отзыва
             </p>
         </div>
+        </div>
     </div>
 </dialog>
-
-        <script>
-        // Функция для открытия попапа OAuth (оставлена из старой формы)
-        function BxPopup(url, width, height) {
-            if (url) {
-                var left = (screen.width/2) - (width/2);
-                var top = (screen.height/2) - (height/2);
-                window.open(url, '', 'width=' + width + ', height=' + height + ', top=' + top + ', left=' + left);
-            }
-        }
-        </script>
 
         <!-- Описание -->
         <section class="py-16 lg:py-20" id="opisanie">
@@ -910,7 +857,7 @@
                     <div class="flex flex-col lg:sticky lg:top-24">
                         <p class="text-gray-600 mb-4">Поп-арт портрет, автор: Лилия. По заказу Кати Гершуни — эксперта по стилю, Первый канал.</p>
                         
-                        <div class="ba-card relative w-full max-w-[480px] mx-auto aspect-square overflow-hidden rounded-xl shadow-2xl" id="before-after">
+                        <figure class="before-after-slider relative w-full max-w-[480px] mx-auto aspect-square overflow-hidden rounded-xl shadow-2xl group select-none" style="--pos: 50%;" id="before-after">
                             <img 
                                 src="https://muse.ooo/upload/img/pop-art-before.webp"
                                 alt="Фото для поп-арт портрета"
@@ -931,13 +878,16 @@
                                 width="480"
                                 height="480"
                             >
-                            <input type="range" class="absolute inset-0 opacity-0 cursor-ew-resize w-full h-full m-0 z-20" min="0" max="100" value="50" aria-label="Сравнение до и после" oninput="this.parentNode.style.setProperty('--pos', this.value + '%')">
-                            <div class="ba-divider absolute top-0 bottom-0 w-[3px] bg-white -translate-x-1/2 pointer-events-none z-10"></div>
-                            <div class="ba-handle absolute top-1/2 -translate-x-1/2 -translate-y-1/2 w-[46px] h-[70px] pointer-events-none z-[15]">
-                                <span class="absolute top-1/2 -translate-y-1/2 left-2.5 text-2xl font-bold text-white drop-shadow-lg">‹</span>
-                                <span class="absolute top-1/2 -translate-y-1/2 right-2.5 text-2xl font-bold text-white drop-shadow-lg">›</span>
+                            <input type="range" class="absolute inset-0 opacity-0 cursor-ew-resize w-full h-full m-0 z-20 appearance-none" min="0" max="100" value="50" aria-label="Сравнение до и после" oninput="this.parentNode.style.setProperty('--pos', this.value + '%')">
+                            <div class="divider"></div>
+                            <div class="slider-handle">
+                                <svg class="w-full h-auto drop-shadow-md" viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="50" cy="30" r="28" fill="white" fill-opacity="0.15" stroke="white" stroke-width="1.5" style="backdrop-filter: blur(8px);"/>
+                                    <path d="M42 22L34 30L42 38" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M58 22L66 30L58 38" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
                             </div>
-                        </div>
+                        </figure>
                         
                         <p class="text-center text-gray-600 mt-4 text-sm">Потяните за вертикальную линию, чтобы сравнить «До» и «После»</p>
                         
@@ -1087,20 +1037,7 @@
     <!-- Navigation Scripts -->
     <script src="../../js/nav.js"></script>
 
-    <!-- Video Cover -->
-    <script>
-    document.querySelectorAll('[data-video-cover]').forEach(function(cover) {
-        const playBtn = cover.querySelector('[data-play-btn]');
-        if (playBtn) {
-            playBtn.addEventListener('click', function() {
-                cover.classList.add('video-playing');
-                const iframe = cover.querySelector('iframe');
-                if (iframe && iframe.dataset.src) {
-                    iframe.src = iframe.dataset.src + '&autoplay=1';
-                }
-            });
-        }
-    });
-    </script>
+
 </body>
 </html>
+

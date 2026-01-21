@@ -23,59 +23,15 @@
     </style>
     
     <!-- Tailwind CSS CDN (как в эталоне) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                container: {
-                    center: true,
-                    padding: '1rem',
-                    screens: {
-                        '2xl': '1170px'
-                    }
-                },
-                extend: {
-                    colors: {
-                        primary: '#4A90E2',
-                        'primary-hover': '#609DE6',
-                        dark: '#252525',
-                        body: '#666666',
-                        secondary: '#FAFAFA'
-                    }
-                }
-            }
-        }
-    </script>
+
+
     
     <!-- Tailwind Plus Elements -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
     
-    <style>
-        /* Page Navigator */
-        .page-navigator { position: fixed; top: 50%; transform: translateY(-50%); right: 1.85714286em; z-index: 9999; }
-        .page-navigator ul { display: inline-block; padding: 0.92857143em; background: rgba(0, 0, 0, 0.4); border-radius: 1.85714286em; }
-        .page-navigator ul:hover { background: rgba(0, 0, 0, 0.6); }
-        .page-navigator ul li { list-style: none; }
-        .page-navigator ul li:not(:last-child) { margin-bottom: 1.85714286em; }
-        @media (max-width: 1023px) { .page-navigator { display: none !important; } }
-        .page-navigator li a { width: 8px; height: 8px; background: #fff; border-radius: 50%; transition: all 0.3s ease; display: block; position: relative; opacity: 0.5; }
-        .page-navigator li a:hover, .page-navigator li a.inner-link--active { opacity: 1; transform: scale(1.5); }
-        .page-navigator li a[data-title]:before { content: attr(data-title); position: absolute; right: 12px; top: -14px; background: #222; color: #fff; border-radius: 6px; padding: 4px 8px; display: inline-block; white-space: nowrap; font-size: 12px; opacity: 0; transition: all 0.2s ease; }
-        .page-navigator li a[data-title]:hover:before { opacity: 1; }
-        /* Carousel */
-        .carousel-scroll { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
-        .carousel-scroll::-webkit-scrollbar { display: none; }
-        /* Video Cover */
-        .video-cover { position: relative; overflow: hidden; }
-        .video-cover .video-play-icon { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; z-index: 2; transition: all 0.3s ease; }
-        .video-cover video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-        .video-cover iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        .video-cover.video-playing > :first-child, .video-cover.video-playing .video-play-icon { display: none; }
-        .video-cover.video-playing video, .video-cover.video-playing iframe { display: block; }
-        /* Ken Burns Effect */
-        @keyframes kenburns { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
-        .ken-burns-img { animation: kenburns 20s ease-out forwards; }
-    </style>
+    <!-- Page Navigator / Carousel / Video Cover / Ken Burns styles moved to `src/input.css` (compiled into output.css) -->
+<link rel="stylesheet" href="css/output.css">
+    <link rel="canonical" href="https://muse.ooo/foto-na-kholste-sankt-peterburg/">
 </head>
 <body class="bg-white overflow-x-hidden">
 
@@ -1155,26 +1111,7 @@
     <!-- Navigation Scripts -->
     <script src="js/nav.js"></script>
 
-    <!-- Video Cover -->
-    <script>
-    document.querySelectorAll('.video-cover').forEach(function(cover) {
-        const playBtn = cover.querySelector('.video-play-icon');
-        if (playBtn) {
-            playBtn.addEventListener('click', function() {
-                cover.classList.add('video-playing');
-                const video = cover.querySelector('video');
-                const iframe = cover.querySelector('iframe');
-                if (video) {
-                    video.classList.remove('hidden');
-                    video.play();
-                }
-                if (iframe && iframe.dataset.src) {
-                    iframe.src = iframe.dataset.src + '&autoplay=1';
-                }
-            });
-        }
-    });
-    </script>
+
 
     <!-- Carousel Scroll (drag + wheel на десктопе) -->
     <script>

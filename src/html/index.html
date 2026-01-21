@@ -9,52 +9,18 @@
     <!-- Закрыто от индексации во время разработки -->
     <meta name="robots" content="noindex, nofollow">
     
-    <!-- Критический CSS -->
-    <style>
-        :root {
-            --primary: #4A90E2;
-            --primary-hover: #609DE6;
-            --dark: #252525;
-            --body: #666666;
-            --secondary: #FAFAFA;
-        }
-        body { background-color: #fff; color: var(--body); overflow-x: hidden; }
-        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
-    </style>
+    <!-- Critical CSS moved to `src/input.css` — per-page declarations removed in favor of centralized styles -->
     
     <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                container: {
-                    center: true,
-                    padding: '1rem',
-                    screens: {
-                        '2xl': '1170px'
-                    }
-                },
-                extend: {
-                    colors: {
-                        primary: '#4A90E2',
-                        'primary-hover': '#609DE6',
-                        dark: '#252525',
-                        body: '#666666',
-                        secondary: '#FAFAFA',
-                    }
-                }
-            }
-        }
-    </script>
+
+
     
     <!-- Tailwind Plus Elements -->
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1"></script>
     
-    <style>
-        /* Carousel - кастомный CSS (нет в Tailwind) */
-        .carousel-scroll { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
-        .carousel-scroll::-webkit-scrollbar { display: none; }
-    </style>
+    
+    <!-- Carousel visuals moved to `src/input.css` (compiled into output.css) -->
+<link rel="stylesheet" href="css/output.css">
+    <link rel="canonical" href="https://muse.ooo/">
 </head>
 <body class="bg-white overflow-x-hidden">
     <!-- Header -->
