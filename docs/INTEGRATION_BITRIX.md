@@ -24,9 +24,6 @@ npm run build:once
 ```html
 <!-- Было (CDN для разработки) -->
 <script src="https://cdn.tailwindcss.com"></script>
-<script>
-    tailwind.config = { ... }
-</script>
 
 <!-- Стало (локальный CSS) -->
 <link rel="stylesheet" href="css/output.css">
@@ -418,15 +415,3 @@ $arResult = $arResult['ELEMENT']; // Данные элемента
 - [ ] Адаптивность проверена
 - [ ] Производительность оптимизирована
 - [ ] SEO настройки применены
-
-
-
-
-
-
-
-
-
-
-
-
