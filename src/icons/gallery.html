@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>43 иконки (без icon-9)</title>
+  <style>
+    body {
+      padding: 1rem;
+      background: #f5f5f5;
+      font-family: sans-serif;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+      gap: 0.75rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .icon-card {
+      background: white;
+      padding: 0.5rem;
+      border-radius: 4px;
+      text-align: center;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+    .icon-card img {
+      width: 48px;
+      height: 48px;
+      display: block;
+      margin: 0 auto 0.25rem;
+    }
+    .icon-card__label {
+      font-size: 9px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>43 иконки (без icon-9)</h1>
+  
+  <div class="icon-grid"></div>
+
+  <script>
+    const iconGrid = document.querySelector('.icon-grid');
+const icons = [1,2,3,4,5,6,7,8,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44];
+    
+    icons.forEach(num => {
+      const card = document.createElement('div');
+      card.className = 'icon-card';
+      
+      const img = document.createElement('img');
+      img.src = `icon-${num}.svg`;
+      img.alt = `Icon ${num}`;
+      
+      const label = document.createElement('div');
+      label.className = 'icon-card__label';
+      label.textContent = `icon-${num}`;
+      
+      card.appendChild(img);
+      card.appendChild(label);
+      iconGrid.appendChild(card);
+    });
+  </script>
+</body>
+</html>

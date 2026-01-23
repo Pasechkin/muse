@@ -1998,7 +1998,3 @@ document.addEventListener('DOMContentLoaded', function() {
 - [Файл токенов](../src/design-system/tokens.css)
 - [Типографика](../src/design-system/typography.css)
 - [Инструкция по переверстке на чистый Tailwind](./PURE_TAILWIND_GUIDE.md)
-
-
-
-

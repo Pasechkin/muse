@@ -16,22 +16,60 @@ if (!window.BxPopup) {
 document.addEventListener('DOMContentLoaded', function() {
     console.log('✅ nav.js loaded and DOMContentLoaded fired');
     
-    // --- 1. НАВИГАЦИЯ И КНОПКА "НАВЕРХ" ---
-    const pageNavigator = document.getElementById('page-navigator');
-    const navLinks = document.querySelectorAll('.page-navigator .inner-link');
+    // --- 1. АРХИТЕКТУРНАЯ НАВИГАЦИЯ (ARCH-NAV) ---
+    const navItems = document.querySelectorAll('.arch-nav__item');
     const backToTop = document.getElementById('back-to-top');
     
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
+    // Плавный скролл при клике
+    document.querySelectorAll('.arch-nav__link').forEach(link => {
+        link.addEventListener('click', (e) => {
             e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
-            if (targetElement) {
-                window.scrollTo({ top: targetElement.offsetTop - 100, behavior: 'smooth' });
+            const targetId = link.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            
+            if (targetSection) {
+                const top = targetSection.getBoundingClientRect().top + window.scrollY;
+                window.scrollTo({
+                    top: top - 20, // Небольшой отступ сверху
+                    behavior: 'smooth'
+                });
             }
         });
     });
-    
+
+    // Наблюдатель (Scroll Spy)
+    const observerOptions = {
+        root: null,
+        rootMargin: '-50% 0px -50% 0px', 
+        threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Снимаем активный класс со всех пунктов
+                navItems.forEach(nav => nav.setAttribute('data-active', 'false'));
+                
+                // Ищем пункт меню, который связан с этой секцией
+                const targetId = entry.target.id;
+                const activeNav = document.querySelector(`.arch-nav__item[data-target="${targetId}"]`);
+                
+                if (activeNav) {
+                    activeNav.setAttribute('data-active', 'true');
+                }
+            }
+        });
+    }, observerOptions);
+
+    // Запускаем слежение за секциями
+    navItems.forEach(item => {
+        const targetId = item.getAttribute('data-target');
+        const section = document.getElementById(targetId);
+        if (section) {
+            observer.observe(section);
+        }
+    });
+
     if (backToTop) {
         backToTop.addEventListener('click', (e) => {
             e.preventDefault();
@@ -40,7 +78,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function toggleUI() {
-        if (pageNavigator) pageNavigator.style.display = window.innerWidth >= 1024 ? 'block' : 'none';
         if (backToTop) {
             const show = window.scrollY > 300 && window.innerWidth >= 768;
             backToTop.classList.toggle('opacity-0', !show);
@@ -49,24 +86,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Активная секция в навигаторе
-    function updateActiveLink() {
-        const sections = document.querySelectorAll('section[id]');
-        const scrollPos = window.scrollY + 200;
-        sections.forEach(section => {
-            const navLink = document.querySelector(`.page-navigator a[href="#${section.getAttribute('id')}"]`);
-            if (navLink && scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
-                navLinks.forEach(l => l.classList.remove('inner-link--active'));
-                navLink.classList.add('inner-link--active');
-            }
-        });
-    }
-
-    window.addEventListener('scroll', () => { toggleUI(); updateActiveLink(); });
+    window.addEventListener('scroll', toggleUI);
     window.addEventListener('resize', toggleUI);
-    toggleUI(); updateActiveLink();
+    toggleUI();
 
-    // Video Cover (supports <video> and iframe embeds — sets iframe.src from data-src with autoplay/mute/playsinline and stops media on close)
+    // Video Cover (supports <video> and iframe embeds)
     document.querySelectorAll('[data-video-cover], .video-cover').forEach(function(cover) {
         const playBtn = cover.querySelector('[data-play-btn], .video-play-icon');
         const closeBtn = cover.querySelector('[data-video-close], .video-close, .video-cover__close, .js-video-close');

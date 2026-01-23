@@ -1,6 +1,6 @@
-# Как создать новую страницу
+# Библиотека промптов (Prompt Library)
 
-Инструкция для работы с ИИ-агентом в Cursor при создании/редактировании страниц проекта Muse.
+Сборник готовых команд (промптов) для работы с ИИ-агентом в Cursor.
 
 ---
 
@@ -100,18 +100,6 @@
 
 ---
 
-## Ключевые файлы
-
-| Файл | Описание |
-|------|----------|
-| `AI_INSTRUCTIONS.md` | Правила для ИИ-агента |
-| `docs/DESIGN_SYSTEM.md` | Цвета, типографика, все компоненты |
-| `docs/PURE_TAILWIND_GUIDE.md` | Инструкция по рефакторингу |
-| `docs/PAGES_LIST.md` | Статус всех страниц |
-| `src/html/portret-na-zakaz-po-foto-na-kholste-sankt-peterburg.html` | Эталонная страница |
-
----
-
 ## Проверка после завершения
 
 ### Автоматическая проверка
@@ -152,30 +140,3 @@ https://validator.w3.org/nu/?doc=https://muse-liard-one.vercel.app/[путь]
 - Конкретный URL источника контента
 - Ссылку на эталон или инструкцию
 - Что НЕ трогать (Header, Footer, контент)
-
----
-
-## Структура проекта
-
-```
-tailwind-project/
-├── AI_INSTRUCTIONS.md          # Правила для ИИ
-├── docs/
-│   ├── DESIGN_SYSTEM.md        # Компоненты и стили
-│   ├── HOW_TO_CREATE_PAGE.md   # Эта инструкция
-│   ├── PAGES_LIST.md           # Статус страниц
-│   ├── PURE_TAILWIND_GUIDE.md  # Рефакторинг на Tailwind
-│   └── INTEGRATION_BITRIX.md   # Подготовка к Bitrix
-└── src/html/
-    ├── js/nav.js               # Page Navigator + Back to Top
-    ├── index.html              # Главная
-    ├── blog/                   # Статьи блога
-    ├── info/                   # Информационные страницы
-    └── portret-na-zakaz/       # Страницы портретов
-        ├── style/              # 18 стилей
-        └── object/             # 5 объектов
-```
-
----
-
-*Последнее обновление: 17 января 2026*
