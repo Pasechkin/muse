@@ -133,121 +133,18 @@
 }
 
 @layer components {
-  /* Контейнер навигации */
-  .arch-nav {
-    position: fixed;
-    right: 2rem;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 50;
-    display: none;
-  }
-
-  /* Показываем только на десктопах */
-  @media (min-width: 1024px) {
-    .arch-nav {
-      display: flex;
-    }
-  }
-
-  /* Список элементов */
-  .arch-nav__list {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 3rem;
-  }
-
-  /* Один пункт меню */
-  .arch-nav__item {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  /* Номер (01, 02...) */
-  .arch-nav__num {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--color-gray-400);
-    letter-spacing: 0.15em;
-    opacity: 0;
-    transform: translateX(10px);
-    transition: all 0.3s ease-out;
-  }
-
-  /* Линия */
-  .arch-nav__line {
-    position: relative;
-    height: 1px;
-    width: 2rem;
-    background-color: var(--color-dark);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    
-    /* Тень для видимости на темном */
-    box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
-  }
-
-  /* Подсказка (Label) */
-  .arch-nav__label {
-    position: absolute;
-    right: 50px;
-    top: 50%;
-    transform: translateY(-50%) translateX(10px);
-    white-space: nowrap;
-    background-color: var(--color-dark);
-    padding: 6px 12px;
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: white;
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.3s ease-out;
-  }
-
-  /* Ссылка-обертка (увеличенная область клика) */
-  .arch-nav__link {
-    position: absolute;
-    top: -20px;
-    right: -20px;
-    bottom: -20px;
-    left: -60px;
-    cursor: pointer;
-    z-index: 10;
-  }
-
-  /* === Состояния Hover === */
-  .arch-nav__item:hover .arch-nav__num {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  .arch-nav__item:hover .arch-nav__line {
-    width: 4rem;
-    background-color: var(--color-primary);
-  }
-
-  .arch-nav__item:hover .arch-nav__label {
-    opacity: 1;
-    transform: translateY(-50%) translateX(0);
-  }
-
-  /* === Состояние Active === */
-  .arch-nav__item[data-active="true"] .arch-nav__num {
-    color: var(--color-primary);
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  .arch-nav__item[data-active="true"] .arch-nav__line {
-    height: 2px;
-    width: 3.5rem;
-    background-color: var(--color-primary);
-  }
+  /* Page Navigator (старый) */
+  .page-navigator { position: fixed; top: 50%; transform: translateY(-50%); right: 1.85714286em; z-index: 9999; }
+  .page-navigator ul { display: inline-block; padding: 0.92857143em; background: rgba(0, 0, 0, 0.4); border-radius: 1.85714286em; }
+  .page-navigator ul:hover { background: rgba(0, 0, 0, 0.6); }
+  .page-navigator ul li { list-style: none; }
+  .page-navigator ul li:not(:last-child) { margin-bottom: 1.85714286em; }
+  @media (max-width: 1023px) { .page-navigator { display: none !important; } }
+  .page-navigator li a { width: 8px; height: 8px; background: #fff; border-radius: 50%; transition: all 0.3s ease; display: block; position: relative; opacity: 0.5; }
+  .page-navigator li a:hover, .page-navigator li a.inner-link--active { opacity: 1; }
+  .page-navigator li a[data-title]:before { content: attr(data-title); position: absolute; right: 12px; top: -14px; background: #222; color: #fff; border-radius: 6px; padding: 4px 8px; display: inline-block; white-space: nowrap; font-size: 12px; opacity: 0; transition: all 0.2s ease; }
+  .page-navigator li a[data-title]:hover:before { opacity: 1; }
+  .page-navigator li a:hover { transform: scale(1.5); }
 
   /* === Button Components === */
   .btn {
@@ -294,6 +191,105 @@
 
   /* Ken Burns helper classes */
   .ken-burns-img { animation: var(--animate-ken-burns); }
+
+/* ==========================================
+   Секция «Преимущества» — компоненты (ВНЕ @layer для высокого приоритета)
+   ========================================== */
+
+/* Контейнер секции */
+.advantages-section {
+  background-color: var(--color-primary);
+  padding-block: 4rem;
+}
+@media (min-width: 1024px) {
+  .advantages-section {
+    padding-block: 6rem;
+  }
+}
+
+/* Заголовок секции */
+.advantages-title {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 300;
+  color: white;
+  text-align: center;
+}
+@media (min-width: 1024px) {
+  .advantages-title {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+}
+
+/* Сетка карточек */
+.advantages-grid {
+  display: grid;
+  gap: 2rem;
+}
+@media (min-width: 640px) {
+  .advantages-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .advantages-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Карточка преимущества */
+.advantage-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  text-align: left;
+  color: var(--color-dark);
+}
+
+/* Контейнер иконки */
+.advantage-card__icon {
+  width: 4rem;
+  height: 4rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.advantage-card__icon svg,
+.advantage-card__icon img {
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  max-width: 2.5rem !important;
+  max-height: 2.5rem !important;
+}
+
+/* Текст преимущества */
+.advantage-card__text {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+/* ==========================================
+   SVG иконки — inline подход
+   ========================================== */
+
+/* Иконка преимущества — inline SVG */
+.icon-advantage {
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  max-width: 2.5rem !important;
+  max-height: 2.5rem !important;
+  color: var(--color-primary) !important;
+  fill: currentColor !important;
+  flex-shrink: 0;
+}
+
+/* Убедимся, что path внутри SVG наследует fill */
+.icon-advantage path {
+  fill: inherit !important;
+}
 
 /* === Список с галочками (DRY) === */
 .check-list {

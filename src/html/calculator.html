@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор стоимости портрета – Muse</title>
+    <meta name="description" content="Рассчитайте стоимость портрета по фото на холсте онлайн. Выберите стиль, размер и оформление.">
+    
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="css/output.css">
+    
+    <style>
+        /* Стили для кастомных радио-кнопок (карточки стилей) */
+        .calc-card-input:checked + label {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+        .calc-card-input:checked + label .check-icon {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* Стили для кнопок размеров */
+        .size-input:checked + label {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Sticky sidebar adjustment */
+        .sticky-summary {
+            position: sticky;
+            top: 100px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-body font-normal overflow-x-hidden">
+
+    <!-- Header -->
+    <header class="bg-dark sticky top-0 z-50">
+        <nav class="container flex items-center justify-between gap-x-4 py-5">
+            <div class="flex-shrink-0">
+                <a href="/" class="-m-1.5 p-1.5 flex items-center">
+                    <svg height="26" viewBox="0 0 1285 359" width="74" xmlns="http://www.w3.org/2000/svg" class="h-7 w-auto">
+                        <defs><style>.fil0{fill:#fefefe}.fil1{fill:#fefefe;fill-rule:nonzero}</style></defs>
+                        <path class="fil0" d="M10 359l353 0-63-63-226 0-64 63zm364-10l0-285c-24 7-45 18-64 34l0 188 64 63zm-374-285l0 285 63-63 0-188c-19-16-40-27-63-34z"/>
+                        <path class="fil0" d="M300 0c-49 0-92 28-113 68-22-40-65-68-114-68-27 0-52 8-73 23 82 9 149 79 187 166 37-87 104-157 187-166-21-15-47-23-74-23z"/>
+                        <path class="fil0" d="M494 20c-11-11-27-18-45-17-16 1-26 8-32 17 36 0 60 19 77 48 17-29 41-48 78-48-7-9-17-16-33-17-17-1-33 6-45 17z"/>
+                        <path class="fil1" d="M1152 178c4-24 18-40 41-40 22 0 36 16 39 40l-80 0zm46 114c34 0 59-13 77-35l-31-28c-14 14-27 20-45 20-24 0-41-13-47-37l132 0c0-5 1-10 1-14 0-54-29-103-92-103-55 0-94 45-94 99 0 58 42 98 99 98z"/>
+                        <path class="fil1" d="M1008 291c41 0 73-19 73-61 0-35-31-48-57-57-21-7-39-12-39-22 0-8 7-14 20-14 14 0 32 7 51 18l21-37c-21-14-47-22-71-22-38 0-69 21-69 60 0 37 30 50 56 57 21 7 39 10 39 22 0 9-7 15-22 15-18 0-39-8-60-23l-23 36c25 19 55 28 81 28z"/>
+                        <path class="fil1" d="M792 291c24 0 46-15 56-25l0 22 55 0 0-189-58 0 0 107c0 21-13 43-33 43-19 0-31-13-31-39l0-111-54 0 0 122c0 43 24 70 65 70z"/>
+                        <path class="fil1" d="M623 95c-30 0-49 17-60 28-10-16-25-27-46-28-25-1-43 15-53 26l0-22-55 0 0 189 58 0 0-109c0-22 15-41 33-41 18 0 29 11 29 36l0 114 12 0 34 0 8 0 0-139c5-5 12-11 24-11 16 0 30 11 30 38l0 112 54 0 0-123c0-43-26-70-68-70z"/>
+                    </svg>
+                </a>
+            </div>
+            <div class="hidden xl:flex xl:items-center xl:gap-x-6">
+                <a href="https://muse.ooo/pechat/" class="text-gray-400 hover:text-white transition-colors uppercase">Печать</a>
+                <a href="https://muse.ooo/portret-na-zakaz/" class="text-gray-400 hover:text-white transition-colors uppercase">Портреты</a>
+                <a href="https://muse.ooo/info/dostavka/" class="text-gray-400 hover:text-white transition-colors uppercase">Доставка</a>
+                <a href="tel:88007076921" class="text-gray-400 hover:text-white transition-colors">8-800-707-69-21</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="py-12 lg:py-20">
+        <div class="container">
+            <!-- Breadcrumbs -->
+            <nav class="mb-8 text-sm text-gray-500" aria-label="Breadcrumb">
+                <ol class="flex items-center space-x-2">
+                    <li><a href="/" class="hover:text-primary transition-colors">Главная</a></li>
+                    <li class="text-gray-400">/</li>
+                    <li class="text-dark">Калькулятор</li>
+                </ol>
+            </nav>
+
+            <h1 class="text-3xl lg:text-5xl font-light text-dark mb-4 text-center">Рассчитайте стоимость портрета</h1>
+            <p class="text-center text-gray-500 mb-12 max-w-2xl mx-auto">Выберите стиль, размер и параметры оформления, чтобы узнать точную стоимость вашей будущей картины.</p>
+            
+            <form id="calculator" class="grid lg:grid-cols-12 gap-8 items-start">
+                <!-- Left Column: Controls -->
+                <div class="lg:col-span-8 space-y-8">
+                    
+                    <!-- Step 1: Style -->
+                    <section class="bg-white rounded-2xl p-6 lg:p-8 shadow-sm border border-gray-100">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-2xl font-light text-dark">1. Выберите стиль</h2>
+                            <span class="text-sm text-gray-400 bg-gray-100 px-3 py-1 rounded-full">Шаг 1 из 3</span>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <!-- Style: Oil -->
+                            <div class="relative">
+                                <input type="radio" name="style" id="style_oil" value="oil" class="calc-card-input sr-only" checked onchange="updateSummary()">
+                                <label for="style_oil" class="block cursor-pointer rounded-xl border-2 border-transparent hover:border-gray-200 transition-all overflow-hidden group relative bg-gray-50">
+                                    <img src="https://muse.ooo/upload/img/maslom-portret-223-297.webp" alt="Масло" class="w-full aspect-[3/4] object-cover group-hover:scale-105 transition-transform duration-500">
+                                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-4 pt-12">
+                                        <span class="text-white font-medium block">Под масло</span>
+                                        <span class="text-white/70 text-xs">Классика</span>
+                                    </div>
+                                    <div class="check-icon absolute top-3 right-3 w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center opacity-0 transform scale-75 transition-all shadow-md z-10">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                    </div>
+                                </label>
+                            </div>
+
+                            <!-- Style: Watercolor -->
+                            <div class="relative">
+                                <input type="radio" name="style" id="style_watercolor" value="watercolor" class="calc-card-input sr-only" onchange="updateSummary()">
+                                <label for="style_watercolor" class="block cursor-pointer rounded-xl border-2 border-transparent hover:border-gray-200 transition-all overflow-hidden group relative bg-gray-50">
+                                    <img src="https://muse.ooo/upload/img/watercolor-couple-223-297.webp" alt="Акварель" class="w-full aspect-[3/4] object-cover group-hover:scale-105 transition-transform duration-500">
+                                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-4 pt-12">
+                                        <span class="text-white font-medium block">Акварель</span>
+                                        <span class="text-white/70 text-xs">Нежность</span>
+                                    </div>
+                                    <div class="check-icon absolute top-3 right-3 w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center opacity-0 transform scale-75 transition-all shadow-md z-10">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                    </div>
+                                </label>
+                            </div>
+
+                            <!-- Style: Dream Art -->
+                            <div class="relative">
+                                <input type="radio" name="style" id="style_dream" value="dream" class="calc-card-input sr-only" onchange="updateSummary()">
+                                <label for="style_dream" class="block cursor-pointer rounded-xl border-2 border-transparent hover:border-gray-200 transition-all overflow-hidden group relative bg-gray-50">
+                                    <img src="https://muse.ooo/upload/img/dream-couple-223-297.webp" alt="Дрим-арт" class="w-full aspect-[3/4] object-cover group-hover:scale-105 transition-transform duration-500">
+                                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-4 pt-12">
+                                        <span class="text-white font-medium block">Дрим-арт</span>
+                                        <span class="text-white/70 text-xs">Яркость</span>
+                                    </div>
+                                    <div class="check-icon absolute top-3 right-3 w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center opacity-0 transform scale-75 transition-all shadow-md z-10">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <!-- Style: Pencil -->
+                            <div class="relative">
+                                <input type="radio" name="style" id="style_pencil" value="pencil" class="calc-card-input sr-only" onchange="updateSummary()">
+                                <label for="style_pencil" class="block cursor-pointer rounded-xl border-2 border-transparent hover:border-gray-200 transition-all overflow-hidden group relative bg-gray-50">
+                                    <img src="https://muse.ooo/upload/img/pencil-223-297.webp" alt="Карандаш" class="w-full aspect-[3/4] object-cover group-hover:scale-105 transition-transform duration-500">
+                                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-4 pt-12">
+                                        <span class="text-white font-medium block">Карандаш</span>
+                                        <span class="text-white/70 text-xs">Графика</span>
+                                    </div>
+                                    <div class="check-icon absolute top-3 right-3 w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center opacity-0 transform scale-75 transition-all shadow-md z-10">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Step 2: Size -->
+                    <section class="bg-white rounded-2xl p-6 lg:p-8 shadow-sm border border-gray-100">
+                        <h2 class="text-2xl font-light text-dark mb-6">2. Выберите размер</h2>
+                        <div class="flex flex-wrap gap-3 mb-6">
+                            <!-- Size Pills -->
+                            <div class="relative">
+                                <input type="radio" name="size" id="size_30x40" value="30x40" class="size-input sr-only" checked onchange="updateSummary()">
+                                <label for="size_30x40" class="inline-block px-5 py-3 rounded-lg border border-gray-200 bg-white text-dark cursor-pointer hover:border-primary/50 transition-all select-none font-medium">30 × 40 см</label>
+                            </div>
+                            <div class="relative">
+                                <input type="radio" name="size" id="size_40x60" value="40x60" class="size-input sr-only" onchange="updateSummary()">
+                                <label for="size_40x60" class="inline-block px-5 py-3 rounded-lg border border-gray-200 bg-white text-dark cursor-pointer hover:border-primary/50 transition-all select-none font-medium">40 × 60 см</label>
+                            </div>
+                            <div class="relative">
+                                <input type="radio" name="size" id="size_50x70" value="50x70" class="size-input sr-only" onchange="updateSummary()">
+                                <label for="size_50x70" class="inline-block px-5 py-3 rounded-lg border border-gray-200 bg-white text-dark cursor-pointer hover:border-primary/50 transition-all select-none font-medium">50 × 70 см</label>
+                            </div>
+                            <div class="relative">
+                                <input type="radio" name="size" id="size_60x90" value="60x90" class="size-input sr-only" onchange="updateSummary()">
+                                <label for="size_60x90" class="inline-block px-5 py-3 rounded-lg border border-gray-200 bg-white text-dark cursor-pointer hover:border-primary/50 transition-all select-none font-medium">60 × 90 см</label>
+                            </div>
+                        </div>
+                        <!-- Custom Size -->
+                        <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-100">
+                            <span class="text-dark font-medium">Свой размер:</span>
+                            <input type="number" placeholder="Ширина" class="w-24 px-3 py-2 rounded border border-gray-300 focus:border-primary outline-none focus:ring-1 focus:ring-primary">
+                            <span class="text-gray-400">×</span>
+                            <input type="number" placeholder="Высота" class="w-24 px-3 py-2 rounded border border-gray-300 focus:border-primary outline-none focus:ring-1 focus:ring-primary">
+                            <span class="text-gray-400">см</span>
+                        </div>
+                    </section>
+
+                    <!-- Step 3: Options -->
+                    <section class="bg-white rounded-2xl p-6 lg:p-8 shadow-sm border border-gray-100">
+                        <h2 class="text-2xl font-light text-dark mb-6">3. Дополнительные опции</h2>
+                        <div class="space-y-6">
+                            <!-- Persons Count -->
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <div class="font-medium text-dark text-lg">Количество лиц</div>
+                                    <div class="text-sm text-gray-500">Людей или питомцев на портрете</div>
+                                </div>
+                                <div class="flex items-center gap-3 bg-gray-50 rounded-lg p-1 border border-gray-200">
+                                    <button type="button" class="w-10 h-10 flex items-center justify-center rounded bg-white shadow-sm text-dark hover:text-primary transition-colors text-xl font-medium" onclick="changeFaces(-1)">-</button>
+                                    <input type="text" id="faces_display" value="1" readonly class="w-8 text-center bg-transparent font-medium text-dark text-lg">
+                                    <button type="button" class="w-10 h-10 flex items-center justify-center rounded bg-white shadow-sm text-dark hover:text-primary transition-colors text-xl font-medium" onclick="changeFaces(1)">+</button>
+                                </div>
+                            </div>
+                            
+                            <hr class="border-gray-100">
+
+                            <!-- Varnish -->
+                            <div class="flex items-center justify-between cursor-pointer group">
+                                <label for="opt_varnish" class="flex items-center gap-4 cursor-pointer select-none flex-grow">
+                                    <div class="relative flex items-center">
+                                        <input type="checkbox" id="opt_varnish" class="peer h-6 w-6 cursor-pointer appearance-none rounded border border-gray-300 checked:border-primary checked:bg-primary transition-all" onchange="updateSummary()">
+                                        <svg class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 text-white opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium text-dark group-hover:text-primary transition-colors">Покрытие лаком</div>
+                                        <div class="text-sm text-gray-500">Защищает от выцветания и влаги</div>
+                                    </div>
+                                </label>
+                                <span class="text-primary font-medium bg-primary/5 px-3 py-1 rounded-full text-sm">+ 350 ₽</span>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Right Column: Summary -->
+                <div class="lg:col-span-4 sticky-summary">
+                    <div class="bg-white rounded-2xl p-6 lg:p-8 shadow-lg border border-gray-100">
+                        <h3 class="text-xl font-medium text-dark mb-6">Ваш заказ</h3>
+                        
+                        <div class="space-y-4 mb-8 text-sm">
+                            <div class="flex justify-between border-b border-gray-50 pb-3">
+                                <span class="text-gray-500">Стиль:</span>
+                                <span class="text-dark font-medium text-right" id="summary_style">Под масло</span>
+                            </div>
+                            <div class="flex justify-between border-b border-gray-50 pb-3">
+                                <span class="text-gray-500">Размер:</span>
+                                <span class="text-dark font-medium text-right" id="summary_size">30 × 40 см</span>
+                            </div>
+                            <div class="flex justify-between border-b border-gray-50 pb-3">
+                                <span class="text-gray-500">Лиц:</span>
+                                <span class="text-dark font-medium text-right" id="summary_faces">1</span>
+                            </div>
+                            <div class="flex justify-between pt-1" id="summary_varnish_row" style="display: none;">
+                                <span class="text-gray-500">Лак:</span>
+                                <span class="text-dark font-medium text-right">Да</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-50 rounded-xl p-4 mb-8">
+                            <div class="flex justify-between items-baseline">
+                                <span class="text-lg text-dark font-medium">Итого:</span>
+                                <span class="text-3xl font-bold text-primary" id="total_price">4 371 ₽</span>
+                            </div>
+                        </div>
+
+                        <button type="button" class="w-full py-4 bg-primary hover:bg-primary-hover text-white rounded-xl uppercase font-medium tracking-wide transition-all shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5 active:translate-y-0 active:shadow-md">
+                            Оформить заказ
+                        </button>
+                        
+                        <p class="text-xs text-center text-gray-400 mt-4 leading-relaxed">
+                            Нажимая кнопку, вы соглашаетесь с условиями оферты.<br>Менеджер свяжется с вами для уточнения деталей.
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-8 lg:py-12">
+        <div class="container">
+            <div class="space-y-3 text-sm text-gray-300">
+                <div class="flex flex-wrap gap-4">
+                    <span>ИНН 782575923262</span>
+                    <span>ОГРНИП 316784700066112</span>
+                </div>
+                <nav class="flex flex-wrap gap-4">
+                    <a href="https://muse.ooo/karta-sayta/" class="hover:text-white transition-colors">Карта сайта</a>
+                    <a href="https://muse.ooo/info/politika_konfidentsialnosti_sayta/" class="hover:text-white transition-colors">Политика конфиденциальности</a>
+                    <a href="https://muse.ooo/info/oferta/" class="hover:text-white transition-colors">Публичная оферта</a>
+                </nav>
+                <div class="pt-2">
+                    <span>&copy; 2015-2026 Muse</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/nav.js"></script>
+    <script>
+        // Simple logic for the prototype
+        let facesCount = 1;
+        const basePrices = {
+            '30x40': 4371,
+            '40x60': 5293,
+            '50x70': 6500,
+            '60x90': 7800
+        };
+
+        function changeFaces(delta) {
+            facesCount += delta;
+            if (facesCount < 1) facesCount = 1;
+            if (facesCount > 10) facesCount = 10;
+            document.getElementById('faces_display').value = facesCount;
+            updateSummary();
+        }
+
+        function updateSummary() {
+            // Get selected values
+            const style = document.querySelector('input[name="style"]:checked');
+            const size = document.querySelector('input[name="size"]:checked');
+            const varnish = document.getElementById('opt_varnish').checked;
+
+            // Update text
+            if (style) {
+                const styleName = style.nextElementSibling.querySelector('span.font-medium').innerText;
+                document.getElementById('summary_style').innerText = styleName;
+            }
+            
+            if (size) {
+                const sizeText = size.nextElementSibling.innerText;
+                document.getElementById('summary_size').innerText = sizeText;
+            }
+
+            document.getElementById('summary_faces').innerText = facesCount;
+            
+            const varnishRow = document.getElementById('summary_varnish_row');
+            if (varnish) {
+                varnishRow.style.display = 'flex';
+            } else {
+                varnishRow.style.display = 'none';
+            }
+
+            // Calculate dummy price
+            let price = 0;
+            if (size && basePrices[size.value]) {
+                price = basePrices[size.value];
+            } else {
+                price = 4371; // Default fallback
+            }
+
+            // Add for faces (>1)
+            if (facesCount > 1) {
+                price += (facesCount - 1) * 960;
+            }
+
+            // Add for varnish
+            if (varnish) {
+                price += 350;
+            }
+
+            // Format price
+            document.getElementById('total_price').innerText = price.toLocaleString('ru-RU') + ' ₽';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', updateSummary);
+    </script>
+</body>
+</html>

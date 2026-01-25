@@ -1,0 +1,18 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Build CSS (once)",
+			"type": "shell",
+			"command": "npm run build:once",
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Copy CSS to html",
+			"type": "shell",
+			"command": "npm run copy-css",
+			"problemMatcher": []
+		}
+	]
+}

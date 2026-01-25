@@ -15,69 +15,54 @@ if (!window.BxPopup) {
 }
 document.addEventListener('DOMContentLoaded', function() {
     console.log('✅ nav.js loaded and DOMContentLoaded fired');
-    
-    // --- 1. АРХИТЕКТУРНАЯ НАВИГАЦИЯ (ARCH-NAV) ---
-    const navItems = document.querySelectorAll('.arch-nav__item');
+
+    // --- 1. PAGE NAVIGATOR (старый) ---
+    const pageNavigator = document.querySelector('.page-navigator');
+    const navLinks = document.querySelectorAll('.page-navigator .inner-link');
     const backToTop = document.getElementById('back-to-top');
-    
-    // Плавный скролл при клике
-    document.querySelectorAll('.arch-nav__link').forEach(link => {
-        link.addEventListener('click', (e) => {
+
+    // Плавный скролл при клике на ссылку
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
             e.preventDefault();
-            const targetId = link.getAttribute('href').substring(1);
-            const targetSection = document.getElementById(targetId);
-            
-            if (targetSection) {
-                const top = targetSection.getBoundingClientRect().top + window.scrollY;
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
                 window.scrollTo({
-                    top: top - 20, // Небольшой отступ сверху
+                    top: targetElement.offsetTop - 100,
                     behavior: 'smooth'
                 });
             }
         });
     });
 
-    // Наблюдатель (Scroll Spy)
-    const observerOptions = {
-        root: null,
-        rootMargin: '-50% 0px -50% 0px', 
-        threshold: 0
-    };
+    // Показать/скрыть навигатор (только на десктопе)
+    function togglePageNavigator() {
+        if (pageNavigator) {
+            pageNavigator.style.display = window.innerWidth >= 1024 ? 'block' : 'none';
+        }
+    }
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // Снимаем активный класс со всех пунктов
-                navItems.forEach(nav => nav.setAttribute('data-active', 'false'));
-                
-                // Ищем пункт меню, который связан с этой секцией
-                const targetId = entry.target.id;
-                const activeNav = document.querySelector(`.arch-nav__item[data-target="${targetId}"]`);
-                
-                if (activeNav) {
-                    activeNav.setAttribute('data-active', 'true');
+    // Подсветка активной секции при скролле
+    function updateActiveLink() {
+        const sections = document.querySelectorAll('section[id]');
+        const scrollPos = window.scrollY + 200;
+
+        sections.forEach(section => {
+            const sectionId = section.getAttribute('id');
+            const navLink = document.querySelector(`.page-navigator a[href="#${sectionId}"]`);
+
+            if (navLink) {
+                if (scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
+                    navLinks.forEach(l => l.classList.remove('inner-link--active'));
+                    navLink.classList.add('inner-link--active');
                 }
             }
         });
-    }, observerOptions);
-
-    // Запускаем слежение за секциями
-    navItems.forEach(item => {
-        const targetId = item.getAttribute('data-target');
-        const section = document.getElementById(targetId);
-        if (section) {
-            observer.observe(section);
-        }
-    });
-
-    if (backToTop) {
-        backToTop.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
     }
 
-    function toggleUI() {
+    // Back to Top
+    function toggleBackToTop() {
         if (backToTop) {
             const show = window.scrollY > 300 && window.innerWidth >= 768;
             backToTop.classList.toggle('opacity-0', !show);
@@ -85,47 +70,49 @@ document.addEventListener('DOMContentLoaded', function() {
             backToTop.classList.toggle('opacity-100', show);
         }
     }
-    
+
+    if (backToTop) {
+        backToTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    function toggleUI() {
+        toggleBackToTop();
+        togglePageNavigator();
+        updateActiveLink();
+    }
+
     window.addEventListener('scroll', toggleUI);
     window.addEventListener('resize', toggleUI);
     toggleUI();
 
-    // Video Cover (supports <video> and iframe embeds)
-    document.querySelectorAll('[data-video-cover], .video-cover').forEach(function(cover) {
-        const playBtn = cover.querySelector('[data-play-btn], .video-play-icon');
-        const closeBtn = cover.querySelector('[data-video-close], .video-close, .video-cover__close, .js-video-close');
-        function startMedia() {
+    // Video Cover (create iframe only on click)
+    document.querySelectorAll('[data-video-cover]').forEach(function(cover) {
+        const playBtn = cover.querySelector('[data-play-btn]');
+        if (!playBtn) return;
+        playBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (cover.querySelector('iframe')) return;
+
+            const src = cover.dataset.videoSrc;
+            if (!src) return;
+            const title = cover.dataset.videoTitle || 'Видео';
+
+            const iframe = document.createElement('iframe');
+            iframe.className = 'absolute inset-0 w-full h-full';
+            iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+            iframe.allowFullscreen = true;
+            iframe.loading = 'lazy';
+            iframe.title = title;
+            const sep = src.indexOf('?') === -1 ? '?' : '&';
+            iframe.src = src + sep + 'autoplay=1';
+
+            cover.appendChild(iframe);
             cover.classList.add('video-playing');
-            const video = cover.querySelector('video');
-            if (video) {
-                video.classList.remove('hidden');
-                try { video.setAttribute('playsinline', ''); } catch(e){}
-                video.play().catch(()=>{});
-            }
-            const iframe = cover.querySelector('iframe');
-            if (iframe && iframe.dataset.src) {
-                const sep = iframe.dataset.src.indexOf('?') === -1 ? '?' : '&';
-                iframe.src = iframe.dataset.src + sep + 'autoplay=1&mute=1&playsinline=1';
-                iframe.setAttribute('allow', 'autoplay; encrypted-media; fullscreen');
-            }
-        }
-        function stopMedia() {
-            cover.classList.remove('video-playing');
-            const video = cover.querySelector('video');
-            if (video) {
-                try { video.pause(); video.currentTime = 0; } catch(e){}
-                video.classList.add('hidden');
-            }
-            const iframe = cover.querySelector('iframe');
-            if (iframe) {
-                iframe.removeAttribute('src');
-                iframe.removeAttribute('allow');
-            }
-        }
-        if (playBtn) playBtn.addEventListener('click', startMedia);
-        if (closeBtn) closeBtn.addEventListener('click', stopMedia);
-        // If cover itself is used as an overlay, clicking the backdrop stops playback
-        cover.addEventListener('click', function(e){ if (e.target === cover) stopMedia(); });
+        });
     });
 
     // Accessibility: dialogs focus management, keyboard, and accessible play controls

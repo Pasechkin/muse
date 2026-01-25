@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портрет маслом на холсте с фотографии — заказать в Muse</title>
+    <meta name="description" content="Художник напишет цифровой портрет в технике масляной живописи и напечатает его на холсте, по желанию прорисует сверху гелем или маслом.">
+    
+    <!-- Закрыто от индексации во время разработки -->
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Критический CSS -->
+    <style>
+        /* CSS переменные */
+        :root {
+            --primary: #4A90E2;
+            --primary-hover: #609DE6;
+            --dark: #252525;
+            --body: #666666;
+        }
+        
+        /* Body */
+        body { 
+            background-color: #fff; 
+            color: #666; 
+            overflow-x: hidden; 
+        }
+        
+        /* SR-only (accessibility) */
+        .sr-only { 
+            position: absolute; 
+            width: 1px; height: 1px; 
+            padding: 0; margin: -1px; 
+            overflow: hidden; 
+            clip: rect(0,0,0,0); 
+            border: 0; 
+        }
+        
+        /* Иконки преимуществ — критические стили */
+        .icon-advantage {
+            width: 2.5rem;
+            height: 2.5rem;
+            max-width: 2.5rem;
+            max-height: 2.5rem;
+            color: #4A90E2;
+            fill: currentColor;
+        }
+        .icon-advantage path {
+            fill: inherit;
+        }
+    </style>
+    
+    <!-- Preload Hero изображения (ускоряет LCP) -->
+    <link rel="preload" as="image" href="https://muse.ooo/upload/img/maslom-portret-1119-458-580_1.webp" fetchpriority="high">
+    
+    <!-- Tailwind Plus Elements -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1"></script>
+    
+    <style>
+        /* Page Navigator moved to src/input.css */
+        
+        /* Carousel moved to ../../css/output.css */
+    </style>
+
+    <!-- Structured Data: Product -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Портрет маслом",
+        "description": "Художник напишет цифровой портрет в технике масляной живописи и напечатает его на холсте, по желанию прорисует сверху гелем или маслом",
+        "image": "https://muse.ooo/img/maslom-portret-1119-1000-1000_1.jpg",
+        "brand": {
+            "@type": "Brand",
+            "name": "Muse"
+        },
+        "offers": {
+            "@type": "Offer",
+            "url": "https://muse.ooo/portret-na-zakaz/portret-maslom/",
+            "priceCurrency": "RUB",
+            "price": "4311.00",
+            "priceValidUntil": "2026-12-31",
+            "availability": "https://schema.org/InStock",
+            "seller": {
+                "@type": "Organization",
+                "name": "Muse"
+            }
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5",
+            "reviewCount": "24"
+        }
+    }
+    </script>
+
+    <!-- Structured Data: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Главная",
+                "item": "https://muse.ooo/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Портрет на заказ",
+                "item": "https://muse.ooo/portret-na-zakaz/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Портрет маслом",
+                "item": "https://muse.ooo/portret-na-zakaz/portret-maslom/"
+            }
+        ]
+    }
+    </script>
+<link rel="stylesheet" href="../../css/output.css">
+</head>
+<body class="bg-white overflow-x-hidden">
+<!-- (backup created) -->
+</body>
+</html>
