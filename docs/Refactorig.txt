@@ -342,3 +342,9 @@ document.querySelectorAll('[data-play-btn]').forEach(btn => {
     cover.classList.add('video-playing');
   });
 });
+
+----
+Установка старого пейдж Навигатора
+
+
+Не работает Быстрй Диплой
