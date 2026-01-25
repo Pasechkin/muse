@@ -1,350 +1,167 @@
-
-
-Задание для ИИ: Этап 0 — Исправление контейнеров
-Контекст
-Проект Muse на Tailwind CSS. Обнаружена системная проблема: 79% секций имеют двойные контейнеры, что вызывает избыточные отступы и непредсказуемое поведение ширины.
-
-Проблема
-Текущее состояние .container в input.css:
-.container {
-  margin-inline: auto;
-  padding-inline: 1rem;
-}
-Отсутствует: max-width: 1170px
-
-Результат: В HTML используются оба паттерна одновременно:
-
-Внешняя обертка: <div class="mx-auto px-4 max-w-[1170px]">
-Вложенный контейнер: <div class="container">
-Задачи
-1. Исправить определение .container в input.css
-Найти:
-.container {
-  margin-inline: auto;
-  padding-inline: 1rem;
-}
-Заменить на:
-.container {
-  margin-inline: auto;
-  padding-inline: 1rem;
-  max-width: 1170px;
-}
-2. Убрать двойные обертки в portret-maslom.html
-Найти паттерн (повторяется ~11 раз):
-<div class="mx-auto px-4 max-w-[1170px]">
-    <div class="container">
-        <!-- контент -->
-    </div>
-</div>
-Заменить на:
-<div class="container">
-    <!-- контент -->
-</div>
-Важно: Сохранить все дополнительные классы у внутреннего div (например, mb-12, mb-8).
-
-Пример трансформации:
-<!-- Было -->
-<div class="mx-auto px-4 max-w-[1170px] mb-12">
-    <div class="container mb-12">
-        <h2>Преимущества</h2>
-    </div>
-</div>
-
-<!-- Станет -->
-<div class="container mb-12">
-    <h2>Преимущества</h2>
-</div>
-3. Проверить исключения
-НЕ трогать секции, где используется ТОЛЬКО один из паттернов:
-
-Header: <nav class="container"> — ✅ корректно
-Footer: <div class="mx-auto px-4 max-w-[1170px]"> — ✅ корректно (без вложенного .container)
-CTA секция: <div class="mx-auto px-4 max-w-[1170px]"> — ✅ корректно
-4. Пересобрать CSS
-После изменений в input.css выполнить:
-npm run build:once
-Проверка результата
-Открыть portret-maslom.html в браузере
-Проверить, что:
-Все секции имеют максимальную ширину 1170px
-Нет двойных отступов (padding)
-Контент центрирован
-Адаптивность работает на мобильных (320px), планшетах (768px), десктопах (1280px+)
-Ожидаемый результат
-✅ .container в input.css имеет max-width: 1170px
-✅ Все 11 двойных оберток в portret-maslom.html заменены на единый .container
-✅ CSS пересобран через npm run build:once
-✅ Визуальная проверка пройдена на разных разрешениях
-Важные ограничения
-НЕ трогать иконки, кнопки, другие компоненты — только контейнеры
-НЕ менять контент (тексты, alt, изображения)
-Сохранить все дополнительные utility-классы (spacing, colors и т.д.)
-Работать только с этим одним файлом (portret-maslom.html), масштабирование будет в Этапе 6
-
-
-
-_________________________________
-
-
-Выполни рефакторинг кнопок на странице src/html/portret-na-zakaz/style/portret-maslom.html согласно Этапу 1 чек-листа компонентного рефакторинга.
-
-Контекст:
-
-Проект использует Tailwind CSS v4 с архитектурой @layer
-CSS находится в src/input.css
-После изменений нужно пересобрать: npm run build:once
-Задачи:
-
-Анализ текущих кнопок:
-Найди все кнопки (теги <a> и <button>) со следующими паттернами классов:
-
-inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors w-full md:w-auto text-center transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30
-inline-block px-6 py-2 bg-secondary hover:bg-white text-dark rounded uppercase transition-colors w-full md:w-auto text-center
-Другие варианты с bg-dark, border-based кнопки
-Создание компонентов в src/input.css:
-В существующий блок @layer components (после строки ~135) добавь:
-/* === Button Components === */
-.btn {
-  @apply inline-block px-6 py-2 rounded uppercase transition-colors;
-  @apply w-full md:w-auto text-center;
-}
-
-.btn-primary {
-  @apply btn bg-primary hover:bg-primary-hover text-white;
-  @apply transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30;
-}
-
-.btn-secondary {
-  @apply btn bg-secondary hover:bg-white text-dark;
-}
-
-.btn-outline {
-  @apply btn border border-gray-300 bg-transparent hover:bg-primary hover:text-white hover:border-primary text-dark;
-}
-Рефакторинг HTML:
-
-В файле portret-maslom.html замени:
-
-Было:
-<a href="..." class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors w-full md:w-auto text-center transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30">
-Станет:
-<a href="..." class="btn-primary">
-Проверка:
-
-Визуально все кнопки должны выглядеть идентично
-Сохрани адаптивность (w-full на мобильных, md:w-auto на десктопе)
-Сохрани все hover-эффекты (тени, трансформации)
-Пересборка CSS:
-После изменений выполни: npm run build:once
-
-Важные ограничения:
-
-НЕ трогать Header/Footer/Navigation
-НЕ менять href и тексты кнопок
-НЕ менять другие компоненты страницы
-Сохранить все анимации и визуальные эффекты
-Ожидаемый результат:
-
-~8-10 кнопок сокращены с ~120 символов до ~15 символов классов
-Код стал чище и легче поддерживать
-Визуально ничего не изменилось
-
-
-
-___________________________________
-
-Компонет
-## Инструкция для ИИ: Рефакторинг секции «Преимущества»
-
----
-
-### Контекст
-
-Проект использует **Tailwind CSS 4** с компонентным подходом (`@layer components`).  
-Референсная страница: portret-maslom.html
-
----
-
-### Цель
-
-Привести секцию «Преимущества» на всех страницах к единому виду:
-- Inline SVG иконки (без спрайтов, без `<img>`)
-- Компонентные классы из input.css
-- Управление цветом через CSS
-
----
-
-### Готовые CSS-компоненты (уже в input.css)
-
-```css
-.advantages-section    /* bg-primary py-16 lg:py-24 */
-.advantages-title      /* text-3xl lg:text-4xl font-light text-white text-center */
-.advantages-grid       /* grid sm:grid-cols-2 lg:grid-cols-3 gap-8 */
-.advantage-card        /* bg-white rounded-lg p-6 text-left text-dark */
-.advantage-card__icon  /* w-16 h-16 mb-4 flex items-center justify-start */
-.advantage-card__text  /* text-lg */
-.icon-advantage        /* width: 2.5rem; height: 2.5rem; color: var(--color-primary); fill: currentColor */
-```
-
----
-
-### Шаблон HTML
-
-```html
-<!-- Преимущества -->
-<section class="advantages-section" id="preimushchestva">
-    <div class="container mb-12">
-        <h2 class="advantages-title">Преимущества</h2>
-    </div>
-    <div class="container">
-        <div class="advantages-grid">
-            
-            <!-- Преимущество 1: [УНИКАЛЬНОЕ для страницы] -->
-            <div class="advantage-card">
-                <div class="advantage-card__icon">
-                    <svg class="icon-advantage" viewBox="[VIEWBOX]" aria-hidden="true">
-                        [PATHS из уникальной иконки]
-                    </svg>
-                </div>
-                <p class="advantage-card__text">[Текст]</p>
-            </div>
-
-            <!-- Преимущества 2-6: общие иконки (см. таблицу ниже) -->
-            
-        </div>
-    </div>
-</section>
-```
-
----
-
-### Общие иконки (преимущества 2-6)
-
-| # | Тема | Файл | viewBox |
-|---|------|------|---------|
-| 2 | Цифровая работа | icon-26.svg | `0 0 460.94 460.94` |
-| 3 | Качество печати | icon-1.svg | `0 0 325.9 325.9` |
-| 4 | Соблюдение сроков | icon-25.svg | `0 0 512 512` |
-| 5 | Цена | icon-5.svg | `0 0 612 612` |
-| 6 | Гарантия | icon-6.svg | `0 0 214.3 214.3` |
-
-**Содержимое иконок** — скопировать `<path>` из `src/icons/optimized/icon-N.svg`
-
----
-
-### Что заменить на каждой странице
-
-**Было (варианты):**
-```html
-<!-- Вариант 1: img с filter -->
-<img src="../../../icons/icon-N.svg" style="filter: invert(53%)...">
-
-<!-- Вариант 2: use + fallback -->
-<svg class="icon icon-advantage"><use href="#icon-N"></use></svg>
-<img class="icon-fallback" src="...">
-```
-
-**Стало:**
-```html
-<svg class="icon-advantage" viewBox="..." aria-hidden="true">
-    <path d="..."/>
-</svg>
-```
-
----
-
-### Порядок работы
-
-1. Открыть страницу из style
-2. Найти секцию `id="preimushchestva"`
-3. Определить уникальную иконку для преимущества 1 (по src или `href`)
-4. Заменить всю секцию на шаблон:
-   - Секция → `class="advantages-section"`
-   - Заголовок → `class="advantages-title"`
-   - Сетка → `class="advantages-grid"`
-   - Карточки → `class="advantage-card"`
-   - Иконки → inline SVG с `class="icon-advantage"`
-5. Для уникальной иконки: скопировать `viewBox` и `<path>` из optimized
-6. Для общих иконок: использовать готовые paths (см. референс)
-
----
-
-### Удалить (если есть)
-
-- `<script src="...icon-sprite-loader.js">`
-- `<img class="icon-fallback">`
-- `style="filter: invert(...)"`
-- `<use href="#icon-N">`
-
----
-
-### Файлы для обработки
-
-```
-src/html/portret-na-zakaz/style/
-├── portret-maslom.html       ✅ ГОТОВО (референс)
-├── wpap-portret.html         ⏳
-├── sharzh-po-foto.html       ⏳
-├── portret-v-obraze.html     ⏳
-├── ... (ещё ~14 страниц)
-```
-
----
-
-### После всех страниц
-
-1. Запустить `npm run build:once`
-2. Удалить неиспользуемые файлы:
-   - icon-sprite-loader.js
-   - sprite-common.svg
-   - sprite-common.svg
-
----
-
-### Оптимизация viewBox (опционально)
-
-Иконки с viewBox > 1000 (например, icon-27: 4500x4500) можно оптимизировать через SVGO:
-```bash
-npx svgo src/icons/optimized/icon-27.svg -o src/icons/optimized/icon-27.svg
-_____
-Видео
+РЕФАКТОРИНГ СТРАНИЦ СТИЛЕЙ ПОРТРЕТОВ — ИНСТРУКЦИИ ДЛЯ ИИ
+
+Дата проверки эталона: 25.01.2026
+Эталон: src/html/portret-na-zakaz/style/portret-maslom.html
+
+ОБЩИЕ ПРАВИЛА
+1) Не менять контент (тексты, alt, title, ссылки, порядок секций).
+2) Не изменять Header/Footer без отдельного согласования.
+3) Любые изменения в src/input.css требуют пересборки: npm run build:once, затем copy CSS.
+4) Проверка результата — только через Live Server (src/html/…).
+5) Все правки сначала делаем на эталоне, затем масштабируем на 17 остальных страниц.
+
+СТАТУС ЭТАЛОНА (portret-maslom)
+- Контейнеры: ✅ выполнено
+- Преимущества: ✅ выполнено
+- Видео: ✅ выполнено (iframe создается по клику)
+- Page Navigator: ✅ выполнено (старый вариант)
+- Кнопки: ✅ выполнено (контентная часть), Header/Mobile — не трогать
+- viewBox: ⏳ не выполнено (иконка 1 имеет viewBox 0 0 4500 4500)
+- Иконки (оптимизация загрузки): ✅ выполнено
+- Быстрый деплой: ⏳ статус неясен
+
+---------------------------------
+ЭТАП 0. ИКОНКИ (ОПТИМИЗАЦИЯ ЗАГРУЗКИ)
+Цель: убрать блокирующие ресурсы и перейти на inline SVG.
+Где менять: страницы в src/html/portret-na-zakaz/style/ и при необходимости src/input.css.
 Шаги:
+1) Проверить, есть ли use-ссылки или img-фолбэки.
+2) Перевести иконки на inline SVG (см. Этап 5 “Преимущества”).
+Проверка:
+- Иконки рендерятся корректно во всех секциях
 
-Определиться с UX: клик по обложке → загрузка видео.
-Для скорости: не держать iframe в DOM до клика.
-Для SEO: сохранить понятный текст, title, alt, без автоплея.
-Правильно с точки зрения UX/SEO/скорости — показывать статичную обложку и только по клику создавать iframe. Это:
+---------------------------------
+ЭТАП 1. КОНТЕЙНЕРЫ
+Цель: убрать двойные контейнеры и нормализовать .container.
+Где менять: src/input.css и HTML страниц.
+Шаги:
+1) Проверить .container в src/input.css: должен иметь max-width: 1170px.
+2) В HTML убрать двойные обертки вида: mx-auto px-4 max-w-[1170px] + вложенный .container.
+Исключения: Header, Footer, CTA, где используется только один из паттернов.
+Проверка:
+- Нету двойных паддингов, контент центрирован, ширина 1170px.
 
-Убирает мигание (нет перерасчетов и тяжелого iframe на старте).
-Ускоряет LCP и TTI (iframe не грузится).
-Не вредит SEO (контент/текст остается, видео не мешает индексации).
-Минимальная реализация (на portret-maslom.html):
-<!-- контейнер -->
-<div class="canvas-3d group relative aspect-[360/648] rounded-lg overflow-hidden min-h-[360px] bg-gray-100" data-video-cover>
-  <img ...>
-  <div data-play-btn>...</div>
-  <!-- iframe удалить отсюда -->
-</div>
-// создание iframe только по клику
-document.querySelectorAll('[data-play-btn]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const cover = btn.closest('[data-video-cover]');
-    if (cover.querySelector('iframe')) return;
+---------------------------------
+ЭТАП 2. КНОПКИ
+Цель: сократить длинные классы в контенте до компонентных классов.
+Где менять: src/input.css (если компонентов нет) и HTML в контентных секциях.
+Шаги:
+1) Проверить наличие .btn, .btn-primary, .btn-secondary, .btn-outline в src/input.css.
+2) В контентных секциях заменить длинные классы на компоненты.
+Ограничения:
+- Не менять Header/Footer/Mobile меню.
+Проверка:
+- Визуально кнопки идентичны, hover/тени сохранены.
 
-    const iframe = document.createElement('iframe');
-    iframe.className = 'absolute inset-0 w-full h-full';
-    iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
-    iframe.allowFullscreen = true;
-    iframe.src = 'https://www.youtube.com/embed/fefB0Rklz98?rel=0&showinfo=0&autoplay=1';
-    iframe.title = 'Портрет маслом на холсте';
+---------------------------------
+ЭТАП 3. ПРОВЕРКА 0–1
+Цель: зафиксировать, что контейнеры и иконки корректны на эталоне.
+Шаги:
+1) Открыть эталон и проверить ширину контейнера и отсутствие двойных оберток.
+2) Проверить, что иконки не используют спрайты/фолбэки.
+Проверка:
+- Все секции в нормальной ширине, иконки корректны.
 
-    cover.appendChild(iframe);
-    cover.classList.add('video-playing');
-  });
-});
+---------------------------------
+ЭТАП 4. КАК ЗАКАЗАТЬ
+Цель: унифицировать блок “Как заказать” через компоненты.
+Где менять: HTML секции “Как заказать”.
+Шаги:
+1) Внедрить .step-container и .process-step.
+2) Очистить лишнюю разметку и линию между шагами.
+Проверка:
+- Визуально совпадает с эталоном, разметка упрощена.
 
-----
-Установка старого пейдж Навигатора
+---------------------------------
+ЭТАП 5. ПРЕИМУЩЕСТВА
+Цель: единый компонентный блок “Преимущества”.
+Где менять: секция id="preimushchestva" на каждой странице.
+Шаги:
+1) Секция: class="advantages-section".
+2) Заголовок: class="advantages-title".
+3) Сетка: class="advantages-grid".
+4) Карточки: class="advantage-card".
+5) Иконки: только inline SVG, класс icon-advantage.
+Проверка:
+- Иконки окрашиваются через CSS, без filter/фолбеков.
 
+---------------------------------
+ЭТАП 6. ХАРАКТЕРИСТИКИ
+Цель: унифицировать список характеристик.
+Шаги:
+1) Внедрить .check-list.
+2) Заменить SVG-галочки на CSS-символ (по эталону).
+Проверка:
+- Список единообразный, лишние SVG удалены.
 
-Не работает Быстрй Диплой
+---------------------------------
+ЭТАП 7. НАВИГАЦИЯ
+Цель: проверить работу навигации по секциям.
+Где менять: HTML и src/html/js/nav.js.
+Шаги:
+1) Убедиться, что навигатор присутствует и работает при скролле.
+2) Проверить поведение на разных разрешениях.
+Проверка:
+- Подсветка секции корректна, навигатор не ломает верстку.
+
+---------------------------------
+ЭТАП 8. МАСШТАБИРОВАНИЕ
+Цель: перенести изменения на 17 остальных страниц стилей.
+Где менять: src/html/portret-na-zakaz/style/ (кроме portret-maslom.html).
+Порядок: контейнеры → кнопки → преимущества → видео → навигация → прочее.
+
+---------------------------------
+ЭТАП. VIEWBOX (ОПЦИОНАЛЬНО)
+Цель: оптимизировать слишком большой viewBox у уникальной иконки №1.
+Факт: в эталоне viewBox = 0 0 4500 4500 (иконка 1).
+Действие: при необходимости оптимизировать через SVGO.
+
+---------------------------------
+ЭТАП. ВИДЕО
+Цель: iframe должен создаваться только по клику.
+Факт: реализовано в эталоне и в src/html/js/nav.js.
+Шаги:
+1) Удалить iframe из DOM на старте.
+2) Использовать data-video-cover и data-play-btn.
+3) По клику создавать iframe и добавлять класс video-playing.
+Проверка:
+- Нет мигания, iframe отсутствует до клика.
+
+---------------------------------
+ЭТАП. PAGE NAVIGATOR
+Цель: сохранить/проверить старый навигатор (точки) без замены на arch-nav.
+Факт: эталон использует старый навигатор.
+Проверка:
+- Навигатор присутствует, работает корректно.
+
+---------------------------------
+ЭТАП. БЫСТРЫЙ ДЕПЛОЙ
+Проблема: статус неясен, периодически ломается.
+Действие:
+1) Проверить запуск БЫСТРЫЙ_ДЕПЛОЙ.bat.
+2) Если bat нестабилен — использовать БЫСТРЫЙ_ДЕПЛОЙ.ps1 и лог deploy-log.txt.
+3) Если оба способа падают — выполнить вручную: build:once → copy-css → git add/commit/push.
+Проверка:
+- Деплой завершен, Vercel обновился.
+
+---------------------------------
+СПИСОК СТРАНИЦ ДЛЯ МАСШТАБИРОВАНИЯ
+src/html/portret-na-zakaz/style/
+1) portret-maslom.html — ✅ эталон
+2) portret-karandashom.html — ✅
+3) portret-akvarelyu.html — ✅
+4) portret-komiks.html — ✅
+5) portret-iz-slov.html — ✅
+6) portret-flower-art.html — ✅
+7) portret-v-obraze.html — ✅
+8) pop-art-portret.html — ✅
+9) graffiti-portret.html — ✅
+10) granzh-portret.html — ✅
+11) beauty-art-portret.html — ✅
+12) drim-art-portret.html — ✅
+13) fantasy-art-portret.html — ✅
+14) fotomozaika.html — ✅
+15) love-is-portret.html — ✅
+16) low-poly-portret.html — ✅
+17) sharzh-po-foto.html — ✅
+18) wpap-portret.html — ✅

@@ -161,7 +161,7 @@
                         <path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </a>
-                <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30 whitespace-nowrap">
+                <a href="https://muse.ooo/order/" class="btn-primary whitespace-nowrap">
                     Заказать
                 </a>
             </div>
@@ -218,7 +218,7 @@
                                         Поиск
                                     </a>
                                     <div class="pt-4">
-                                        <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors w-full text-center">
+                                        <a href="https://muse.ooo/order/" class="btn-primary w-full text-center">
                                             Заказать
                                         </a>
                                     </div>
@@ -268,7 +268,7 @@
                         
                         <p class="text-lg lg:text-xl mb-6 text-gray-200">От 3592 руб. Под заказ.</p>
                         
-                        <a href="https://muse.ooo/order/" class="inline-block px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30 text-lg">
+                        <a href="https://muse.ooo/order/" class="btn-primary btn-lg">
                             Заказать
                         </a>
                     </div>
@@ -362,83 +362,80 @@
             </div>
 
             <!-- Процесс справа -->
-            <div class="relative detail">
-                <!-- Пунктирная линия между шагами -->
-                <div class="absolute left-6 top-12 bottom-12 border-l-2 border-dashed border-primary/30"></div>
+            <div class="step-container detail">
+                <div class="step-line"></div>
 
-                <div class="space-y-10 relative">
-                    <!-- Шаг 1: Заказ -->
-                    <div class="flex gap-4">
-                        <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                            <span class="text-xl font-bold text-primary">1</span>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-medium text-dark mb-2">Заказ</h3>
-                            <p class="text-body">
-                                Соберите архив из фотографий и сохраните его в облако (рекомендуется от 250 фото).<br>
-                                Выберите главную фотографию.<br>
-                                Нажмите любую кнопку <a href="https://muse.ooo/order/" class="text-primary underline hover:no-underline">Заказать ↗</a> на сайте, загрузите главное фото, прикрепите ссылку на архив и напишите Ваши пожелания по срокам.
-                            </p>
-                            <p class="text-body mt-3">
-                                В разделе <a class="text-primary underline hover:no-underline" href="#calc">Цена ↑</a> Вы можете самостоятельно посчитать стоимость фотомозаики и также загрузить фото, прикрепить ссылку, написать пожелания и оформить заявку.
-                            </p>
-                        </div>
+                <!-- Шаг 1: Заказ -->
+                <div class="process-step flex gap-4">
+                    <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
+                        <span class="text-xl font-bold text-primary">1</span>
                     </div>
-
-                    <!-- Шаг 2: Оригинал-макет -->
-                    <div class="flex gap-4">
-                        <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                            <span class="text-xl font-bold text-primary">2</span>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-medium text-dark mb-2">Оригинал-макет</h3>
-                            <p class="text-body">
-                                В течение 1 часа рабочего времени мы перезвоним Вам, чтобы обсудить задание. Получив его, дизайнер сделает бесплатный эскиз фотомозаики и вышлет Вам на подтверждение. Вы можете вносить правки, до тех пор, пока не будете полностью удовлетворены работой. После подтверждения эскиза дизайнер создаст цифровой оригинал-макет фотомозаики.
-                            </p>
-                            <p class="text-body mt-3">
-                                Дата создания: <span>3 января</span>.
-                            </p>
-                        </div>
+                    <div>
+                        <h3 class="text-xl font-medium text-dark mb-2">Заказ</h3>
+                        <p class="text-body">
+                            Соберите архив из фотографий и сохраните его в облако (рекомендуется от 250 фото).<br>
+                            Выберите главную фотографию.<br>
+                            Нажмите любую кнопку <a href="https://muse.ooo/order/" class="text-primary underline hover:no-underline">Заказать ↗</a> на сайте, загрузите главное фото, прикрепите ссылку на архив и напишите Ваши пожелания по срокам.
+                        </p>
+                        <p class="text-body mt-3">
+                            В разделе <a class="text-primary underline hover:no-underline" href="#calc">Цена ↑</a> Вы можете самостоятельно посчитать стоимость фотомозаики и также загрузить фото, прикрепить ссылку, написать пожелания и оформить заявку.
+                        </p>
                     </div>
+                </div>
 
-                    <!-- Шаг 3: Изготовление -->
-                    <div class="flex gap-4">
-                        <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                            <span class="text-xl font-bold text-primary">3</span>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-medium text-dark mb-2">Изготовление</h3>
-                            <p class="text-body">
-                                Только после Вашего окончательного одобрения оригинал-макета фотомозаика будет напечатана на холсте, оформлена и передана в службу доставки.
-                            </p>
-                        </div>
+                <!-- Шаг 2: Оригинал-макет -->
+                <div class="process-step flex gap-4">
+                    <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
+                        <span class="text-xl font-bold text-primary">2</span>
                     </div>
-
-                    <!-- Шаг 4: Доставка -->
-                    <div class="flex gap-4">
-                        <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                            <span class="text-xl font-bold text-primary">4</span>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-medium text-dark mb-2">Доставка</h3>
-                            <p class="text-body">
-                                Ориентировочная дата доставки в пункты выдачи Санкт-Петербурга — <span>6 января</span>.<br>
-                                Пункты выдачи смотрите в разделе <a href="https://muse.ooo/info/dostavka/" class="text-primary underline hover:no-underline">Доставка ↗</a>. По согласованию можно вызвать курьера.
-                            </p>
-                        </div>
+                    <div>
+                        <h3 class="text-xl font-medium text-dark mb-2">Оригинал-макет</h3>
+                        <p class="text-body">
+                            В течение 1 часа рабочего времени мы перезвоним Вам, чтобы обсудить задание. Получив его, дизайнер сделает бесплатный эскиз фотомозаики и вышлет Вам на подтверждение. Вы можете вносить правки, до тех пор, пока не будете полностью удовлетворены работой. После подтверждения эскиза дизайнер создаст цифровой оригинал-макет фотомозаики.
+                        </p>
+                        <p class="text-body mt-3">
+                            Дата создания: <span>3 января</span>.
+                        </p>
                     </div>
+                </div>
 
-                    <!-- Шаг 5: Оплата -->
-                    <div class="flex gap-4">
-                        <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                            <span class="text-xl font-bold text-primary">5</span>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-medium text-dark mb-2">Оплата</h3>
-                            <p class="text-body">
-                                Оплата услуг по печати и оформлению при получении. Работа дизайнера по созданию цифрового оригинал-макета фотомозаики оплачивается после подтверждения эскиза.
-                            </p>
-                        </div>
+                <!-- Шаг 3: Изготовление -->
+                <div class="process-step flex gap-4">
+                    <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
+                        <span class="text-xl font-bold text-primary">3</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-medium text-dark mb-2">Изготовление</h3>
+                        <p class="text-body">
+                            Только после Вашего окончательного одобрения оригинал-макета фотомозаика будет напечатана на холсте, оформлена и передана в службу доставки.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Шаг 4: Доставка -->
+                <div class="process-step flex gap-4">
+                    <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
+                        <span class="text-xl font-bold text-primary">4</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-medium text-dark mb-2">Доставка</h3>
+                        <p class="text-body">
+                            Ориентировочная дата доставки в пункты выдачи Санкт-Петербурга — <span>6 января</span>.<br>
+                            Пункты выдачи смотрите в разделе <a href="https://muse.ooo/info/dostavka/" class="text-primary underline hover:no-underline">Доставка ↗</a>. По согласованию можно вызвать курьера.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Шаг 5: Оплата -->
+                <div class="process-step flex gap-4">
+                    <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
+                        <span class="text-xl font-bold text-primary">5</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-medium text-dark mb-2">Оплата</h3>
+                        <p class="text-body">
+                            Оплата услуг по печати и оформлению при получении. Работа дизайнера по созданию цифрового оригинал-макета фотомозаики оплачивается после подтверждения эскиза.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -455,59 +452,32 @@
                 <div class="grid lg:grid-cols-2 gap-12">
                     <!-- Список характеристик (на ПК слева) -->
                     <div class="order-2 lg:order-1">
-                        <ul class="space-y-1">
-                            <li class="flex items-start gap-3 py-1.5 odd:bg-primary/5 odd:rounded odd:px-3 odd:-mx-3">
-                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
+                        <ul class="check-list">
+                            <li class="check-list-item">
                                 <span>Цифровой оригинал-макет фотомозаики</span>
                             </li>
-                            <li class="flex items-start gap-3 py-1.5 odd:bg-primary/5 odd:rounded odd:px-3 odd:-mx-3">
-                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
+                            <li class="check-list-item">
                                 <span>Печать оригинальными чернилами</span>
                             </li>
-                            <li class="flex items-start gap-3 py-1.5 odd:bg-primary/5 odd:rounded odd:px-3 odd:-mx-3">
-                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
+                            <li class="check-list-item">
                                 <span>Плотный хлопковый холст - 380 г./кв. м.</span>
                             </li>
-                            <li class="flex items-start gap-3 py-1.5 odd:bg-primary/5 odd:rounded odd:px-3 odd:-mx-3">
-                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
+                            <li class="check-list-item">
                                 <span>Галерейная натяжка</span>
                             </li>
-                            <li class="flex items-start gap-3 py-1.5 odd:bg-primary/5 odd:rounded odd:px-3 odd:-mx-3">
-                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
+                            <li class="check-list-item">
                                 <span>Сосновый подрамник</span>
                             </li>
-                            <li class="flex items-start gap-3 py-1.5 odd:bg-primary/5 odd:rounded odd:px-3 odd:-mx-3">
-                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
+                            <li class="check-list-item">
                                 <span>C обратной стороны защитный скотч</span>
                             </li>
-                            <li class="flex items-start gap-3 py-1.5 odd:bg-primary/5 odd:rounded odd:px-3 odd:-mx-3">
-                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
+                            <li class="check-list-item">
                                 <span>Крепление "Крокодил"</span>
                             </li>
-                            <li class="flex items-start gap-3 py-1.5 odd:bg-primary/5 odd:rounded odd:px-3 odd:-mx-3">
-                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
+                            <li class="check-list-item">
                                 <span>Упаковка в пупырчатую пленку и картон</span>
                             </li>
-                            <li class="flex items-start gap-3 py-1.5 odd:bg-primary/5 odd:rounded odd:px-3 odd:-mx-3">
-                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
+                            <li class="check-list-item">
                                 <span>Страхование доставки</span>
                             </li>
                         </ul>
@@ -557,59 +527,59 @@
             </div>
         </section>
 
-        <!-- Преимущества (на голубом фоне) -->
-        <section class="bg-primary py-16 lg:py-24" id="preimushchestva">
+        <!-- Преимущества -->
+        <section class="advantages-section" id="preimushchestva">
             <div class="container mb-12">
-                <h2 class="text-3xl lg:text-4xl font-light text-white text-center">Преимущества</h2>
+                <h2 class="advantages-title">Преимущества</h2>
             </div>
             <div class="container">
-                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="advantages-grid">
                     <!-- Преимущество 1 -->
-                    <div class="bg-white rounded-lg p-6 text-left text-dark">
-                        <div class="w-16 h-16 mb-4 flex items-center justify-start">
-                            <img src="../../../icons/icon-34.svg" alt="Фотомозаика создается вручную дизайнером, а не просто про..." class="w-10 h-10" style="filter: invert(53%) sepia(90%) saturate(1207%) hue-rotate(187deg) brightness(94%) contrast(89%);">
+                    <div class="advantage-card">
+                        <div class="advantage-card__icon">
+                            <svg class="icon-advantage" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-hidden="true"><path d="m506.82 268.18-145.98-87.595 18.219-11.584c3.072-1.963 4.928-5.355 4.928-9.003s-1.856-7.04-4.928-9.003L261.729 76.33a10.69 10.69 0 0 0-11.456 0l-117.33 74.667c-3.073 1.962-4.929 5.354-4.929 9.002s1.856 7.04 4.928 9.003l18.219 11.605L5.201 268.18c-3.2 1.92-5.184 5.376-5.184 9.109a10.64 10.64 0 0 0 5.12 9.152l245.33 149.33a10.6 10.6 0 0 0 5.547 1.557 10.6 10.6 0 0 0 5.547-1.557l245.33-149.33a10.71 10.71 0 0 0 5.12-9.152 10.69 10.69 0 0 0-5.184-9.11zM256 97.98l97.472 62.016L256 222.012l-97.472-62.016zm-84.736 95.424 78.997 50.261c1.749 1.109 3.755 1.664 5.739 1.664s3.989-.555 5.717-1.664l78.997-50.283 14.059 8.448L256 264.7l-98.795-62.869zm-139.97 83.947 105.47-63.253 99.371 63.232-100.18 63.744zm224.7 136.81-99.733-60.715 99.733-63.466 99.733 63.467zm120.04-73.066-100.18-63.765 99.371-63.232 105.47 63.275z"/></svg>
                         </div>
-                        <p class="text-lg">Фотомозаика создается вручную дизайнером, а не просто программой</p>
+                        <p class="advantage-card__text">Фотомозаика создается вручную дизайнером, а не просто программой</p>
                     </div>
 
                     <!-- Преимущество 2 -->
-                    <div class="bg-white rounded-lg p-6 text-left text-dark">
-                        <div class="w-16 h-16 mb-4 flex items-center justify-start">
-                            <img src="../../../icons/icon-26.svg" alt="Цифровой оригинал-макет можно повторно печатать на футбол..." class="w-10 h-10" style="filter: invert(53%) sepia(90%) saturate(1207%) hue-rotate(187deg) brightness(94%) contrast(89%);">
+                    <div class="advantage-card">
+                        <div class="advantage-card__icon">
+                            <svg class="icon-advantage" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460.94 460.94" aria-hidden="true"><path d="m460.79 405.15-50.215-221a6 6 0 0 0-5.851-4.67H360.97l48.841-99.472c1.759-3.583 2.018-7.637.729-11.415s-3.973-6.828-7.556-8.587L382.59 49.993c-7.398-3.633-16.37-.569-20.001 6.828l-60.227 122.66H67.742a6 6 0 0 0-5.851 4.67l-21.138 93.03c-8.74-1.196-16.592-5.761-22.01-12.951-6.358-8.438-8.335-19.102-5.423-29.258l25.009-87.224c4.077-14.222 17.258-24.155 32.053-24.155h156.94c19.337 0 36.564-12.282 42.868-30.563l2.458-7.128a6 6 0 1 0-11.344-3.912l-2.458 7.128c-4.635 13.442-17.303 22.474-31.523 22.474H70.383c-20.12 0-38.044 13.507-43.588 32.847L1.786 231.665c-3.96 13.811-1.272 28.313 7.375 39.787 7.16 9.501 17.445 15.634 28.927 17.466l-26.41 116.23a6 6 0 0 0 5.851 7.33h437.41a6 6 0 0 0 5.851-7.33zM96.95 317.48H43.902l14.769-65h49.4zm30.14-105h159.07l-30.339 61.79c-3.097 6.307-3.552 13.442-1.282 20.091a26.14 26.14 0 0 0 7.759 11.469l-4.88 9.939a6 6 0 0 0 10.771 5.289l4.764-9.703c2.118.543 4.282.826 6.456.826a26.4 26.4 0 0 0 8.521-1.424c6.649-2.27 12.017-6.993 15.113-13.3l41.724-84.977h33.792l28.899 158h-307.4l27.034-158zM373.36 62.11a2.95 2.95 0 0 1 3.941-1.345l20.394 10.013c.953.468 1.342 1.261 1.489 1.692s.324 1.296-.144 2.249l-106.77 217.45a14.2 14.2 0 0 1-8.219 7.232 14.2 14.2 0 0 1-10.925-.697c-3.43-1.684-5.999-4.603-7.233-8.219s-.987-7.496.697-10.925zM72.53 191.48h223.94l-4.419 9h-170.02a6 6 0 0 0-5.914 4.988l-5.991 35.012H61.4l11.133-49zm-47.488 209 16.132-71h53.721l-7.869 45.988a6 6 0 0 0 5.914 7.012h321.71a6 6 0 0 0 5.901-7.08l-31.094-170a6 6 0 0 0-5.902-4.92h-32.9l4.419-9h44.856l47.489 209H25.039z"/></svg>
                         </div>
-                        <p class="text-lg">Цифровой оригинал-макет можно повторно печатать на футболках и кружках</p>
+                        <p class="advantage-card__text">Цифровой оригинал-макет можно повторно печатать на футболках и кружках</p>
                     </div>
 
                     <!-- Преимущество 3 -->
-                    <div class="bg-white rounded-lg p-6 text-left text-dark">
-                        <div class="w-16 h-16 mb-4 flex items-center justify-start">
-                            <img src="../../../icons/icon-1.svg" alt="У фотомозаики напечатанной на холсте срок службы составля..." class="w-10 h-10" style="filter: invert(53%) sepia(90%) saturate(1207%) hue-rotate(187deg) brightness(94%) contrast(89%);">
+                    <div class="advantage-card">
+                        <div class="advantage-card__icon">
+                            <svg class="icon-advantage" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 325.9 325.9" aria-hidden="true"><path d="M297.4 47.8h-24.5v-7.1c0-9.3-7.5-16.8-16.8-16.8H69.7c-9.3 0-16.8 7.5-16.8 16.8v7.1H28.5C12.7 47.8 0 60.5 0 76.2V116c0 12.6 8.3 23.2 19.7 27v115.7L9.5 289.6c-1.6 5 1 10.3 6 11.9 1 .3 2 .5 3 .5 4 0 7.7-2.5 9-6.5l10.7-32.4h.4v-1.3l10.2-30.9c1.6-5-1-10.3-6-11.9-1.4-.5-2.8-.5-4.2-.4v-74.1h22.9v111.4h202.9V144.5h17.2v69.4c-2.4-1.9-5.7-2.5-8.8-1.5-5 1.6-7.6 7-6 11.9l21.3 64.6c1.3 4 5 6.5 9 6.5 1 0 2-.2 3-.5 5-1.6 7.6-7 6-11.9l-6.6-19.9h1V144.2c14.3-1.5 25.4-13.5 25.4-28.2V76.2c0-15.7-12.8-28.4-28.5-28.4M63.7 40.7c0-3.3 2.7-6 6-6h186.4c3.3 0 6 2.7 6 6v7.1H63.7zm189.9 103.8v100.6H72.3V123.9c0-8.1 4.1-19.5 8.9-24.8l8.7-9.6h146l8.7 9.6c4.8 5.3 8.9 16.7 8.9 24.8v20.6z"/><path d="M232.7 106.4H93.2c-3 0-5.4 2.4-5.4 5.4s2.4 5.4 5.4 5.4h139.5c3 0 5.4-2.4 5.4-5.4s-2.5-5.4-5.4-5.4"/></svg>
                         </div>
-                        <p class="text-lg">У фотомозаики напечатанной на холсте срок службы составляет свыше 50-ти лет</p>
+                        <p class="advantage-card__text">У фотомозаики напечатанной на холсте срок службы составляет свыше 50-ти лет</p>
                     </div>
 
                     <!-- Преимущество 4 -->
-                    <div class="bg-white rounded-lg p-6 text-left text-dark">
-                        <div class="w-16 h-16 mb-4 flex items-center justify-start">
-                            <img src="../../../icons/icon-25.svg" alt="Изготовление точно в срок. Доставка по России" class="w-10 h-10" style="filter: invert(53%) sepia(90%) saturate(1207%) hue-rotate(187deg) brightness(94%) contrast(89%);">
+                    <div class="advantage-card">
+                        <div class="advantage-card__icon">
+                            <svg class="icon-advantage" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-hidden="true"><path d="M408.74 143.26a218 218 0 0 0-37.003-29.729l14.438-25.008 16.143 9.32a8 8 0 0 0 10.929-2.928 8 8 0 0 0-2.928-10.928l-45.883-26.49a8 8 0 0 0-8 13.856l15.883 9.17-14.387 24.919c-28.689-15.393-60.65-24.082-93.927-25.286v-.966c18.236-3.716 32-19.878 32-39.195 0-22.056-17.944-40-40-40s-40 17.944-40 40c0 19.316 13.764 35.479 32 39.195v.966c-54.694 1.979-105.83 24.199-144.74 63.104C62.468 184.058 40 238.3 40 296s22.468 111.94 63.265 152.74 95.039 63.265 152.74 63.265 111.94-22.468 152.74-63.265S472.01 353.7 472.01 296s-22.468-111.94-63.265-152.74zM232 40c0-13.233 10.767-24 24-24s24 10.767 24 24c0 10.429-6.689 19.321-16 22.624V40a8 8 0 0 0-16 0v22.624c-9.311-3.303-16-12.195-16-22.624m24 456c-110.28 0-200-89.72-200-200S145.72 96 256 96s200 89.72 200 200-89.72 200-200 200"/><path d="M412.77 199.63a8 8 0 0 0-11.007-2.616 8 8 0 0 0-2.616 11.007c16.258 26.393 24.851 56.816 24.851 87.981 0 92.636-75.364 168-168 168s-168-75.364-168-168 75.364-168 168-168c31.154 0 61.567 8.587 87.953 24.834a8 8 0 0 0 11.006-2.618 8 8 0 0 0-2.618-11.007c-28.908-17.8-62.223-27.209-96.341-27.209-101.46 0-184 82.542-184 184s82.542 184 184 184 184-82.542 184-184c0-34.13-9.416-67.455-27.228-96.372"/><path d="M368 170.77a170 170 0 0 1 13.229 13.229 7.98 7.98 0 0 0 5.964 2.665 8 8 0 0 0 5.958-13.335 186 186 0 0 0-14.481-14.48 8 8 0 0 0-11.296.626A7.997 7.997 0 0 0 368 170.77m-62.06-18.33c-15.648-5.458-32.449-8.436-49.935-8.436a8 8 0 0 0-8 8v144c0 2.122.843 4.156 2.343 5.657l101.82 101.82c1.562 1.562 3.609 2.343 5.657 2.343s4.095-.781 5.657-2.343c28.708-28.709 44.519-66.879 44.519-107.48 0-12.752-1.587-25.139-4.559-36.983a8 8 0 0 0-.242-.985 151 151 0 0 0-13.929-35.062 8 8 0 0 0-.831-1.485 152.8 152.8 0 0 0-20.273-27.956 8 8 0 0 0-.778-.918 8 8 0 0 0-.488-.44c-16.381-17.486-36.835-31.107-59.836-39.336a8 8 0 0 0-1.129-.399zm17.065 25.25-59 59v-25.372l41.846-41.847a135.5 135.5 0 0 1 17.154 8.219m27.448 20.553-86.448 86.447v-25.372l72.705-72.705a137 137 0 0 1 13.743 11.63m21.403 26.596-87.851 87.851-12.686-12.686 89.979-89.978a137 137 0 0 1 10.558 14.813m14.76 33.241-78.611 78.611-12.686-12.687 84.418-84.418a135 135 0 0 1 6.879 18.494m5.389 37.924c0 1.597-.036 3.188-.091 4.776l-59.909 59.91-12.686-12.686 71.313-71.313a136.6 136.6 0 0 1 1.373 19.313m-103.3-132.02-24.701 24.702v-28.454a135.4 135.4 0 0 1 24.701 3.752m68.96 222.36-14.347-14.347 45.205-45.205c-5.071 22.015-15.582 42.408-30.858 59.552"/></svg>
                         </div>
-                        <p class="text-lg">Изготовление точно в срок. Доставка по России</p>
+                        <p class="advantage-card__text">Изготовление точно в срок. Доставка по России</p>
                     </div>
 
                     <!-- Преимущество 5 -->
-                    <div class="bg-white rounded-lg p-6 text-left text-dark">
-                        <div class="w-16 h-16 mb-4 flex items-center justify-start">
-                            <img src="../../../icons/icon-5.svg" alt="Оплата за печать и оформление при получении" class="w-10 h-10" style="filter: invert(53%) sepia(90%) saturate(1207%) hue-rotate(187deg) brightness(94%) contrast(89%);">
+                    <div class="advantage-card">
+                        <div class="advantage-card__icon">
+                            <svg class="icon-advantage" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612" aria-hidden="true"><path d="M592.9 306c0-79.2-32.1-150.9-84-202.9-52-51.9-123.7-84-202.9-84s-150.9 32.1-202.8 84c-52 52-84.1 123.7-84.1 202.9s32.1 151 84 202.9 123.6 84 202.8 84 150.9-32.1 202.9-84 84.1-123.7 84.1-202.9M522.4 89.6C577.8 145 612 221.5 612 306s-34.2 161-89.6 216.4S390.5 612 306 612s-161-34.2-216.4-89.6C34.3 467 0 390.5 0 306S34.2 145 89.6 89.6C145 34.3 221.5 0 306 0s161 34.2 216.4 89.6"/><path d="M296.5 439.9c5.3 0 9.6 4.3 9.6 9.6s-4.3 9.6-9.6 9.6H220c-5.3 0-9.6-4.3-9.6-9.6s4.3-9.6 9.6-9.6zm38.2-95.6c-5.3 0-9.6-4.3-9.6-9.6s4.3-9.6 9.6-9.6c18.5 0 35.2-7.5 47.3-19.6l.5-.5c11.8-12 19.1-28.6 19.1-46.8 0-18.5-7.5-35.2-19.6-47.3l-.5-.5c-12.1-11.8-28.6-19.1-46.8-19.1H220c-5.3 0-9.6-4.3-9.6-9.6s4.3-9.6 9.6-9.6h114.8c23.4 0 44.7 9.4 60.2 24.7l.6.6c15.6 15.6 25.2 37.1 25.2 60.9 0 23.4-9.4 44.7-24.6 60.2l-.6.6c-15.6 15.5-37.1 25.2-60.9 25.2"/><path d="M219.9 344.3c-5.3 0-9.6-4.3-9.6-9.6s4.3-9.6 9.6-9.6h114.8c5.3 0 9.6 4.3 9.6 9.6s-4.3 9.6-9.6 9.6z"/><path d="M267.7 449.5c0 5.3-4.3 9.6-9.6 9.6s-9.6-4.3-9.6-9.6V181.7c0-5.3 4.3-9.6 9.6-9.6s9.6 4.3 9.6 9.6z"/><path d="M219.9 382.5c-5.3 0-9.6-4.3-9.6-9.6s4.3-9.6 9.6-9.6h133.9c5.3 0 9.6 4.3 9.6 9.6s-4.3 9.6-9.6 9.6z"/></svg>
                         </div>
-                        <p class="text-lg">Оплата за печать и оформление при получении</p>
+                        <p class="advantage-card__text">Оплата за печать и оформление при получении</p>
                     </div>
 
                     <!-- Преимущество 6 -->
-                    <div class="bg-white rounded-lg p-6 text-left text-dark">
-                        <div class="w-16 h-16 mb-4 flex items-center justify-start">
-                            <img src="../../../icons/icon-6.svg" alt="Гарантия 5 лет" class="w-10 h-10" style="filter: invert(53%) sepia(90%) saturate(1207%) hue-rotate(187deg) brightness(94%) contrast(89%);">
+                    <div class="advantage-card">
+                        <div class="advantage-card__icon">
+                            <svg class="icon-advantage" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 214.3 214.3" aria-hidden="true"><path d="M196.9 55.2c-.1-5.8-.2-11.2-.2-16.5 0-4.1-3.4-7.5-7.5-7.5-32.1 0-56.5-9.2-76.9-29-2.9-2.8-7.5-2.8-10.5 0C81.4 22 57 31.2 25 31.2c-4.1 0-7.5 3.4-7.5 7.5 0 5.3-.1 10.8-.2 16.5-1 53.8-2.4 127.6 87.3 158.7.8.3 1.6.4 2.5.4.8 0 1.7-.1 2.5-.4C199.4 182.7 198 109 196.9 55.2m-89.8 143.6c-77-28-75.8-89.2-74.8-143.4.1-3.2.1-6.4.2-9.5 30-1.3 54.1-10.4 74.6-28.3 20.6 17.9 44.6 27 74.6 28.3 0 3.1.1 6.2.2 9.5 1.1 54.2 2.2 115.4-74.8 143.4"/><path d="m133 81.1-36.2 36.2-15.4-15.4c-2.9-2.9-7.7-2.9-10.6 0s-2.9 7.7 0 10.6l20.8 20.8c1.5 1.5 3.4 2.2 5.3 2.2s3.8-.7 5.3-2.2l41.5-41.5c2.9-2.9 2.9-7.7 0-10.6-3.1-3-7.8-3-10.7-.1"/></svg>
                         </div>
-                        <p class="text-lg">Гарантия 5 лет</p>
+                        <p class="advantage-card__text">Гарантия 5 лет</p>
                     </div>
                 </div>
             </div>
@@ -693,15 +663,7 @@
                             </svg>
                         </div>
                         
-                        <!-- Видео (YouTube iframe) -->
-                        <iframe 
-                            class="absolute inset-0 w-full h-full hidden group-[.video-playing]:block"
-                            loading="lazy"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen
-                            data-src="https://www.youtube.com/embed/_VGKE0Q9hWI?rel=0&amp;showinfo=0"
-                            title="Видео. Фотомозаика для Сергея Лазарева"
-                        ></iframe>
+                        <!-- Видео (YouTube iframe) создается по клику -->
                     </div>
                     <h3 class="text-lg text-white mt-4 text-center">Видео. Фотомозаика для Сергея Лазарева</h3>
                 </div>
@@ -744,10 +706,10 @@
                     Создай своё произведение искусства
                 </h2>
                 <div class="mt-10 flex flex-col md:flex-row items-center gap-4 md:gap-x-6 xl:mt-0 xl:shrink-0">
-                    <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30 w-full md:w-auto text-center">
+                    <a href="https://muse.ooo/order/" class="btn-primary w-full md:w-auto text-center">
                         Заказать
                     </a>
-                    <a href="#callback" class="inline-block px-6 py-2 bg-secondary hover:bg-white text-dark rounded uppercase transition-colors w-full md:w-auto text-center">
+                    <a href="#callback" class="btn-secondary w-full md:w-auto text-center">
                         Обратный звонок
                     </a>
                 </div>
@@ -891,6 +853,27 @@
             
             updateActiveLink();
         })();
+    </script>
+
+    <script>
+    document.querySelectorAll('[data-video-cover]').forEach(function(cover) {
+        const playBtn = cover.querySelector('[data-play-btn]');
+        if (!playBtn) return;
+
+        playBtn.addEventListener('click', function() {
+            if (cover.classList.contains('video-playing')) return;
+
+            const iframe = document.createElement('iframe');
+            iframe.className = 'absolute inset-0 w-full h-full';
+            iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+            iframe.allowFullscreen = true;
+            iframe.title = 'Видео. Фотомозаика для Сергея Лазарева';
+            iframe.src = 'https://www.youtube.com/embed/_VGKE0Q9hWI?rel=0&showinfo=0&autoplay=1';
+
+            cover.appendChild(iframe);
+            cover.classList.add('video-playing');
+        });
+    });
     </script>
 	<!-- Drift JS -->
 <script src="https://muse.ooo/js/Drift.min.js"></script>
