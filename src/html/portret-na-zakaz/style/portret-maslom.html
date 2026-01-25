@@ -249,7 +249,7 @@
                             width="458"
                             height="580"
                             class="w-full max-w-md mx-auto lg:ml-auto rounded-lg shadow-2xl"
-                            fetchpriority="high"
+                            loading="eager" decoding="async" fetchpriority="high"
                         >
                     </div>
                 </div>
@@ -448,10 +448,37 @@
                     
                     <!-- Слайдер изображений (на ПК справа, на мобильном сверху) -->
                     <div class="order-1 lg:order-2">
+                        <!-- ВИДЕО-ШАБЛОН (раскомментировать при готовом видео)
+                        1) ВСТАВЬТЕ КНОПКУ в <el-tab-list>:
+                        <button class="relative flex h-16 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden" data-video-tab>
+                            <span class="sr-only">[ТЕКСТ: Видео]</span>
+                            <span class="absolute inset-0 overflow-hidden rounded">
+                                <img src="[URL_82x62.webp]" alt="[ТЕКСТ: Описание видео]" title="[ТЕКСТ: Заголовок видео]" width="82" height="62" class="size-full object-cover" loading="lazy" decoding="async" />
+                                <span class="absolute inset-0 flex items-center justify-center bg-black/30">
+                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                </span>
+                            </span>
+                            <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
+                        </button>
+
+                        2) ВСТАВЬТЕ ПАНЕЛЬ в <el-tab-panels>:
+                        <div hidden data-video-panel>
+                            <div class="video-cover aspect-video rounded-lg" data-video-cover>
+                                <img src="[URL_458x258.webp]" alt="[ТЕКСТ: Обложка видео]" width="458" height="258" class="w-full h-full object-cover rounded-lg" loading="lazy" decoding="async" />
+                                <div class="video-play-icon cursor-pointer" data-play-btn>
+                                    <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg"><path d="M8 5v14l11-7z"/></svg>
+                                </div>
+                                <video title="[ТЕКСТ: Заголовок видео]" preload="none" playsinline class="hidden">
+                                    <source src="[URL.webm]" type="video/webm">
+                                    <source src="[URL.mp4]" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                        -->
                         <el-tab-group class="flex flex-col-reverse">
                             <!-- Миниатюры -->
                             <div class="mx-auto mt-4 w-full max-w-md">
-                                <el-tab-list class="grid grid-cols-3 gap-3">
+                                <el-tab-list class="grid grid-cols-4 gap-3">
                                     <button class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
                                         <span class="sr-only">Лицевая сторона портрета маслом</span>
                                         <span class="absolute inset-0 overflow-hidden rounded">
@@ -473,6 +500,16 @@
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
                                     </button>
+                                    <button class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden hidden" data-video-tab>
+                                        <span class="sr-only">Видео</span>
+                                        <span class="absolute inset-0 overflow-hidden rounded">
+                                            <img src="https://muse.ooo/upload/imgsite/canvas-on-wall-345-185.webp" alt="Девушка вешает картину на стену" title="Девушка вешает картину на стену" class="size-full object-cover" loading="lazy" decoding="async" width="345" height="185" />
+                                            <span class="absolute inset-0 flex items-center justify-center bg-black/30">
+                                                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                            </span>
+                                        </span>
+                                        <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
+                                    </button>
                                 </el-tab-list>
                             </div>
                             
@@ -486,6 +523,18 @@
                                 </div>
                                 <div hidden>
                                     <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-442.webp" alt="Портрет маслом на холсте" title="Портрет маслом на холсте" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
+                                </div>
+                                <div hidden data-video-panel class="hidden">
+                                    <div class="video-cover aspect-video rounded-lg" data-video-cover>
+                                        <img src="https://muse.ooo/upload/imgsite/canvas-on-wall-345-185.webp" alt="Девушка вешает картину на стену" class="w-full h-full object-cover rounded-lg" loading="lazy" decoding="async" width="345" height="185" />
+                                        <div class="video-play-icon cursor-pointer" data-play-btn>
+                                            <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg"><path d="M8 5v14l11-7z"/></svg>
+                                        </div>
+                                        <video title="Девушка вешает картину на стену" preload="none" playsinline class="hidden">
+                                            <source src="https://muse.ooo/video/devushka-veshaet-kartinu-na-stenu.webm" type="video/webm">
+                                            <source src="https://muse.ooo/video/devushka-veshaet-kartinu-na-stenu.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
                                 </div>
                             </el-tab-panels>
                         </el-tab-group>
@@ -769,16 +818,16 @@
     </div>
 </section>
         <!-- CTA (структура как в foto-na-kholste) -->
-        <section class="bg-dark py-24 md:py-32">
-            <div class="mx-auto px-4 max-w-[1170px] xl:flex xl:items-center xl:justify-between">
-                <h2 class="text-2xl font-light tracking-tight text-white">
+        <section class="cta-section">
+            <div class="cta-container">
+                <h2 class="cta-title">
                     Создай своё произведение искусства
                 </h2>
-                <div class="mt-10 flex flex-col md:flex-row items-center gap-4 md:gap-x-6 xl:mt-0 xl:shrink-0">
+                <div class="cta-actions">
                     <a href="https://muse.ooo/order/" class="btn-primary">
                         Заказать
                     </a>
-                    <a href="#callback" class="btn-secondary">
+                    <a href="#callback" class="btn-inverse">
                         Обратный звонок
                     </a>
                 </div>
@@ -879,6 +928,51 @@
             </div>
         </div>
     </footer>
+
+    <script>
+    function playVideoCover(cover) {
+        if (!cover || cover.classList.contains('video-playing')) return;
+
+        cover.classList.add('video-playing');
+
+        const video = cover.querySelector('video');
+        if (video) {
+            video.classList.remove('hidden');
+            video.play();
+        }
+
+        const iframe = cover.querySelector('iframe');
+        if (iframe && iframe.dataset.src) {
+            iframe.src = iframe.dataset.src + '&autoplay=1';
+        }
+    }
+
+    document.querySelectorAll('[data-video-cover]').forEach(function(cover) {
+        const playBtn = cover.querySelector('[data-play-btn]');
+        if (!playBtn) return;
+
+        playBtn.addEventListener('click', function() {
+            playVideoCover(cover);
+        });
+    });
+
+    document.querySelectorAll('[data-video-tab]').forEach(function(tab) {
+        tab.addEventListener('click', function() {
+            const group = tab.closest('el-tab-group');
+            if (!group) return;
+
+            const panel = group.querySelector('[data-video-panel]');
+            if (!panel) return;
+
+            const cover = panel.querySelector('[data-video-cover]');
+            if (!cover) return;
+
+            setTimeout(function() {
+                playVideoCover(cover);
+            }, 0);
+        });
+    });
+    </script>
 
     <!-- Navigation Scripts -->
     <script src="/js/nav.js?v=20260125"></script>

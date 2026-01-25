@@ -151,8 +151,17 @@
         </el-dialog>
     </header>
 
+    <!-- Page Navigator -->
+    <nav class="page-navigator" id="page-navigator">
+        <ul>
+            <li><a href="#hero" class="inner-link" data-title="Главная"></a></li>
+            <li><a href="#portret-po-foto" class="inner-link" data-title="Портреты"></a></li>
+            <li><a href="#pechat-na-kholste" class="inner-link" data-title="Печать"></a></li>
+        </ul>
+    </nav>
+
     <!-- Hero Section -->
-    <section class="relative h-[65vh] lg:h-screen overflow-hidden bg-dark">
+    <section id="hero" class="relative h-[65vh] lg:h-screen overflow-hidden bg-dark">
         <video class="absolute inset-0 w-full h-full object-cover hidden lg:block" autoplay loop muted playsinline preload="none" title="Ролик про стили портретов от Muse.">
             <source src="https://muse.ooo/video/portret-po-foto.webm" media="(min-width: 1024px)" type="video/webm">
             <source src="https://muse.ooo/video/portret-po-foto.mp4" media="(min-width: 1024px)" type="video/mp4">
@@ -180,60 +189,82 @@
 
     <main>
         <!-- Секция Преимущества -->
-        <section class="bg-secondary py-16 lg:py-24">
+        <section class="advantages-section advantages-section--light">
+            <div class="container mb-12">
+                <h2 class="advantages-title">Преимущества</h2>
+            </div>
             <div class="container">
-                <div class="mx-auto max-w-2xl mb-12 text-center">
-                    <h2 class="text-3xl lg:text-4xl font-light text-dark">Преимущества</h2>
-                </div>
-                <div class="mx-auto mt-16 max-w-2xl md:mt-20 xl:mt-24 xl:max-w-none">
-                    <div class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 xl:max-w-none xl:grid-cols-3">
-                        <!-- Преимущество 1: Собственное производство -->
-                        <div class="flex flex-col p-6 border border-gray-200 rounded bg-white">
-                            <div class="mb-6 flex size-10 items-center justify-start">
-                                <img src="../icons/icon-1.svg" alt="Собственное производство" class="w-10 h-10" style="filter: invert(53%) sepia(90%) saturate(1207%) hue-rotate(187deg) brightness(94%) contrast(89%);">
-                            </div>
-                            <span class="text-xl text-dark">Собственное производство</span>
+                <div class="advantages-grid">
+                    <!-- Преимущество 1: Собственное производство -->
+                    <div class="advantage-card">
+                        <div class="advantage-card__icon">
+                            <svg class="icon-advantage" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 325.9 325.9" aria-hidden="true">
+                                <path d="M297.4 47.8h-24.5v-7.1c0-9.3-7.5-16.8-16.8-16.8H69.7c-9.3 0-16.8 7.5-16.8 16.8v7.1H28.5C12.7 47.8 0 60.5 0 76.2v39.8c0 12.6 8.3 23.2 19.7 27v115.7L9.5 289.6c-1.6 5 1 10.3 6 11.9 1 0.3 2 0.5 3 0.5 4 0 7.7-2.5 9-6.5l10.7-32.4h0.4v-1.3L48.8 230.9c1.6-5-1-10.3-6-11.9 -1.4-0.5-2.8-0.5-4.2-0.4v-74.1h22.9v111.4h202.9V144.5h17.2v69.4c-2.4-1.9-5.7-2.5-8.8-1.5 -5 1.6-7.6 7-6 11.9l21.3 64.6c1.3 4 5 6.5 9 6.5 1 0 2-0.2 3-0.5 5-1.6 7.6-7 6-11.9l-6.6-19.9h1V144.2c14.3-1.5 25.4-13.5 25.4-28.2V76.2C325.9 60.5 313.1 47.8 297.4 47.8zM63.7 40.7c0-3.3 2.7-6 6-6H256.1c3.3 0 6 2.7 6 6v7.1H63.7V40.7zM253.6 144.5v100.6H72.3V144.5 123.9c0-8.1 4.1-19.5 8.9-24.8l8.7-9.6h146l8.7 9.6c4.8 5.3 8.9 16.7 8.9 24.8v20.6H253.6z"/>
+                                <path d="M232.7 106.4H93.2c-3 0-5.4 2.4-5.4 5.4 0 3 2.4 5.4 5.4 5.4h139.5c3 0 5.4-2.4 5.4-5.4C238.1 108.8 235.6 106.4 232.7 106.4z"/>
+                            </svg>
                         </div>
+                        <p class="advantage-card__text">Собственное производство</p>
+                    </div>
 
-                        <!-- Преимущество 2: Профессиональный дизайн -->
-                        <div class="flex flex-col p-6 border border-gray-200 rounded bg-white">
-                            <div class="mb-6 flex size-10 items-center justify-start">
-                                <img src="../icons/icon-2.svg" alt="Профессиональный дизайн" class="w-10 h-10" style="filter: invert(53%) sepia(90%) saturate(1207%) hue-rotate(187deg) brightness(94%) contrast(89%);">
-                            </div>
-                            <span class="text-xl text-dark">Профессиональный дизайн</span>
+                    <!-- Преимущество 2: Профессиональный дизайн -->
+                    <div class="advantage-card">
+                        <div class="advantage-card__icon">
+                            <svg class="icon-advantage" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.3 19.3" aria-hidden="true">
+                                <path d="M7.6 10.3c-0.4 0.4-0.5 0.7-0.9 1.5 0.3 0.2 0.9 0.7 1.3 1.6 0.8-0.5 1.2-0.5 1.7-0.9 2.9-2.4 9.9-11 9.6-11.3C19 0.8 10.1 7.5 7.6 10.3zM5.9 12.4c-1.2-0.2-2.5 0.6-3.3 2.5 -0.8 2-2.3 2.8-2.6 2.7 1.5 0.6 6.2 2 7.3-3.4C6.9 12.9 5.9 12.4 5.9 12.4z"/>
+                            </svg>
                         </div>
+                        <p class="advantage-card__text">Профессиональный дизайн</p>
+                    </div>
 
-                        <!-- Преимущество 3: Оформление в багет -->
-                        <div class="flex flex-col p-6 border border-gray-200 rounded bg-white">
-                            <div class="mb-6 flex size-10 items-center justify-start">
-                                <img src="../icons/icon-3.svg" alt="Оформление в багет" class="w-10 h-10" style="filter: invert(53%) sepia(90%) saturate(1207%) hue-rotate(187deg) brightness(94%) contrast(89%);">
-                            </div>
-                            <span class="text-xl text-dark">Оформление<br>в багет</span>
+                    <!-- Преимущество 3: Оформление в багет -->
+                    <div class="advantage-card">
+                        <div class="advantage-card__icon">
+                            <svg class="icon-advantage" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 325.893 325.893" aria-hidden="true">
+                                <g>
+                                    <polygon points="36.894,39.968 8.695,39.968 27.142,58.415 45.588,76.862 281.072,76.862 299.52,58.415 317.966,39.968 288.999,39.968"/>
+                                    <polygon points="36.894,241.105 36.894,85.557 18.447,67.11 0,48.663 0,76.862 0,249.031 0,277.998 18.447,259.552"/>
+                                    <polygon points="280.304,249.031 46.357,249.031 27.91,267.479 9.464,285.925 36.894,285.925 288.999,285.925 317.197,285.925 298.751,267.479"/>
+                                    <polygon points="288.999,86.325 288.999,240.336 307.445,258.783 325.893,277.229 325.893,249.031 325.893,76.862 325.893,49.432 307.445,67.879"/>
+                                </g>
+                            </svg>
                         </div>
+                        <p class="advantage-card__text">Оформление<br>в багет</p>
+                    </div>
 
-                        <!-- Преимущество 4: Доставка по России -->
-                        <div class="flex flex-col p-6 border border-gray-200 rounded bg-white">
-                            <div class="mb-6 flex size-10 items-center justify-start">
-                                <img src="../icons/icon-4.svg" alt="Доставка по России" class="w-10 h-10" style="filter: invert(53%) sepia(90%) saturate(1207%) hue-rotate(187deg) brightness(94%) contrast(89%);">
-                            </div>
-                            <span class="text-xl text-dark">Доставка по<br>России</span>
+                    <!-- Преимущество 4: Доставка по России -->
+                    <div class="advantage-card">
+                        <div class="advantage-card__icon">
+                            <svg class="icon-advantage" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 458.9 458.9" aria-hidden="true">
+                                <path d="M451.2 95.4l0.3-0.8L238.6 7.9l-36.1 13.7c3.8 4.1 7.3 8.4 10.7 12.9l25.2-9.6 51.2 20.9c15.6-2.5 29.6-1.7 41.6 2.6 14 5.1 24.7 14.3 32.3 27.5l67.5 27.5 -55.4 21.8c-0.4 6.5-2 13.3-5.6 19.3l65.8-26v244.7L237.4 441.5V196.8l92.3-36.4c-8.3-1.1-17.2-3.5-26.4-6.6l-73.8 29.1 -71-28 35-15.9c-2.9-1.2-5.6-3.1-7.6-5.7 -3.1-3.8-4.7-8.6-4.4-13.4 -1.9-2.2-7.4-4.7-13.9-7l-56 23.6 -81.7-32.2 56.4-21.4c-4.4-3.6-8-7.9-10.4-13L8 95.5l-0.7-0.3v0.6L7.2 95.8l0 0.1v278.1L221.5 458.6v0.3h15.9v-0.3l214.3-84.5V95.2L451.2 95.4zM96.5 392.2l-73.4-29V118.6l73.4 29V392.2zM221.5 441.5l-83.2-33.6 0.3-243.8 83 32.7V441.5zM143.4 97.4c19.3 5.2 48.5 13.2 47.5 22.8 -0.7 6.5 4.1 12.4 10.6 13.1l0 0c3.4 0.4 6.6-0.8 9-2.9 0.7 0.6 1.4 1.2 2.2 1.6 5.8 3 13 0.8 16.1-5 0.1-0.2 0.3-0.4 0.5-0.6 2.9 1.7 6.5 2.2 9.9 0.9 1.5-0.5 2.8-1.4 4-2.4 12.2 2.2 29.4 8.9 41.5 13.6 17.6 6.8 34.6 13.3 49 14.8 10.3 1.1 19.3-0.5 26.1-6.4 14.4-12.6 8.7-36.8 6.8-44.7 -5.6-23.6-17.9-39-36.6-45.7 -30.4-11-70.2 4.9-98.8 20.6C216.3 47.7 191.2 9.6 158.4 1.6c-19.3-4.7-38 1.3-55.8 17.8C85.9 35 79.2 48.8 82.4 61.6 87.5 82.3 114.7 89.6 143.4 97.4zM321.9 78.9c10.8 3.9 17.8 13.4 21.5 28.9 4.2 17.6 0.8 21.2 0.7 21.3 -5.5 4.8-35-6.6-50.8-12.7 -17.2-6.6-35.5-13.7-51.2-15.3 -0.3-0.7-0.6-1.4-0.9-2.1C267.2 84.6 300.4 71.2 321.9 78.9zM118.8 36.8c11.7-10.9 22.7-14.8 33.9-12.1 23.1 5.6 44.2 37.6 57.9 64.8 -3.3 2.1-6.2 4.1-8.6 5.7 -12.8-10-33.3-15.6-52.4-20.8 -15.9-4.3-42.4-11.5-44.1-18.5C105.5 55.7 104.4 50.3 118.8 36.8z"/>
+                            </svg>
                         </div>
+                        <p class="advantage-card__text">Доставка по<br>России</p>
+                    </div>
 
-                        <!-- Преимущество 5: Полная оплата при получении -->
-                        <div class="flex flex-col p-6 border border-gray-200 rounded bg-white">
-                            <div class="mb-6 flex size-10 items-center justify-start">
-                                <img src="../icons/icon-5.svg" alt="Полная оплата при получении" class="w-10 h-10" style="filter: invert(53%) sepia(90%) saturate(1207%) hue-rotate(187deg) brightness(94%) contrast(89%);">
-                            </div>
-                            <span class="text-xl text-dark">Полная оплата <br> при получении</span>
+                    <!-- Преимущество 5: Полная оплата при получении -->
+                    <div class="advantage-card">
+                        <div class="advantage-card__icon">
+                            <svg class="icon-advantage" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612" aria-hidden="true">
+                                <path d="M592.9 306c0-79.2-32.1-150.9-84-202.9C456.9 51.2 385.2 19.1 306 19.1s-150.9 32.1-202.8 84C51.2 155.1 19.1 226.8 19.1 306s32.1 151 84 202.9 123.6 84 202.8 84c79.2 0 150.9-32.1 202.9-84C560.8 457 592.9 385.2 592.9 306L592.9 306zM522.4 89.6C577.8 145 612 221.5 612 306c0 84.5-34.2 161-89.6 216.4C467 577.8 390.5 612 306 612s-161-34.2-216.4-89.6C34.3 467 0 390.5 0 306c0-84.5 34.2-161 89.6-216.4C145 34.3 221.5 0 306 0 390.5 0 467 34.2 522.4 89.6z"/>
+                                <path d="M296.5 439.9c5.3 0 9.6 4.3 9.6 9.6 0 5.3-4.3 9.6-9.6 9.6h-76.5c-5.3 0-9.6-4.3-9.6-9.6s4.3-9.6 9.6-9.6H296.5z"/>
+                                <path d="M334.7 344.3c-5.3 0-9.6-4.3-9.6-9.6 0-5.3 4.3-9.6 9.6-9.6 18.5 0 35.2-7.5 47.3-19.6l0.5-0.5c11.8-12 19.1-28.6 19.1-46.8 0-18.5-7.5-35.2-19.6-47.3l-0.5-0.5c-12.1-11.8-28.6-19.1-46.8-19.1H220c-5.3 0-9.6-4.3-9.6-9.6 0-5.3 4.3-9.6 9.6-9.6h114.8c23.4 0 44.7 9.4 60.2 24.7l0.6 0.6c15.6 15.6 25.2 37.1 25.2 60.9 0 23.4-9.4 44.7-24.6 60.2l-0.6 0.6C380 334.6 358.5 344.3 334.7 344.3z"/>
+                                <path d="M219.9 344.3c-5.3 0-9.6-4.3-9.6-9.6 0-5.3 4.3-9.6 9.6-9.6H334.7c5.3 0 9.6 4.3 9.6 9.6s-4.3 9.6-9.6 9.6H219.9z"/>
+                                <path d="M267.7 449.5c0 5.3-4.3 9.6-9.6 9.6 -5.3 0-9.6-4.3-9.6-9.6V181.7c0-5.3 4.3-9.6 9.6-9.6 5.3 0 9.6 4.3 9.6 9.6V449.5z"/>
+                                <path d="M219.9 382.5c-5.3 0-9.6-4.3-9.6-9.6 0-5.3 4.3-9.6 9.6-9.6h133.9c5.3 0 9.6 4.3 9.6 9.6 0 5.3-4.3 9.6-9.6 9.6H219.9z"/>
+                            </svg>
                         </div>
+                        <p class="advantage-card__text">Полная оплата <br> при получении</p>
+                    </div>
 
-                        <!-- Преимущество 6: Официальная гарантия -->
-                        <div class="flex flex-col p-6 border border-gray-200 rounded bg-white">
-                            <div class="mb-6 flex size-10 items-center justify-start">
-                                <img src="../icons/icon-6.svg" alt="Официальная гарантия" class="w-10 h-10" style="filter: invert(53%) sepia(90%) saturate(1207%) hue-rotate(187deg) brightness(94%) contrast(89%);">
-                            </div>
-                            <span class="text-xl text-dark">Официальная <br> гарантия</span>
+                    <!-- Преимущество 6: Официальная гарантия -->
+                    <div class="advantage-card">
+                        <div class="advantage-card__icon">
+                            <svg class="icon-advantage" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 214.3 214.3" aria-hidden="true">
+                                <path d="M196.9 55.2c-0.1-5.8-0.2-11.2-0.2-16.5 0-4.1-3.4-7.5-7.5-7.5 -32.1 0-56.5-9.2-76.9-29 -2.9-2.8-7.5-2.8-10.5 0 -20.4 19.8-44.8 29-76.8 29 -4.1 0-7.5 3.4-7.5 7.5 0 5.3-0.1 10.8-0.2 16.5 -1 53.8-2.4 127.6 87.3 158.7 0.8 0.3 1.6 0.4 2.5 0.4 0.8 0 1.7-0.1 2.5-0.4C199.4 182.7 198 109 196.9 55.2zM107.1 198.8c-77-28-75.8-89.2-74.8-143.4 0.1-3.2 0.1-6.4 0.2-9.5 30-1.3 54.1-10.4 74.6-28.3 20.6 17.9 44.6 27 74.6 28.3 0 3.1 0.1 6.2 0.2 9.5C183 109.6 184.1 170.8 107.1 198.8z"/>
+                                <path d="M133 81.1l-36.2 36.2 -15.4-15.4c-2.9-2.9-7.7-2.9-10.6 0 -2.9 2.9-2.9 7.7 0 10.6l20.8 20.8c1.5 1.5 3.4 2.2 5.3 2.2 1.9 0 3.8-0.7 5.3-2.2l41.5-41.5c2.9-2.9 2.9-7.7 0-10.6C140.6 78.2 135.9 78.2 133 81.1z"/>
+                            </svg>
                         </div>
+                        <p class="advantage-card__text">Официальная <br> гарантия</p>
                     </div>
                 </div>
             </div>
@@ -249,7 +280,7 @@
                 </div>
             </div>
 
-            <div class="carousel-scroll pb-4">
+            <div class="carousel-scroll carousel--tiles pb-4">
                 <div class="flex gap-0 px-4 min-w-max">
                     <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/portret-akvarelyu/">
@@ -374,7 +405,7 @@
                 <div class="container relative z-10">
                     <div class="max-w-2xl">
                         <h3 class="text-3xl lg:text-4xl font-light text-white mb-6">Видео о печати фото на холсте</h3>
-                        <a href="https://muse.ooo/pechat/foto-na-kholste/#order" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors">
+                        <a href="https://muse.ooo/pechat/foto-na-kholste/#order" class="btn-primary">
                             Перейти
                         </a>
                     </div>
@@ -522,37 +553,34 @@
         </section>
         <!-- Секция Логотипы клиентов -->
         <section class="py-16 bg-secondary">
-            <div class="container mx-auto px-4 mb-8">
-                <div class="text-center">
-                    <h3 class="text-3xl lg:text-4xl font-light text-dark">Нам доверяют</h3>
-                </div>
+            <div class="container mb-8 text-center">
+                <h3 class="text-3xl lg:text-4xl font-light text-dark">Нам доверяют</h3>
             </div>
-            <!-- Карусель логотипов -->
-            <div class="relative">
-                <div class="carousel-scroll py-8" id="logos-carousel">
-                    <div class="flex gap-8 items-center min-w-max mx-auto w-fit">
-                        <div class="flex-shrink-0 snap-center w-[73px] h-[50px] flex items-center justify-center">
+            <!-- Облако логотипов -->
+            <div class="container">
+                <div class="flex flex-wrap items-center justify-center gap-6 md:gap-8 lg:gap-10">
+                        <div class="w-[73px] h-[50px] flex items-center justify-center">
                             <img class="h-full w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" alt="Logo 1C" width="73" height="50" loading="lazy" decoding="async" src="data:image/webp;base64,UklGRoACAABXRUJQVlA4WAoAAAAQAAAASAAAMQAAQUxQSCYCAAABT6BEtg1akD9J041sJBHzH1Cks95oJUCutW1uGo2zSxC+ACW7ViK0SISzJWFYtiTKtA7I6klTA9Z8l7ueUaDaLSP6z8Bt20Z0d2/fL8g/L7Yroqdq2Uk9gxzVuJL0qIgn1ZLTopS2PSVdXdeQnmfCAaAq1+H6wNnXKF20VsvLp75zSHk1ZU7La+VSBwBSpSIL2m5ZlCalNJH4a+DvYZSuOVjnWm7clnSg5brBt1Cec4Rtz3VbC46VKWitQCwb+k+ss+DsELcNTVe0YM0hdaoTiNOkK9tCaQCMDeK4hkIGCcY30ra0L30dR7C2iJ/UIOJsVFHnYC/y78vjf6OjBOuDuIDuJ+hmiaJ9Sj9hVXvBxbViU9tirGSgdJsyw8ps7hGHEUdXeeeskkHXp1xS+sAv5Y1j7A0SrG4nCcwM4k9LtB3q+hlfCiEDzqrWN6rFsJr9zWpXhDhndKwdakXYCXv2efxMCFE36Kpb1Av7uYl4lFk0UhdR0cb08Uf6vz5tl4a0eqECyZ88XUhL2IudxLULif9jn/FbubpI6RMN/QjmXYbMsar0EyCk+bnLMuCxaa+BQ5Sfhyx+go4y3KFIHrNYW7wa9jzaH/KT2ahzsNqVNlwsc+fhfRbicMTeNSlrem6uM2kfYGHbUMr5ucpUGuzAQtoqkNtMRJ0nAIsK5D4bcb6BSy8kYn8WRXpR6HxGMtUZLopMHghptlpq0DJIqgTFDvkfCAAAVlA4IDQAAADQAwCdASpJADIAPm02mUmmJKOiIagAwA2JaQAADHX/KcOHDhxwFmAA/uG7H1beG0IAAAAA">
                         </div>
-                        <div class="flex-shrink-0 snap-center w-[73px] h-[50px] flex items-center justify-center">
+                        <div class="w-[73px] h-[50px] flex items-center justify-center">
                             <img class="h-full w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" alt="Logo Bashneft" width="73" height="50" loading="lazy" decoding="async" src="data:image/webp;base64,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">
                         </div>
-                        <div class="flex-shrink-0 snap-center w-[73px] h-[50px] flex items-center justify-center">
+                        <div class="w-[73px] h-[50px] flex items-center justify-center">
                             <img class="h-full w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" alt="Logo Gazprom Neft" width="73" height="50" loading="lazy" decoding="async" src="data:image/webp;base64,UklGRogCAABXRUJQVlA4WAoAAAAQAAAASAAAMQAAQUxQSDICAAABR6C0kRQ4fAWc5UdhQREx/4HmrSNGI8jZtu1JsxvUg/UF2wqYNpLOmB5Gy4efYwpttbsmUp6/zfu+1iljRP8Vtm3bMOmed+AvEQqOEewExwhneJSm91TBEeLZbOAIcctOcXiwZv0ah4fZuOvj8HCuk2N46K+eDr+K9b7pWYGuK7oOJkbSD6Ar8kj0rl6epvSiIogawVDpR82HKKp8R6dm+MbCphnWAPSLFfeqIh1Ws6WaRm53lFfTKOkmRSe/MEkDekSlWfHGVRFlanbtdd11JT2JP87TkutwZs5dLb6HQFpDvK4Ez7s8cJ/E2cvHWGBJyXrc4b1XaCwTjP+Ot8mZnW3nj2eaQ4Lqm2eCOfqtOXPZrWTxPZlqn7JvsyVJ1k19YxDff0qmpans67IiOFS0gmvZqSqL1ppYiTuK01eFB++3lW2oQvI1+hWSOsBuIfsp+Vu4WanvlXKiMwAwJF3353xNLlflHmhlL57cUkGrCvDP9/0mLIUZpmHaKjMsxVIA24CtG5aaU6IA4so2DoiMPIDNiwOl5HIn1uwwEwGAww38faPWI0/C8jbSoU9E7y9ElAQF0eglJ0pmpJnFaJvONde64hpsSuTpKd83Jg3rlSqYQv1KGHBX/U9xTmx/zDX0qCU8UmvTlfAkIc6aaGBpokI6tzkIuI61ybssiXtGHTtYNYD05oY7s8W/r3LuWlR2yuEyXEbRicLFSy6OOFpu2RcXAnTbNsQBy943VPwFAgAAVlA4IDAAAADQAwCdASpJADIAPm02mUmmJKOiIagAwA2JaQAADHThw4cOHDhwrAAA/uGkAAAAAAA=">
                         </div>
-                        <div class="flex-shrink-0 snap-center w-[73px] h-[50px] flex items-center justify-center">
+                        <div class="w-[73px] h-[50px] flex items-center justify-center">
                             <img class="h-full w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" alt="Logo Huawei" width="73" height="50" loading="lazy" decoding="async" src="data:image/webp;base64,UklGRvACAABXRUJQVlA4WAoAAAAQAAAASAAAMQAAQUxQSJoCAAABR6CmjSQ3eQBym+8YfP0R8x8QufI96xjIubW9TaTPga3JtcitmGRKTcTlJEKblnFLVk18fzefbJkNfUT/GTiSFKVWwHNd0FeQJdrTgEj83NFVIdYYEn0AjauMAe3QHIjcK1r2CMCnPYDyFSQAZOgAoHOFd1bOngAMnZStQvTBWoJFLgknjZVr6sizaVFK0eS5HAfmiGOYwhiheTpUbEgK2v6q7AHaV0lCWgEZK3Hm/JxzaAj4PfZX8f1R7siMNKUPvt3KyOEvE/h7LiGdYMSPs6id7ksa2aLHuPADqTrJdP0U0+QJpzht/Cho7WOKRhlNW3PILHlkip6MCRUp+YKokzrz4a0pjB2LYrJzyRzKRyNRmY+1J46dRPKs6+LEhwumn3k6D5UpLICoyKsdKf4dhiMAg/wEFuJyU+RNABRPoULzAEQFLiNIZGQdFla4JL2onRAVv/guS9IDP9OtrBB+hHKooO+fuMFPNmd4aB91/kG25niQxlfUbjJp1Ms1+bfCW923N4DtCsfKoOvtEhG9VmJl+DbmtBB5OaKsy9l5QkTWrTebzfq9N65B9Xsc95QispVqtVa9ZaJWrVbzOSdFe3757l1OGp3kufReXjy7hXnaXOuxeToFdeZWjFUx5dYle2RXgG7EqxBrQBdTILlB4jLKY4qsRuSqycsoag7955GtUbYgCiRdEm62Rm0nWxO3twWRTyT6jgxUQPMMLcuySztfdEfbbUs1bVTMoZOd0aGpgtHDbeHdYpZ7NIm3HzrUNp2P8qhZJZtNf21Swcpb1LuDhT+K+na936ZRY1kcvbbWK2/UfbHq80FIy8xKn1tKZ/Y/zugXWfEtYvuy8WZ3z6HQ/jykS1dPg5boypCyM2fjqoBGQCcOAABWUDggMAAAANADAJ0BKkkAMgA+bTaZSaYko6IhqADADYlpAAAMdOHDhw4cOHCsAAD+4aQAAAAAAA==">
                         </div>
-                        <div class="flex-shrink-0 snap-center w-[73px] h-[50px] flex items-center justify-center">
+                        <div class="w-[73px] h-[50px] flex items-center justify-center">
                             <img class="h-full w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" alt="Logo Lexus" width="73" height="50" loading="lazy" decoding="async" src="data:image/webp;base64,UklGRlACAABXRUJQVlA4WAoAAAAQAAAASAAAMQAAQUxQSPkBAAABN6CmkRQ4exLuAB9vRUfE/AfSSesFyLGtPW6bH7TTA5pqEKRckwSo2hx7DcQCYvLf/xZC/BgytxH9d+C2bSTJK+zc405+Af+LcKFcxE9uNcPoYg4/Yz0syy6inTKRbPNaTKFEviFa1h+Sncjyqp0b9IlX1etcMFfggYgn4INhCcqnLYlyRZwzgPxVJNBvLf1GHSJe3b3NlEWVqz0S+XPnSBuconR4Y7TlfvXMaJc5ctr1pnW9fa/nMYLcLF04fyHaN6/Neo3w6e2T4bTM4xHbfeDZL4AY+E4dvoX5wnciXxFt5lPhe5gVM0KNiG2gjcRLUL5ZRni6/RDbRxCJBDqcLADfbhFmpzecZCqKu9seAybsOMjdM/tpZGwfqrTbPnfOQTr8FsTNx+Ma2uFfsSF+JzWqHWu0n2GzWZiOLE9iNDMLIzfXg7+ilBDJk8ylfi3hTIcYNbbuT+lwFMTCV3uMVskbiKfb2iwiH0wC/GlLEbafDglA/rLmEGrRLwWDxN9Y0IOiGZYyTYDmhYvRSik9vNIFyIdls9PoJlOkC255+9Y0avUzAnCh9hzEz2wxh2AgBPD9usSD/ARca22ELqFTWh/TkBeoprF4at3CvZ/GVD5E1+pjvxSt+IEZyjT4qIdJa92bUT+NHq5pQKOaQqmDVKRAc4BfHQAAAFZQOCAwAAAA0AMAnQEqSQAyAD5tNplJpiSjoiGoAMANiWkAAAx04cOHDhw4cKwAAP7iugAAAAAA">
                         </div>
-                        <div class="flex-shrink-0 snap-center w-[73px] h-[50px] flex items-center justify-center">
+                        <div class="w-[73px] h-[50px] flex items-center justify-center">
                             <img class="h-full w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" alt="Logo Lifan" width="73" height="50" loading="lazy" decoding="async" src="data:image/webp;base64,UklGRtoEAABXRUJQVlA4WAoAAAAQAAAASAAAMQAAQUxQSBICAAABN6AoABk4KYAQVPDfGTH/gWSvhICure1R6+yVIKkl46RmMK6ZaxsE/ag+R/Dd/yV8zqiT5B/KiP4n/n+oahvN2FzwLjWYLH0NY4R3qLUV+FbtEfz7VuD7cpLwLXYJlbJILkK5HL5LDl52jtax6Tcr4RefEnwSZyfdHXEOv+ckUBDbJ/H1pKGD33IHP4m7N+KabGUlvI4Q/EacHzTN1KkzhNcRQJ3EGXHuKMcRwosCFMRTT5wdVsJ9hI+iADPxfaGpoBbsPsPrDODIXg66zpMEu8/wOkJ1UBufrVgzvI4QXu5TQTZ4TIEazQ3qDOA1dwtd8dbUbPiGwkp4FXa9aV53zsECSwc/dZB5pS+Jl3JXeM5kuMH3DyvhGR+RZnynthu8y/GC71TfCvj3k8S3fpR4T7m19WtrBN6XVIabVOAfrjRYC/0SGhqsoYUWSgv9ghZKs1BaxKPAEG07B4McZNwoEw3Xar8OhqutSQxH/R48OqHO1KbcU3Tmzzw+6/O2b91gm9VQ1a256T/Mn1DY0tbZcWb7uFyLczj6e9ElUzLqo+/WzDbShSi6ZapXu9bdegaz4e0tfN4f96KL94U6vVJwZOmX3IUFRYvLHyRcf29d7qI5f3T93Q3dcN3kPpo13IKhNdsaxkaZpc4X2woXFucY7dW02BZJeklEglSmnAhckCYs41qikqgylaksriX+FwAAAFZQOCCiAgAAMA8AnQEqSQAyAD5tLpRGJiQjFzx1GGAGxLSACesDsVQngr/kvAGUDwA0gX5nzeOZt8s/0vsG/rb1qP2x9kn9iELhQZU/rRUR6oG/7ME/K5lIgiZHO3V6j2BDWE5hnVUoP3Uz9AhpasfDYcaVg451F1FlVyIYhU186RM3smgo3QZoAAD++50ekgT7zQYUxfLoEd7hGcMeNJPHd+wOzJWqE/fGjk6jtrXAV0tQgYMP3fEFBlZgiZ4LcC6BMANaRKLyZ9umEoyxx/0NQtSud8MNNB7uAe0S304UDzjEoioo/Ky/DxxwRqbXghpEULVHt1Dvjhf5k2pMS6eih1PVRMFJJ6tyTbO1zGcDIl89/sCuD3OxtRIGD1hfToc6Ww+goWCTx+hrYKrdl7CqcSmSSNjdR9wvFSeD0GZGY82OBxPOld+ZszGH8Xwaxi+m5OUhYDtJ/Jow4tIxmZnssE0l5pEGdemo8GbmlGDjnO1j112k49J+Gcc9vPYDreA+ttNrIXGFE+Au2vWoaHxrsnvinF6qdUdXDi+Z5df0OBjgNnpZ4YnHruub7MXL2sK2NR5vg3nnPgosAU6xIJu9G/SSCsUloiYdnrfjWiI48TYC2Uggrp5xiFPg3Wckjxjab8w4oqLvm2Y80MJT31tzc5V0Cidi0HcRS/l0AUkfIM2V+VRi/mfOScFywG/KKcfrU8X3x5Vojt+wHztb5vYNyY66nKu7X3qYTjOSFEDy3WCVFwrfco/2AmTeapMBiKq7PO8iBCXKYBcu/0+Of9DAOI6njjKk6m4AeU2Y2roZgDqB06NmipbPK+u0HvG3WUx6s1OswB7xmXjSPTN8DgdTgYA1nSXU74g76OVQO8d4KmlqBu7nDt942N36yDQ9Ssme+1q2zXAAAAA=">
                         </div>
-                        <div class="flex-shrink-0 snap-center w-[73px] h-[50px] flex items-center justify-center">
+                        <div class="w-[73px] h-[50px] flex items-center justify-center">
                             <img class="h-full w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" alt="Logo Microsoft" width="73" height="50" loading="lazy" decoding="async" src="data:image/webp;base64,UklGRlABAABXRUJQVlA4WAoAAAAQAAAASAAAMQAAQUxQSPoAAAABN6CobSM2Vybj1qskLmL+A+nFCQPc2trbNj+UagQOAJCQe6QBEj0AwgYi958hKVeqIvqvyG3bhhmdx7wCfnPRWrO1teuL5nm20zx/HKZ34XIAHHv5WHborlsHqvUDelQ4UoPuqVfw7YCAEMAIEwCCgCAcSTzckywKtZfi9h+qLHOnpuXkwvJ2Mcb02hgG2EZqSm+DFMFpJ1xmpLAypD4ddugiDDL3thwgMN/hGCVJSMlI4v76b6HSPQxiPw32gfXaisbukHj54RLy3UOkHhbBDYHx0UgdZbaVRlKO9wygUegHXJw+QBipH6lokhgUzjvfMFj3RvQHGQAAVlA4IDAAAADQAwCdASpJADIAPm02mUmmJKOiIagAwA2JaQAADHTh2eHDhw4cGgAA/uK7Tf0AAAA=">
                         </div>
-                        <div class="flex-shrink-0 snap-center w-[73px] h-[50px] flex items-center justify-center">
+                        <div class="w-[73px] h-[50px] flex items-center justify-center">
                             <img class="h-full w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" alt="Logo Tele2" width="73" height="50" loading="lazy" decoding="async" src="data:image/webp;base64,UklGRgQCAABXRUJQVlA4WAoAAAAQAAAASAAAMQAAQUxQSE4BAAABN0AmbZusg9koeydhEfMfDJ2mANe27abRk0OP8MI1sTc8rHoCuB/NevRO9/+/AQUmhy6i/wzcNlLkZd6DV9D/LCQtr+jdoRjOGN8XE6L8djoDRr05Fd0gK7Jw8Mai4N4CWCd3X/Y2V5wuzgN8Jp5Uwb1zC9jZ432eF6ZEd8/HF5i4eV5NFpi8iUnaDkfARE1jv7q63R4cXfJwNxc0CwrlHTApx5AVAG9AFLIehKRfNo2KrkDjO840UUxSlERaEeXuzZGVnkt9QUZxVk7KdXorV5TrV1mRoyi+kS+/I7yL0wzNm7hDtlEwb+HKafVurmzo7VpOgxKrOKmjiChSRmWalh1EZFwtoDittaai1GXZMfMqItF6VjLvvI8okgqCENGIuP/4CuyD/3h3D9IUAxhf9oW8oeG6O15RyxUzH7jq5inM3DJzymFY0X8lAAAAVlA4IJAAAABQBwCdASpJADIAPm0ylUemJCMhoa0IwA2JaQAADOAOWUvSZNmr0aA4br7SIQJUBzRel4fY5LxXrjBEGkG4fV1jHQ4AAP7rKyMIaVKx1TTK8keT+p/Mm0uwy2+iPRbiWvOiDOS8rTpLr4om03n+yslV041jfGFWGIdavGDBYsx+PSWsEje4OEDongWPNl8AAAA=">
                         </div>
                     </div>
@@ -561,16 +589,16 @@
         </section>
 
         <!-- CTA Section -->
-        <section class="bg-secondary py-24 md:py-32">
-            <div class="container xl:flex xl:items-center xl:justify-between">
-                <h2 class="text-2xl font-light tracking-tight text-dark">
+        <section class="cta-section">
+            <div class="cta-container">
+                <h2 class="cta-title">
                     Создай своё произведение искусства
                 </h2>
-                <div class="mt-10 flex flex-col md:flex-row items-center gap-4 md:gap-x-6 xl:mt-0 xl:shrink-0">
-                    <a href="https://muse.ooo/order/" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-all w-full md:w-auto text-center hover:-translate-y-0.5 hover:shadow-lg">
+                <div class="cta-actions">
+                    <a href="https://muse.ooo/order/" class="btn-primary">
                         Заказать
                     </a>
-                    <a href="#callback" class="inline-block px-6 py-2 bg-dark hover:bg-gray-700 text-white rounded uppercase transition-colors w-full md:w-auto text-center">
+                    <a href="#callback" class="btn-inverse">
                         Обратный звонок
                     </a>
                 </div>
@@ -679,24 +707,72 @@
 
     <!-- Скрипт для кнопки "Наверх" и прокрутки каруселей -->
     <script>
-        // Кнопка "Scroll to Top" (только на десктопе)
+        // Page Navigator (старый) + Back to Top
+        const pageNavigator = document.querySelector('.page-navigator');
+        const navLinks = document.querySelectorAll('.page-navigator .inner-link');
         const backToTop = document.getElementById('back-to-top');
-        if (backToTop) {
-            window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
-                    backToTop.classList.remove('opacity-0', 'pointer-events-none');
-                    backToTop.classList.add('opacity-100');
-                } else {
-                    backToTop.classList.add('opacity-0', 'pointer-events-none');
-                    backToTop.classList.remove('opacity-100');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
                 }
             });
-            
+        });
+
+        function togglePageNavigator() {
+            if (pageNavigator) {
+                pageNavigator.style.display = window.innerWidth >= 1024 ? 'block' : 'none';
+            }
+        }
+
+        function updateActiveLink() {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollPos = window.scrollY + 200;
+
+            sections.forEach(section => {
+                const sectionId = section.getAttribute('id');
+                const navLink = document.querySelector(`.page-navigator a[href="#${sectionId}"]`);
+                if (navLink) {
+                    if (scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
+                        navLinks.forEach(l => l.classList.remove('inner-link--active'));
+                        navLink.classList.add('inner-link--active');
+                    }
+                }
+            });
+        }
+
+        function toggleBackToTop() {
+            if (backToTop) {
+                const show = window.scrollY > 300 && window.innerWidth >= 768;
+                backToTop.classList.toggle('opacity-0', !show);
+                backToTop.classList.toggle('pointer-events-none', !show);
+                backToTop.classList.toggle('opacity-100', show);
+            }
+        }
+
+        if (backToTop) {
             backToTop.addEventListener('click', (e) => {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
         }
+
+        function toggleUI() {
+            toggleBackToTop();
+            togglePageNavigator();
+            updateActiveLink();
+        }
+
+        window.addEventListener('scroll', toggleUI);
+        window.addEventListener('resize', toggleUI);
+        toggleUI();
 
         // Прокрутка каруселей колесиком мыши на ПК (оптимизированная версия)
         // Использует scrollBy для минимизации forced reflows
