@@ -26,7 +26,7 @@
 
     
     <!-- Tailwind Plus Elements -->
-    <script type="module" src="../js/tailwindplus-elements.js"></script>
+    <script type="module" src="/js/tailwindplus-elements.js"></script>
 
 <link rel="stylesheet" href="../css/output.css">
     <link rel="canonical" href="https://muse.ooo/info/kontakty/">
@@ -316,113 +316,6 @@
             </div>
         </div>
     </footer>
-
-    <script>
-        window.addEventListener("DOMContentLoaded", () => {
-            if (window.customElements && customElements.get("el-tab-group")) {
-                return;
-            }
-
-            document.querySelectorAll("el-tab-group").forEach((group, groupIndex) => {
-                const tabList = group.querySelector("el-tab-list");
-                const tabs = tabList ? Array.from(tabList.querySelectorAll("button")) : [];
-                const panelsContainer = group.querySelector("el-tab-panels");
-                const panels = panelsContainer ? Array.from(panelsContainer.children) : [];
-
-                if (!tabs.length || !panels.length) {
-                    return;
-                }
-
-                if (tabList) {
-                    tabList.setAttribute("role", "tablist");
-                }
-
-                panels.forEach((panel, index) => {
-                    panel.setAttribute("role", "tabpanel");
-                    panel.setAttribute("tabindex", "0");
-                    if (!panel.id) {
-                        panel.id = `contacts-tabpanel-${groupIndex}-${index}`;
-                    }
-                });
-
-                tabs.forEach((tab, index) => {
-                    tab.setAttribute("role", "tab");
-                    tab.setAttribute("aria-controls", panels[index].id);
-                    if (!tab.id) {
-                        tab.id = `contacts-tab-${groupIndex}-${index}`;
-                    }
-                    panels[index].setAttribute("aria-labelledby", tab.id);
-                });
-
-                function activateTab(index, setFocus) {
-                    tabs.forEach((tab, tabIndex) => {
-                        const isActive = tabIndex === index;
-                        tab.setAttribute("aria-selected", isActive ? "true" : "false");
-                        tab.setAttribute("tabindex", isActive ? "0" : "-1");
-                        tab.classList.toggle("text-dark", isActive);
-                        tab.classList.toggle("border-primary", isActive);
-                        tab.classList.toggle("border-transparent", !isActive);
-                    });
-
-                    panels.forEach((panel, panelIndex) => {
-                        if (panelIndex === index) {
-                            panel.removeAttribute("hidden");
-                        } else {
-                            panel.setAttribute("hidden", "");
-                        }
-                    });
-
-                    if (setFocus) {
-                        tabs[index].focus();
-                    }
-                }
-
-                let initialIndex = panels.findIndex((panel) => !panel.hasAttribute("hidden"));
-                if (initialIndex === -1) {
-                    initialIndex = 0;
-                }
-
-                activateTab(initialIndex, false);
-
-                tabs.forEach((tab, index) => {
-                    tab.addEventListener("click", () => {
-                        activateTab(index, false);
-                    });
-
-                    tab.addEventListener("keydown", (event) => {
-                        let nextIndex = null;
-
-                        switch (event.key) {
-                            case "ArrowRight":
-                            case "Right":
-                                nextIndex = (index + 1) % tabs.length;
-                                break;
-                            case "ArrowLeft":
-                            case "Left":
-                                nextIndex = (index - 1 + tabs.length) % tabs.length;
-                                break;
-                            case "Home":
-                                nextIndex = 0;
-                                break;
-                            case "End":
-                                nextIndex = tabs.length - 1;
-                                break;
-                            case "Enter":
-                            case " ":
-                                event.preventDefault();
-                                activateTab(index, false);
-                                return;
-                            default:
-                                return;
-                        }
-
-                        event.preventDefault();
-                        activateTab(nextIndex, true);
-                    });
-                });
-            });
-        });
-    </script>
 
 </body>
 </html>
