@@ -31,35 +31,46 @@
 </head>
 <body class="bg-white text-body antialiased">
 
+    <!-- Back to Top Button -->
+    <a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-white text-dark hover:bg-dark hover:text-white border border-gray-300 hover:border-dark transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
+            <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+
     <!-- Header placeholder -->
     <!-- Header (вставьте из эталона) -->
 
-    <main class="py-12 bg-white">
-        <div class="container max-w-4xl mx-auto px-4">
-            
+    <main>
+        <section class="pt-8 pb-8 lg:pt-12 lg:pb-12 bg-secondary">
+            <div class="container max-w-4xl mx-auto px-4">
                 <!-- Breadcrumbs -->
-                <nav class="mb-8 text-sm text-gray-400" aria-label="Хлебные крошки">
+                <nav class="text-sm text-gray-400 mb-4" aria-label="Хлебные крошки">
                     <ol class="flex items-center space-x-2">
                         <li><a href="https://muse.ooo/" class="hover:text-primary transition-colors">Главная</a></li>
                         <li class="text-gray-300">/</li>
                         <li><a href="https://muse.ooo/blog/" class="hover:text-primary transition-colors">Блог</a></li>
                         <li class="text-gray-300">/</li>
-                        <li class="text-body truncate">Секрет гармонии цвета</li>
+                        <li class="text-dark truncate">Секрет гармонии цвета</li>
                     </ol>
                 </nav>
+
+                <h1 class="text-4xl lg:text-6xl font-light text-dark">Секрет гармонии цвета</h1>
+            </div>
+        </section>
+
+        <section class="py-12 bg-white">
+            <div class="container max-w-4xl mx-auto px-4">
 
                 <!-- Article Header -->
                 <header class="mb-8">
                     <div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
                         <time datetime="2015-11-21">21 ноября 2015 года</time>
                     </div>
-                    <h1 class="text-4xl lg:text-6xl font-light text-dark mb-6 leading-tight">
-                        Секрет гармонии цвета
-                    </h1>
                 </header>
 
                 <!-- Article Content -->
-                <article class="prose prose-lg max-w-none text-body space-y-6">
+                <article class="space-y-6 text-body">
                     <p>
                         Любое интерьерное решение – это тонкое сочетание разнообразных оттенков, выступающее основой создания оригинальной дизайнерской картины. Неосознанно влияющая на наше здоровье, настроение и даже карьерный рост, она требует тщательной и детальной планировки. Как не ошибиться с выбором и создать «интерьер с положительным энергетическим зарядом»?
                     </p>
@@ -68,9 +79,9 @@
                     </p>
 
                     <!-- Table of Contents -->
-                    <div class="bg-gray-50 p-6 rounded-lg border border-gray-100 my-8">
+                    <nav class="bg-gray-50 rounded-lg p-6 mb-8">
                         <h2 class="text-xl font-medium text-dark mb-4 mt-0">Содержание</h2>
-                        <ul class="list-disc pl-5 space-y-2">
+                        <ol class="list-decimal list-inside space-y-2 text-body">
                             <li><a href="#tip-1" class="text-primary hover:underline">Совет №1. Превратите интерьер в отражение своего гардероба</a></li>
                             <li><a href="#tip-2" class="text-primary hover:underline">Совет №2. Возьмите за основу цветовых экспериментов всегда актуальное правило трех цветов</a></li>
                             <li><a href="#tip-3" class="text-primary hover:underline">Совет №3. Ориентируйтесь на традиционное соотношение цветов 60/30/10</a></li>
@@ -81,8 +92,8 @@
                             <li><a href="#tip-8" class="text-primary hover:underline">Совет №8. Помните, каждая деталь интерьера обладает своим цветом</a></li>
                             <li><a href="#tip-9" class="text-primary hover:underline">Совет №9. Всем правит гармония</a></li>
                             <li><a href="#tip-10" class="text-primary hover:underline">Совет №10. Создайте свой интерьер с помощью каталога цветовых образцов</a></li>
-                        </ul>
-                    </div>
+                        </ol>
+                    </nav>
 
                     <h2 id="tip-1" class="text-2xl font-light text-dark mt-10 mb-4">Совет №1. Превратите интерьер в отражение своего гардероба</h2>
                     <p>
@@ -238,32 +249,14 @@
                     </div>
                 </section>
 
-        </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer placeholder -->
     <!-- Footer (вставьте из эталона) -->
 
-    <!-- Back to top (из эталона) -->
-    <a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-white text-dark hover:bg-dark hover:text-white border border-gray-300 hover:border-dark transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6"><path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-
-    <script>
-        // Simple Back to Top script
-        const backToTopButton = document.getElementById('back-to-top');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTopButton.classList.remove('opacity-0', 'pointer-events-none');
-            } else {
-                backToTopButton.classList.add('opacity-0', 'pointer-events-none');
-            }
-        });
-        backToTopButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    </script>
+    <script src="../js/nav.js"></script>
 
 </body>
 </html>

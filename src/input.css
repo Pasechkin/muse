@@ -398,6 +398,9 @@
   color: var(--primary);
 }
 
+/* External link arrow removed — explicit HTML spans used instead */
+
+
 .order-steps-section--secondary {
   background-color: var(--secondary);
 }

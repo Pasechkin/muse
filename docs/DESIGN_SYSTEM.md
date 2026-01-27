@@ -15,6 +15,31 @@
 
 ---
 
+## Рефакторинг (единый источник)
+
+Короткие правила перевёрстки и рефакторинга. Этот раздел — единый источник вместо отдельного гайда.
+
+**Не менять и не трогать:**
+- Контент, тексты, alt/title, meta‑теги, JSON‑LD, порядок секций и вложенность.
+- Header/Footer, `<dialog>` и Tailwind Plus Elements.
+- Подключения скриптов и preload.
+
+**Контейнер:** использовать класс `container` (макс. ширина 1170px, padding 16px).
+
+**Критический CSS (минимум):**
+- переменные `:root` и базовые `body`, `.sr-only`;
+- при наличии компонента добавить его критические классы: `.page-navigator`, `.ba-card`, `.canvas-3d`, `.carousel-scroll`.
+- для каждой страницы проверять обоснованность критического CSS: оставлять только то, что действительно нужно до загрузки основного CSS.
+
+**Интерактивные блоки:**
+- Video Cover — `data-video-cover` + inline JS;
+- Carousel Scroll — CSS + JS drag/wheel;
+- Back to Top — обязательная кнопка перед `<header>`.
+
+**Слайдер “До/После”:** использовать `ba-card` + 4 строки CSS.
+
+---
+
 ## Содержание
 
 1. [Цвета](#цвета)
@@ -367,7 +392,14 @@ tailwind.config = {
 
 ## Компоненты
 
-> **Важно:** Используйте чистый Tailwind CSS. Избегайте кастомных классов (btn, boxed, feature, h2, lead и т.д.).
+> **Важно:** Используйте компонентный подход Tailwind v4 — семантические классы в `@layer components` + утилиты. Это снижает дублирование и ускоряет смену дизайна.
+
+### Зачем нужен компонентный подход
+
+- **Быстрая смена дизайна:** правки в токенах (`@theme`) и компонентах, без переписывания десятков HTML‑страниц.
+- **DRY и консистентность:** единые `btn-*`, `card`, `section-title`, `cta`, `step`, `check-list` вместо повторения длинных наборов утилит.
+- **Масштабирование:** изменения в одном месте автоматически применяются ко всем 55 страницам.
+- **Контроль визуального языка:** типографика, отступы и состояния закреплены в компонентах.
 
 ### Кнопки
 
@@ -396,6 +428,124 @@ tailwind.config = {
 - Transition: `transition-colors`
 - Hover эффект: `hover:bg-primary-hover` или `hover:bg-gray-700`
 
+---
+
+### Компонентные классы (Tailwind v4)
+
+Единые классы для DRY‑разметки. Реализация в `@layer components`.
+
+#### Кнопки: `btn-primary`, `btn-inverse`, `btn-lg`
+
+```html
+<a href="#" class="btn-primary">[ТЕКСТ: Заказать]</a>
+<a href="#" class="btn-inverse">[ТЕКСТ: Обратный звонок]</a>
+<a href="#" class="btn-primary btn-lg">[ТЕКСТ: Заказать]</a>
+```
+
+**Назначение:** заменить длинные цепочки утилит в HTML и централизовать hover/размеры.
+
+#### Шаги процесса: `step-container`, `process-step`
+
+```html
+<div class="step-container">
+    <div class="step-line"></div>
+
+    <div class="process-step flex gap-4">
+        <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
+            <span class="text-xl font-bold text-primary">1</span>
+        </div>
+        <div>
+            <h3 class="text-xl font-medium text-dark mb-2">[ТЕКСТ: Заголовок шага]</h3>
+            <p class="text-body">[ТЕКСТ: Описание шага]</p>
+        </div>
+    </div>
+    <!-- ... другие шаги -->
+</div>
+```
+
+**Назначение:** единая вертикальная линия + отступы/структура шагов.
+
+#### Характеристики: `check-list`
+
+```html
+<ul class="check-list">
+    <li class="check-list-item"><span>[ТЕКСТ: характеристика]</span></li>
+    <li class="check-list-item"><span>[ТЕКСТ: характеристика]</span></li>
+    <!-- ... -->
+</ul>
+```
+
+**Назначение:** единый маркер/отступы для списков характеристик.
+
+#### Преимущества: `advantages-section`, `advantages-grid`, `advantage-card`
+
+```html
+<section class="advantages-section">
+    <div class="container mb-12">
+        <h2 class="advantages-title">[ТЕКСТ: Преимущества]</h2>
+    </div>
+    <div class="container">
+        <div class="advantages-grid">
+            <div class="advantage-card">
+                <div class="advantage-card__icon">
+                    <svg class="icon-advantage" aria-hidden="true"><!-- иконка --></svg>
+                </div>
+                <p class="advantage-card__text">[ТЕКСТ: описание преимущества]</p>
+            </div>
+            <!-- ... другие карточки -->
+        </div>
+    </div>
+</section>
+```
+
+**Назначение:** единый визуальный блок преимуществ с иконками и сеткой.
+
+#### CTA секция: `cta-section`, `cta-container`
+
+```html
+<section class="cta-section">
+    <div class="cta-container">
+        <h2 class="cta-title">[ТЕКСТ: заголовок CTA]</h2>
+        <div class="cta-actions">
+            <a href="#" class="btn-primary">[ТЕКСТ: Заказать]</a>
+            <a href="#" class="btn-inverse">[ТЕКСТ: Обратный звонок]</a>
+        </div>
+    </div>
+</section>
+```
+
+**Назначение:** унификация CTA‑блоков на ключевых страницах.
+
+#### Лого‑облако: `logo-cloud`, `logo-cloud__list`, `logo-cloud__item`
+
+```html
+<section class="logo-cloud">
+    <div class="container mb-8 text-center">
+        <h3 class="text-3xl lg:text-4xl font-light text-dark">[ТЕКСТ: Нам доверяют]</h3>
+    </div>
+    <div class="logo-cloud__list">
+        <div class="logo-cloud__item">
+            <img src="logo.webp" alt="[ТЕКСТ: Компания]" width="73" height="50" loading="lazy" decoding="async">
+        </div>
+        <!-- ... другие логотипы -->
+    </div>
+</section>
+```
+
+**Назначение:** единый блок логотипов (сеткой или в карусели через `carousel-scroll`).
+
+#### Наборы иконок (без привязки к секции)
+
+Иконки не привязываются к конкретной секции: это общий каталог, а использование фиксируется на странице.
+
+1) **Галерея** — набор из [src/icons/gallery-optimized.html](src/icons/gallery-optimized.html) (используется в галереях/превью).
+2) **Нестандартные** — кастомные SVG‑иконки для маркетинговых блоков (например, «Преимущества», «Варианты для заказа», «Почему нам можно доверять»).
+3) **UI‑иконки** — служебные (соцсети, навигация, стрелки, кнопки, видео и т.п.). Сюда же входят иконки провайдеров в модальном окне отзыва (OAuth): Яндекс, Mail.Ru, VK, Google, Одноклассники (логотипы провайдеров, не из футера).
+
+**Правило:** если появляется новый SVG‑набор, добавлять его в этот список и отмечать страницы‑источники.
+
+**Навигационные иконки:** решение по стратегии (inline SVG vs SVG‑спрайт) отложено; при выборе спрайта потребуется loader и сборка спрайта.
+
 #### Кнопка "Наверх" (Back to Top)
 
 Фиксированная круглая кнопка в правом нижнем углу. Появляется при прокрутке страницы вниз (на 300px). Скрыта на мобильных устройствах.
@@ -419,6 +569,22 @@ tailwind.config = {
 - Показывать при скролле через JS, добавляя `opacity-100` и убирая `pointer-events-none`
 - Видимость: `hidden md:flex` (скрыта на мобильных)
 - Доступность: `aria-label="Наверх"`
+
+#### Модальное окно отзыва (OAuth)
+
+Единый шаблон модального окна авторизации для отзывов. Должно открываться по центру экрана, с кликом по фону для закрытия.
+
+```html
+<dialog id="review-modal" class="p-0 bg-transparent border-none outline-none backdrop:bg-black/60 m-auto overflow-visible">
+    <div class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6" onclick="if(event.target === this) this.closest('dialog').close()">
+        <div class="bg-dark text-white rounded-lg shadow-2xl max-w-md w-full p-6 relative">
+            <!-- контент модалки (заголовок, текст, OAuth‑кнопки) 1:1 с оригинала -->
+        </div>
+    </div>
+</dialog>
+```
+
+**Иконки провайдеров:** использовать inline SVG логотипы Яндекс/Mail.Ru/VK/Google/Одноклассники в кнопках авторизации. Они не связаны с иконками футера.
 
 ### Карточки
 
@@ -558,6 +724,34 @@ tailwind.config = {
 - Цвет текущей страницы: `text-gray-300`
 - Разделитель: `/` с отступами `mx-2`
 
+#### Page Header (серый фон + крошки + H1)
+
+Базовый заголовок страницы с хлебными крошками на сером фоне. Используется на страницах FAQ, блогов и информационных разделов.
+
+```html
+<section class="pt-8 pb-8 lg:pt-12 lg:pb-12 bg-secondary">
+    <div class="container">
+        <nav class="text-sm text-gray-400 mb-4" aria-label="Хлебные крошки">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="hover:text-primary transition-colors">Главная</a></li>
+                <li>/</li>
+                <li><a href="/info/" class="hover:text-primary transition-colors">О нас</a></li>
+                <li>/</li>
+                <li class="text-dark">Вопросы и ответы</li>
+            </ol>
+        </nav>
+
+        <h1 class="text-4xl lg:text-6xl font-light text-dark">Вопросы и ответы</h1>
+    </div>
+</section>
+```
+
+**Характеристики:**
+- Фон секции: `bg-secondary`
+- Отступы: `pt-8 pb-8 lg:pt-12 lg:pb-12`
+- Заголовок H1: `text-4xl lg:text-6xl font-light text-dark`
+- Крошки: `text-gray-400` + `/` как разделитель
+
 #### Характеристики (список с чередованием фона)
 
 Список характеристик товара/услуги с чередующимся голубым фоном.
@@ -625,13 +819,13 @@ tailwind.config = {
 
 Компоненты, требующие CSS и/или JavaScript. Начиная с версии Tailwind v4, основные эффекты вынесены в глобальные утилиты в `input.css`.
 
-### Слайдер "До/После" (.before-after-slider)
+### Слайдер "До/После" (ba-card)
 
 Используется для сравнения оригинала фото и готового портрета.
 
 **HTML:**
 ```html
-<div class="before-after-slider relative w-full aspect-[378/265] overflow-hidden rounded-xl shadow-2xl" style="--pos: 50%;">
+<div class="ba-card relative w-full aspect-[378/265] overflow-hidden rounded-xl shadow-2xl" style="--pos: 50%;">
     <!-- Изображение "До" (фоновое) -->
     <img class="absolute inset-0 w-full h-full object-cover pointer-events-none select-none" 
          src="img/before.jpg" alt="Оригинал">
@@ -1058,6 +1252,57 @@ document.querySelectorAll('[data-tab]').forEach(btn => {
 
 ---
 
+### Tabs (Tailwind Plus Elements) — галерея характеристик
+
+Переключение изображений через `el-tab-group` с миниатюрами (используется в секции характеристик).
+
+```html
+<el-tab-group class="flex flex-col-reverse">
+    <!-- Миниатюры -->
+    <div class="mx-auto mt-4 w-full max-w-md">
+        <el-tab-list class="grid grid-cols-4 gap-3">
+            <button class="relative flex h-16 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
+                <span class="sr-only">[ТЕКСТ: описание миниатюры]</span>
+                <span class="absolute inset-0 overflow-hidden rounded">
+                    <img src="[URL_82x62.webp]" alt="[ТЕКСТ: alt миниатюры]" title="[ТЕКСТ: title миниатюры]" width="82" height="62" class="size-full object-cover" loading="lazy" decoding="async" />
+                </span>
+                <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
+            </button>
+            <!-- ... другие миниатюры -->
+        </el-tab-list>
+    </div>
+
+    <!-- Большие изображения -->
+    <el-tab-panels>
+        <div>
+            <img src="[URL_458x258.webp]" alt="[ТЕКСТ: alt изображения]" title="[ТЕКСТ: title изображения]" width="458" height="258" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
+        </div>
+        <div hidden>
+            <img src="[URL_458x258.webp]" alt="[ТЕКСТ: alt изображения]" title="[ТЕКСТ: title изображения]" width="458" height="258" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
+        </div>
+        <!-- Видео-вкладка (опционально) -->
+        <div hidden data-video-panel>
+            <div class="video-cover aspect-video rounded-lg" data-video-cover>
+                <img src="[URL_458x258.webp]" alt="[ТЕКСТ: обложка видео]" width="458" height="258" class="w-full h-full object-cover rounded-lg" loading="lazy" decoding="async" />
+                <div class="video-play-icon cursor-pointer" data-play-btn>
+                    <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <video title="[ТЕКСТ: заголовок видео]" preload="none" playsinline class="hidden">
+                    <source src="[URL.webm]" type="video/webm">
+                    <source src="[URL.mp4]" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </el-tab-panels>
+</el-tab-group>
+```
+
+**Ключевые детали:**
+- `in-aria-selected:ring-primary` — подсветка активной миниатюры.
+- Видео-вкладка добавляется через `data-video-panel` и стандартный `Video Cover`.
+
+---
+
 ### Timeline/Steps (шаги процесса)
 
 Вертикальная линия с пронумерованными шагами.
@@ -1386,6 +1631,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
 **ВАЖНО:** Контейнер должен быть ОДИН элемент с классами `container max-w-4xl mx-auto px-4`. НЕ вкладывать `max-w-4xl` внутрь отдельного `container`.
 
+### Серый hero для статей (как FAQ)
+
+```html
+<section class="pt-8 pb-8 lg:pt-12 lg:pb-12 bg-secondary">
+    <div class="container max-w-4xl mx-auto px-4">
+        <nav class="text-sm text-gray-400 mb-4" aria-label="Хлебные крошки">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="hover:text-primary transition-colors">Главная</a></li>
+                <li class="text-gray-300">/</li>
+                <li><a href="/blog/" class="hover:text-primary transition-colors">Блог</a></li>
+                <li class="text-gray-300">/</li>
+                <li class="text-body truncate">Заголовок статьи</li>
+            </ol>
+        </nav>
+
+        <h1 class="text-4xl lg:text-6xl font-light text-dark leading-tight">Заголовок статьи</h1>
+    </div>
+</section>
+```
+
 ### H1 заголовок статьи
 
 ```html
@@ -1451,15 +1716,25 @@ document.addEventListener('DOMContentLoaded', function() {
 </nav>
 ```
 
+### Back to Top (обязателен)
+
+Кнопка размещается **перед** `<header>`.
+
+```html
+<a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-white text-dark hover:bg-dark hover:text-white border border-gray-300 hover:border-dark transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6"><path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</a>
+```
+
 ### Карточка статьи (Article Card)
 
 Для списка статей на странице блога.
 
 ```html
-<article class="flex flex-col h-full bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+<article class="flex flex-col h-full bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow group">
     <a href="/blog/article/" class="block h-48 overflow-hidden">
         <img src="cover.webp" alt="Заголовок" 
-             class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" 
+             class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" 
              loading="lazy">
     </a>
     <div class="p-6 flex flex-col flex-grow">
@@ -1471,7 +1746,7 @@ document.addEventListener('DOMContentLoaded', function() {
             Краткое описание статьи для превью...
         </p>
         <a href="/blog/article/" class="text-primary text-sm font-medium hover:underline inline-flex items-center mt-auto">
-            Читать далее
+            Подробнее →
             <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>

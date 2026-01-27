@@ -31,43 +31,54 @@
 </head>
 <body class="bg-white text-body antialiased">
 
+    <!-- Back to Top Button -->
+    <a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-white text-dark hover:bg-dark hover:text-white border border-gray-300 hover:border-dark transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
+            <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+
     <!-- Header placeholder -->
     <!-- Header (вставьте из эталона) -->
 
-    <main class="py-12 bg-white">
-        <div class="container max-w-4xl mx-auto px-4">
-            
-            <!-- Breadcrumbs -->
-            <nav class="text-sm text-gray-400 mb-4" aria-label="Хлебные крошки">
-                <ol class="flex items-center space-x-2">
-                    <li><a href="https://muse.ooo/" class="hover:text-primary transition-colors">Главная</a></li>
-                    <li class="text-gray-300">/</li>
-                    <li><a href="https://muse.ooo/blog/" class="hover:text-primary transition-colors">Блог</a></li>
-                    <li class="text-gray-300">/</li>
-                    <li class="text-body truncate">Фотобумага для художественной печати</li>
-                </ol>
-            </nav>
+    <main>
+        <section class="pt-8 pb-8 lg:pt-12 lg:pb-12 bg-secondary">
+            <div class="container">
+                <!-- Breadcrumbs -->
+                <nav class="text-sm text-gray-400 mb-4" aria-label="Хлебные крошки">
+                    <ol class="flex items-center space-x-2">
+                        <li><a href="https://muse.ooo/" class="hover:text-primary transition-colors">Главная</a></li>
+                        <li class="text-gray-300">/</li>
+                        <li><a href="https://muse.ooo/blog/" class="hover:text-primary transition-colors">Блог</a></li>
+                        <li class="text-gray-300">/</li>
+                        <li class="text-dark truncate">Фотобумага для художественной печати</li>
+                    </ol>
+                </nav>
 
-            <!-- Article Header -->
-            <header class="mb-8">
-                <div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
-                    <time datetime="2016-06-14">14 июня 2016 года</time>
-                </div>
-                <h1 class="text-4xl lg:text-6xl font-light text-dark mb-6 leading-tight">
-                    Фотобумага для художественной печати
-                </h1>
-            </header>
+                <h1 class="text-4xl lg:text-6xl font-light text-dark">Фотобумага для художественной печати</h1>
+            </div>
+        </section>
 
-            <!-- Article Content -->
-            <article class="prose prose-lg max-w-none text-body space-y-6">
+        <section class="py-12 bg-white">
+            <div class="container max-w-4xl mx-auto px-4">
+
+                <!-- Article Header -->
+                <header class="mb-8">
+                    <div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
+                        <time datetime="2016-06-14">14 июня 2016 года</time>
+                    </div>
+                </header>
+
+                <!-- Article Content -->
+                <article class="space-y-6 text-body">
                 <p>
                     Для того чтобы получить прекрасные фотокартины, мало использовать соответствующее оборудование (плоттер для широкоформатной печати с пигментными чернилами). Не менее важную роль для качества играет и используемая для печати работ бумага, о которой и пойдет речь в данной статье.
                 </p>
 
                 <!-- Table of Contents -->
-                <div class="bg-gray-50 p-6 rounded-lg border border-gray-100 my-8">
+                <nav class="bg-gray-50 rounded-lg p-6 mb-8">
                     <h2 class="text-xl font-medium text-dark mb-4 mt-0">Содержание</h2>
-                    <ul class="list-disc pl-5 space-y-2">
+                    <ol class="list-decimal list-inside space-y-2 text-body">
                         <li><a href="#what-is" class="text-primary hover:underline">Что такое фотобумага</a></li>
                         <li><a href="#diff" class="text-primary hover:underline">Отличие обычной бумаги от фотобумаги</a></li>
                         <li><a href="#matte" class="text-primary hover:underline">Матовая бумага (Matte)</a></li>
@@ -77,8 +88,8 @@
                         <li><a href="#pro-paper" class="text-primary hover:underline">Что такое профессиональная фотобумага?</a></li>
                         <li><a href="#requirements" class="text-primary hover:underline">Минимальные требования к бумаге для печати</a></li>
                         <li><a href="#conclusion" class="text-primary hover:underline">Заключение</a></li>
-                    </ul>
-                </div>
+                    </ol>
+                </nav>
 
                 <h2 id="what-is" class="text-2xl font-light text-dark mt-10 mb-4">Что такое фотобумага?</h2>
 
@@ -178,71 +189,53 @@
                 </div>
             </article>
 
-            <!-- Promo Banner -->
-            <div class="my-12">
-                <div class="bg-primary text-white py-8 px-6 rounded-lg text-center shadow-lg">
-                    <p class="text-xs uppercase tracking-widest opacity-80 mb-2">Акция</p>
-                    <p class="text-2xl font-light mb-4">Скидка 20% c 15 по 16 января</p>
-                    <a href="https://muse.ooo/portret-na-zakaz/" class="inline-block px-6 py-2 bg-white text-primary hover:bg-gray-100 rounded uppercase transition-colors font-medium">
-                        Портреты на холсте
-                    </a>
+                <!-- Promo Banner -->
+                <div class="my-12">
+                    <div class="bg-primary text-white py-8 px-6 rounded-lg text-center shadow-lg">
+                        <p class="text-xs uppercase tracking-widest opacity-80 mb-2">Акция</p>
+                        <p class="text-2xl font-light mb-4">Скидка 20% c 15 по 16 января</p>
+                        <a href="https://muse.ooo/portret-na-zakaz/" class="inline-block px-6 py-2 bg-white text-primary hover:bg-gray-100 rounded uppercase transition-colors font-medium">
+                            Портреты на холсте
+                        </a>
+                    </div>
                 </div>
+
+                <!-- Similar Articles -->
+                <section class="mt-16 pt-8 border-t border-gray-200">
+                    <h2 class="text-2xl font-light text-dark mb-8">Похожие статьи</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Article Card 1 -->
+                        <article class="flex flex-col group">
+                            <a href="https://muse.ooo/blog/portret-dlya-pokoleniy/" class="block overflow-hidden rounded-lg mb-4">
+                                <img 
+                                    src="https://muse.ooo/upload/ammina.optimizer/jpg-webp/q80/upload/iblock/0a0/0a070cdb2dab0335510d262bb0d94e86.webp" 
+                                    alt="Плоттер для печати на холсте и фотобумаге" 
+                                    class="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500"
+                                    loading="lazy"
+                                >
+                            </a>
+                            <div class="flex items-center gap-3 text-xs text-gray-400 mb-2">
+                                <time datetime="2016-05-22">22 мая 2016</time>
+                            </div>
+                            <h3 class="text-xl font-medium text-dark mb-2 group-hover:text-primary transition-colors">
+                                <a href="https://muse.ooo/blog/portret-dlya-pokoleniy/">Портрет для поколений</a>
+                            </h3>
+                            <a href="https://muse.ooo/blog/portret-dlya-pokoleniy/" class="text-primary text-sm font-medium hover:underline inline-flex items-center mt-auto">
+                                Подробнее
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </a>
+                        </article>
+                    </div>
+                </section>
+
             </div>
-
-            <!-- Similar Articles -->
-            <section class="mt-16 pt-8 border-t border-gray-200">
-                <h2 class="text-2xl font-light text-dark mb-8">Похожие статьи</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <!-- Article Card 1 -->
-                    <article class="flex flex-col group">
-                        <a href="https://muse.ooo/blog/portret-dlya-pokoleniy/" class="block overflow-hidden rounded-lg mb-4">
-                            <img 
-                                src="https://muse.ooo/upload/ammina.optimizer/jpg-webp/q80/upload/iblock/0a0/0a070cdb2dab0335510d262bb0d94e86.webp" 
-                                alt="Плоттер для печати на холсте и фотобумаге" 
-                                class="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500"
-                                loading="lazy"
-                            >
-                        </a>
-                        <div class="flex items-center gap-3 text-xs text-gray-400 mb-2">
-                            <time datetime="2016-05-22">22 мая 2016</time>
-                        </div>
-                        <h3 class="text-xl font-medium text-dark mb-2 group-hover:text-primary transition-colors">
-                            <a href="https://muse.ooo/blog/portret-dlya-pokoleniy/">Портрет для поколений</a>
-                        </h3>
-                        <a href="https://muse.ooo/blog/portret-dlya-pokoleniy/" class="text-primary text-sm font-medium hover:underline inline-flex items-center mt-auto">
-                            Подробнее
-                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                        </a>
-                    </article>
-                </div>
-            </section>
-
-        </div>
+        </section>
     </main>
 
     <!-- Footer placeholder -->
     <!-- Footer (вставьте из эталона) -->
 
-    <!-- Back to top (из эталона) -->
-    <a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-white text-dark hover:bg-dark hover:text-white border border-gray-300 hover:border-dark transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6"><path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-
-    <script>
-        // Simple Back to Top script
-        const backToTopButton = document.getElementById('back-to-top');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTopButton.classList.remove('opacity-0', 'pointer-events-none');
-            } else {
-                backToTopButton.classList.add('opacity-0', 'pointer-events-none');
-            }
-        });
-        backToTopButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    </script>
+    <script src="../js/nav.js"></script>
 
 </body>
 </html>

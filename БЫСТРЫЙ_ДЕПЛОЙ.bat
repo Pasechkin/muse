@@ -1,16 +1,18 @@
 @echo off
+setlocal EnableExtensions EnableDelayedExpansion
 chcp 65001 > nul
 
-rem Увеличим размер окна (не меняет шрифт, но упрощает чтение)
+rem Console size (optional)
 mode con: cols=120 lines=40
-title БЫСТРЫЙ ДЕПЛОЙ НА VERCEL
+title FAST DEPLOY (VERCEL)
 
 set CURRENT_DIR=%~dp0
 cd /d "%CURRENT_DIR%"
 
 set "LOG_FILE=%CURRENT_DIR%deploy-log.txt"
 echo [START] %date% %time%> "%LOG_FILE%"
-echo БЫСТРЫЙ ДЕПЛОЙ НА VERCEL>> "%LOG_FILE%"
+echo FAST DEPLOY (VERCEL)>> "%LOG_FILE%"
+echo WORKDIR: %CURRENT_DIR%>> "%LOG_FILE%"
 echo.>> "%LOG_FILE%"
 
 call :main >> "%LOG_FILE%" 2>&1
@@ -34,114 +36,160 @@ exit /b %MAIN_EXIT%
 
 :main
 echo ========================================
-echo  БЫСТРЫЙ ДЕПЛОЙ НА VERCEL
+echo  FAST DEPLOY (VERCEL)
 echo ========================================
 echo.
 
-echo ========================================
-echo  БЫСТРЫЙ ДЕПЛОЙ НА VERCEL
-echo ========================================
-echo.
-
-echo Шаг 1: Проверка npm...
+echo Step 1: Check npm...
+echo [1] Check npm>> "%LOG_FILE%"
+set "NPM_PATH="
 where npm > nul 2> nul
-if %errorlevel% neq 0 (
-    echo Ошибка: npm не найден в PATH!
-    pause
-    exit /b 1
+if %errorlevel%==0 (
+    set "NPM_PATH=npm"
 )
-
-echo.
-echo Шаг 2: Сборка CSS...
-call npm run build:once
-if %errorlevel% neq 0 (
-    echo Ошибка при сборке CSS!
-    pause
-    exit /b 1
-)
-
-echo.
-echo Шаг 3: Копирование CSS в html/css...
-call npm run copy-css
-if %errorlevel% neq 0 (
-    echo Ошибка при копировании CSS!
-    pause
-    exit /b 1
-)
-
-echo.
-echo Шаг 4: Поиск Git...
-set "GIT_PATH="
-for %%i in (
-    "C:\Program Files\Git\cmd\git.exe"
-    "C:\Program Files (x86)\Git\cmd\git.exe"
-    "C:\Users\%USERNAME%\AppData\Local\Programs\Git\cmd\git.exe"
-) do (
-    if exist "%%~i" (
-        set "GIT_PATH=%%~i"
-        goto :found_git
+if "%NPM_PATH%"=="" (
+    for %%i in (
+        "C:\Program Files\nodejs\npm.cmd"
+        "C:\Program Files (x86)\nodejs\npm.cmd"
+        "%USERPROFILE%\AppData\Local\Programs\nodejs\npm.cmd"
+        "%USERPROFILE%\AppData\Roaming\npm\npm.cmd"
+    ) do (
+        if exist "%%~i" (
+            set "NPM_PATH=%%~i"
+            goto :found_npm
+        )
     )
 )
-
-echo Ошибка: Git не найден!
-pause
-exit /b 1
-
-:found_git
-echo Git найден: %GIT_PATH%
-echo.
-
-echo Шаг 5: Добавление всех изменений в Git...
-"%GIT_PATH%" add .
-if %errorlevel% neq 0 (
-    echo Ошибка при добавлении файлов в Git!
+:found_npm
+if "%NPM_PATH%"=="" (
+    echo Error: npm not found!
+    echo [ERR] npm not found>> "%LOG_FILE%"
+    echo Install Node.js: https://nodejs.org/
     pause
     exit /b 1
 )
+echo [OK] npm: %NPM_PATH%>> "%LOG_FILE%"
 
 echo.
-echo Шаг 6: Проверка наличия изменений...
+echo Step 2: Build CSS...
+echo [2] Build CSS (npm run build:once)>> "%LOG_FILE%"
+call "%NPM_PATH%" run build:once
+if %errorlevel% neq 0 (
+    echo Error: CSS build failed!
+    echo [ERR] CSS build failed>> "%LOG_FILE%"
+    pause
+    exit /b 1
+)
+echo [OK] CSS built>> "%LOG_FILE%"
+
+echo.
+echo Step 3: Copy CSS to html/css...
+echo [3] Copy CSS (npm run copy-css)>> "%LOG_FILE%"
+call "%NPM_PATH%" run copy-css
+if %errorlevel% neq 0 (
+    echo Error: CSS copy failed!
+    echo [ERR] CSS copy failed>> "%LOG_FILE%"
+    pause
+    exit /b 1
+)
+echo [OK] CSS copied>> "%LOG_FILE%"
+
+echo.
+echo Step 4: Check Git...
+echo [4] Check git>> "%LOG_FILE%"
+set "GIT_PATH="
+where git > nul 2> nul
+if %errorlevel%==0 (
+    set "GIT_PATH=git"
+)
+if "%GIT_PATH%"=="" (
+    for %%i in (
+        "C:\Program Files\Git\cmd\git.exe"
+        "C:\Program Files (x86)\Git\cmd\git.exe"
+        "%USERPROFILE%\AppData\Local\Programs\Git\cmd\git.exe"
+    ) do (
+        if exist "%%~i" (
+            set "GIT_PATH=%%~i"
+            goto :found_git
+        )
+    )
+)
+:found_git
+if "%GIT_PATH%"=="" (
+    echo Error: Git not found!
+    echo [ERR] Git not found>> "%LOG_FILE%"
+    echo Install Git: https://git-scm.com/download/win
+    pause
+    exit /b 1
+)
+echo [OK] Git: %GIT_PATH%>> "%LOG_FILE%"
+echo Git found
+echo.
+
+echo Step 5: Stage changes...
+echo [5] git add .>> "%LOG_FILE%"
+"%GIT_PATH%" add .
+if %errorlevel% neq 0 (
+    echo Error: git add failed!
+    echo [ERR] git add failed>> "%LOG_FILE%"
+    pause
+    exit /b 1
+)
+echo [OK] Files staged>> "%LOG_FILE%"
+
+echo.
+echo Step 6: Check staged changes...
+echo [6] git diff --cached --quiet>> "%LOG_FILE%"
 "%GIT_PATH%" diff --cached --quiet
 if %errorlevel%==0 (
-    echo Нет изменений для коммита. Деплой пропущен.
-    echo Проверьте, что сборка обновила файлы CSS.
+    echo No changes to commit. Deploy skipped.
+    echo Check that CSS build updated files.
+    echo [INFO] No changes to commit>> "%LOG_FILE%"
     echo ========================================
-    echo  ЗАВЕРШЕНО БЕЗ ДЕПЛОЯ
+    echo  DONE (NO DEPLOY)
     echo ========================================
     pause
     exit /b 0
 )
+echo [OK] Changes ready for commit>> "%LOG_FILE%"
 
 echo.
-echo Шаг 7: Создание коммита...
+echo Step 7: Commit...
+echo [7] git commit>> "%LOG_FILE%"
 "%GIT_PATH%" commit -m "Оптимизация: изображения, CSS inline, исправления производительности"
 if %errorlevel% neq 0 (
-    echo Внимание: коммит не создан. Проверьте состояние репозитория.
+    echo Warning: commit not created. Check repo state.
+    echo [ERR] git commit failed>> "%LOG_FILE%"
     pause
     exit /b 1
 )
+echo [OK] Commit created>> "%LOG_FILE%"
 
 echo.
-echo Шаг 8: Отправка на GitHub...
+echo Step 8: Push to GitHub...
+echo [8] git push>> "%LOG_FILE%"
 "%GIT_PATH%" push
 if %errorlevel% neq 0 (
-    echo Ошибка при отправке на GitHub!
+    echo Error: git push failed!
+    echo [ERR] git push failed>> "%LOG_FILE%"
     pause
     exit /b 1
 )
+echo [OK] Pushed>> "%LOG_FILE%"
 
 echo.
 echo ========================================
-echo  УСПЕШНО!
+echo  SUCCESS
 echo ========================================
+echo [DONE] %date% %time%>> "%LOG_FILE%"
 echo.
-echo Изменения отправлены на GitHub.
-echo Vercel автоматически запустит деплой (обычно 1-3 минуты).
+echo Changes pushed to GitHub.
+echo Vercel will deploy automatically (1-3 min).
 echo.
-echo Проверьте статус деплоя:
+echo Check deploy status:
 echo https://vercel.com/dashboard
 echo.
-echo После завершения деплоя изменения появятся на:
+echo Site will update at:
 echo https://muse-liard-one.vercel.app/
 echo.
 pause

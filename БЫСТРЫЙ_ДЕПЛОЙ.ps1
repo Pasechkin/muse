@@ -4,47 +4,47 @@ $projectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location $projectRoot
 
 $logFile = Join-Path $projectRoot 'deploy-log.txt'
-"[START] $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')`nБЫСТРЫЙ ДЕПЛОЙ НА VERCEL`n" | Set-Content -Path $logFile -Encoding UTF8
+"[START] $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')`nFAST DEPLOY (VERCEL)`n" | Set-Content -Path $logFile -Encoding UTF8
 
 function Log($text) {
     $text | Tee-Object -FilePath $logFile -Append
 }
 
-Log "Шаг 1: Проверка npm..."
+Log "Step 1: Check npm..."
 if (-not (Get-Command npm -ErrorAction SilentlyContinue)) {
-    Log "Ошибка: npm не найден в PATH!"
+    Log "Error: npm not found in PATH"
     throw "npm not found"
 }
 
-Log "Шаг 2: Сборка CSS..."
+Log "Step 2: Build CSS..."
 & npm run build:once | Tee-Object -FilePath $logFile -Append
 
-Log "Шаг 3: Копирование CSS в html/css..."
+Log "Step 3: Copy CSS to html/css..."
 & npm run copy-css | Tee-Object -FilePath $logFile -Append
 
-Log "Шаг 4: Проверка Git..."
+Log "Step 4: Check Git..."
 if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
-    Log "Ошибка: Git не найден в PATH!"
+    Log "Error: Git not found in PATH"
     throw "git not found"
 }
 
-Log "Шаг 5: Добавление всех изменений в Git..."
+Log "Step 5: Git add..."
 & git add . | Tee-Object -FilePath $logFile -Append
 
-Log "Шаг 6: Проверка наличия изменений..."
+Log "Step 6: Check staged changes..."
 & git diff --cached --quiet
 if ($LASTEXITCODE -eq 0) {
-    Log "Нет изменений для коммита. Деплой пропущен."
-    Log "Проверьте, что сборка обновила файлы CSS."
+    Log "No changes to commit. Deploy skipped."
+    Log "Check that CSS build updated files."
     Start-Process notepad.exe $logFile
     return
 }
 
-Log "Шаг 7: Создание коммита..."
+Log "Step 7: Commit..."
 & git commit -m "Оптимизация: изображения, CSS inline, исправления производительности" | Tee-Object -FilePath $logFile -Append
 
-Log "Шаг 8: Отправка на GitHub..."
+Log "Step 8: Push to GitHub..."
 & git push | Tee-Object -FilePath $logFile -Append
 
-Log "УСПЕШНО! Изменения отправлены на GitHub."
+Log "SUCCESS! Changes pushed to GitHub."
 Start-Process notepad.exe $logFile

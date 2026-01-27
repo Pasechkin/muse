@@ -31,12 +31,16 @@
 </head>
 <body class="bg-white text-body antialiased">
 
+    <!-- Back to top (из эталона) -->
+    <a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-white text-dark hover:bg-dark hover:text-white border border-gray-300 hover:border-dark transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6"><path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+
     <!-- Header placeholder -->
     <!-- Header (вставьте из эталона) -->
 
-    <main class="py-12 bg-white">
+    <section class="pt-8 pb-8 lg:pt-12 lg:pb-12 bg-secondary">
         <div class="container max-w-4xl mx-auto px-4">
-            
             <!-- Breadcrumbs -->
             <nav class="text-sm text-gray-400 mb-4" aria-label="Хлебные крошки">
                 <ol class="flex items-center space-x-2">
@@ -48,22 +52,28 @@
                 </ol>
             </nav>
 
+            <h1 class="text-4xl lg:text-6xl font-light text-dark leading-tight">
+                Как оформить стену фотографиями
+            </h1>
+        </div>
+    </section>
+
+    <section class="py-12 bg-white">
+        <div class="container max-w-4xl mx-auto px-4">
+
             <!-- Article Header -->
             <header class="mb-8">
                 <div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
                     <time datetime="2016-01-23">23.01.2016</time>
                 </div>
-                <h1 class="text-4xl lg:text-6xl font-light text-dark mb-6 leading-tight">
-                    Как оформить стену фотографиями
-                </h1>
             </header>
 
             <!-- Article Content -->
-            <article class="prose prose-lg max-w-none text-body space-y-6">
+            <article class="space-y-6 text-body">
                 <!-- Table of Contents -->
-                <div class="bg-gray-50 p-6 rounded-lg border border-gray-100 my-8">
+                <nav class="bg-gray-50 rounded-lg p-6 mb-8">
                     <h2 class="text-xl font-medium text-dark mb-4 mt-0">Содержание</h2>
-                    <ul class="list-disc pl-5 space-y-2">
+                    <ol class="list-decimal list-inside space-y-2 text-body">
                         <li><a href="#wall" class="text-primary hover:underline">Стена для размещения фотокомпозиции</a></li>
                         <li><a href="#size" class="text-primary hover:underline">Размер композиции</a></li>
                         <li><a href="#color" class="text-primary hover:underline">Цветовая гамма композиции</a></li>
@@ -72,8 +82,8 @@
                         <li><a href="#creative" class="text-primary hover:underline">Творческий подход к созданию композиции</a></li>
                         <li><a href="#specifics" class="text-primary hover:underline">Учет особенностей помещения</a></li>
                         <li><a href="#conclusion" class="text-primary hover:underline">Заключение</a></li>
-                    </ul>
-                </div>
+                    </ol>
+                </nav>
 
                 <p>
                     Фотографии на стене - оригинальный вариант оформления настенного пространства. Композиция из нескольких фотографий это результат экспериментов по объединению отдельных элементов в логически завершенную структуру, которая развешивается на стене. Кажущаяся незатейливость и легкость в реализации задуманного на деле оказывается не так проста. Зачастую рукотворная мысль не соответствует первоначальной идее и вызывает противоположный эффект – стена выглядит безвкусно оформленной и «захламленной». Как добиться желаемого и превратить подборку фотографий в эффектный и стильный творческий дизайн? Для этого придерживайтесь некоторым подсказкам. Доминирующим элементом в цветовой гамме комнаты выступает стена. Исходя из этого композиция, создаваемая с ориентиром на общую интерьерную концепцию, должна соответствовать формуле «3+1». Где «3» предполагает учет формы, размера и жанра изображения применительно к «1» (интерьеру размещения полученной фотографической композиции).
@@ -301,31 +311,12 @@
             </section>
 
         </div>
-    </main>
+    </section>
 
     <!-- Footer placeholder -->
     <!-- Footer (вставьте из эталона) -->
 
-    <!-- Back to top (из эталона) -->
-    <a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-white text-dark hover:bg-dark hover:text-white border border-gray-300 hover:border-dark transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6"><path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-
-    <script>
-        // Simple Back to Top script
-        const backToTopButton = document.getElementById('back-to-top');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTopButton.classList.remove('opacity-0', 'pointer-events-none');
-            } else {
-                backToTopButton.classList.add('opacity-0', 'pointer-events-none');
-            }
-        });
-        backToTopButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    </script>
+    <script src="../js/nav.js"></script>
 
 </body>
 </html>

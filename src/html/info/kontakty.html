@@ -157,23 +157,33 @@
         <section class="py-16 lg:py-24 bg-white">
             <div class="container">
                 <!-- Tabs Navigation -->
-                <div class="flex border-b border-gray-200 mb-8 overflow-x-auto">
+                <div class="flex border-b border-gray-200 mb-8 overflow-x-auto" role="tablist" aria-label="Города">
                     <button 
                         class="px-6 py-3 text-lg font-medium text-body hover:text-dark focus:outline-none border-b-2 border-primary text-dark transition-colors" 
                         data-tab="moscow"
+                        id="tab-moscow"
+                        role="tab"
+                        aria-selected="true"
+                        aria-controls="moscow"
+                        tabindex="0"
                     >
                         Москва
                     </button>
                     <button 
                         class="px-6 py-3 text-lg font-medium text-body hover:text-dark focus:outline-none border-b-2 border-transparent transition-colors" 
                         data-tab="spb"
+                        id="tab-spb"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="spb"
+                        tabindex="-1"
                     >
                         Санкт-Петербург
                     </button>
                 </div>
 
                 <!-- Moscow Content -->
-                <div id="moscow" class="tab-content block">
+                <div id="moscow" class="tab-content block" role="tabpanel" aria-labelledby="tab-moscow" tabindex="0">
                     <div class="space-y-4 text-body text-lg max-w-3xl">
                         <p>127550, Россия, г. Москва, ул. Прянишникова дом 19А строение 9</p>
                         
@@ -199,7 +209,7 @@
                 </div>
 
                 <!-- St. Petersburg Content -->
-                <div id="spb" class="tab-content hidden">
+                <div id="spb" class="tab-content hidden" role="tabpanel" aria-labelledby="tab-spb" tabindex="-1">
                     <div class="space-y-4 text-body text-lg max-w-3xl">
                         <p>196620, Россия, г. Санкт-Петербург, г. Павловск ул. Слуцкая, 13 к 2</p>
                         
@@ -320,31 +330,69 @@
     </footer>
  <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const tabBtns = document.querySelectorAll('[data-tab]');
-            const tabContents = document.querySelectorAll('.tab-content');
+            const tabBtns = Array.from(document.querySelectorAll('[data-tab]'));
+            const tabContents = Array.from(document.querySelectorAll('.tab-content'));
+
+            function setActiveTab(btn, setFocus) {
+                const targetId = btn.getAttribute('data-tab');
+
+                tabBtns.forEach(b => {
+                    const isActive = b === btn;
+                    b.classList.toggle('border-primary', isActive);
+                    b.classList.toggle('text-dark', isActive);
+                    b.classList.toggle('border-transparent', !isActive);
+                    b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                    b.setAttribute('tabindex', isActive ? '0' : '-1');
+                });
+
+                tabContents.forEach(content => {
+                    const isActive = content.id === targetId;
+                    content.classList.toggle('hidden', !isActive);
+                    content.classList.toggle('block', isActive);
+                    content.setAttribute('tabindex', isActive ? '0' : '-1');
+                });
+
+                if (setFocus) {
+                    btn.focus();
+                }
+            }
 
             tabBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    // Убрать active стили у всех кнопок
-                    tabBtns.forEach(b => {
-                        b.classList.remove('border-primary', 'text-dark');
-                        b.classList.add('border-transparent');
-                    });
-                    // Скрыть весь контент
-                    tabContents.forEach(content => {
-                        content.classList.add('hidden');
-                        content.classList.remove('block');
-                    });
-                    
-                    // Добавить active стили к кликнутой кнопке
-                    btn.classList.remove('border-transparent');
-                    btn.classList.add('border-primary', 'text-dark');
-                    // Показать целевой контент
-                    const targetId = btn.getAttribute('data-tab');
-                    const targetContent = document.getElementById(targetId);
-                    if (targetContent) {
-                        targetContent.classList.remove('hidden');
-                        targetContent.classList.add('block');
+                    setActiveTab(btn, false);
+                });
+
+                btn.addEventListener('keydown', (event) => {
+                    const currentIndex = tabBtns.indexOf(btn);
+                    let nextIndex = null;
+
+                    switch (event.key) {
+                        case 'ArrowRight':
+                        case 'Right':
+                            nextIndex = (currentIndex + 1) % tabBtns.length;
+                            break;
+                        case 'ArrowLeft':
+                        case 'Left':
+                            nextIndex = (currentIndex - 1 + tabBtns.length) % tabBtns.length;
+                            break;
+                        case 'Home':
+                            nextIndex = 0;
+                            break;
+                        case 'End':
+                            nextIndex = tabBtns.length - 1;
+                            break;
+                        case 'Enter':
+                        case ' ':
+                            setActiveTab(btn, false);
+                            event.preventDefault();
+                            return;
+                        default:
+                            return;
+                    }
+
+                    if (nextIndex !== null) {
+                        event.preventDefault();
+                        setActiveTab(tabBtns[nextIndex], true);
                     }
                 });
             });

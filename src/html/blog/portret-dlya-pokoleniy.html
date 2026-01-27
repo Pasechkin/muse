@@ -31,22 +31,36 @@
 </head>
 <body class="bg-white text-body antialiased">
 
+    <!-- Back to Top Button -->
+    <a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-white text-dark hover:bg-dark hover:text-white border border-gray-300 hover:border-dark transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
+            <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+
     <!-- Header placeholder -->
     <!-- Вставьте сюда код шапки из эталона -->
 
-    <main class="py-12 bg-white">
-        <div class="container max-w-4xl mx-auto px-4">
-            
-            <!-- Breadcrumbs -->
-            <nav class="text-sm text-gray-400 mb-4" aria-label="Хлебные крошки">
-                <ol class="flex items-center space-x-2">
-                    <li><a href="https://muse.ooo/" class="hover:text-primary transition-colors">Главная</a></li>
-                    <li class="text-gray-300">/</li>
-                    <li><a href="https://muse.ooo/blog/" class="hover:text-primary transition-colors">Блог</a></li>
-                    <li class="text-gray-300">/</li>
-                    <li class="text-body truncate">Портрет для поколений</li>
-                </ol>
-            </nav>
+    <main>
+        <section class="pt-8 pb-8 lg:pt-12 lg:pb-12 bg-secondary">
+            <div class="container max-w-4xl mx-auto px-4">
+                <!-- Breadcrumbs -->
+                <nav class="text-sm text-gray-400 mb-4" aria-label="Хлебные крошки">
+                    <ol class="flex items-center space-x-2">
+                        <li><a href="https://muse.ooo/" class="hover:text-primary transition-colors">Главная</a></li>
+                        <li class="text-gray-300">/</li>
+                        <li><a href="https://muse.ooo/blog/" class="hover:text-primary transition-colors">Блог</a></li>
+                        <li class="text-gray-300">/</li>
+                        <li class="text-dark truncate">Портрет для поколений</li>
+                    </ol>
+                </nav>
+
+                <h1 class="text-4xl lg:text-6xl font-light text-dark">Семейный портрет из поколения в поколение</h1>
+            </div>
+        </section>
+
+        <section class="py-12 bg-white">
+            <div class="container max-w-4xl mx-auto px-4">
 
             <!-- Article Header -->
             <header class="mb-8">
@@ -55,9 +69,6 @@
                     <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
                     <span class="uppercase tracking-wide text-primary font-medium">Пресс-релиз</span>
                 </div>
-                <h1 class="text-4xl lg:text-6xl font-light text-dark mb-6 leading-tight">
-                    Семейный портрет из поколения в поколение
-                </h1>
                 <p class="text-xl text-body leading-relaxed">
                     В России сервисом Muse запущено в промышленную эксплуатацию оборудование, которое печатает интерьерные фотографии и репродукции со сроком службы от 60-ти лет.
                 </p>
@@ -77,7 +88,7 @@
             </figure>
 
             <!-- Article Content -->
-            <article class="prose prose-lg max-w-none text-body space-y-6">
+            <article class="space-y-6 text-body">
                 <p>
                     Санкт-Петербург, 23 мая 2016. – При поддержке компании Epson сервис Muse ввел в промышленную эксплуатацию новый плоттер SC-P 6000. Эта новая модель, предназначена для широкоформатной фото и художественной печати с цветовым охватом 94% гаммы Pantone и стойкостью чернил от 60 лет <sup>1</sup>.
                 </p>
@@ -153,32 +164,14 @@
                 </div>
             </section>
 
-        </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer placeholder -->
     <!-- Вставьте сюда код подвала из эталона -->
 
-    <!-- Back to top (из эталона) -->
-    <a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-white text-dark hover:bg-dark hover:text-white border border-gray-300 hover:border-dark transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6"><path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-
-    <script>
-        // Simple Back to Top script
-        const backToTopButton = document.getElementById('back-to-top');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTopButton.classList.remove('opacity-0', 'pointer-events-none');
-            } else {
-                backToTopButton.classList.add('opacity-0', 'pointer-events-none');
-            }
-        });
-        backToTopButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    </script>
+    <script src="../js/nav.js"></script>
 
 </body>
 </html>

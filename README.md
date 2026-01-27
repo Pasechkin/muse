@@ -32,6 +32,22 @@ npm run preview     # Просмотр в браузере
 
 ---
 
+## Резервирование и публикация
+
+### Резервирование
+
+Основной способ резервирования — **Git + GitHub** (история хранится в репозитории).
+
+### Публикация на GitHub
+
+Запустите **`upload-to-github.bat`** — он подготовит коммит и выполнит push в GitHub.
+
+### Публикация на Vercel
+
+Запустите **`БЫСТРЫЙ_ДЕПЛОЙ.bat`** (или `.ps1`) — сборка CSS + коммит + push.
+
+---
+
 ## Документация
 
 ### Основные документы
@@ -48,7 +64,6 @@ npm run preview     # Просмотр в браузере
 | Документ | Описание |
 |----------|----------|
 | [docs/HOW_TO_CREATE_PAGE.md](docs/HOW_TO_CREATE_PAGE.md) | Как создать страницу |
-| [docs/PURE_TAILWIND_GUIDE.md](docs/PURE_TAILWIND_GUIDE.md) | Переверстка на чистый Tailwind |
 | [docs/INTEGRATION_BITRIX.md](docs/INTEGRATION_BITRIX.md) | Подготовка к Bitrix |
 
 ---
