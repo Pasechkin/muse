@@ -428,6 +428,139 @@ tailwind.config = {
 - Transition: `transition-colors`
 - Hover эффект: `hover:bg-primary-hover` или `hover:bg-gray-700`
 
+#### Состояния кнопок
+
+```html
+<!-- Disabled -->
+<button class="btn-primary opacity-50 pointer-events-none" disabled>
+        [ТЕКСТ: Кнопка недоступна]
+</button>
+
+<!-- Loading (пример с иконкой/спиннером) -->
+<button class="btn-primary inline-flex items-center gap-2" aria-busy="true" aria-live="polite">
+        <svg class="size-4 animate-spin" aria-hidden="true"><!-- spinner --></svg>
+        <span>[ТЕКСТ: Отправка]</span>
+</button>
+```
+
+**Рекомендации:**
+- `disabled`: снижать прозрачность и отключать события.
+- `loading`: добавлять `aria-busy="true"` и сохранять ширину кнопки.
+
+#### Ссылки (inline)
+
+```html
+<a href="#" class="text-primary underline hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2">
+        [ТЕКСТ: Ссылка в тексте]
+</a>
+```
+
+**Состояния:**
+- `hover`: убираем underline.
+- `visited/active`: по необходимости, без изменения цветовой схемы бренда.
+
+---
+
+### Фокус‑стили и доступность (единый стандарт)
+
+Используем `focus-visible` для клавиатуры и сохраняем нейтральный вид при клике мышью.
+
+```html
+<button class="btn-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2">
+        [ТЕКСТ: Кнопка]
+</button>
+
+<!-- На тёмном фоне -->
+<a href="#" class="text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-dark">
+        [ТЕКСТ: Ссылка]
+</a>
+```
+
+---
+
+### Формы
+
+Базовые стили для полей и состояния ошибок. Текст форм — только с оригинала, иначе использовать плейсхолдеры.
+
+```html
+<label class="block text-sm font-medium text-dark mb-1" for="name">[ТЕКСТ: Имя]</label>
+<input id="name" name="name" type="text" class="w-full rounded-md border border-gray-300 px-4 py-2 text-body focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2" placeholder="[ТЕКСТ: Плейсхолдер]" />
+
+<!-- Helper -->
+<p class="text-sm text-gray-500 mt-1">[ТЕКСТ: Подсказка]</p>
+
+<!-- Error -->
+<input class="w-full rounded-md border border-red-500 px-4 py-2 text-body focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300 focus-visible:ring-offset-2" aria-invalid="true" />
+<p class="text-sm text-red-600 mt-1">[ТЕКСТ: Текст ошибки]</p>
+```
+
+**Checkbox/Radio (пример):**
+
+```html
+<label class="flex items-center gap-3 text-body">
+        <input type="checkbox" class="size-4 rounded border-gray-300 text-primary focus-visible:ring-2 focus-visible:ring-primary/40" />
+        <span>[ТЕКСТ: Согласие]</span>
+</label>
+```
+
+---
+
+### Таблицы данных
+
+```html
+<div class="overflow-x-auto">
+    <table class="min-w-full text-left text-sm text-body">
+        <thead class="text-dark">
+            <tr class="border-b border-gray-200">
+                <th class="py-3 pr-6 font-medium">[ТЕКСТ: Колонка]</th>
+                <th class="py-3 pr-6 font-medium">[ТЕКСТ: Колонка]</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="border-b border-gray-100">
+                <td class="py-3 pr-6">[ТЕКСТ: Значение]</td>
+                <td class="py-3 pr-6">[ТЕКСТ: Значение]</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+```
+
+---
+
+### Alert / Notice
+
+```html
+<div class="rounded-md border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-blue-900">
+        [ТЕКСТ: Информационное сообщение]
+</div>
+
+<div class="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-900">
+        [ТЕКСТ: Ошибка]
+</div>
+```
+
+---
+
+### Modal / Dialog
+
+Используем Tailwind Plus Elements (`<el-dialog>` + `<dialog>`). Сохраняем структуру и доступность.
+
+```html
+<el-dialog>
+    <dialog id="dialog-example" class="backdrop:bg-black/40">
+        <el-dialog-panel class="bg-white rounded-lg p-6">
+            <h3 class="text-xl font-medium text-dark mb-2">[ТЕКСТ: Заголовок]</h3>
+            <p class="text-body">[ТЕКСТ: Текст модального окна]</p>
+            <div class="mt-6 flex justify-end gap-3">
+                <button type="button" command="close" commandfor="dialog-example" class="btn-inverse">[ТЕКСТ: Закрыть]</button>
+                <button type="button" class="btn-primary">[ТЕКСТ: Подтвердить]</button>
+            </div>
+        </el-dialog-panel>
+    </dialog>
+</el-dialog>
+```
+
 ---
 
 ### Компонентные классы (Tailwind v4)
