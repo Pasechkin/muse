@@ -28,6 +28,22 @@ if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
     throw "git not found"
 }
 
+$productionBranch = $env:VERCEL_PRODUCTION_BRANCH
+if ([string]::IsNullOrWhiteSpace($productionBranch)) {
+    $productionBranch = 'refactor/buttons-and-icons'
+}
+$currentBranch = (& git rev-parse --abbrev-ref HEAD).Trim()
+Log "Git branch: $currentBranch (production: $productionBranch)"
+if ($currentBranch -ne $productionBranch) {
+    Log "WARNING: You are deploying from a non-production branch. Vercel production URL updates only from the configured Production Branch."
+    $answer = Read-Host "You are on '$currentBranch'. Production branch is '$productionBranch'. Push anyway? (y/N)"
+    if ($answer.Trim().ToLower() -ne 'y') {
+        Log "Deploy cancelled by user (wrong branch)."
+        Start-Process notepad.exe $logFile
+        return
+    }
+}
+
 Log "Step 5: Git add..."
 & git add . | Tee-Object -FilePath $logFile -Append
 
@@ -41,7 +57,12 @@ if ($LASTEXITCODE -eq 0) {
 }
 
 Log "Step 7: Commit..."
-& git commit -m "Оптимизация: изображения, CSS inline, исправления производительности" | Tee-Object -FilePath $logFile -Append
+$defaultCommitMessage = "Update: beauty-art links + audit rules"
+$commitMessage = Read-Host "Commit message (Enter = '$defaultCommitMessage')"
+if ([string]::IsNullOrWhiteSpace($commitMessage)) {
+    $commitMessage = $defaultCommitMessage
+}
+& git commit -m $commitMessage | Tee-Object -FilePath $logFile -Append
 
 Log "Step 8: Push to GitHub..."
 & git push | Tee-Object -FilePath $logFile -Append

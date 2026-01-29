@@ -126,6 +126,22 @@ echo [OK] Git: %GIT_PATH%>> "%LOG_FILE%"
 echo Git found
 echo.
 
+set "PRODUCTION_BRANCH=%VERCEL_PRODUCTION_BRANCH%"
+if "%PRODUCTION_BRANCH%"=="" set "PRODUCTION_BRANCH=refactor/buttons-and-icons"
+for /f "delims=" %%b in ('"%GIT_PATH%" rev-parse --abbrev-ref HEAD') do set "CURRENT_BRANCH=%%b"
+echo [INFO] Git branch: %CURRENT_BRANCH% (production: %PRODUCTION_BRANCH%)>> "%LOG_FILE%"
+if /i not "%CURRENT_BRANCH%"=="%PRODUCTION_BRANCH%" (
+    echo.
+    echo WARNING: Current branch is "%CURRENT_BRANCH%".
+    echo Vercel production URL updates only from the configured Production Branch.
+    echo.
+    choice /c YN /n /m "Push anyway? (Y/N): "
+    if errorlevel 2 (
+        echo [INFO] Deploy cancelled by user (wrong branch)>> "%LOG_FILE%"
+        exit /b 2
+    )
+)
+
 echo Step 5: Stage changes...
 echo [5] git add .>> "%LOG_FILE%"
 "%GIT_PATH%" add .
@@ -156,7 +172,11 @@ echo [OK] Changes ready for commit>> "%LOG_FILE%"
 echo.
 echo Step 7: Commit...
 echo [7] git commit>> "%LOG_FILE%"
-"%GIT_PATH%" commit -m "Оптимизация: изображения, CSS inline, исправления производительности"
+set "DEFAULT_COMMIT_MSG=Update: beauty-art links + audit rules"
+set "COMMIT_MSG="
+set /p "COMMIT_MSG=Commit message (Enter = %DEFAULT_COMMIT_MSG%): "
+if "%COMMIT_MSG%"=="" set "COMMIT_MSG=%DEFAULT_COMMIT_MSG%"
+"%GIT_PATH%" commit -m "%COMMIT_MSG%"
 if %errorlevel% neq 0 (
     echo Warning: commit not created. Check repo state.
     echo [ERR] git commit failed>> "%LOG_FILE%"

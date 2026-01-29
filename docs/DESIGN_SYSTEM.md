@@ -364,11 +364,13 @@
 </p>
 
 <!-- Ссылка внутри страницы (стрелка вверх) -->
-<a href="#calc" class="text-primary underline hover:no-underline">«Цена» ↑</a>
+<a href="#calc" class="text-primary underline hover:no-underline">Цена ↑</a>
 
 <!-- Ссылка на тёмном фоне -->
 <a href="/" class="text-white hover:text-primary transition-colors">Главная</a>
 ```
+
+**Кавычки в тексте ссылок:** в текстовых ссылках **не используем** «…». Кавычки ухудшают читаемость и выглядят как цитата, а не как ссылка.
 
 **Стрелки для ссылок:**
 - `↑` — ссылка вверх по странице
