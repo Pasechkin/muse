@@ -17,3 +17,6 @@ coverage/
 
 # Prevent accidental duplicate of Tailwind Plus Elements bundle at repo root.
 /tailwindplus-elements.js
+
+.vercel
+.env*.local
