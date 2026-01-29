@@ -1,3 +1,5 @@
+# Сборка проекта с кириллицей в пути (Windows)
+
 Сборка проекта (с учётом кириллических путей)
 ===============================================
 
@@ -10,13 +12,13 @@
 
    ```powershell
    # Самый надежный способ (использует локальную папку):
-   cd "C:\Users\Анна\Documents\Muse-tailwind\V2\muse-migration-tailwind-v4-10388599573794131211"
+   cd "C:\Users\Анна\Documents\Muse-tailwind\tailwind-project"
    ```
 
-   *Важно: Если терминал выдает ошибку, попробуйте сначала зайти в `V2`, а потом в проект:*
+   *Важно: Если терминал выдает ошибку, попробуйте сначала зайти в `Muse-tailwind`, а потом в проект:*
    ```powershell
-   cd "C:\Users\Анна\Documents\Muse-tailwind\V2"
-   cd .\muse-migration-tailwind-v4-10388599573794131211
+   cd "C:\Users\Анна\Documents\Muse-tailwind"
+   cd .\tailwind-project
    ```
 
 2. Убедитесь, что вы в правильном каталоге (вы должны увидеть файл `package.json`):
@@ -32,7 +34,14 @@
    npm run copy-css
    ```
 
-4. Запустить локальный сервер (способ через терминал):
+4. Предпросмотр (эталон) — VS Code Live Server:
+
+   - Правой кнопкой на файл `src/html/index.html` -> **Open with Live Server**.
+   - Если изменения не видны, нажмите `Ctrl + F5` в браузере для очистки кэша.
+   - Если Live Server запущен от **корня проекта**, открывайте страницы так: `http://127.0.0.1:5501/src/html/...`.
+   - Если хотите короткие URL вида `http://127.0.0.1:5501/имя-страницы.html`, запускайте Live Server именно из папки `src/html`.
+
+5. Предпросмотр (альтернатива через терминал):
 
    ```powershell
    # ЗАПУСКАТЬ СТРОГО ИЗ КОРНЯ ПРОЕКТА (где package.json)
@@ -46,12 +55,6 @@
    - Проверьте, что в терминале написано `Starting up http-server, serving ./src/html`.
    - Попробуйте порт **3005**, если 3000 занят: `npx http-server ./src/html -p 3005 -a 127.0.0.1`.
 
-5. Альтернатива (VS Code Live Server) — **РЕКОМЕНДУЕТСЯ**:
-   - Правой кнопкой на файл `src/html/index.html` -> **Open with Live Server**.
-   - Если изменения не видны, нажмите `Ctrl + F5` в браузере для очистки кэша.
-   - Если Live Server запущен от **корня проекта**, открывайте страницы так: `http://127.0.0.1:5501/src/html/...`.
-   - Если хотите короткие URL вида `http://127.0.0.1:5501/имя-страницы.html`, запускайте Live Server именно из папки `src/html`.
-
 6. Быстрая проверка содержимого (PowerShell):
 
    # проверить, что HTML содержит ожидаемые изменения
@@ -60,7 +63,7 @@
    # или поиск конкретных строк
    Select-String -Path .\src\html\**\*.html -Pattern 'BxPopup|Page Navigator|max-h-\[90vh\]'
 
-6. Отладка, если сервер возвращает 404:
+6a. Отладка, если сервер возвращает 404:
    - Убедитесь, что путь под `src/html` действительно существует и что файл присутствует (Get-ChildItem).
    - Проверьте, в какой директории вы запустили сервер. `npx http-server src/html` служит тот каталог `src/html` относительно текущей директории.
    - Если возник 404 при прямом URL `/portret-na-zakaz/object/detskiy-portret.html`, проверьте наличие файла `src/html/portret-na-zakaz/object/detskiy-portret.html`.
@@ -68,10 +71,10 @@
 7. Примечания и советы:
    - Избегайте прямого копирования длинных путей с кириллицей в команды — лучше перейти в каталог с помощью TAB или использовать относительный путь.
    - Если используете Live Server в VSCode — убедитесь, что он раздаёт `src/html`, а не корень рабочей папки.
-   - Для автоматизации: используйте `npm run preview` (всё делает за вас), но убедитесь, что текущая директория — корень проекта.
+   - Для автоматизации: можно использовать `npm run preview`, но эталонный предпросмотр — Live Server.
 
 8. Короткая памятка (e1):
-   - Всегда: cd .\muse-migration-tailwind-v4-... → npm run build:once → npm run copy-css → npx http-server src/html -p 3002
+   - Всегда: cd .\tailwind-project → npm run build:once → npm run copy-css → Live Server (или `npm run preview`, но это не эталон)
 
 ---
 
@@ -123,13 +126,14 @@ SUCCESS! Changes pushed to GitHub.
 1) Подготовка и запуск превью
    - npm run build:once
    - npm run copy-css
-   - npx http-server src/html -p 3002 -a 127.0.0.1
-   - Откройте в браузере: http://127.0.0.1:3002/<путь_к_странице> (пример: `portret-na-zakaz/object/detskiy-portret.html`)
+   - Откройте страницу через Live Server (эталон): откройте нужный HTML внутри `src/html/` и запустите Live Server (кнопка Go Live / Open with Live Server). Порт и адрес зависят от настроек.
+   - Альтернатива (не эталон): `npm run preview`.
    - Сбросьте кеш страницы (Ctrl+F5) перед проверкой.
 
 2) Быстрая автоматическая проверка (PowerShell):
    - Проверить подключение CSS и наличие ключевых фрагментов:
-     (Invoke-WebRequest 'http://127.0.0.1:3002/portret-na-zakaz/object/detskiy-portret.html').Content | Select-String 'href=".*css/output.css"|max-h-\[90vh\]|BxPopup|carousel-scroll|page-navigator' -AllMatches
+       $url = 'http://127.0.0.1:5500/portret-na-zakaz/object/detskiy-portret.html'  # замените на URL из Live Server
+       (Invoke-WebRequest $url).Content | Select-String 'href=".*css/output.css"|max-h-\[90vh\]|BxPopup|carousel-scroll|page-navigator' -AllMatches
    - Проверить, что `nav.js` содержит глобальную функцию popup:
      Select-String -Path .\src\html\js\nav.js -Pattern 'window.BxPopup' -SimpleMatch
    - Убедиться, что нет дублирующих inline-функций `function BxPopup` в `src/html`:
@@ -146,7 +150,7 @@ SUCCESS! Changes pushed to GitHub.
    - Откройте консоль DevTools: нет ошибок JavaScript, сеть возвращает 200 для `css/output.css` и HTML.
 
 4) Что делать при проблемах
-   - Если стили не применяются — убедитесь, что `src/html/css/output.css` обновлён и доступен (открыть URL `http://127.0.0.1:3002/css/output.css`).
+   - Если стили не применяются — убедитесь, что `src/html/css/output.css` обновлён и доступен (откройте `/css/output.css` по адресу, который выдал Live Server; порт может отличаться).
    - Если модал не показывает на десктопе — проверьте класс `xl:hidden` в диалоге; при необходимости удалите/измените классы для нужного поведения.
    - Если Popup не открывается — проверьте, что `window.BxPopup` присутствует в `src/html/js/nav.js` и что нет блокирующих Content-Security-Policy заголовков.
 

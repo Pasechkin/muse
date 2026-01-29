@@ -16,6 +16,50 @@ if (!window.BxPopup) {
 document.addEventListener('DOMContentLoaded', function() {
     console.log('✅ nav.js loaded and DOMContentLoaded fired');
 
+    // --- 0. INPUT MASKS (RU phone) ---
+    function formatRuPhone(rawDigits) {
+        var digits = (rawDigits || '').replace(/\D/g, '');
+        if (!digits) return '';
+
+        // Normalize: 8XXXXXXXXXX -> 7XXXXXXXXXX
+        if (digits.charAt(0) === '8') digits = '7' + digits.slice(1);
+        // Strip country if present
+        if (digits.charAt(0) === '7') digits = digits.slice(1);
+
+        digits = digits.slice(0, 10);
+        var a = digits.slice(0, 3);
+        var b = digits.slice(3, 6);
+        var c = digits.slice(6, 8);
+        var d = digits.slice(8, 10);
+
+        var out = '+7';
+        if (a) out += ' (' + a;
+        if (a && a.length === 3) out += ')';
+        if (b) out += ' ' + b;
+        if (c) out += '-' + c;
+        if (d) out += '-' + d;
+        return out;
+    }
+
+    function attachRuPhoneMask(input) {
+        if (!input || input.dataset.maskSkip === 'true') return;
+        // Ensure helpful attributes
+        if (!input.getAttribute('autocomplete')) input.setAttribute('autocomplete', 'tel');
+        if (!input.getAttribute('inputmode')) input.setAttribute('inputmode', 'tel');
+
+        var onChange = function() {
+            var digits = (input.value || '').replace(/\D/g, '');
+            var formatted = formatRuPhone(digits);
+            input.value = formatted;
+        };
+
+        input.addEventListener('input', onChange);
+        input.addEventListener('blur', onChange);
+        onChange();
+    }
+
+    document.querySelectorAll('input[type="tel"]').forEach(attachRuPhoneMask);
+
     // --- 1. PAGE NAVIGATOR (старый) ---
     const pageNavigator = document.querySelector('.page-navigator');
     const navLinks = document.querySelectorAll('.page-navigator .inner-link');

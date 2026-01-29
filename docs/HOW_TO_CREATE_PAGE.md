@@ -26,7 +26,12 @@
 
 Задача: [ОПИСАНИЕ ЗАДАЧИ]
 
-Эталон: @tailwind-project/src/html/portret-na-zakaz-po-foto-na-kholste-sankt-peterburg.html
+Эталоны по группам (выбери по типу страницы):
+- Главные — @tailwind-project/src/html/index.html
+- Стили портретов — @tailwind-project/src/html/portret-na-zakaz/style/portret-maslom.html
+- Объекты портретов — @tailwind-project/src/html/portret-na-zakaz/object/muzhskoy-portret.html
+- Блог — @tailwind-project/src/html/blog/kollazh-i-fotokollazh.html
+- Info — @tailwind-project/src/html/info/kontakty.html
 
 Источник контента: [URL оригинальной страницы на muse.ooo]
 
@@ -49,33 +54,38 @@
 
 Создай новую страницу [НАЗВАНИЕ].
 
-Эталон: @tailwind-project/src/html/portret-na-zakaz-po-foto-na-kholste-sankt-peterburg.html
+Эталоны по группам (выбери по типу страницы):
+- Главные — @tailwind-project/src/html/index.html
+- Стили портретов — @tailwind-project/src/html/portret-na-zakaz/style/portret-maslom.html
+- Объекты портретов — @tailwind-project/src/html/portret-na-zakaz/object/muzhskoy-portret.html
+- Блог — @tailwind-project/src/html/blog/kollazh-i-fotokollazh.html
+- Info — @tailwind-project/src/html/info/kontakty.html
 
 Источник контента: https://muse.ooo/[путь]/
 
 Важно:
-- Структуру и критический CSS бери из эталона
+- Структуру и критический CSS бери из эталона группы
 - Контент ТОЛЬКО с оригинала muse.ooo
 - Header и Footer оставь как комментарии — вставлю сам
 ```
 
 ### 2. Рефакторинг на чистый Tailwind CSS
 
-Для существующих страниц используй инструкцию `PURE_TAILWIND_GUIDE.md`:
+Для существующих страниц используй дизайн‑систему:
 
 ```
-Следуй инструкции @tailwind-project/docs/PURE_TAILWIND_GUIDE.md
+Следуй инструкции @tailwind-project/docs/DESIGN_SYSTEM.md
 
 Переверстай страницу [ИМЯ_ФАЙЛА] на 100% чистый Tailwind CSS.
 
 Страница: @tailwind-project/src/html/[путь к файлу]
 
 СТРОГО следуй инструкции:
-1. Заменить container на inline Tailwind классы
-2. Video Cover → data-video-cover + Tailwind классы
+1. Использовать `container` без двойных обёрток
+2. Video Cover → `data-video-cover` + `data-video-src` + Tailwind классы
 3. Удалить избыточный критический CSS
 4. Подключить js/nav.js
-5. Добавить inline-скрипты (Video Cover, Carousel)
+5. Карусели — использовать общий js/nav.js
 6. Добавить HTML кнопки "Наверх"
 
 НЕ ТРОГАТЬ: Header, Footer, контент, изображения.
@@ -92,7 +102,7 @@
 - H1: text-4xl lg:text-6xl font-light
 - H2: text-3xl lg:text-4xl font-light
 - Breadcrumbs: чистый Tailwind (text-sm text-gray-400)
-- Кнопки: inline-block px-6 py-2 bg-primary...
+- Кнопки: допускаются `btn-*` из компонентов или эквивалентные inline‑классы
 - Отступы секций: py-16 lg:py-24
 
 НЕ ТРОГАТЬ контент (тексты, изображения, ссылки).
@@ -109,7 +119,13 @@
 - Контент совпадает с оригиналом
 - Изображения имеют все атрибуты (width, height, alt, loading)
 - Кнопка "Наверх" присутствует
-- Inline-скрипты добавлены (если нужны)
+- Inline-скрипты добавлены только если нужна уникальная логика (Video Cover/Carousel Scroll — без inline, через общий js/nav.js)
+
+Минимальный финальный прогон (перед тем как считать страницу завершённой):
+- нет `.container` внутри `.container`;
+- SVG только inline `<svg>`;
+- по умолчанию подключён `js/nav.js`; `js/tailwindplus-elements.js` подключён только при `el-*` и стоит перед `nav.js`;
+- CSS собран из `src/input.css` и (если нужно) обновлена копия для предпросмотра (`npm run build:once` + `npm run copy-css`).
 ```
 
 ### Валидация HTML

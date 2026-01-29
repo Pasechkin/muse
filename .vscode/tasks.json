@@ -13,6 +13,17 @@
 			"type": "shell",
 			"command": "npm run copy-css",
 			"problemMatcher": []
+		},
+		{
+			"label": "Check Docker CLI",
+			"type": "shell",
+			"command": "cmd",
+			"args": [
+				"/c",
+				"where docker & where docker.exe & echo --- & dir \"C:\\Program Files\\Docker\\Docker\" 2>nul & echo --- & reg query \"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\" /s /f \"Docker Desktop\" 2>nul | findstr /i \"Docker\" | more"
+			],
+			"isBackground": false,
+			"problemMatcher": []
 		}
 	]
 }

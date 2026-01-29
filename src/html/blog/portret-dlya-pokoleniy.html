@@ -20,12 +20,13 @@
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
     </style>
 
-    <!-- Tailwind CSS CDN (для разработки, как в эталоне) -->
+    <!-- Основной CSS: output.css (Tailwind v4, локальная сборка) -->
 
 
     
     <!-- Tailwind Plus Elements -->
     
+<script type="module" src="../js/tailwindplus-elements.js"></script>
 <link rel="stylesheet" href="../css/output.css">
     <link rel="canonical" href="https://muse.ooo/blog/portret-dlya-pokoleniy/">
 </head>
@@ -62,18 +63,6 @@
         <section class="py-12 bg-white">
             <div class="container max-w-4xl mx-auto px-4">
 
-            <!-- Article Header -->
-            <header class="mb-8">
-                <div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
-                    <time datetime="2016-05-23">23 мая 2016 года</time>
-                    <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
-                    <span class="uppercase tracking-wide text-primary font-medium">Пресс-релиз</span>
-                </div>
-                <p class="text-xl text-body leading-relaxed">
-                    В России сервисом Muse запущено в промышленную эксплуатацию оборудование, которое печатает интерьерные фотографии и репродукции со сроком службы от 60-ти лет.
-                </p>
-            </header>
-
             <!-- Featured Image -->
             <figure class="mb-10">
                 <img 
@@ -89,6 +78,17 @@
 
             <!-- Article Content -->
             <article class="space-y-6 text-body">
+                <!-- Article Header -->
+                <header class="mb-8">
+                    <div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
+                        <time datetime="2016-05-23">23 мая 2016 года</time>
+                        <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+                        <span class="uppercase tracking-wide text-primary font-medium">Пресс-релиз</span>
+                    </div>
+                    <p class="text-xl text-body leading-relaxed">
+                        В России сервисом Muse запущено в промышленную эксплуатацию оборудование, которое печатает интерьерные фотографии и репродукции со сроком службы от 60-ти лет.
+                    </p>
+                </header>
                 <p>
                     Санкт-Петербург, 23 мая 2016. – При поддержке компании Epson сервис Muse ввел в промышленную эксплуатацию новый плоттер SC-P 6000. Эта новая модель, предназначена для широкоформатной фото и художественной печати с цветовым охватом 94% гаммы Pantone и стойкостью чернил от 60 лет <sup>1</sup>.
                 </p>

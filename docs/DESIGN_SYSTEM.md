@@ -9,9 +9,14 @@
 **ВАЖНО:** Текст от себя не добавлять!
 
 - Весь контент брать ТОЛЬКО с оригинального сайта muse.ooo
-- Если текст неизвестен — использовать плейсхолдер: `[ТЕКСТ: описание]`
+- Если текст/URL/alt/title неизвестны — допускается ставить маркер (плейсхолдер) вида `[ТЕКСТ: описание]` / `[URL_...]`.
 - Новый текст предлагать на согласование, а не вставлять сразу
 - В примерах документации использовать реальный текст с сайта или явные плейсхолдеры
+
+Важно про плейсхолдеры в страницах:
+- В некоторых текущих HTML-страницах проекта плейсхолдеры уже присутствуют — **это допустимо**, их не нужно "лечить" автоматически.
+- **Нельзя** заменять плейсхолдеры на выдуманные значения.
+- Новые плейсхолдеры в HTML добавлять только по согласованию (или если в оригинале действительно нет данных и нужно явно пометить незаполненное место).
 
 ---
 
@@ -26,19 +31,102 @@
 
 **Контейнер:** использовать класс `container` (макс. ширина 1170px, padding 16px).
 
+**Запрещено:** `.container` внутри `.container`.
+
+Если нужен фон/граница/подложка на всю ширину — секция остаётся full-width, а контент внутри одним `.container`.
+
 **Критический CSS (минимум):**
 - переменные `:root` и базовые `body`, `.sr-only`;
 - при наличии компонента добавить его критические классы: `.page-navigator`, `.ba-card`, `.canvas-3d`, `.carousel-scroll`.
 - для каждой страницы проверять обоснованность критического CSS: оставлять только то, что действительно нужно до загрузки основного CSS.
 
 **Интерактивные блоки:**
-- Video Cover — `data-video-cover` + inline JS;
-- Carousel Scroll — CSS + JS drag/wheel;
+- Video Cover — `data-video-cover` + `data-video-src` (JS в `js/nav.js`, без inline);
+- Carousel Scroll — CSS + общий `js/nav.js` (без обязательного inline JS);
 - Back to Top — обязательная кнопка перед `<header>`.
 
 **Слайдер “До/После”:** использовать `ba-card` + 4 строки CSS.
 
+**JavaScript (архитектура):**
+
+**Общий скрипт** — `src/html/js/nav.js` (подключается на страницах по умолчанию).
+
+**Что конкретно содержит `nav.js`:**
+- `window.BxPopup(...)` — глобальный helper для inline-совместимости.
+- Маска телефона (RU) для `input[type="tel"]` (`+7 (___) ___-__-__`).
+- Page Navigator: плавный скролл, подсветка активной секции, desktop-only видимость.
+- Back to Top: логика показа/скрытия и плавный скролл по клику (`#back-to-top`).
+- Video Cover: ленивое создание `iframe` по клику на `[data-video-cover] [data-play-btn]`.
+- Доступность `<dialog>`: фокус, `Escape`, aria-атрибуты, keyboard controls.
+- Carousel Scroll: wheel-scroll (desktop), drag-to-scroll, кнопки prev/next, ARIA и `sr-only` подсказка, авто-добавление кнопок при отсутствии.
+- Before/After: синхронизация `input[type=range]` с CSS-переменной `--pos` (`.ba-card/.before-after-slider`).
+
+**Page-specific JS** (скрипты только для отдельных страниц):
+- Допускается, если логика не переиспользуется и относится к уникальному блоку страницы.
+- Inline-скрипт должен быть коротким, без глобальных переменных, и начинаться с guard-проверки селектора.
+- Если логика повторяется на 2+ страницах — переносим в `nav.js` и фиксируем HTML-хук (класс/`data-*`).
+
 ---
+
+## Tailwind Plus Elements — где используем
+
+- **Mobile Menu:** `el-dialog` (см. раздел “Mobile Menu”).
+- **Tabs:** `el-tab-group` (галерея характеристик).
+- **Accordion:** `el-disclosure` (UI-аккордеоны). Для публичного FAQ (SEO) — приоритет у нативного `<details>` (см. “FAQ Accordion”).
+
+Подключение: локальный файл `src/html/js/tailwindplus-elements.js`.
+
+**Канон (порядок подключения скриптов):**
+
+Ставим скрипты перед `</body>`.
+
+Если используются `el-*`, подключаем Tailwind Plus Elements как модуль **перед** нашим общим `nav.js`:
+
+```html
+<!-- Tailwind Plus Elements (если используются el-*) -->
+<script type="module" src="js/tailwindplus-elements.js"></script>
+
+<!-- Общий скрипт проекта -->
+<script src="js/nav.js"></script>
+```
+
+**Важно:** это вендорный (минифицированный) файл из `@tailwindplus/elements`.
+- Не редактировать и не рефакторить.
+- Подключать как ES-модуль:
+
+```html
+<script type="module" src="js/tailwindplus-elements.js"></script>
+```
+
+**Разделение ответственности:**
+- `tailwindplus-elements.js` — web components `el-*` (диалоги, табы, disclosure и их доступность/полифиллы).
+- `nav.js` — наш общий JS (навигация, карусели, video cover, маски, а11y-обвязка и т.д.).
+
+**Что включено в Tailwind Plus Elements (для этой версии):**
+- Introduction
+- Autocomplete → `el-autocomplete`
+- Command palette → `el-command-palette`
+- Copy button → `el-copyable`
+- Dialog → `el-dialog`
+- Disclosure → `el-disclosure`
+- Dropdown menu → `el-dropdown` + `el-menu`
+- Popover → `el-popover`
+- Select → `el-select`
+- Tabs → `el-tab-group`
+
+Смысл: если нужен типовой интерактивный элемент из списка выше — **не пишем новый JS “с нуля”**, а используем соответствующий `el-*` и подключаем `tailwindplus-elements.js`.
+
+**Decision flow (как выбирать, где делать логику):**
+
+1) **Есть подходящий компонент в Tailwind Plus Elements?** → используем `el-*` (без нового JS).
+2) **Нет в Plus, но поведение повторится на 2+ страницах?** → добавляем в общий `nav.js` и фиксируем HTML-хук (класс/`data-*`).
+3) **Уникально для одной страницы/одного блока?** → допустим короткий page-specific inline JS с guard-проверками.
+
+**Правило (чтобы не плодить лишний JS):**
+- Перед написанием нового JavaScript для типовых UI-компонентов сначала проверяем Tailwind Plus Elements (в их документации есть перечень готовых компонентов).
+- Для типовых задач (диалоги/модалки, табы, UI-аккордеоны) используем `el-dialog`, `el-tab-group`, `el-disclosure` вместо самописной логики.
+- Для публичных SEO-блоков FAQ — используем нативный `<details>` (см. “FAQ Accordion”), без JS.
+- Новый JS пишем только если поведение не покрывается Plus или это бизнес‑специфичная логика; при этом вендорный файл не правим — делаем обвязку/инициализацию в нашем коде.
 
 ## Содержание
 
@@ -131,12 +219,25 @@
 </div>
 
 <!-- Серый текст (второстепенный) -->
-<p class="text-gray-400">Второстепенный текст</p>
+<p class="text-gray-600">Второстепенный текст</p>
 ```
+
+**Контраст (A11y):** на белом фоне избегаем `text-gray-400` для обычного текста.
+- Для мелкого/второстепенного текста на белом фоне — ориентируемся на `text-gray-600`.
+- `text-gray-500` допустим для крупных подписей/второстепенных элементов, но проверяем в DevTools (Lighthouse/Axe).
 
 ---
 
 ## Типографика
+
+### Шрифт
+
+Используем **только системные шрифты устройства/операционной системы** (system font stack).
+
+**Мы НЕ подключаем веб‑шрифты:** не используем Google Fonts, не добавляем файлы шрифтов (`.woff/.woff2`), не пишем `@font-face`, не делаем preload шрифтов.
+
+**Фактический стек (см. `src/input.css`, `--font-sans`):**
+`system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"`.
 
 ### Шкала размеров
 
@@ -274,6 +375,8 @@
 - `↓` — ссылка вниз по странице  
 - `↗` — внешняя ссылка или другая страница
 
+**Правило ссылок:** внутренние ссылки — без `target`, внешние — `target="_blank"` + `rel="noopener noreferrer"`.
+
 ### Насыщенность шрифта
 
 - **Light (300)** - для заголовков
@@ -307,7 +410,7 @@
 
 ### Контейнер
 
-Контейнер настроен через Tailwind конфигурацию:
+Контейнер задан в `src/input.css` (Tailwind v4, без `tailwind.config.js`):
 
 - **Максимальная ширина**: 1170px
 - **Padding**: 1rem (16px) по горизонтали
@@ -321,20 +424,18 @@
 <div class="container mx-auto px-4">...</div>
 ```
 
-**Tailwind конфигурация контейнера:**
-```javascript
-tailwind.config = {
-    theme: {
-        container: {
-            center: true,      // mx-auto встроен
-            padding: '1rem',   // px-4 встроен
-            screens: {
-                '2xl': '1170px' // max-width на больших экранах
-            }
-        }
+```css
+@layer utilities {
+    .container {
+        margin-inline: auto;
+        padding-inline: 1rem;
+        max-width: 1170px;
     }
 }
 ```
+
+**Правило:** в секции допускается только один `container`, без двойных обёрток.
+**Исключения:** полноширинные секции с фоном — Header, Footer, CTA, Промо‑баннер (Акция), Карусели. Там `container` используется только для контента.
 
 ### Вертикальные отступы секций
 
@@ -398,7 +499,7 @@ tailwind.config = {
 
 - **Быстрая смена дизайна:** правки в токенах (`@theme`) и компонентах, без переписывания десятков HTML‑страниц.
 - **DRY и консистентность:** единые `btn-*`, `card`, `section-title`, `cta`, `step`, `check-list` вместо повторения длинных наборов утилит.
-- **Масштабирование:** изменения в одном месте автоматически применяются ко всем 55 страницам.
+- **Масштабирование:** изменения в одном месте автоматически применяются ко всем production страницам.
 - **Контроль визуального языка:** типографика, отступы и состояния закреплены в компонентах.
 
 ### Кнопки
@@ -481,6 +582,22 @@ tailwind.config = {
 ### Формы
 
 Базовые стили для полей и состояния ошибок. Текст форм — только с оригинала, иначе использовать плейсхолдеры.
+
+**Правило:** у каждого поля есть `label`, `name` и корректный `type`.
+
+**UI‑референс (зафиксировано):** Tailwind Plus UI Blocks → Application UI → Forms → Form layouts:
+https://tailwindcss.com/plus/ui-blocks/application-ui/forms/form-layouts
+
+Примечание: используем как визуальный ориентир (сетка/отступы/состояния). Код из Tailwind Plus не копировать 1:1 без необходимости — адаптировать под правила проекта (контент 1:1 с muse.ooo, скрипты/маски по стандарту проекта).
+
+**Отправка (текущее состояние проекта):** формы могут быть сверстаны, но не обязаны отправлять данные. Не добавлять фейковые `action`/JS‑отправку без отдельного согласования.
+
+**Телефон (маска):** для полей телефона используем `type="tel"` (и по возможности `autocomplete="tel"`, `inputmode="tel"`). Маска применяется общим скриптом `src/html/js/nav.js` и форматирует ввод как `+7 (___) ___-__-__`.
+
+**E-mail / Имя / Фамилия (без масок):**
+- E-mail: `type="email"` + нативная валидация браузера.
+- Имя/Фамилия: `type="text"` (по возможности `autocomplete="given-name"` / `autocomplete="family-name"`).
+- Не подключать сторонние библиотеки масок/валидации без отдельного согласования.
 
 ```html
 <label class="block text-sm font-medium text-dark mb-1" for="name">[ТЕКСТ: Имя]</label>
@@ -677,7 +794,13 @@ tailwind.config = {
 
 **Правило:** если появляется новый SVG‑набор, добавлять его в этот список и отмечать страницы‑источники.
 
-**Навигационные иконки:** решение по стратегии (inline SVG vs SVG‑спрайт) отложено; при выборе спрайта потребуется loader и сборка спрайта.
+**Навигационные иконки (текущая стратегия): только Inline SVG.**
+
+Правила:
+- Используем inline `<svg>` прямо в HTML (спрайта и сборки спрайта сейчас нет).
+- Для цвета — `fill="currentColor"` (или `stroke="currentColor"`) + управление цветом через классы Tailwind (`text-dark`, `text-primary`, и т.д.).
+- Сохраняем `viewBox`; не полагаемся на жёсткие `width/height` в атрибутах — размер задаём классами (`w-5 h-5`, `size-5`, и т.п.).
+- Удаляем мусорные атрибуты из SVG (например, inline-стили, лишние `id`, `data-*`), если это не ломает отображение.
 
 #### Кнопка "Наверх" (Back to Top)
 
@@ -836,7 +959,7 @@ tailwind.config = {
 Навигационная цепочка, показывающая путь до текущей страницы. Размещается в Hero-секции над заголовком.
 
 ```html
-<nav class="text-sm text-gray-400 mb-4" aria-label="Breadcrumb">
+<nav class="text-sm text-gray-600 mb-4" aria-label="Breadcrumb">
     <ol class="flex list-none p-0">
         <li class="flex items-center">
             <a href="/" class="hover:underline">Главная</a>
@@ -846,15 +969,15 @@ tailwind.config = {
             <a href="/portret-na-zakaz/" class="hover:underline">Портрет на заказ</a>
             <span class="mx-2">/</span>
         </li>
-        <li class="text-gray-300">Название страницы</li>
+        <li class="text-gray-500">Название страницы</li>
     </ol>
 </nav>
 ```
 
 **Характеристики:**
 - Размер: `text-sm` (14px)
-- Цвет ссылок: `text-gray-400` → hover: `underline`
-- Цвет текущей страницы: `text-gray-300`
+- Цвет ссылок: `text-gray-600` → hover: `underline`
+- Цвет текущей страницы: `text-gray-500`
 - Разделитель: `/` с отступами `mx-2`
 
 #### Page Header (серый фон + крошки + H1)
@@ -864,7 +987,7 @@ tailwind.config = {
 ```html
 <section class="pt-8 pb-8 lg:pt-12 lg:pb-12 bg-secondary">
     <div class="container">
-        <nav class="text-sm text-gray-400 mb-4" aria-label="Хлебные крошки">
+        <nav class="text-sm text-gray-600 mb-4" aria-label="Хлебные крошки">
             <ol class="flex items-center space-x-2">
                 <li><a href="/" class="hover:text-primary transition-colors">Главная</a></li>
                 <li>/</li>
@@ -883,7 +1006,7 @@ tailwind.config = {
 - Фон секции: `bg-secondary`
 - Отступы: `pt-8 pb-8 lg:pt-12 lg:pb-12`
 - Заголовок H1: `text-4xl lg:text-6xl font-light text-dark`
-- Крошки: `text-gray-400` + `/` как разделитель
+- Крошки: `text-gray-600` + `/` как разделитель
 
 #### Характеристики (список с чередованием фона)
 
@@ -1003,24 +1126,24 @@ tailwind.config = {
 
 **HTML:**
 ```html
-<div class="group relative aspect-video rounded-lg overflow-hidden shadow-lg" data-video-cover>
+<div class="group relative aspect-video rounded-lg overflow-hidden shadow-lg"
+     data-video-cover
+     data-video-src="https://www.youtube.com/embed/VIDEO_ID?rel=0&amp;showinfo=0"
+     data-video-title="[ТЕКСТ: заголовок видео]">
     <!-- Обложка -->
-    <img src="cover.jpg" alt="Описание" class="w-full h-full object-cover group-[.video-playing]:hidden" loading="lazy">
-    
+    <img src="cover.jpg" alt="[ТЕКСТ: описание обложки]"
+         class="w-full h-full object-cover group-[.video-playing]:hidden" loading="lazy" decoding="async">
+
     <!-- Кнопка Play -->
-    <div class="absolute inset-0 flex items-center justify-center z-10 cursor-pointer 
-                bg-black/20 hover:bg-black/30 transition-colors
-                group-[.video-playing]:hidden" data-play-btn>
+    <button type="button"
+            class="absolute inset-0 flex items-center justify-center z-10 cursor-pointer
+                   bg-black/20 hover:bg-black/30 transition-colors
+                   group-[.video-playing]:hidden"
+            data-play-btn aria-label="Смотреть видео">
         <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg">
             <path d="M8 5v14l11-7z"/>
         </svg>
-    </div>
-    
-    <!-- Видео -->
-    <iframe class="absolute inset-0 w-full h-full hidden group-[.video-playing]:block"
-            loading="lazy" allowfullscreen
-            data-src="https://www.youtube.com/embed/VIDEO_ID"
-            title="Описание видео"></iframe>
+    </button>
 </div>
 ```
 
@@ -1028,21 +1151,7 @@ tailwind.config = {
 - Горизонтальное видео (YouTube): `aspect-video` (16:9)
 - Вертикальное видео (TikTok/Reels): `aspect-[360/648]` (9:16)
 
-**JavaScript (перед `</body>`):**
-```javascript
-document.querySelectorAll('[data-video-cover]').forEach(function(cover) {
-    const playBtn = cover.querySelector('[data-play-btn]');
-    if (playBtn) {
-        playBtn.addEventListener('click', function() {
-            cover.classList.add('video-playing');
-            const iframe = cover.querySelector('iframe');
-            if (iframe && iframe.dataset.src) {
-                iframe.src = iframe.dataset.src + '&autoplay=1';
-            }
-        });
-    }
-});
-```
+**JavaScript:** реализовано в общем `js/nav.js` (inline-скрипт не добавлять). `nav.js` по клику добавит класс `video-playing` и создаст `iframe` лениво на основе `data-video-src`.
 
 ### Carousel Scroll
 
@@ -1072,52 +1181,7 @@ document.querySelectorAll('[data-video-cover]').forEach(function(cover) {
 </div>
 ```
 
-**JavaScript (drag + wheel + защита от случайного клика):**
-```javascript
-document.querySelectorAll('.carousel-scroll').forEach(function(carousel) {
-    carousel.addEventListener('wheel', function(e) {
-        if (window.innerWidth < 1024) return;
-        if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) {
-            e.preventDefault();
-            carousel.scrollBy({ left: e.deltaY * 0.6, behavior: 'auto' });
-        }
-    }, { passive: false });
-    
-    var isDown = false, startX, startScrollLeft, hasMoved = false, clickBlocked = false;
-    var DRAG_THRESHOLD = 5;
-    carousel.style.cursor = 'grab';
-    
-    carousel.addEventListener('mousedown', function(e) {
-        if (window.innerWidth < 1024) return;
-        isDown = true; hasMoved = false; clickBlocked = false;
-        carousel.style.cursor = 'grabbing';
-        startX = e.pageX; startScrollLeft = carousel.scrollLeft;
-        e.preventDefault();
-    });
-    
-    carousel.addEventListener('mousemove', function(e) {
-        if (!isDown || window.innerWidth < 1024) return;
-        e.preventDefault();
-        if (Math.abs(e.pageX - startX) > DRAG_THRESHOLD) { hasMoved = true; clickBlocked = true; }
-        carousel.scrollLeft = startScrollLeft - (e.pageX - startX) * 1.2;
-    });
-    
-    carousel.addEventListener('click', function(e) {
-        if (clickBlocked && window.innerWidth >= 1024) {
-            e.preventDefault(); e.stopPropagation(); clickBlocked = false;
-        }
-    }, true);
-    
-    carousel.addEventListener('mouseup', function() {
-        isDown = false; carousel.style.cursor = 'grab';
-        if (hasMoved) { clickBlocked = true; setTimeout(function() { clickBlocked = false; }, 100); }
-    });
-    
-    carousel.addEventListener('mouseleave', function() {
-        if (isDown) { isDown = false; hasMoved = false; carousel.style.cursor = 'grab'; }
-    });
-});
-```
+**JavaScript:** реализовано в общем `js/nav.js` (inline-скрипт не добавлять). Хуки: `.carousel-scroll` и (опционально) кнопки `.js-carousel-prev/.js-carousel-next`.
 
 ### Page Navigator
 
@@ -1256,6 +1320,8 @@ JavaScript для подсветки активной секции находи�
 
 Нативный HTML аккордеон без JavaScript, использует `<details>` и `<summary>`.
 
+**Приоритет:** для публичных страниц с FAQ (SEO) используем этот вариант (без JS). `el-disclosure` оставляем для UI-аккордеонов/сложных интерфейсов.
+
 ```html
 <div class="space-y-0 divide-y divide-gray-200">
     <!-- Вопрос 1 (открыт по умолчанию) -->
@@ -1316,13 +1382,15 @@ JavaScript для подсветки активной секции находи�
 
 ### Tabs (вкладки)
 
+**Статус:** fallback/legacy. По умолчанию используем `el-tab-group` (см. следующий раздел). Этот вариант применять только если `el-tab-group` временно недоступен/нестабилен на конкретной странице.
+
 Переключение между контентом с подчеркиванием активной вкладки.
 
 ```html
 <!-- Tabs Navigation -->
 <div class="flex border-b border-gray-200 mb-8 overflow-x-auto">
     <button 
-        class="px-6 py-3 text-lg font-medium text-body hover:text-dark focus:outline-none border-b-2 border-primary text-dark transition-colors" 
+        class="px-6 py-3 text-lg font-medium text-dark hover:text-dark focus:outline-none border-b-2 border-primary transition-colors" 
         data-tab="moscow"
     >
         Москва
@@ -1352,29 +1420,33 @@ JavaScript для подсветки активной секции находи�
 
 **JavaScript (inline перед `</body>`):**
 ```javascript
-document.querySelectorAll('[data-tab]').forEach(btn => {
-    btn.addEventListener('click', () => {
-        // Деактивировать все кнопки
-        document.querySelectorAll('[data-tab]').forEach(b => {
-            b.classList.remove('border-primary', 'text-dark');
-            b.classList.add('border-transparent');
+(() => {
+    const buttons = document.querySelectorAll('[data-tab]');
+    const panels = document.querySelectorAll('.tab-content');
+    if (!buttons.length || !panels.length) return;
+
+    buttons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            buttons.forEach((b) => {
+                b.classList.remove('border-primary', 'text-dark');
+                b.classList.add('border-transparent');
+            });
+            panels.forEach((panel) => {
+                panel.classList.add('hidden');
+                panel.classList.remove('block');
+            });
+
+            btn.classList.remove('border-transparent');
+            btn.classList.add('border-primary', 'text-dark');
+
+            const target = document.getElementById(btn.dataset.tab);
+            if (target) {
+                target.classList.remove('hidden');
+                target.classList.add('block');
+            }
         });
-        // Скрыть весь контент
-        document.querySelectorAll('.tab-content').forEach(c => {
-            c.classList.add('hidden');
-            c.classList.remove('block');
-        });
-        // Активировать кликнутую кнопку
-        btn.classList.remove('border-transparent');
-        btn.classList.add('border-primary', 'text-dark');
-        // Показать контент
-        const target = document.getElementById(btn.dataset.tab);
-        if (target) {
-            target.classList.remove('hidden');
-            target.classList.add('block');
-        }
     });
-});
+})();
 ```
 
 **Ключевые классы:**
@@ -1415,15 +1487,14 @@ document.querySelectorAll('[data-tab]').forEach(btn => {
         </div>
         <!-- Видео-вкладка (опционально) -->
         <div hidden data-video-panel>
-            <div class="video-cover aspect-video rounded-lg" data-video-cover>
-                <img src="[URL_458x258.webp]" alt="[ТЕКСТ: обложка видео]" width="458" height="258" class="w-full h-full object-cover rounded-lg" loading="lazy" decoding="async" />
-                <div class="video-play-icon cursor-pointer" data-play-btn>
+              <div class="video-cover group relative aspect-video rounded-lg"
+                 data-video-cover
+                 data-video-src="https://www.youtube.com/embed/VIDEO_ID?rel=0&amp;showinfo=0"
+                 data-video-title="[ТЕКСТ: заголовок видео]">
+                <img src="[URL_458x258.webp]" alt="[ТЕКСТ: обложка видео]" width="458" height="258" class="w-full h-full object-cover rounded-lg group-[.video-playing]:hidden" loading="lazy" decoding="async" />
+                <button type="button" class="video-play-icon cursor-pointer group-[.video-playing]:hidden" data-play-btn aria-label="Смотреть видео">
                     <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg"><path d="M8 5v14l11-7z"/></svg>
-                </div>
-                <video title="[ТЕКСТ: заголовок видео]" preload="none" playsinline class="hidden">
-                    <source src="[URL.webm]" type="video/webm">
-                    <source src="[URL.mp4]" type="video/mp4">
-                </video>
+                </button>
             </div>
         </div>
     </el-tab-panels>
@@ -1769,12 +1840,12 @@ document.addEventListener('DOMContentLoaded', function() {
 ```html
 <section class="pt-8 pb-8 lg:pt-12 lg:pb-12 bg-secondary">
     <div class="container max-w-4xl mx-auto px-4">
-        <nav class="text-sm text-gray-400 mb-4" aria-label="Хлебные крошки">
+        <nav class="text-sm text-gray-600 mb-4" aria-label="Хлебные крошки">
             <ol class="flex items-center space-x-2">
                 <li><a href="/" class="hover:text-primary transition-colors">Главная</a></li>
-                <li class="text-gray-300">/</li>
+                <li class="text-gray-500">/</li>
                 <li><a href="/blog/" class="hover:text-primary transition-colors">Блог</a></li>
-                <li class="text-gray-300">/</li>
+                <li class="text-gray-500">/</li>
                 <li class="text-body truncate">Заголовок статьи</li>
             </ol>
         </nav>
@@ -1819,6 +1890,7 @@ document.addEventListener('DOMContentLoaded', function() {
         alt="Описание изображения" 
         class="max-w-full mx-auto h-auto rounded-lg shadow-sm"
         loading="lazy"
+        decoding="async"
         width="800"
         height="600"
     >
@@ -1827,6 +1899,17 @@ document.addEventListener('DOMContentLoaded', function() {
     </figcaption>
 </figure>
 ```
+
+**Производительность изображений (важно):**
+- **Рендер/декодирование:** по умолчанию ставим `decoding="async"` (чтобы декодирование не блокировало основной поток).
+- **Ленивая загрузка:** по умолчанию ставим `loading="lazy"`.
+- **Первый экран / LCP:** для главного изображения первого экрана **не ставим** `loading="lazy"`. Как правило:
+  - `loading="eager"` (или просто убрать `loading`);
+  - при необходимости добавить `fetchpriority="high"` (только для реального LCP-изображения).
+- **Preload первого экрана:** `rel="preload" as="image"` добавляем **только после проверки необходимости** (Lighthouse/DevTools → LCP/Waterfall). Если `fetchpriority="high"` решает проблему — preload не нужен.
+- **CLS:** всегда задаём `width`/`height` (или фиксируем размер контейнера через `aspect-*`), чтобы не было скачков.
+- **`background-image` (фон):** используем только для **декоративных** фонов. Контентные/SEO-важные изображения и LCP первого экрана — делаем через `<img>`/`<picture>`.
+- **`srcset`/`sizes`:** пока **на рассмотрении** (не обязательное правило) — добавим, когда утвердим стратегию и пайплайн генерации размеров.
 
 ### Цитата (blockquote)
 
@@ -1915,12 +1998,12 @@ document.addEventListener('DOMContentLoaded', function() {
 ### Breadcrumbs для блога
 
 ```html
-<nav class="text-sm text-gray-400 mb-4" aria-label="Хлебные крошки">
+<nav class="text-sm text-gray-600 mb-4" aria-label="Хлебные крошки">
     <ol class="flex items-center space-x-2">
         <li><a href="/" class="hover:text-primary transition-colors">Главная</a></li>
-        <li class="text-gray-300">/</li>
+        <li class="text-gray-500">/</li>
         <li><a href="/blog/" class="hover:text-primary transition-colors">Блог</a></li>
-        <li class="text-gray-300">/</li>
+        <li class="text-gray-500">/</li>
         <li class="text-body truncate">Название статьи</li>
     </ol>
 </nav>
@@ -1956,7 +2039,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <section class="pt-8 pb-8 lg:pt-12 lg:pb-12 bg-secondary">
     <div class="container">
         <!-- Breadcrumbs -->
-        <nav class="text-sm text-gray-400 mb-4" aria-label="Хлебные крошки">
+        <nav class="text-sm text-gray-600 mb-4" aria-label="Хлебные крошки">
             <ol class="flex items-center space-x-2">
                 <li><a href="/" class="hover:text-primary transition-colors">Главная</a></li>
                 <li>/</li>
@@ -2293,25 +2376,12 @@ document.addEventListener('DOMContentLoaded', function() {
         .container { width: 100%; margin: 0 auto; padding: 0 1rem; }
         @media (min-width: 1170px) { .container { max-width: 1170px; } }
     </style>
-    
-    <!-- Tailwind CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                container: { center: true, padding: '1rem', screens: { '2xl': '1170px' } },
-                extend: {
-                    colors: {
-                        primary: '#4A90E2',
-                        'primary-hover': '#609DE6',
-                        dark: '#252525',
-                        body: '#666666',
-                        secondary: '#FAFAFA',
-                    }
-                }
-            }
-        }
-    </script>
+
+    <!-- Tailwind Plus Elements (если используются el-*) -->
+    <script type="module" src="js/tailwindplus-elements.js"></script>
+
+    <!-- Основной CSS (собранный Tailwind v4) -->
+    <link rel="stylesheet" href="css/output.css">
 </head>
 <body class="bg-white overflow-x-hidden">
     <!-- Header -->
@@ -2347,15 +2417,17 @@ document.addEventListener('DOMContentLoaded', function() {
 ## Контрольный список для создания страницы
 
 ### Общие требования
-- [ ] Использовать только чистый Tailwind CSS (без кастомных классов типа btn, boxed, h2, lead)
-- [ ] Контейнер: `mx-auto px-4 max-w-[1170px]` или `container`
+- [ ] Допускаются компонентные классы из `input.css` (например, `btn-*`)
+- [ ] Контейнер: использовать `container` без двойных обёрток
 - [ ] Правильные цвета из палитры (primary, dark, secondary, body)
+- [ ] Проверить скрипты, стили и критический путь на странице
 
 ### Типографика
 - [ ] H1: `text-4xl lg:text-6xl font-light` (1 на страницу)
 - [ ] H2: `text-3xl lg:text-4xl font-light`
 - [ ] Lead текст: `text-xl`
 - [ ] Обычный текст: базовый без дополнительных классов
+- [ ] Проверить читаемость текста и контраста
 
 ### Отступы секций
 - [ ] Основные секции: `py-16 lg:py-24`
@@ -2364,8 +2436,7 @@ document.addEventListener('DOMContentLoaded', function() {
 - [ ] Footer: `py-8 lg:py-12`
 
 ### Кнопки
-- [ ] Primary: `inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors`
-- [ ] Dark: `inline-block px-6 py-2 bg-dark hover:bg-gray-700 text-white rounded uppercase transition-colors`
+- [ ] Разрешены `btn-*` из компонентов или эквивалентные inline‑классы по дизайн‑системе
 
 ### Навигация
 - [ ] Breadcrumbs: `text-sm text-gray-400` с разделителем `/`
@@ -2374,19 +2445,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
 ### Интерактивные компоненты
 - [ ] Before/After (ba-card): минимальный CSS (4 строки) + HTML с Tailwind
-- [ ] Video Cover: `data-video-cover` + inline JS
-- [ ] Carousel Scroll: CSS + inline JS с защитой от случайного клика
+- [ ] Video Cover: `data-video-cover` + `data-video-src` + `js/nav.js` (без inline)
+- [ ] Carousel Scroll: CSS + общий `js/nav.js`
 - [ ] Характеристики: `odd:bg-primary/5` на каждом `<li>`
+- [ ] Калькуляторы: предусмотреть вёрстку и подключение скрипта по задаче
 
 ### Изображения
 - [ ] Атрибуты: `width`, `height`, `alt`, `title`
-- [ ] Для ленивой загрузки: `loading="lazy"`
+- [ ] Декодирование (по умолчанию): `decoding="async"`
+- [ ] Для ленивой загрузки (по умолчанию): `loading="lazy"`
+- [ ] Первый экран / LCP: **не** `loading="lazy"` (обычно `loading="eager"` и при необходимости `fetchpriority="high"`)
+- [ ] Preload первого экрана: добавлять только после проверки необходимости (Lighthouse/DevTools)
 - [ ] Формат: предпочтительно `.webp`
 - [ ] Aspect Ratio: `aspect-video`, `aspect-square`, `aspect-[W/H]`
 
 ### Видео
 - [ ] Video Cover: `aspect-video` (горизонтальное) или `aspect-[360/648]` (вертикальное)
-- [ ] Атрибуты iframe: `loading="lazy"`, `allowfullscreen`, `data-src`
+- [ ] Video Cover: источник видео задаётся в `data-video-src` (iframe создаёт `js/nav.js` по клику)
+- [ ] Способ загрузки и удобство просмотра согласуются для каждого видео
 
 ### Визуальные эффекты
 - [ ] Canvas 3D: CSS с `--depth` и hover transform
@@ -2403,6 +2479,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 ## Дополнительные ресурсы
 
-- [Файл токенов](../src/design-system/tokens.css)
-- [Типографика](../src/design-system/typography.css)
-- [Инструкция по переверстке на чистый Tailwind](./PURE_TAILWIND_GUIDE.md)
+- [Исходные стили Tailwind (tokens/utilities)](../src/input.css)
+- [Правила проекта](../AI_INSTRUCTIONS.md)
+- [Текущий прогресс и эталоны страниц](../PROJECT.md)
+- [Как создать новую страницу](./HOW_TO_CREATE_PAGE.md)

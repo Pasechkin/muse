@@ -4,6 +4,7 @@
   "liveServer.settings.CustomBrowser": "chrome",
   "liveServer.settings.useWebExt": false,
   "liveServer.settings.NoBrowser": false,
+  "terminal.integrated.shellIntegration.enabled": true,
   "liveServer.settings.ignoreFiles": [
     ".vscode/**",
     "**/*.scss",
