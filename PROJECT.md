@@ -224,6 +224,18 @@ tailwind-project/
 - `БЫСТРЫЙ_ДЕПЛОЙ.bat` или `БЫСТРЫЙ_ДЕПЛОЙ.ps1` — сборка CSS, коммит и push.
 - После push Vercel запускает деплой автоматически.
 
+#### Вариант A: “всегда текущая версия” (Production Branch = рабочая ветка)
+
+Чтобы production URL на Vercel всегда соответствовал текущей рабочей ветке:
+
+1. Vercel → Project → **Settings** → **Git**
+2. **Production Branch** → выбрать `refactor/buttons-and-icons`
+3. Если production URL не обновился, откройте **Deployments** и сделайте **Redeploy** (при необходимости с очисткой build cache)
+
+Если на production URL видна “старая версия”, почти всегда причина одна: Vercel деплоит другую ветку, чем та, куда вы пушите.
+
+Переменная для скриптов: `VERCEL_PRODUCTION_BRANCH` (если production-ветка отличается от дефолта).
+
 ---
 
 ## Деплой
