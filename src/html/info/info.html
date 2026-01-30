@@ -23,7 +23,6 @@
             --secondary: #FAFAFA;
         }
         body { background-color: #fff; color: var(--body); overflow-x: hidden; }
-        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
         /* Ken Burns Effect */
         @keyframes kenburns { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
         .ken-burns-img { animation: kenburns 20s ease-out forwards; }
@@ -484,11 +483,11 @@
                                 class="w-full h-full object-cover rounded-lg"
                             >
                         </div>
-                        <div class="video-play-icon absolute inset-0 flex items-center justify-center cursor-pointer z-10 bg-black/20 hover:bg-black/30 transition-colors">
-                            <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg">
+                        <button type="button" class="video-play-icon absolute inset-0 flex items-center justify-center cursor-pointer z-10 bg-black/20 hover:bg-black/30 transition-colors" aria-label="Воспроизвести видео о создании портретов">
+                            <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg" aria-hidden="true">
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
-                        </div>
+                        </button>
                         <video 
                             title="Процесс создания портрета в студии Muse"
                             aria-label="Видео: как создаются и печатаются портреты на холсте"
@@ -1033,6 +1032,7 @@
                             src="https://yandex.ru/sprav/widget/rating-badge/82862448491?type=rating&theme=dark" 
                             width="150" 
                             height="50" 
+                            loading="lazy"
                             style="border: none;"
                             title="Рейтинг Яндекс Москва"
                         ></iframe>
@@ -1052,6 +1052,7 @@
                             src="https://yandex.ru/sprav/widget/rating-badge/2855807336?type=rating&theme=dark" 
                             width="150" 
                             height="50" 
+                            loading="lazy"
                             style="border: none;"
                             title="Рейтинг Яндекс Санкт-Петербург"
                         ></iframe>
@@ -1074,15 +1075,15 @@
 
     <nav class="page-navigator" aria-label="Навигация по странице">
         <ul>
-            <li><a href="#hero" data-title="О нас" class="inner-link"></a></li>
-            <li><a href="#authors" data-title="Авторы" class="inner-link"></a></li>
-            <li><a href="#results" data-title="Результаты" class="inner-link"></a></li>
-            <li><a href="#stories" data-title="Истории" class="inner-link"></a></li>
-            <li><a href="#media" data-title="СМИ" class="inner-link"></a></li>
-            <li><a href="#examples" data-title="Примеры" class="inner-link"></a></li>
-            <li><a href="#trust" data-title="Доверие" class="inner-link"></a></li>
-            <li><a href="#legal" data-title="Реквизиты" class="inner-link"></a></li>
-            <li><a href="#contacts" data-title="Контакты" class="inner-link"></a></li>
+            <li><a href="#hero" data-title="О нас" class="inner-link"><span class="sr-only">О нас</span></a></li>
+            <li><a href="#authors" data-title="Авторы" class="inner-link"><span class="sr-only">Авторы</span></a></li>
+            <li><a href="#results" data-title="Результаты" class="inner-link"><span class="sr-only">Результаты</span></a></li>
+            <li><a href="#stories" data-title="Истории" class="inner-link"><span class="sr-only">Истории</span></a></li>
+            <li><a href="#media" data-title="СМИ" class="inner-link"><span class="sr-only">СМИ</span></a></li>
+            <li><a href="#examples" data-title="Примеры" class="inner-link"><span class="sr-only">Примеры</span></a></li>
+            <li><a href="#trust" data-title="Доверие" class="inner-link"><span class="sr-only">Доверие</span></a></li>
+            <li><a href="#legal" data-title="Реквизиты" class="inner-link"><span class="sr-only">Реквизиты</span></a></li>
+            <li><a href="#contacts" data-title="Контакты" class="inner-link"><span class="sr-only">Контакты</span></a></li>
         </ul>
     </nav>
 
@@ -1168,7 +1169,7 @@
     </script>
 
     <!-- Navigation Scripts -->
-    <script src="../js/nav.js"></script>
+    <script src="../js/nav.js" defer></script>
 
     <!-- Video Cover (play on click) -->
     <script>
@@ -1177,6 +1178,7 @@
         if (playBtn) {
             playBtn.addEventListener('click', function() {
                 cover.classList.add('video-playing');
+                playBtn.style.display = 'none';
                 const video = cover.querySelector('video');
                 if (video) {
                     video.classList.remove('hidden');

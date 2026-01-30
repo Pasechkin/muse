@@ -87,31 +87,55 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Подсветка активной секции при скролле
-    function updateActiveLink() {
+    // Кэш позиций секций для избежания forced reflow
+    let sectionCache = [];
+    let cacheValid = false;
+
+    function cacheSectionPositions() {
         const sections = document.querySelectorAll('section[id]');
-        const scrollPos = window.scrollY + 200;
-
+        sectionCache = [];
         sections.forEach(section => {
-            const sectionId = section.getAttribute('id');
-            const navLink = document.querySelector(`.page-navigator a[href="#${sectionId}"]`);
-
-            if (navLink) {
-                if (scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
-                    navLinks.forEach(l => l.classList.remove('inner-link--active'));
-                    navLink.classList.add('inner-link--active');
-                }
-            }
+            sectionCache.push({
+                id: section.getAttribute('id'),
+                top: section.offsetTop,
+                height: section.offsetHeight
+            });
         });
+        cacheValid = true;
     }
 
-    // Back to Top
+    // Подсветка активной секции при скролле (без forced reflow)
+    function updateActiveLink() {
+        if (!cacheValid) cacheSectionPositions();
+        
+        const scrollPos = window.scrollY + 200;
+
+        for (let i = 0; i < sectionCache.length; i++) {
+            const section = sectionCache[i];
+            const navLink = document.querySelector(`.page-navigator a[href="#${section.id}"]`);
+
+            if (navLink) {
+                if (scrollPos >= section.top && scrollPos < section.top + section.height) {
+                    navLinks.forEach(l => l.classList.remove('inner-link--active'));
+                    navLink.classList.add('inner-link--active');
+                    break; // Нашли активную секцию — выходим
+                }
+            }
+        }
+    }
+
+    // Back to Top (читаем scrollY один раз)
+    let lastBackToTopState = null;
     function toggleBackToTop() {
         if (backToTop) {
             const show = window.scrollY > 300 && window.innerWidth >= 768;
-            backToTop.classList.toggle('opacity-0', !show);
-            backToTop.classList.toggle('pointer-events-none', !show);
-            backToTop.classList.toggle('opacity-100', show);
+            // Меняем классы только если состояние изменилось
+            if (show !== lastBackToTopState) {
+                lastBackToTopState = show;
+                backToTop.classList.toggle('opacity-0', !show);
+                backToTop.classList.toggle('pointer-events-none', !show);
+                backToTop.classList.toggle('opacity-100', show);
+            }
         }
     }
 
@@ -128,8 +152,34 @@ document.addEventListener('DOMContentLoaded', function() {
         updateActiveLink();
     }
 
-    window.addEventListener('scroll', toggleUI);
-    window.addEventListener('resize', toggleUI);
+    // Throttle для scroll (16ms ≈ 60fps)
+    let scrollTicking = false;
+    function onScroll() {
+        if (!scrollTicking) {
+            requestAnimationFrame(function() {
+                toggleUI();
+                scrollTicking = false;
+            });
+            scrollTicking = true;
+        }
+    }
+
+    // Debounce для resize (сброс кэша + обновление UI)
+    let resizeTimeout;
+    function onResize() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function() {
+            cacheValid = false; // Сброс кэша позиций
+            cacheSectionPositions();
+            toggleUI();
+        }, 150);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onResize);
+    
+    // Инициализация: кэшируем позиции после полной загрузки
+    cacheSectionPositions();
     toggleUI();
 
     // Video Cover (create iframe only on click)
@@ -139,23 +189,34 @@ document.addEventListener('DOMContentLoaded', function() {
         playBtn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            if (cover.querySelector('iframe')) return;
+            if (cover.classList.contains('video-playing')) return;
 
+            // Option 1: data-video-src → create iframe (YouTube/external)
             const src = cover.dataset.videoSrc;
-            if (!src) return;
-            const title = cover.dataset.videoTitle || 'Видео';
+            if (src) {
+                if (cover.querySelector('iframe')) return;
+                const title = cover.dataset.videoTitle || 'Видео';
+                const iframe = document.createElement('iframe');
+                iframe.className = 'absolute inset-0 w-full h-full';
+                iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+                iframe.allowFullscreen = true;
+                iframe.loading = 'lazy';
+                iframe.title = title;
+                const sep = src.indexOf('?') === -1 ? '?' : '&';
+                iframe.src = src + sep + 'autoplay=1';
+                cover.appendChild(iframe);
+                cover.classList.add('video-playing');
+                return;
+            }
 
-            const iframe = document.createElement('iframe');
-            iframe.className = 'absolute inset-0 w-full h-full';
-            iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
-            iframe.allowFullscreen = true;
-            iframe.loading = 'lazy';
-            iframe.title = title;
-            const sep = src.indexOf('?') === -1 ? '?' : '&';
-            iframe.src = src + sep + 'autoplay=1';
-
-            cover.appendChild(iframe);
-            cover.classList.add('video-playing');
+            // Option 2: local <video> element inside container
+            const video = cover.querySelector('video');
+            if (video) {
+                video.classList.remove('hidden');
+                video.controls = true;
+                video.play().catch(function(){});
+                cover.classList.add('video-playing');
+            }
         });
     });
 

@@ -133,14 +133,15 @@
 1. [Цвета](#цвета)
 2. [Типографика](#типографика)
 3. [Отступы и размеры](#отступы-и-размеры)
-4. [Компоненты](#компоненты)
-5. [Интерактивные компоненты](#интерактивные-компоненты)
-6. [Визуальные эффекты](#визуальные-эффекты)
-7. [Grid системы](#grid-системы)
-8. [Header и Mobile Menu](#header-и-mobile-menu)
-9. [Компоненты блога](#компоненты-блога)
-10. [Примеры использования](#примеры-использования)
-11. [Контрольный список](#контрольный-список-для-создания-страницы)
+4. [Доступность (Accessibility)](#доступность-accessibility)
+5. [Компоненты](#компоненты)
+6. [Интерактивные компоненты](#интерактивные-компоненты)
+7. [Визуальные эффекты](#визуальные-эффекты)
+8. [Grid системы](#grid-системы)
+9. [Header и Mobile Menu](#header-и-mobile-menu)
+10. [Компоненты блога](#компоненты-блога)
+11. [Примеры использования](#примеры-использования)
+12. [Контрольный список](#контрольный-список-для-создания-страницы)
 
 ---
 
@@ -493,6 +494,118 @@
 
 ---
 
+## Доступность (Accessibility)
+
+### Основные правила
+
+| Требование | Правило |
+|------------|---------|
+| **Контраст текста** | Минимум 4.5:1 для обычного текста (WCAG AA) |
+| **Фокусные состояния** | Видимый `focus:ring` или `focus:outline` для интерактивных элементов |
+| **Скрытый текст** | `sr-only` для визуально скрытого, но доступного screen readers |
+| **aria-label** | Обязателен для элементов без видимого текста |
+
+### sr-only (screen reader only)
+
+**Обязателен** для элементов, которые визуально представлены иконками/точками, но должны быть доступны для screen readers.
+
+```html
+<!-- Page Navigator — sr-only ОБЯЗАТЕЛЕН (точки без текста) -->
+<nav class="page-navigator">
+    <ul>
+        <li><a href="#section" class="inner-link" data-title="Название">
+            <span class="sr-only">Название</span>
+        </a></li>
+    </ul>
+</nav>
+
+<!-- Кнопка с иконкой -->
+<button>
+    <svg>...</svg>
+    <span class="sr-only">Закрыть</span>
+</button>
+```
+
+**CSS класс `sr-only`** (уже есть в критическом CSS):
+```css
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+```
+
+### aria-label
+
+**Обязателен** для интерактивных элементов без видимого текстового содержимого:
+
+```html
+<!-- Before/After slider -->
+<input type="range" min="0" max="100" value="50" 
+       aria-label="Сравнить изображения до и после">
+
+<!-- Кнопка воспроизведения видео -->
+<button data-play-btn aria-label="Воспроизвести видео">
+    <svg>...</svg>
+</button>
+```
+
+### Контраст цветов
+
+| Цвет | На белом фоне | Статус |
+|------|---------------|--------|
+| `--color-primary: #4A90E2` | 3.29:1 | ⚠️ Недостаточно для текста |
+| `text-gray-600` | 4.5:1+ | ✅ OK для мелкого текста |
+| `text-gray-500` | ~3.9:1 | ⚠️ Только для крупного текста |
+| `text-dark (#252525)` | 12.6:1 | ✅ OK |
+
+**Рекомендация:** для основного текста на белом фоне использовать `text-dark` или `text-body (#666666)`.
+
+### Изображения
+
+| Тип | Требование |
+|-----|------------|
+| Контентные | `alt` с описанием (с оригинала muse.ooo) |
+| Декоративные | `alt=""` (пустой) |
+| LCP (первый экран) | Без `loading="lazy"`, с `fetchpriority="high"` |
+
+```html
+<!-- LCP-изображение первого экрана -->
+<img src="hero.webp" 
+     alt="Портрет маслом на холсте" 
+     width="600" height="400"
+     fetchpriority="high"
+     decoding="async">
+
+<!-- Обычное изображение -->
+<img src="example.webp" 
+     alt="Пример портрета" 
+     width="300" height="200"
+     loading="lazy" 
+     decoding="async">
+
+<!-- Декоративное изображение -->
+<img src="decoration.svg" alt="" aria-hidden="true">
+```
+
+### Ссылки
+
+Текстовые ссылки **обязательно** с подчёркиванием для различимости:
+
+```html
+<a href="/info/" class="text-primary underline hover:no-underline">
+    Подробнее ↗
+</a>
+```
+
+---
+
 ## Компоненты
 
 > **Важно:** Используйте компонентный подход Tailwind v4 — семантические классы в `@layer components` + утилиты. Это снижает дублирование и ускоряет смену дизайна.
@@ -679,6 +792,41 @@ https://tailwindcss.com/plus/ui-blocks/application-ui/forms/form-layouts
     </dialog>
 </el-dialog>
 ```
+
+### Секция «Отзывы» и модальное окно OAuth
+
+**Эталон:** [portret-maslom.html](../src/html/portret-na-zakaz/style/portret-maslom.html) — полная реализация с `el-dialog` и Invoker Commands API.
+
+**На остальных страницах** секция «Отзывы» упрощена до заглушки — Bitrix-программист добавит реализацию при интеграции.
+
+#### Кнопка открытия (Invoker Commands):
+```html
+<button type="button" command="show-modal" commandfor="review-modal" class="btn-primary btn-lg">
+    Оставить отзыв
+</button>
+```
+
+#### Модальное окно:
+```html
+<el-dialog>
+    <dialog id="review-modal" class="m-auto p-0 border-none bg-transparent backdrop:bg-black/60">
+        <el-dialog-panel>
+            <div class="bg-dark text-white rounded-lg shadow-2xl max-w-md w-full p-6">
+                <!-- Заголовок, OAuth-кнопки, подпись -->
+            </div>
+        </el-dialog-panel>
+    </dialog>
+</el-dialog>
+```
+
+#### Кнопка закрытия (Invoker Commands):
+```html
+<button type="button" command="close" commandfor="review-modal" aria-label="Закрыть окно">
+    <svg>...</svg>
+</button>
+```
+
+**Примечание:** OAuth URL в шаблоне — плейсхолдеры. Актуальные URL генерирует Bitrix. См. [INTEGRATION_BITRIX.md](INTEGRATION_BITRIX.md).
 
 ---
 
@@ -1037,39 +1185,45 @@ https://tailwindcss.com/plus/ui-blocks/application-ui/forms/form-layouts
 
 #### Таблица (цены, характеристики)
 
-Лёгкая таблица с нижними границами (без полной сетки).
+Таблица с чередующимся голубым фоном строк для лучшей читаемости.
 
 ```html
-<table class="w-full text-left border-collapse">
-    <thead>
-        <tr class="border-b border-gray-200">
-            <th class="py-2 pr-4 font-medium">Размеры, см</th>
-            <th class="py-2 font-medium">Цена, руб.</th>
-        </tr>
-    </thead>
-    <tbody class="text-sm">
-        <tr class="border-b border-gray-100">
-            <td class="py-2 pr-4">30×40</td>
-            <td>2773</td>
-        </tr>
-        <tr class="border-b border-gray-100">
-            <td class="py-2 pr-4">40×60</td>
-            <td>3373</td>
-        </tr>
-        <!-- Последняя строка без border-b -->
-        <tr>
-            <td class="py-2 pr-4">90×120</td>
-            <td>7140</td>
-        </tr>
-    </tbody>
-</table>
+<div class="overflow-x-auto">
+    <table class="w-full text-left border-collapse">
+        <thead>
+            <tr class="border-b border-gray-200">
+                <th class="py-2 pr-4 font-medium whitespace-nowrap">Размеры, см</th>
+                <th class="py-2 pr-4 font-medium whitespace-nowrap">Одно лицо</th>
+                <th class="py-2 font-medium whitespace-nowrap">Два лица</th>
+            </tr>
+        </thead>
+        <tbody class="text-sm">
+            <tr class="odd:bg-primary/5">
+                <td class="py-2 pr-4">30×40</td>
+                <td class="py-2 pr-4">4 693 ₽</td>
+                <td class="py-2">5 653 ₽</td>
+            </tr>
+            <tr class="odd:bg-primary/5">
+                <td class="py-2 pr-4">40×60</td>
+                <td class="py-2 pr-4">5 293 ₽</td>
+                <td class="py-2">6 253 ₽</td>
+            </tr>
+            <tr class="odd:bg-primary/5">
+                <td class="py-2 pr-4">90×120</td>
+                <td class="py-2 pr-4">9 060 ₽</td>
+                <td class="py-2">10 020 ₽</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 ```
 
 **Особенности:**
-- `border-collapse` — схлопывание границ
-- `border-b border-gray-200` — линия под заголовками
-- `border-b border-gray-100` — светлая линия между строками
-- Последняя строка **без** `border-b`
+- `overflow-x-auto` — горизонтальный скролл на мобильных
+- `odd:bg-primary/5` — чередующийся голубой фон (1, 3, 5... строки)
+- `border-b border-gray-200` — линия только под заголовками
+- `whitespace-nowrap` на `<th>` — заголовки не переносятся
+- `py-2` на всех `<td>` — равномерные вертикальные отступы
 
 ---
 
@@ -1094,6 +1248,7 @@ https://tailwindcss.com/plus/ui-blocks/application-ui/forms/form-layouts
     
     <!-- Контроллер (ползунок) -->
     <input type="range" min="0" max="100" value="50" 
+           aria-label="Сравнить изображения до и после"
            class="absolute inset-0 opacity-0 cursor-ew-resize w-full h-full m-0 z-20" 
            oninput="this.parentNode.style.setProperty('--pos', this.value + '%')">
     
@@ -1208,13 +1363,15 @@ https://tailwindcss.com/plus/ui-blocks/application-ui/forms/form-layouts
 ```html
 <nav class="page-navigator" aria-label="Навигация по странице">
     <ul>
-        <li><a href="#hero" data-title="Главная" class="inner-link"></a></li>
-        <li><a href="#description" data-title="Описание" class="inner-link"></a></li>
-        <li><a href="#examples" data-title="Примеры" class="inner-link"></a></li>
-        <li><a href="#order" data-title="Заказать" class="inner-link"></a></li>
+        <li><a href="#hero" data-title="Главная" class="inner-link"><span class="sr-only">Главная</span></a></li>
+        <li><a href="#description" data-title="Описание" class="inner-link"><span class="sr-only">Описание</span></a></li>
+        <li><a href="#examples" data-title="Примеры" class="inner-link"><span class="sr-only">Примеры</span></a></li>
+        <li><a href="#order" data-title="Заказать" class="inner-link"><span class="sr-only">Заказать</span></a></li>
     </ul>
 </nav>
 ```
+
+**Доступность:** Каждая ссылка **обязательно** должна содержать `<span class="sr-only">` с названием секции для screen readers, т.к. визуально ссылки отображаются только как точки.
 
 JavaScript для подсветки активной секции находится в `js/nav.js`.
 

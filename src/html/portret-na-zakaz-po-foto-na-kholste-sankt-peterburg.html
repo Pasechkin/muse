@@ -19,39 +19,117 @@
             --secondary: #FAFAFA;
         }
         body { background-color: #fff; color: var(--body); overflow-x: hidden; }
-        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+       
     </style>
     
-   
-
-    
-    <!-- Tailwind Plus Elements -->
-    <script type="module" src="./js/tailwindplus-elements.js"></script>
-    
-    <style>
-        /* Page Navigator */
-        .page-navigator { position: fixed; top: 50%; transform: translateY(-50%); right: 1.85714286em; z-index: 9999; }
-        .page-navigator ul { display: inline-block; padding: 0.92857143em; background: rgba(0, 0, 0, 0.4); border-radius: 1.85714286em; }
-        .page-navigator ul:hover { background: rgba(0, 0, 0, 0.6); }
-        .page-navigator ul li { list-style: none; }
-        .page-navigator ul li:not(:last-child) { margin-bottom: 1.85714286em; }
-        @media (max-width: 1023px) { .page-navigator { display: none !important; } }
-        .page-navigator li a { width: 8px; height: 8px; background: #fff; border-radius: 50%; transition: all 0.3s ease; display: block; position: relative; opacity: 0.5; }
-        .page-navigator li a:hover, .page-navigator li a.inner-link--active { opacity: 1; transform: scale(1.5); }
-        .page-navigator li a[data-title]:before { content: attr(data-title); position: absolute; right: 12px; top: -14px; background: #222; color: #fff; border-radius: 6px; padding: 4px 8px; display: inline-block; white-space: nowrap; font-size: 12px; opacity: 0; transition: all 0.2s ease; }
-        .page-navigator li a[data-title]:hover:before { opacity: 1; }
-        /* Carousel */
-        .carousel-scroll { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
-        .carousel-scroll::-webkit-scrollbar { display: none; }
-        /* Video Cover */
-        .video-cover { position: relative; overflow: hidden; }
-        .video-cover .video-play-icon { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; z-index: 2; transition: all 0.3s ease; }
-        .video-cover video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-        .video-cover.video-playing > div:first-child, .video-cover.video-playing .video-play-icon { display: none; }
-        .video-cover.video-playing video { display: block; position: relative; }
-    </style>
 <link rel="stylesheet" href="css/output.css">
     <link rel="canonical" href="https://muse.ooo/portret-na-zakaz-po-foto-na-kholste-sankt-peterburg/">
+
+    <!-- Structured Data: FAQPage -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Сколько стоит портрет по фото на холсте?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Цена написания портрета рассчитывается от количества лиц, а цена его печати и оформления на холсте — от размера. Минимальная стоимость картины с изображением одного человека размером 20×30 см (с покрытием лаком) — 4371 р., а средняя (размер 40×60) — 5293 р. В стоимость включена работа художника, печать на холсте, натяжка на подрамник, крепления и защитное покрытие лаком."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Какие сроки исполнения заказа?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Средний срок создания цифрового макета — 2 дня. Средний срок его печати и оформления — 1 день."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "В чём особенность портретов по фото?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Они пишутся без позирования изображаемых людей, поэтому часто выбираются как неожиданный подарок для близких."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Вы печатаете или рисуете?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Портрет пишется художником в цифровом виде, а затем печатается. После изготовления он может быть прорисован маслом, акриловыми красками или художественным гелем."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Есть ли преимущества у цифры перед кистью?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Цифровой портрет создается поверх фотографии — художнику легче добиться схожести, а затем проще вносить правки. Его можно использовать как для печати на холсте, так и для соцсетей, визиток, футболок или кружек. Он легко перепечатывается в случае утраты или тиражируется."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Какие будут гарантии при работе с вами?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Работаем с 28.01.2016 года. Множество положительных отзывов на Яндекс и Google. При предоплате получите кассовый чек на почту. Гарантия 5 лет, собственное производство, страхование доставки. Гарантируем сохранность персональных данных."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Почему не напечатать просто фото?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "При написании портрета заказчик руками художника выражает личное отношение к портретируемому: выбирает стиль, подчёркивает достоинства, составляет композицию, прорисовывает детали, выбирает фон. Часто нет снимка, подходящего по качеству для печати в большом размере."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Какие требования к фото?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Лучше найти исходник — снимок со смартфона или фотоаппарата. Если нет цифрового оригинала, а только фотокарточка — отсканируйте её. Изображения из социальных сетей, мессенджеров подойдут не все — пришлите их нам, чтобы художник посмотрел."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "На чём печатаете?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "На плоттере HP Latex 315 с разрешением 1200×1200 dpi. Цвет точки формируется из 6 цветов. В качестве основы используем 100%-й хлопковый холст плотностью 380 г/м², соответствующий стандартам международной гильдии Fine Art Trade Guild."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Недорого ли у вас печатать?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Печатаем латексными чернилами (дороже в 3 раза, чем экосольвентные), так как латексные безвредны для человека, что подтверждено сертификатами безопасности. Латексные плоттеры используют 6 цветов вместо 4, что увеличивает реалистичность и богатство полутонов."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Почему портрет на холсте долговечен?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Если использованы оригинальные чернила, он устойчив к воздействию ультрафиолета, который со временем разрушает натуральные материалы."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Где вы находитесь?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Студия Muse. Адрес: 196620, Россия, Санкт-Петербург, Павловск, Слуцкая ул., дом 13 к 2. Телефон: +7-812-408-18-69"
+                }
+            }
+        ]
+    }
+    </script>
 </head>
 <body class="bg-white overflow-x-hidden">
     <!-- Header -->
@@ -97,12 +175,12 @@
     <!-- Page Navigator -->
     <nav class="page-navigator" id="page-navigator">
         <ul>
-            <li><a href="#portraits-from-photo" class="inner-link" data-title="Портреты по фото"></a></li>
-            <li><a href="#styles" class="inner-link" data-title="Стили"></a></li>
-            <li><a href="#calc" class="inner-link" data-title="Цена"></a></li>
-            <li><a href="#order" class="inner-link" data-title="Как заказать"></a></li>
-            <li><a href="#faq" class="inner-link" data-title="Ответы"></a></li>
-            <li><a href="#examples" class="inner-link" data-title="Примеры"></a></li>
+            <li><a href="#portraits-from-photo" class="inner-link" data-title="Портреты по фото"><span class="sr-only">Портреты по фото</span></a></li>
+            <li><a href="#styles" class="inner-link" data-title="Стили"><span class="sr-only">Стили</span></a></li>
+            <li><a href="#calc" class="inner-link" data-title="Цена"><span class="sr-only">Цена</span></a></li>
+            <li><a href="#order" class="inner-link" data-title="Как заказать"><span class="sr-only">Как заказать</span></a></li>
+            <li><a href="#faq" class="inner-link" data-title="Ответы"><span class="sr-only">Ответы</span></a></li>
+            <li><a href="#examples" class="inner-link" data-title="Примеры"><span class="sr-only">Примеры</span></a></li>
         </ul>
     </nav>
 
@@ -114,49 +192,6 @@
     </a>
 
     <main>
-
-    <script>
-        window.addEventListener("DOMContentLoaded", () => {
-            if (window.customElements && customElements.get("el-disclosure")) {
-                return;
-            }
-
-            document.addEventListener("click", (event) => {
-                const trigger = event.target.closest("[command][commandfor]");
-                if (!trigger) {
-                    return;
-                }
-
-                const command = trigger.getAttribute("command");
-                if (command !== "--toggle" && command !== "--show" && command !== "--hide") {
-                    return;
-                }
-
-                const targetId = trigger.getAttribute("commandfor");
-                if (!targetId) {
-                    return;
-                }
-
-                const target = document.getElementById(targetId);
-                if (!target) {
-                    return;
-                }
-
-                const isHidden = target.hasAttribute("hidden");
-
-                if (command === "--show" || (command === "--toggle" && isHidden)) {
-                    target.removeAttribute("hidden");
-                    trigger.setAttribute("aria-expanded", "true");
-                    return;
-                }
-
-                if (command === "--hide" || (command === "--toggle" && !isHidden)) {
-                    target.setAttribute("hidden", "");
-                    trigger.setAttribute("aria-expanded", "false");
-                }
-            });
-        });
-    </script>
         <!-- Portraits from Photo -->
         <section class="bg-secondary py-16 lg:py-24" id="portraits-from-photo">
             <div class="container">
@@ -512,7 +547,7 @@
                             <!-- Согласие - 2 колонки -->
                             <div class="md:col-span-2">
                                 <p class="text-xs text-body">
-                                    Заполняя форму, я соглашаюсь с условиями <a href="https://muse.ooo/info/oferta/" class="text-primary underline hover:no-underline">Оферты</a> и даю своё согласие на обработку персональных данных в соответствии с <a href="https://muse.ooo/info/politika_konfidentsialnosti_sayta/" class="text-primary underline hover:no-underline">Политикой конфиденциальности сайта</a>
+                                    Заполняя форму, я соглашаюсь с условиями <a href="https://muse.ooo/info/oferta/" class="text-primary underline hover:no-underline">Оферты ↗</a> и даю своё согласие на обработку персональных данных в соответствии с <a href="https://muse.ooo/info/politika_konfidentsialnosti_sayta/" class="text-primary underline hover:no-underline">Политикой конфиденциальности сайта ↗</a>
                                 </p>
                             </div>
                             <!-- Кнопка - 1 колонка -->
@@ -639,7 +674,7 @@
                         <div class="text-body space-y-2">
                             <p>Срок создания цифрового макета&nbsp;&mdash; 08.01.2026.</p>
                             <p>Получение портрета на&nbsp;холсте со&nbsp;склада самовывоза&nbsp;&mdash; 09.01.2026.</p>
-                            <p>Ориентировочная дата доставки в <a href="https://muse.ooo/info/dostavka/" class="text-primary underline hover:no-underline">пункты выдачи</a> Санкт-Петербурга (<a href="#tfLocationPopup" class="text-primary underline hover:no-underline">изменить местоположение</a>)&nbsp;&mdash; 11 января.</p>
+                            <p>Ориентировочная дата доставки в <a href="https://muse.ooo/info/dostavka/" class="text-primary underline hover:no-underline">пункты выдачи ↗</a> Санкт-Петербурга (<a href="#tfLocationPopup" class="text-primary underline hover:no-underline">изменить местоположение ↑</a>)&nbsp;&mdash; 11 января.</p>
                         </div>
                     </div>
                 </div>
@@ -657,31 +692,23 @@
                 <div class="grid gap-10 xl:grid-cols-2">
                     <!-- Видео -->
                     <div>
-                        <div class="video-cover border--round box-shadow-wide overflow-hidden rounded-md">
-                            <div class="relative w-full pt-[64.5%]">
-                                <img 
-                                    loading="lazy" decoding="async"
-                                    height="358" width="555" 
-                                    title="Видео о создании портрета на холсте в Muse" 
-                                    alt="Обложка для видео: Портрет на заказ по фото. Печать на холсте. Вопрос-ответ." 
-                                    src="https://muse.ooo/img/portret-na-zakaz-cover-555.webp"
-                                    class="absolute inset-0 w-full h-full object-cover"
-                                >
-                            </div>
-                            <div class="video-play-icon absolute inset-0 flex items-center justify-center cursor-pointer z-10 bg-black/20 hover:bg-black/30 transition-colors">
-                                <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg">
+                        <div class="video-cover aspect-video rounded-lg" data-video-cover>
+                            <img 
+                                src="https://muse.ooo/img/portret-na-zakaz-cover-555.webp"
+                                alt="Обложка для видео: Портрет на заказ по фото. Печать на холсте. Вопрос-ответ." 
+                                title="Видео о создании портрета на холсте в Muse"
+                                width="555" height="358"
+                                class="w-full h-full object-cover rounded-lg"
+                                loading="lazy" decoding="async"
+                            >
+                            <button type="button" class="video-play-icon cursor-pointer" data-play-btn aria-label="Воспроизвести видео">
+                                <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg" aria-hidden="true">
                                     <path d="M8 5v14l11-7z"/>
                                 </svg>
-                            </div>
-                            <video 
-                                title="Процесс создания портрета в студии Muse"
-                                preload="none"
-                                controls
-                                playsinline
-                                class="hidden w-full"
-                            >
-                                <source src="https://muse.ooo/video/portret-po-foto-na-zakaz-na-holste.webm" type="video/webm"/>
-                                Ваш браузер не поддерживает воспроизведение видео.
+                            </button>
+                            <video title="Процесс создания портрета в студии Muse" preload="none" playsinline class="hidden">
+                                <source src="https://muse.ooo/video/portret-po-foto-na-zakaz-na-holste.webm" type="video/webm">
+                                <source src="https://muse.ooo/video/portret-po-foto-na-zakaz-na-holste.mp4" type="video/mp4">
                             </video>
                         </div>
                         <p class="mt-4 order-steps__caption">Видео о создании портрета на холсте в Muse</p>
@@ -696,9 +723,9 @@
                                     <span class="text-xl font-bold order-steps__badge-number">1</span>
                                 </div>
                                 <div>
-                                    <p class="order-steps__text">Сначала рекомендуем определиться со стилем портрета. В разделе <a href="#styles" class="text-primary underline hover:no-underline">«Выберите стиль ↑»</a> нажмите на название понравившегося стиля. Откроется отдельная страница с его подробным описанием.</p>
-                                    <p class="order-steps__text mt-2">В разделе <a href="#calc" class="text-primary underline hover:no-underline">«Цена ↑»</a> можно загрузить фото, подобрать нужный размер, рассчитать стоимость и оформить заказ.</p>
-                                    <p class="order-steps__text mt-2">Нет возможности разбираться? Нажмите любую кнопку <a href="https://muse.ooo/order/" class="text-primary underline hover:no-underline">«Заказать»</a> на сайте и перешлите нам фото. Перезвоним и поможем с выбором.</p>
+                                    <p class="order-steps__text">Сначала рекомендуем определиться со стилем портрета. В разделе <a href="#styles" class="text-primary underline hover:no-underline">Выберите стиль ↑</a> нажмите на название понравившегося стиля. Откроется отдельная страница с его подробным описанием.</p>
+                                    <p class="order-steps__text mt-2">В разделе <a href="#calc" class="text-primary underline hover:no-underline">Цена ↑</a> можно загрузить фото, подобрать нужный размер, рассчитать стоимость и оформить заказ.</p>
+                                    <p class="order-steps__text mt-2">Нет возможности разбираться? Нажмите любую кнопку <a href="https://muse.ooo/order/" class="text-primary underline hover:no-underline">Заказать ↗</a> на сайте и перешлите нам фото. Перезвоним и поможем с выбором.</p>
                                 </div>
                             </div>
                             <div class="flex gap-4">
@@ -733,7 +760,7 @@
                 <p class="text-xl text-body">
                     Самовывоз в СПб — ул. Слуцкая, дом 13, корпус 2 — получение на следующий рабочий день после изготовления.<br>
                     Курьер — 450 руб. в пределах КАД — получение на следующий рабочий день после изготовления.<br>
-                    Пункты <a href="https://muse.ooo/info/dostavka/" class="text-primary underline hover:no-underline">выдачи</a> интернет-магазинов СПб — 235 руб. — получение в течение 2-3 рабочих дней после изготовления картины.
+                    Пункты <a href="https://muse.ooo/info/dostavka/" class="text-primary underline hover:no-underline">выдачи ↗</a> интернет-магазинов СПб — 235 руб. — получение в течение 2-3 рабочих дней после изготовления картины.
                 </p>
             </div>
         </section>
@@ -837,203 +864,179 @@
                 <div class="text-center mb-8">
                     <h3 class="text-3xl lg:text-4xl font-light text-dark">Вопросы и ответы</h3>
                 </div>
-                <div class="grid gap-8 lg:grid-cols-2" itemscope itemtype="http://schema.org/FAQPage">
+                <div class="grid gap-8 lg:grid-cols-2">
                     <!-- Left Column -->
                     <div class="space-y-0 divide-y divide-gray-200 overflow-hidden">
-                        <div class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" command="--toggle" commandfor="portrait-faq-1" class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none group w-full text-left">
-                                <span itemprop="name" class="break-words">Сколько стоит портрет по фото на холсте?</span>
-                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-[aria-expanded=true]:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                        <details class="group" open>
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
+                                <span class="break-words">Сколько стоит портрет по фото на холсте?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
                                 </svg>
-                            </button>
-                            <el-disclosure id="portrait-faq-1" hidden>
-                                <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
-                                    <div class="text-body" itemprop="text">
-                                        <p>Понимаем, что для подарка важна предсказуемая цена. Поэтому упростили расчёты. Цена написания портрета рассчитывается от количества лиц, а цена его печати и оформления на холсте — от размера. Минимальная стоимость картины с изображением одного человека размером 20×30 см (с покрытием лаком) — 4371 р., а средняя (размер 40×60) — 5293 р.</p>
-                                        <div class="mt-3 overflow-x-auto">
-                                            <table class="w-full text-left border-collapse">
-                                                <thead>
-                                                    <tr class="border-b border-gray-200">
-                                                        <th class="py-2 pr-4 font-medium whitespace-nowrap">Размеры, см</th>
-                                                        <th class="py-2 pr-4 font-medium whitespace-nowrap">Одно лицо</th>
-                                                        <th class="py-2 pr-4 font-medium whitespace-nowrap">Два лица</th>
-                                                        <th class="py-2 font-medium whitespace-nowrap">Три лица</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="text-sm">
-                                                    <tr class="border-b border-gray-100"><td class="py-2 pr-4">30×40</td><td class="py-2 pr-4">4 693 ₽</td><td class="py-2 pr-4">5 653 ₽</td><td>6 613 ₽</td></tr>
-                                                    <tr class="border-b border-gray-100"><td class="py-2 pr-4">40×40</td><td class="py-2 pr-4">4 893 ₽</td><td class="py-2 pr-4">5 853 ₽</td><td>6 813 ₽</td></tr>
-                                                    <tr class="border-b border-gray-100"><td class="py-2 pr-4">40×50</td><td class="py-2 pr-4">5 093 ₽</td><td class="py-2 pr-4">6 053 ₽</td><td>7 013 ₽</td></tr>
-                                                    <tr class="border-b border-gray-100"><td class="py-2 pr-4">40×60</td><td class="py-2 pr-4">5 293 ₽</td><td class="py-2 pr-4">6 253 ₽</td><td>7 213 ₽</td></tr>
-                                                    <tr class="border-b border-gray-100"><td class="py-2 pr-4">50×50</td><td class="py-2 pr-4">5 332 ₽</td><td class="py-2 pr-4">6 292 ₽</td><td>7 252 ₽</td></tr>
-                                                    <tr class="border-b border-gray-100"><td class="py-2 pr-4">50×60</td><td class="py-2 pr-4">5 572 ₽</td><td class="py-2 pr-4">6 532 ₽</td><td>7 492 ₽</td></tr>
-                                                    <tr class="border-b border-gray-100"><td class="py-2 pr-4">50×70</td><td class="py-2 pr-4">5 811 ₽</td><td class="py-2 pr-4">6 771 ₽</td><td>7 731 ₽</td></tr>
-                                                    <tr class="border-b border-gray-100"><td class="py-2 pr-4">60×80</td><td class="py-2 pr-4">6 407 ₽</td><td class="py-2 pr-4">7 367 ₽</td><td>8 327 ₽</td></tr>
-                                                    <tr class="border-b border-gray-100"><td class="py-2 pr-4">60×90</td><td class="py-2 pr-4">6 685 ₽</td><td class="py-2 pr-4">7 645 ₽</td><td>8 605 ₽</td></tr>
-                                                    <tr class="border-b border-gray-100"><td class="py-2 pr-4">80×120</td><td class="py-2 pr-4">8 547 ₽</td><td class="py-2 pr-4">9 507 ₽</td><td>10 467 ₽</td></tr>
-                                                    <tr><td class="py-2 pr-4">90×120</td><td class="py-2 pr-4">9 060 ₽</td><td class="py-2 pr-4">10 020 ₽</td><td>10 980 ₽</td></tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <p class="mt-3">В стоимость включена работа художника по созданию портрета в цифровом виде, печать его на холсте, натяжка на подрамник, крепления и защитное покрытие лаком. Готовую картину можно вешать на стену. Багетная рама и подарочная упаковка оплачиваются отдельно. Стоимость отрисовки на портрете каждого следующего лица, сложного фона, героя в полный рост, а также переодевание — 960 р. к стоимости заказа. Стоимость портрета можно самостоятельно рассчитать в разделе  <a href="#calc" class="text-primary underline hover:no-underline">«Цена» ↑</a>.</p>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body">
+                                    <p>Понимаем, что для подарка важна предсказуемая цена. Поэтому упростили расчёты. Цена написания портрета рассчитывается от количества лиц, а цена его печати и оформления на холсте — от размера. Минимальная стоимость картины с изображением одного человека размером 20×30 см (с покрытием лаком) — 4371 р., а средняя (размер 40×60) — 5293 р.</p>
+                                    <div class="mt-3 overflow-x-auto">
+                                        <table class="w-full text-left border-collapse">
+                                            <thead>
+                                                <tr class="border-b border-gray-200">
+                                                    <th class="py-2 pr-4 font-medium whitespace-nowrap">Размеры, см</th>
+                                                    <th class="py-2 pr-4 font-medium whitespace-nowrap">Одно лицо</th>
+                                                    <th class="py-2 pr-4 font-medium whitespace-nowrap">Два лица</th>
+                                                    <th class="py-2 font-medium whitespace-nowrap">Три лица</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="text-sm">
+                                                <tr class="odd:bg-primary/5"><td class="py-2 pr-4">30×40</td><td class="py-2 pr-4">4 693 ₽</td><td class="py-2 pr-4">5 653 ₽</td><td class="py-2">6 613 ₽</td></tr>
+                                                <tr class="odd:bg-primary/5"><td class="py-2 pr-4">40×40</td><td class="py-2 pr-4">4 893 ₽</td><td class="py-2 pr-4">5 853 ₽</td><td class="py-2">6 813 ₽</td></tr>
+                                                <tr class="odd:bg-primary/5"><td class="py-2 pr-4">40×50</td><td class="py-2 pr-4">5 093 ₽</td><td class="py-2 pr-4">6 053 ₽</td><td class="py-2">7 013 ₽</td></tr>
+                                                <tr class="odd:bg-primary/5"><td class="py-2 pr-4">40×60</td><td class="py-2 pr-4">5 293 ₽</td><td class="py-2 pr-4">6 253 ₽</td><td class="py-2">7 213 ₽</td></tr>
+                                                <tr class="odd:bg-primary/5"><td class="py-2 pr-4">50×50</td><td class="py-2 pr-4">5 332 ₽</td><td class="py-2 pr-4">6 292 ₽</td><td class="py-2">7 252 ₽</td></tr>
+                                                <tr class="odd:bg-primary/5"><td class="py-2 pr-4">50×60</td><td class="py-2 pr-4">5 572 ₽</td><td class="py-2 pr-4">6 532 ₽</td><td class="py-2">7 492 ₽</td></tr>
+                                                <tr class="odd:bg-primary/5"><td class="py-2 pr-4">50×70</td><td class="py-2 pr-4">5 811 ₽</td><td class="py-2 pr-4">6 771 ₽</td><td class="py-2">7 731 ₽</td></tr>
+                                                <tr class="odd:bg-primary/5"><td class="py-2 pr-4">60×80</td><td class="py-2 pr-4">6 407 ₽</td><td class="py-2 pr-4">7 367 ₽</td><td class="py-2">8 327 ₽</td></tr>
+                                                <tr class="odd:bg-primary/5"><td class="py-2 pr-4">60×90</td><td class="py-2 pr-4">6 685 ₽</td><td class="py-2 pr-4">7 645 ₽</td><td class="py-2">8 605 ₽</td></tr>
+                                                <tr class="odd:bg-primary/5"><td class="py-2 pr-4">80×120</td><td class="py-2 pr-4">8 547 ₽</td><td class="py-2 pr-4">9 507 ₽</td><td class="py-2">10 467 ₽</td></tr>
+                                                <tr class="odd:bg-primary/5"><td class="py-2 pr-4">90×120</td><td class="py-2 pr-4">9 060 ₽</td><td class="py-2 pr-4">10 020 ₽</td><td class="py-2">10 980 ₽</td></tr>
+                                            </tbody>
+                                        </table>
                                     </div>
+                                    <p class="mt-3">В стоимость включена работа художника по созданию портрета в цифровом виде, печать его на холсте, натяжка на подрамник, крепления и защитное покрытие лаком. Готовую картину можно вешать на стену. Багетная рама и подарочная упаковка оплачиваются отдельно. Стоимость отрисовки на портрете каждого следующего лица, сложного фона, героя в полный рост, а также переодевание — 960 р. к стоимости заказа. Стоимость портрета можно самостоятельно рассчитать в разделе <a href="#calc" class="text-primary underline hover:no-underline">Цена ↑</a>.</p>
                                 </div>
-                            </el-disclosure>
-                        </div>
+                            </div>
+                        </details>
 
-                        <div class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" command="--toggle" commandfor="portrait-faq-2" class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none group w-full text-left">
-                                <span itemprop="name">Какие сроки исполнения заказа?</span>
-                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-[aria-expanded=true]:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
-                            </button>
-                            <el-disclosure id="portrait-faq-2" hidden>
-                                <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
-                                    <div class="text-body" itemprop="text">Средний срок создания цифрового макета — 2 дня. Средний срок его печати и оформления — 1 день.</div>
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
+                                <span>Какие сроки исполнения заказа?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body">Средний срок создания цифрового макета — 2 дня. Средний срок его печати и оформления — 1 день.</div>
+                            </div>
+                        </details>
+
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
+                                <span>В чём особенность портретов по фото?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4"><div class="text-body">Они пишутся без позирования изображаемых людей, поэтому часто выбираются как неожиданный подарок для близких.</div></div>
+                        </details>
+
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
+                                <span>Вы печатаете или рисуете?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4"><div class="text-body">Портрет пишется художником в цифровом виде, а затем печатается. После изготовления он может быть прорисован маслом, акриловыми красками или художественным гелем.</div></div>
+                        </details>
+
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
+                                <span>Есть ли преимущества у «цифры» перед кистью?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4"><div class="text-body">Цифровой портрет создается поверх фотографии — художнику легче добиться схожести, а затем проще вносить правки. Его можно использовать как для печати на холсте, так и для соцсетей, визиток, футболок или кружек... Он легко перепечатывается в случае утраты или тиражируется.</div></div>
+                        </details>
+
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
+                                <span class="break-words min-w-0">Какие будут гарантии при работе с вами?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body">
+                                    <p class="font-semibold mb-2">Почему нам можно доверять:</p>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>Работаем с 28.01.2016 года, что легко проверить по ИНН 782575923262, введя его в поиске на сайте <a rel="nofollow noopener" href="https://egrul.nalog.ru/index.html" target="_blank" class="text-primary underline hover:no-underline">налоговой службы <span class="ml-1" aria-hidden="true">↗</span></a>.</li>
+                                        <li>С этого времени оставлено множество положительных отзывов заказчиков. Вы можете ознакомиться с ними на нашем сайте, а также на платформах, которые собирают отзывы, таких как <a rel="nofollow" href="https://yandex.ru/maps/-/CDehj4ii" target="_blank" class="text-primary underline hover:no-underline">Яндекс <span class="ml-1" aria-hidden="true">↗</span></a>, <a rel="nofollow" href="https://maps.app.goo.gl/98TG8Ln4mEfyB9VT6" target="_blank" class="text-primary underline hover:no-underline">Google <span class="ml-1" aria-hidden="true">↗</span></a>, ВКонтакте и другие.</li>
+                                        <li>Предоставляем <strong>юридические гарантии</strong>. При внесении предоплаты Вы получаете кассовый чек на электронную почту. Оплата происходит на счёт юридического лица, а не просто на карту.</li>
+                                        <li>Даём гарантию на заказ — 5 лет. Своё производство. Осуществляем страхование доставки.</li>
+                                        <li>Гарантируем сохранность ваших персональных данных: по требованию заказчика никогда не публикуем готовые работы и удаляем все исходники.</li>
+                                        <li>Обратите внимание, что наше доверие к Вам является частью сделки. Основная часть оплаты осуществляется при получении. Если картину не забирают, то эксклюзивное произведение, созданное на заказ, утилизируется.</li>
+                                    </ul>
                                 </div>
-                            </el-disclosure>
-                        </div>
-
-                        <div class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" command="--toggle" commandfor="portrait-faq-3" class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none group w-full text-left">
-                                <span itemprop="name">В чём особенность портретов по фото?</span>
-                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-[aria-expanded=true]:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
-                            </button>
-                            <el-disclosure id="portrait-faq-3" hidden>
-                                <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text">Они пишутся без позирования изображаемых людей, поэтому часто выбираются как неожиданный подарок для близких.</div></div>
-                            </el-disclosure>
-                        </div>
-
-                        <div class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" command="--toggle" commandfor="portrait-faq-4" class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none group w-full text-left">
-                                <span itemprop="name">Вы печатаете или рисуете?</span>
-                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-[aria-expanded=true]:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
-                            </button>
-                            <el-disclosure id="portrait-faq-4" hidden>
-                                <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text">Портрет пишется художником в цифровом виде, а затем печатается. После изготовления он может быть прорисован маслом, акриловыми красками или художественным гелем.</div></div>
-                            </el-disclosure>
-                        </div>
-
-                        <div class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" command="--toggle" commandfor="portrait-faq-5" class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none group w-full text-left">
-                                <span itemprop="name">Есть ли преимущества у «цифры» перед кистью?</span>
-                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-[aria-expanded=true]:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
-                            </button>
-                            <el-disclosure id="portrait-faq-5" hidden>
-                                <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text">Цифровой портрет создается поверх фотографии — художнику легче добиться схожести, а затем проще вносить правки. Его можно использовать как для печати на холсте, так и для соцсетей, визиток, футболок или кружек... Он легко перепечатывается в случае утраты или тиражируется.</div></div>
-                            </el-disclosure>
-                        </div>
-
-                        <div class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" command="--toggle" commandfor="portrait-faq-6" class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none group w-full text-left">
-                                <span itemprop="name" class="break-words min-w-0">Какие будут гарантии при работе с вами?</span>
-                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-[aria-expanded=true]:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
-                            </button>
-                            <el-disclosure id="portrait-faq-6" hidden>
-                                <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
-                                    <div class="text-body" itemprop="text">
-                                        <p class="font-semibold mb-2">Почему нам можно доверять:</p>
-                                        <ul class="list-disc pl-5 space-y-2">
-                                            <li>Работаем с 28.01.2016 года, что легко проверить по ИНН 782575923262, введя его в поиске на сайте <a rel="nofollow noopener" href="https://egrul.nalog.ru/index.html" target="_blank" class="text-primary underline hover:no-underline">налоговой службы <span class="ml-1" aria-hidden="true">↗</span></a>.</li>
-                                            <li>С этого времени оставлено множество положительных отзывов заказчиков. Вы можете ознакомиться с ними на нашем сайте, а также на платформах, которые собирают отзывы, таких как <a rel="nofollow" href="https://yandex.ru/maps/-/CDehj4ii" target="_blank" class="text-primary underline hover:no-underline">Яндекс <span class="ml-1" aria-hidden="true">↗</span></a>, <a rel="nofollow" href="https://maps.app.goo.gl/98TG8Ln4mEfyB9VT6" target="_blank" class="text-primary underline hover:no-underline">Google <span class="ml-1" aria-hidden="true">↗</span></a>, ВКонтакте и другие.</li>
-                                            <li>Предоставляем <strong>юридические гарантии</strong>. При внесении предоплаты Вы получаете кассовый чек на электронную почту. Оплата происходит на счёт юридического лица, а не просто на карту.</li>
-                                            <li>Даём гарантию на заказ — 5 лет. Своё производство. Осуществляем страхование доставки.</li>
-                                            <li>Гарантируем сохранность ваших персональных данных: по требованию заказчика никогда не публикуем готовые работы и удаляем все исходники.</li>
-                                            <li>Обратите внимание, что наше доверие к Вам является частью сделки. Основная часть оплаты осуществляется при получении. Если картину не забирают, то эксклюзивное произведение, созданное на заказ, утилизируется.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </el-disclosure>
-                        </div>
+                            </div>
+                        </details>
                     </div>
 
                     <!-- Right Column -->
                     <div class="space-y-0 divide-y divide-gray-200 overflow-hidden">
-                        <div class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" command="--toggle" commandfor="portrait-faq-7" class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none group w-full text-left">
-                                <span itemprop="name" class="break-words min-w-0">Почему не напечатать просто фото?</span>
-                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-[aria-expanded=true]:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
-                            </button>
-                            <el-disclosure id="portrait-faq-7" hidden>
-                                <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
-                                    <div class="text-body" itemprop="text">
-                                        <p>При написании портрета заказчик руками художника выражает <strong>личное отношение</strong> к портретируемому:</p>
-                                        <ul class="list-disc pl-5 space-y-1 mt-2">
-                                            <li>выбирает стиль;</li>
-                                            <li>подчёркивает достоинства и ретуширует недостатки;</li>
-                                            <li>составляет из отдельных фотографий героев одну композицию для картины с изображением семьи;</li>
-                                            <li>прорисовывает или перерисовывает детали одежды, позы;</li>
-                                            <li>выбирает фон.</li>
-                                        </ul>
-                                        <p class="mt-3">Очень часто при подготовке подарка нет снимка, подходящего по качеству для печати в большом размере.</p>
-                                        <p class="mt-2">Если фото хорошего разрешения, то его можно <a href="https://muse.ooo/pechat-na-kholste-sankt-peterburg/" class="text-primary underline hover:no-underline">напечатать на холсте</a>, сделать коллаж или модульную картину.</p>
-                                    </div>
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
+                                <span class="break-words min-w-0">Почему не напечатать просто фото?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body">
+                                    <p>При написании портрета заказчик руками художника выражает <strong>личное отношение</strong> к портретируемому:</p>
+                                    <ul class="list-disc pl-5 space-y-1 mt-2">
+                                        <li>выбирает стиль;</li>
+                                        <li>подчёркивает достоинства и ретуширует недостатки;</li>
+                                        <li>составляет из отдельных фотографий героев одну композицию для картины с изображением семьи;</li>
+                                        <li>прорисовывает или перерисовывает детали одежды, позы;</li>
+                                        <li>выбирает фон.</li>
+                                    </ul>
+                                    <p class="mt-3">Очень часто при подготовке подарка нет снимка, подходящего по качеству для печати в большом размере.</p>
+                                    <p class="mt-2">Если фото хорошего разрешения, то его можно <a href="https://muse.ooo/pechat-na-kholste-sankt-peterburg/" class="text-primary underline hover:no-underline">напечатать на холсте ↗</a>, сделать коллаж или модульную картину.</p>
                                 </div>
-                            </el-disclosure>
-                        </div>
+                            </div>
+                        </details>
 
-                        <div class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" command="--toggle" commandfor="portrait-faq-8" class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none group w-full text-left">
-                                <span itemprop="name">Какие требования к фото?</span>
-                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-[aria-expanded=true]:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
-                            </button>
-                            <el-disclosure id="portrait-faq-8" hidden>
-                                <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text">Лучше найти исходник — снимок со смартфона или фотоаппарата. Если нет цифрового оригинала, а только фотокарточка — отсканируйте её.
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
+                                <span>Какие требования к фото?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4"><div class="text-body">Лучше найти исходник — снимок со смартфона или фотоаппарата. Если нет цифрового оригинала, а только фотокарточка — отсканируйте её.
 Изображения из социальных сетей, мессенджеров подойдут не все — пришлите их нам, чтобы художник посмотрел.</div></div>
-                            </el-disclosure>
-                        </div>
+                        </details>
 
-                        <div class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" command="--toggle" commandfor="portrait-faq-9" class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none group w-full text-left">
-                                <span itemprop="name" class="break-words min-w-0">На чём печатаете?</span>
-                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-[aria-expanded=true]:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
-                            </button>
-                            <el-disclosure id="portrait-faq-9" hidden>
-                                <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
-                                    <div class="text-body" itemprop="text">
-                                        <p>На плоттере HP Latex 315 с разрешением 1200×1200 dpi и размером капли 12 пиколитров. Цвет точки формируется из 6 цветов: черного, голубого, светло-голубого, светло-пурпурного, пурпурного и желтого.</p>
-                                        <p class="mt-2">В качестве основы используем 100%-й хлопковый холст плотностью 380 г/м². Такая плотность соответствует <a rel="nofollow noopener" href="https://www.fineart.co.uk/guild-print-standards-with-artsure.aspx" target="_blank" class="text-primary underline hover:no-underline">стандартам <span class="ml-1" aria-hidden="true">↗</span></a> международной гильдии Fine Art Trade Guild и обеспечивает гарантию на выполненную работу.</p>
-                                    </div>
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
+                                <span class="break-words min-w-0">На чём печатаете?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body">
+                                    <p>На плоттере HP Latex 315 с разрешением 1200×1200 dpi и размером капли 12 пиколитров. Цвет точки формируется из 6 цветов: черного, голубого, светло-голубого, светло-пурпурного, пурпурного и желтого.</p>
+                                    <p class="mt-2">В качестве основы используем 100%-й хлопковый холст плотностью 380 г/м². Такая плотность соответствует <a rel="nofollow noopener" href="https://www.fineart.co.uk/guild-print-standards-with-artsure.aspx" target="_blank" class="text-primary underline hover:no-underline">стандартам <span class="ml-1" aria-hidden="true">↗</span></a> международной гильдии Fine Art Trade Guild и обеспечивает гарантию на выполненную работу.</p>
                                 </div>
-                            </el-disclosure>
-                        </div>
+                            </div>
+                        </details>
 
-                        <div class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" command="--toggle" commandfor="portrait-faq-10" class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none group w-full text-left">
-                                <span itemprop="name" class="break-words min-w-0">Недорого ли у вас печатать?</span>
-                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-[aria-expanded=true]:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
-                            </button>
-                            <el-disclosure id="portrait-faq-10" hidden>
-                                <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
-                                    <div class="text-body" itemprop="text">
-                                        <p>Печатаем латексными чернилами (они дороже в 3 раза, чем широко распространенные экосольвентные), так как латексные безвредны для человека, что подтверждено <a rel="nofollow noopener" href="https://spot.ul.com/main-app/products/detail/5ad1e9dd55b0e82d946a315a?page_type=Products%20Catalog" target="_blank" class="text-primary underline hover:no-underline">сертификатами безопасности <span class="ml-1" aria-hidden="true">↗</span></a>. Экосольвентные чернила могут быть экологически опасны для здоровья, если в них содержится циклогексан. Для проверки наличия сертификата безопасности — спросите марку чернил, а затем введите её здесь: <a rel="nofollow noopener" href="https://spot.ul.com/" target="_blank" class="text-primary underline hover:no-underline">www.spot.ul.com <span class="ml-1" aria-hidden="true">↗</span></a>.</p>
-                                        <p class="mt-2">Экосольвентные плоттеры чаще всего используют лишь 4 цвета, а латексные — 6. Шесть цветов увеличивают реалистичность и богатство полутонов.</p>
-                                        <p class="mt-2">Стоимость чернил составляет около 2% от средней стоимости картины. Нужно на них экономить?</p>
-                                        <p class="mt-2">Если найдете цену ниже на работу с аналогичными характеристиками в СПб, то напишите — снизим цену и приготовим подарок.</p>
-                                    </div>
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
+                                <span class="break-words min-w-0">Недорого ли у вас печатать?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body">
+                                    <p>Печатаем латексными чернилами (они дороже в 3 раза, чем широко распространенные экосольвентные), так как латексные безвредны для человека, что подтверждено <a rel="nofollow noopener" href="https://spot.ul.com/main-app/products/detail/5ad1e9dd55b0e82d946a315a?page_type=Products%20Catalog" target="_blank" class="text-primary underline hover:no-underline">сертификатами безопасности <span class="ml-1" aria-hidden="true">↗</span></a>. Экосольвентные чернила могут быть экологически опасны для здоровья, если в них содержится циклогексан. Для проверки наличия сертификата безопасности — спросите марку чернил, а затем введите её здесь: <a rel="nofollow noopener" href="https://spot.ul.com/" target="_blank" class="text-primary underline hover:no-underline">www.spot.ul.com <span class="ml-1" aria-hidden="true">↗</span></a>.</p>
+                                    <p class="mt-2">Экосольвентные плоттеры чаще всего используют лишь 4 цвета, а латексные — 6. Шесть цветов увеличивают реалистичность и богатство полутонов.</p>
+                                    <p class="mt-2">Стоимость чернил составляет около 2% от средней стоимости картины. Нужно на них экономить?</p>
+                                    <p class="mt-2">Если найдете цену ниже на работу с аналогичными характеристиками в СПб, то напишите — снизим цену и приготовим подарок.</p>
                                 </div>
-                            </el-disclosure>
-                        </div>
+                            </div>
+                        </details>
 
-                        <div class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" command="--toggle" commandfor="portrait-faq-11" class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none group w-full text-left">
-                                <span itemprop="name">Почему портрет на холсте долговечен?</span>
-                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-[aria-expanded=true]:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
-                            </button>
-                            <el-disclosure id="portrait-faq-11" hidden>
-                                <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text">Если использованы оригинальные чернила, он устойчив к воздействию ультрафиолета, который со временем разрушает натуральные материалы.</div></div>
-                            </el-disclosure>
-                        </div>
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
+                                <span>Почему портрет на холсте долговечен?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4"><div class="text-body">Если использованы оригинальные чернила, он устойчив к воздействию ультрафиолета, который со временем разрушает натуральные материалы.</div></div>
+                        </details>
 
-                        <div class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" command="--toggle" commandfor="portrait-faq-12" class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none group w-full text-left">
-                                <span itemprop="name">Где вы находитесь?</span>
-                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-[aria-expanded=true]:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
-                            </button>
-                            <el-disclosure id="portrait-faq-12" hidden>
-                                <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer"><div class="text-body" itemprop="text"><p class="font-semibold">Студия Muse</p><p>Адрес: 196620, Россия, Санкт-Петербург, Павловск, Слуцкая ул., дом 13 к 2.</p><p>Телефон: +7-812-408-18-69</p></div></div>
-                            </el-disclosure>
-                        </div>
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
+                                <span>Где вы находитесь?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4"><div class="text-body"><p class="font-semibold">Студия Muse</p><p>Адрес: 196620, Россия, Санкт-Петербург, Павловск, Слуцкая ул., дом 13 к 2.</p><p>Телефон: +7-812-408-18-69</p></div></div>
+                        </details>
                     </div>
                 </div>
             </div>
@@ -1133,76 +1136,8 @@
  <!-- Footer -->
  
     <!-- Scripts -->
+    <script type="module" src="js/tailwindplus-elements.js"></script>
+    <script src="js/nav.js" defer></script>
 
-    <script src="js/nav.js"></script>
-
-    <!-- Video Cover handlers moved to `src/html/js/nav.js` -->
-
-    <!-- Carousel Scroll (drag + wheel на десктопе) -->
-    <script>
-    document.querySelectorAll('.carousel-scroll').forEach(function(carousel) {
-        // Прокрутка колесиком мыши
-        carousel.addEventListener('wheel', function(e) {
-            if (window.innerWidth < 1024) return;
-            if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) {
-                e.preventDefault();
-                carousel.scrollBy({ left: e.deltaY * 0.6, behavior: 'auto' });
-            }
-        }, { passive: false });
-
-        // Drag-to-scroll
-        let isDown = false, startX, startScrollLeft, hasMoved = false, clickBlocked = false;
-        const DRAG_THRESHOLD = 5;
-        carousel.style.cursor = 'grab';
-
-        carousel.addEventListener('mousedown', function(e) {
-            if (window.innerWidth < 1024) return;
-            isDown = true;
-            hasMoved = false;
-            clickBlocked = false;
-            carousel.style.cursor = 'grabbing';
-            startX = e.pageX;
-            startScrollLeft = carousel.scrollLeft;
-            e.preventDefault();
-        });
-
-        carousel.addEventListener('mousemove', function(e) {
-            if (!isDown || window.innerWidth < 1024) return;
-            e.preventDefault();
-            if (Math.abs(e.pageX - startX) > DRAG_THRESHOLD) {
-                hasMoved = true;
-                clickBlocked = true;
-            }
-            carousel.scrollLeft = startScrollLeft - (e.pageX - startX) * 1.2;
-        });
-
-        carousel.addEventListener('mouseup', function() {
-            if (isDown) {
-                isDown = false;
-                carousel.style.cursor = 'grab';
-                if (hasMoved) {
-                    clickBlocked = true;
-                    setTimeout(() => { clickBlocked = false; }, 100);
-                }
-            }
-        });
-
-        carousel.addEventListener('mouseleave', function() {
-            if (isDown) {
-                isDown = false;
-                hasMoved = false;
-                carousel.style.cursor = 'grab';
-            }
-        });
-
-        carousel.addEventListener('click', function(e) {
-            if (clickBlocked && window.innerWidth >= 1024) {
-                e.preventDefault();
-                e.stopPropagation();
-                clickBlocked = false;
-            }
-        }, true);
-    });
-    </script>
 </body>
 </html>

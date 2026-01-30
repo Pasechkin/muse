@@ -24,19 +24,10 @@
             color: #666;
             overflow-x: hidden;
         }
-
-        /* SR-only (accessibility) */
-        .sr-only {
-            position: absolute;
-            width: 1px; height: 1px;
-            padding: 0; margin: -1px;
-            overflow: hidden;
-            clip: rect(0,0,0,0);
-            border: 0;
-        }
     </style>
 
     <link rel="stylesheet" href="../css/output.css">
+    <link rel="canonical" href="https://muse.ooo/info/faq/">
 
     <!-- Tailwind Plus Elements -->
     <script type="module" src="../js/tailwindplus-elements.js"></script>
@@ -588,48 +579,10 @@
         </section>
     </main>
 
-    <script>
-        window.addEventListener("DOMContentLoaded", () => {
-            if (window.customElements && customElements.get("el-disclosure")) {
-                return;
-            }
+    <!-- Footer -->
+    
 
-            document.addEventListener("click", (event) => {
-                const trigger = event.target.closest("[command][commandfor]");
-                if (!trigger) {
-                    return;
-                }
-
-                const command = trigger.getAttribute("command");
-                if (command !== "--toggle" && command !== "--show" && command !== "--hide") {
-                    return;
-                }
-
-                const targetId = trigger.getAttribute("commandfor");
-                if (!targetId) {
-                    return;
-                }
-
-                const target = document.getElementById(targetId);
-                if (!target) {
-                    return;
-                }
-
-                const isHidden = target.hasAttribute("hidden");
-
-                if (command === "--show" || (command === "--toggle" && isHidden)) {
-                    target.removeAttribute("hidden");
-                    trigger.setAttribute("aria-expanded", "true");
-                    return;
-                }
-
-                if (command === "--hide" || (command === "--toggle" && !isHidden)) {
-                    target.setAttribute("hidden", "");
-                    trigger.setAttribute("aria-expanded", "false");
-                }
-            });
-        });
-    </script>
-
+    <!-- Navigation Scripts -->
+    <script src="../js/nav.js" defer></script>
 </body>
 </html>

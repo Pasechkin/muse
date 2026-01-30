@@ -26,12 +26,8 @@
 
 Задача: [ОПИСАНИЕ ЗАДАЧИ]
 
-Эталоны по группам (выбери по типу страницы):
-- Главные — @tailwind-project/src/html/index.html
-- Стили портретов — @tailwind-project/src/html/portret-na-zakaz/style/portret-maslom.html
-- Объекты портретов — @tailwind-project/src/html/portret-na-zakaz/object/muzhskoy-portret.html
-- Блог — @tailwind-project/src/html/blog/kollazh-i-fotokollazh.html
-- Info — @tailwind-project/src/html/info/kontakty.html
+Эталоны по группам: см. @tailwind-project/PROJECT.md → раздел «Эталоны по группам страниц»
+(выбери эталон по типу своей страницы)
 
 Источник контента: [URL оригинальной страницы на muse.ooo]
 
@@ -54,12 +50,8 @@
 
 Создай новую страницу [НАЗВАНИЕ].
 
-Эталоны по группам (выбери по типу страницы):
-- Главные — @tailwind-project/src/html/index.html
-- Стили портретов — @tailwind-project/src/html/portret-na-zakaz/style/portret-maslom.html
-- Объекты портретов — @tailwind-project/src/html/portret-na-zakaz/object/muzhskoy-portret.html
-- Блог — @tailwind-project/src/html/blog/kollazh-i-fotokollazh.html
-- Info — @tailwind-project/src/html/info/kontakty.html
+Эталоны по группам: см. @tailwind-project/PROJECT.md → раздел «Эталоны по группам страниц»
+(выбери эталон по типу своей страницы)
 
 Источник контента: https://muse.ooo/[путь]/
 

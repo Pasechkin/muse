@@ -8,92 +8,32 @@
     
     <!-- Закрыто от индексации во время разработки -->
     <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="https://muse.ooo/portret-na-zakaz/portret-iz-slov/">
     
     <!-- Критический CSS (универсальный для страниц стилей портретов) -->
-    <style>
-        /* CSS переменные */
-        :root {
-            --primary: #4A90E2;
-            --primary-hover: #609DE6;
-            --dark: #252525;
-            --body: #666666;
-        }
-        
-        /* Body */
-                        <!-- ВИДЕО-ШАБЛОН (раскомментировать при готовом видео)
-                        1) ВСТАВЬТЕ КНОПКУ в <el-tab-list>:
-                        <button class="relative flex h-16 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden" data-video-tab>
-                            <span class="sr-only">[ТЕКСТ: Видео]</span>
-                            <span class="absolute inset-0 overflow-hidden rounded">
-                                <img src="[URL_82x62.webp]" alt="[ТЕКСТ: Описание видео]" title="[ТЕКСТ: Заголовок видео]" width="82" height="62" class="size-full object-cover" loading="lazy" decoding="async" />
-                                <span class="absolute inset-0 flex items-center justify-center bg-black/30">
-                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                                </span>
-                            </span>
-                            <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
-                        </button>
+        <style>
+       :root {
+    --primary: #4A90E2;
+    --primary-hover: #609DE6;
+    --dark: #252525;
+    --body: #666666;
+    --secondary: #FAFAFA;
+}
 
-                        2) ВСТАВЬТЕ ПАНЕЛЬ в <el-tab-panels>:
-                        <div hidden data-video-panel>
-                            <div class="video-cover aspect-video rounded-lg" data-video-cover>
-                                <img src="[URL_458x258.webp]" alt="[ТЕКСТ: Обложка видео]" width="458" height="258" class="w-full h-full object-cover rounded-lg" loading="lazy" decoding="async" />
-                                <div class="video-play-icon cursor-pointer" data-play-btn>
-                                    <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg"><path d="M8 5v14l11-7z"/></svg>
-                                </div>
-                                <video title="[ТЕКСТ: Заголовок видео]" preload="none" playsinline class="hidden">
-                                    <source src="[URL.webm]" type="video/webm">
-                                    <source src="[URL.mp4]" type="video/mp4">
-                                </video>
-                            </div>
-                        </div>
-                        -->
-        body { 
-            background-color: #fff; 
-            color: #666; 
-            overflow-x: hidden; 
-        }
-        
-        /* SR-only (accessibility) */
-        .sr-only { 
-            position: absolute; 
-            width: 1px; height: 1px; 
-            padding: 0; margin: -1px; 
-            overflow: hidden; 
-            clip: rect(0,0,0,0); 
-            border: 0; 
-        }
+body {
+    background-color: #fff;
+    color: var(--body);
+    overflow-x: hidden;
+}
     </style>
     
     <!-- Preload Hero изображения (ускоряет LCP) -->
     <link rel="preload" as="image" href="https://muse.ooo/upload/img/portret-iz-slov-458-2.webp" fetchpriority="high">
     
     <!-- Основной CSS: output.css (Tailwind v4, локальная сборка) -->
-
-	<link rel="stylesheet" href="https://muse.ooo/css/drift-basic.min.css">
-
-    
-    <!-- Tailwind Plus Elements -->
-    <script type="module" src="../../js/tailwindplus-elements.js"></script>
-    
-    <style>
-        /* Page Navigator moved to src/input.css */
-        
-        /* Carousel moved to ../../css/output.css */
-        
-        /* Grid layout для Описания БЕЗ видео */
-        @media (min-width: 1024px) {
-            .description-grid-no-video {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 2rem;
-                align-items: start;
-            }
-        }
-        
-        /* Стили для Drift */
-        .detail { overflow: visible !important; position: relative; }
-        .drift-zoom-pane { border-radius: 8px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2); z-index: 100 !important; }
-    </style>
+	<!-- Drift CSS (асинхронная загрузка - не блокирует LCP) -->
+	<link rel="stylesheet" href="https://muse.ooo/css/drift-basic.min.css" media="print" onload="this.media='all'">
+	<noscript><link rel="stylesheet" href="https://muse.ooo/css/drift-basic.min.css"></noscript>
 
     <!-- Structured Data: Product -->
     <script type="application/ld+json">
@@ -175,16 +115,17 @@
 
 
     <!-- Page Navigator -->
-    <nav class="page-navigator">
-        <ul>
-            <li><a href="#words" class="inner-link" data-title="Примеры"></a></li>
-            <li><a href="#calc" class="inner-link" data-title="Цена"></a></li>
-            <li><a href="#order" class="inner-link" data-title="Как заказать"></a></li>
-            <li><a href="#work" class="inner-link" data-title="Характеристики"></a></li>
-            <li><a href="#review" class="inner-link" data-title="Отзывы"></a></li>
-            <li><a href="#opisanie" class="inner-link" data-title="Описание"></a></li>
-        </ul>
-    </nav>
+<nav class="page-navigator" id="page-navigator">
+    <ul>
+        <li><a href="#primery" class="inner-link" data-title="Примеры"><span class="sr-only">Примеры</span></a></li>
+        <li><a href="#calc" class="inner-link" data-title="Цена"><span class="sr-only">Цена</span></a></li>
+        <li><a href="#kak-zakazat" class="inner-link" data-title="Как заказать"><span class="sr-only">Как заказать</span></a></li>
+        <li><a href="#harakteristiki" class="inner-link" data-title="Характеристики"><span class="sr-only">Характеристики</span></a></li>
+        <li><a href="#preimushchestva" class="inner-link" data-title="Преимущества"><span class="sr-only">Преимущества</span></a></li>
+        <li><a href="#otzyvy" class="inner-link" data-title="Отзывы"><span class="sr-only">Отзывы</span></a></li>
+        <li><a href="#opisanie" class="inner-link" data-title="Описание"><span class="sr-only">Описание</span></a></li>
+    </ul>
+</nav>
 
     <main>
         <!-- Hero Section -->
@@ -235,7 +176,7 @@
         </section>
 
         <!-- Примеры (заглушка для Bitrix) -->
-        <section class="bg-dark py-16 lg:py-20" id="words">
+        <section class="bg-dark py-16 lg:py-20" id="primery">
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-white text-center mb-8">Примеры</h2>
                 <p class="text-center text-gray-300 mb-8">Портреты из слов</p>
@@ -281,7 +222,7 @@
         </section>
 
         <!-- Как заказать -->
-        <section class="py-16 lg:py-24" id="order">
+        <section class="py-16 lg:py-24" id="kak-zakazat">
             <div class="container mb-8">
                 <div class="text-center">
                     <h2 class="text-3xl lg:text-4xl font-light text-dark">Как заказать</h2>
@@ -388,7 +329,7 @@
 
         <!-- Характеристики -->
        <!-- Характеристики -->
-<section class="py-16 lg:py-20" id="work">
+<section class="py-16 lg:py-20" id="harakteristiki">
     <div class="container">
         <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Характеристики</h2>
     </div>
@@ -538,7 +479,7 @@
         </section>
 
         <!-- Отзывы -->
-        <section class="bg-secondary py-16 lg:py-20" id="review">
+        <section class="bg-secondary py-16 lg:py-20" id="otzyvy">
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">Отзывы</h2>
                 
@@ -547,26 +488,12 @@
                     <p class="text-sm">Отзывы будут загружены из Bitrix</p>
                 </div>
                 
-                <!-- Кнопка "Оставить отзыв" -->
-                <div class="text-center">
-                    <button 
-                        type="button"
-                        onclick="document.getElementById('review-modal').showModal()"
-                        class="btn-primary btn-lg"
-                    >
-                        ОСТАВИТЬ ОТЗЫВ
-                    </button>
-                </div>
+               
             </div>
         </section>
 
         <!-- Модальное окно для отзыва -->
-        <!-- Модальное окно (вставьте из эталона) -->
-        <dialog id="review-modal" class="p-0 bg-transparent border-none outline-none backdrop:bg-black/60 m-auto overflow-visible">
-    <div class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6" onclick="if(event.target === this) this.closest('dialog').close()">
-        <div class="bg-dark text-white rounded-lg shadow-2xl max-w-md w-full p-6 relative">
-            <!-- Код между тегами <dialog> </dialog> пользователь вставит сам -->
-        </dialog>
+      
 
         <!-- Описание -->
         <section class="py-16 lg:py-20" id="opisanie">
@@ -599,7 +526,7 @@
                                 width="378"
                                 height="251"
                             >
-                            <input type="range" class="absolute inset-0 opacity-0 cursor-ew-resize w-full h-full m-0 z-20 appearance-none" min="0" max="100" value="50" aria-label="Сравнение до и после" oninput="this.parentNode.style.setProperty('--pos', this.value + '%')">
+                            <input type="range" class="absolute inset-0 opacity-0 cursor-ew-resize w-full h-full m-0 z-20 appearance-none" min="0" max="100" value="50" aria-label="Сравнение до и после">
                             <div class="ba-divider"></div>
                             <div class="ba-handle" aria-hidden="true">
                                 <svg width="15" height="8" viewBox="0 0 15 8" fill="none">
@@ -655,22 +582,21 @@
      <!-- Footer -->
      
 
-    <!-- Navigation Scripts -->
-    <script src="../../js/nav.js"></script>
-
-
-
-    <!-- Drift JS -->
-    <script src="https://muse.ooo/js/Drift.min.js"></script>
+    <!-- Scripts -->
+    <script type="module" src="../../js/tailwindplus-elements.js"></script>
+    <script defer src="../../js/nav.js"></script>
+    <!-- Drift JS (defer - не блокирует парсинг) -->
+    <script defer src="https://muse.ooo/js/Drift.min.js" onload="initDrift()"></script>
     <script>
-        // Инициализация Drift - точно как на оригинале
-        new Drift(document.querySelector(".drift-demo-trigger"), {
-            paneContainer: document.querySelector(".detail"),
-            inlinePane: 900,
-            inlineOffsetY: -85,
-            containInline: true,
-            hoverBoundingBox: true
-        });
+        function initDrift() {
+            new Drift(document.querySelector(".drift-demo-trigger"), {
+                paneContainer: document.querySelector(".detail"),
+                inlinePane: 900,
+                inlineOffsetY: -85,
+                containInline: true,
+                hoverBoundingBox: true
+            });
+        }
     </script>
 </body>
 </html>

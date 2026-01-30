@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* === Tree-shaking: исключаем ненужные папки === */
+@source not "../catalyst-ui-kit";
+@source not "../Stack 1.5.2";
+
 @theme {
   /* Colors */
   --color-primary: #4A90E2;

@@ -19,40 +19,87 @@
             --secondary: #FAFAFA;
         }
         body { background-color: #fff; color: var(--body); overflow-x: hidden; }
-        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+
     </style>
     
-    <!-- Основной CSS: output.css (Tailwind v4, локальная сборка) -->
-
-
+    <!-- Preload LCP image -->
+    <link rel="preload" as="image" fetchpriority="high"
+          href="https://muse.ooo/upload/imgsite/print-photo-on-canvas-952-535.webp"
+          imagesrcset="https://muse.ooo/upload/imgsite/print-photo-on-canvas-400-225.webp 400w, https://muse.ooo/upload/imgsite/print-photo-on-canvas-600-337.webp 600w, https://muse.ooo/upload/imgsite/print-photo-on-canvas-786-442.webp 786w, https://muse.ooo/upload/imgsite/print-photo-on-canvas-828-465.webp 828w, https://muse.ooo/upload/imgsite/print-photo-on-canvas-952-535.webp 952w"
+          imagesizes="(max-width: 767px) 100vw, 50vw">
     
-    <!-- Tailwind Plus Elements -->
-    
-    
-    <style>
-        /* Page Navigator */
-        .page-navigator { position: fixed; top: 50%; transform: translateY(-50%); right: 1.85714286em; z-index: 9999; }
-        .page-navigator ul { display: inline-block; padding: 0.92857143em; background: rgba(0, 0, 0, 0.4); border-radius: 1.85714286em; }
-        .page-navigator ul:hover { background: rgba(0, 0, 0, 0.6); }
-        .page-navigator ul li { list-style: none; }
-        .page-navigator ul li:not(:last-child) { margin-bottom: 1.85714286em; }
-        @media (max-width: 1023px) { .page-navigator { display: none !important; } }
-        .page-navigator li a { width: 8px; height: 8px; background: #fff; border-radius: 50%; transition: all 0.3s ease; display: block; position: relative; opacity: 0.5; }
-        .page-navigator li a:hover, .page-navigator li a.inner-link--active { opacity: 1; transform: scale(1.5); }
-        .page-navigator li a[data-title]:before { content: attr(data-title); position: absolute; right: 12px; top: -14px; background: #222; color: #fff; border-radius: 6px; padding: 4px 8px; display: inline-block; white-space: nowrap; font-size: 12px; opacity: 0; transition: all 0.2s ease; }
-        .page-navigator li a[data-title]:hover:before { opacity: 1; }
-        /* Carousel */
-        .carousel-scroll { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
-        .carousel-scroll::-webkit-scrollbar { display: none; }
-    </style>
-<script type="module" src="js/tailwindplus-elements.js"></script>
-<link rel="stylesheet" href="css/output.css">
+    <link rel="stylesheet" href="css/output.css">
     <link rel="canonical" href="https://muse.ooo/pechat-na-kholste-sankt-peterburg/">
+
+    <!-- Structured Data: FAQPage -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Какие бывают размеры?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Печатаем на холсте по индивидуальным размерам заказчика: от 20×20 см до 120×300 см. Популярные размеры для печати фото и портретов: 30×40, 40×60, 50×70, 60×90, 90×120 см. Для фотоколлажей часто востребованы квадратные размеры: 40×40, 50×50 и 60×60 см."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Сколько стоит печать на холсте?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Цены на самые востребованные размеры печати на холсте: 30×40 — от 2 653 ₽, 40×60 — от 3 133 ₽, 50×70 — от 3 541 ₽, 60×90 — от 4 225 ₽, 90×120 — от 5 667 ₽. В рулоне — базовая ретушь и печать. На подрамнике — плюс галерейная натяжка и лак. Упаковка включена во все цены."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Какие сроки печати на холсте?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Печатаем за 1–2 дня. Есть самовывоз в Петербурге. При расчёте сроков учитывайте время на доставку."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Какие технологии и материалы используете?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Оборудование: HP Latex 315 и Epson SC-P 7000. Материалы: 100% хлопковый холст (380 г/м²), деревянные подрамники. Чернила: латексные (6 цветов, GREENGUARD сертифицированы) и пигментные UltraChrome HDX (10 цветов, до 60 лет). Не используем синтетику, МДФ и экосольвентные чернила."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Какие требования к изображениям?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Шероховатая фактура холста снижает требования к исходному качеству изображений. Отправьте лучшее из доступных вам изображений. Минимальное требование: JPG, sRGB, от 150 dpi."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Какие будут гарантии при работе с вами?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Работаем с 28.01.2016 года. Множество положительных отзывов в Яндекс.Карты и Google Maps. При предоплате получите кассовый чек на почту. Гарантия 5 лет, собственное производство в Петербурге, страхование доставки. Возвращаем деньги или заменяем заказ в течение 14 дней при наличии брака."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Как ухаживать за холстом?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Избегайте размещения под прямыми солнечными лучами. Протирайте сухой мягкой тканью. Избегайте высокой влажности. Не используйте влажные салфетки и химию."
+                }
+            }
+        ]
+    }
+    </script>
 </head>
 <body class="bg-white overflow-x-hidden">
     <!-- Header -->
     
-    <main>
     <!-- Hero Section -->
     <section class="relative h-[65vh] lg:h-screen overflow-hidden bg-dark">
             <video class="absolute inset-0 w-full h-full object-cover hidden lg:block" autoplay loop muted playsinline preload="none" title="Фоновый ролик о печати на холсте">
@@ -93,14 +140,14 @@
     <!-- Page Navigator -->
     <nav class="page-navigator" id="page-navigator">
         <ul>
-            <li><a href="#services" class="inner-link" data-title="Услуги"></a></li>
-            <li><a href="#calc" class="inner-link" data-title="Цена"></a></li>
-            <li><a href="#order" class="inner-link" data-title="Заказ"></a></li>
-            <li><a href="#payment" class="inner-link" data-title="Оплата"></a></li>
-            <li><a href="#delivery" class="inner-link" data-title="Доставка"></a></li>
-            <li><a href="#advantages" class="inner-link" data-title="Преимущества"></a></li>
-            <li><a href="#faq" class="inner-link" data-title="Ответы"></a></li>
-            <li><a href="#examples" class="inner-link" data-title="Примеры"></a></li>
+            <li><a href="#services" class="inner-link" data-title="Услуги"><span class="sr-only">Услуги</span></a></li>
+            <li><a href="#calc" class="inner-link" data-title="Цена"><span class="sr-only">Цена</span></a></li>
+            <li><a href="#order" class="inner-link" data-title="Заказ"><span class="sr-only">Заказ</span></a></li>
+            <li><a href="#payment" class="inner-link" data-title="Оплата"><span class="sr-only">Оплата</span></a></li>
+            <li><a href="#delivery" class="inner-link" data-title="Доставка"><span class="sr-only">Доставка</span></a></li>
+            <li><a href="#advantages" class="inner-link" data-title="Преимущества"><span class="sr-only">Преимущества</span></a></li>
+            <li><a href="#faq" class="inner-link" data-title="Ответы"><span class="sr-only">Ответы</span></a></li>
+            <li><a href="#examples" class="inner-link" data-title="Примеры"><span class="sr-only">Примеры</span></a></li>
         </ul>
     </nav>
 
@@ -112,49 +159,6 @@
     </a>
 
     <main>
-
-    <script>
-        window.addEventListener("DOMContentLoaded", () => {
-            if (window.customElements && customElements.get("el-disclosure")) {
-                return;
-            }
-
-            document.addEventListener("click", (event) => {
-                const trigger = event.target.closest("[command][commandfor]");
-                if (!trigger) {
-                    return;
-                }
-
-                const command = trigger.getAttribute("command");
-                if (command !== "--toggle" && command !== "--show" && command !== "--hide") {
-                    return;
-                }
-
-                const targetId = trigger.getAttribute("commandfor");
-                if (!targetId) {
-                    return;
-                }
-
-                const target = document.getElementById(targetId);
-                if (!target) {
-                    return;
-                }
-
-                const isHidden = target.hasAttribute("hidden");
-
-                if (command === "--show" || (command === "--toggle" && isHidden)) {
-                    target.removeAttribute("hidden");
-                    trigger.setAttribute("aria-expanded", "true");
-                    return;
-                }
-
-                if (command === "--hide" || (command === "--toggle" && !isHidden)) {
-                    target.setAttribute("hidden", "");
-                    trigger.setAttribute("aria-expanded", "false");
-                }
-            });
-        });
-    </script>
         <!-- Услуги: Фото на холсте, Фотоколлаж, Репродукция, Модульная картина, Печать любого изображения -->
         <div id="services">
             <!-- Фото на холсте -->
@@ -393,178 +397,157 @@
                 <div class="text-center mb-8">
                     <h2 class="text-3xl lg:text-4xl font-light text-dark">Часто задаваемые вопросы</h2>
                 </div>
-                <div class="grid gap-8 lg:grid-cols-3" itemscope itemtype="http://schema.org/FAQPage">
+                <div class="grid gap-8 lg:grid-cols-3">
                     <!-- Left Column - FAQ Items (2 columns) -->
                     <div class="lg:col-span-2 space-y-0 divide-y divide-gray-200 overflow-hidden lg:order-1">
-                        <!-- FAQ 1 -->
-                        <div class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" command="--toggle" commandfor="print-faq-1" class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none group w-full text-left">
-                                <span itemprop="name">Какие бывают размеры?</span>
-                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-[aria-expanded=true]:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                        <details class="group" open>
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
+                                <span>Какие бывают размеры?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
                                 </svg>
-                            </button>
-                            <el-disclosure id="print-faq-1">
-                                <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
-                                    <div class="text-body" itemprop="text">
-                                        <figure class="mb-4">
-                                            <img src="https://muse.ooo/upload/img/holst-v-rukah.webp" loading="lazy" decoding="async" title="Примеры размеров картин на холсте" alt="5 девушек держат в руках полотна на которых написаны размеры картин" width="2000" height="727" class="rounded-md w-full">
-                                            <figcaption class="text-sm text-body mt-2">Как выглядят картины разных размеров рядом с женщинами ростом 170 см.</figcaption>
-                                        </figure>
-                                        <ul class="list-disc pl-5 space-y-1">
-                                            <li>Печатаем на холсте <b>по индивидуальным размерам заказчика</b>: от 20×20 см до 120×300 см.</li>
-                                            <li>Популярные размеры для печати фото и портретов: 30×40, 40×60, 50×70, 60×90, 90×120 см.</li>
-                                            <li>Для фотоколлажей часто востребованы квадратные размеры: 40×40, 50×50 и 60×60 см.</li>
-                                            <li>Для модульных картин популярны триптихи из трех модулей прямоугольной формы.</li>
-                                            <li>Для репродукций выполняем печать в пропорции к размеру оригинала.</li>
-                                        </ul>
-                                        <p class="mt-3">Сравните свой формат с A4 и A3 в <a href="#calc" class="text-primary underline hover:no-underline">онлайн-калькуляторе ↑</a>, указав нужный размер.</p>
-                                    </div>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body">
+                                    <figure class="mb-4">
+                                        <img src="https://muse.ooo/upload/img/holst-v-rukah.webp" loading="lazy" decoding="async" title="Примеры размеров картин на холсте" alt="5 девушек держат в руках полотна на которых написаны размеры картин" width="2000" height="727" class="rounded-md w-full">
+                                        <figcaption class="text-sm text-body mt-2">Как выглядят картины разных размеров рядом с женщинами ростом 170 см.</figcaption>
+                                    </figure>
+                                    <ul class="list-disc pl-5 space-y-1">
+                                        <li>Печатаем на холсте <b>по индивидуальным размерам заказчика</b>: от 20×20 см до 120×300 см.</li>
+                                        <li>Популярные размеры для печати фото и портретов: 30×40, 40×60, 50×70, 60×90, 90×120 см.</li>
+                                        <li>Для фотоколлажей часто востребованы квадратные размеры: 40×40, 50×50 и 60×60 см.</li>
+                                        <li>Для модульных картин популярны триптихи из трех модулей прямоугольной формы.</li>
+                                        <li>Для репродукций выполняем печать в пропорции к размеру оригинала.</li>
+                                    </ul>
+                                    <p class="mt-3">Сравните свой формат с A4 и A3 в <a href="#calc" class="text-primary underline hover:no-underline">онлайн-калькуляторе ↑</a>, указав нужный размер.</p>
                                 </div>
-                            </el-disclosure>
-                        </div>
-
-                        <!-- FAQ 2 -->
-                        <div class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" command="--toggle" commandfor="print-faq-2" class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none group w-full text-left">
-                                <span itemprop="name">Сколько стоит печать на холсте?</span>
-                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-[aria-expanded=true]:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
-                            </button>
-                            <el-disclosure id="print-faq-2" hidden>
-                                <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
-                                    <div class="text-body" itemprop="text">
-                                        <p class="font-semibold mb-2">Цены на самые востребованные размеры печати на холсте</p>
-                                        <div class="overflow-x-auto mb-4">
-                                            <table class="w-full text-left border-collapse">
-                                                <thead>
-                                                    <tr class="border-b border-gray-200">
-                                                        <th class="py-2 pr-4 font-medium">Размеры, см</th>
-                                                        <th class="py-2 pr-4 font-medium">В рулоне, руб.</th>
-                                                        <th class="py-2 font-medium">На подрамнике, руб.</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="text-sm">
-                                                    <tr class="border-b border-gray-100"><td class="py-2 pr-4">30×40</td><td class="py-2 pr-4">2653</td><td>2773</td></tr>
-                                                    <tr class="border-b border-gray-100"><td class="py-2 pr-4">40×40</td><td class="py-2 pr-4">2813</td><td>2973</td></tr>
-                                                    <tr class="border-b border-gray-100"><td class="py-2 pr-4">40×50</td><td class="py-2 pr-4">2973</td><td>3173</td></tr>
-                                                    <tr class="border-b border-gray-100"><td class="py-2 pr-4">40×60</td><td class="py-2 pr-4">3133</td><td>3373</td></tr>
-                                                    <tr class="border-b border-gray-100"><td class="py-2 pr-4">50×50</td><td class="py-2 pr-4">3162</td><td>3412</td></tr>
-                                                    <tr class="border-b border-gray-100"><td class="py-2 pr-4">50×70</td><td class="py-2 pr-4">3541</td><td>3891</td></tr>
-                                                    <tr class="border-b border-gray-100"><td class="py-2 pr-4">60×60</td><td class="py-2 pr-4">3570</td><td>3930</td></tr>
-                                                    <tr class="border-b border-gray-100"><td class="py-2 pr-4">60×80</td><td class="py-2 pr-4">4007</td><td>4487</td></tr>
-                                                    <tr class="border-b border-gray-100"><td class="py-2 pr-4">60×90</td><td class="py-2 pr-4">4225</td><td>4765</td></tr>
-                                                    <tr class="border-b border-gray-100"><td class="py-2 pr-4">80×120</td><td class="py-2 pr-4">5667</td><td>6627</td></tr>
-                                                    <tr><td class="py-2 pr-4">90×120</td><td class="py-2 pr-4">6060</td><td>7140</td></tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <ul class="list-disc pl-5 space-y-1">
-                                            <li>Упаковка в пупырчатую плёнку и картон включены во все цены.</li>
-                                            <li>В рулоне: базовая ретушь и печать на холсте.</li>
-                                            <li>На подрамнике: базовая ретушь, печать на холсте, галерейная натяжка холста на стандартный деревянный подрамник и покрытие матовым лаком.</li>
-                                            <li>Дополнительные услуги: оформление в багетную раму, прорисовка гелем, акрилом, маслом, создание портрета по фото и т. д. оплачиваются отдельно.</li>
-                                            <li>Стоимость для <b>вашего размера</b> рассчитайте в разделе <a href="#calc" class="text-primary underline hover:no-underline">Цена ↑</a>.</li>
-                                        </ul>
-                                        <p class="mt-3">Предоставляем <b>гарантию лучшей цены</b>: если вы найдете аналогичную услугу приблизительно того же качества по более низкой цене, готовы снизить нашу цену на 10% от найденного предложения.</p>
+                            </div>
+                        </details>
+                        
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
+                                <span>Сколько стоит печать на холсте?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p class="font-semibold mb-2">Цены на самые востребованные размеры печати на холсте</p>
+                                    <div class="overflow-x-auto mb-4">
+                                        <table class="w-full text-left border-collapse">
+                                            <thead>
+                                                <tr class="border-b border-gray-200">
+                                                    <th class="py-2 pr-4 font-medium whitespace-nowrap">Размеры, см</th>
+                                                    <th class="py-2 pr-4 font-medium whitespace-nowrap">В рулоне, руб.</th>
+                                                    <th class="py-2 font-medium whitespace-nowrap">На подрамнике, руб.</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="text-sm">
+                                                <tr class="odd:bg-primary/5"><td class="py-2 pr-4">30×40</td><td class="py-2 pr-4">2 653 ₽</td><td class="py-2">2 773 ₽</td></tr>
+                                                <tr class="odd:bg-primary/5"><td class="py-2 pr-4">40×40</td><td class="py-2 pr-4">2 813 ₽</td><td class="py-2">2 973 ₽</td></tr>
+                                                <tr class="odd:bg-primary/5"><td class="py-2 pr-4">40×50</td><td class="py-2 pr-4">2 973 ₽</td><td class="py-2">3 173 ₽</td></tr>
+                                                <tr class="odd:bg-primary/5"><td class="py-2 pr-4">40×60</td><td class="py-2 pr-4">3 133 ₽</td><td class="py-2">3 373 ₽</td></tr>
+                                                <tr class="odd:bg-primary/5"><td class="py-2 pr-4">50×50</td><td class="py-2 pr-4">3 162 ₽</td><td class="py-2">3 412 ₽</td></tr>
+                                                <tr class="odd:bg-primary/5"><td class="py-2 pr-4">50×70</td><td class="py-2 pr-4">3 541 ₽</td><td class="py-2">3 891 ₽</td></tr>
+                                                <tr class="odd:bg-primary/5"><td class="py-2 pr-4">60×60</td><td class="py-2 pr-4">3 570 ₽</td><td class="py-2">3 930 ₽</td></tr>
+                                                <tr class="odd:bg-primary/5"><td class="py-2 pr-4">60×80</td><td class="py-2 pr-4">4 007 ₽</td><td class="py-2">4 487 ₽</td></tr>
+                                                <tr class="odd:bg-primary/5"><td class="py-2 pr-4">60×90</td><td class="py-2 pr-4">4 225 ₽</td><td class="py-2">4 765 ₽</td></tr>
+                                                <tr class="odd:bg-primary/5"><td class="py-2 pr-4">80×120</td><td class="py-2 pr-4">5 667 ₽</td><td class="py-2">6 627 ₽</td></tr>
+                                                <tr class="odd:bg-primary/5"><td class="py-2 pr-4">90×120</td><td class="py-2 pr-4">6 060 ₽</td><td class="py-2">7 140 ₽</td></tr>
+                                            </tbody>
+                                        </table>
                                     </div>
+                                    <ul class="list-disc pl-5 space-y-1">
+                                        <li>Упаковка в пупырчатую плёнку и картон включены во все цены.</li>
+                                        <li>В рулоне: базовая ретушь и печать на холсте.</li>
+                                        <li>На подрамнике: базовая ретушь, печать на холсте, галерейная натяжка холста на стандартный деревянный подрамник и покрытие матовым лаком.</li>
+                                        <li>Дополнительные услуги: оформление в багетную раму, прорисовка гелем, акрилом, маслом, создание портрета по фото и т. д. оплачиваются отдельно.</li>
+                                        <li>Стоимость для <b>вашего размера</b> рассчитайте в разделе <a href="#calc" class="text-primary underline hover:no-underline">Цена ↑</a>.</li>
+                                    </ul>
+                                    <p class="mt-3">Предоставляем <b>гарантию лучшей цены</b>: если вы найдете аналогичную услугу приблизительно того же качества по более низкой цене, готовы снизить нашу цену на 10% от найденного предложения.</p>
                                 </div>
-                            </el-disclosure>
-                        </div>
-
-                        <!-- FAQ 3 -->
-                        <div class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" command="--toggle" commandfor="print-faq-3" class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none group w-full text-left">
-                                <span itemprop="name">Какие сроки печати на холсте?</span>
-                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-[aria-expanded=true]:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
-                            </button>
-                            <el-disclosure id="print-faq-3" hidden>
-                                <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
-                                    <div class="text-body" itemprop="text">
-                                        <p>Печатаем за 1–2 дня.<br>Нужно быстрее? Свяжитесь с нами прямо сейчас.<br>Есть самовывоз.<br>При расчёте сроков учитывайте время на <a href="#delivery" class="text-primary underline hover:no-underline">Доставку ↑</a>.</p>
-                                    </div>
+                            </div>
+                        </details>
+                        
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
+                                <span>Какие сроки печати на холсте?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body">
+                                    <p>Печатаем за 1–2 дня.<br>Нужно быстрее? Свяжитесь с нами прямо сейчас.<br>Есть самовывоз.<br>При расчёте сроков учитывайте время на <a href="#delivery" class="text-primary underline hover:no-underline">Доставку ↑</a>.</p>
                                 </div>
-                            </el-disclosure>
-                        </div>
-
-                        <!-- FAQ 4 -->
-                        <div class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" command="--toggle" commandfor="print-faq-4" class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none group w-full text-left">
-                                <span itemprop="name">Какие технологии и материалы используете?</span>
-                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-[aria-expanded=true]:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
-                            </button>
-                            <el-disclosure id="print-faq-4" hidden>
-                                <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
-                                    <div class="text-body" itemprop="text">
-                                        <p class="font-semibold">1. Оборудование</p>
-                                        <p class="mb-2">Печатаем на профессиональных широкоформатных плоттерах HP Latex 315 и Epson SC-P 7000.</p>
-                                        <p class="font-semibold">2. Материалы</p>
-                                        <p class="mb-2">100% хлопковый холст плотностью 380 г/м² для HP; натуральные холсты от Lomond для Epson; деревянные подрамники.</p>
-                                        <p class="font-semibold">3. Чернила</p>
-                                        <p class="mb-2">Латексные чернила (6 цветов) на HP — сертифицированы по стандартам GREENGUARD. Пигментные UltraChrome HDX (10 цветов) на Epson — сохранность до 60 лет.</p>
-                                        <p class="font-semibold">4. Что мы не используем:</p>
-                                        <p>Синтетические материалы, подрамники из МДФ, экосольвентные чернила.</p>
-                                    </div>
+                            </div>
+                        </details>
+                        
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
+                                <span>Какие технологии и материалы используете?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body space-y-4">
+                                    <p class="font-semibold">1. Оборудование</p>
+                                    <p class="mb-2">Печатаем на профессиональных широкоформатных плоттерах HP Latex 315 и Epson SC-P 7000.</p>
+                                    <p class="font-semibold">2. Материалы</p>
+                                    <p class="mb-2">100% хлопковый холст плотностью 380 г/м² для HP; натуральные холсты от Lomond для Epson; деревянные подрамники.</p>
+                                    <p class="font-semibold">3. Чернила</p>
+                                    <p class="mb-2">Латексные чернила (6 цветов) на HP — сертифицированы по стандартам GREENGUARD. Пигментные UltraChrome HDX (10 цветов) на Epson — сохранность до 60 лет.</p>
+                                    <p class="font-semibold">4. Что мы не используем:</p>
+                                    <p>Синтетические материалы, подрамники из МДФ, экосольвентные чернила.</p>
                                 </div>
-                            </el-disclosure>
-                        </div>
-
-                        <!-- FAQ 5 -->
-                        <div class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" command="--toggle" commandfor="print-faq-5" class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none group w-full text-left">
-                                <span itemprop="name">Какие требования к изображениям?</span>
-                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-[aria-expanded=true]:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
-                            </button>
-                            <el-disclosure id="print-faq-5" hidden>
-                                <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
-                                    <div class="text-body" itemprop="text">
-                                        <p>Шероховатая фактура холста снижает требования к исходному качеству изображений. Мы готовы улучшить изображение с помощью современных технологий обработки.</p>
-                                        <p class="mt-2"><b>Отправьте нам наилучшее из доступных вам изображений</b>. Поможем с обработкой фотографии, дизайном макета, отрисовкой и стилизацией.</p>
-                                        <p class="mt-2">Минимальное требование: формат JPG, цветовой профиль sRGB, разрешение от 150 dpi.</p>
-                                    </div>
+                            </div>
+                        </details>
+                        
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
+                                <span>Какие требования к изображениям?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body">
+                                    <p>Шероховатая фактура холста снижает требования к исходному качеству изображений. Мы готовы улучшить изображение с помощью современных технологий обработки.</p>
+                                    <p class="mt-2"><b>Отправьте нам наилучшее из доступных вам изображений</b>. Поможем с обработкой фотографии, дизайном макета, отрисовкой и стилизацией.</p>
+                                    <p class="mt-2">Минимальное требование: формат JPG, цветовой профиль sRGB, разрешение от 150 dpi.</p>
                                 </div>
-                            </el-disclosure>
-                        </div>
-
-                        <!-- FAQ 6 -->
-                        <div class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" command="--toggle" commandfor="print-faq-6" class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none group w-full text-left">
-                                <span itemprop="name">Какие будут гарантии при работе с вами?</span>
-                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-[aria-expanded=true]:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
-                            </button>
-                            <el-disclosure id="print-faq-6" hidden>
-                                <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
-                                    <div class="text-body" itemprop="text">
-                                        <ul class="list-disc pl-5 space-y-2">
-                                            <li>Работаем с 28.01.2016 года — проверяется по ИНН 782575923262 на сайте <a rel="noopener noreferrer nofollow" href="https://egrul.nalog.ru/index.html" target="_blank" class="text-primary underline hover:no-underline">налоговой службы ↗</a>.</li>
-                                            <li>Множество положительных отзывов: <a rel="noopener noreferrer" href="https://yandex.ru/maps/-/CDehj4ii" target="_blank" class="text-primary underline hover:no-underline">Яндекс ↗</a>, <a rel="noopener noreferrer" href="https://maps.app.goo.gl/mh22CHo7XeDekyHq5" target="_blank" class="text-primary underline hover:no-underline">Google ↗</a>.</li>
-                                            <li>При предоплате <b>получите кассовый чек</b> на почту. Оплата на счёт юрлица.</li>
-                                            <li>Гарантия 5 лет, собственное производство в Петербурге, страхование доставки.</li>
-                                            <li>Возвращаем деньги или заменяем заказ в течение 14 дней при наличии брака.</li>
-                                        </ul>
-                                    </div>
+                            </div>
+                        </details>
+                        
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
+                                <span>Какие будут гарантии при работе с вами?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body">
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>Работаем с 28.01.2016 года — проверяется по ИНН 782575923262 на сайте <a rel="noopener noreferrer nofollow" href="https://egrul.nalog.ru/index.html" target="_blank" class="text-primary underline hover:no-underline">налоговой службы ↗</a>.</li>
+                                        <li>Множество положительных отзывов: <a rel="noopener noreferrer" href="https://yandex.ru/maps/-/CDehj4ii" target="_blank" class="text-primary underline hover:no-underline">Яндекс ↗</a>, <a rel="noopener noreferrer" href="https://maps.app.goo.gl/mh22CHo7XeDekyHq5" target="_blank" class="text-primary underline hover:no-underline">Google ↗</a>.</li>
+                                        <li>При предоплате <b>получите кассовый чек</b> на почту. Оплата на счёт юрлица.</li>
+                                        <li>Гарантия 5 лет, собственное производство в Петербурге, страхование доставки.</li>
+                                        <li>Возвращаем деньги или заменяем заказ в течение 14 дней при наличии брака.</li>
+                                    </ul>
                                 </div>
-                            </el-disclosure>
-                        </div>
-
-                        <!-- FAQ 7 -->
-                        <div class="group" itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
-                            <button type="button" command="--toggle" commandfor="print-faq-7" class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none group w-full text-left">
-                                <span itemprop="name">Как ухаживать за холстом?</span>
-                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-[aria-expanded=true]:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
-                            </button>
-                            <el-disclosure id="print-faq-7" hidden>
-                                <div class="pb-4" itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
-                                    <div class="text-body" itemprop="text">
-                                        <ul class="list-disc pl-5 space-y-1">
-                                            <li>Избегайте размещения под прямыми солнечными лучами.</li>
-                                            <li>Протирайте сухой мягкой тканью.</li>
-                                            <li>Избегайте высокой влажности.</li>
-                                            <li>Не используйте влажные салфетки и химию.</li>
-                                        </ul>
-                                    </div>
+                            </div>
+                        </details>
+                        
+                        <details class="group">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
+                                <span>Как ухаживать за холстом?</span>
+                                <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                            </summary>
+                            <div class="pb-4">
+                                <div class="text-body">
+                                    <ul class="list-disc pl-5 space-y-1">
+                                        <li>Избегайте размещения под прямыми солнечными лучами.</li>
+                                        <li>Протирайте сухой мягкой тканью.</li>
+                                        <li>Избегайте высокой влажности.</li>
+                                        <li>Не используйте влажные салфетки и химию.</li>
+                                    </ul>
                                 </div>
-                            </el-disclosure>
-                        </div>
+                            </div>
+                        </details>
                     </div>
                     
                     <!-- Right Column - Image -->
@@ -681,7 +664,8 @@
     <!-- Footer -->
     
 
-    <!-- Navigation Scripts -->
-    <script src="js/nav.js"></script>
+    <!-- Scripts -->
+    <script type="module" src="js/tailwindplus-elements.js"></script>
+    <script src="js/nav.js" defer></script>
 </body>
 </html>

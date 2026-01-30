@@ -8,38 +8,24 @@
     
     <!-- Закрыто от индексации во время разработки -->
     <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="https://muse.ooo/portret-na-zakaz/drim-art-portret/">
     
     <!-- Критический CSS (универсальный для страниц стилей портретов) -->
+
     <style>
-        /* ===== БАЗОВЫЕ СТИЛИ ===== */
-        
-        /* CSS переменные для цветов */
-        :root {
-            --primary: #4A90E2;
-            --primary-hover: #609DE6;
-            --dark: #252525;
-            --body: #666666;
-            --secondary: #FAFAFA;
-        }
-        
-        /* Body */
-        body {
-            background-color: #fff;
-            color: #666;
-            overflow-x: hidden;
-        }
-        
-        /* SR-only (accessibility) */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            border: 0;
-        }
+       :root {
+    --primary: #4A90E2;
+    --primary-hover: #609DE6;
+    --dark: #252525;
+    --body: #666666;
+    --secondary: #FAFAFA;
+}
+
+body {
+    background-color: #fff;
+    color: var(--body);
+    overflow-x: hidden;
+}
     </style>
     
     <!-- Preload Hero изображения (ускоряет LCP) -->
@@ -49,9 +35,6 @@
 
 
     
-    <!-- Tailwind Plus Elements -->
-    <script type="module" src="../../js/tailwindplus-elements.js"></script>
-
     <!-- Structured Data: Product -->
     <script type="application/ld+json">
     {
@@ -111,7 +94,7 @@
         ]
     }
     </script>
-<link rel="stylesheet" href="../../css/output.css">
+    <link rel="stylesheet" href="../../css/output.css">
 </head>
 <body class="bg-white overflow-x-hidden">
         <!-- Back to Top Button -->
@@ -127,15 +110,17 @@
         </a>
     <!-- Header -->    
     <!-- Page Navigator -->
-    <nav class="page-navigator">
-        <ul>
-            <li><a href="#dream-art" class="inner-link" data-title="Примеры"></a></li>
-            <li><a href="#calc" class="inner-link" data-title="Цена"></a></li>
-            <li><a href="#order" class="inner-link" data-title="Как заказать"></a></li>
-            <li><a href="#specifications" class="inner-link" data-title="Характеристики"></a></li>
-            <li><a href="#review" class="inner-link" data-title="Отзывы"></a></li>
-        </ul>
-    </nav>
+<nav class="page-navigator" id="page-navigator">
+    <ul>
+        <li><a href="#primery" class="inner-link" data-title="Примеры"><span class="sr-only">Примеры</span></a></li>
+        <li><a href="#calc" class="inner-link" data-title="Цена"><span class="sr-only">Цена</span></a></li>
+        <li><a href="#kak-zakazat" class="inner-link" data-title="Как заказать"><span class="sr-only">Как заказать</span></a></li>
+        <li><a href="#harakteristiki" class="inner-link" data-title="Характеристики"><span class="sr-only">Характеристики</span></a></li>
+        <li><a href="#preimushchestva" class="inner-link" data-title="Преимущества"><span class="sr-only">Преимущества</span></a></li>
+        <li><a href="#otzyvy" class="inner-link" data-title="Отзывы"><span class="sr-only">Отзывы</span></a></li>
+        <li><a href="#opisanie" class="inner-link" data-title="Описание"><span class="sr-only">Описание</span></a></li>
+    </ul>
+</nav>
 
     <main>
         <!-- Hero Section (с изображением справа, как в оригинале) -->
@@ -186,7 +171,7 @@
         </section>
 
         <!-- Примеры (заглушка для Bitrix) -->
-        <section class="bg-dark py-16 lg:py-20" id="dream-art">
+        <section class="bg-dark py-16 lg:py-20" id="primery">
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-white text-center mb-8">Примеры</h2>
                 <p class="text-center text-gray-300 mb-8">Дрим-арт портреты</p>
@@ -228,7 +213,7 @@
         </section>
 
         <!-- Как заказать -->
-        <section class="py-16 lg:py-24" id="order">
+        <section class="py-16 lg:py-24" id="kak-zakazat">
             <div class="container mb-8">
                 <div class="text-center">
                     <h2 class="text-3xl lg:text-4xl font-light text-dark">Как заказать</h2>
@@ -328,7 +313,7 @@
         </section>
 
         <!-- Характеристики -->
-        <section class="py-16 lg:py-20" id="specifications">
+        <section class="py-16 lg:py-20" id="harakteristiki">
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Характеристики</h2>
             </div>
@@ -506,7 +491,7 @@
         </section>
 
         <!-- Отзывы -->
-        <section class="bg-secondary py-16 lg:py-20" id="review">
+        <section class="bg-secondary py-16 lg:py-20" id="otzyvy">
             <div class="container">
                 <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">Отзывы</h2>
                 
@@ -515,114 +500,11 @@
                     <p class="text-sm">Отзывы будут загружены из Bitrix</p>
                 </div>
                 
-                <!-- Кнопка "Оставить отзыв" -->
-                <div class="text-center">
-                    <button 
-                        type="button"
-                        onclick="document.getElementById('review-modal').showModal()"
-                        class="btn-primary btn-lg"
-                    >
-                        Оставить отзыв
-                    </button>
-                </div>
+                
             </div>
         </section>
 
         <!-- Модальное окно для отзыва -->
-<dialog id="review-modal" class="p-0 bg-transparent border-none outline-none backdrop:bg-black/60 m-auto overflow-visible">
-    <div class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6" onclick="if(event.target === this) this.closest('dialog').close()">
-        <div class="bg-dark text-white rounded-lg shadow-2xl max-w-md w-full p-6 relative">
-    <div class="p-6 bg-dark text-white rounded-lg">
-        <!-- Заголовок и кнопка закрытия -->
-        <div class="flex items-center justify-between mb-6">
-            <h3 class="text-xl font-medium text-white">Представьтесь, пожалуйста</h3>
-            <button 
-                type="button"
-                onclick="document.getElementById('review-modal').close()"
-                class="text-gray-400 hover:text-white transition-colors p-1 rounded-full hover:bg-gray-800"
-                aria-label="Закрыть окно"
-            >
-                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-        </div>
-        
-        <!-- Поясняющий текст -->
-        <p class="text-body mb-6 text-gray-300">Выберите социальную сеть для авторизации:</p>
-        
-        <!-- Кнопки авторизации -->
-        <div class="space-y-3">
-            <!-- Яндекс -->
-            <a href="javascript:void(0)" 
-               onclick="BxPopup('https://oauth.yandex.ru/authorize?response_type=code&client_id=16d7eb71dd4f4499b79c6b4ea46b9a35&display=popup&redirect_uri=https%3A%2F%2Fmuse.ooo%2Fbitrix%2Ftools%2Foauth%2Fyandex.php&force_confirm=yes&state=site_id%3Ds1%26backurl%3D%252Fajax%252Fsocservices.php%253Fcheck_key%253D6ccc99698f49c1ccd826a2d6384c520b%26mode%3Dopener%26redirect_url%3D%252Fajax%252Fsocservices.php%253Fbackurl%253D%25252Fportret-na-zakaz%25252Fdrim-art-portret%25252F', 680, 600)"
-               class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 text-dark rounded transition-colors group w-full border border-gray-200">
-                <div class="flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="20" height="20" fill="currentColor">
-                        <path d="M227.2 0h-45.5c-46.1 0-92.5 34-92.5 110 0 39.4 16.7 70 47.3 87.5L80.5 298.8c-2.7 4.8-2.7 10.2-0.2 14.5C82.8 317.5 87.3 320 92.4 320h28.3c6.4 0 11.4-3.1 13.9-8.6L187 208.8h3.8v98.4c0 6.9 5.9 12.8 12.8 12.8h24.7c7.8 0 13.2-5.4 13.2-13.2V14C241.6 5.8 235.7 0 227.2 0zM190.9 163.2h-6.8c-26.2 0-41.8-21.4-41.8-57.2 0-44.5 19.8-60.4 38.2-60.4h10.3V163.2z"/>
-                    </svg>
-                </div>
-                <span class="font-medium">Яндекс</span>
-            </a>
-
-            <!-- Mail.Ru -->
-            <a href="javascript:void(0)" 
-               onclick="BxPopup('https://connect.mail.ru/oauth/authorize?client_id=758285&redirect_uri=https://muse.ooo/ajax/socservices.php?auth_service_id=MyMailRu&backurl=%2Fportret-na-zakaz%2Fdrim-art-portret%2F&response_type=code&state=site_id%3Ds1%26backurl%3D%2Fportret-na-zakaz%2Fdrim-art-portret%2F%3Fcheck_key%3D6ccc99698f49c1ccd826a2d6384c520b', 580, 400)"
-               class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 text-dark rounded transition-colors group w-full border border-gray-200">
-                <div class="flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M14.6 12.2c0 0.8 0.2 1.2 0.9 1.2 1.4 0 2.3-1.8 2.3-4.7 0-4.5-3.3-6.7-7.4-6.7-4.2 0-8.1 2.8-8.1 8.2 0 5.1 3.4 7.9 8.5 7.9 1.8 0 2.9-0.2 4.7-0.8l0.4 1.6c-1.8 0.6-3.7 0.7-5.1 0.7-6.8 0-10.4-3.7-10.4-9.5 0-5.8 4.2-9.7 10-9.7 6 0 9.2 3.6 9.2 8 0 3.7-1.2 6.6-4.9 6.6-1.7 0-2.8-0.7-2.9-2.2-0.4 1.7-1.6 2.2-3.1 2.2-2.1 0-3.8-1.6-3.8-4.8 0-3.3 1.5-5.3 4.3-5.3 1.5 0 2.4 0.6 2.8 1.5l0.7-1.3h2v7.1h0zM11.7 9c0-1.3-1-1.9-1.8-1.9-0.9 0-1.9 0.7-1.9 2.8 0 1.7 0.7 2.6 1.9 2.6 0.8 0 1.8-0.5 1.8-1.9v-1.7z"/>
-                    </svg>
-                </div>
-                <span class="font-medium">Mail.Ru</span>
-            </a>
-
-            <!-- VK -->
-            <a href="javascript:void(0)" 
-               onclick="BxPopup('https://id.vk.ru/authorize?client_id=5605340&v=5.80&redirect_uri=https%3A%2F%2Fmuse.ooo%2Fbitrix%2Ftools%2Foauth%2Fvkontakte.php&scope=email&response_type=code&code_challenge_method=S256&code_challenge=rhEzleLdG8TiGkScUxXVijyW8zCNtH8ffuAZaTMyBaY&state=c2l0ZV9pZD1zMSZiYWNrdXJsPSUyRmFqYXglMkZzb2NzZXJ2aWNlcy5waHAlM0ZjaGVja19rZXklM0Q2Y2NjOTk2OThmNDljMWNjZDgyNmEyZDYzODRjNTIwYiZyZWRpcmVjdF91cmw9JTJGYWpheCUyRnNvY3NlcnZpY2VzLnBocCUzRmJhY2t1cmwlM0QlMjUyRnBvcnRyZXQtbmEtemFrYXolMjUyRnBvcnRyZXQtbWFzbG9tJTI1MkY%3D', 660, 425)"
-               class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 text-dark rounded transition-colors group w-full border border-gray-200">
-                <div class="flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M17.8 12.3c0 0 1.6 1.6 2 2.3 0 0 0 0 0 0 0.2 0.3 0.2 0.5 0.1 0.6-0.1 0.3-0.6 0.4-0.7 0.4 0 0-2.8 0-2.9 0-0.2 0-0.6-0.1-1.1-0.4-0.4-0.3-0.8-0.7-1.1-1.1-0.6-0.6-1-1.2-1.5-1.2-0.1 0-0.1 0-0.2 0-0.4 0.1-0.8 0.6-0.8 2 0 0.4-0.3 0.7-0.6 0.7 0 0-1.2 0-1.3 0-0.4 0-2.8-0.2-4.8-2.3-2.5-2.7-4.8-8-4.8-8-0.1-0.3 0.2-0.5 0.5-0.5h2.9c0.4 0 0.5 0.2 0.6 0.4 0.1 0.2 0.5 1.2 1.1 2.3 1 1.8 1.6 2.5 2.1 2.5 0.1 0 0.2 0 0.3-0.1 0.6-0.4 0.5-2.7 0.5-3.1 0-0.1 0-1-0.3-1.5-0.2-0.3-0.6-0.4-0.9-0.5 0.1-0.1 0.2-0.2 0.4-0.3 0.4-0.2 1.2-0.3 2-0.3h0.4c0.9 0 1.1 0.1 1.4 0.1 0.6 0.2 0.6 0.6 0.6 1.9 0 0.4 0 0.8 0 1.4 0 0.1 0 0.2 0 0.4 0 0.7 0 1.5 0.5 1.8 0.1 0 0.1 0.1 0.2 0.1 0.2 0 0.7 0 2.1-2.4 0.6-1.1 1.1-2.3 1.1-2.4 0-0.1 0.1-0.2 0.2-0.3 0.1 0 0.2-0.1 0.2-0.1h3.4c0.4 0 0.6 0.1 0.7 0.2 0.1 0.2 0 0.9-1.6 3-0.3 0.3-0.5 0.7-0.7 0.9-1.4 1.8-1.4 1.9 0.1 3.3z"/>
-                    </svg>
-                </div>
-                <span class="font-medium">ВКонтакте</span>
-            </a>
-
-            <!-- Google -->
-            <a href="javascript:void(0)" 
-               onclick="BxPopup('https://accounts.google.com/o/oauth2/auth?client_id=154295471896-ispv3qmrsiov4iv1of6v9qefjq18h8uc.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fmuse.ooo%2Fbitrix%2Ftools%2Foauth%2Fgoogle.php&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&response_type=code&access_type=offline&state=provider%3DGoogleOAuth%26site_id%3Ds1%26backurl%3D%252Fajax%252Fsocservices.php%253Fcheck_key%253D6ccc99698f49c1ccd826a2d6384c520b%26mode%3Dopener%26redirect_url%3D%252Fajax%252Fsocservices.php%253Fbackurl%253D%25252Fportret-na-zakaz%25252Fdrim-art-portret%25252F', 580, 400)"
-               class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 text-dark rounded transition-colors group w-full border border-gray-200">
-                <div class="flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" fill="currentColor">
-                        <path d="M32 6v20c0 1.1-0.9 2-2 2h-2v-18.1l-12 8.6-12-8.6v18.2h-2c-1.1 0-2-0.9-2-2v-20c0-0.6 0.2-1.1 0.6-1.4 0.4-0.4 0.9-0.6 1.4-0.6h0.7l13.3 9.7 13.3-9.7h0.7c0.6 0 1.1 0.2 1.4 0.6 0.4 0.4 0.6 0.9 0.6 1.4z"/>
-                    </svg>
-                </div>
-                <span class="font-medium">Google</span>
-            </a>
-
-            <!-- Одноклассники -->
-            <a href="javascript:void(0)" 
-               onclick="BxPopup('https://www.odnoklassniki.ru/oauth/authorize?client_id=1247491840&redirect_uri=https%3A%2F%2Fmuse.ooo%2Fbitrix%2Ftools%2Foauth%2Fodnoklassniki.php&response_type=code&state=site_id%3Ds1%26backurl%3D%252Fajax%252Fsocservices.php%253Fcheck_key%253D6ccc99698f49c1ccd826a2d6384c520b%26redirect_url%3D%252Fajax%252Fsocservices.php%253Fbackurl%253D%25252Fportret-na-zakaz%25252Fdrim-art-portret%25252F%26mode%3Dopener', 580, 400)"
-               class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 text-dark rounded transition-colors group w-full border border-gray-200">
-                <div class="flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 28" fill="currentColor">
-                        <path d="M10 14.2c-3.9 0-7.1-3.2-7.1-7.1 0-3.9 3.2-7.1 7.1-7.1s7.1 3.2 7.1 7.1c0 3.9-3.2 7.1-7.1 7.1zM10 3.6c-1.9 0-3.5 1.6-3.5 3.5 0 1.9 1.6 3.5 3.5 3.5s3.5-1.6 3.5-3.5c0-1.9-1.6-3.5-3.5-3.5zM18.2 15c0.7 1.4-0.1 2.1-1.9 3.2-1.5 1-3.6 1.3-4.9 1.5l1.1 1.1 4.2 4.2c0.6 0.6 0.6 1.7 0 2.3l-0.2 0.2c-0.6 0.6-1.7 0.6-2.3 0-1-1.1-2.6-2.6-4.2-4.2l-4.2 4.2c-0.6 0.6-1.7 0.6-2.3 0l-0.2-0.2c-0.6-0.6-0.6-1.7 0-2.3 1.1-1.1 2.6-2.6 4.2-4.2l1.1-1.1c-1.3-0.1-3.4-0.5-5-1.5-1.8-1.2-2.6-1.8-1.9-3.2 0.4-0.8 1.5-1.5 3-0.3 0 0 2 1.6 5.2 1.6s5.2-1.6 5.2-1.6c1.5-1.2 2.6-0.5 3 0.3z"/>
-                    </svg>
-                </div>
-                <span class="font-medium">Одноклассники</span>
-            </a>
-        </div>
-        
-        <!-- Подпись -->
-        <div class="mt-6 pt-4 border-t border-gray-700">
-            <p class="text-xs text-gray-400 text-center">
-                Авторизация необходима для подтверждения подлинности отзыва
-            </p>
-        </div>
-        </div>
-    </div>
-</dialog>
 
         <!-- Описание -->
         <section class="py-16 lg:py-20" id="opisanie">
@@ -654,7 +536,7 @@
                                 width="360"
                                 height="517"
                             >
-                            <input type="range" class="absolute inset-0 opacity-0 cursor-ew-resize w-full h-full m-0 z-20 appearance-none" oninput="this.parentNode.style.setProperty('--pos', this.value + '%')">
+                            <input type="range" min="0" max="100" value="50" aria-label="Сравнить изображения до и после" class="absolute inset-0 opacity-0 cursor-ew-resize w-full h-full m-0 z-20 appearance-none">
                             <div class="ba-divider"></div>
                             <div class="ba-handle" aria-hidden="true">
                                 <svg width="15" height="8" viewBox="0 0 15 8" fill="none">
@@ -700,114 +582,8 @@
     </main>
  <!-- Footer -->
     <!-- Navigation Scripts -->
-    <script>
-        window.addEventListener("DOMContentLoaded", () => {
-            const ensureTabsFallback = () => {
-                if (window.customElements && customElements.get("el-tab-group")) {
-                    return;
-                }
-
-                document.querySelectorAll("el-tab-group").forEach((group, groupIndex) => {
-                    const tabList = group.querySelector("el-tab-list");
-                    const tabs = tabList ? Array.from(tabList.querySelectorAll("button")) : [];
-                    const panelsContainer = group.querySelector("el-tab-panels");
-                    const panels = panelsContainer ? Array.from(panelsContainer.children) : [];
-
-                    if (!tabs.length || !panels.length) {
-                        return;
-                    }
-
-                    if (tabList) {
-                        tabList.setAttribute("role", "tablist");
-                    }
-
-                    panels.forEach((panel, index) => {
-                        panel.setAttribute("role", "tabpanel");
-                        panel.setAttribute("tabindex", "0");
-                        if (!panel.id) {
-                            panel.id = `tabs-panel-${groupIndex}-${index}`;
-                        }
-                    });
-
-                    tabs.forEach((tab, index) => {
-                        tab.setAttribute("role", "tab");
-                        tab.setAttribute("aria-controls", panels[index].id);
-                        if (!tab.id) {
-                            tab.id = `tabs-tab-${groupIndex}-${index}`;
-                        }
-                        panels[index].setAttribute("aria-labelledby", tab.id);
-                    });
-
-                    function activateTab(index, setFocus) {
-                        tabs.forEach((tab, tabIndex) => {
-                            const isActive = tabIndex === index;
-                            tab.setAttribute("aria-selected", isActive ? "true" : "false");
-                            tab.setAttribute("tabindex", isActive ? "0" : "-1");
-                        });
-
-                        panels.forEach((panel, panelIndex) => {
-                            if (panelIndex === index) {
-                                panel.removeAttribute("hidden");
-                            } else {
-                                panel.setAttribute("hidden", "");
-                            }
-                        });
-
-                        if (setFocus) {
-                            tabs[index].focus();
-                        }
-                    }
-
-                    let initialIndex = panels.findIndex((panel) => !panel.hasAttribute("hidden"));
-                    if (initialIndex === -1) {
-                        initialIndex = 0;
-                    }
-
-                    activateTab(initialIndex, false);
-
-                    tabs.forEach((tab, index) => {
-                        tab.addEventListener("click", () => {
-                            activateTab(index, false);
-                        });
-
-                        tab.addEventListener("keydown", (event) => {
-                            let nextIndex = null;
-
-                            switch (event.key) {
-                                case "ArrowRight":
-                                case "Right":
-                                    nextIndex = (index + 1) % tabs.length;
-                                    break;
-                                case "ArrowLeft":
-                                case "Left":
-                                    nextIndex = (index - 1 + tabs.length) % tabs.length;
-                                    break;
-                                case "Home":
-                                    nextIndex = 0;
-                                    break;
-                                case "End":
-                                    nextIndex = tabs.length - 1;
-                                    break;
-                                case "Enter":
-                                case " ":
-                                    event.preventDefault();
-                                    activateTab(index, false);
-                                    return;
-                                default:
-                                    return;
-                            }
-
-                            event.preventDefault();
-                            activateTab(nextIndex, true);
-                        });
-                    });
-                });
-            };
-
-            setTimeout(ensureTabsFallback, 300);
-        });
-    </script>
-    <script src="../../js/nav.js"></script>
+    <script type="module" src="../../js/tailwindplus-elements.js"></script>
+    <script defer src="../../js/nav.js"></script>
     
 
 </body>

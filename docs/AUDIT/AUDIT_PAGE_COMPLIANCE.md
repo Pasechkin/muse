@@ -11,7 +11,7 @@
 Перед началом укажи (в отчёте аудита):
 - Путь к странице (например: `src/html/.../page.html`)
 - Группа страницы (главная / стиль / объект / блог / info)
-- Эталон группы (см. PROJECT)
+- Эталон группы: см. [PROJECT.md → Эталоны по группам страниц](../PROJECT.md#эталоны-по-группам-страниц)
 
 ---
 
@@ -27,7 +27,7 @@
    - Каноны и компоненты: [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md)
    - “Запрещено/разрешено” и краткие правила: [AI_INSTRUCTIONS.md](../AI_INSTRUCTIONS.md)
 4. Зафиксируй результат:
-  - Создай **отдельный файл‑отчёт аудита** в `docs/audits/`.
+  - Допиши **отчёт аудита** ниже на этой странице.
   - В `PROJECT.md` записывай только системные проблемы (влияет на 10+ страниц) как отдельную задачу.
 
 **Важно:** во время аудита **не вносить правки в документацию**. Если документация неоднозначна/устарела — записать это как рекомендацию в отчёте аудита.
@@ -38,6 +38,8 @@
 
 ### A. Структура страницы
 
+Подробные правила: [DESIGN_SYSTEM.md → Шаблон страницы](DESIGN_SYSTEM.md#шаблон-страницы-html5)
+
 - `lang="ru"`, корректные `meta charset`/`viewport`.
 - Есть `title`, `meta name="description"`.
 - Есть `link rel="canonical"` (если это production‑страница).
@@ -46,10 +48,12 @@
 
 ### B. CSS и критический путь
 
+Подробные правила: [AI_INSTRUCTIONS.md → Критический CSS](../AI_INSTRUCTIONS.md#критический-css)
+
 - Основной CSS подключён как `css/output.css` из `src/html/css/output.css`.
 - Критический CSS:
-  - содержит только минимум (`:root`, `body`, `.sr-only`)
-  - содержит только реально нужные стили для компонентов, которые есть на странице
+  - содержит **только минимум**: `:root` (CSS-переменные) и `body` (фон, цвет, overflow)
+  - **НЕ содержит** `.sr-only`, `.page-navigator`, или другие стили, не влияющие на LCP
   - **не разрастается** без причины.
 
 ### C. Иконки / SVG
@@ -60,9 +64,11 @@
 
 ### D. JS и интерактив
 
+Подробные правила: [AI_INSTRUCTIONS.md → Tailwind Plus Elements](../AI_INSTRUCTIONS.md#tailwind-plus-elements-вендорный-скрипт)
+
 - Порядок скриптов:
-  - если есть `el-*` → сначала `tailwindplus-elements.js` (type="module")
-  - затем общий `nav.js`
+  - если есть `el-*` → сначала `tailwindplus-elements.js` (type="module", **без defer** — уже включён)
+  - затем общий `nav.js` (с `defer`)
 - Нет page-specific inline‑JS для типовых блоков, которые уже делает `nav.js` (video cover, carousel и т.п.).
 
 Примечание про legacy: на части страниц уже встречаются inline `onclick` (например, вызов `window.BxPopup(...)` или `dialog.showModal()`).
@@ -83,17 +89,24 @@
 
 ### F. Изображения (производительность и “отрисовка”)
 
+Подробные правила: [DESIGN_SYSTEM.md → Изображения](DESIGN_SYSTEM.md#изображения)
+
 - У всех `<img>` есть `width`/`height` (или контейнерный `aspect-*`) → нет CLS.
-- По умолчанию: `decoding="async"`.
-- По умолчанию: `loading="lazy"`.
-- Для LCP/первого экрана:
-  - **не** `loading="lazy"`
-  - при необходимости `fetchpriority="high"`.
-- Preload изображения первого экрана:
-  - добавлять **только после проверки необходимости** (DevTools/Lighthouse)
-  - если `fetchpriority="high"` достаточно — preload не нужен.
-- `background-image` использовать только для декоративных фонов; контентные/SEO-важные и LCP — через `<img>/<picture>`.
+- По умолчанию: `decoding="async"`, `loading="lazy"`.
+- Для LCP/первого экрана: **без** `loading="lazy"`, **с** `fetchpriority="high"`.
+- `background-image` — только для декоративных фонов.
 - `srcset/sizes` — пока **на рассмотрении**, не требовать.
+
+### G. Доступность (Accessibility)
+
+Подробные правила: [DESIGN_SYSTEM.md → Доступность](DESIGN_SYSTEM.md#доступность-accessibility)
+
+Кратко проверить:
+- [ ] Page Navigator: `sr-only` в каждой ссылке
+- [ ] Icon-only кнопки: `sr-only` или `aria-label`
+- [ ] Before/After слайдеры: `aria-label` на `input[type="range"]`
+- [ ] Видео play-кнопки: `aria-label`
+- [ ] Ссылки в тексте: underline
 
 ---
 
@@ -137,3 +150,10 @@
 - Не придумывать контент/alt/title/URL: брать 1:1 с muse.ooo или оставлять согласованный плейсхолдер.
 - Не менять `output.css` (генерат). Менять только `src/input.css`.
 - Не править `tailwindplus-elements.js` (вендор).
+
+---
+
+## 5) Сводная таблица аудитов (статус страниц)
+
+**Последнее обновление:** 30 января 2026 г.
+
