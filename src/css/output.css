@@ -3181,11 +3181,6 @@
       padding-inline: calc(var(--spacing) * 8);
     }
   }
-  .lg\:py-8 {
-    @media (width >= 64rem) {
-      padding-block: calc(var(--spacing) * 8);
-    }
-  }
   .lg\:py-12 {
     @media (width >= 64rem) {
       padding-block: calc(var(--spacing) * 12);
