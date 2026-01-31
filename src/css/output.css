@@ -585,6 +585,9 @@
   .mb-4 {
     margin-bottom: calc(var(--spacing) * 4);
   }
+  .mb-5 {
+    margin-bottom: calc(var(--spacing) * 5);
+  }
   .mb-6 {
     margin-bottom: calc(var(--spacing) * 6);
   }
@@ -1076,6 +1079,9 @@
   .gap-1 {
     gap: calc(var(--spacing) * 1);
   }
+  .gap-1\.5 {
+    gap: calc(var(--spacing) * 1.5);
+  }
   .gap-2 {
     gap: calc(var(--spacing) * 2);
   }
@@ -1408,6 +1414,18 @@
       border-color: color-mix(in oklab, var(--color-white) 50%, transparent);
     }
   }
+  .bg-\[\#1a1a1a\] {
+    background-color: #1a1a1a;
+  }
+  .bg-\[\#4a76a8\] {
+    background-color: #4a76a8;
+  }
+  .bg-\[\#25D366\] {
+    background-color: #25D366;
+  }
+  .bg-\[\#0088cc\] {
+    background-color: #0088cc;
+  }
   .bg-\[\#252525\] {
     background-color: #252525;
   }
@@ -1500,6 +1518,12 @@
   }
   .bg-white {
     background-color: var(--color-white);
+  }
+  .bg-white\/10 {
+    background-color: color-mix(in srgb, #FFFFFF 10%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-white) 10%, transparent);
+    }
   }
   .bg-gradient-to-t {
     --tw-gradient-position: to top in oklab;
@@ -1669,6 +1693,9 @@
   .py-16 {
     padding-block: calc(var(--spacing) * 16);
   }
+  .py-20 {
+    padding-block: calc(var(--spacing) * 20);
+  }
   .py-24 {
     padding-block: calc(var(--spacing) * 24);
   }
@@ -1677,6 +1704,9 @@
   }
   .pt-2 {
     padding-top: calc(var(--spacing) * 2);
+  }
+  .pt-3 {
+    padding-top: calc(var(--spacing) * 3);
   }
   .pt-4 {
     padding-top: calc(var(--spacing) * 4);
@@ -2349,6 +2379,34 @@
       }
     }
   }
+  .hover\:border-white {
+    &:hover {
+      @media (hover: hover) {
+        border-color: var(--color-white);
+      }
+    }
+  }
+  .hover\:bg-\[\#1fad53\] {
+    &:hover {
+      @media (hover: hover) {
+        background-color: #1fad53;
+      }
+    }
+  }
+  .hover\:bg-\[\#3d6590\] {
+    &:hover {
+      @media (hover: hover) {
+        background-color: #3d6590;
+      }
+    }
+  }
+  .hover\:bg-\[\#0077b3\] {
+    &:hover {
+      @media (hover: hover) {
+        background-color: #0077b3;
+      }
+    }
+  }
   .hover\:bg-black\/30 {
     &:hover {
       @media (hover: hover) {
@@ -2438,6 +2496,16 @@
         background-color: color-mix(in srgb, #FFFFFF 10%, transparent);
         @supports (color: color-mix(in lab, red, red)) {
           background-color: color-mix(in oklab, var(--color-white) 10%, transparent);
+        }
+      }
+    }
+  }
+  .hover\:bg-white\/20 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: color-mix(in srgb, #FFFFFF 20%, transparent);
+        @supports (color: color-mix(in lab, red, red)) {
+          background-color: color-mix(in oklab, var(--color-white) 20%, transparent);
         }
       }
     }
@@ -2893,6 +2961,16 @@
   .md\:flex-row {
     @media (width >= 48rem) {
       flex-direction: row;
+    }
+  }
+  .md\:items-center {
+    @media (width >= 48rem) {
+      align-items: center;
+    }
+  }
+  .md\:justify-between {
+    @media (width >= 48rem) {
+      justify-content: space-between;
     }
   }
   .md\:gap-8 {
