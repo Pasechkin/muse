@@ -81,21 +81,17 @@
         /* Body */
         body {
             background-color: #fff;
-            color: #666;
+            color: var(--body);
             overflow-x: hidden;
         }
     </style>
     
     <!-- Основной CSS: output.css (Tailwind v4, локальная сборка) -->
-
-
+    <link rel="stylesheet" href="../../css/output.css">
     
-    <!-- Tailwind Plus Elements -->
-    <script src="../../js/tailwindplus-elements.js" type="module"></script>
-    
-    <!-- Page Navigator, Carousel and Ken Burns moved to `src/input.css` (compiled into output.css) -->
-<link rel="stylesheet" href="../../css/output.css">
-    <link rel="canonical" href="https://muse.ooo/portret-na-zakaz/object/detskiy-portret/">
+    <!-- Preload LCP-изображения (только десктоп) -->
+    <link rel="preload" as="image" href="https://muse.ooo/upload/img/oil-1404-5-1000-702.webp" media="(min-width: 1024px)" fetchpriority="high">
+    <link rel="canonical" href="https://muse.ooo/portret-na-zakaz/detskiy-portret/">
 </head>
 <body class="bg-white overflow-x-hidden">
     <!-- Back to Top Button -->
@@ -109,14 +105,14 @@
    <!-- Header -->
 
  <!-- Page Navigator (JS управляет видимостью) -->
-    <section class="page-navigator hidden" id="page-navigator">
+    <nav class="page-navigator" id="page-navigator" aria-label="Навигация по разделам">
         <ul>
-            <li><a href="#stili-portretov" class="inner-link" data-title="Стили"></a></li>
-			 <li><a href="#primery-portretov" class="inner-link" data-title="Примеры"></a></li>
-            <li><a href="#calc" class="inner-link" data-title="Цена"></a></li>
-            <li><a href="#review" class="inner-link" data-title="Отзывы"></a></li>
+            <li><a href="#stili-portretov" class="inner-link" data-title="Стили"><span class="sr-only">Стили</span></a></li>
+			 <li><a href="#primery-portretov" class="inner-link" data-title="Примеры"><span class="sr-only">Примеры</span></a></li>
+            <li><a href="#calc" class="inner-link" data-title="Цена"><span class="sr-only">Цена</span></a></li>
+            <li><a href="#review" class="inner-link" data-title="Отзывы"><span class="sr-only">Отзывы</span></a></li>
         </ul>
-    </section>
+    </nav>
 
     <main>
         <!-- Первый экран (Hero) с Ken Burns эффектом -->
@@ -320,6 +316,7 @@
                     <p class="text-sm">Отзывы будут загружены из Bitrix</p>
                 </div>
                 
+                <!-- Кнопка "Оставить отзыв" -->
                 
             </div>
         </section>
@@ -353,7 +350,7 @@
 
     <!-- Scripts -->
     <!-- Navigation Scripts -->
-    <script src="../../js/nav.js"></script>
+    <script defer src="../../js/nav.js"></script>
     
 
     

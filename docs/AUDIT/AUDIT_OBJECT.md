@@ -1,6 +1,6 @@
-# Аудит страниц раздела «Стили» — эталон портрет маслом
+# Аудит страниц раздела «Объекты» — эталон мужской портрет
 
-Цель: быстро и одинаково проверять, что страницы раздела «Стили» соответствуют канонам проекта. Эталон группы: [src/html/portret-na-zakaz/style/portret-maslom.html](../../src/html/portret-na-zakaz/style/portret-maslom.html).
+Цель: быстро и одинаково проверять, что страницы раздела «Объекты» соответствуют канонам проекта. Эталон группы: [src/html/portret-na-zakaz/object/muzhskoy-portret.html](../../src/html/portret-na-zakaz/object/muzhskoy-portret.html).
 
 Основные правила: [docs/DESIGN_SYSTEM.md](../DESIGN_SYSTEM.md), [AI_INSTRUCTIONS.md](../../AI_INSTRUCTIONS.md), [PROJECT.md](../../PROJECT.md).
 
@@ -11,9 +11,9 @@
 ## 0) Входные данные
 
 Перед началом укажи (в отчёте аудита):
-- Путь к странице (например: src/html/portret-na-zakaz/style/brand-portrait.html)
-- Группа страницы: стили
-- Эталон группы: [src/html/portret-na-zakaz/style/portret-maslom.html](../../src/html/portret-na-zakaz/style/portret-maslom.html)
+- Путь к странице (например: src/html/portret-na-zakaz/object/zhenskiy-portret.html)
+- Группа страницы: объекты
+- Эталон группы: [src/html/portret-na-zakaz/object/muzhskoy-portret.html](../../src/html/portret-na-zakaz/object/muzhskoy-portret.html)
 
 ---
 
@@ -44,7 +44,7 @@
 
 - lang="ru", корректные meta charset/viewport
 - Есть title и meta name="description" (проверяем наличие, не содержимое)
-- Есть link rel="canonical" Если canonical неизвестен — спросить и проставить.
+- Есть link rel="canonical" (должен совпадать с каноническим URL страницы)
 - Meta robots noindex, nofollow (пока проект не на production)
 - Нет вложенных .container внутри .container
 
@@ -54,35 +54,29 @@
 
 - Основной CSS подключён как ../../css/output.css
 - Критический CSS содержит только :root и body
+- В :root есть --secondary
+- В body цвет задан через var(--body)
 - В критическом CSS нет .sr-only, .page-navigator и прочих непервичных стилей
 - Нет пустых <style> с комментариями-заглушками (удалить)
-- При необходимости предложить корректировку критического пути (если видишь лишние стили или отсутствует нужный минимум)
 
 ### C. JS и интерактив
 
 Подробные правила: [AI_INSTRUCTIONS.md → Tailwind Plus Elements](../../AI_INSTRUCTIONS.md#tailwind-plus-elements-вендорный-скрипт)
 
 - Скрипты подключены внизу, перед </body>
-- Порядок скриптов: tailwindplus-elements.js (если есть el-*) → nav.js (defer)
+- nav.js подключён с defer
+- Tailwind Plus Elements подключаем только если на странице есть el-* компоненты
 - Нет inline‑JS для типовых блоков (video cover, before/after, carousel)
-- Нет page‑specific fallback для el‑компонентов
 
-### D. Структура блоков раздела «Стили»
+### D. Структура блоков раздела «Объекты»
 
 Сверяем наличие и каноничную структуру блоков по эталону:
-- Hero: секция с h1, кнопкой, LCP‑изображением
+- Hero с h1, кнопкой и LCP‑изображением (Ken Burns через .ken-burns-img)
+- Promo Banner (если есть в исходной странице)
+- Стили портретов (carousel)
 - Примеры (Bitrix‑заглушка)
 - Цена (Bitrix‑калькулятор‑заглушка)
-- Как заказать: step-container, process-step
-- Характеристики: check-list и el-tab-group
-- Преимущества: advantages-* и карточки
-- Отзывы: секция и кнопка открытия отзыва
-- Описание: блок вариативный. Возможны страницы:
-   - без описания
-   - с описанием без видео
-   - с описанием без блока до/после
-   - с описанием с видео и/или до/после
-- Для страниц «портрет из слов» и «фотомозаика» — фиксируем drift
+- Отзывы (заглушка как на эталоне мужского портрета, без кнопки и модального окна)
 - CTA: cta-section и cta-container
 
 ### E. Иконки / SVG
@@ -97,13 +91,12 @@
 - По умолчанию: decoding="async", loading="lazy"
 - Для LCP: без loading="lazy", с fetchpriority="high"
 - Формат webp
-- background-image только для декоративных фонов
 
 ### G. Доступность
 
 Подробные правила: [docs/DESIGN_SYSTEM.md → Доступность](../DESIGN_SYSTEM.md#доступность-accessibility)
 
-- Page Navigator: sr-only в каждой ссылке
+- Page Navigator: nav.page-navigator + sr-only в каждой ссылке
 - Icon‑only кнопки: sr-only или aria-label
 - Before/After: aria-label на input[type="range"]
 - Видео: aria-label на кнопке play
@@ -113,7 +106,7 @@
 
 ## Исключения из аудита
 
-Эти элементы не проверяем в рамках стилей:
+Эти элементы не проверяем в рамках объектов:
 - Header и Footer
 - OAuth‑модальное окно
 - Калькулятор в секции Цена (это заглушка)
@@ -122,7 +115,7 @@
 
 ## 3) Как оформлять результат (формат отчёта)
 
-Отчёты по стилям фиксируем в этом же файле ниже.
+Отчёты по объектам фиксируем в этом же файле ниже.
 
 ### Что писать в отчёте
 
@@ -147,41 +140,53 @@
 
 ## 5) Сводная таблица аудитов (статус страниц)
 
-### Стили портретов (18 страниц)
+### Объекты (5 страниц)
 
 | Страница | Файл | Canonical | Статус | Замечания |
 |---|---|---|---|---|
-| Портрет маслом | [src/html/portret-na-zakaz/style/portret-maslom.html](../../src/html/portret-na-zakaz/style/portret-maslom.html) | https://muse.ooo/portret-na-zakaz/portret-maslom/ | ✅ | |
-| Портрет карандашом | [src/html/portret-na-zakaz/style/portret-karandashom.html](../../src/html/portret-na-zakaz/style/portret-karandashom.html) | https://muse.ooo/portret-na-zakaz/portret-karandashom/ | ✅ | |
-| Портрет акварелью | [src/html/portret-na-zakaz/style/portret-akvarelyu.html](../../src/html/portret-na-zakaz/style/portret-akvarelyu.html) | https://muse.ooo/portret-na-zakaz/portret-akvarelyu/ | ✅ | |
-| Портрет комикс | [src/html/portret-na-zakaz/style/portret-komiks.html](../../src/html/portret-na-zakaz/style/portret-komiks.html) | https://muse.ooo/portret-na-zakaz/portret-komiks/ | ✅ | |
-| Портрет из слов | [src/html/portret-na-zakaz/style/portret-iz-slov.html](../../src/html/portret-na-zakaz/style/portret-iz-slov.html) | https://muse.ooo/portret-na-zakaz/portret-iz-slov/ | ⚠️ | drift |
-| Портрет Flower Art | [src/html/portret-na-zakaz/style/portret-flower-art.html](../../src/html/portret-na-zakaz/style/portret-flower-art.html) | https://muse.ooo/portret-na-zakaz/portret-flower-art/ | ✅ | |
-| Портрет в образе | [src/html/portret-na-zakaz/style/portret-v-obraze.html](../../src/html/portret-na-zakaz/style/portret-v-obraze.html) | https://muse.ooo/portret-na-zakaz/portret-v-obraze/ | ✅ | |
-| Pop Art портрет | [src/html/portret-na-zakaz/style/pop-art-portret.html](../../src/html/portret-na-zakaz/style/pop-art-portret.html) | https://muse.ooo/portret-na-zakaz/pop-art-portret/ | ✅ | |
-| Граффити портрет | [src/html/portret-na-zakaz/style/graffiti-portret.html](../../src/html/portret-na-zakaz/style/graffiti-portret.html) | https://muse.ooo/portret-na-zakaz/graffiti-portret/ | ✅ | |
-| Гранж портрет | [src/html/portret-na-zakaz/style/granzh-portret.html](../../src/html/portret-na-zakaz/style/granzh-portret.html) | https://muse.ooo/portret-na-zakaz/granzh-portret/ | ✅ | |
-| Beauty Art портрет | [src/html/portret-na-zakaz/style/beauty-art-portret.html](../../src/html/portret-na-zakaz/style/beauty-art-portret.html) | https://muse.ooo/portret-na-zakaz/beauty-art-portret/ | ✅ | |
-| Dream Art портрет | [src/html/portret-na-zakaz/style/drim-art-portret.html](../../src/html/portret-na-zakaz/style/drim-art-portret.html) | https://muse.ooo/portret-na-zakaz/drim-art-portret/ | ✅ | |
-| Fantasy Art портрет | [src/html/portret-na-zakaz/style/fantasy-art-portret.html](../../src/html/portret-na-zakaz/style/fantasy-art-portret.html) | https://muse.ooo/portret-na-zakaz/fantasy-art-portret/ | ✅ | |
-| Фотомозаика | [src/html/portret-na-zakaz/style/fotomozaika.html](../../src/html/portret-na-zakaz/style/fotomozaika.html) | https://muse.ooo/portret-na-zakaz/fotomozaika/ | ⚠️ | drift |
-| Love Is портрет | [src/html/portret-na-zakaz/style/love-is-portret.html](../../src/html/portret-na-zakaz/style/love-is-portret.html) | https://muse.ooo/portret-na-zakaz/love-is-portret/ | ✅ | |
-| Low Poly портрет | [src/html/portret-na-zakaz/style/low-poly-portret.html](../../src/html/portret-na-zakaz/style/low-poly-portret.html) | https://muse.ooo/portret-na-zakaz/low-poly-portret/ | ✅ | |
-| Шарж по фото | [src/html/portret-na-zakaz/style/sharzh-po-foto.html](../../src/html/portret-na-zakaz/style/sharzh-po-foto.html) | https://muse.ooo/portret-na-zakaz/sharzh-po-foto/ | ✅ | |
-| WPAP портрет | [src/html/portret-na-zakaz/style/wpap-portret.html](../../src/html/portret-na-zakaz/style/wpap-portret.html) | https://muse.ooo/portret-na-zakaz/wpap-portret/ | ✅ | |
+| Детский портрет | [src/html/portret-na-zakaz/object/detskiy-portret.html](../../src/html/portret-na-zakaz/object/detskiy-portret.html) | https://muse.ooo/portret-na-zakaz/detskiy-portret/ | ✅ | |
+| Женский портрет | [src/html/portret-na-zakaz/object/zhenskiy-portret.html](../../src/html/portret-na-zakaz/object/zhenskiy-portret.html) | https://muse.ooo/portret-na-zakaz/zhenskiy-portret/ | ✅ | |
+| Мужской портрет | [src/html/portret-na-zakaz/object/muzhskoy-portret.html](../../src/html/portret-na-zakaz/object/muzhskoy-portret.html) | https://muse.ooo/portret-na-zakaz/muzhskoy-portret/ | ✅ | |
+| Парный портрет | [src/html/portret-na-zakaz/object/parnyy-portret.html](../../src/html/portret-na-zakaz/object/parnyy-portret.html) | https://muse.ooo/portret-na-zakaz/parnyy-portret/ | ✅ | |
+| Семейный портрет | [src/html/portret-na-zakaz/object/semeynyy-portret.html](../../src/html/portret-na-zakaz/object/semeynyy-portret.html) | https://muse.ooo/portret-na-zakaz/semeynyy-portret/ | ✅ | |
 
 ---
 
 Легенда:
-- CSS — неверный путь к CSS (нужен ../../css/output.css)
-- ONINPUT — inline oninput в before/after, убрать (логика в nav.js)
-- HEAD-SCRIPT — tailwindplus-elements.js в <head>, перенести вниз
-- DUPLICATE-SCRIPT — tailwindplus-elements.js подключён дважды
-- drift — зафиксированное отличие (портрет из слов / фотомозаика)
+- CANONICAL — неверный canonical
+- CRIT-CSS — критический CSS не соответствует правилам
+- NAV — page-navigator не в nav или без sr-only
+- HEAD-SCRIPT — скрипты в head
+- INLINE-CSS — некритические стили в head
+- INLINE-JS — inline JS для типовых блоков
 
-Общие замечания (все страницы):
-- Canonical добавили
-Дата 30.01.26
+---
+
+## 6) Лог изменений
+
+### 30.01.26 — Preload для LCP-изображений
+
+**Что сделано:**
+- Добавлен `<link rel="preload">` для LCP-изображений на всех 5 страницах объектов
+- Preload срабатывает только на десктопе: `media="(min-width: 1024px)"`
+- На мобильных изображения не предзагружаются (экономия трафика)
+
+**Файлы:**
+| Страница | LCP-изображение |
+|----------|-----------------|
+| muzhskoy-portret.html | `maslom-portret-1119-1000-1000_1.webp` |
+| detskiy-portret.html | `oil-1404-5-1000-702.webp` |
+| zhenskiy-portret.html | `woman-portrait.webp` |
+| semeynyy-portret.html | `family-portrait.webp` |
+| parnyy-portret.html | `couple-portrait.webp` |
+
+**Реализация в `<head>`:**
+```html
+<link rel="preload" as="image" href="URL" media="(min-width: 1024px)" fetchpriority="high">
+```
+
+**Примечание:** Механизм «не грузить изображение на мобильных» уже был реализован через `<picture>` с `data:image/gif` для `max-width: 1023px`.
+
 
 
 

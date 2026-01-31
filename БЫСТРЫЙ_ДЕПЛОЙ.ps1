@@ -30,7 +30,7 @@ if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
 
 $productionBranch = $env:VERCEL_PRODUCTION_BRANCH
 if ([string]::IsNullOrWhiteSpace($productionBranch)) {
-    $productionBranch = 'refactor/buttons-and-icons'
+    $productionBranch = 'main'
 }
 $currentBranch = (& git rev-parse --abbrev-ref HEAD).Trim()
 Log "Git branch: $currentBranch (production: $productionBranch)"

@@ -165,6 +165,7 @@ tailwind-project/
 - **Общие функции:** `js/nav.js` (Page Navigator, Back to Top, Video Cover, Carousel Scroll и др.)
 - **Inline-скрипты:** допускаются только для уникальной логики одной страницы (без дублирования того, что уже есть в `js/nav.js`)
 - **Tailwind Plus Elements:** локальный вендор, подключать только если на странице используются компоненты `el-*` (мобильное меню, табы, аккордеоны)
+- **Правило:** `tailwindplus-elements.js` не удалять без согласования — скрипт может быть нужен для меню даже при отсутствии `el-*` в текущей разметке.
 - **Tailwind Plus Elements (версия/дата):** `@tailwindplus/elements` v1.0.22 (установлено 28 января 2026). Подключение — локальный файл `src/html/js/tailwindplus-elements.js`.
 - **Важно:** на отдельных страницах временно добавлены fallback‑скрипты (табы/аккордеоны) — удалить после стабилизации Tailwind Plus. См. трекер ниже.
 
@@ -225,17 +226,18 @@ tailwind-project/
 - `БЫСТРЫЙ_ДЕПЛОЙ.bat` или `БЫСТРЫЙ_ДЕПЛОЙ.ps1` — сборка CSS, коммит и push.
 - После push Vercel запускает деплой автоматически.
 
-#### Вариант A: “всегда текущая версия” (Production Branch = рабочая ветка)
+#### Production Branch = main
 
-Чтобы production URL на Vercel всегда соответствовал текущей рабочей ветке:
+**Production-ветка:** `main` — единственный источник правды для Vercel.
 
+Настройки Vercel:
 1. Vercel → Project → **Settings** → **Git**
-2. **Production Branch** → выбрать `refactor/buttons-and-icons`
-3. Если production URL не обновился, откройте **Deployments** и сделайте **Redeploy** (при необходимости с очисткой build cache)
+2. **Production Branch** → `main`
 
-Если на production URL видна “старая версия”, почти всегда причина одна: Vercel деплоит другую ветку, чем та, куда вы пушите.
-
-Переменная для скриптов: `VERCEL_PRODUCTION_BRANCH` (если production-ветка отличается от дефолта).
+Если на production URL видна "старая версия", проверьте:
+- Пуш был в `main`?
+- Production Branch в Vercel = `main`?
+- При необходимости: **Deployments** → **Redeploy** (с очисткой build cache)
 
 ---
 

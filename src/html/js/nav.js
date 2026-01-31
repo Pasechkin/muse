@@ -474,5 +474,59 @@ document.addEventListener('DOMContentLoaded', function() {
         }catch(e){ console.warn('BA slider init failed', e); }
     });
 
+    // --- 3. VIDEO MODAL (for info page short stories) ---
+    (function() {
+        const modal = document.querySelector('.video-modal');
+        if (!modal) return;
+        
+        const video = modal.querySelector('video');
+        const closeBtn = modal.querySelector('.video-modal-close');
+        const muteBtn = modal.querySelector('.video-modal-mute');
+        const prevBtn = modal.querySelector('.video-modal-prev');
+        const nextBtn = modal.querySelector('.video-modal-next');
+        
+        // Карточки с data-video (секция "Короткие истории")
+        const videoCards = Array.from(document.querySelectorAll('.video-card[data-video]'));
+        let currentIndex = 0;
+        
+        function openModal(index) {
+            currentIndex = index;
+            const trigger = videoCards[index];
+            if (trigger && video) {
+                video.src = trigger.dataset.video;
+                video.muted = false;
+                modal.classList.add('active');
+                video.play();
+            }
+        }
+        
+        function closeModal() {
+            modal.classList.remove('active');
+            if (video) { video.pause(); video.src = ''; }
+        }
+        
+        videoCards.forEach((trigger, index) => {
+            trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                openModal(index);
+            });
+        });
+        
+        if (closeBtn) closeBtn.addEventListener('click', closeModal);
+        if (muteBtn) muteBtn.addEventListener('click', () => { 
+            if (video) {
+                video.muted = !video.muted;
+                muteBtn.querySelector('.mute-icon')?.classList.toggle('hidden', !video.muted);
+                muteBtn.querySelector('.unmute-icon')?.classList.toggle('hidden', video.muted);
+            }
+        });
+        if (prevBtn) prevBtn.addEventListener('click', () => { if (currentIndex > 0) openModal(currentIndex - 1); });
+        if (nextBtn) nextBtn.addEventListener('click', () => { if (currentIndex < videoCards.length - 1) openModal(currentIndex + 1); });
+        
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('active')) closeModal(); });
+    })();
+
 });
 

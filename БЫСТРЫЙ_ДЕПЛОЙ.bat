@@ -127,7 +127,7 @@ echo Git found
 echo.
 
 set "PRODUCTION_BRANCH=%VERCEL_PRODUCTION_BRANCH%"
-if "%PRODUCTION_BRANCH%"=="" set "PRODUCTION_BRANCH=refactor/buttons-and-icons"
+if "%PRODUCTION_BRANCH%"=="" set "PRODUCTION_BRANCH=main"
 for /f "delims=" %%b in ('"%GIT_PATH%" rev-parse --abbrev-ref HEAD') do set "CURRENT_BRANCH=%%b"
 echo [INFO] Git branch: %CURRENT_BRANCH% (production: %PRODUCTION_BRANCH%)>> "%LOG_FILE%"
 if /i not "%CURRENT_BRANCH%"=="%PRODUCTION_BRANCH%" (

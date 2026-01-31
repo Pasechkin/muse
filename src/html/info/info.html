@@ -11,7 +11,8 @@
     
     <!-- Preconnect и Preload для производительности -->
     <link rel="preconnect" href="https://muse.ooo">
-    <link rel="preload" as="image" href="https://muse.ooo/upload/img/pavlosk-office.webp" fetchpriority="high">
+    <!-- Preload LCP-изображения (только десктоп) -->
+    <link rel="preload" as="image" href="https://muse.ooo/upload/img/pavlosk-office.webp" media="(min-width: 1024px)" fetchpriority="high">
     
     <!-- Критический CSS -->
     <style>
@@ -23,60 +24,23 @@
             --secondary: #FAFAFA;
         }
         body { background-color: #fff; color: var(--body); overflow-x: hidden; }
-        /* Ken Burns Effect */
-        @keyframes kenburns { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
-        .ken-burns-img { animation: kenburns 20s ease-out forwards; }
-        /* Typed.js cursor */
+        /* Typed.js cursor (unique to info page) */
         .typed-cursor { display: inline-block; width: 3px; background-color: var(--primary); animation: blink 1s infinite; margin-left: 2px; }
         @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
-        /* Page Navigator */
-        .page-navigator { position: fixed; top: 50%; transform: translateY(-50%); right: 1.85714286em; z-index: 9999; }
-        .page-navigator ul { display: inline-block; padding: 0.92857143em; background: rgba(0, 0, 0, 0.4); border-radius: 1.85714286em; }
-        .page-navigator ul:hover { background: rgba(0, 0, 0, 0.6); }
-        .page-navigator ul li { list-style: none; }
-        .page-navigator ul li:not(:last-child) { margin-bottom: 1.85714286em; }
-        @media (max-width: 1023px) { .page-navigator { display: none !important; } }
-        .page-navigator li a { width: 8px; height: 8px; background: #fff; border-radius: 50%; transition: all 0.3s ease; display: block; position: relative; opacity: 0.5; }
-        .page-navigator li a:hover, .page-navigator li a.inner-link--active { opacity: 1; }
-        .page-navigator li a[data-title]:before { content: attr(data-title); position: absolute; right: 12px; top: -14px; background: #222; color: #fff; border-radius: 6px; padding: 4px 8px; display: inline-block; white-space: nowrap; font-size: 12px; opacity: 0; transition: all 0.2s ease; }
-        .page-navigator li a[data-title]:hover:before { opacity: 1; }
-        .page-navigator li a:hover { transform: scale(1.5); }
     </style>
     
- 
-
-
-    
-    <!-- Tailwind Plus Elements -->
-    <script type="module" src="../js/tailwindplus-elements.js"></script>
-    
-    <style>
-        /* Carousel */
-        .carousel-scroll { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
-        .carousel-scroll::-webkit-scrollbar { display: none; }
-        /* Video Cover */
-        .video-cover { position: relative; overflow: hidden; }
-        .video-cover .video-play-icon { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; z-index: 2; transition: all 0.3s ease; }
-        .video-cover video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-        .video-cover.video-playing > div:first-child, .video-cover.video-playing .video-play-icon { display: none; }
-        .video-cover.video-playing video { display: block; position: relative; }
-        /* Video Modal */
-        .video-modal { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; }
-        .video-modal.active { display: flex; }
-        .video-modal-content { position: relative; max-width: 400px; width: 100%; max-height: 90vh; }
-        .video-modal video { width: 100%; max-height: 80vh; border-radius: 8px; }
-        .video-modal-close, .video-modal-mute, .video-modal-prev, .video-modal-next { position: absolute; background: rgba(255,255,255,0.2); border: none; color: white; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; z-index: 10; }
-        .video-modal-close:hover, .video-modal-mute:hover, .video-modal-prev:hover, .video-modal-next:hover { background: rgba(255,255,255,0.3); }
-        .video-modal-close { top: 10px; right: 10px; }
-        .video-modal-mute { top: 10px; left: 10px; }
-        .video-modal-prev { top: 50%; left: -60px; transform: translateY(-50%); }
-        .video-modal-next { top: 50%; right: -60px; transform: translateY(-50%); }
-        @media (max-width: 600px) { .video-modal-prev { left: 10px; top: auto; bottom: 80px; } .video-modal-next { right: 10px; top: auto; bottom: 80px; } }
-    </style>
-<link rel="stylesheet" href="../css/output.css">
-    <link rel="canonical" href="https://muse.ooo/info/info/">
+    <!-- Основной CSS: output.css (Tailwind v4, локальная сборка) -->
+    <link rel="stylesheet" href="../../css/output.css">
+    <link rel="canonical" href="https://muse.ooo/info/">
 </head>
 <body class="bg-white overflow-x-hidden">
+    <!-- Back to Top Button -->
+    <a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-white text-dark hover:bg-dark hover:text-white border border-gray-300 hover:border-dark transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
+            <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+
     <!-- Header -->
     
 
@@ -84,22 +48,33 @@
     
 
     <!-- Hero Section with Ken Burns -->
-    <section class="relative h-[70vh] overflow-hidden bg-dark" id="hero">
-        <!-- Ken Burns Background -->
-        <div class="absolute inset-0 overflow-hidden">
-            <img 
-                src="https://muse.ooo/upload/img/pavlosk-office.webp" 
-                alt="Фото офиса с плоттерами, портретами и мольбертом" 
-                title="Фото офиса"
-                width="2500" 
-                height="1645"
-                class="ken-burns-img absolute inset-0 w-full h-full object-cover object-top"
-                decoding="async"
-                fetchpriority="high"
-            >
+    <section class="relative h-[70vh] overflow-hidden flex items-center" id="hero">
+        <!-- Background Image + Animation (не грузится на мобильных) -->
+        <div class="absolute inset-0 z-0 bg-black">
+            <picture>
+                <!-- На мобильных (до lg) — прозрачный 1x1 пиксель, не тратит трафик -->
+                <source 
+                    media="(max-width: 1023px)" 
+                    srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                >
+                <!-- На десктопе (lg+) — полное изображение -->
+                <source 
+                    media="(min-width: 1024px)" 
+                    srcset="https://muse.ooo/upload/img/pavlosk-office.webp"
+                >
+                <img 
+                    src="https://muse.ooo/upload/img/pavlosk-office.webp" 
+                    alt="Фото офиса с плоттерами, портретами и мольбертом"
+                    title="Фото офиса"
+                    class="w-full h-full object-cover object-top ken-burns-img"
+                    width="2500"
+                    height="1645"
+                    fetchpriority="high"
+                >
+            </picture>
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-black/40"></div>
         </div>
-        <!-- Overlay -->
-        <div class="absolute inset-0 bg-dark/50"></div>
         <!-- Content -->
         <div class="container h-full flex items-center relative z-10">
             <div class="max-w-2xl">
@@ -470,7 +445,7 @@
                 <!-- Правая колонка: Видео -->
                 <div>
                     <h2 class="text-2xl lg:text-3xl font-light mb-8 text-center lg:text-left">Как мы создаём портреты</h2>
-                    <div class="video-cover rounded-lg shadow-xl aspect-video cursor-pointer" id="main-video-cover">
+                    <div class="video-cover rounded-lg shadow-xl aspect-video cursor-pointer" id="main-video-cover" data-video-cover>
                         <div class="absolute inset-0">
                             <img 
                                 src="https://muse.ooo/img/portret-na-zakaz-cover-555.webp"
@@ -483,7 +458,7 @@
                                 class="w-full h-full object-cover rounded-lg"
                             >
                         </div>
-                        <button type="button" class="video-play-icon absolute inset-0 flex items-center justify-center cursor-pointer z-10 bg-black/20 hover:bg-black/30 transition-colors" aria-label="Воспроизвести видео о создании портретов">
+                        <button type="button" class="video-play-icon absolute inset-0 flex items-center justify-center cursor-pointer z-10 bg-black/20 hover:bg-black/30 transition-colors" data-play-btn aria-label="Воспроизвести видео о создании портретов">
                             <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg" aria-hidden="true">
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
@@ -1023,8 +998,8 @@
                 <div>
                     <h3 class="text-xl font-medium mb-4">Москва</h3>
                     <p class="text-gray-300 mb-2">127550, ул. Прянишникова, д. 19А, строение 9.</p>
-                    <p class="text-gray-300 mb-2">Телефон: <a href="tel:+74954091869" class="text-primary hover:underline">+7 (495) 409–18–69</a>.</p>
-                    <p class="text-gray-300 mb-4">Электронная почта: <a href="mailto:info@muse.ooo" class="text-primary hover:underline">info@muse.ooo</a>.</p>
+                    <p class="text-gray-300 mb-2">Телефон: <a href="tel:+74954091869" class="text-primary underline hover:no-underline">+7 (495) 409–18–69</a>.</p>
+                    <p class="text-gray-300 mb-4">Электронная почта: <a href="mailto:info@muse.ooo" class="text-primary underline hover:no-underline">info@muse.ooo</a>.</p>
                     
                     <!-- Яндекс рейтинг Москва -->
                     <div class="w-[150px] h-[50px] overflow-hidden">
@@ -1043,8 +1018,8 @@
                 <div>
                     <h3 class="text-xl font-medium mb-4">Санкт-Петербург</h3>
                     <p class="text-gray-300 mb-2">196620, ул. Слуцкая, д. 13, корп. 2.</p>
-                    <p class="text-gray-300 mb-2">Телефон: <a href="tel:+78124081869" class="text-primary hover:underline">+7 (812) 408–18–69</a>.</p>
-                    <p class="text-gray-300 mb-4">Электронная почта: <a href="mailto:info@muse.ooo" class="text-primary hover:underline">info@muse.ooo</a>.</p>
+                    <p class="text-gray-300 mb-2">Телефон: <a href="tel:+78124081869" class="text-primary underline hover:no-underline">+7 (812) 408–18–69</a>.</p>
+                    <p class="text-gray-300 mb-4">Электронная почта: <a href="mailto:info@muse.ooo" class="text-primary underline hover:no-underline">info@muse.ooo</a>.</p>
                     
                     <!-- Яндекс рейтинг СПб -->
                     <div class="w-[150px] h-[50px] overflow-hidden">
@@ -1168,213 +1143,15 @@
     }
     </script>
 
-    <!-- Navigation Scripts -->
-    <script src="../js/nav.js" defer></script>
+    <!-- Navigation Scripts (includes Video Modal) -->
+    <script src="../../js/nav.js" defer></script>
 
-    <!-- Video Cover (play on click) -->
-    <script>
-    document.querySelectorAll('.video-cover').forEach(function(cover) {
-        const playBtn = cover.querySelector('.video-play-icon');
-        if (playBtn) {
-            playBtn.addEventListener('click', function() {
-                cover.classList.add('video-playing');
-                playBtn.style.display = 'none';
-                const video = cover.querySelector('video');
-                if (video) {
-                    video.classList.remove('hidden');
-                    video.play();
-                }
-            });
-        }
-    });
-    </script>
-
-    <!-- Carousel Scroll (drag + wheel на десктопе) -->
-    <script>
-        // Прокрутка каруселей колесиком мыши на ПК (оптимизированная версия)
-        // Использует scrollBy для минимизации forced reflows
-        (function() {
-            const carousels = document.querySelectorAll('.carousel-scroll');
-            
-            carousels.forEach(carousel => {
-                // Используем Intersection Observer для определения, когда карусель в viewport
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        carousel.dataset.visible = entry.isIntersecting ? 'true' : 'false';
-                    });
-                }, { threshold: 0.1 });
-                
-                if (carousel) {
-                    observer.observe(carousel);
-                }
-
-                // Wheel обработчик - используем scrollBy (нативный метод браузера)
-                carousel.addEventListener('wheel', (e) => {
-                    // Только на десктопе и только если карусель видна
-                    if (window.innerWidth < 1024 || carousel.dataset.visible !== 'true') return;
-                    
-                    // Проверяем, что мышь над каруселью (один вызов getBoundingClientRect на событие)
-                    const rect = carousel.getBoundingClientRect();
-                    const isOverCarousel = e.clientX >= rect.left && e.clientX <= rect.right &&
-                                         e.clientY >= rect.top && e.clientY <= rect.bottom;
-                    
-                    if (isOverCarousel && Math.abs(e.deltaX) < Math.abs(e.deltaY)) {
-                        e.preventDefault();
-                        
-                        // scrollBy - нативный метод, браузер оптимизирует reflows
-                        carousel.scrollBy({
-                            left: e.deltaY * 0.6,
-                            behavior: 'auto'
-                        });
-                    }
-                }, { passive: false });
-
-                // Упрощенный drag-to-scroll - минимум геометрических чтений
-                let isDown = false;
-                let startX = 0;
-                let startScrollLeft = 0;
-                let hasMoved = false; // Флаг: было ли движение мышки (drag)
-                let clickBlocked = false; // Флаг: нужно ли блокировать клик
-                const DRAG_THRESHOLD = 5; // Порог в пикселях для определения drag
-                
-                carousel.style.cursor = 'grab';
-                
-                carousel.addEventListener('mousedown', (e) => {
-                    if (window.innerWidth < 1024) return;
-                    
-                    isDown = true;
-                    hasMoved = false;
-                    clickBlocked = false;
-                    carousel.style.cursor = 'grabbing';
-                    
-                    // Кэшируем значения один раз при mousedown
-                    // pageX - абсолютная координата, не требует геометрических чтений
-                    startX = e.pageX;
-                    startScrollLeft = carousel.scrollLeft; // Одно чтение scrollLeft при начале drag
-                    
-                    e.preventDefault();
-                });
-
-                carousel.addEventListener('mousemove', (e) => {
-                    if (!isDown || window.innerWidth < 1024) return;
-                    
-                    e.preventDefault();
-                    
-                    // Проверяем, было ли движение
-                    const moveDistance = Math.abs(e.pageX - startX);
-                    if (moveDistance > DRAG_THRESHOLD) {
-                        hasMoved = true;
-                        clickBlocked = true;
-                    }
-                    
-                    // Используем только pageX (абсолютная координата) - нет геометрических чтений
-                    const walk = (e.pageX - startX) * 1.2;
-                    const newScroll = startScrollLeft - walk;
-                    
-                    // Записываем напрямую - mousemove уже user-triggered событие
-                    carousel.scrollLeft = newScroll;
-                });
-
-                // Блокируем клики на ссылках, если был drag
-                carousel.addEventListener('click', (e) => {
-                    if (clickBlocked && window.innerWidth >= 1024) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        clickBlocked = false; // Сбрасываем флаг
-                    }
-                }, true); // Используем capture phase для перехвата клика до обработчиков ссылок
-
-                carousel.addEventListener('mouseleave', () => {
-                    if (isDown) {
-                        isDown = false;
-                        hasMoved = false;
-                        carousel.style.cursor = 'grab';
-                        // Не сбрасываем clickBlocked здесь - клик может произойти после mouseleave
-                    }
-                });
-
-                carousel.addEventListener('mouseup', (e) => {
-                    if (isDown) {
-                        isDown = false;
-                        carousel.style.cursor = 'grab';
-                        
-                        // Если было движение, блокируем клик на небольшое время
-                        if (hasMoved) {
-                            clickBlocked = true;
-                            // Сбрасываем флаг через небольшую задержку
-                            setTimeout(() => {
-                                clickBlocked = false;
-                            }, 100);
-                        }
-                        hasMoved = false;
-                    }
-                });
-            });
-        })();
-    </script>
-
-    <!-- Video Modal -->
-    <script>
-    (function() {
-        const modal = document.querySelector('.video-modal');
-        if (!modal) return;
-        
-        const video = modal.querySelector('video');
-        const closeBtn = modal.querySelector('.video-modal-close');
-        const muteBtn = modal.querySelector('.video-modal-mute');
-        const prevBtn = modal.querySelector('.video-modal-prev');
-        const nextBtn = modal.querySelector('.video-modal-next');
-        
-        // Ищем карточки с data-video (секция "Короткие истории")
-        const videoCards = Array.from(document.querySelectorAll('.video-card[data-video]'));
-        let currentIndex = 0;
-        
-        function openModal(index) {
-            currentIndex = index;
-            const trigger = videoCards[index];
-            if (trigger && video) {
-                video.src = trigger.dataset.video;
-                video.muted = false;
-                modal.classList.add('active');
-                video.play();
-            }
-        }
-        
-        function closeModal() {
-            modal.classList.remove('active');
-            if (video) { video.pause(); video.src = ''; }
-        }
-        
-        videoCards.forEach((trigger, index) => {
-            trigger.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                openModal(index);
-            });
-        });
-        
-        if (closeBtn) closeBtn.addEventListener('click', closeModal);
-        if (muteBtn) muteBtn.addEventListener('click', () => { 
-            if (video) {
-                video.muted = !video.muted;
-                muteBtn.querySelector('.mute-icon')?.classList.toggle('hidden', !video.muted);
-                muteBtn.querySelector('.unmute-icon')?.classList.toggle('hidden', video.muted);
-            }
-        });
-        if (prevBtn) prevBtn.addEventListener('click', () => { if (currentIndex > 0) openModal(currentIndex - 1); });
-        if (nextBtn) nextBtn.addEventListener('click', () => { if (currentIndex < videoCards.length - 1) openModal(currentIndex + 1); });
-        
-        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('active')) closeModal(); });
-    })();
-    </script>
-
-    <!-- Typed.js -->
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <!-- Typed.js (unique to info page) -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12" defer></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         const typedEl = document.getElementById('typed-text');
-        if (typedEl) {
+        if (typedEl && typeof Typed !== 'undefined') {
             new Typed('#typed-text', {
                 strings: ['фото', 'картины', 'репродукции', 'портреты'],
                 typeSpeed: 100,
@@ -1387,4 +1164,3 @@
     </script>
 </body>
 </html>
-

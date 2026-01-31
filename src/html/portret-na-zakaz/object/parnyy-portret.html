@@ -89,38 +89,11 @@
     </style>
     
     <!-- Основной CSS: output.css (Tailwind v4, локальная сборка) -->
-
-
+    <link rel="stylesheet" href="../../css/output.css">
     
-    <!-- Tailwind Plus Elements -->
-    <script src="../../js/tailwindplus-elements.js" type="module"></script>
-    
-    <!-- Некритические стили (загружаются после основного CSS: output.css) -->
-    <style>
-        /* Page Navigator */
-        .page-navigator { position: fixed; top: 50%; transform: translateY(-50%); right: 1.85714286em; z-index: 9999; }
-        .page-navigator ul { display: inline-block; padding: 0.92857143em; background: rgba(0, 0, 0, 0.4); border-radius: 1.85714286em; }
-        .page-navigator ul:hover { background: rgba(0, 0, 0, 0.6); }
-        .page-navigator ul li { list-style: none; }
-        .page-navigator ul li:not(:last-child) { margin-bottom: 1.85714286em; }
-        @media (max-width: 1023px) { .page-navigator { display: none !important; } }
-        .page-navigator li a { width: 8px; height: 8px; background: #fff; border-radius: 50%; transition: all 0.3s ease; display: block; position: relative; opacity: 0.5; }
-        .page-navigator li a:hover, .page-navigator li a.inner-link--active { opacity: 1; }
-        .page-navigator li a:hover { transform: scale(1.5); }
-        .page-navigator li a[data-title]:before { content: attr(data-title); position: absolute; right: 12px; top: -14px; background: #222; color: #fff; border-radius: 6px; padding: 4px 8px; display: inline-block; white-space: nowrap; font-size: 12px; opacity: 0; transition: all 0.2s ease; }
-        .page-navigator li a[data-title]:hover:before { opacity: 1; }
-        
-        /* Carousel */
-        .carousel-scroll { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
-        .carousel-scroll::-webkit-scrollbar { display: none; }
-        .snap-center { scroll-snap-align: center; }
-        
-        /* Ken Burns Effect */
-        @keyframes kenburns { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
-        .ken-burns-img { animation: kenburns 20s ease-out forwards; }
-</style>
-<link rel="stylesheet" href="../../css/output.css">
-    <link rel="canonical" href="https://muse.ooo/portret-na-zakaz/object/parnyy-portret/">
+    <!-- Preload LCP-изображения (только десктоп) -->
+    <link rel="preload" as="image" href="https://muse.ooo/upload/img/couple-portrait.webp" media="(min-width: 1024px)" fetchpriority="high">
+    <link rel="canonical" href="https://muse.ooo/portret-na-zakaz/parnyy-portret/">
 </head>
 <body class="bg-white overflow-x-hidden">
     <!-- Back to Top Button -->
@@ -135,14 +108,14 @@
   
 
     <!-- Page Navigator (JS управляет видимостью) -->
-    <section class="page-navigator hidden" id="page-navigator">
+    <nav class="page-navigator" id="page-navigator" aria-label="Навигация по разделам">
         <ul>
-            <li><a href="#stili-portretov" class="inner-link" data-title="Стили"></a></li>
-            <li><a href="#primery-portretov" class="inner-link" data-title="Примеры"></a></li>
-            <li><a href="#calc" class="inner-link" data-title="Цена"></a></li>
-            <li><a href="#review" class="inner-link" data-title="Отзывы"></a></li>
+            <li><a href="#stili-portretov" class="inner-link" data-title="Стили"><span class="sr-only">Стили</span></a></li>
+            <li><a href="#primery-portretov" class="inner-link" data-title="Примеры"><span class="sr-only">Примеры</span></a></li>
+            <li><a href="#calc" class="inner-link" data-title="Цена"><span class="sr-only">Цена</span></a></li>
+            <li><a href="#review" class="inner-link" data-title="Отзывы"><span class="sr-only">Отзывы</span></a></li>
         </ul>
-    </section>
+    </nav>
 
     <main>
         <!-- Первый экран (Hero) с Ken Burns эффектом -->
@@ -364,6 +337,7 @@
                     <p class="text-sm">Отзывы будут загружены из Bitrix</p>
                 </div>
                 
+                <!-- Кнопка "Оставить отзыв" -->
                 
             </div>
         </section>
@@ -391,7 +365,7 @@
 
     <!-- Scripts -->
     <!-- Navigation Scripts -->
-    <script src="../../js/nav.js"></script>
+    <script defer src="../../js/nav.js"></script>
 
 
 

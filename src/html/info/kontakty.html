@@ -19,27 +19,22 @@
             --secondary: #FAFAFA;
         }
         body { background-color: #fff; color: var(--body); overflow-x: hidden; }
-        /* Минимальный CSS для анимации табов */
-        .tab-content {
-            animation: fadeIn 0.3s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
     </style>
     
     <!-- Основной CSS: output.css (Tailwind v4, локальная сборка) -->
 
 
     
-    <!-- Tailwind Plus Elements -->
-    <script type="module" src="../js/tailwindplus-elements.js"></script>
-
-    <link rel="stylesheet" href="../css/output.css">
+    <link rel="stylesheet" href="../../css/output.css">
     <link rel="canonical" href="https://muse.ooo/info/kontakty/">
 </head>
 <body class="bg-white overflow-x-hidden">
+    <!-- Back to Top Button -->
+    <a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-white text-dark hover:bg-dark hover:text-white border border-gray-300 hover:border-dark transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
+            <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
 
     <main>
         <!-- Hero & Breadcrumbs -->
@@ -65,10 +60,10 @@
             <div class="container">
                 <el-tab-group>
                     <el-tab-list class="flex border-b border-gray-200 mb-8 overflow-x-auto" aria-label="Города">
-                        <button type="button" class="px-6 py-3 text-lg font-medium text-body hover:text-dark focus:outline-none border-b-2 border-transparent transition-colors in-aria-selected:border-primary in-aria-selected:text-dark">
+                        <button type="button" class="px-6 py-3 text-lg font-medium text-gray-400 hover:text-gray-600 focus:outline-none border-b-2 border-transparent transition-colors rounded-t-md aria-[selected=true]:border-primary aria-[selected=true]:text-dark aria-[selected=true]:font-semibold">
                             Москва
                         </button>
-                        <button type="button" class="px-6 py-3 text-lg font-medium text-body hover:text-dark focus:outline-none border-b-2 border-transparent transition-colors in-aria-selected:border-primary in-aria-selected:text-dark">
+                        <button type="button" class="px-6 py-3 text-lg font-medium text-gray-400 hover:text-gray-600 focus:outline-none border-b-2 border-transparent transition-colors rounded-t-md aria-[selected=true]:border-primary aria-[selected=true]:text-dark aria-[selected=true]:font-semibold">
                             Санкт-Петербург
                         </button>
                     </el-tab-list>
@@ -81,17 +76,17 @@
 
                                 <!-- Map -->
                                 <div class="w-full h-[400px] bg-gray-100 rounded-lg overflow-hidden my-6">
-                                    <iframe src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=82862448491" width="100%" height="100%" frameborder="0" allowfullscreen="true" style="position:relative;"></iframe>
+                                    <iframe src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=82862448491" width="100%" height="100%" frameborder="0" allowfullscreen="true" style="position:relative;" title="Карта: Москва"></iframe>
                                 </div>
 
                                 <p>
-                                    <span class="font-medium text-dark">Email:</span> <a href="mailto:zakaz@muse.ooo" class="text-primary hover:underline">zakaz@muse.ooo</a>
+                                    <span class="font-medium text-dark">Email:</span> <a href="mailto:zakaz@muse.ooo" class="text-primary underline hover:no-underline">zakaz@muse.ooo</a>
                                 </p>
                                 <p>
-                                    <span class="font-medium text-dark">Телефон:</span> <a href="tel:+74954091869" class="text-primary hover:underline">+7 (495) 409-18-69</a>
+                                    <span class="font-medium text-dark">Телефон:</span> <a href="tel:+74954091869" class="text-primary underline hover:no-underline">+7 (495) 409-18-69</a>
                                 </p>
                                 <p>
-                                    <span class="font-medium text-dark">WhatsApp:</span> <a href="whatsapp://send?phone=74954091869" class="text-primary hover:underline">+7 (495) 409-18-69</a>
+                                    <span class="font-medium text-dark">WhatsApp:</span> <a href="whatsapp://send?phone=74954091869" class="text-primary underline hover:no-underline">+7 (495) 409-18-69</a>
                                 </p>
                                 <div class="pt-4 border-t border-gray-100 mt-4">
                                     <p>Мы открыты ежедневно с 10.00 до 19.00</p>
@@ -107,17 +102,17 @@
 
                                 <!-- Map -->
                                 <div class="w-full h-[400px] bg-gray-100 rounded-lg overflow-hidden my-6">
-                                    <iframe src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=2855807336" width="100%" height="100%" frameborder="0" allowfullscreen="true" style="position:relative;"></iframe>
+                                    <iframe src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=2855807336" width="100%" height="100%" frameborder="0" allowfullscreen="true" style="position:relative;" title="Карта: Санкт-Петербург"></iframe>
                                 </div>
 
                                 <p>
-                                    <span class="font-medium text-dark">Email:</span> <a href="mailto:info@muse.ooo" class="text-primary hover:underline">info@muse.ooo</a>
+                                    <span class="font-medium text-dark">Email:</span> <a href="mailto:info@muse.ooo" class="text-primary underline hover:no-underline">info@muse.ooo</a>
                                 </p>
                                 <p>
-                                    <span class="font-medium text-dark">Телефон:</span> <a href="tel:+78124081869" class="text-primary hover:underline">+7 (812) 408-18-69</a>
+                                    <span class="font-medium text-dark">Телефон:</span> <a href="tel:+78124081869" class="text-primary underline hover:no-underline">+7 (812) 408-18-69</a>
                                 </p>
                                 <p>
-                                    <span class="font-medium text-dark">WhatsApp:</span> <a href="whatsapp://send?phone=78124081869" class="text-primary hover:underline">+7 (812) 408-18-69</a>
+                                    <span class="font-medium text-dark">WhatsApp:</span> <a href="whatsapp://send?phone=78124081869" class="text-primary underline hover:no-underline">+7 (812) 408-18-69</a>
                                 </p>
                                 <div class="pt-4 border-t border-gray-100 mt-4">
                                     <p>Прием заявок в онлайн сервисе 24 часа.</p>
@@ -135,6 +130,7 @@
     
 
     <!-- Navigation Scripts -->
-    <script src="../js/nav.js" defer></script>
+    <script type="module" src="../../js/tailwindplus-elements.js"></script>
+    <script src="../../js/nav.js" defer></script>
 </body>
 </html>
