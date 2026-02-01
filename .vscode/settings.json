@@ -5,11 +5,19 @@
   "liveServer.settings.useWebExt": false,
   "liveServer.settings.NoBrowser": false,
   "terminal.integrated.shellIntegration.enabled": true,
+  "terminal.integrated.profiles.windows": {
+    "PowerShell 7": {
+      "path": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+      "args": ["-NoLogo"]
+    }
+  },
+  "terminal.integrated.defaultProfile.windows": "PowerShell 7",
   "liveServer.settings.ignoreFiles": [
     ".vscode/**",
     "**/*.scss",
     "**/*.sass",
     "**/*.ts"
   ],
-  "liveServer.settings.wait": 100
+  "liveServer.settings.wait": 100,
+  "kimi.enableNewConversationShortcut": true
 }
