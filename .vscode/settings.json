@@ -19,5 +19,6 @@
     "**/*.ts"
   ],
   "liveServer.settings.wait": 100,
+  "kimi.yoloMode": true,
   "kimi.enableNewConversationShortcut": true
 }
