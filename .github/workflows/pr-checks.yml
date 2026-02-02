@@ -1,0 +1,68 @@
+name: Pull Request Checks
+
+on:
+  pull_request:
+    branches: [ main, master ]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build-check:
+    name: Build and Validate
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build CSS
+        run: npm run build:once
+      
+      - name: Copy CSS for preview
+        run: npm run copy-css
+      
+      - name: Verify build outputs
+        run: |
+          echo "Checking if CSS files were created..."
+          if [ ! -f "src/css/output.css" ]; then
+            echo "❌ Error: src/css/output.css not found"
+            exit 1
+          fi
+          if [ ! -f "src/html/css/output.css" ]; then
+            echo "❌ Error: src/html/css/output.css not found"
+            exit 1
+          fi
+          echo "✅ All build outputs verified"
+      
+      - name: Check for common issues
+        run: |
+          echo "Running basic validation checks..."
+          
+          # Check if package.json exists
+          if [ ! -f "package.json" ]; then
+            echo "❌ Error: package.json not found"
+            exit 1
+          fi
+          
+          # Check if critical directories exist
+          if [ ! -d "src/html" ]; then
+            echo "❌ Error: src/html directory not found"
+            exit 1
+          fi
+          
+          echo "✅ Basic validation passed"
+      
+      - name: Summary
+        run: |
+          echo "🎉 All checks passed!"
+          echo "Build artifacts:"
+          ls -lh src/css/output.css
+          ls -lh src/html/css/output.css

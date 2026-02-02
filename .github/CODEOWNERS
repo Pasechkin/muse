@@ -1,0 +1,38 @@
+# CODEOWNERS
+# 
+# Этот файл определяет владельцев кода для разных частей репозитория.
+# Когда кто-то создаёт Pull Request, владельцы автоматически запрашиваются для review.
+# 
+# Подробнее: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Владелец по умолчанию для всех файлов
+* @Pasechkin
+
+# Критически важные файлы проекта
+/package.json @Pasechkin
+/package-lock.json @Pasechkin
+/postcss.config.js @Pasechkin
+/vercel.json @Pasechkin
+/netlify.toml @Pasechkin
+
+# CSS исходники (Tailwind)
+/src/input.css @Pasechkin
+/src/css/ @Pasechkin
+
+# HTML страницы
+/src/html/ @Pasechkin
+
+# GitHub конфигурация и workflows
+/.github/ @Pasechkin
+
+# Документация
+/docs/ @Pasechkin
+/AI_INSTRUCTIONS.md @Pasechkin
+/PROJECT.md @Pasechkin
+/README.md @Pasechkin
+/ЗАЩИТА_РЕПОЗИТОРИЯ.md @Pasechkin
+
+# Скрипты развертывания
+/*.bat @Pasechkin
+/*.ps1 @Pasechkin
+/scripts/ @Pasechkin
