@@ -3,16 +3,8 @@
 <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Muse — Header Variants (Demo)</title>
+                <title>Muse — Header & Footer (Draft)</title>
         <meta name="robots" content="noindex, nofollow">
-
-        <style>
-                :root {
-                        --primary: #4A90E2;
-                        --primary-hover: #609DE6;
-                        --dark: #252525;
-                }
-        </style>
 
         <link rel="stylesheet" href="../css/output.css">
 </head>
@@ -21,17 +13,13 @@
        
 
         <!-- ============================================
-             ВАРИАНТ 2: Голубая кнопка (primary filled)
+             HEADER
              ============================================ -->
-        <section class="mb-8">
-                <div class="bg-gray-200 text-center py-2 text-xs font-bold uppercase tracking-widest text-gray-600">
-                        Вариант 2: Primary (голубая залитая)
-                </div>
-                <header class="bg-dark border-b border-white/10">
-                        <nav class="mx-auto max-w-[1170px] px-4 h-20 flex items-center">
+        <header class="bg-dark">
+                                                <nav class="container h-20 flex items-center">
                                 <!-- LOGO -->
-                                <div class="flex-shrink-0 h-full flex items-center pr-6 mr-6 border-r border-white/10">
-                                        <a href="https://muse.ooo/" class="opacity-100 hover:opacity-70 transition-opacity" aria-label="Muse">
+                                                                <div class="shrink-0 h-full flex items-center pr-6 mr-6">
+                                                                        <a href="https://muse.ooo/" class="opacity-100 hover:opacity-70 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark" aria-label="Muse">
                                                 <svg height="26" viewBox="0 0 1285 359" width="74" xmlns="http://www.w3.org/2000/svg" class="h-6 w-auto fill-white">
                                                         <path d="M10 359l353 0-63-63-226 0-64 63zm364-10l0-285c-24 7-45 18-64 34l0 188 64 63zm-374-285l0 285 63-63 0-188c-19-16-40-27-63-34z"/>
                                                         <path d="M300 0c-49 0-92 28-113 68-22-40-65-68-114-68-27 0-52 8-73 23 82 9 149 79 187 166 37-87 104-157 187-166-21-15-47-23-74-23z"/>
@@ -44,227 +32,202 @@
                                         </a>
                                 </div>
 
-                                <!-- NAV -->
-                                <div class="hidden lg:flex items-center gap-x-8 h-full">
-                                        <a href="#" class="text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-white transition-colors">Портреты</a>
-                                        <a href="#" class="text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-white transition-colors">Печать</a>
-                                        <a href="#" class="text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-white transition-colors">О нас</a>
+                                                                <!-- NAV -->
+                                                                <div class="hidden xl:flex items-center gap-x-8 h-full">
+                                                                                <a href="https://muse.ooo/portret-na-zakaz/" class="text-xs font-bold uppercase tracking-wider text-gray-300 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark">Портреты</a>
+                                                                                <a href="https://muse.ooo/pechat/" class="text-xs font-bold uppercase tracking-wider text-gray-300 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark">Печать</a>
+                                                                                <a href="https://muse.ooo/info/" class="text-xs font-bold uppercase tracking-wider text-gray-300 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark">О нас</a>
                                 </div>
 
                                 <!-- RIGHT -->
-                                <div class="hidden lg:flex items-center h-full ml-auto gap-x-6">
-                                        <button class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-white transition-colors cursor-pointer">
-                                                <span class="border-b border-dotted border-gray-500 hover:border-white">Москва</span>
+                                                                <div class="hidden xl:flex items-center h-full ml-auto gap-x-6">
+                                                                                                <button type="button" class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-gray-300 hover:text-white transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark" command="show-modal" commandfor="city-dialog" data-city-trigger aria-controls="city-dialog" aria-label="Выбор города">
+                                                                                                                <span class="border-b border-dotted border-gray-400 hover:border-white" data-city-current>Санкт-Петербург</span>
                                                 <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                                         </button>
-                                        <a href="tel:88007076921" class="text-sm font-medium text-white hover:text-gray-300 transition-colors whitespace-nowrap">8 800 707-69-21</a>
+                                                                                                                <a href="tel:88007076921" class="text-sm font-medium text-white hover:text-gray-300 transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark" data-city-phone>8 800 707-69-21</a>
                                         <!-- CTA: Primary -->
-                                        <a href="#" class="inline-flex items-center justify-center px-6 py-2.5 bg-primary text-xs font-bold uppercase tracking-widest text-white hover:bg-primary-hover transition-colors duration-200">Заказать</a>
+                                                                                <a href="https://muse.ooo/order/" class="btn-header-cta focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark">Заказать</a>
                                 </div>
 
-                                <button type="button" class="lg:hidden ml-auto p-2.5 text-gray-300 hover:text-white">
+                                                                <button type="button" class="xl:hidden ml-auto p-2.5 text-gray-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark" command="show-modal" commandfor="mobile-menu" aria-controls="mobile-menu" aria-label="Открыть меню">
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-6 h-6">
                                                 <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
                                         </svg>
                                 </button>
                         </nav>
-                </header>
-        </section>
+        </header>
 
-        <!-- ============================================
-             МОБИЛЬНОЕ МЕНЮ (пример)
-             ============================================ -->
-        <section class="mb-8">
-                <div class="bg-gray-200 text-center py-2 text-xs font-bold uppercase tracking-widest text-gray-600">
-                        Мобильное меню (превью)
-                </div>
-                <div class="max-w-sm mx-auto bg-dark border border-white/10 shadow-2xl">
-                        <div class="p-6">
-                                <div class="flex items-center justify-end mb-8">
-                                        <button type="button" class="text-gray-400 hover:text-white">
-                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-6 h-6">
-                                                        <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
-                                                </svg>
-                                        </button>
-                                </div>
-                                
-                                <!-- Навигация -->
-                                <nav class="flex flex-col space-y-4 mb-8">
-                                        <a href="#" class="text-lg font-medium text-white hover:text-gray-300 transition-colors">Портреты</a>
-                                        <a href="#" class="text-lg font-medium text-white hover:text-gray-300 transition-colors">Печать</a>
-                                        <a href="#" class="text-lg font-medium text-white hover:text-gray-300 transition-colors">О нас</a>
-                                </nav>
-
-                                <!-- Город -->
-                                <div class="py-4 border-t border-white/10">
-                                        <button class="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors">
-                                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" /></svg>
-                                                <span>Москва</span>
-                                                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-                                        </button>
-                                </div>
-
-                                <!-- Основное действие: Заказать -->
-                                <div class="py-6 border-t border-white/10">
-                                        <a href="#" class="block w-full py-4 text-center bg-primary text-white font-bold uppercase tracking-widest text-sm hover:bg-primary-hover transition-colors rounded-lg">Заказать</a>
-                                </div>
-
-                                <!-- Дополнительно: Написать нам -->
-                                <div class="py-6 border-t border-white/10">
-                                        <div class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Написать нам</div>
-                                        <div class="flex items-center gap-3">
-                                                <!-- WhatsApp -->
-                                                <a href="whatsapp://send?phone=74954091869" class="w-12 h-12 flex items-center justify-center rounded-lg bg-[#25D366] text-white hover:bg-[#1fad53] transition-colors" aria-label="WhatsApp">
-                                                        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                                                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884" />
-                                                        </svg>
-                                                </a>
-                                                <!-- Telegram -->
-                                                <a href="https://t.me/ArtMuse_bot" class="w-12 h-12 flex items-center justify-center rounded-lg bg-[#0088cc] text-white hover:bg-[#0077b3] transition-colors" aria-label="Telegram">
-                                                        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                                                                <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
-                                                        </svg>
-                                                </a>
-                                                <!-- VK -->
-                                                <a href="https://vk.me/artwork.muse" class="w-12 h-12 flex items-center justify-center rounded-lg bg-[#4a76a8] text-white hover:bg-[#3d6590] transition-colors" aria-label="ВКонтакте">
-                                                        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                                                                <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744z" />
-                                                        </svg>
-                                                </a>
-                                                <!-- Max -->
-                                                <a href="https://max.ru/id782575923262_bot" style="background-color: #630eff;" class="w-12 h-12 flex items-center justify-center rounded-lg text-white hover:text-white transition-colors" aria-label="Max">
-                                                        <svg class="w-6 h-6 fill-current" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                                <g id="surface1">
-                                                                        <path style="stroke:none;fill-rule:evenodd;fill-opacity:1;" d="M 7.421875 23.246094 C 7.292969 23.15625 7.121094 23.179688 7.015625 23.292969 C 5.59375 24.808594 1.964844 25.867188 1.796875 23.804688 C 1.796875 22.1875 1.433594 20.824219 1.035156 19.320312 C 0.546875 17.484375 0 15.4375 0 12.464844 C 0 5.378906 5.8125 0.046875 12.703125 0.046875 C 19.597656 0.046875 25 5.636719 25 12.535156 C 25 19.429688 19.425781 24.882812 12.769531 24.882812 C 10.410156 24.882812 9.261719 24.550781 7.421875 23.246094 Z M 12.898438 6.191406 C 9.628906 6.023438 7.074219 8.292969 6.511719 11.84375 C 6.046875 14.785156 6.871094 18.371094 7.578125 18.550781 C 7.878906 18.625 8.601562 18.074219 9.125 17.578125 C 9.222656 17.488281 9.375 17.472656 9.488281 17.542969 C 10.308594 18.042969 11.234375 18.417969 12.253906 18.472656 C 15.613281 18.648438 18.589844 16.019531 18.765625 12.660156 C 18.941406 9.304688 16.253906 6.371094 12.898438 6.191406 Z M 12.898438 6.191406 " />
-                                                                </g>
-                                                        </svg>
-                                                </a>
-                                        </div>
-                                </div>
-
-                                <!-- Дополнительно: Позвонить -->
-                                <div class="pt-4 border-t border-white/10">
-                                        <a href="tel:88007076921" class="flex items-center justify-center gap-2 text-gray-400 hover:text-white transition-colors">
-                                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" /></svg>
-                                                <span class="text-lg font-medium">8 800 707-69-21</span>
-                                        </a>
-                                        <p class="text-center text-xs text-gray-500 mt-1">Бесплатно по России</p>
-                                </div>
+        <noscript>
+                <div class="bg-dark text-white">
+                        <div class="container py-4 text-sm flex flex-wrap gap-x-4 gap-y-2">
+                                <a href="https://muse.ooo/pechat/" class="hover:text-white/80">Печать</a>
+                                <a href="https://muse.ooo/portret-na-zakaz/" class="hover:text-white/80">Портреты</a>
+                                <a href="https://muse.ooo/info/" class="hover:text-white/80">О нас</a>
+                                <a href="https://muse.ooo/order/" class="hover:text-white/80">Заказать</a>
+                                <a href="tel:88007076921" class="hover:text-white/80">8 800 707-69-21</a>
                         </div>
                 </div>
-        </section>
-
-        <div class="py-12 text-center text-gray-500 text-sm">
-                Демо-страница для сравнения вариантов header и footer
-        </div>
+        </noscript>
 
         <!-- ============================================
-             ФУТЕР ВАРИАНТ 1: Соцсети под брендом, Яндекс в Связи
+             МОБИЛЬНОЕ МЕНЮ (через Tailwind Plus Elements)
              ============================================ -->
-        <section class="mt-16">
-                <div class="bg-gray-200 text-center py-2 text-xs font-bold uppercase tracking-widest text-gray-600">
-                        Футер 1: Соцсети под брендом · Яндекс-виджеты в Связи
-                </div>
-                <footer class="bg-dark text-white">
-                        <div class="mx-auto max-w-[1170px] px-4">
-                                <!-- Основной контент -->
-                                <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 py-12 border-b border-white/10">
-                                        <!-- Логотип, описание и соцсети -->
-                                        <div class="col-span-2 lg:col-span-1">
-                                                <svg class="h-6 w-auto fill-white mb-6" viewBox="0 0 1285 359" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M10 359l353 0-63-63-226 0-64 63zm364-10l0-285c-24 7-45 18-64 34l0 188 64 63zm-374-285l0 285 63-63 0-188c-19-16-40-27-63-34z"/>
-                                                        <path d="M300 0c-49 0-92 28-113 68-22-40-65-68-114-68-27 0-52 8-73 23 82 9 149 79 187 166 37-87 104-157 187-166-21-15-47-23-74-23z"/>
-                                                        <path d="M494 20c-11-11-27-18-45-17-16 1-26 8-32 17 36 0 60 19 77 48 17-29 41-48 78-48-7-9-17-16-33-17-17-1-33 6-45 17z"/>
-                                                </svg>
-                                                <p class="text-sm text-gray-400 leading-relaxed mb-5">Студия Muse — портреты на заказ и печать на холсте. <br>Работаем по всей России с 2015 года.</p>
-                                                <!-- Соцсети -->
-                                                <div class="flex items-center gap-2">
-                                                        <a href="https://t.me/Muse_ooo" target="_blank" rel="noopener nofollow" title="Telegram" class="w-9 h-9 flex items-center justify-center rounded-lg bg-white/10 hover:bg-white/20 transition-colors" aria-label="Telegram">
-                                                                <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-                                                        </a>
-                                                        <a href="https://vk.com/artwork.muse" target="_blank" rel="noopener nofollow" title="ВКонтакте" class="w-9 h-9 flex items-center justify-center rounded-lg bg-white/10 hover:bg-white/20 transition-colors" aria-label="ВКонтакте">
-                                                                <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744z"/></svg>
-                                                        </a>
-                                                        <a href="https://www.youtube.com/channel/UCTrgAxErjCIU3EbsHJEtSPw" target="_blank" rel="noopener nofollow" title="YouTube" class="w-9 h-9 flex items-center justify-center rounded-lg bg-white/10 hover:bg-white/20 transition-colors" aria-label="YouTube">
-                                                                <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                                                        </a>
-                                                        <a href="https://ru.pinterest.com/museooo/" target="_blank" rel="noopener nofollow" title="Pinterest" class="w-9 h-9 flex items-center justify-center rounded-lg bg-white/10 hover:bg-white/20 transition-colors" aria-label="Pinterest">
-                                                                <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/></svg>
-                                                        </a>
+                <el-dialog>
+                                <dialog id="mobile-menu" class="mobile-menu-dialog backdrop:bg-black/60 p-0 w-full max-w-none h-svh bg-dark sm:h-auto sm:max-w-sm sm:bg-transparent sm:ml-auto sm:mr-0">
+                                                <div class="w-full h-full sm:h-auto sm:max-h-[85vh] sm:mx-auto bg-dark shadow-2xl overflow-y-auto" data-swipe-panel>
+                                                                <div class="p-6">
+                                                                                <!-- Индикатор свайпа (только mobile) -->
+                                                                                <div class="sm:hidden w-12 h-1 bg-white/20 rounded-full mx-auto mb-6"></div>
+                                                                                
+                                                                                <div class="flex items-center justify-between mb-8">
+                                                                                        <a href="https://muse.ooo/" class="flex items-center" aria-label="Muse">
+                                                                                                <svg class="h-6 w-auto fill-white opacity-80" viewBox="0 0 1285 359" xmlns="http://www.w3.org/2000/svg">
+                                                                                                        <path d="M10 359l353 0-63-63-226 0-64 63zm364-10l0-285c-24 7-45 18-64 34l0 188 64 63zm-374-285l0 285 63-63 0-188c-19-16-40-27-63-34z"/>
+                                                                                                        <path d="M300 0c-49 0-92 28-113 68-22-40-65-68-114-68-27 0-52 8-73 23 82 9 149 79 187 166 37-87 104-157 187-166-21-15-47-23-74-23z"/>
+                                                                                                        <path d="M494 20c-11-11-27-18-45-17-16 1-26 8-32 17 36 0 60 19 77 48 17-29 41-48 78-48-7-9-17-16-33-17-17-1-33 6-45 17z"/>
+                                                                                                </svg>
+                                                                                        </a>
+                                                                                        <button type="button" class="text-gray-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark" command="close" commandfor="mobile-menu" aria-label="Закрыть меню">
+                                                                                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-6 h-6">
+                                                                                                                        <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+                                                                                                                </svg>
+                                                                                                </button>
+                                                                                </div>
+
+                                                                                <!-- Основное действие: Заказать -->
+                                                                                <div class="mb-8">
+                                                                                                <a href="https://muse.ooo/order/" class="block w-full py-4 text-center bg-primary text-white font-bold uppercase tracking-widest text-sm hover:bg-primary-hover transition-colors rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark">Заказать</a>
+                                                                                </div>
+
+                                                                                <!-- Навигация -->
+                                                                                <nav class="flex flex-col space-y-4 mb-8">
+                                                                                                <a href="https://muse.ooo/portret-na-zakaz/" class="text-lg font-medium text-white hover:text-gray-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark">Портреты</a>
+                                                                                                <a href="https://muse.ooo/pechat/" class="text-lg font-medium text-white hover:text-gray-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark">Печать</a>
+                                                                                                <a href="https://muse.ooo/info/" class="text-lg font-medium text-white hover:text-gray-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark">О нас</a>
+                                                                                </nav>
+
+                                                                                <!-- Город + Телефон -->
+                                                                                <div class="flex items-center justify-between py-4 mb-4">
+                                                                                                <button type="button" class="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark" command="show-modal" commandfor="city-dialog" data-city-trigger aria-controls="city-dialog" aria-label="Выбор города">
+                                                                                                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" /></svg>
+                                                                                                                <span data-city-current>Санкт-Петербург</span>
+                                                                                                                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                                                                                                </button>
+                                                                                                <a href="tel:88007076921" class="text-sm font-medium text-white hover:text-gray-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark" data-city-phone>
+                                                                                                        <span data-city-phone-text>8 800 707-69-21</span>
+                                                                                                </a>
+                                                                                </div>
+
+                                                                                <!-- Написать нам -->
+                                                                                <div class="pt-4">
+                                                                                                <div class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-4">Написать нам</div>
+                                                                                                <div class="flex items-center gap-3">
+                                                                                                                <!-- WhatsApp -->
+                                                                                                                <a href="whatsapp://send?phone=74954091869" class="w-12 h-12 flex items-center justify-center rounded-lg bg-[#25D366] text-white hover:bg-[#1fad53] transition-colors" aria-label="WhatsApp">
+                                                                                                                                <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                                                                                                                                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884" />
+                                                                                                                                </svg>
+                                                                                                                </a>
+                                                                                                                <!-- Telegram -->
+                                                                                                                <a href="https://t.me/ArtMuse_bot" class="w-12 h-12 flex items-center justify-center rounded-lg bg-[#0088cc] text-white hover:bg-[#0077b3] transition-colors" aria-label="Telegram">
+                                                                                                                                <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                                                                                                                                        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+                                                                                                                                </svg>
+                                                                                                                </a>
+                                                                                                                <!-- VK -->
+                                                                                                                <a href="https://vk.me/artwork.muse" class="w-12 h-12 flex items-center justify-center rounded-lg bg-[#4a76a8] text-white hover:bg-[#3d6590] transition-colors" aria-label="ВКонтакте">
+                                                                                                                                <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                                                                                                                                        <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.170.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744z" />
+                                                                                                                                </svg>
+                                                                                                                </a>
+                                                                                                                <!-- Max -->
+                                                                                                                <a href="https://max.ru/id782575923262_bot" style="background-color: #630eff;" class="w-12 h-12 flex items-center justify-center rounded-lg text-white hover:text-white transition-colors" aria-label="Max">
+                                                                                                                                <svg class="w-6 h-6 fill-current" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                                                                                                        <g id="surface1">
+                                                                                                                                                        <path style="stroke:none;fill-rule:evenodd;fill-opacity:1;" d="M 7.421875 23.246094 C 7.292969 23.15625 7.121094 23.179688 7.015625 23.292969 C 5.59375 24.808594 1.964844 25.867188 1.796875 23.804688 C 1.796875 22.1875 1.433594 20.824219 1.035156 19.320312 C 0.546875 17.484375 0 15.4375 0 12.464844 C 0 5.378906 5.8125 0.046875 12.703125 0.046875 C 19.597656 0.046875 25 5.636719 25 12.535156 C 25 19.429688 19.425781 24.882812 12.769531 24.882812 C 10.410156 24.882812 9.261719 24.550781 7.421875 23.246094 Z M 12.898438 6.191406 C 9.628906 6.023438 7.074219 8.292969 6.511719 11.84375 C 6.046875 14.785156 6.871094 18.371094 7.578125 18.550781 C 7.878906 18.625 8.601562 18.074219 9.125 17.578125 C 9.222656 17.488281 9.375 17.472656 9.488281 17.542969 C 10.308594 18.042969 11.234375 18.417969 12.253906 18.472656 C 15.613281 18.648438 18.589844 16.019531 18.765625 12.660156 C 18.941406 9.304688 16.253906 6.371094 12.898438 6.191406 Z M 12.898438 6.191406 " />
+                                                                                                                                </g>
+                                                                                                                                </svg>
+                                                                                                                </a>
+                                                                                                </div>
+                                                                                </div>
+                                                                </div>
                                                 </div>
-                                        </div>
-                                        
-                                        <!-- Услуги -->
-                                        <div>
-                                                <h4 class="text-xs font-bold uppercase tracking-widest text-white mb-6">Услуги</h4>
-                                                <nav class="flex flex-col gap-3">
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Портреты на заказ</a>
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Портрет маслом</a>
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Печать на холсте</a>
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Фото на холсте</a>
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Модульные картины</a>
-                                                </nav>
-                                        </div>
-                                        <!-- Информация -->
-                                        <div>
-                                                <h4 class="text-xs font-bold uppercase tracking-widest text-white mb-6">Информация</h4>
-                                                <nav class="flex flex-col gap-3">
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Оферта</a>
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Политика конфиденциальности</a>
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Гарантия</a>
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Карта сайта</a>
-                                                        <span class="text-sm text-gray-400">ИНН 782575923262</span>
-                                                        <span class="text-sm text-gray-400">ОГРНИП 316784700066112</span>
-                                                </nav>
-                                        </div>
-                                        <!-- Связь -->
-                                        <div>
-                                                <h4 class="text-xs font-bold uppercase tracking-widest text-white mb-6">Связь</h4>
-                                                <div class="space-y-3">
-                                                        <!-- Телефоны -->
-                                                        <div>
-                                                                <a href="tel:88007076921" class="block text-base font-medium text-white transition-colors">8 800 707-69-21</a>
-                                                                <p class="text-xs text-gray-400">Бесплатно по России</p>
+                                </dialog>
+                </el-dialog>
+
+                <el-dialog>
+                                        <dialog id="city-dialog" class="backdrop:bg-black/60 hidden open:block sm:open:flex p-0 w-full max-w-none h-svh bg-white border-0 outline-none sm:h-auto sm:open:fixed sm:open:inset-0 sm:open:z-50 sm:open:bg-black/60 sm:open:items-center sm:open:justify-center sm:open:p-6">
+                                                <div class="w-full h-full bg-white sm:h-auto sm:w-full sm:max-w-city sm:rounded-3xl shadow-2xl overflow-hidden">
+                                                                <div class="p-6 pb-4 border-b border-gray-100 sticky top-0 bg-white">
+                                                                                <div class="flex items-center justify-between mb-4">
+                                                                                                <h2 class="text-2xl text-gray-900">Выберите город</h2>
+                                                                                                <button type="button" class="p-2 text-gray-400 hover:text-black" command="close" commandfor="city-dialog" aria-label="Закрыть">
+                                                                                                                <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" /></svg>
+                                                                                                </button>
+                                                                                </div>
+                                                                                <label for="city-search" class="sr-only">Поиск города</label>
+                                                                                <input type="text" id="city-search" class="w-full bg-gray-50 rounded-2xl border border-gray-200 px-5 py-4 text-lg text-gray-900 placeholder:text-gray-400 transition-colors duration-150 hover:bg-white hover:border-primary/40 hover:ring-2 hover:ring-primary/10 focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none" placeholder="Найти ваш город..." autocomplete="off">
+                                                                </div>
+
+                                                                <div class="p-6 pt-4 overflow-y-auto max-h-[calc(100svh-170px)] sm:max-h-[80vh]">
+                                                                                <div class="grid grid-cols-1 md:grid-cols-3 gap-10" id="city-grid">
+                                                                                                <div data-city-group>
+                                                                                                                <ul class="space-y-3" id="city-options">
+                                                                                                                                <li><a href="#" class="text-gray-800 hover:text-primary" data-city-option="Москва">Москва</a></li>
+                                                                                                                                <li><a href="#" class="text-gray-800 hover:text-primary" data-city-option="Санкт-Петербург">Санкт-Петербург</a></li>
+                                                                                                                                <li class="h-px bg-gray-100 my-4"></li>
+                                                                                                                                <li><a href="#" class="text-gray-800 hover:text-primary" data-city-option="Новосибирск">Новосибирск</a></li>
+                                                                                                                                <li><a href="#" class="text-gray-800 hover:text-primary" data-city-option="Екатеринбург">Екатеринбург</a></li>
+                                                                                                                                <li><a href="#" class="text-gray-800 hover:text-primary" data-city-option="Уфа">Уфа</a></li>
+                                                                                                                                <li><a href="#" class="text-gray-800 hover:text-primary" data-city-option="Казань">Казань</a></li>
+                                                                                                                                <li><a href="#" class="text-gray-800 hover:text-primary" data-city-option="Нижний Новгород">Нижний Новгород</a></li>
+                                                                                                                                <li><a href="#" class="text-gray-800 hover:text-primary" data-city-option="Челябинск">Челябинск</a></li>
+                                                                                                                                <li><a href="#" class="text-gray-800 hover:text-primary" data-city-option="Красноярск">Красноярск</a></li>
+                                                                                                                                <li><a href="#" class="text-gray-800 hover:text-primary" data-city-option="Самара">Самара</a></li>
+                                                                                                                                <li><a href="#" class="text-gray-800 hover:text-primary" data-city-option="Ростов-на-Дону">Ростов-на-Дону</a></li>
+                                                                                                                                <li><a href="#" class="text-gray-800 hover:text-primary" data-city-option="Краснодар">Краснодар</a></li>
+                                                                                                                                <li><a href="#" class="text-gray-800 hover:text-primary" data-city-option="Омск">Омск</a></li>
+                                                                                                                                <li><a href="#" class="text-gray-800 hover:text-primary" data-city-option="Воронеж">Воронеж</a></li>
+                                                                                                                                <li><a href="#" class="text-gray-800 hover:text-primary" data-city-option="Пермь">Пермь</a></li>
+                                                                                                                                <li><a href="#" class="text-gray-800 hover:text-primary" data-city-option="Волгоград">Волгоград</a></li>
+                                                                                                                </ul>
+                                                                                                </div>
+
+                                                                                                <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+                                                                                                                <div data-city-group>
+                                                                                                                        <span class="text-3xl font-light text-gray-300 border-b border-gray-100 mb-2 block">А</span>
+                                                                                                                                <ul class="space-y-2">
+                                                                                                                                                <li><a href="#" class="text-gray-500 hover:text-primary" data-city-option="Абакан">Абакан</a></li>
+                                                                                                                                                <li><a href="#" class="text-gray-500 hover:text-primary" data-city-option="Анапа">Анапа</a></li>
+                                                                                                                                                <li><a href="#" class="text-gray-500 hover:text-primary" data-city-option="Архангельск">Архангельск</a></li>
+                                                                                                                                </ul>
+                                                                                                                </div>
+                                                                                                                <div data-city-group>
+                                                                                                                        <span class="text-3xl font-light text-gray-300 border-b border-gray-100 mb-2 block">Б</span>
+                                                                                                                                <ul class="space-y-2">
+                                                                                                                                                <li><a href="#" class="text-gray-500 hover:text-primary" data-city-option="Барнаул">Барнаул</a></li>
+                                                                                                                                                <li><a href="#" class="text-gray-500 hover:text-primary" data-city-option="Белгород">Белгород</a></li>
+                                                                                                                                </ul>
+                                                                                                                </div>
+                                                                                                </div>
+                                                                                </div>
+
+                                                                                <div id="city-no-results" class="hidden text-center py-16 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-100 mt-4">
+                                                                                                <p class="text-gray-500 font-bold text-lg">В этом городе пока нет нашей студии</p>
+                                                                                                <p class="text-gray-400 text-sm mt-2">Попробуйте выбрать ближайший к вам крупный город из списка миллионников.</p>
+                                                                                                <button type="button" data-city-reset class="mt-6 text-primary font-bold hover:underline">Показать все города</button>
+                                                                                </div>
+                                                                </div>
                                                         </div>
-                                                        <!-- Яндекс виджеты с телефонами -->
-                                                        <div class="pt-2">
-                                                                <a href="tel:+74954091869" class="block text-base font-medium text-white transition-colors">+7 495 409-18-69</a>
-                                                                <iframe src="https://yandex.ru/sprav/widget/rating-badge/82862448491?type=rating&theme=dark" width="150" height="50" frameborder="0"></iframe>
-                                                        </div>
-                                                        <div>
-                                                                <a href="tel:+78129848484" class="block text-base font-medium text-white transition-colors">+7 812 984-84-84</a>
-                                                                <iframe src="https://yandex.ru/sprav/widget/rating-badge/2855807336?type=rating&theme=dark" width="150" height="50" frameborder="0"></iframe>
-                                                        </div>
-                                                        <!-- Время работы -->
-                                                        <div class="pt-2">
-                                                                <p class="text-sm text-white">10:00 — 18:00</p>
-                                                                <p class="text-xs text-gray-400">Пн — Вс</p>
-                                                        </div>
-                                                </div>
-                                        </div>
-                                </div>
-                                <!-- Подвал: вариант со светлым текстом -->
-                                <div class="py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                                        <div class="text-sm text-gray-300">© 2015—2026 Muse · ИНН 782575923262 · ОГРНИП 316784700066112</div>
-                                        <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-300">
-                                                <a href="#" class="hover:text-white transition-colors">Политика конфиденциальности</a>
-                                                <a href="#" class="hover:text-white transition-colors">Оферта</a>
-                                                <a href="#" class="hover:text-white transition-colors">Карта сайта</a>
-                                        </div>
-                                </div>
-                        </div>
-                </footer>
-        </section>
+                                </dialog>
+                </el-dialog>
 
         <!-- ============================================
-             ФУТЕР ВАРИАНТ 2: Яндекс под брендом, телефоны в Связи
+             FOOTER
              ============================================ -->
-        <section class="mt-16">
-                <div class="bg-gray-200 text-center py-2 text-xs font-bold uppercase tracking-widest text-gray-600">
-                        Футер 2: Яндекс-виджеты под брендом · Телефоны в Связи (без голубого hover)
-                </div>
-                <footer class="bg-dark text-white">
-                        <div class="mx-auto max-w-[1170px] px-4">
+        <footer class="bg-dark text-white">
+                                                <div class="container">
                                 <!-- Основной контент -->
                                 <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 py-12">
                                         <!-- Логотип, описание и Яндекс -->
@@ -276,14 +239,14 @@
                                                 </svg>
                                                 <p class="text-sm text-gray-400 leading-relaxed mb-5">Студия Muse — портреты на заказ и печать на холсте. <br>Работаем по всей России с 2015 года.</p>
                                                 <!-- Яндекс виджеты -->
-                                                <div class="space-y-3 pt-3 border-t border-white/10">
+                                                        <div class="space-y-3 pt-3">
                                                         <div>
                                                                 <p class="text-xs text-gray-400 mb-1">Москва</p>
-                                                                <iframe src="https://yandex.ru/sprav/widget/rating-badge/82862448491?type=rating&theme=dark" width="150" height="50" frameborder="0"></iframe>
+                                                                <iframe src="https://yandex.ru/sprav/widget/rating-badge/82862448491?type=rating&theme=dark" width="150" height="50" frameborder="0" loading="lazy"></iframe>
                                                         </div>
                                                         <div>
                                                                 <p class="text-xs text-gray-400 mb-1">Санкт-Петербург</p>
-                                                                <iframe src="https://yandex.ru/sprav/widget/rating-badge/2855807336?type=rating&theme=dark" width="150" height="50" frameborder="0"></iframe>
+                                                                <iframe src="https://yandex.ru/sprav/widget/rating-badge/2855807336?type=rating&theme=dark" width="150" height="50" frameborder="0" loading="lazy"></iframe>
                                                         </div>
                                                 </div>
                                                 <!-- Соцсети -->
@@ -306,21 +269,21 @@
                                         <div>
                                                 <h4 class="text-xs font-bold uppercase tracking-widest text-white mb-6">Услуги</h4>
                                                 <nav class="flex flex-col gap-3">
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Портреты на заказ</a>
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Портрет маслом</a>
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Печать на холсте</a>
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Фото на холсте</a>
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Модульные картины</a>
+                                                                                                                <a href="https://muse.ooo/portret-na-zakaz/" class="text-sm text-gray-400 hover:text-white transition-colors">Портреты на заказ</a>
+                                                                                                                <a href="https://muse.ooo/portret-na-zakaz/portret-maslom/" class="text-sm text-gray-400 hover:text-white transition-colors">Портрет маслом</a>
+                                                                                                                <a href="https://muse.ooo/pechat/" class="text-sm text-gray-400 hover:text-white transition-colors">Печать на холсте</a>
+                                                                                                                <a href="https://muse.ooo/pechat/foto-na-kholste/" class="text-sm text-gray-400 hover:text-white transition-colors">Фото на холсте</a>
+                                                                                                                <a href="https://muse.ooo/pechat/modulnye-kartiny/" class="text-sm text-gray-400 hover:text-white transition-colors">Модульные картины</a>
                                                 </nav>
                                         </div>
                                         <!-- Информация -->
                                         <div>
                                                 <h4 class="text-xs font-bold uppercase tracking-widest text-white mb-6">Информация</h4>
                                                 <nav class="flex flex-col gap-3">
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Оферта</a>
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Политика конфиденциальности</a>
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Гарантия</a>
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Карта сайта</a>
+                                                                                                                <a href="https://muse.ooo/info/oferta/" class="text-sm text-gray-400 hover:text-white transition-colors">Публичная оферта</a>
+                                                                                                                <a href="https://muse.ooo/info/politika_konfidentsialnosti_sayta/" class="text-sm text-gray-400 hover:text-white transition-colors">Политика конфиденциальности</a>
+                                                                                                                <a href="https://muse.ooo/info/guarantee/" class="text-sm text-gray-400 hover:text-white transition-colors">Гарантия</a>
+                                                                                                                <a href="https://muse.ooo/karta-sayta/" class="text-sm text-gray-400 hover:text-white transition-colors">Карта сайта</a>
                                                         <span class="text-sm text-gray-400">ИНН 782575923262</span>
                                                         <span class="text-sm text-gray-400">ОГРНИП 316784700066112</span>
                                                 </nav>
@@ -338,7 +301,7 @@
                                                                 <p class="text-xs text-gray-400">Москва</p>
                                                         </div>
                                                         <div>
-                                                                <a href="tel:+78129848484" class="block text-base font-medium text-white transition-colors">+7 812 984-84-84</a>
+                                                                                                                <a href="tel:+78124081869" class="block text-base font-medium text-white transition-colors">+7 812 408-18-69</a>
                                                                 <p class="text-xs text-gray-400">Санкт-Петербург</p>
                                                         </div>
                                                         <!-- Время работы -->
@@ -350,139 +313,28 @@
                                         </div>
                                 </div>
                         </div>
-                        <!-- Подвал на отдельном более тёмном фоне -->
-                        <div class="bg-[#1a1a1a]">
-                                <div class="mx-auto max-w-[1170px] px-4 py-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                                                <!-- Подвал (канон: без отдельного цвета, только разделитель) -->
+                                                <div>
+                                                                <div class="container py-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                                         <div class="text-sm text-gray-400">© 2015—2026 Muse</div>
                                 </div>
                         </div>
-                </footer>
-        </section>
+        </footer>
 
-        <!-- ============================================
-             ФУТЕР ВАРИАНТ 3: Мой вариант — Телефон + Яндекс в строку
-             ============================================ -->
-        <section class="mt-16">
-                <div class="bg-gray-200 text-center py-2 text-xs font-bold uppercase tracking-widest text-gray-600">
-                        Футер 3: Телефон + Яндекс в одной строке · Соцсети под брендом
-                </div>
-                <footer class="bg-dark text-white">
-                        <div class="mx-auto max-w-[1170px] px-4">
-                                <!-- Основной контент -->
-                                <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 py-12">
-                                        <!-- Логотип, описание и соцсети -->
-                                        <div class="col-span-2 lg:col-span-1">
-                                                <svg class="h-6 w-auto fill-white mb-6 opacity-80" viewBox="0 0 1285 359" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M10 359l353 0-63-63-226 0-64 63zm364-10l0-285c-24 7-45 18-64 34l0 188 64 63zm-374-285l0 285 63-63 0-188c-19-16-40-27-63-34z"/>
-                                                        <path d="M300 0c-49 0-92 28-113 68-22-40-65-68-114-68-27 0-52 8-73 23 82 9 149 79 187 166 37-87 104-157 187-166-21-15-47-23-74-23z"/>
-                                                        <path d="M494 20c-11-11-27-18-45-17-16 1-26 8-32 17 36 0 60 19 77 48 17-29 41-48 78-48-7-9-17-16-33-17-17-1-33 6-45 17z"/>
-                                                </svg>
-                                                <p class="text-sm text-gray-400 leading-relaxed mb-5">Студия Muse — портреты на заказ и печать на холсте. <br>Работаем по всей России с 2015 года.</p>
-                                                <!-- Соцсети -->
-                                                <div class="flex items-center gap-2">
-                                                        <a href="https://t.me/Muse_ooo" target="_blank" rel="noopener nofollow" title="Telegram" class="w-9 h-9 flex items-center justify-center rounded-lg bg-white/10 hover:bg-white/20 transition-colors" aria-label="Telegram">
-                                                                <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-                                                        </a>
-                                                        <a href="https://vk.com/artwork.muse" target="_blank" rel="noopener nofollow" title="ВКонтакте" class="w-9 h-9 flex items-center justify-center rounded-lg bg-white/10 hover:bg-white/20 transition-colors" aria-label="ВКонтакте">
-                                                                <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744z"/></svg>
-                                                        </a>
-                                                        <a href="https://www.youtube.com/channel/UCTrgAxErjCIU3EbsHJEtSPw" target="_blank" rel="noopener nofollow" title="YouTube" class="w-9 h-9 flex items-center justify-center rounded-lg bg-white/10 hover:bg-white/20 transition-colors" aria-label="YouTube">
-                                                                <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                                                        </a>
-                                                        <a href="https://ru.pinterest.com/museooo/" target="_blank" rel="noopener nofollow" title="Pinterest" class="w-9 h-9 flex items-center justify-center rounded-lg bg-white/10 hover:bg-white/20 transition-colors" aria-label="Pinterest">
-                                                                <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/></svg>
-                                                        </a>
-                                                </div>
-                                        </div>
-                                        <!-- Услуги -->
-                                        <div>
-                                                <h4 class="text-xs font-bold uppercase tracking-widest text-white mb-6">Услуги</h4>
-                                                <nav class="flex flex-col gap-3">
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Портреты на заказ</a>
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Портрет маслом</a>
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Печать на холсте</a>
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Фото на холсте</a>
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Модульные картины</a>
-                                                </nav>
-                                        </div>
-                                        <!-- Информация -->
-                                        <div>
-                                                <h4 class="text-xs font-bold uppercase tracking-widest text-white mb-6">Информация</h4>
-                                                <nav class="flex flex-col gap-3">
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">О студии</a>
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Доставка</a>
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Оплата</a>
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Гарантия</a>
-                                                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">FAQ</a>
-                                                </nav>
-                                        </div>
-                                        <!-- Связь: Телефон + Яндекс в одной строке -->
-                                        <div>
-                                                <h4 class="text-xs font-bold uppercase tracking-widest text-white mb-6">Связь</h4>
-                                                <div class="space-y-4">
-                                                        <!-- 8 800 -->
-                                                        <div>
-                                                                <a href="tel:88007076921" class="block text-base font-medium text-white transition-colors">8 800 707-69-21</a>
-                                                                <p class="text-xs text-gray-400">Бесплатно по России</p>
-                                                        </div>
-                                                        <!-- Москва: телефон + Яндекс в строку -->
-                                                        <div class="flex items-center gap-3">
-                                                                <div class="flex-shrink-0">
-                                                                        <a href="tel:+74954091869" class="block text-base font-medium text-white transition-colors">+7 495 409-18-69</a>
-                                                                        <p class="text-xs text-gray-400">Москва</p>
-                                                                </div>
-                                                                <iframe src="https://yandex.ru/sprav/widget/rating-badge/82862448491?type=rating&theme=dark" width="150" height="50" frameborder="0" class="flex-shrink-0"></iframe>
-                                                        </div>
-                                                        <!-- СПб: телефон + Яндекс в строку -->
-                                                        <div class="flex items-center gap-3">
-                                                                <div class="flex-shrink-0">
-                                                                        <a href="tel:+78129848484" class="block text-base font-medium text-white transition-colors">+7 812 984-84-84</a>
-                                                                        <p class="text-xs text-gray-400">Санкт-Петербург</p>
-                                                                </div>
-                                                                <iframe src="https://yandex.ru/sprav/widget/rating-badge/2855807336?type=rating&theme=dark" width="150" height="50" frameborder="0" class="flex-shrink-0"></iframe>
-                                                        </div>
-                                                        <!-- Время работы -->
-                                                        <div class="pt-2">
-                                                                <p class="text-sm text-white">10:00 — 18:00</p>
-                                                                <p class="text-xs text-gray-400">Пн — Вс</p>
-                                                        </div>
-                                                </div>
-                                        </div>
-                                </div>
-                        </div>
-                        <!-- Подвал -->
-                        <div class="bg-[#1a1a1a]">
-                                <div class="mx-auto max-w-[1170px] px-4 py-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                                        <div class="text-sm text-gray-400">© 2015—2026 Muse · ИНН 782575923262 · ОГРНИП 316784700066112</div>
-                                        <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-400">
-                                                <a href="#" class="hover:text-white transition-colors">Политика конфиденциальности</a>
-                                                <a href="#" class="hover:text-white transition-colors">Оферта</a>
-                                                <a href="#" class="hover:text-white transition-colors">Карта сайта</a>
-                                        </div>
-                                </div>
-                        </div>
-                </footer>
-        </section>
+        
 
 
 
 
-
-        <div class="py-20"></div>
+     
 
        
 
 
-        <script>
-            // Simple Mobile Menu Toggle Script for Demo
-            // Note: This is just for visualization in the static file
-            document.querySelectorAll('button').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    // Logic to show/hide menu would go here
-                    console.log('Clicked', e.currentTarget);
-                });
-            });
-        </script>
+                                                <script type="module" src="../js/tailwindplus-elements.js"></script>
+                                                <script defer src="../js/nav.js"></script>
+                                                <script defer src="../js/city.js"></script>
+                                                <script defer src="../js/mobile-menu-swipe.js"></script>
 </body>
 
 </html>
