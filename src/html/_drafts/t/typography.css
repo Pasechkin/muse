@@ -1,0 +1,430 @@
+/*
+ * TYPOGRAPHY SYSTEM для сайта Muse
+ * 
+ * Этот файл содержит централизованную систему типографики.
+ * Подключите его ОДИН раз в <head> всех страниц, и все изменения
+ * будут применяться автоматически ко всем 55 страницам.
+ * 
+ * Использование:
+ * <link rel="stylesheet" href="/css/typography.css">
+ */
+
+/* ============================================
+   1. ТИПОГРАФИЧЕСКИЕ ТОКЕНЫ (ПЕРЕМЕННЫЕ)
+   ============================================ */
+
+:root {
+  /* Размеры текста - используем существующие Tailwind переменные */
+  --type-xs: var(--text-xs, 0.75rem);      /* 12px */
+  --type-sm: var(--text-sm, 0.875rem);     /* 14px */
+  --type-base: var(--text-base, 1rem);     /* 16px */
+  --type-lg: var(--text-lg, 1.125rem);     /* 18px */
+  --type-xl: var(--text-xl, 1.25rem);      /* 20px */
+  --type-2xl: var(--text-2xl, 1.5rem);     /* 24px */
+  --type-3xl: var(--text-3xl, 1.875rem);   /* 30px */
+  --type-4xl: var(--text-4xl, 2.25rem);    /* 36px */
+  
+  /* Начертания */
+  --weight-light: var(--font-weight-light, 300);
+  --weight-normal: var(--font-weight-normal, 400);
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  
+  /* Межбуквенное расстояние */
+  --track-tight: -0.025em;
+  --track-normal: 0em;
+  --track-wide: 0.025em;
+  --track-wider: 0.05em;
+  --track-widest: 0.1em;
+  
+  /* Межстрочное расстояние */
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 1.75;
+  
+  /* Цвета (синхронизированы с текущей темой) */
+  --color-text-primary: var(--color-dark, #262626);
+  --color-text-secondary: var(--color-body, #525252);
+  --color-text-muted: color-mix(in srgb, var(--color-body, #525252) 80%, #ffffff 20%);
+  --color-text-light: color-mix(in srgb, var(--color-body, #525252) 60%, #ffffff 40%);
+  --color-text-on-dark: rgba(255, 255, 255, 0.75);
+  --color-text-on-dark-muted: rgba(255, 255, 255, 0.7);
+  --color-text-on-dark-hover: rgba(255, 255, 255, 1);
+}
+
+
+/* ============================================
+   2. БАЗОВАЯ ТИПОГРАФИКА
+   ============================================ */
+
+body {
+  font-family: var(--font-sans, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, 
+               "Helvetica Neue", Arial, "Noto Sans", sans-serif);
+  font-size: var(--type-base);
+  line-height: var(--leading-normal);
+  font-weight: var(--weight-normal);
+  color: var(--color-text-primary);
+}
+
+
+/* ============================================
+   3. ЗАГОЛОВКИ (СЕМАНТИЧЕСКИЕ КЛАССЫ)
+   ============================================ */
+
+/* Главный героический заголовок */
+.heading-hero {
+  font-size: var(--type-4xl);
+  font-weight: var(--weight-light);
+  line-height: 1.1;
+  color: var(--color-text-primary);
+}
+
+@media (min-width: 1024px) {
+  .heading-hero {
+    font-size: var(--type-4xl);
+  }
+}
+
+/* Заголовок крупной секции */
+.heading-section {
+  font-size: var(--type-3xl);
+  font-weight: var(--weight-light);
+  line-height: 1.2;
+  color: var(--color-text-primary);
+}
+
+@media (min-width: 1024px) {
+  .heading-section {
+    font-size: var(--type-4xl);
+  }
+}
+
+/* Заголовок средней секции */
+.heading-subsection {
+  font-size: var(--type-2xl);
+  font-weight: var(--weight-light);
+  line-height: 1.3;
+  color: var(--color-text-primary);
+}
+
+/* Заголовок карточки или блока */
+.heading-card {
+  font-size: var(--type-xl);
+  font-weight: var(--weight-medium);
+  line-height: 1.4;
+  color: var(--color-text-primary);
+}
+
+/* Подзаголовок */
+.heading-minor {
+  font-size: var(--type-lg);
+  font-weight: var(--weight-medium);
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+}
+
+
+/* ============================================
+   4. ТЕКСТОВЫЕ БЛОКИ
+   ============================================ */
+
+/* Основной текст */
+.text-body {
+  font-size: var(--type-base);
+  line-height: var(--leading-normal);
+  color: var(--color-text-secondary);
+}
+
+/* Крупный лид-текст */
+.text-lead {
+  font-size: var(--type-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+}
+
+.text-lead-xl {
+  font-size: var(--type-xl);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+}
+
+/* Мелкий вспомогательный текст */
+.text-small {
+  font-size: var(--type-sm);
+  line-height: var(--leading-normal);
+  color: var(--color-text-muted);
+}
+
+/* Очень мелкий текст (лейблы, метки) */
+.text-tiny {
+  font-size: var(--type-xs);
+  line-height: var(--leading-normal);
+  color: var(--color-text-light);
+}
+
+/* Длинные текстовые блоки (статьи, описания) */
+.prose {
+  font-size: var(--type-base);
+  line-height: var(--leading-loose);
+  color: var(--color-text-secondary);
+  max-width: 65ch; /* Оптимальная ширина для чтения */
+}
+
+.prose p {
+  margin-bottom: 1.25em;
+}
+
+.prose h2 {
+  margin-top: 2em;
+  margin-bottom: 0.75em;
+  font-size: var(--type-2xl);
+  font-weight: var(--weight-medium);
+}
+
+.prose h3 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-size: var(--type-xl);
+  font-weight: var(--weight-medium);
+}
+
+
+/* ============================================
+   5. НАВИГАЦИЯ
+   ============================================ */
+
+/* Основная навигация в шапке */
+.nav-link {
+  font-size: var(--type-xs);
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--track-wider);
+  color: var(--color-text-on-dark);
+  transition: color 150ms ease;
+}
+
+.nav-link:hover {
+  color: var(--color-text-on-dark-hover);
+}
+
+/* Навигация в мобильном меню */
+.nav-link-mobile {
+  font-size: var(--type-lg);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-on-dark-hover);
+  transition: color 150ms ease;
+}
+
+.nav-link-mobile:hover {
+  color: var(--color-text-on-dark);
+}
+
+/* Вторичная навигация (футер, хлебные крошки) */
+.nav-link-secondary {
+  font-size: var(--type-sm);
+  font-weight: var(--weight-normal);
+  color: var(--color-text-muted);
+  transition: color 150ms ease;
+}
+
+.nav-link-secondary:hover {
+  color: var(--color-text-primary);
+}
+
+
+/* ============================================
+   6. КНОПКИ
+   ============================================ */
+
+/* Основная кнопка призыва к действию */
+.btn-primary {
+  font-size: var(--type-sm);
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--track-widest);
+  transition: all 150ms ease;
+}
+
+/* Вторичная кнопка */
+.btn-secondary {
+  font-size: var(--type-sm);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--track-normal);
+  transition: all 150ms ease;
+}
+
+/* Крупная кнопка */
+.btn-large {
+  font-size: var(--type-base);
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--track-widest);
+  transition: all 150ms ease;
+}
+
+
+/* ============================================
+   7. СПЕЦИАЛЬНЫЕ ЭЛЕМЕНТЫ
+   ============================================ */
+
+/* Номер телефона */
+.phone-number {
+  font-size: var(--type-sm);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+}
+
+/* Цена */
+.price {
+  font-size: var(--type-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-primary, #0369a1);
+}
+
+.price-small {
+  font-size: var(--type-xl);
+  font-weight: var(--weight-semibold);
+  color: var(--color-primary, #0369a1);
+}
+
+/* Бейдж/лейбл */
+.badge {
+  font-size: var(--type-xs);
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--track-widest);
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.375rem;
+}
+
+/* Метка категории */
+.category-label {
+  font-size: var(--type-xs);
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--track-wider);
+  color: var(--color-text-light);
+}
+
+/* Буквенный разделитель (А, Б, В в списке городов) */
+.letter-divider {
+  font-size: var(--type-3xl);
+  font-weight: var(--weight-light);
+  color: var(--color-text-light);
+}
+
+
+/* ============================================
+   8. УТИЛИТЫ ДЛЯ МОДИФИКАЦИИ
+   ============================================ */
+
+/* Жирность */
+.type-light { font-weight: var(--weight-light); }
+.type-normal { font-weight: var(--weight-normal); }
+.type-medium { font-weight: var(--weight-medium); }
+.type-semibold { font-weight: var(--weight-semibold); }
+.type-bold { font-weight: var(--weight-bold); }
+
+/* Кернинг */
+.type-tight { letter-spacing: var(--track-tight); }
+.type-wide { letter-spacing: var(--track-wide); }
+.type-wider { letter-spacing: var(--track-wider); }
+.type-widest { letter-spacing: var(--track-widest); }
+
+/* Межстрочное расстояние */
+.type-leading-tight { line-height: var(--leading-tight); }
+.type-leading-normal { line-height: var(--leading-normal); }
+.type-leading-relaxed { line-height: var(--leading-relaxed); }
+.type-leading-loose { line-height: var(--leading-loose); }
+
+/* Цвет текста */
+.type-primary { color: var(--color-text-primary); }
+.type-secondary { color: var(--color-text-secondary); }
+.type-muted { color: var(--color-text-muted); }
+.type-light { color: var(--color-text-light); }
+
+
+/* ============================================
+   9. АДАПТИВНОСТЬ
+   ============================================ */
+
+/* Автоматическое масштабирование заголовков на мобильных */
+@media (max-width: 640px) {
+  .heading-hero {
+    font-size: var(--type-3xl);
+  }
+  
+  .heading-section {
+    font-size: var(--type-2xl);
+  }
+  
+  .heading-subsection {
+    font-size: var(--type-xl);
+  }
+}
+
+
+/* ============================================
+   10. ТЕМНАЯ ТЕМА (опционально)
+   ============================================ */
+
+.dark .heading-hero,
+.dark .heading-section,
+.dark .heading-subsection,
+.dark .heading-card {
+  color: white;
+}
+
+.dark .text-body,
+.dark .text-lead,
+.dark .prose {
+  color: var(--color-text-on-dark);
+}
+
+.dark .text-small,
+.dark .text-tiny {
+  color: var(--color-text-on-dark-muted);
+}
+
+
+/* ============================================
+   11. ПРИМЕРЫ МИГРАЦИИ
+   ============================================ */
+
+/*
+  СТАРЫЙ КОД (Tailwind):
+  <h1 class="text-4xl lg:text-5xl font-light text-gray-900">
+    Создай своё произведение искусства
+  </h1>
+
+  НОВЫЙ КОД (Семантический):
+  <h1 class="heading-hero">
+    Создай своё произведение искусства
+  </h1>
+
+  ───────────────────────────────────────
+
+  СТАРЫЙ КОД:
+  <a href="#" class="text-xs font-bold uppercase tracking-wider text-gray-300 hover:text-white">
+    Портреты
+  </a>
+
+  НОВЫЙ КОД:
+  <a href="#" class="nav-link">
+    Портреты
+  </a>
+
+  ───────────────────────────────────────
+
+  СТАРЫЙ КОД:
+  <button class="bg-primary text-white px-8 py-4 rounded-lg text-sm font-bold uppercase tracking-widest">
+    Заказать
+  </button>
+
+  НОВЫЙ КОД:
+  <button class="btn-primary bg-primary text-white px-8 py-4 rounded-lg">
+    Заказать
+  </button>
+*/

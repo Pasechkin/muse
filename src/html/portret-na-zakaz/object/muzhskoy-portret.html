@@ -71,11 +71,11 @@
     <style>
         /* CSS переменные */
         :root {
-            --primary: #4A90E2;
-            --primary-hover: #609DE6;
-            --dark: #252525;
-            --body: #666666;
-            --secondary: #FAFAFA;
+            --primary: #2f6ea8;
+            --primary-hover: #275d8f;
+            --dark: #262626;
+            --body: #525252;
+            --secondary: #fafafa;
         }
         
         /* Body */
@@ -95,8 +95,8 @@
 </head>
 <body class="bg-white overflow-x-hidden">
     <!-- Back to Top Button -->
-    <a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-white text-dark hover:bg-dark hover:text-white border border-gray-300 hover:border-dark transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
+    <a href="#" id="back-to-top" class="ui-control ui-control--lg fixed bottom-5 right-5 z-50 opacity-0 pointer-events-none hidden md:flex" aria-label="Наверх">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
     </a>
@@ -117,7 +117,7 @@
 
     <main>
         <!-- Первый экран (Hero) с Ken Burns эффектом -->
-        <section class="relative h-[70vh] overflow-hidden flex items-center">
+        <section class="relative h-[70vh] overflow-hidden flex items-center bg-dark">
             <!-- Background Image + Animation (не грузится на мобильных) -->
             <div class="absolute inset-0 z-0 bg-black">
                 <picture>
@@ -145,9 +145,9 @@
                 <div class="absolute inset-0 bg-black/40"></div>
             </div>
             
-            <div class="container h-full flex items-center relative z-10 text-white">
+            <div class="container h-full flex items-center relative z-10">
                 <div class="max-w-3xl">
-                    <nav class="text-sm text-gray-400 mb-4" aria-label="Breadcrumb">
+                    <nav class="text-small text-gray-400 mb-4" aria-label="Breadcrumb">
                         <ol class="flex list-none p-0">
                             <li class="flex items-center">
                                 <a href="https://muse.ooo/" class="hover:underline">Главная</a>
@@ -161,12 +161,12 @@
                         </ol>
                     </nav>
                     
-                    <h1 class="text-4xl lg:text-6xl font-light mb-6">Мужской портрет</h1>
-                    <p class="text-xl lg:text-2xl font-light mb-8 text-gray-200">
+                    <h1 class="heading-hero mb-6">Мужской портрет</h1>
+                    <p class="text-lead-xl mb-8">
                         Художник нарисует для Вас портрет мужчины и напечатает его на холсте. Посмотрите примеры, выберите стиль и пришлите фото
                     </p>
                     
-                    <a href="https://muse.ooo/order/" class="btn-primary btn-lg">
+                    <a href="https://muse.ooo/order/" class="btn-primary">
                         Заказать
                     </a>
                 </div>
@@ -174,10 +174,10 @@
         </section>
 
         <!-- Promo Banner (1:1 как в эталоне). Порядок блока — как на старой странице -->
-        <section class="bg-primary text-white py-6">
+        <section class="promo-section">
             <div class="container">
                 <div class="flex items-center justify-center">
-                    <p class="text-xl">Скидка 20% с 3 по 4 января</p>
+                    <p class="text-lead">Скидка 20% с 3 по 4 января</p>
                 </div>
             </div>
         </section>
@@ -186,8 +186,8 @@
         <section class="bg-dark py-16 lg:py-20" id="stili-portretov">
             <div class="container mb-8">
                 <div class="text-center">
-                    <h2 class="text-3xl lg:text-4xl font-light text-white mb-4">Выберите свой стиль</h2>
-                    <p class="text-base lg:text-lg text-gray-300 mb-8">Чтобы рассчитать стоимость, узнать о характеристиках и сроках исполнения, пожалуйста перейдите на подробную страницу стиля по ссылке «Цена». Перейти на страницу стиля можно и из раздела «Портфолио» кликнув по понравившемуся портрету. Он откроется в большом размере, и ссылка «Цена» там тоже будет.</p>
+                    <h2 class="heading-section mb-4">Выберите свой стиль</h2>
+                    <p class="text-body-lg mb-8">Чтобы рассчитать стоимость, узнать о характеристиках и сроках исполнения, пожалуйста перейдите на подробную страницу стиля по ссылке «Цена». Перейти на страницу стиля можно и из раздела «Портфолио» кликнув по понравившемуся портрету. Он откроется в большом размере, и ссылка «Цена» там тоже будет.</p>
                 </div>
             </div>
 
@@ -197,97 +197,97 @@
                     <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/portret-akvarelyu/#calc">
                             <img title="Акварель" height="305" width="223" alt="Портрет молодого человека с бородой в акварельном стиле" class="rounded" src="https://muse.ooo/upload/img/o-watercolor-23-223.webp" decoding="async" loading="lazy">
-                            <p class="mt-2 text-white">Акварель</p>
+                            <p class="mt-2">Акварель</p>
                         </a>
                     </div>
                     <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/portret-maslom/#calc">
                             <img title="Масло" height="297" width="223" alt="Портрет военного под масло в технике сухая кисть" class="rounded" src="https://muse.ooo/upload/img/o-oil-painting-140319-223.webp" decoding="async" loading="lazy">
-                            <p class="mt-2 text-white">Маслом</p>
+                            <p class="mt-2">Маслом</p>
                         </a>
                     </div>
                     <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/portret-karandashom/#calc">
                             <img title="Карандаш" height="297" width="223" alt="Портрет Брайана Крэнстона под карандашную графику, художник Антонина" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/o-pencil-11-223.webp">
-                            <p class="mt-2 text-white">Карандаш</p>
+                            <p class="mt-2">Карандаш</p>
                         </a>
                     </div>
                     <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/sharzh-po-foto/#calc">
                             <img title="Шарж" height="223" width="223" alt="Шарж по фото мужчины на рынке" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/sharzh-po-foto-29102019-1-223.webp">
-                            <p class="mt-2 text-white">Шарж</p>
+                            <p class="mt-2">Шарж</p>
                         </a>
                     </div>
                     <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/portret-v-obraze/#calc">
                             <img title="В образе" height="268" width="223" alt="Портрет мужчины в образе военного на основе фотомонтажа в известную картину" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/v-obraze-portret-280519-223.webp">
-                            <p class="mt-2 text-white">В образе</p>
+                            <p class="mt-2">В образе</p>
                         </a>
                     </div>
                     <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/portret-komiks/#calc">
                             <img title="Комикс" height="271" width="223" alt="Портрет молодого человека в образе человека-паука" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/komiks-portret-1119-223.webp">
-                            <p class="mt-2 text-white">Комикс</p>
+                            <p class="mt-2">Комикс</p>
                         </a>
                     </div>
                     <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/portret-iz-slov/#calc">
                             <img title="Портрет из слов" height="335" width="223" alt="Нарисованный портрет из слов мужчины с наградой от Lexus" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/iz-slov-portret-200919-223_1.webp">
-                            <p class="mt-2 text-white">Из слов</p>
+                            <p class="mt-2">Из слов</p>
                         </a>
                     </div>
                     <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/fotomozaika/#calc">
                             <img title="Фотомозаика" height="315" width="223" alt="Фотомозаика из маленьких автомобилей молодого человека" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/fotomozaika-1119-223.webp">
-                            <p class="mt-2 text-white">Фотомозаика</p>
+                            <p class="mt-2">Фотомозаика</p>
                         </a>
                     </div>
                     <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/fantasy-art-portret/#calc">
                             <img title="Фэнтеэи" height="279" width="223" alt="Портрет мужчины в стиле Fantasy Art по фильму Игра Престолов" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/v-obraze-portret-50819-223.webp">
-                            <p class="mt-2 text-white">Фэнтези</p>
+                            <p class="mt-2">Фэнтези</p>
                         </a>
                     </div>
                     <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/low-poly-portret/#calc">
                             <img title="Лоу-поли" height="335" width="223" alt="Портрет Алексея Пожитнова, изобретшего Тетрис в стиле Low poly" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/o-low-poly-2-223.webp">
-                            <p class="mt-2 text-white">Лоу-поли</p>
+                            <p class="mt-2">Лоу-поли</p>
                         </a>
                     </div>
                     <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/graffiti-portret/#calc">
                             <img title="Граффити" height="335" width="223" alt="Портрет в стиле Граффити диджея" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/o-graffiti-dj-223.webp">
-                            <p class="mt-2 text-white">Граффити</p>
+                            <p class="mt-2">Граффити</p>
                         </a>
                     </div>
                     <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/beauty-art-portret/#calc">
                             <img title="Бьюти-арт" height="237" width="223" alt="Портрет мужчины в стиле бьюти-арт" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/beauty-art-12-223.webp">
-                            <p class="mt-2 text-white">Бьюти-арт</p>
+                            <p class="mt-2">Бьюти-арт</p>
                         </a>
                     </div>
                     <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/granzh-portret/#calc">
                             <img title="Гранж" height="266" width="223" alt="Портрет Курта Кобейна в стиле Гранж" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/o-grunge-223-kurt.webp">
-                            <p class="mt-2 text-white">Гранж</p>
+                            <p class="mt-2">Гранж</p>
                         </a>
                     </div>
                     <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/wpap-portret/#calc">
                             <img title="WPAP" height="285" width="223" alt="Портрет пожилого мужчины с бородой в стиле WPAP" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/wpap-portret-11119-223.webp">
-                            <p class="mt-2 text-white">WPAP</p>
+                            <p class="mt-2">WPAP</p>
                         </a>
                     </div>
                     <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/pop-art-portret/#calc">
                             <img title="Поп-арт" height="297" width="223" alt="Поп-арт портрет мужчины с бородой и в очках в стиле Че" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/o-pop-art-t-2-223.webp">
-                            <p class="mt-2 text-white">Поп-арт</p>
+                            <p class="mt-2">Поп-арт</p>
                         </a>
                     </div>
                     <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/drim-art-portret/#calc">
                             <img title="Дрим-Арт" height="312" width="223" alt="Портрет мужчины в стиле Дрим-Арт" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/img/o-dream-art-13-223.webp">
-                            <p class="mt-2 text-white">Дрим-арт</p>
+                            <p class="mt-2">Дрим-арт</p>
                         </a>
                     </div>
                 </div>
@@ -297,13 +297,13 @@
 		 <!-- Примеры (заглушка для Bitrix) -->
         <section class="bg-dark py-16 lg:py-20" id="primery-portretov">
             <div class="container">
-                <h2 class="text-3xl lg:text-4xl font-light text-white text-center mb-8">Портфолио</h2>
-                <p class="text-center text-gray-300 mb-8">Портреты по фото</p>
+                <h2 class="heading-section text-center mb-8">Портфолио</h2>
+                <p class="text-center mb-8">Портреты по фото</p>
                 
                 <!-- Галерея из Bitrix будет здесь -->
-                <div class="text-center text-gray-400 py-12 border-2 border-dashed border-gray-600 rounded-lg">
-                    <p class="text-lg mb-2">Галерея примеров</p>
-                    <p class="text-sm">Будет загружена из Bitrix</p>
+                <div class="text-center py-12 border-2 border-dashed border-gray-600 rounded-lg">
+                    <p class="heading-card mb-2">Галерея примеров</p>
+                    <p class="text-small">Будет загружена из Bitrix</p>
                 </div>
                 
                 <div class="text-center mt-8">
@@ -317,10 +317,10 @@
         <!-- Цена (Калькулятор - placeholder) -->
         <section class="py-16 lg:py-20" id="calc">
             <div class="container">
-                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">Цена</h2>
-                <div class="text-center text-body">
+                <h2 class="heading-section text-center mb-8">Цена</h2>
+                <div class="text-center">
                     <p><!-- Здесь будет калькулятор Bitrix --></p>
-                    <p class="text-sm text-gray-500 mt-4">Калькулятор будет добавлен при интеграции с Bitrix</p>
+                    <p class="text-small mt-4">Калькулятор будет добавлен при интеграции с Bitrix</p>
                 </div>
             </div>
         </section>
@@ -328,11 +328,11 @@
          <!-- Отзывы -->
         <section class="bg-secondary py-16 lg:py-20" id="review">
             <div class="container">
-                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">Отзывы</h2>
+                <h2 class="heading-section text-center mb-8">Отзывы</h2>
                 
                 <!-- Заглушка для отзывов из Bitrix -->
-                <div class="text-center text-gray-500 py-8 mb-8">
-                    <p class="text-sm">Отзывы будут загружены из Bitrix</p>
+                <div class="text-center py-8 mb-8">
+                    <p class="text-small">Отзывы будут загружены из Bitrix</p>
                 </div>
                 
                 <!-- Кнопка "Оставить отзыв" -->
@@ -370,3 +370,13 @@
     
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+

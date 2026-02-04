@@ -13,11 +13,11 @@
     <!-- Критический CSS -->
         <style>
        :root {
-    --primary: #4A90E2;
-    --primary-hover: #609DE6;
-    --dark: #252525;
-    --body: #666666;
-    --secondary: #FAFAFA;
+    --primary: #2f6ea8;
+    --primary-hover: #275d8f;
+    --dark: #262626;
+    --body: #525252;
+    --secondary: #fafafa;
 }
 
 body {
@@ -97,15 +97,10 @@ body {
     </script>
 <link rel="stylesheet" href="../../css/output.css">
 </head>
-<body class="bg-white overflow-x-hidden">
+<body class="bg-white overflow-x-hidden style-portraits">
     <!-- Back to Top Button -->
-    <a href="#" id="back-to-top" 
-       class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center 
-              rounded-full bg-white text-dark hover:bg-dark hover:text-white 
-              border border-gray-300 hover:border-dark transition-colors 
-              z-50 opacity-0 pointer-events-none" 
-       aria-label="Наверх">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
+    <a href="#" id="back-to-top" class="ui-control ui-control--lg fixed bottom-5 right-5 z-50 opacity-0 pointer-events-none hidden md:flex" aria-label="Наверх">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
     </a>
@@ -131,8 +126,8 @@ body {
             <div class="container">
                 <div class="grid lg:grid-cols-2 gap-8 items-center">
                     <!-- Текстовый блок -->
-                    <div class="text-white">
-                        <nav class="text-sm text-gray-400 mb-4" aria-label="Breadcrumb">
+                    <div>
+                        <nav class="text-small text-gray-400 mb-4" aria-label="Breadcrumb">
                             <ol class="flex list-none p-0">
                                 <li class="flex items-center">
                                     <a href="https://muse.ooo/" class="hover:underline">Главная</a>
@@ -146,13 +141,13 @@ body {
                             </ol>
                         </nav>
                         
-                        <h1 class="text-4xl lg:text-6xl font-light mb-4">Портрет в стиле комикс</h1>
-                        <p class="text-sm mt-2 mb-4 text-gray-300">Захватывающий, интересный, красочный</p>
-                        <p class="text-lg lg:text-xl mb-6 text-gray-200">Художник нарисует для Вас портрет в стиле комикс. Напечатает на холсте. Посмотрите примеры, пришлите фотографию и свои пожелания</p>
+                        <h1 class="heading-hero mb-4">Портрет в стиле комикс</h1>
+                        <p class="text-small mt-2 mb-4 text-gray-300">Захватывающий, интересный, красочный</p>
+                        <p class="text-lead mb-6">Художник нарисует для Вас портрет в стиле комикс. Напечатает на холсте. Посмотрите примеры, пришлите фотографию и свои пожелания</p>
                         
-                        <p class="text-lg lg:text-xl mb-6 text-gray-200">От 4311 руб. Под заказ.</p>
+                        <p class="text-lead mb-6">От 4311 руб. Под заказ.</p>
                         
-                        <a href="https://muse.ooo/order/" class="btn-primary btn-lg">
+                        <a href="https://muse.ooo/order/" class="btn-primary">
                             Заказать
                         </a>
                     </div>
@@ -164,7 +159,7 @@ body {
                             alt="Портрет мужчины в стиле Комикс"
                             width="458"
                             height="641"
-                            class="w-full max-w-md mx-auto lg:ml-auto rounded-lg shadow-2xl"
+                            class="w-full max-w-md mx-auto lg:ml-auto hero-media-image shadow-2xl"
                             loading="eager" decoding="async" fetchpriority="high"
                         >
                     </div>
@@ -175,13 +170,13 @@ body {
         <!-- Примеры (заглушка для Bitrix) -->
         <section class="bg-dark py-16 lg:py-20" id="primery">
             <div class="container">
-                <h2 class="text-3xl lg:text-4xl font-light text-white text-center mb-8">Примеры</h2>
-                <p class="text-center text-gray-300 mb-8">Комиксы</p>
+                <h2 class="heading-section text-center mb-8">Примеры</h2>
+                <p class="text-center mb-8">Комиксы</p>
                 
                 <!-- Галерея из Bitrix будет здесь -->
-                <div class="text-center text-gray-400 py-12 border-2 border-dashed border-gray-600 rounded-lg">
-                    <p class="text-lg mb-2">Галерея примеров</p>
-                    <p class="text-sm">Будет загружена из Bitrix</p>
+                <div class="text-center py-12 border-2 border-dashed border-gray-600 rounded-lg">
+                    <p class="heading-card mb-2">Галерея примеров</p>
+                    <p class="text-small">Будет загружена из Bitrix</p>
                 </div>
                 
                 <div class="text-center mt-8">
@@ -193,10 +188,10 @@ body {
         </section>
 
         <!-- Promo Banner -->
-        <section class="bg-primary text-white py-6">
+        <section class="promo-section">
             <div class="container">
                 <div class="flex items-center justify-center">
-                    <p class="text-xl">Скидка 20% с 3 по 4 января</p>
+                    <p class="text-lead">Скидка 20% с 3 по 4 января</p>
                 </div>
             </div>
         </section>
@@ -204,12 +199,12 @@ body {
         <!-- Цена (заглушка для калькулятора Bitrix) -->
         <section class="py-16 lg:py-20" id="calc">
             <div class="container">
-                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">Цена</h2>
+                <h2 class="heading-section text-center mb-8">Цена</h2>
                 
                 <!-- Калькулятор из Bitrix будет здесь -->
-                <div class="text-center text-gray-500 py-12 border-2 border-dashed border-gray-300 rounded-lg">
-                    <p class="text-lg mb-2">Калькулятор</p>
-                    <p class="text-sm">Будет загружен из Bitrix</p>
+                <div class="text-center py-12 border-2 border-dashed border-gray-300 rounded-lg">
+                    <p class="heading-card mb-2">Калькулятор</p>
+                    <p class="text-small">Будет загружен из Bitrix</p>
                 </div>
             </div>
         </section>
@@ -218,7 +213,7 @@ body {
         <section class="py-16 lg:py-24" id="kak-zakazat">
             <div class="container mb-8">
                 <div class="text-center">
-                    <h2 class="text-3xl lg:text-4xl font-light text-dark">Как заказать</h2>
+                    <h2 class="heading-section">Как заказать</h2>
                 </div>
             </div>
             <div class="container">
@@ -246,10 +241,10 @@ body {
                         <!-- Шаг 1 -->
                         <div class="process-step flex gap-4">
                             <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                                <span class="text-xl font-bold text-primary">1</span>
+                                <span class="text-lead font-bold text-primary">1</span>
                             </div>
                             <div>
-                                <h3 class="text-xl font-medium text-dark mb-2">Заказ</h3>
+                                <h3 class="heading-card mb-2">Заказ</h3>
                                 <p class="text-body">
                                     В разделе <a class="text-primary underline hover:no-underline" href="#calc">«Цена» ↑</a> можно загрузить фото, подобрать нужный размер, рассчитать стоимость портрета и оформить заказ.<br><br>
                                     Нет времени разбираться? Нажмите любую кнопку <a href="https://muse.ooo/order/" class="text-primary underline hover:no-underline">«Заказать» ↗</a> на сайте и перешлите нам фото. Перезвоним и поможем с выбором.
@@ -260,10 +255,10 @@ body {
                         <!-- Шаг 2 -->
                         <div class="process-step flex gap-4">
                             <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                                <span class="text-xl font-bold text-primary">2</span>
+                                <span class="text-lead font-bold text-primary">2</span>
                             </div>
                             <div>
-                                <h3 class="text-xl font-medium text-dark mb-2">Цифровой портрет</h3>
+                                <h3 class="heading-card mb-2">Цифровой портрет</h3>
                                 <p class="text-body">
                                     В течение часа перезвоним Вам, чтобы обсудить задание. По согласованному заданию выполним эскиз. После подтверждения эскиза нарисуем портрет. Вносите правки до тех пор, пока не будете полностью удовлетворены работой.<br><br>
                                     Срок создания цифрового портрета — <span>3 января</span>.
@@ -274,10 +269,10 @@ body {
                         <!-- Шаг 3 -->
                         <div class="process-step flex gap-4">
                             <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                                <span class="text-xl font-bold text-primary">3</span>
+                                <span class="text-lead font-bold text-primary">3</span>
                             </div>
                             <div>
-                                <h3 class="text-xl font-medium text-dark mb-2">Печать и оформление портрета на холсте</h3>
+                                <h3 class="heading-card mb-2">Печать и оформление портрета на холсте</h3>
                                 <p class="text-body">
                                     Только после Вашего окончательного подтверждения цифрового портрета картина в стиле «Комикс» будет напечатана на холсте, оформлена и передана в службу доставки.
                                 </p>
@@ -287,10 +282,10 @@ body {
                         <!-- Шаг 4 -->
                         <div class="process-step flex gap-4">
                             <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                                <span class="text-xl font-bold text-primary">4</span>
+                                <span class="text-lead font-bold text-primary">4</span>
                             </div>
                             <div>
-                                <h3 class="text-xl font-medium text-dark mb-2">Доставка</h3>
+                                <h3 class="heading-card mb-2">Доставка</h3>
                                 <p class="text-body">
                                     Ориентировочная дата доставки в пункты выдачи Санкт-Петербурга — <span>6 января</span>.<br>
                                     Пункты выдачи смотрите в разделе <a href="https://muse.ooo/info/dostavka/" class="text-primary underline hover:no-underline">Доставка ↗</a>. По согласованию можно вызвать курьера.
@@ -301,10 +296,10 @@ body {
                         <!-- Шаг 5 -->
                         <div class="process-step flex gap-4">
                             <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                                <span class="text-xl font-bold text-primary">5</span>
+                                <span class="text-lead font-bold text-primary">5</span>
                             </div>
                             <div>
-                                <h3 class="text-xl font-medium text-dark mb-2">Оплата</h3>
+                                <h3 class="heading-card mb-2">Оплата</h3>
                                 <p class="text-body">
                                     Услуги по печати и оформлению портрета на холсте оплачиваются при получении. Работа художника по созданию цифрового портрета — после подтверждения эскиза.
                                 </p>
@@ -318,7 +313,7 @@ body {
         <!-- Характеристики -->
         <section class="py-16 lg:py-20" id="harakteristiki">
             <div class="container">
-                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Характеристики</h2>
+                <h2 class="heading-section text-center mb-12">Характеристики</h2>
             </div>
             <div class="container">
                 <div class="grid lg:grid-cols-2 gap-12">
@@ -355,7 +350,7 @@ body {
                         </ul>
                         
                         <div class="mt-8 p-4 bg-secondary rounded-lg border border-gray-200">
-                            <p class="text-body text-sm">
+                            <p class="text-small">
                                 Выше приведен список стандартных характеристик работ и материалов. Вы всегда можете: посчитав в калькуляторе выше; прочитав описание по клику на знак вопроса там же; спросив в коммуникаторе или позвонив – подобрать именно то, что нужно Вам.
                             </p>
                         </div>
@@ -365,13 +360,13 @@ body {
                     <div class="order-1 lg:order-2">
                         <!-- ВИДЕО-ШАБЛОН (раскомментировать при готовом видео)
                         1) ВСТАВЬТЕ КНОПКУ в <el-tab-list>:
-                        <button type="button" class="relative flex h-16 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden" data-video-tab>
+                        <button type="button" class="relative flex h-16 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden" data-video-tab>
                             <span class="sr-only">[ТЕКСТ: Видео]</span>
                             <span class="absolute inset-0 overflow-hidden rounded">
                                 <img src="[URL_82x62.webp]" alt="[ТЕКСТ: Описание видео]" title="[ТЕКСТ: Заголовок видео]" width="82" height="62" class="size-full object-cover" loading="lazy" decoding="async" />
-                                <span class="absolute inset-0 flex items-center justify-center bg-black/30">
-                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                                </span>
+                                <span class="ui-control ui-control--sm absolute inset-0 m-auto">
+                                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                                            </span>
                             </span>
                             <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
                         </button>
@@ -380,9 +375,9 @@ body {
                         <div hidden data-video-panel>
                             <div class="video-cover aspect-video rounded-lg" data-video-cover>
                                 <img src="[URL_458x258.webp]" alt="[ТЕКСТ: Обложка видео]" width="458" height="258" class="w-full h-full object-cover rounded-lg" loading="lazy" decoding="async" />
-                                <div class="video-play-icon cursor-pointer" data-play-btn>
-                                    <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg"><path d="M8 5v14l11-7z"/></svg>
-                                </div>
+                                <button type="button" class="ui-control ui-control--xl ui-control--play" data-play-btn aria-label="Воспроизвести видео">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                                </button>
                                 <video title="[ТЕКСТ: Заголовок видео]" preload="none" playsinline class="hidden">
                                     <source src="[URL.webm]" type="video/webm">
                                     <source src="[URL.mp4]" type="video/mp4">
@@ -393,21 +388,21 @@ body {
                         <el-tab-group class="flex flex-col-reverse">
                             <!-- Миниатюры -->
                             <el-tab-list class="mx-auto mt-4 w-full max-w-md grid grid-cols-4 gap-3">
-                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
+                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
                                         <span class="sr-only">Лицевая сторона портрета в стиле Комикс</span>
                                         <span class="absolute inset-0 overflow-hidden rounded">
                                             <img src="https://muse.ooo/upload/img/portrait-on-canvas-in-comics-style-442.webp" alt="Векторный портрет в стиле Комикс на холсте с лицевой стороны на подрамнике" title="Лицевая сторона векторного портрета в стиле Комикс на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
                                     </button>
-                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
+                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
                                         <span class="sr-only">Обратная сторона портрета в стиле Комикс</span>
                                         <span class="absolute inset-0 overflow-hidden rounded">
                                             <img src="https://muse.ooo/upload/img/comics-portrait-on-canvas-442-back.webp" alt="Векторный портрет в стиле Комикс на холсте с обратной стороны на подрамнике" title="Обратная сторона векторного портрета в стиле Комикс на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
                                     </button>
-                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
+                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
                                         <span class="sr-only">Обратная сторона портрета в стиле Комикс</span>
                                         <span class="absolute inset-0 overflow-hidden rounded">
                                             <img src="https://muse.ooo/upload/img/comics-portrait-on-canvas-442-back.webp" alt="Векторный портрет в стиле Комикс на холсте с обратной стороны на подрамнике" title="Обратная сторона векторного портрета в стиле Комикс на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
@@ -495,11 +490,11 @@ body {
         <!-- Отзывы -->
         <section class="bg-secondary py-16 lg:py-20" id="otzyvy">
             <div class="container">
-                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">Отзывы</h2>
+                <h2 class="heading-section text-center mb-8">Отзывы</h2>
                 
                 <!-- Заглушка для отзывов из Bitrix -->
-                <div class="text-center text-gray-500 py-8 mb-8">
-                    <p class="text-sm">Отзывы будут загружены из Bitrix</p>
+                <div class="text-center py-8 mb-8">
+                    <p class="text-small">Отзывы будут загружены из Bitrix</p>
                 </div>
                 
                 
@@ -513,7 +508,7 @@ body {
         <!-- Описание -->
         <section class="py-16 lg:py-20" id="opisanie">
             <div class="container">
-                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Описание</h2>
+                <h2 class="heading-section text-center mb-12">Описание</h2>
           
                 <!-- Flex контейнер: изображение слева, текст в 2 колонки справа -->
                 <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
@@ -549,11 +544,11 @@ body {
                                 </svg>
                             </div>
                         </figure>
-                        <p class="text-center text-gray-600 mt-4 text-sm">Потяните за вертикальную линию, чтобы сравнить «До» и «После»</p>
+                        <p class="text-center mt-4 text-small">Потяните за вертикальную линию, чтобы сравнить «До» и «После»</p>
                     </div>
                     
                     <!-- Правая: Текст в 2 колонки -->
-                    <div class="flex-1 columns-1 lg:columns-2 gap-8 text-gray-600 text-base leading-relaxed">
+                    <div class="flex-1 columns-1 lg:columns-2 gap-8 text-body leading-relaxed">
                         <p class="break-inside-avoid mb-4">Портрет в стиле изображений из комиксов или современных цифровых героев: черный контур, яркие цвета, а иногда растровые точки и текст. Портрет пишется художником в цифровом виде. Срок исполнения от 1 дня.</p>
                         
                         <p class="break-inside-avoid mb-4">Есть легенда, что первую свою работу в стиле комикса Рой Лихтенштейн нарисовал по просьбе сына, который попросил: «Папа, нарисуй мне что-нибудь такое же красивое, как комикс». Он нарисовал — «Смотри, Микки». Шел 1961 год. Потом было много работ в этом стиле. Одна из них – «Медсестра» была продана в 2015 году за 95 400 000 $.</p>
@@ -595,4 +590,14 @@ body {
     <script defer src="../../js/nav.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
 

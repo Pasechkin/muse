@@ -13,14 +13,14 @@
 
 @theme {
   /* Colors */
-  --color-primary: #4A90E2;
-  --color-primary-hover: #609DE6;
+  --color-primary: #2f6ea8;
+  --color-primary-hover: #275d8f;
   --color-primary-active: #3483DE;
   --color-primary-1: #31639C;
   --color-primary-2: #465773;
-  --color-dark: #252525;
-  --color-body: #666666;
-  --color-secondary: #FAFAFA;
+  --color-dark: #262626;
+  --color-body: #525252;
+  --color-secondary: #fafafa;
   --color-white: #FFFFFF;
 
   /* Font Family */
@@ -67,6 +67,16 @@
   }
 }
 
+@layer base {
+  :root {
+    --primary: var(--color-primary);
+    --primary-hover: var(--color-primary-hover);
+    --dark: var(--color-dark);
+    --body: var(--color-body);
+    --secondary: var(--color-secondary);
+  }
+}
+
 /* === 3D Canvas Effect === */
 @utility canvas-3d {
   --depth: 30px;
@@ -99,20 +109,20 @@
     pointer-events: none;
   }
 
-  /* 2. Разделительная линия */
+  /* 2. Разделительная линия (полупрозрачная тёмная) */
   & .ba-divider {
     position: absolute;
     top: 0;
     bottom: 0;
     left: var(--pos);
     width: 2px;
-    background-color: white;
+    background-color: rgba(0, 0, 0, 0.4);
     z-index: 20;
     pointer-events: none;
     transform: translateX(-50%);
   }
 
-  /* 3. Кружок-ручка (Контурная) */
+  /* 3. Кружок-ручка (ui-control стиль — тёмный полупрозрачный фон) */
   & .ba-handle {
     position: absolute;
     top: 50%;
@@ -120,16 +130,17 @@
     z-index: 30;
     width: 32px;
     height: 32px;
-    border: 2px solid white;
-    background-color: transparent;
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    border: none;
     border-radius: 9999px;
     display: flex;
     align-items: center;
     justify-content: center;
     pointer-events: none;
     transform: translate(-50%, -50%);
-    box-shadow: 0 0 4px rgba(0,0,0,0.3);
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
   }
 
   & img {
@@ -152,6 +163,113 @@
   .page-navigator li a[data-title]:hover:before { opacity: 1; }
   .page-navigator li a:hover { transform: scale(1.5); }
 
+  /* === Typography (pilot) === */
+  .heading-hero { @apply text-4xl lg:text-6xl font-light; }
+  .heading-section { @apply text-3xl lg:text-4xl font-light; }
+  .heading-subsection { @apply text-2xl font-light; }
+  .heading-card { @apply text-xl font-medium text-body; }
+  .text-lead { @apply text-lg lg:text-xl; }
+  .text-lead-xl { @apply text-xl lg:text-2xl font-light; }
+  .text-body-lg { @apply text-base lg:text-lg; }
+  .text-small { @apply text-sm; }
+  .text-tiny { @apply text-xs; }
+  .oauth-label { @apply font-medium; }
+
+  /* === Hero media (text + image) === */
+  .hero-media-image { border-radius: 0; }
+
+  /* === Before/After: remove rounding globally === */
+  .before-after-slider.before-after-slider,
+  .ba-card.ba-card { border-radius: 0 !important; }
+
+  /* === Style pages: description video covers straight corners === */
+  .style-portraits #opisanie [data-video-cover] { border-radius: 0 !important; }
+  .style-portraits #opisanie [data-video-cover] img { border-radius: 0 !important; }
+
+  /* === Style pages: Drift zoom overlay above steps === */
+  .style-portraits .detail { overflow: visible !important; position: relative; }
+  .style-portraits .drift-zoom-pane { border-radius: 8px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2); z-index: 100 !important; }
+
+  /* === Background-based typography color helpers === */
+  .on-white { @apply text-body; }
+  .on-white .heading-hero,
+  .on-white .heading-section,
+  .on-white .heading-subsection,
+  .on-white .heading-card { @apply text-body; }
+
+  .on-secondary { @apply text-dark; }
+  .on-secondary .heading-hero,
+  .on-secondary .heading-section,
+  .on-secondary .heading-subsection,
+  .on-secondary .heading-card { @apply text-dark; }
+
+  .on-primary { @apply text-white; }
+  .on-primary .heading-hero,
+  .on-primary .heading-section,
+  .on-primary .heading-subsection,
+  .on-primary .heading-card { @apply text-white; }
+
+  .on-dark { @apply text-white; }
+  .on-dark .heading-hero,
+  .on-dark .heading-section,
+  .on-dark .heading-subsection,
+  .on-dark .heading-card { @apply text-white; }
+
+  /* === Auto colors by background classes === */
+  /* Порядок важен! Более "сильные" фоны идут последними для правильной каскадности */
+  
+  .bg-white { @apply text-body; }
+  .bg-white .heading-hero,
+  .bg-white .heading-section,
+  .bg-white .heading-subsection,
+  .bg-white .heading-card,
+  .bg-white .text-lead,
+  .bg-white .text-lead-xl,
+  .bg-white .text-body,
+  .bg-white .text-body-lg,
+  .bg-white .text-small,
+  .bg-white .text-tiny { @apply text-body; }
+
+  .bg-secondary { @apply text-dark; }
+  .bg-secondary .heading-hero,
+  .bg-secondary .heading-section,
+  .bg-secondary .heading-subsection,
+  .bg-secondary .heading-card,
+  .bg-secondary .text-lead,
+  .bg-secondary .text-lead-xl,
+  .bg-secondary .text-body,
+  .bg-secondary .text-body-lg,
+  .bg-secondary .text-small,
+  .bg-secondary .text-tiny { @apply text-dark; }
+
+  .bg-primary { @apply text-white; }
+  .bg-primary .heading-hero,
+  .bg-primary .heading-section,
+  .bg-primary .heading-subsection,
+  .bg-primary .heading-card,
+  .bg-primary .text-lead,
+  .bg-primary .text-lead-xl,
+  .bg-primary .text-body,
+  .bg-primary .text-body-lg,
+  .bg-primary .text-small,
+  .bg-primary .text-tiny { color: var(--color-white) !important; }
+
+  .bg-dark { @apply text-white; }
+  .bg-dark .heading-hero,
+  .bg-dark .heading-section,
+  .bg-dark .heading-subsection,
+  .bg-dark .heading-card,
+  .bg-dark .text-lead,
+  .bg-dark .text-lead-xl,
+  .bg-dark .text-body,
+  .bg-dark .text-body-lg,
+  .bg-dark .text-small,
+  .bg-dark .text-tiny { color: var(--color-white) !important; }
+
+  .order-steps-section--dark { @apply text-white; }
+  .order-steps-section--dark .heading-section,
+  .order-steps-section--dark .heading-card { @apply text-white; }
+
   /* === Button Components === */
   .btn {
     @apply inline-block px-6 py-2 rounded uppercase transition-colors;
@@ -159,16 +277,25 @@
   }
 
   .btn-primary {
-    @apply inline-block px-6 py-2 rounded uppercase transition-colors w-full md:w-auto text-center bg-primary hover:bg-primary-hover text-white;
-    @apply transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30;
+    @apply inline-flex items-center justify-center px-6 py-2.5 rounded bg-primary text-white;
+    @apply text-xs font-bold uppercase tracking-widest;
+    @apply transition-colors duration-200 hover:bg-primary-hover;
+    @apply w-full md:w-auto;
   }
 
+
   .btn-secondary {
-    @apply inline-block px-6 py-2 rounded uppercase transition-colors w-full md:w-auto text-center bg-secondary hover:bg-white text-dark;
+    @apply inline-flex items-center justify-center px-6 py-2.5 rounded bg-secondary text-dark;
+    @apply text-xs font-bold uppercase tracking-widest;
+    @apply transition-colors duration-200 hover:bg-white;
+    @apply w-full md:w-auto;
   }
 
   .btn-outline {
-    @apply inline-block px-6 py-2 rounded uppercase transition-colors w-full md:w-auto text-center border border-gray-300 bg-transparent hover:bg-primary hover:text-white hover:border-primary text-dark;
+    @apply inline-flex items-center justify-center px-6 py-2.5 rounded border border-gray-300 bg-transparent text-dark;
+    @apply text-xs font-bold uppercase tracking-widest;
+    @apply transition-colors duration-200 hover:bg-primary hover:text-white hover:border-primary;
+    @apply w-full md:w-auto;
   }
 
   /* CTA для шапки: компактная кнопка без w-full и без translate-y */
@@ -209,8 +336,14 @@
   }
 
   /* Optional modifiers */
-  .btn-lg { @apply px-8 py-3 text-lg; }
-  .btn-inverse { @apply inline-block px-6 py-2 rounded uppercase transition-colors w-full md:w-auto text-center text-white hover:bg-white hover:text-dark; }
+  .btn-lg { @apply px-8 py-3 text-sm; } /* Увеличенный padding, но тот же шрифт */
+  
+  .btn-inverse {
+    @apply inline-flex items-center justify-center px-6 py-2.5 rounded bg-transparent text-white border border-white/30;
+    @apply text-xs font-bold uppercase tracking-widest;
+    @apply transition-colors duration-200 hover:bg-white hover:text-dark;
+    @apply w-full md:w-auto;
+  }
 
   /* === Floating Messenger Widget === */
   .messenger-widget {
@@ -251,7 +384,7 @@
   }
   .cta-container {
     margin-inline: auto;
-    padding-inline: 1rem;
+    padding-inline: 1.5rem;
     max-width: 1170px;
     display: flex;
     flex-direction: column;
@@ -261,6 +394,7 @@
   }
   @media (min-width: 1024px) {
     .cta-container {
+      padding-inline: 1rem;
       flex-direction: row;
       justify-content: space-between;
       text-align: left;
@@ -275,17 +409,27 @@
   .cta-actions {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     gap: 1rem;
     flex-shrink: 0;
+    width: 100%;
+  }
+  .cta-actions a,
+  .cta-actions button {
+    width: 100%;
   }
   @media (min-width: 768px) {
     .cta-actions {
       flex-direction: row;
+      align-items: center;
       column-gap: 1.5rem;
+      width: auto;
+    }
+    .cta-actions a,
+    .cta-actions button {
+      width: auto;
     }
   }
-}
 
   /* === Карусель === */
   .carousel-scroll {
@@ -300,12 +444,75 @@
     display: none;              /* Chrome/Safari */
   }
 
+  /* ============================================
+     UI Controls — унифицированные элементы управления
+     Белая иконка на прозрачном тёмном фоне, при наведении фон темнее
+     ============================================ */
+  .ui-control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  .ui-control:hover { background: rgba(0, 0, 0, 0.6); }
+  .ui-control:active { transform: scale(0.95); }
+
+  /* Размеры */
+  .ui-control--sm { width: 32px; height: 32px; }
+  .ui-control--md { width: 44px; height: 44px; }
+  .ui-control--lg { width: 48px; height: 48px; }
+  .ui-control--xl { width: 64px; height: 64px; }
+
+  /* Иконка внутри */
+  .ui-control svg { width: 50%; height: 50%; }
+  .ui-control svg[fill="none"] { stroke: currentColor; stroke-width: 2; }
+  .ui-control svg:not([fill="none"]) { fill: currentColor; }
+
+  /* Вариант: Play кнопка (для видео) — с блюром */
+  .ui-control--play {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  .ui-control--play svg {
+    width: 40%;
+    height: 40%;
+    margin-left: 6%; /* Визуальная центровка треугольника */
+    fill: currentColor;
+  }
+
+  /* Вариант: на светлом фоне (кнопка наверх и т.п.) */
+  .ui-control--light {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--color-dark, #262626);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  .ui-control--light:hover {
+    background: var(--color-dark, #262626);
+    color: white;
+    border-color: var(--color-dark, #262626);
+  }
+
+  /* Вариант: контурная (для Before/After handle) */
+  .ui-control--outline {
+    background: transparent;
+    border: 2px solid white;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  }
+  .ui-control--outline:hover { background: rgba(255, 255, 255, 0.15); }
+
   /* === Video Cover === */
   .video-cover { position: relative; overflow: hidden; }
-  .video-cover .video-play-icon { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 2; transition: all 0.3s ease; }
+  .video-cover .ui-control { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2; }
   .video-cover video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .video-cover iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .video-cover.video-playing > :first-child, .video-cover.video-playing .video-play-icon { display: none; }
+  .video-cover.video-playing > :first-child, .video-cover.video-playing .ui-control { display: none; }
   .video-cover.video-playing video, .video-cover.video-playing iframe { display: block; }
 
   /* Video Modal (для страницы info) */
@@ -313,16 +520,17 @@
   .video-modal.active { display: flex; }
   .video-modal-content { position: relative; max-width: 400px; width: 100%; max-height: 90vh; }
   .video-modal video { width: 100%; max-height: 80vh; border-radius: 8px; }
-  .video-modal-close, .video-modal-mute, .video-modal-prev, .video-modal-next { position: absolute; background: rgba(255,255,255,0.2); border: none; color: white; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; z-index: 10; }
-  .video-modal-close:hover, .video-modal-mute:hover, .video-modal-prev:hover, .video-modal-next:hover { background: rgba(255,255,255,0.3); }
-  .video-modal-close { top: 10px; right: 10px; }
-  .video-modal-mute { top: 10px; left: 10px; }
-  .video-modal-prev { top: 50%; left: -60px; transform: translateY(-50%); }
-  .video-modal-next { top: 50%; right: -60px; transform: translateY(-50%); }
+  .video-modal .ui-control { position: absolute; z-index: 10; }
+  .video-modal .ui-control--close { top: 10px; right: 10px; }
+  .video-modal .ui-control--mute { top: 10px; left: 10px; }
+  .video-modal .ui-control--prev { top: 50%; left: -60px; transform: translateY(-50%); }
+  .video-modal .ui-control--next { top: 50%; right: -60px; transform: translateY(-50%); }
   @media (max-width: 600px) {
-    .video-modal-prev { left: 10px; top: auto; bottom: 80px; }
-    .video-modal-next { right: 10px; top: auto; bottom: 80px; }
+    .video-modal .ui-control--prev { left: 10px; top: auto; bottom: 80px; transform: none; }
+    .video-modal .ui-control--next { right: 10px; top: auto; bottom: 80px; transform: none; }
   }
+
+  .video-modal-open .page-navigator { display: none !important; }
 
   /* Carousel arrow SVG helper to ensure CSS rotation works on SVG */
   .carousel-arrow {
@@ -332,6 +540,7 @@
 
   /* Ken Burns helper classes */
   .ken-burns-img { animation: var(--animate-ken-burns); }
+}
 
 /* ==========================================
    Секция «Преимущества» — компоненты (ВНЕ @layer для высокого приоритета)
@@ -339,7 +548,8 @@
 
 /* Контейнер секции */
 .advantages-section {
-  background-color: var(--color-primary);
+  /* Градиент на основе primary — более воздушный */
+  background: linear-gradient(135deg, #6fa6d4 0%, #4e86bb 45%, #2f6ea8 100%);
   padding-block: 4rem;
 }
 @media (min-width: 1024px) {
@@ -347,6 +557,56 @@
     padding-block: 6rem;
   }
 }
+
+/* Фон-градиент без паддингов — для объединения нескольких секций */
+.advantages-gradient {
+  background: linear-gradient(135deg, #6fa6d4 0%, #4e86bb 45%, #2f6ea8 100%);
+}
+
+/* ==========================================
+   PROMO SECTION (Акция)
+   Компонент для промо-баннеров и акций
+   ========================================== */
+
+.promo-section {
+  /* Градиент на основе primary */
+  background: linear-gradient(90deg, #4e86bb 0%, #2f6ea8 55%, #275d8f 100%);
+  padding-block: 1.5rem; /* py-6 */
+  color: white;
+}
+
+/* Контейнер внутри promo-section */
+.promo-section .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Типографика внутри promo-section — всегда белая */
+.promo-section .text-lead,
+.promo-section .text-body,
+.promo-section .heading-section,
+.promo-section .heading-subsection,
+.promo-section p {
+  color: white !important;
+}
+
+/* Устаревший класс (для обратной совместимости) */
+.promo-gradient {
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+  color: white;
+}
+
+.promo-gradient .text-lead,
+.promo-gradient .text-body,
+.promo-gradient .heading-section,
+.promo-gradient .heading-subsection {
+  color: white !important;
+}
+
+/* ==========================================
+   ADVANTAGES SECTION (Преимущества)
+   ========================================== */
 
 /* Заголовок секции */
 .advantages-title {
@@ -375,6 +635,8 @@
   .advantages-section--light .advantage-card {
     border: 1px solid #e5e7eb;
   }
+
+  /* Голубой фон для секции преимуществ */
 
 /* Сетка карточек */
 .advantages-grid {
@@ -423,6 +685,7 @@
 .advantage-card__text {
   font-size: 1.125rem;
   line-height: 1.75rem;
+  color: var(--color-body);
 }
 
 /* ==========================================
@@ -486,6 +749,16 @@
 
 .order-steps-section--dark .order-steps__text {
   color: #d1d5db;
+}
+
+.order-steps-section--dark .order-steps__text a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.order-steps-section--dark .order-steps__text a:hover {
+  color: var(--primary);
+  text-decoration: none;
 }
 
 .order-steps-section--dark .order-steps__caption {
@@ -592,7 +865,7 @@
   margin-top: 0.25rem;
   width: 1.25rem;
   height: 1.25rem;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%234A90E2'%3E%3Cpath fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%230369a1'%3E%3Cpath fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;

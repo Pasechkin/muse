@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -17,11 +17,11 @@
     <style>
         /* CSS переменные для цветов */
         :root {
-            --primary: #4A90E2;
-            --primary-hover: #609DE6;
-            --dark: #252525;
-            --body: #666666;
-            --secondary: #FAFAFA;
+            --primary: #2f6ea8;
+            --primary-hover: #275d8f;
+            --dark: #262626;
+            --body: #525252;
+            --secondary: #fafafa;
         }
 
         /* Body */
@@ -93,15 +93,10 @@
     </script>
     <link rel="stylesheet" href="../../css/output.css">
 </head>
-<body class="bg-white overflow-x-hidden">
+<body class="bg-white overflow-x-hidden style-portraits">
     <!-- Back to Top Button -->
-    <a href="#" id="back-to-top" 
-       class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center 
-              rounded-full bg-white text-dark hover:bg-dark hover:text-white 
-              border border-gray-300 hover:border-dark transition-colors 
-              z-50 opacity-0 pointer-events-none" 
-       aria-label="Наверх">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
+    <a href="#" id="back-to-top" class="ui-control ui-control--lg fixed bottom-5 right-5 z-50 opacity-0 pointer-events-none hidden md:flex" aria-label="Наверх">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
     </a>
@@ -128,8 +123,8 @@
             <div class="container">
                 <div class="grid lg:grid-cols-2 gap-8 items-center">
                     <!-- Текстовый блок -->
-                    <div class="text-white">
-                        <nav class="text-sm text-gray-400 mb-4" aria-label="Breadcrumb">
+                    <div>
+                        <nav class="text-small text-gray-400 mb-4" aria-label="Breadcrumb">
                             <ol class="flex list-none p-0">
                                 <li class="flex items-center">
                                     <a href="https://muse.ooo/" class="hover:underline">Главная</a>
@@ -143,13 +138,13 @@
                             </ol>
                         </nav>
                         
-                        <h1 class="text-4xl lg:text-6xl font-light mb-4">Портрет маслом</h1>
-                        <p class="text-sm mt-2 mb-4 text-gray-300">Изысканный, благородный, живописный</p>
-                        <p class="text-lg lg:text-xl mb-6 text-gray-200">Художник напишет цифровой портрет в технике масляной живописи и напечатает его на холсте, по желанию прорисует сверху гелем или маслом</p>
+                        <h1 class="heading-hero mb-4">Портрет маслом</h1>
+                        <p class="text-small mt-2 mb-4 text-gray-300">Изысканный, благородный, живописный</p>
+                        <p class="text-lead mb-6">Художник напишет цифровой портрет в технике масляной живописи и напечатает его на холсте, по желанию прорисует сверху гелем или маслом</p>
                         
-                        <p class="text-lg lg:text-xl mb-6 text-gray-200">От 4311 руб. Под заказ.</p>
+                        <p class="text-lead mb-6">От 4311 руб. Под заказ.</p>
                         
-                        <a href="https://muse.ooo/order/" class="btn-primary btn-lg">
+                        <a href="https://muse.ooo/order/" class="btn-primary">
                             Заказать
                         </a>
                     </div>
@@ -162,7 +157,7 @@
                             title="Портрет маслом на холсте"
                             width="458"
                             height="580"
-                            class="w-full max-w-md mx-auto lg:ml-auto rounded-lg shadow-2xl"
+                            class="w-full max-w-md mx-auto lg:ml-auto hero-media-image shadow-2xl"
                             loading="eager" decoding="async" fetchpriority="high"
                         >
                     </div>
@@ -173,13 +168,13 @@
         <!-- Примеры (заглушка для Bitrix) -->
         <section class="bg-dark py-16 lg:py-20" id="primery">
             <div class="container">
-                <h2 class="text-3xl lg:text-4xl font-light text-white text-center mb-8">Примеры</h2>
-                <p class="text-center text-gray-300 mb-8">Портреты маслом</p>
+                <h2 class="heading-section text-center mb-8">Примеры</h2>
+                <p class="text-body text-center mb-8">Портреты маслом</p>
                 
                 <!-- Галерея из Bitrix будет здесь -->
-                <div class="text-center text-gray-400 py-12 border-2 border-dashed border-gray-600 rounded-lg">
-                    <p class="text-lg mb-2">Галерея примеров</p>
-                    <p class="text-sm">Будет загружена из Bitrix</p>
+                <div class="text-center py-12 border-2 border-dashed border-gray-600 rounded-lg">
+                    <p class="heading-card mb-2">Галерея примеров</p>
+                    <p class="text-small">Будет загружена из Bitrix</p>
                 </div>
                 
                 <div class="text-center mt-8">
@@ -191,23 +186,23 @@
         </section>
 
         <!-- Promo Banner -->
-        <div class="bg-primary text-white py-6">
-            <div class="container">
-                <div class="flex items-center justify-center">
-                    <p class="text-xl">Скидка 20% с 3 по 4 января</p>
-                </div>
-            </div>
+<div class="promo-section">
+    <div class="container">
+        <div class="flex items-center justify-center">
+            <p class="text-lead">Скидка 20% с 3 по 4 января</p>
         </div>
+    </div>
+</div>
 
         <!-- Цена (заглушка для калькулятора Bitrix) -->
         <section class="py-16 lg:py-20" id="calc">
             <div class="container">
-                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">Цена</h2>
+                <h2 class="heading-section text-center mb-8">Цена</h2>
                 
                 <!-- Калькулятор из Bitrix будет здесь -->
-                <div class="text-center text-gray-500 py-12 border-2 border-dashed border-gray-300 rounded-lg">
-                    <p class="text-lg mb-2">Калькулятор</p>
-                    <p class="text-sm">Будет загружен из Bitrix</p>
+                <div class="text-center py-12 border-2 border-dashed border-gray-300 rounded-lg">
+                    <p class="heading-card mb-2">Калькулятор</p>
+                    <p class="text-small">Будет загружен из Bitrix</p>
                 </div>
             </div>
         </section>
@@ -216,7 +211,7 @@
         <section class="py-16 lg:py-24" id="kak-zakazat">
             <div class="container mb-8">
                 <div class="text-center">
-                    <h2 class="text-3xl lg:text-4xl font-light text-dark">Как заказать</h2>
+                    <h2 class="heading-section">Как заказать</h2>
                 </div>
             </div>
 <div class="container">
@@ -245,10 +240,10 @@
                         <!-- Шаг 1 -->
                         <div class="process-step flex gap-4">
                             <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                                <span class="text-xl font-bold text-primary">1</span>
+                                <span class="text-lead font-bold text-primary">1</span>
                             </div>
                             <div>
-                                <h3 class="text-xl font-medium text-dark mb-2">Заказ</h3>
+                                <h3 class="heading-card mb-2">Заказ</h3>
                                 <p class="text-body">
                                     В разделе <a class="text-primary underline hover:no-underline" href="#calc">Цена ↑</a> можно загрузить фото, подобрать нужный размер, рассчитать стоимость и оформить заказ.<br><br>
                                     Нет времени разбираться? Нажмите любую кнопку <a href="https://muse.ooo/order/" class="text-primary underline hover:no-underline">Заказать ↗</a> на сайте и перешлите нам фото. Перезвоним и поможем с выбором.
@@ -259,10 +254,10 @@
                         <!-- Шаг 2 -->
                         <div class="process-step flex gap-4">
                             <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                                <span class="text-xl font-bold text-primary">2</span>
+                                <span class="text-lead font-bold text-primary">2</span>
                             </div>
                             <div>
-                                <h3 class="text-xl font-medium text-dark mb-2">Цифровой портрет</h3>
+                                <h3 class="heading-card mb-2">Цифровой портрет</h3>
                                 <p class="text-body">
                                     В течение часа перезвоним Вам, чтобы обсудить задание. По согласованному заданию выполним эскиз. После подтверждения эскиза напишем портрет. Вносите правки до тех пор, пока не будете полностью удовлетворены работой.<br><br>
                                     Срок создания цифрового портрета — <span>3 января</span>.
@@ -273,10 +268,10 @@
                         <!-- Шаг 3 -->
                         <div class="process-step flex gap-4">
                             <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                                <span class="text-xl font-bold text-primary">3</span>
+                                <span class="text-lead font-bold text-primary">3</span>
                             </div>
                             <div>
-                                <h3 class="text-xl font-medium text-dark mb-2">Печать и оформление</h3>
+                                <h3 class="heading-card mb-2">Печать и оформление</h3>
                                 <p class="text-body">
                                     Только после Вашего окончательного подтверждения цифрового портрета картина в стиле «Маслом» будет напечатана на холсте, оформлена и передана в службу доставки.
                                 </p>
@@ -286,10 +281,10 @@
                         <!-- Шаг 4 -->
                         <div class="process-step flex gap-4">
                             <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                                <span class="text-xl font-bold text-primary">4</span>
+                                <span class="text-lead font-bold text-primary">4</span>
                             </div>
                             <div>
-                                <h3 class="text-xl font-medium text-dark mb-2">Доставка</h3>
+                                <h3 class="heading-card mb-2">Доставка</h3>
                                 <p class="text-body">
                                     Ориентировочная дата доставки в пункты выдачи Санкт-Петербурга — <span>6 января</span>.<br>
                                     Пункты выдачи смотрите в разделе <a href="https://muse.ooo/info/dostavka/" class="text-primary underline hover:no-underline">Доставка ↗</a>. По согласованию можно вызвать курьера.
@@ -300,10 +295,10 @@
                         <!-- Шаг 5 -->
                         <div class="process-step flex gap-4">
                             <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                                <span class="text-xl font-bold text-primary">5</span>
+                                <span class="text-lead font-bold text-primary">5</span>
                             </div>
                             <div>
-                                <h3 class="text-xl font-medium text-dark mb-2">Оплата</h3>
+                                <h3 class="heading-card mb-2">Оплата</h3>
                                 <p class="text-body">
                                     Услуги по печати и оформлению портрета на холсте оплачиваются при получении. Работа художника по созданию цифрового портрета — после подтверждения эскиза.
                                 </p>
@@ -317,7 +312,7 @@
         <!-- Характеристики -->
         <section class="py-16 lg:py-20" id="harakteristiki">
             <div class="container">
-                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Характеристики</h2>
+                <h2 class="heading-section text-center mb-12">Характеристики</h2>
             </div>
             <div class="container">
                 <div class="grid lg:grid-cols-2 gap-12">
@@ -354,7 +349,7 @@
                         </ul>
                         
                         <div class="mt-8 p-4 bg-secondary rounded-lg border border-gray-200">
-                            <p class="text-body text-sm">
+                            <p class="text-small">
                                 Выше приведен список стандартных характеристик работ и материалов. Вы всегда можете: посчитав в калькуляторе выше; прочитав описание по клику на знак вопроса там же; спросив в коммуникаторе или позвонив — подобрать именно то, что нужно Вам.
                             </p>
                         </div>
@@ -364,13 +359,13 @@
                     <div class="order-1 lg:order-2">
                         <!-- ВИДЕО-ШАБЛОН (раскомментировать при готовом видео)
                         1) ВСТАВЬТЕ КНОПКУ в <el-tab-list>:
-                        <button type="button" class="relative flex h-16 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden" data-video-tab>
+                        <button type="button" class="relative flex h-16 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden" data-video-tab>
                             <span class="sr-only">[ТЕКСТ: Видео]</span>
                             <span class="absolute inset-0 overflow-hidden rounded">
                                 <img src="[URL_82x62.webp]" alt="[ТЕКСТ: Описание видео]" title="[ТЕКСТ: Заголовок видео]" width="82" height="62" class="size-full object-cover" loading="lazy" decoding="async" />
-                                <span class="absolute inset-0 flex items-center justify-center bg-black/30">
-                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                                </span>
+                                <span class="ui-control ui-control--sm absolute inset-0 m-auto">
+                                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                                            </span>
                             </span>
                             <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
                         </button>
@@ -379,9 +374,9 @@
                         <div hidden data-video-panel>
                             <div class="video-cover aspect-video rounded-lg" data-video-cover>
                                 <img src="[URL_458x258.webp]" alt="[ТЕКСТ: Обложка видео]" width="458" height="258" class="w-full h-full object-cover rounded-lg" loading="lazy" decoding="async" />
-                                <button type="button" class="video-play-icon cursor-pointer" data-play-btn aria-label="Воспроизвести видео">
-                                    <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg"><path d="M8 5v14l11-7z"/></svg>
-                                </button>
+                                <button type="button" class="ui-control ui-control--xl ui-control--play" data-play-btn aria-label="Воспроизвести видео">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                                        </button>
                                 <video title="[ТЕКСТ: Заголовок видео]" preload="none" playsinline class="hidden">
                                     <source src="[URL.webm]" type="video/webm">
                                     <source src="[URL.mp4]" type="video/mp4">
@@ -392,33 +387,33 @@
                         <el-tab-group class="flex flex-col-reverse">
                             <!-- Миниатюры -->
                             <el-tab-list class="mx-auto mt-4 w-full max-w-md grid grid-cols-4 gap-3">
-                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
+                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
                                         <span class="sr-only">Лицевая сторона портрета маслом</span>
                                         <span class="absolute inset-0 overflow-hidden rounded">
                                             <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-442.webp" alt="Портрет маслом на холсте с лицевой стороны на подрамнике" title="Лицевая сторона портрета маслом на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
                                     </button>
-                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
+                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
                                         <span class="sr-only">Обратная сторона портрета маслом</span>
                                         <span class="absolute inset-0 overflow-hidden rounded">
                                             <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-442-back.webp" alt="Портрет маслом на холсте с обратной стороны на подрамнике" title="Обратная сторона портрета маслом на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
                                     </button>
-                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
+                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
                                         <span class="sr-only">Портрет маслом на холсте</span>
                                         <span class="absolute inset-0 overflow-hidden rounded">
                                             <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-442.webp" alt="Портрет маслом на холсте" title="Портрет маслом на холсте" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
                                     </button>
-                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden hidden" data-video-tab>
+                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden hidden" data-video-tab>
                                         <span class="sr-only">Видео</span>
                                         <span class="absolute inset-0 overflow-hidden rounded">
                                             <img src="https://muse.ooo/upload/imgsite/canvas-on-wall-345-185.webp" alt="Девушка вешает картину на стену" title="Девушка вешает картину на стену" class="size-full object-cover" loading="lazy" decoding="async" width="345" height="185" />
-                                            <span class="absolute inset-0 flex items-center justify-center bg-black/30">
-                                                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                            <span class="ui-control ui-control--sm absolute inset-0 m-auto">
+                                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
                                             </span>
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
@@ -439,8 +434,8 @@
                                 <div hidden data-video-panel class="hidden">
                                     <div class="video-cover aspect-video rounded-lg" data-video-cover>
                                         <img src="https://muse.ooo/upload/imgsite/canvas-on-wall-345-185.webp" alt="Девушка вешает картину на стену" class="w-full h-full object-cover rounded-lg" loading="lazy" decoding="async" width="345" height="185" />
-                                        <button type="button" class="video-play-icon cursor-pointer" data-play-btn aria-label="Воспроизвести видео">
-                                            <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg"><path d="M8 5v14l11-7z"/></svg>
+                                        <button type="button" class="ui-control ui-control--xl ui-control--play" data-play-btn aria-label="Воспроизвести видео">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
                                         </button>
                                         <video title="Девушка вешает картину на стену" preload="none" playsinline class="hidden">
                                             <source src="https://muse.ooo/video/devushka-veshaet-kartinu-na-stenu.webm" type="video/webm">
@@ -457,12 +452,12 @@
 
         <!-- Преимущества -->
         <section class="advantages-section" id="preimushchestva">
-            <div class="container mb-12">
-                <h2 class="advantages-title">Преимущества</h2>
-            </div>
+    <div class="container mb-12">
+        <h2 class="advantages-title">Преимущества</h2>
+    </div>
             <div class="container">
                 <div class="advantages-grid">
-                    <!-- Преимущество 1: Примеры работ (уникальная иконка) -->
+                    <!-- Преимущество 1: Примеры работ (уникальная и конка) -->
                     <div class="advantage-card">
                         <div class="advantage-card__icon">
                             <svg class="icon-advantage" xmlns="http://www.w3.org/2000/svg" viewBox="-50 -36 4554 4550" aria-hidden="true"><path d="M1525 308c-1 88 2 100-60 168-77 84-109 67-174 189-39 71-88 262-115 287-30-37-19-151-13-200 18-149 44-225 176-297 113-61 96-49 186-147"/><path d="M1525 308c-46 176-192 169-258 282-77 130-91 362-91 362m-319 240v2c-7 78-7 106-69 163-64 59-132 66-207 61-2 0-4-1-6-1-2-6-5-15-8-26-19-9-28-14-35-18 162-6 251-16 325-181m-387 206c-54-58 96-70 110-73 183-38 130-18 277-133-74 165-163 175-325 181-14-7-13-3-57-3zm5-28c-2 13-3 22-5 28zm46-14c-1-2-3-4-5-5-4-3-3-3-6-3 4 2 8 5 11 8"/><path d="M857 1192v2c-7 78-7 106-69 163-64 59-132 66-207 61-2 0-4-1-6-1-2-6-5-15-8-26-19-9-28-14-35-18 162-6 251-16 325-181m-387 206c-54-58 96-70 110-73 183-38 130-18 277-133-74 165-163 175-325 181-14-7-13-3-57-3-2 13-3 22-5 28m51-42c-1-2-3-4-5-5-4-3-3-3-6-3 4 2 8 5 11 8"/><path d="M857 1192c-76 168-167 175-334 182-74 3 18-6 30 66"/><path d="M572 1481c-58 2-29 6-86-16-24-62-20-30-11-95 64-1 33-7 92 21 18 61 18 31 5 90"/><path d="M572 1481c-7-15-83-90-97-111m367 145c52-49 39-24 81-56 1 0 1 0 2-1-1 2-1 3-1 5l3-6c4-3 4-3 5-7h-1c5-9 11-13 24-19 9-16 16-40 17-53 37-32 82 61 53 119-13 39-35 52-77 55-56 4-66-4-106-37m83-57c1 0 1-1 2-1 1-3 2-5 4-7l-2-1c-2 4-3 6-4 9m30-27c-7 3-17 9-16 16 6-3 11-9 16-16"/><path d="M842 1515c30 0 121-1 132-35 16-5 37-87-2-102m887 647c20-29 63 44 27 77-24 31-78 30-94 68l-7 14c-65-34 8-116 63-125v1l-1 1c2-2 5-3 9-5-2 1-8 4-7 7 14-4 13-27 10-38m-16 40c-2 2-3 4-5 9 2-4 3-7 5-9"/><path d="M1859 2025c27 2 20 54 6 58-2 6-114 37-80 101M724 2303c12 84 40 225 27 301-6 31-19 89-43 114-11 38-31 24-20 13-2 0-3 1-3 1 0-1-2-24-1-27 23-68 3-161 3-233 1-78-4-103 37-169m-32 427 4 4c0-4-2-4-4-4"/><path d="M724 2303c-32 102 17 226-8 344-4 18-6 50-19 63 1 8-9 41-7 19m108 133c40 26 77 61 77 113 0 3-2 5-3 2v-2c-2-1-4 18-45-6-52-30-43-61-29-107"/><path d="M798 2862c24 88 79 115 74 115m822-800c43-31 17-21 76-31 35 15 71 32 42 61-35 1-27 0-61 7-39-19-20-7-57-37"/><path d="M1694 2177c35 0 103-2 118 30m240-78c40-19 73-35 96 19 10 26 7 42-18 51-5-4-9-8-12-10-30-25-12 20-66-60M857 1192v2c-7 78-7 106-69 163-64 59-132 66-207 61l-6-1c10 27 7 16-3 64-58 2-29 6-86-16-19-50-21-39-16-67-54-58 96-70 110-73 183-38 130-18 277-133m1157-708c28 51 25 96 19 157-1-3-3-7-5-11-2-1-3-1-4-1 0 1 1 3 2 5-120-8-61-7-175 20-3 0-3 0-4 1 0-1 0-1 1-2v-1c-27 29-33 37-73 69-17 16-41 38-63 55-23 34-48 65-68 91-6-53-9-86 23-133 19-42 49-90 72-100l-19 6c10-15 23-33 38-51 27-75 73-157 126-186 77-42 114 13 130 81"/><path d="M1850 71c194-103 366-107 566-18 49-6 102-6 151 3 82 5 156 35 209 106 26 16 50 34 69 53 0-6 1-12 2-20 40 6 18 0 65 20 18 53 19 28 5 76h-10c73 117 39 224-80 340-32 31-70 55-112 69 37 28 62 71 42 104-4 7-27 19-30-7-7 6-13 8-31 9-31 1-51-10-65-28-91 4-114-15-201-48 84-48 157-98 264-43 1 0 1 0 2 1 5-16 5-12 30-40 49-57 140-176 104-256-53-113-97-163-205-223-37-21-72-32-97-57h-1c-3-1-6-1-9-2 5 5 10 11 12 16-35 14-102-6-128-10-157-23-186-20-343-5-155 15-226 58-367 89 60-74 70-83 158-129"/><path d="M2254 163c18-25 52-32 95-15 113 43 103 131 54 109-6 19-19 38-32 55-7 56-50 104-63 92-2-5-3-10-4-15-13-16-41-94-53-132-47-34-20-1-73 2-77 3-34-154 76-96m689 640c65-16 29-5 74-28 95-47 171 75 80 132-8 34-23 61-66 40-61-31-95-94-111-158 8 5 16 9 23 14m-431 614c54-17 103-18 165-12 60 6 126 21 167 69 25 15 45 30 47 32 30 26 121 135 70 179-7-28-17-50-29-69-41-34-86-62-114-90-27-27-61-44-98-57-89 29-279 64-300 3-11-36 42-50 92-55m363 505v-1zm-90-31c7 2 88 22 90 31-1 4-9 6-13 7l-16 23c-30 27-82 34-116 14-27-15-44-34-46-60q-19.5-9-39-21c-3 11-11 20-23 26-26 15-51 8-72-7-9 0-18-2-25-4-16-7-26-17-31-28 0 1 0 1-1 2-12-28-21-60-4-85-45-14-93-19-137-26l59-23c42-8 120 2 163 17 86 31 82 88 211 134m391-1505c23 29 47 74 77 113 33 42 176 198 213 264 24 22 42 45 40 67-1 13-9 20-21 25l16-15c-26 24-55 44-84 64-1 3-1 6-1 8-2 88 26 143 8 193 20 43 32 80 51 123 39 36 61 84 60 134 6 21 11 42 26 77 12 28 43 72 63 101 83 79 80 123 82 238 0 76-21 188-10 250 4 19 79 129 98 147 6 6 10 12 12 17 6 4 13 7 20 11 10 4 12 14 3 15 19 23-5 88-24 130 5 36 14 79 16 112 1 20 1 66-4 112 30 70 18 95-36 190-25-96-25-117-8-179-2-62-11-87-22-157-16-95-12-105 1-148-1-12 2-21 8-30 2-8 4-16 6-26-19-8-49-6-62-46-8-11-14-24-19-37-43-41-72-67-85-132-21-112-13-171-2-258-23-51-61-134-78-142 2 0 0 0 4 1-15-7-16-8-23-22-17-33-87-109-88-117-4-22 23-38 44-44 0-20-2-46-25-75-39-51-57-72-81-93-36-10-70-35-97-61h11c18-57 38-76 85-83 7-16 9-38 1-69-29-104-55-154-22-224-13-22-13-40-1-62-39-64-102-159-138-238 0-1-1-1-1-2-44-37-61-107-24-155 3 9 7 16 9 24 1-1 1-1 2-1M431 1736c67-49 147 113 200 97 4-1 24-10 42-18 7-8 16-15 25-23 3 61 2 107-42 145-11 50-38 150-73 133-2-16-2-33-2-51-1 0-1 0-2-1-1-3-2 0-7-5-65-59-146-193-145-280 1 1 3 2 4 3m717 1893c104-179 252 241 260 336 5 73 8 196 40 260 40 78 37 156-10 195-1 7-2 11-4 13-4 4-14 5-27 5-24 9-53 12-89 7-22-3-60-10-100-19-41 4-90 11-122 12-215 12-431 2-645 29-104 12-170 18-275 20-159 3-139 27-159-152-11-101-67-396 97-397 152 0 392-90 568-115 199-30 247-26 378-95 35-27 65-59 88-99m650-460c32 28 61 57 88 90 37 27 38 57 102 62 21 1 15 21 3 23-12 18-47 50-87 45-8 18-14 34-21 50-1 11-2 21-4 32 8 3 6 13-1 17s-12 2-17-2c0 2-1 3-2 5-12-25-26-57-27-88-25-79-51-157-47-245 4 3 9 7 13 11M453 2500c10-32-9 42 0 0m-22 85c24 57 72 234 83 297 37-9 43 8 45 29 40 30 100 128 145 167 63 53 112 69 176 138 26 28 79 90 130 139 65 15 88 33 129 88-50 8-79 18-120-27-6-7-10-12-13-16-42-27-86-65-120-96l-12 2c-12-1-79-32-84-40-29-46-93-88-133-126-48-44-56-75-111-120-46-38-71-47-88-87-20-5-39-75-46-106-20-22-25-43-28-75-5-50-7-54-13-104-12-91 28-223 56-309 32-95 59-125 29-222-28-90-21-44-27-100-2-6-2-4-24-47 55-5 67 35 97 78 39 56 52 79 34 152 0 0-19 58-27 68-9 41-26 93-44 175-6 28-10 46-12 57-3 8-8 25-15 53-3 11-6 22-7 32m2722 359c-45 110-53 108-21 241 4 18 7 32 11 45 8 11 18 21 28 30 52 13 137 52 138 115 0 50-74 31-94 10l-17-20c1 0 2 0 3-1-57-13-100-65-124-128-40-53-56-125-25-196 28-64 50-75 105-104-1 3-3 6-4 8M2004 361c38-62 112-116 175-58 41 39-23 138-52 163-2 4-4 8-7 13l-1-1v2c-10 23-21-14-25-17h-1c-7 17-35 14-47-13-39-93 6-20-61-76 6-5 13-10 19-13M345 1648c-1 22-24 86-5 96 3 2 5 3 7 4 3-6 5-9 16-14 58-28 50 100-31 85-15-3-28-9-37-16-15-6-27-16-35-28-24-37-6-65 18-90l-16 16c9-18 27-38 47-41 9-7 20-9 36-12"/><path d="M1553 1195c46-12 91 13 131 31l-11 2c43 5 84 13 117 20 28 6 50 18 66 34 62 14 70 31 76 116 3 48-2 113-17 166 8 59 10 165-71 145-18-5-49-20-64-41-12-6-24-14-53-24-13-5-32-8-55-10-11 33-25 57-73 64-3 0-5 1-8 1-31 7-69 1-100-7-106 6-128 3-186-46-16 0-29-5-36-20l6-4c-7-3-14-7-23-13-29 75-74 140-128 213-6 7-11 14-16 21 29 70 32 159 3 226 6-1 12 0 17 2 28 11 8 41-18 52l-16 3c-25 14-45 14-81 18 2-3 5-7 8-11h-4c66-78 56-104 46-215 0-6-1-11-1-17-43 51-92 98-149 124-10 5-32 20-49 31-15 20-29 40-43 62-60 87-203 161-201 248 0 11 0 13-8 22l3 3c-6 56-11 131-16 204 13 82 6 191-20 237-41-64-53-249-19-321 0-61 4-121 17-160l-8 23c-9-134 125-187 189-287 16-25 34-50 52-73-3-212-6-179-112-338-17-11-26-20-23-28 2 0 180 42 191 43 72 12 171 18 232-29 38-30 73-56 108-83 13-18 25-37 40-57 10-19 22-41 38-68-1 26-4 50-9 73 2 7 0 16-5 26-5 17-10 34-16 50q33-3 63-6c7-6 17-15 38-32 39-32 91-46 97 10 80-13 157-19 254 8 43 12 56 28 72 40 1-2 3-4 5-6 4-5 27-24 48-39-4-75-7-211-52-219-53-10-90-28-140-45l-13-4c-45 15-84 17-122-16-18 4-38 12-68 21 8-38 21-58 55-73 12-23 26-37 62-47m1729 920q34.5 66 0 126c9 35 18 70 30 113 3 11 6 22 9 32 24 88 35 147-9 209-14 20-33 41-60 62-74 62-49 5-120 116-29 45-76 138-106 175-39 46-19 7-54 80-37 80-123 307-103 392 5 20 8 40 12 60 34 51 70 111 96 130 58 13 165 22 122 101-8 15-17 29-26 43-9 32-28 65-35 85 56-5 82 5 145-22 151-66 136-154 249-229 47-32 63-51 73-82-5-30-8-62-4-80 13-57 66-42 110-16 53-4 93-25 146-69 20-32 49-45 70-25 23 21 11 43-14 63-30 42-10 114 21 151 2 2 79 82 78 104 65 71 110 114 174 171l43 37 5 4c24 22 50 44 75 67 51 47 97 99 117 165 30 100 116 136 153 208 15 28 22 62 14 106 1 2 2 3 2 5 9 22 1 36-13 43-14 41-143 5-168-4l-12-4c-206-28-411-14-619-3-304 15-572 25-870 20-60 14-116 27-123 26-80-14 2-121 20-154-23-18-38-19-67 0-44 30-64-21-32-38h1c2-2 4-3 6-5 14-21 28-105 56-130l4-17c-16-13-36-36-60-106-27-80-40-91-2-182 2 7 4 14 6 20l1-9c45 97 112 203 214 249-24-38-41-69-47-111l-1-1c-36-48-41-196 14-190 13 2 22 4 30 7 3-1 7-2 10-3-6-30-23-67-34-93-77-175-141-199-162-404-7-62 4-127 27-190 11-53 30-104 53-142 45-78 57-90 130-133l-3 6c19-6 33 3 44 21 29-16 32-43 35-78-9-20-18-32-13-41l-4-4c28-16 32-21 51-34 21-42 48-81 90-105 5-17 8-29 10-65 8-219 123-128 151-293 7-44 7-64 13-100-3-26-4-53-3-77 30 2 40 13 54 42"/><path d="M1262 2096c32 43 31 64 38 121 9 80 14 180-4 259s-49 144 15 202l14 14h-16c-102-5-81-168-75-229 12-126 20-241 28-367m-253 301c11 23 7 37 0 50 0-6 1-11 1-11-4-16-4-29-1-39"/><path d="M1262 2096c32 43 31 64 38 121 9 80 14 180-4 259s-49 144 15 202l4 4c74 26 119 63 172 131 37 49 77 46 85 145 1 11-11 15-13 3l-1 1c-8-10-16-21-25-32 1 2 2 5 3 8 3 2 3 3 4 9-5 1-4 1-7-1-1 0 0 0 0 0-2 1-6 0-7-2-31-49-130-91-179-115-106-51-118-77-211-139-61-39-174-123-164-206 4-29 13-35 20-40-8-31-8-55-1-73v-1h1c13-33 51-47 100-54 176-86 81-69 149-134 1-28 4-39 13-72 2 3 4 6 6 10 1-8 1-16 2-24m402 247c78-21 176-43 239 19 50 50 162-52 297 170 13-2 19 0 19 6 25 4 75 56 83 85 10 33 0 58-19 78-19 29-35 48-54 61-26 19-57 23-107 26-1 1-2 3-5 3-7-1-8-7-4-17l-203 22c-27 3-66-10-96-28-37-5-114-31-142-42-75-28-133-106-174-171-29-44-41-59-40-108 6 6 11 12 17 19-8-12-13-19-13-19 1-1 3-3 5-4h-1c-4-1-10-2-15-3 18-10 36-20 53-29 48-33 102-51 160-68m507 336c-5-20-3-7 4-41-16-24-24-40-41-58-7-4-16-8-26-12-44-16-194-53-208-60-41-22-134-9-210-13-3 3-6 6-9 8 7 42-3 42 49 76 1 1 13 8 30 19 15 7 26 13 27 13l22 18c8 4 87 26 87 26l-2 1zm-689-234c-2 0-5-1-9-1-4 1-8 2-11 3z"/></svg>
@@ -516,11 +511,11 @@
         <!-- Отзывы -->
         <section class="bg-secondary py-16 lg:py-20" id="otzyvy">
             <div class="container">
-                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">Отзывы</h2>
+                <h2 class="heading-section text-center mb-8">Отзывы</h2>
                 
                 <!-- Заглушка для отзывов из Bitrix -->
-                <div class="text-center text-gray-500 py-8 mb-8">
-                    <p class="text-sm">Отзывы будут загружены из Bitrix</p>
+                <div class="text-center py-8 mb-8">
+                    <p class="text-small">Отзывы будут загружены из Bitrix</p>
                 </div>
                 
                 <!-- Кнопка "Оставить отзыв" -->
@@ -529,7 +524,7 @@
                         type="button"
                         command="show-modal"
                         commandfor="review-modal"
-                        class="btn-primary btn-lg"
+                        class="btn-primary"
                     >
                         Оставить отзыв
                     </button>
@@ -547,15 +542,15 @@
         <el-dialog>
             <dialog id="review-modal" class="m-auto p-0 border-none bg-transparent backdrop:bg-black/60">
                 <el-dialog-panel>
-                    <div class="bg-dark text-white rounded-lg shadow-2xl max-w-md w-full p-6">
+                    <div class="bg-dark rounded-lg shadow-2xl max-w-md w-full p-6">
                         <!-- Заголовок и кнопка закрытия -->
                         <div class="flex items-center justify-between mb-6">
-                            <h3 class="text-xl font-medium text-white">Представьтесь, пожалуйста</h3>
+                            <h3 class="heading-card">Представьтесь, пожалуйста</h3>
                             <button 
                                 type="button"
                                 command="close"
                                 commandfor="review-modal"
-                                class="text-gray-400 hover:text-white transition-colors p-1 rounded-full hover:bg-gray-800"
+                                class="text-gray-400 hover:transition-colors p-1 rounded-full hover:bg-gray-800"
                                 aria-label="Закрыть окно"
                             >
                                 <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -565,7 +560,7 @@
                         </div>
                         
                         <!-- Поясняющий текст -->
-                        <p class="text-gray-300 mb-6">Выберите социальную сеть для авторизации:</p>
+                        <p class="mb-6">Выберите социальную сеть для авторизации:</p>
                     
                     <!-- Кнопки авторизации (OAuth) -->
                     <!-- URL должны генерироваться Bitrix с актуальными параметрами -->
@@ -573,60 +568,60 @@
                         <!-- Яндекс -->
                         <a href="https://oauth.yandex.ru/authorize?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI" 
                            onclick="if(typeof BxPopup==='function'){BxPopup(this.href, 680, 600); return false;}"
-                           class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 text-dark rounded transition-colors w-full border border-gray-200">
+                           class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 rounded transition-colors w-full border border-gray-200">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" class="w-5 h-5 fill-current" aria-hidden="true">
                                 <path d="M227.2 0h-45.5c-46.1 0-92.5 34-92.5 110 0 39.4 16.7 70 47.3 87.5L80.5 298.8c-2.7 4.8-2.7 10.2-0.2 14.5C82.8 317.5 87.3 320 92.4 320h28.3c6.4 0 11.4-3.1 13.9-8.6L187 208.8h3.8v98.4c0 6.9 5.9 12.8 12.8 12.8h24.7c7.8 0 13.2-5.4 13.2-13.2V14C241.6 5.8 235.7 0 227.2 0zM190.9 163.2h-6.8c-26.2 0-41.8-21.4-41.8-57.2 0-44.5 19.8-60.4 38.2-60.4h10.3V163.2z"/>
                             </svg>
-                            <span class="font-medium">Яндекс</span>
+                            <span class="oauth-label">Яндекс</span>
                         </a>
 
                         <!-- VK ID -->
                         <a href="https://id.vk.com/authorize?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=code" 
                            onclick="if(typeof BxPopup==='function'){BxPopup(this.href, 660, 425); return false;}"
-                           class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 text-dark rounded transition-colors w-full border border-gray-200">
+                           class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 rounded transition-colors w-full border border-gray-200">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="w-5 h-5 fill-current" aria-hidden="true">
                                 <path d="M17.8 12.3c0 0 1.6 1.6 2 2.3 0 0 0 0 0 0 0.2 0.3 0.2 0.5 0.1 0.6-0.1 0.3-0.6 0.4-0.7 0.4 0 0-2.8 0-2.9 0-0.2 0-0.6-0.1-1.1-0.4-0.4-0.3-0.8-0.7-1.1-1.1-0.6-0.6-1-1.2-1.5-1.2-0.1 0-0.1 0-0.2 0-0.4 0.1-0.8 0.6-0.8 2 0 0.4-0.3 0.7-0.6 0.7 0 0-1.2 0-1.3 0-0.4 0-2.8-0.2-4.8-2.3-2.5-2.7-4.8-8-4.8-8-0.1-0.3 0.2-0.5 0.5-0.5h2.9c0.4 0 0.5 0.2 0.6 0.4 0.1 0.2 0.5 1.2 1.1 2.3 1 1.8 1.6 2.5 2.1 2.5 0.1 0 0.2 0 0.3-0.1 0.6-0.4 0.5-2.7 0.5-3.1 0-0.1 0-1-0.3-1.5-0.2-0.3-0.6-0.4-0.9-0.5 0.1-0.1 0.2-0.2 0.4-0.3 0.4-0.2 1.2-0.3 2-0.3h0.4c0.9 0 1.1 0.1 1.4 0.1 0.6 0.2 0.6 0.6 0.6 1.9 0 0.4 0 0.8 0 1.4 0 0.1 0 0.2 0 0.4 0 0.7 0 1.5 0.5 1.8 0.1 0 0.1 0.1 0.2 0.1 0.2 0 0.7 0 2.1-2.4 0.6-1.1 1.1-2.3 1.1-2.4 0-0.1 0.1-0.2 0.2-0.3 0.1 0 0.2-0.1 0.2-0.1h3.4c0.4 0 0.6 0.1 0.7 0.2 0.1 0.2 0 0.9-1.6 3-0.3 0.3-0.5 0.7-0.7 0.9-1.4 1.8-1.4 1.9 0.1 3.3z"/>
                             </svg>
-                            <span class="font-medium">ВКонтакте</span>
+                            <span class="oauth-label">ВКонтакте</span>
                         </a>
 
                         <!-- Google -->
                         <a href="https://accounts.google.com/o/oauth2/auth?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&scope=email+profile&response_type=code" 
                            onclick="if(typeof BxPopup==='function'){BxPopup(this.href, 580, 400); return false;}"
-                           class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 text-dark rounded transition-colors w-full border border-gray-200">
+                           class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 rounded transition-colors w-full border border-gray-200">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 fill-current" aria-hidden="true">
                                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                                 <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                                 <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
                                 <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                             </svg>
-                            <span class="font-medium">Google</span>
+                            <span class="oauth-label">Google</span>
                         </a>
 
                         <!-- Mail.Ru -->
                         <a href="https://connect.mail.ru/oauth/authorize?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=code" 
                            onclick="if(typeof BxPopup==='function'){BxPopup(this.href, 580, 400); return false;}"
-                           class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 text-dark rounded transition-colors w-full border border-gray-200">
+                           class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 rounded transition-colors w-full border border-gray-200">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="w-5 h-5 fill-current" aria-hidden="true">
                                 <path d="M14.6 12.2c0 0.8 0.2 1.2 0.9 1.2 1.4 0 2.3-1.8 2.3-4.7 0-4.5-3.3-6.7-7.4-6.7-4.2 0-8.1 2.8-8.1 8.2 0 5.1 3.4 7.9 8.5 7.9 1.8 0 2.9-0.2 4.7-0.8l0.4 1.6c-1.8 0.6-3.7 0.7-5.1 0.7-6.8 0-10.4-3.7-10.4-9.5 0-5.8 4.2-9.7 10-9.7 6 0 9.2 3.6 9.2 8 0 3.7-1.2 6.6-4.9 6.6-1.7 0-2.8-0.7-2.9-2.2-0.4 1.7-1.6 2.2-3.1 2.2-2.1 0-3.8-1.6-3.8-4.8 0-3.3 1.5-5.3 4.3-5.3 1.5 0 2.4 0.6 2.8 1.5l0.7-1.3h2v7.1h0zM11.7 9c0-1.3-1-1.9-1.8-1.9-0.9 0-1.9 0.7-1.9 2.8 0 1.7 0.7 2.6 1.9 2.6 0.8 0 1.8-0.5 1.8-1.9v-1.7z"/>
                             </svg>
-                            <span class="font-medium">Mail.Ru</span>
+                            <span class="oauth-label">Mail.Ru</span>
                         </a>
 
                         <!-- Одноклассники -->
                         <a href="https://www.odnoklassniki.ru/oauth/authorize?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=code" 
                            onclick="if(typeof BxPopup==='function'){BxPopup(this.href, 580, 400); return false;}"
-                           class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 text-dark rounded transition-colors w-full border border-gray-200">
+                           class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 rounded transition-colors w-full border border-gray-200">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 28" class="w-5 h-5 fill-current" aria-hidden="true">
                                 <path d="M10 14.2c-3.9 0-7.1-3.2-7.1-7.1 0-3.9 3.2-7.1 7.1-7.1s7.1 3.2 7.1 7.1c0 3.9-3.2 7.1-7.1 7.1zM10 3.6c-1.9 0-3.5 1.6-3.5 3.5 0 1.9 1.6 3.5 3.5 3.5s3.5-1.6 3.5-3.5c0-1.9-1.6-3.5-3.5-3.5zM18.2 15c0.7 1.4-0.1 2.1-1.9 3.2-1.5 1-3.6 1.3-4.9 1.5l1.1 1.1 4.2 4.2c0.6 0.6 0.6 1.7 0 2.3l-0.2 0.2c-0.6 0.6-1.7 0.6-2.3 0-1-1.1-2.6-2.6-4.2-4.2l-4.2 4.2c-0.6 0.6-1.7 0.6-2.3 0l-0.2-0.2c-0.6-0.6-0.6-1.7 0-2.3 1.1-1.1 2.6-2.6 4.2-4.2l1.1-1.1c-1.3-0.1-3.4-0.5-5-1.5-1.8-1.2-2.6-1.8-1.9-3.2 0.4-0.8 1.5-1.5 3-0.3 0 0 2 1.6 5.2 1.6s5.2-1.6 5.2-1.6c1.5-1.2 2.6-0.5 3 0.3z"/>
                             </svg>
-                            <span class="font-medium">Одноклассники</span>
+                            <span class="oauth-label">Одноклассники</span>
                         </a>
                     </div>
                     
                         <!-- Подпись -->
                         <div class="mt-6 pt-4 border-t border-gray-700">
-                            <p class="text-xs text-gray-400 text-center">
+                            <p class="text-tiny text-center">
                                 Авторизация необходима для подтверждения подлинности отзыва
                             </p>
                         </div>
@@ -638,14 +633,14 @@
         <!-- Описание -->
         <section class="py-16 lg:py-20" id="opisanie">
             <div class="container">
-                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Описание</h2>
+                <h2 class="heading-section text-center mb-12">Описание</h2>
   
                <!-- Grid контейнер -->
         <div class="space-y-8 lg:grid lg:grid-cols-3 lg:gap-8 lg:space-y-0">
             
             <!-- 1. Видео (Эффект 3D Canvas) -->
             <div class="lg:row-span-2">
-                <div class="canvas-3d group relative aspect-[360/648] rounded-lg overflow-hidden min-h-[360px] bg-gray-100" data-video-cover data-video-src="https://www.youtube.com/embed/fefB0Rklz98?rel=0&amp;showinfo=0" data-video-title="Портрет маслом на холсте">
+                <div class="group relative aspect-[360/648] overflow-hidden min-h-[360px] bg-gray-100" data-video-cover data-video-src="https://www.youtube.com/embed/fefB0Rklz98?rel=0&amp;showinfo=0" data-video-title="Портрет маслом на холсте">
                     <!-- Обложка -->
                     <img 
                         src="https://muse.ooo/upload/img/o-oil-portrait-on-canvas-360-648.webp"
@@ -658,15 +653,11 @@
                     >
                     
                     <!-- Кнопка Play -->
-                    <button type="button" class="absolute inset-0 flex items-center justify-center z-10 cursor-pointer 
-                                bg-black/20 hover:bg-black/30 transition-colors
-                                group-[.video-playing]:opacity-0 group-[.video-playing]:pointer-events-none" data-play-btn aria-label="Воспроизвести видео">
-                        <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </button>
+                    <button type="button" class="ui-control ui-control--xl ui-control--play absolute inset-0 m-auto group-[.video-playing]:opacity-0 group-[.video-playing]:pointer-events-none" data-play-btn aria-label="Воспроизвести видео">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </button>
                 </div>
-                <p class="text-center text-gray-600 mt-4 text-sm">Короткое видео — 19 сек. о том, как выглядит картина «маслом» на холсте</p>
+                <p class="text-center mt-4 text-small">Короткое видео — 19 сек. о том, как выглядит картина «маслом» на холсте</p>
             </div>
             
             <!-- 2. До/После (Новый компонент) -->
@@ -707,11 +698,11 @@
                         </svg>
                     </div>
                 </div>
-                <p class="text-center text-gray-600 mt-6 text-sm">Потяните за ползунок, чтобы сравнить «До» и «После»</p>
+                <p class="text-center mt-6 text-small">Потяните за ползунок, чтобы сравнить «До» и «После»</p>
             </div>
             
             <!-- 3. Текст (начинается в колонке 2, продолжается в колонке 3) -->
-            <div class="lg:col-span-2 space-y-4 text-gray-600">
+            <div class="lg:col-span-2 space-y-4">
                 <p>Живописный портрет маслом, начиная с XV века, когда были написаны первые работы в этой технике в Голландии, наверное, считается самым популярным и распространенным жанром изобразительного искусства.</p>
                 
                 <p>Это неудивительно, ведь такой портрет всегда был неким признаком элитарности и аристократизма. Живописные портреты были сложны в исполнении, например, великий Гойя требовал от портретируемого 100 часов позирования.</p>
@@ -754,3 +745,13 @@
     <script defer src="../../js/nav.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+

@@ -17,11 +17,11 @@
     <!-- Критический CSS -->
     <style>
         :root {
-            --primary: #4A90E2;
-            --primary-hover: #609DE6;
-            --dark: #252525;
-            --body: #666666;
-            --secondary: #FAFAFA;
+            --primary: #2f6ea8;
+            --primary-hover: #275d8f;
+            --dark: #262626;
+            --body: #525252;
+            --secondary: #fafafa;
         }
         body { background-color: #fff; color: var(--body); overflow-x: hidden; }
         /* Typed.js cursor (unique to info page) */
@@ -35,8 +35,8 @@
 </head>
 <body class="bg-white overflow-x-hidden">
     <!-- Back to Top Button -->
-    <a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-white text-dark hover:bg-dark hover:text-white border border-gray-300 hover:border-dark transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
+    <a href="#" id="back-to-top" class="ui-control ui-control--lg fixed bottom-5 right-5 z-50 opacity-0 pointer-events-none hidden md:flex" aria-label="Наверх">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
     </a>
@@ -48,7 +48,7 @@
     
 
     <!-- Hero Section with Ken Burns -->
-    <section class="relative h-[70vh] overflow-hidden flex items-center" id="hero">
+    <section class="relative h-[70vh] overflow-hidden flex items-center bg-dark" id="hero">
         <!-- Background Image + Animation (не грузится на мобильных) -->
         <div class="absolute inset-0 z-0 bg-black">
             <picture>
@@ -86,7 +86,7 @@
                         <li class="text-gray-100">О нас</li>
                     </ol>
                 </nav>
-                <h1 class="text-4xl lg:text-6xl font-light text-white mb-4">
+                <h1 class="heading-hero mb-4">
                     Печатаем <span id="typed-text" class="text-primary"></span><span class="typed-cursor">&nbsp;</span><br class="hidden sm:block">на холсте и пишем портреты по фото
                 </h1>
             </div>
@@ -98,15 +98,15 @@
         <div class="container">
             <div class="py-4">
                 <nav aria-label="Навигация по разделу">
-                    <ul class="flex flex-wrap gap-x-6 gap-y-2">
-                        <li><a href="https://muse.ooo/info/" aria-current="page" class="text-sm text-white font-medium">О студии</a></li>
-                        <li><a href="https://muse.ooo/info/kontakty/" class="text-sm text-gray-400 hover:text-white transition-colors">Контакты</a></li>
-                        <li><a href="https://muse.ooo/info/faq/" class="text-sm text-gray-400 hover:text-white transition-colors">Вопросы и ответы</a></li>
-                        <li><a href="https://muse.ooo/info/guarantee/" class="text-sm text-gray-400 hover:text-white transition-colors">Гарантия</a></li>
-                        <li><a href="https://muse.ooo/info/partnerstvo/" class="text-sm text-gray-400 hover:text-white transition-colors">Партнёрство</a></li>
-                        <li><a href="https://muse.ooo/info/dostavka/" class="text-sm text-gray-400 hover:text-white transition-colors">Доставка</a></li>
-                        <li><a href="https://muse.ooo/info/oplata/" class="text-sm text-gray-400 hover:text-white transition-colors">Оплата</a></li>
-                        <li><a href="https://muse.ooo/info/avtorstvo/" class="text-sm text-gray-400 hover:text-white transition-colors">Авторское право</a></li>
+                    <ul class="flex flex-wrap items-center justify-start gap-x-8 gap-y-2">
+                        <li><a href="https://muse.ooo/info/" aria-current="page" class="text-xs font-bold uppercase tracking-wider text-white">О студии</a></li>
+                        <li><a href="https://muse.ooo/info/kontakty/" class="text-xs font-bold uppercase tracking-wider text-gray-300 hover:text-white transition-colors">Контакты</a></li>
+                        <li><a href="https://muse.ooo/info/faq/" class="text-xs font-bold uppercase tracking-wider text-gray-300 hover:text-white transition-colors">Вопросы и ответы</a></li>
+                        <li><a href="https://muse.ooo/info/guarantee/" class="text-xs font-bold uppercase tracking-wider text-gray-300 hover:text-white transition-colors">Гарантия</a></li>
+                        <li><a href="https://muse.ooo/info/partnerstvo/" class="text-xs font-bold uppercase tracking-wider text-gray-300 hover:text-white transition-colors">Партнёрство</a></li>
+                        <li><a href="https://muse.ooo/info/dostavka/" class="text-xs font-bold uppercase tracking-wider text-gray-300 hover:text-white transition-colors">Доставка</a></li>
+                        <li><a href="https://muse.ooo/info/oplata/" class="text-xs font-bold uppercase tracking-wider text-gray-300 hover:text-white transition-colors">Оплата</a></li>
+                        <li><a href="https://muse.ooo/info/avtorstvo/" class="text-xs font-bold uppercase tracking-wider text-gray-300 hover:text-white transition-colors">Авторское право</a></li>
                     </ul>
                 </nav>
             </div>
@@ -117,7 +117,7 @@
     <section class="bg-secondary py-16 lg:py-20" id="about">
         <div class="container">
             <div class="max-w-3xl mx-auto">
-                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">О студии Muse - своими словами</h2>
+                <h2 class="heading-section text-center mb-8">О студии Muse - своими словами</h2>
                 
                 <div class="text-lg text-body leading-relaxed space-y-6">
                     <p>
@@ -145,7 +145,7 @@
                     <p>С тех пор мы выстроили студию вокруг простой идеи Анны:</p>
                     
                     <!-- Цитата -->
-                    <div class="relative pl-5 border-l-[3px] border-gray-300">
+                    <div class="relative pl-5 border-l-[3px] border-primary">
                         <p class="italic text-body">
                             «Делаем так, как хотели бы получить сами, если бы готовили подарок близкому. Поэтому каждая работа — личная».
                         </p>
@@ -179,7 +179,7 @@
     <!-- Наши авторы: Заголовок -->
     <section class="py-12 lg:py-16" id="authors">
         <div class="container">
-            <h2 class="text-3xl lg:text-4xl font-light text-dark text-center">Наши авторы</h2>
+            <h2 class="heading-section text-center">Наши авторы</h2>
         </div>
     </section>
 
@@ -188,26 +188,26 @@
         <div class="container">
             <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
                 <div class="order-2 lg:order-1">
-                    <img 
-                        src="https://muse.ooo/upload/imgsite/anastasiya-ko-360-540-2.webp"
-                        loading="lazy" 
-                        decoding="async" 
-                        fetchpriority="low"
-                        title="Автопортрет художника Анастасии" 
-                        alt="Автопортрет художника Анастасии в стиле под масло" 
-                        width="360" 
-                        height="540"
-                        class="rounded-lg shadow-xl mx-auto lg:mx-0"
-                    >
+                                <img 
+                                    src="https://muse.ooo/upload/imgsite/anastasiya-ko-360-540-2.webp"
+                                    loading="lazy" 
+                                    decoding="async" 
+                                    fetchpriority="low"
+                                    title="Автопортрет художника Анастасии" 
+                                    alt="Автопортрет художника Анастасии в стиле под масло" 
+                                    width="360" 
+                                    height="540"
+                                    class="shadow-2xl mx-auto lg:mx-0"
+                                >
                 </div>
                 <div class="order-1 lg:order-2">
                     <h3 class="text-2xl font-medium text-dark mb-4">Анастасия</h3>
                     <p class="text-body mb-4">
                         Художник. Художественное образование и дополнительное образование в области цифровой графики: ретушь, дизайн, живопись. Опыт написания цифровых портретов с 2019 года. Смотрите мои <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/anastasia_ko/" rel="nofollow" class="text-primary underline hover:no-underline">работы в стиле маслом, в образе и шаржи ↗</a> для студии Muse.
                     </p>
-                    <p class="text-lg text-body italic">
+                    <blockquote class="border-l-4 border-primary pl-4 italic text-body text-lg">
                         "Я рисую портреты, потому что в каждом лице скрыта уникальная история, которую невозможно полностью воссоздать или повторить. Моя миссия — не просто запечатлеть черты, а создать художественный образ, который сохранит суть момента навсегда."
-                    </p>
+                    </blockquote>
                 </div>
             </div>
         </div>
@@ -222,22 +222,22 @@
                     <p class="text-body mb-4">
                         Художник с образованием в области художественного оформления и графического дизайна. Имею опыт в классической живописи, фотографии и ретуши. Специализируюсь на портретах с 2018 года. В моем портфолио <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/anna_m/" rel="nofollow" class="text-primary underline hover:no-underline">более 150 работ в стиле акварель и маслом ↗</a> для Muse.
                     </p>
-                    <p class="text-lg text-body italic">
+                    <blockquote class="border-l-4 border-primary pl-4 italic text-body text-lg">
                         "Я люблю рисовать лица, потому что портрет передает не просто черты человека. С помощью портрета можно показать нечто большее, что сразу может быть не заметно. Через портрет художник рассказывает о человеке, показывая его лучшие стороны. А сколько света и красоты, эмоций и жизненного опыта в этих лицах! Именно это восхищает и вдохновляет меня на творчество!"
-                    </p>
+                    </blockquote>
                 </div>
                 <div>
-                    <img 
-                        src="https://muse.ooo/upload/imgsite/anna-ma-360-540.webp"
-                        loading="lazy" 
-                        decoding="async" 
-                        fetchpriority="low"
-                        title="Автопортрет художника Анны" 
-                        alt="Автопортрет художника Анны в стиле под масло" 
-                        width="360" 
-                        height="540"
-                        class="rounded-lg shadow-xl mx-auto lg:mx-0 lg:ml-auto"
-                    >
+                                <img 
+                                    src="https://muse.ooo/upload/imgsite/anna-ma-360-540.webp"
+                                    loading="lazy" 
+                                    decoding="async" 
+                                    fetchpriority="low"
+                                    title="Автопортрет художника Анны" 
+                                    alt="Автопортрет художника Анны в стиле под масло" 
+                                    width="360" 
+                                    height="540"
+                                    class="shadow-2xl mx-auto lg:mx-0 lg:ml-auto"
+                                >
                 </div>
             </div>
         </div>
@@ -248,26 +248,26 @@
         <div class="container">
             <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
                 <div class="order-2 lg:order-1">
-                    <img 
-                        src="https://muse.ooo/upload/imgsite/artem-360-540.webp"
-                        loading="lazy" 
-                        decoding="async" 
-                        fetchpriority="low"
-                        title="Автопортрет художника Артёма" 
-                        alt="Автопортрет художника Артёма в стиле под масло" 
-                        width="360" 
-                        height="540"
-                        class="rounded-lg shadow-xl mx-auto lg:mx-0"
-                    >
+                                <img 
+                                    src="https://muse.ooo/upload/imgsite/artem-360-540.webp"
+                                    loading="lazy" 
+                                    decoding="async" 
+                                    fetchpriority="low"
+                                    title="Автопортрет художника Артёма" 
+                                    alt="Автопортрет художника Артёма в стиле под масло" 
+                                    width="360" 
+                                    height="540"
+                                    class="shadow-2xl mx-auto lg:mx-0"
+                                >
                 </div>
                 <div class="order-1 lg:order-2">
                     <h3 class="text-2xl font-medium text-dark mb-4">Артём</h3>
                     <p class="text-body mb-4">
                         Художник. Художественное образование и образование в области дизайна, выпускник НГПУ. Опыт работы в области портретной живописи с 2019 года. Создаю уникальные образы, передавая эмоции и характер. Смотрите мои <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/artem/" rel="nofollow" class="text-primary underline hover:no-underline">портреты в стиле маслом, дрим-арт и других ↗</a> для студии Muse.
                     </p>
-                    <p class="text-lg text-body italic">
+                    <blockquote class="border-l-4 border-primary pl-4 italic text-body text-lg">
                         "Я рисую портреты на компьютере, потому что мне нравится экспериментировать с цветами и текстурами. Видеть, как на экране постепенно проявляется характер и эмоции людей. Цифровые инструменты дают возможность мгновенно вносить изменения и пробовать новые идеи, добиваясь идеального результата. В каждом штрихе этого творческого процесса я нахожу радость, погружаясь в мир искусства и самовыражения."
-                    </p>
+                    </blockquote>
                 </div>
             </div>
         </div>
@@ -282,22 +282,22 @@
                     <p class="text-body mb-4">
                         Художник. Художественное образование и дополнительное образование в области дизайна. Автор учебных пособий по цифровой живописи. Обучаю других дизайнеров-художников. Опыт работы с 2018 года. Посмотрите мои <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/pavel/" rel="nofollow" class="text-primary underline hover:no-underline">портреты в разных стилях, включая под масло ↗</a> для студии Muse.
                     </p>
-                    <p class="text-lg text-body italic">
+                    <blockquote class="border-l-4 border-primary pl-4 italic text-body text-lg">
                         "Я занимаюсь творчеством много лет. Таким образом я оставляю след в этом мире. Я рисую портреты, потому что для меня это процесс медитации, который позволяет забыть о суете и погрузиться в гармонию со своим творческим «я». Мне нравится уникальность людей, мимика, их настроение — всё это хочется запечатлеть и сохранить на память."
-                    </p>
+                    </blockquote>
                 </div>
                 <div>
-                    <img 
-                        src="https://muse.ooo/upload/imgsite/pavel-360-540.webp"
-                        loading="lazy" 
-                        decoding="async" 
-                        fetchpriority="low"
-                        title="Автопортрет художника Павла" 
-                        alt="Автопортрет художника Павла в стиле под масло" 
-                        width="360" 
-                        height="540"
-                        class="rounded-lg shadow-xl mx-auto lg:mx-0 lg:ml-auto"
-                    >
+                                <img 
+                                    src="https://muse.ooo/upload/imgsite/pavel-360-540.webp"
+                                    loading="lazy" 
+                                    decoding="async" 
+                                    fetchpriority="low"
+                                    title="Автопортрет художника Павла" 
+                                    alt="Автопортрет художника Павла в стиле под масло" 
+                                    width="360" 
+                                    height="540"
+                                    class="shadow-2xl mx-auto lg:mx-0 lg:ml-auto"
+                                >
                 </div>
             </div>
         </div>
@@ -308,26 +308,26 @@
         <div class="container">
             <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
                 <div class="order-2 lg:order-1">
-                    <img 
-                        src="https://muse.ooo/upload/imgsite/sofya-u-360-540.webp"
-                        loading="lazy" 
-                        decoding="async" 
-                        fetchpriority="low"
-                        title="Автопортрет художника Софьи" 
-                        alt="Автопортрет художника Софьи в стиле под масло" 
-                        width="360" 
-                        height="540"
-                        class="rounded-lg shadow-xl mx-auto lg:mx-0"
-                    >
+                                <img 
+                                    src="https://muse.ooo/upload/imgsite/sofya-u-360-540.webp"
+                                    loading="lazy" 
+                                    decoding="async" 
+                                    fetchpriority="low"
+                                    title="Автопортрет художника Софьи" 
+                                    alt="Автопортрет художника Софьи в стиле под масло" 
+                                    width="360" 
+                                    height="540"
+                                    class="shadow-2xl mx-auto lg:mx-0"
+                                >
                 </div>
                 <div class="order-1 lg:order-2">
                     <h3 class="text-2xl font-medium text-dark mb-4">Софья</h3>
                     <p class="text-body mb-4">
                         Художник. Профессиональное образование по специальности художник-живописец, педагог, выпускница НХУ. Опыт работы с 2015 года. Посмотрите мои <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/sofya_u/" rel="nofollow" class="text-primary underline hover:no-underline">портреты в стиле акварель и масло ↗</a> для студии Muse.
                     </p>
-                    <p class="text-lg text-body italic">
+                    <blockquote class="border-l-4 border-primary pl-4 italic text-body text-lg">
                         "В создании картины мне важно передать ощущение живости, словно портрет одушевлён. Чтобы в нём виделась схожесть и ощущались эмоции, выраженные человеком. Это главное, ведь искусство создаётся для зрителя, вызывая у него яркие положительные чувства и сохраняя память о значимых событиях в жизни."
-                    </p>
+                    </blockquote>
                 </div>
             </div>
         </div>
@@ -342,22 +342,22 @@
                     <p class="text-body mb-4">
                         Художник. Художественное образование и дополнительное образование по цифровой живописи. Опыт художника-портретиста с 2019 года. Посмотрите более 200 моих работ в <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/tatyana_n/" rel="nofollow" class="text-primary underline hover:no-underline">стиле акварель и карандаш ↗</a> для Muse.
                     </p>
-                    <p class="text-lg text-body italic">
+                    <blockquote class="border-l-4 border-primary pl-4 italic text-body text-lg">
                         "Рисование всегда занимало важное место в моей жизни. Я создаю портреты, потому что люблю передавать эмоции людей и вдохновляюсь возможностью запечатлеть их на холсте. Лицо каждого человека — это отдельная история, которую я стараюсь раскрыть через своё искусство, пользуясь возможностями современных цифровых технологий и инструментов."
-                    </p>
+                    </blockquote>
                 </div>
                 <div>
-                    <img 
-                        src="https://muse.ooo/upload/imgsite/tatyana-n-360-540.webp"
-                        loading="lazy" 
-                        decoding="async" 
-                        fetchpriority="low"
-                        title="Автопортрет художника Татьяны" 
-                        alt="Автопортрет художника Татьяны в акварельном стиле" 
-                        width="360" 
-                        height="540"
-                        class="rounded-lg shadow-xl mx-auto lg:mx-0 lg:ml-auto"
-                    >
+                                <img 
+                                    src="https://muse.ooo/upload/imgsite/tatyana-n-360-540.webp"
+                                    loading="lazy" 
+                                    decoding="async" 
+                                    fetchpriority="low"
+                                    title="Автопортрет художника Татьяны" 
+                                    alt="Автопортрет художника Татьяны в акварельном стиле" 
+                                    width="360" 
+                                    height="540"
+                                    class="shadow-2xl mx-auto lg:mx-0 lg:ml-auto"
+                                >
                 </div>
             </div>
         </div>
@@ -368,26 +368,26 @@
         <div class="container">
             <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
                 <div class="order-2 lg:order-1">
-                    <img 
-                        src="https://muse.ooo/upload/imgsite/irina-360-540.webp"
-                        loading="lazy" 
-                        decoding="async" 
-                        fetchpriority="low"
-                        title="Портрет дизайнера Ирины" 
-                        alt="Портрет дизайнера Ирины в стиле под масло" 
-                        width="360" 
-                        height="540"
-                        class="rounded-lg shadow-xl mx-auto lg:mx-0"
-                    >
+                                <img 
+                                    src="https://muse.ooo/upload/imgsite/irina-360-540.webp"
+                                    loading="lazy" 
+                                    decoding="async" 
+                                    fetchpriority="low"
+                                    title="Портрет дизайнера Ирины" 
+                                    alt="Портрет дизайнера Ирины в стиле под масло" 
+                                    width="360" 
+                                    height="540"
+                                    class="shadow-2xl mx-auto lg:mx-0"
+                                >
                 </div>
                 <div class="order-1 lg:order-2">
                     <h3 class="text-2xl font-medium text-dark mb-4">Ирина</h3>
                     <p class="text-body mb-4">
                         Дизайнер. Образование в области цифровой графики: ретушь, дизайн. Опыт работы с 2019 года. Смотрите мои <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/irina/" rel="nofollow" class="text-primary underline hover:no-underline">фотомозаики и портреты из слов ↗</a> на странице студии Muse.
                     </p>
-                    <p class="text-lg text-body italic">
+                    <blockquote class="border-l-4 border-primary pl-4 italic text-body text-lg">
                         "Я люблю создавать мозаики и коллажи потому что они рассказывают историю человека, семьи, сохраняют самые важные моменты. Моя задача — создавать работы, которые не только радуют глаз, но и оставляют след в сердцах людей."
-                    </p>
+                    </blockquote>
                 </div>
             </div>
         </div>
@@ -405,7 +405,7 @@
                             <span>Обработано 8000+ изображений — от портретов до коллажей и репродукций</span>
                         </li>
                         <li class="check-list-item">
-                            <span>Написано и размещено в <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/" class="text-primary underline hover:no-underline">портфолио ↗</a> — свыше 6000 портретов</span>
+                            <span>Написано и размещено в <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/" class="text-gray-300 underline hover:text-white">портфолио ↗</a> — свыше 6000 портретов</span>
                         </li>
                         <li class="check-list-item">
                             <span>Напечатано 2000+ фотоколлажей, фото на холсте, модульных и интерьерных картин, репродукций</span>
@@ -448,8 +448,8 @@
                                 class="w-full h-full object-cover rounded-lg"
                             >
                         </div>
-                        <button type="button" class="video-play-icon absolute inset-0 flex items-center justify-center cursor-pointer z-10 bg-black/20 hover:bg-black/30 transition-colors" data-play-btn aria-label="Воспроизвести видео о создании портретов">
-                            <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg" aria-hidden="true">
+                        <button type="button" class="ui-control ui-control--xl ui-control--play" data-play-btn aria-label="Воспроизвести видео о создании портретов">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
                         </button>
@@ -672,28 +672,28 @@
     <!-- Модалка для видео -->
     <div class="video-modal" id="video-modal">
         <div class="video-modal-content">
-            <button class="video-modal-close" aria-label="Закрыть">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <button class="ui-control ui-control--md ui-control--close" aria-label="Закрыть">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
             </button>
-            <button class="video-modal-mute" aria-label="Включить звук">
-                <svg class="w-6 h-6 mute-icon" fill="currentColor" viewBox="0 0 24 24">
+            <button class="ui-control ui-control--md ui-control--mute" aria-label="Включить звук">
+                <svg class="mute-icon" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
                 </svg>
-                <svg class="w-6 h-6 unmute-icon hidden" fill="currentColor" viewBox="0 0 24 24">
+                <svg class="unmute-icon hidden" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
                 </svg>
             </button>
-            <button class="video-modal-prev" aria-label="Предыдущее видео">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+            <button class="ui-control ui-control--md ui-control--prev" aria-label="Предыдущее видео">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
                 </svg>
             </button>
             <video id="modal-video" preload="none" controls playsinline></video>
-            <button class="video-modal-next" aria-label="Следующее видео">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            <button class="ui-control ui-control--md ui-control--next" aria-label="Следующее видео">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
                 </svg>
             </button>
         </div>
@@ -702,7 +702,7 @@
     <!-- СМИ о нас -->
     <section class="py-16 lg:py-20 bg-secondary" id="media">
         <div class="container mb-8 text-center">
-            <h2 class="text-3xl lg:text-4xl font-light text-dark">СМИ о нас</h2>
+            <h2 class="heading-section">СМИ о нас</h2>
         </div>
         
         <div class="container">
@@ -903,8 +903,9 @@
             </div>
         </div>
     </section>
+    <div class="advantages-gradient">
     <!-- Почему нам можно доверять -->
-    <section class="advantages-section" id="trust">
+    <section class="py-16 lg:py-24" id="trust">
         <div class="container mb-12">
             <h2 class="advantages-title">Почему нам можно доверять</h2>
         </div>
@@ -949,12 +950,12 @@
     </section>
 
     <!-- Студия Muse (юридическая информация) -->
-    <section class="bg-primary py-16 lg:py-20" id="legal">
+    <section class="py-16 lg:py-24" id="legal">
         <div class="container">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div class="text-white">
-                    <h2 class="text-2xl lg:text-3xl font-light mb-6">Студия Muse</h2>
-                    <p class="leading-relaxed">
+                <div>
+                    <h2 class="text-2xl lg:text-3xl font-light mb-6 text-white">Студия Muse</h2>
+                    <p class="leading-relaxed text-white/90">
                         ИП Пасечкин Андрей Игоревич<br>
                         Свидетельство о государственной регистрации<br>
                         в качестве ИП<br>
@@ -979,6 +980,7 @@
             </div>
         </div>
     </section>
+    </div>
 
     <!-- Контакты -->
     <section class="bg-dark text-white py-16 lg:py-20" id="contacts">
@@ -988,40 +990,22 @@
                 <div>
                     <h3 class="text-xl font-medium mb-4">Москва</h3>
                     <p class="text-gray-300 mb-2">127550, ул. Прянишникова, д. 19А, строение 9.</p>
-                    <p class="text-gray-300 mb-2">Телефон: <a href="tel:+74954091869" class="text-primary underline hover:no-underline">+7 (495) 409–18–69</a>.</p>
-                    <p class="text-gray-300 mb-4">Электронная почта: <a href="mailto:info@muse.ooo" class="text-primary underline hover:no-underline">info@muse.ooo</a>.</p>
+                    <p class="text-gray-300 mb-2">Телефон: <a href="tel:+74954091869" class="text-gray-300 underline hover:text-white">+7 (495) 409–18–69</a>.</p>
+                    <p class="text-gray-300 mb-4">Электронная почта: <a href="mailto:info@muse.ooo" class="text-gray-300 underline hover:text-white">info@muse.ooo</a>.</p>
                     
-                    <!-- Яндекс рейтинг Москва -->
-                    <div class="w-[150px] h-[50px] overflow-hidden">
-                        <iframe 
-                            src="https://yandex.ru/sprav/widget/rating-badge/82862448491?type=rating&theme=dark" 
-                            width="150" 
-                            height="50" 
-                            loading="lazy"
-                            style="border: none;"
-                            title="Рейтинг Яндекс Москва"
-                        ></iframe>
-                    </div>
+
+                    
                 </div>
                 
                 <!-- Санкт-Петербург -->
                 <div>
                     <h3 class="text-xl font-medium mb-4">Санкт-Петербург</h3>
                     <p class="text-gray-300 mb-2">196620, ул. Слуцкая, д. 13, корп. 2.</p>
-                    <p class="text-gray-300 mb-2">Телефон: <a href="tel:+78124081869" class="text-primary underline hover:no-underline">+7 (812) 408–18–69</a>.</p>
-                    <p class="text-gray-300 mb-4">Электронная почта: <a href="mailto:info@muse.ooo" class="text-primary underline hover:no-underline">info@muse.ooo</a>.</p>
+                    <p class="text-gray-300 mb-2">Телефон: <a href="tel:+78124081869" class="text-gray-300 underline hover:text-white">+7 (812) 408–18–69</a>.</p>
+                    <p class="text-gray-300 mb-4">Электронная почта: <a href="mailto:info@muse.ooo" class="text-gray-300 underline hover:text-white">info@muse.ooo</a>.</p>
                     
-                    <!-- Яндекс рейтинг СПб -->
-                    <div class="w-[150px] h-[50px] overflow-hidden">
-                        <iframe 
-                            src="https://yandex.ru/sprav/widget/rating-badge/2855807336?type=rating&theme=dark" 
-                            width="150" 
-                            height="50" 
-                            loading="lazy"
-                            style="border: none;"
-                            title="Рейтинг Яндекс Санкт-Петербург"
-                        ></iframe>
-                    </div>
+
+                    
                 </div>
                 
                 <!-- Часы работы и соцсети -->
@@ -1051,13 +1035,6 @@
             <li><a href="#contacts" data-title="Контакты" class="inner-link"><span class="sr-only">Контакты</span></a></li>
         </ul>
     </nav>
-
-    <!-- Back to Top Button -->
-    <a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-white text-dark hover:bg-dark hover:text-white border border-gray-300 hover:border-dark transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
-            <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </a>
 
  <!-- Footer -->
    

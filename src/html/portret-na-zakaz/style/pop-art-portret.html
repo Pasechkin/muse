@@ -13,11 +13,11 @@
     <!-- Критический CSS (универсальный для страниц стилей портретов) -->
         <style>
        :root {
-    --primary: #4A90E2;
-    --primary-hover: #609DE6;
-    --dark: #252525;
-    --body: #666666;
-    --secondary: #FAFAFA;
+    --primary: #2f6ea8;
+    --primary-hover: #275d8f;
+    --dark: #262626;
+    --body: #525252;
+    --secondary: #fafafa;
 }
 
 body {
@@ -93,15 +93,10 @@ body {
     </script>
 <link rel="stylesheet" href="../../css/output.css">
 </head>
-<body class="bg-white overflow-x-hidden">
+<body class="bg-white overflow-x-hidden style-portraits">
     <!-- Back to Top Button -->
-    <a href="#" id="back-to-top" 
-       class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center 
-              rounded-full bg-white text-dark hover:bg-dark hover:text-white 
-              border border-gray-300 hover:border-dark transition-colors 
-              z-50 opacity-0 pointer-events-none" 
-       aria-label="Наверх">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
+    <a href="#" id="back-to-top" class="ui-control ui-control--lg fixed bottom-5 right-5 z-50 opacity-0 pointer-events-none hidden md:flex" aria-label="Наверх">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
     </a>
@@ -110,7 +105,7 @@ body {
          
 
     <!-- Page Navigator -->
-    <nav id="page-navigator" class="page-navigator">
+    <nav class="page-navigator" id="page-navigator">
         <ul>
             <li><a href="#primery" class="inner-link" data-title="Примеры"><span class="sr-only">Примеры</span></a></li>
             <li><a href="#calc" class="inner-link" data-title="Цена"><span class="sr-only">Цена</span></a></li>
@@ -129,8 +124,8 @@ body {
             <div class="container">
                 <div class="grid lg:grid-cols-2 gap-8 items-center">
                     <!-- Текстовый блок -->
-                    <div class="text-white">
-                        <nav class="text-sm text-gray-400 mb-4" aria-label="Breadcrumb">
+                    <div>
+                        <nav class="text-small text-gray-400 mb-4" aria-label="Breadcrumb">
                             <ol class="flex list-none p-0">
                                 <li class="flex items-center">
                                     <a href="https://muse.ooo/" class="hover:underline">Главная</a>
@@ -144,13 +139,13 @@ body {
                             </ol>
                         </nav>
                         
-                        <h1 class="text-4xl lg:text-6xl font-light mb-4">Поп-арт портрет</h1>
-                        <p class="text-sm mt-2 mb-4 text-gray-300">Модный, яркий, твой</p>
-                        <p class="text-lg lg:text-xl mb-6 text-gray-200">Художник нарисует для Вас поп-арт портрет на заказ и напечатает его на холсте.<br>Посмотрите примеры, выберите свой стиль и пришлите фото</p>
+                        <h1 class="heading-hero mb-4">Поп-арт портрет</h1>
+                        <p class="text-small mt-2 mb-4 text-gray-300">Модный, яркий, твой</p>
+                        <p class="text-lead mb-6">Художник нарисует для Вас поп-арт портрет на заказ и напечатает его на холсте.<br>Посмотрите примеры, выберите свой стиль и пришлите фото</p>
                         
-                        <p class="text-lg lg:text-xl mb-6 text-gray-200">От 4311 руб. Под заказ.</p>
+                        <p class="text-lead mb-6">От 4311 руб. Под заказ.</p>
                         
-                        <a href="https://muse.ooo/order/" class="btn-primary btn-lg">
+                        <a href="https://muse.ooo/order/" class="btn-primary">
                             Заказать
                         </a>
                     </div>
@@ -162,7 +157,7 @@ body {
                             alt="Пример поп-арт портрета в стиле Че девушки блондинки на малиновом фоне по фото на заказ"
                             width="458"
                             height="562"
-                            class="w-full max-w-md mx-auto lg:ml-auto rounded-lg shadow-2xl"
+                            class="w-full max-w-md mx-auto lg:ml-auto hero-media-image shadow-2xl"
                             loading="eager" decoding="async" fetchpriority="high"
                         >
                     </div>
@@ -173,13 +168,13 @@ body {
         <!-- Примеры (заглушка для Bitrix) -->
         <section class="bg-dark py-16 lg:py-20" id="primery">
             <div class="container">
-                <h2 class="text-3xl lg:text-4xl font-light text-white text-center mb-8">Примеры</h2>
-                <p class="text-center text-gray-300 mb-8">Поп-арт портреты</p>
+                <h2 class="heading-section text-center mb-8">Примеры</h2>
+                <p class="text-center mb-8">Поп-арт портреты</p>
                 
                 <!-- Галерея из Bitrix будет здесь -->
-                <div class="text-center text-gray-400 py-12 border-2 border-dashed border-gray-600 rounded-lg">
-                    <p class="text-lg mb-2">Галерея примеров</p>
-                    <p class="text-sm">Будет загружена из Bitrix</p>
+                <div class="text-center py-12 border-2 border-dashed border-gray-600 rounded-lg">
+                    <p class="heading-card mb-2">Галерея примеров</p>
+                    <p class="text-small">Будет загружена из Bitrix</p>
                 </div>
                 
                 <div class="text-center mt-8">
@@ -191,10 +186,10 @@ body {
         </section>
 
         <!-- Promo Banner -->
-        <section class="bg-primary text-white py-6">
+        <section class="promo-section">
             <div class="container">
                 <div class="flex items-center justify-center">
-                    <p class="text-xl">Скидка 20% с 3 по 4 января</p>
+                    <p class="text-lead">Скидка 20% с 3 по 4 января</p>
                 </div>
             </div>
         </section>
@@ -202,12 +197,12 @@ body {
         <!-- Цена (заглушка для калькулятора Bitrix) -->
         <section class="py-16 lg:py-20" id="calc">
             <div class="container">
-                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">Цена</h2>
+                <h2 class="heading-section text-center mb-8">Цена</h2>
                 
                 <!-- Калькулятор из Bitrix будет здесь -->
-                <div class="text-center text-gray-500 py-12 border-2 border-dashed border-gray-300 rounded-lg">
-                    <p class="text-lg mb-2">Калькулятор</p>
-                    <p class="text-sm">Будет загружен из Bitrix</p>
+                <div class="text-center py-12 border-2 border-dashed border-gray-300 rounded-lg">
+                    <p class="heading-card mb-2">Калькулятор</p>
+                    <p class="text-small">Будет загружен из Bitrix</p>
                 </div>
             </div>
         </section>
@@ -216,7 +211,7 @@ body {
         <section class="py-16 lg:py-24" id="kak-zakazat">
             <div class="container mb-8">
                 <div class="text-center">
-                    <h2 class="text-3xl lg:text-4xl font-light text-dark">Как заказать</h2>
+                    <h2 class="heading-section">Как заказать</h2>
                 </div>
             </div>
             <div class="container">
@@ -245,10 +240,10 @@ body {
                         <!-- Шаг 1 -->
                         <div class="process-step flex gap-4">
                             <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                                <span class="text-xl font-bold text-primary">1</span>
+                                <span class="text-lead font-bold text-primary">1</span>
                             </div>
                             <div>
-                                <h3 class="text-xl font-medium text-dark mb-2">Заказ</h3>
+                                <h3 class="heading-card mb-2">Заказ</h3>
                                 <p class="text-body">
                                     В разделе <a class="text-primary underline hover:no-underline" href="#calc">«Цена» ↑</a> можно загрузить фото, подобрать нужный размер, рассчитать стоимость портрета и оформить заказ.<br><br>
                                     Нет времени разбираться? Нажмите любую кнопку <a href="https://muse.ooo/order/" class="text-primary underline hover:no-underline">«Заказать» ↗</a> на сайте и перешлите нам фото. Перезвоним и поможем с выбором.
@@ -259,10 +254,10 @@ body {
                         <!-- Шаг 2 -->
                         <div class="process-step flex gap-4">
                             <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                                <span class="text-xl font-bold text-primary">2</span>
+                                <span class="text-lead font-bold text-primary">2</span>
                             </div>
                             <div>
-                                <h3 class="text-xl font-medium text-dark mb-2">Цифровой портрет</h3>
+                                <h3 class="heading-card mb-2">Цифровой портрет</h3>
                                 <p class="text-body">
                                     В течение часа перезвоним Вам, чтобы обсудить задание. По согласованному заданию выполним эскиз. После подтверждения эскиза нарисуем портрет. Вносите правки до тех пор, пока не будете полностью удовлетворены работой.<br><br>
                                     Срок создания цифрового портрета — <span>3 января</span>.
@@ -273,10 +268,10 @@ body {
                         <!-- Шаг 3 -->
                         <div class="process-step flex gap-4">
                             <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                                <span class="text-xl font-bold text-primary">3</span>
+                                <span class="text-lead font-bold text-primary">3</span>
                             </div>
                             <div>
-                                <h3 class="text-xl font-medium text-dark mb-2">Печать и оформление портрета на холсте</h3>
+                                <h3 class="heading-card mb-2">Печать и оформление портрета на холсте</h3>
                                 <p class="text-body">
                                     Только после Вашего окончательного подтверждения цифрового портрета картина в стиле Pop Art будет напечатана на холсте, оформлена и передана в службу доставки.
                                 </p>
@@ -286,10 +281,10 @@ body {
                         <!-- Шаг 4 -->
                         <div class="process-step flex gap-4">
                             <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                                <span class="text-xl font-bold text-primary">4</span>
+                                <span class="text-lead font-bold text-primary">4</span>
                             </div>
                             <div>
-                                <h3 class="text-xl font-medium text-dark mb-2">Доставка</h3>
+                                <h3 class="heading-card mb-2">Доставка</h3>
                                 <p class="text-body">
                                     Ориентировочная дата доставки в пункты выдачи Санкт-Петербурга — <span>6 января</span>.<br>
                                     Пункты выдачи смотрите в разделе <a href="https://muse.ooo/info/dostavka/" class="text-primary underline hover:no-underline">Доставка ↗</a>. По согласованию можно вызвать курьера.
@@ -300,10 +295,10 @@ body {
                         <!-- Шаг 5 -->
                         <div class="process-step flex gap-4">
                             <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                                <span class="text-xl font-bold text-primary">5</span>
+                                <span class="text-lead font-bold text-primary">5</span>
                             </div>
                             <div>
-                                <h3 class="text-xl font-medium text-dark mb-2">Оплата</h3>
+                                <h3 class="heading-card mb-2">Оплата</h3>
                                 <p class="text-body">
                                     Услуги по печати и оформлению портрета на холсте оплачиваются при получении. Работа художника по созданию цифрового портрета — после подтверждения эскиза.
                                 </p>
@@ -317,7 +312,7 @@ body {
         <!-- Характеристики -->
         <section class="py-16 lg:py-20" id="harakteristiki">
             <div class="container">
-                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Характеристики</h2>
+                <h2 class="heading-section text-center mb-12">Характеристики</h2>
             </div>
             <div class="container">
                 <div class="grid lg:grid-cols-2 gap-12">
@@ -354,7 +349,7 @@ body {
                         </ul>
                         
                         <div class="mt-8 p-4 bg-secondary rounded-lg border border-gray-200">
-                            <p class="text-body text-sm">
+                            <p class="text-small">
                                 Выше приведен список стандартных характеристик работ и материалов. Вы всегда можете: посчитав в калькуляторе выше; прочитав описание по клику на знак вопроса там же; спросив в коммуникаторе или позвонив – подобрать именно то, что нужно Вам.
                             </p>
                         </div>
@@ -364,13 +359,13 @@ body {
                     <div class="order-1 lg:order-2">
                         <!-- ВИДЕО-ШАБЛОН (раскомментировать при готовом видео)
                         1) ВСТАВЬТЕ КНОПКУ в <el-tab-list>:
-                        <button type="button" class="relative flex h-16 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden" data-video-tab>
+                        <button type="button" class="relative flex h-16 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden" data-video-tab>
                             <span class="sr-only">[ТЕКСТ: Видео]</span>
                             <span class="absolute inset-0 overflow-hidden rounded">
                                 <img src="[URL_82x62.webp]" alt="[ТЕКСТ: Описание видео]" title="[ТЕКСТ: Заголовок видео]" width="82" height="62" class="size-full object-cover" loading="lazy" decoding="async" />
-                                <span class="absolute inset-0 flex items-center justify-center bg-black/30">
-                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                                </span>
+                                <span class="ui-control ui-control--sm absolute inset-0 m-auto">
+                                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                                            </span>
                             </span>
                             <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
                         </button>
@@ -379,9 +374,9 @@ body {
                         <div hidden data-video-panel>
                             <div class="video-cover aspect-video rounded-lg" data-video-cover>
                                 <img src="[URL_458x258.webp]" alt="[ТЕКСТ: Обложка видео]" width="458" height="258" class="w-full h-full object-cover rounded-lg" loading="lazy" decoding="async" />
-                                <div class="video-play-icon cursor-pointer" data-play-btn>
-                                    <svg width="80" height="80" viewBox="0 0 24 24" fill="white" class="drop-shadow-lg"><path d="M8 5v14l11-7z"/></svg>
-                                </div>
+                                <button type="button" class="ui-control ui-control--xl ui-control--play" data-play-btn aria-label="Воспроизвести видео">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                                </button>
                                 <video title="[ТЕКСТ: Заголовок видео]" preload="none" playsinline class="hidden">
                                     <source src="[URL.webm]" type="video/webm">
                                     <source src="[URL.mp4]" type="video/mp4">
@@ -392,21 +387,21 @@ body {
                         <el-tab-group class="flex flex-col-reverse">
                             <!-- Миниатюры -->
                             <el-tab-list class="mx-auto mt-4 w-full max-w-md grid grid-cols-4 gap-3">
-                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
+                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
                                         <span class="sr-only">Лицевая сторона поп-арт портрета на холсте</span>
                                         <span class="absolute inset-0 overflow-hidden rounded">
                                             <img src="https://muse.ooo/upload/img/pop-art-05052019-442.webp" alt="Лицевая сторона поп-арт портрета на холсте" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
                                     </button>
-                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
+                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
                                         <span class="sr-only">Обратная сторона поп-арт портрета на холсте</span>
                                         <span class="absolute inset-0 overflow-hidden rounded">
                                             <img src="https://muse.ooo/upload/img/pop-art-05052019-442-back.webp" alt="Обратная сторона поп-арт портрета на холсте" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
                                     </button>
-                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
+                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
                                         <span class="sr-only">Обратная сторона поп-арт портрета на холсте</span>
                                         <span class="absolute inset-0 overflow-hidden rounded">
                                             <img src="https://muse.ooo/upload/img/pop-art-05052019-442-back.webp" alt="Обратная сторона поп-арт портрета на холсте" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
@@ -511,7 +506,7 @@ body {
         <!-- Выберите свой стиль -->
         <section class="bg-secondary py-16 lg:py-20" id="art">
             <div class="container">
-                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Выберите свой стиль</h2>
+                <h2 class="heading-section text-center mb-12">Выберите свой стиль</h2>
             </div>
             <div class="container">
                 <div class="grid sm:grid-cols-3 gap-8">
@@ -527,7 +522,7 @@ body {
                             decoding="async"
                         >
                         <div class="p-6">
-                            <h4 class="text-xl font-medium text-dark mb-2">Портрет в стиле «Че»</h4>
+                            <h4 class="heading-card mb-2">Портрет в стиле «Че»</h4>
                             <p class="text-body">Двухцветный контурный поп-арт портрет — один цвет контура на однотонном фоне. Срок исполнения от 1 дня.</p>
                         </div>
                     </div>
@@ -544,7 +539,7 @@ body {
                             decoding="async"
                         >
                         <div class="p-6">
-                            <h4 class="text-xl font-medium text-dark mb-2">Поп-арт в стиле «Монро»</h4>
+                            <h4 class="heading-card mb-2">Поп-арт в стиле «Монро»</h4>
                             <p class="text-body">Контурный портрет, который раскрашен несколькими цветами (обычно волосы, тени, губы, кожа) на однотонном фоне. От 2 дней.</p>
                         </div>
                     </div>
@@ -561,7 +556,7 @@ body {
                             decoding="async"
                         >
                         <div class="p-6">
-                            <h4 class="text-xl font-medium text-dark mb-2">Поп-арт в стиле «Уорхола»</h4>
+                            <h4 class="heading-card mb-2">Поп-арт в стиле «Уорхола»</h4>
                             <p class="text-body">Поп-арт портрет в стиле «Уорхол» – это композиция. Квадратное полотно, которое разделено на четыре равные части.</p>
                         </div>
                     </div>
@@ -572,11 +567,11 @@ body {
         <!-- Отзывы -->
         <section class="bg-secondary py-16 lg:py-20" id="otzyvy">
             <div class="container">
-                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">Поп-арт портрет: отзывы</h2>
+                <h2 class="heading-section text-center mb-8">Поп-арт портрет: отзывы</h2>
                 
                 <!-- Заглушка для отзывов из Bitrix -->
-                <div class="text-center text-gray-500 py-8 mb-8">
-                    <p class="text-sm">Отзывы будут загружены из Bitrix</p>
+                <div class="text-center py-8 mb-8">
+                    <p class="text-small">Отзывы будут загружены из Bitrix</p>
                 </div>
                 
                 
@@ -588,14 +583,14 @@ body {
         <!-- Описание -->
         <section class="py-16 lg:py-20" id="opisanie">
             <div class="container">
-                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-12">Описание</h2>
+                <h2 class="heading-section text-center mb-12">Описание</h2>
           
                 <!-- Grid: 2 колонки на десктопе (квадрат слева, текст справа) -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
                     
                     <!-- 1. Квадратное До/После -->
                     <div class="flex flex-col lg:sticky lg:top-24">
-                        <p class="text-gray-600 mb-4">Поп-арт портрет, автор: Лилия. По заказу Кати Гершуни — эксперта по стилю, Первый канал.</p>
+                        <p class="mb-4">Поп-арт портрет, автор: Лилия. По заказу Кати Гершуни — эксперта по стилю, Первый канал.</p>
                         
                         <figure class="before-after-slider relative w-full max-w-[480px] mx-auto aspect-square overflow-hidden rounded-xl shadow-2xl group select-none" style="--pos: 50%;" id="before-after">
                             <img 
@@ -627,32 +622,32 @@ body {
                             </div>
                         </figure>
                         
-                        <p class="text-center text-gray-600 mt-4 text-sm">Потяните за вертикальную линию, чтобы сравнить «До» и «После»</p>
+                        <p class="text-center mt-4 text-small">Потяните за вертикальную линию, чтобы сравнить «До» и «После»</p>
                         
-                        <p class="text-gray-600 mt-6"><strong>Создайте портрет в стиле поп-арт</strong>, дайте волю своей творческой фантазии, проявите свой яркий характер или просто сделайте подарок своему близкому человеку, коллеге, в котором, по вашему мнению, есть «изюминка».</p>
+                        <p class="mt-6"><strong>Создайте портрет в стиле поп-арт</strong>, дайте волю своей творческой фантазии, проявите свой яркий характер или просто сделайте подарок своему близкому человеку, коллеге, в котором, по вашему мнению, есть «изюминка».</p>
                         
-                        <p class="text-gray-500 text-sm italic mt-6 pt-6 border-t border-gray-200">Muse (греч. Μούσα) — это вдохновение, это Mуза</p>
+                        <p class="text-small italic mt-6 pt-6 border-t border-gray-200">Muse (греч. Μούσα) — это вдохновение, это Mуза</p>
                     </div>
                     
                     <!-- 2. Текст -->
-                    <div class="space-y-4 text-gray-600 text-base leading-relaxed">
+                    <div class="space-y-4 text-body leading-relaxed">
                         <p>«Так что же делает наши сегодняшние дома такими разными, такими привлекательными?» — называлась первая картина в стиле, который мир впоследствии узнал под именем поп-арт.</p>
                         
                         <p>У каждого, конечно, свой ответ на этот вопрос. Но если вам близки такие прилагательные, как популярный, молодой, остроумный, сексуальный, шуточный, шикарный, дерзкий — то этот портрет для вас.</p>
                         
-                        <h3 class="text-xl font-medium text-dark pt-4">Стиль «Че»</h3>
+                        <h3 class="text-lead font-medium pt-4">Стиль «Че»</h3>
                         <p>Портрет Че Гевары был создан в 1968 году. Его авторство иногда приписывают Уорхолу, но в реальности его нарисовал Джим Фитцпатрик по фотографии 1960 года кубинца Альберто Корды. Фитцпатрик прикрепил фото к стеклу, наложил на него белый лист бумаги и обвел черным карандашом контуры. Затем он просто сделал копию, но уже на красной бумаге, и в итоге получил портрет, который знаком людям во всех уголках Земли.</p>
                         
                         <p>Ни Корда, ни Фитцпатрик сначала не зарабатывали деньги на своих безумно популярных изображениях. Только после использования образа Че в рекламе водки они закрепили за собой авторство, выиграв в суде у производителя Smirnoff. Причем Корда на полученные деньги построил больницу в Гаване и сказал, что так бы сделал Че.</p>
                         
-                        <h3 class="text-xl font-medium text-dark pt-4">Стиль «Монро»</h3>
+                        <h3 class="text-lead font-medium pt-4">Стиль «Монро»</h3>
                         <p>Одним из самых знаменитых портретов Энди Уорхола стал портрет Мэрилин Монро. Впервые он написал его в 1962 году. Закрасил холст золотой краской и в центре через трафарет напечатал лицо кинозвезды по мотивам ее рекламной фотографии к фильму «Ниагара». Позже появилось множество вариаций этой картины. Одна из них, «Бирюзовая Мэрилин», была продана за 80 млн долларов в 2007 году.</p>
                         
                         <p>Уорхол также создал множество портретов и других известных людей: Брижит Бардо, Элизабет Тейлор, Жаклин Кеннеди, Елизаветы II, Мао Цзэдуна, Ленина и Элвиса Пресли.</p>
                         
                         <p>Многие называют Уорхола королем поп-арта. Мама называла его Андрей. Он был четвертым ребенком русинской семьи эмигрантов из Словакии.</p>
                         
-                        <h3 class="text-xl font-medium text-dark pt-4">Cтиль «Уорхол»</h3>
+                        <h3 class="text-lead font-medium pt-4">Cтиль «Уорхол»</h3>
                         <p>Cтиль «Уорхол» — это композиция. Квадратное полотно разделено на четыре равные части. Каждая из таких частей представляет собой квадрат, залитый своим цветом. На его фоне размещается поп-арт портрет в любом стиле (Че, Монро или из Интернета).</p>
                         
                         <p>На каждом из маленьких квадратов может быть одинаковый портрет, только с измененной под фон тональностью; могут быть четыре разных портрета; может быть два и два одинаковых по диагонали портрета. В итоге получается квадратная картина, составленная из четырех маленьких квадратных картин.</p>
@@ -688,4 +683,14 @@ body {
     <script defer src="../../js/nav.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
 

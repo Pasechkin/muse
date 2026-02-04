@@ -71,11 +71,11 @@
     <style>
         /* CSS переменные */
         :root {
-            --primary: #4a90e2;
-            --primary-hover: #4382cb;
-            --dark: #222222;
-            --body: #444444;
-            --secondary: #f8f8f8;
+            --primary: #2f6ea8;
+            --primary-hover: #275d8f;
+            --dark: #262626;
+            --body: #525252;
+            --secondary: #fafafa;
         }
         
         /* Body */
@@ -95,8 +95,8 @@
 </head>
 <body class="bg-white overflow-x-hidden">
     <!-- Back to Top Button -->
-    <a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-white text-dark hover:bg-dark hover:text-white border border-gray-300 hover:border-dark transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
+    <a href="#" id="back-to-top" class="ui-control ui-control--lg fixed bottom-5 right-5 z-50 opacity-0 pointer-events-none hidden md:flex" aria-label="Наверх">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
     </a>
@@ -115,7 +115,7 @@
 
     <main>
         <!-- Первый экран (Hero) с Ken Burns эффектом -->
-        <section class="relative h-[70vh] overflow-hidden flex items-center">
+        <section class="relative h-[70vh] overflow-hidden flex items-center bg-dark">
             <!-- Background Image + Animation (не грузится на мобильных) -->
             <div class="absolute inset-0 z-0 bg-black">
                 <picture>
@@ -143,9 +143,9 @@
                 <div class="absolute inset-0 bg-black/40"></div>
             </div>
             
-            <div class="container h-full flex items-center relative z-10 text-white">
+            <div class="container h-full flex items-center relative z-10">
                 <div class="max-w-3xl">
-                    <nav class="text-sm text-gray-400 mb-4" aria-label="Breadcrumb">
+                    <nav class="text-small text-gray-400 mb-4" aria-label="Breadcrumb">
                         <ol class="flex list-none p-0">
                             <li class="flex items-center">
                                 <a href="https://muse.ooo/" class="hover:underline">Главная</a>
@@ -159,12 +159,12 @@
                         </ol>
                     </nav>
                     
-                    <h1 class="text-4xl lg:text-6xl font-light mb-6">Семейный портрет</h1>
-                    <p class="text-xl lg:text-2xl font-light mb-8 text-gray-200">
+                    <h1 class="heading-hero mb-6">Семейный портрет</h1>
+                    <p class="text-lead-xl mb-8">
                         Художник нарисует для Вас семейный портрет и напечатает его на холсте. Посмотрите примеры, выберите стиль и пришлите фото
                     </p>
                     
-                    <a href="https://muse.ooo/order/" class="btn-primary btn-lg">
+                    <a href="https://muse.ooo/order/" class="btn-primary">
                         Заказать
                     </a>
                 </div>
@@ -172,10 +172,10 @@
         </section>
 
         <!-- Promo Banner -->
-        <section class="bg-primary text-white py-6">
+        <section class="promo-section">
             <div class="container">
                 <div class="flex items-center justify-center">
-                    <p class="text-xl">Скидка 20% с 15 по 16 января</p>
+                    <p class="text-lead">Скидка 20% с 15 по 16 января</p>
                 </div>
             </div>
         </section>
@@ -188,13 +188,13 @@
                     <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/pop-art-portret/#calc">
                             <img title="Поп-арт" height="223" width="223" alt="Поп-арт портрет в стиле Уорхола семьи из трех человек" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/ammina.optimizer/jpg-webp/q80/img/o-pop-art-warhol-223-100.webp">
-                            <p class="mt-2 text-white">Поп-арт</p>
+                            <p class="mt-2">Поп-арт</p>
                         </a>
                     </div>
                     <div class="text-center flex-shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/drim-art-portret/#calc">
                             <img title="Дрим-Арт" height="297" width="223" alt="Портрет семьи в стиле Дрим-Арт" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/ammina.optimizer/jpg-webp/q80/img/o-dream-art-12-223.webp">
-                            <p class="mt-2 text-white">Дрим-арт</p>
+                            <p class="mt-2">Дрим-арт</p>
                         </a>
                     </div>
                 </div>
@@ -204,17 +204,17 @@
 		 <!-- Примеры (заглушка для Bitrix) -->
         <section class="bg-dark py-16 lg:py-20" id="primery-portretov">
             <div class="container">
-                <h2 class="text-3xl lg:text-4xl font-light text-white text-center mb-8">Портфолио</h2>
-                <p class="text-center text-gray-300 mb-8">Портреты по фото</p>
+                <h2 class="heading-section text-center mb-8">Портфолио</h2>
+                <p class="text-center mb-8">Портреты по фото</p>
                 
                 <!-- Галерея из Bitrix будет здесь -->
-                <div class="text-center text-gray-400 py-12 border-2 border-dashed border-gray-600 rounded-lg">
-                    <p class="text-lg mb-2">Галерея примеров</p>
-                    <p class="text-sm">Будет загружена из Bitrix</p>
+                <div class="text-center py-12 border-2 border-dashed border-gray-600 rounded-lg">
+                    <p class="heading-card mb-2">Галерея примеров</p>
+                    <p class="text-small">Будет загружена из Bitrix</p>
                 </div>
                 
                 <div class="text-center mt-8">
-                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/" class="inline-block px-6 py-2 text-white hover:bg-white hover:text-dark rounded uppercase transition-colors">
+                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/" class="inline-block px-6 py-2 hover:bg-white hover:rounded uppercase transition-colors">
                         смотреть все примеры работ
                     </a>
                 </div>
@@ -224,10 +224,10 @@
         <!-- Цена (Калькулятор - placeholder) -->
         <section class="py-16 lg:py-20" id="calc">
             <div class="container">
-                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">Цена</h2>
-                <div class="text-center text-body">
+                <h2 class="heading-section text-center mb-8">Цена</h2>
+                <div class="text-center">
                     <p><!-- Здесь будет калькулятор Bitrix --></p>
-                    <p class="text-sm text-gray-500 mt-4">Калькулятор будет добавлен при интеграции с Bitrix</p>
+                    <p class="text-small mt-4">Калькулятор будет добавлен при интеграции с Bitrix</p>
                 </div>
             </div>
         </section>
@@ -235,11 +235,11 @@
          <!-- Отзывы -->
         <section class="bg-secondary py-16 lg:py-20" id="review">
             <div class="container">
-                <h2 class="text-3xl lg:text-4xl font-light text-dark text-center mb-8">Отзывы</h2>
+                <h2 class="heading-section text-center mb-8">Отзывы</h2>
                 
                 <!-- Заглушка для отзывов из Bitrix -->
-                <div class="text-center text-gray-500 py-8 mb-8">
-                    <p class="text-sm">Отзывы будут загружены из Bitrix</p>
+                <div class="text-center py-8 mb-8">
+                    <p class="text-small">Отзывы будут загружены из Bitrix</p>
                 </div>
                 
                 <!-- Кнопка "Оставить отзыв" -->
@@ -276,3 +276,13 @@
            
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+

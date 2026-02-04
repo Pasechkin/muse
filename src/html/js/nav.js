@@ -298,7 +298,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Make video play controls keyboard-accessible and add ARIA
-        document.querySelectorAll('.video-play-icon, [data-play-btn]').forEach(function(el){
+        document.querySelectorAll('.ui-control--play, .video-play-icon, [data-play-btn]').forEach(function(el){
             if (el.tagName !== 'BUTTON'){
                 el.setAttribute('role','button');
                 el.setAttribute('tabindex','0');
@@ -317,7 +317,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Observe video-cover class changes to update aria-expanded
         const mc = new MutationObserver(function(records){
-            records.forEach(function(r){ if (r.type === 'attributes' && r.attributeName === 'class'){ const el = r.target; const btn = el.querySelector('.video-play-icon, [data-play-btn]'); if (btn){ if (el.classList.contains('video-playing')) btn.setAttribute('aria-expanded','true'); else btn.setAttribute('aria-expanded','false'); } } });
+            records.forEach(function(r){ if (r.type === 'attributes' && r.attributeName === 'class'){ const el = r.target; const btn = el.querySelector('.ui-control--play, .video-play-icon, [data-play-btn]'); if (btn){ if (el.classList.contains('video-playing')) btn.setAttribute('aria-expanded','true'); else btn.setAttribute('aria-expanded','false'); } } });
         });
         document.querySelectorAll('[data-video-cover], .video-cover').forEach(function(c){ mc.observe(c, { attributes: true }); });
 
@@ -439,16 +439,16 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             const prev = document.createElement('button');
-            prev.className = 'js-carousel-prev hidden lg:flex absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-20 bg-gray-400/50 hover:bg-dark text-white items-center justify-center transition-colors duration-200 rounded-r shadow-sm cursor-pointer';
+            prev.className = 'ui-control ui-control--lg js-carousel-prev hidden lg:flex absolute left-2 top-1/2 -translate-y-1/2 z-20';
             prev.setAttribute('aria-label', 'Назад');
             prev.setAttribute('aria-controls', wrapper.id);
-            prev.innerHTML = '<svg class="w-6 h-6 fill-current carousel-arrow transform" viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50 L 70,10 L 60,0 Z"></path></svg>'; 
+            prev.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>'; 
 
             const next = document.createElement('button');
-            next.className = 'js-carousel-next hidden lg:flex absolute right-0 left-auto top-1/2 -translate-y-1/2 z-20 w-10 h-20 bg-gray-400/50 hover:bg-dark text-white items-center justify-center transition-colors duration-200 rounded-l shadow-sm cursor-pointer';
+            next.className = 'ui-control ui-control--lg js-carousel-next hidden lg:flex absolute right-2 top-1/2 -translate-y-1/2 z-20';
             next.setAttribute('aria-label', 'Вперед');
             next.setAttribute('aria-controls', wrapper.id);
-            next.innerHTML = '<svg class="w-6 h-6 fill-current carousel-arrow transform rotate-180" viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50 L 70,10 L 60,0 Z"></path></svg>'; 
+            next.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>'; 
 
             wrapper.appendChild(prev);
             wrapper.appendChild(next);
@@ -480,10 +480,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!modal) return;
         
         const video = modal.querySelector('video');
-        const closeBtn = modal.querySelector('.video-modal-close');
-        const muteBtn = modal.querySelector('.video-modal-mute');
-        const prevBtn = modal.querySelector('.video-modal-prev');
-        const nextBtn = modal.querySelector('.video-modal-next');
+        const closeBtn = modal.querySelector('.ui-control--close, .video-modal-close');
+        const muteBtn = modal.querySelector('.ui-control--mute, .video-modal-mute');
+        const prevBtn = modal.querySelector('.ui-control--prev, .video-modal-prev');
+        const nextBtn = modal.querySelector('.ui-control--next, .video-modal-next');
         
         // Карточки с data-video (секция "Короткие истории")
         const videoCards = Array.from(document.querySelectorAll('.video-card[data-video]'));
@@ -496,12 +496,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 video.src = trigger.dataset.video;
                 video.muted = false;
                 modal.classList.add('active');
+                document.body.classList.add('video-modal-open');
                 video.play();
             }
         }
         
         function closeModal() {
             modal.classList.remove('active');
+            document.body.classList.remove('video-modal-open');
             if (video) { video.pause(); video.src = ''; }
         }
         
@@ -526,6 +528,305 @@ document.addEventListener('DOMContentLoaded', function() {
         
         modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('active')) closeModal(); });
+    })();
+
+    // --- 4. Mobile menu swipe-to-close ---
+    (function() {
+        const dialog = document.getElementById('mobile-menu');
+        if (!(dialog instanceof HTMLDialogElement)) return;
+
+        const panel = dialog.querySelector('[data-swipe-panel]');
+        if (!panel) return;
+
+        let startX = 0;
+        let startY = 0;
+        let isTracking = false;
+
+        panel.addEventListener('touchstart', function (e) {
+            const touch = e.touches && e.touches[0];
+            if (!touch) return;
+            startX = touch.clientX;
+            startY = touch.clientY;
+            isTracking = true;
+        }, { passive: true });
+
+        panel.addEventListener('touchmove', function (e) {
+            if (!isTracking) return;
+            const touch = e.touches && e.touches[0];
+            if (!touch) return;
+
+            const dx = touch.clientX - startX;
+            const dy = Math.abs(touch.clientY - startY);
+
+            if (dx > 60 && dy < 40) {
+                isTracking = false;
+                try {
+                    dialog.close();
+                } catch (err) {
+                    // ignore
+                }
+            }
+        }, { passive: true });
+
+        panel.addEventListener('touchend', function () {
+            isTracking = false;
+        }, { passive: true });
+    })();
+
+    // --- 5. City dialog ---
+    (function () {
+        const dialog = document.getElementById('city-dialog');
+        if (!(dialog instanceof HTMLDialogElement)) return;
+
+        const searchInput = document.getElementById('city-search');
+        const gridRoot = document.getElementById('city-grid');
+        // Options exist in multiple columns; listen on the whole dialog (or the grid if present).
+        const optionsRoot = gridRoot || dialog;
+        const noResults = document.getElementById('city-no-results');
+        const resetBtn = dialog.querySelector('[data-city-reset]');
+
+        const triggers = Array.from(document.querySelectorAll('[data-city-trigger]'));
+        const currentLabels = Array.from(document.querySelectorAll('[data-city-current]'));
+        const phoneLinks = Array.from(document.querySelectorAll('[data-city-phone]'));
+        const phoneTextNodes = Array.from(document.querySelectorAll('[data-city-phone-text]'));
+
+        const phoneMap = {
+            moscow: {
+                display: '+7 495 409-18-69',
+                tel: '+74954091869'
+            },
+            spb: {
+                display: '+7 812 408-18-69',
+                tel: '+78124081869'
+            },
+            default: {
+                display: '8 800 707-69-21',
+                tel: '88007076921'
+            }
+        };
+
+        function normalizeCityName(value) {
+            const safe = (value || '').toLowerCase().replace(/ё/g, 'е');
+            return safe.replace(/[^a-zа-я0-9]+/gi, ' ').trim();
+        }
+
+        function resolvePhoneForCity(name) {
+            const normalized = normalizeCityName(name);
+            if (normalized.startsWith('москва')) return phoneMap.moscow;
+            if (normalized.startsWith('санкт петербург') || normalized === 'спб') return phoneMap.spb;
+            return phoneMap.default;
+        }
+
+        function setCityPhones(name) {
+            const phone = resolvePhoneForCity(name);
+            phoneLinks.forEach((link) => {
+                if (!(link instanceof HTMLElement)) return;
+                if (link.tagName === 'A') link.setAttribute('href', `tel:${phone.tel}`);
+                link.textContent = link.querySelector('[data-city-phone-text]') ? link.textContent : phone.display;
+            });
+
+            phoneTextNodes.forEach((node) => {
+                node.textContent = phone.display;
+            });
+        }
+
+        function closeDialogSafely() {
+            try {
+                dialog.close();
+                return;
+            } catch (e) {
+                // ignore
+            }
+
+            // Fallback for environments where <dialog> behaves like a normal element.
+            try {
+                dialog.removeAttribute('open');
+            } catch (e2) {
+                // ignore
+            }
+            try {
+                dialog.open = false;
+            } catch (e3) {
+                // ignore
+            }
+        }
+
+        function ensureModalOverlay() {
+            // Tailwind Plus Elements uses commandfor/command, but some environments can end up with a non-modal open dialog.
+            // We enforce true modal so it doesn't render in-flow (e.g., "below footer").
+            try {
+                if (!dialog.open) {
+                    dialog.showModal();
+                    return;
+                }
+                if (typeof dialog.matches === 'function' && !dialog.matches(':modal')) {
+                    closeDialogSafely();
+                    dialog.showModal();
+                }
+            } catch (e) {
+                // ignore
+            }
+        }
+
+        function getAllOptions() {
+            return optionsRoot ? Array.from(optionsRoot.querySelectorAll('[data-city-option]')) : [];
+        }
+
+        function hideItem(el, isHidden) {
+            const li = el.closest('li');
+            if (li) {
+                li.classList.toggle('hidden', isHidden);
+                return;
+            }
+
+            el.classList.toggle('hidden', isHidden);
+        }
+
+        function setCurrentCity(name) {
+            const safeName = (name || '').trim();
+            if (!safeName) return;
+
+            currentLabels.forEach((el) => {
+                el.textContent = safeName;
+            });
+
+            setCityPhones(safeName);
+
+            try {
+                localStorage.setItem('muse_city', safeName);
+            } catch (e) {
+                // ignore
+            }
+        }
+
+        function getStoredCity() {
+            try {
+                return (localStorage.getItem('muse_city') || '').trim();
+            } catch (e) {
+                return '';
+            }
+        }
+
+        function resetSearch() {
+            if (searchInput) searchInput.value = '';
+
+            const items = getAllOptions();
+            items.forEach((el) => {
+                hideItem(el, false);
+            });
+
+            dialog.querySelectorAll('[data-city-group]').forEach((group) => {
+                group.classList.remove('hidden');
+            });
+
+            if (gridRoot) gridRoot.classList.remove('hidden');
+
+            if (noResults) noResults.classList.add('hidden');
+        }
+
+        function applyFilter(query) {
+            const q = (query || '').toLowerCase().trim();
+            const items = getAllOptions();
+
+            let visibleCount = 0;
+
+            items.forEach((el) => {
+                const name = (el.getAttribute('data-city-option') || el.textContent || '').toLowerCase();
+                const match = !q || name.includes(q);
+                hideItem(el, !match);
+                if (match) visibleCount += 1;
+            });
+
+            dialog.querySelectorAll('[data-city-group]').forEach((group) => {
+                const groupItems = Array.from(group.querySelectorAll('[data-city-option]'));
+                const groupVisible = groupItems.some((el) => {
+                    const li = el.closest('li');
+                    if (li) return !li.classList.contains('hidden');
+                    return !el.classList.contains('hidden');
+                });
+                group.classList.toggle('hidden', !groupVisible);
+            });
+
+            if (noResults) {
+                noResults.classList.toggle('hidden', visibleCount !== 0);
+            }
+
+            if (gridRoot) {
+                gridRoot.classList.toggle('hidden', visibleCount === 0);
+            }
+        }
+
+        // Init current city
+        const stored = getStoredCity();
+        const initial = stored || (currentLabels[0] ? currentLabels[0].textContent.trim() : '');
+        if (initial) setCurrentCity(initial);
+
+        // Click: choose city
+        if (optionsRoot) {
+            optionsRoot.addEventListener('click', function (e) {
+                const target = e.target instanceof Element ? e.target.closest('[data-city-option]') : null;
+                if (!target) return;
+
+                e.preventDefault();
+                e.stopPropagation();
+                const name = (target.getAttribute('data-city-option') || target.textContent || '').trim();
+                if (!name) return;
+
+                setCurrentCity(name);
+
+                // Close on next tick to avoid click-through reopening.
+                window.setTimeout(function () {
+                    closeDialogSafely();
+                }, 0);
+            });
+        }
+
+        // Search
+        if (searchInput) {
+            searchInput.addEventListener('input', function () {
+                applyFilter(searchInput.value);
+            });
+        }
+
+        if (resetBtn) {
+            resetBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                resetSearch();
+                if (searchInput) {
+                    try {
+                        searchInput.focus();
+                    } catch (e2) {
+                        // ignore
+                    }
+                }
+            });
+        }
+
+        // Focus search after opening
+        triggers.forEach((btn) => {
+            btn.addEventListener('click', function () {
+                window.setTimeout(function () {
+                    ensureModalOverlay();
+                    if (!dialog.open) return;
+                    if (searchInput) {
+                        try {
+                            searchInput.focus();
+                        } catch (e) {
+                            // ignore
+                        }
+                    }
+                }, 0);
+            });
+        });
+
+        // Reset on close
+        dialog.addEventListener('close', function () {
+            resetSearch();
+        });
+
+        dialog.addEventListener('cancel', function () {
+            resetSearch();
+        });
     })();
 
 });
