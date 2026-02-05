@@ -22,6 +22,11 @@
    
     </style>
     
+    <!-- Preload LCP image (desktop only) -->
+    <link rel="preload" as="image" fetchpriority="high"
+          href="https://muse.ooo/upload/img/foto-gagarina-na-holste-3300-2330.webp"
+          media="(min-width: 1024px)">
+    
     <!-- Основной CSS: output.css (Tailwind v4, локальная сборка) -->
     <!-- Page Navigator / Carousel / Video Cover / Ken Burns styles moved to `src/input.css` (compiled into output.css) -->
     <link rel="stylesheet" href="css/output.css">
@@ -172,7 +177,7 @@
                         Печать фото на холсте с натяжкой на подрамник — размеры на выбор, помощь с обработкой фотографий, гарантия и доставка заказа по СПб — цена от 2391 р.
                     </p>
                     
-                    <a href="https://muse.ooo/order/" class="btn-primary">
+                    <a href="https://muse.ooo/order/" class="btn-header-cta">
                         Заказать
                     </a>
                 </div>
@@ -201,10 +206,10 @@
                     
                     <!-- Слайдер изображений (на ПК справа, на мобильном сверху) -->
                     <div id="description">
-                        <el-tab-group class="flex flex-col-reverse">
+                        <div data-tabs class="flex flex-col-reverse">
                             <!-- Миниатюры -->
                             <div class="mx-auto mt-4 w-full max-w-md">
-                                <el-tab-list class="grid grid-cols-4 gap-3">
+                                <div data-tab-list class="grid grid-cols-4 gap-3">
                                     <button class="relative flex h-16 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
                                         <span class="sr-only">Лицевая сторона фото на холсте</span>
                                         <span class="absolute inset-0 overflow-hidden rounded">
@@ -236,11 +241,11 @@
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
                                     </button>
-                                </el-tab-list>
+                                </div>
                             </div>
                             
                             <!-- Большие изображения -->
-                            <el-tab-panels>
+                            <div data-tab-panels>
                                 <div>
                                     <img src="https://muse.ooo/upload/img/photo-on-canvas-gagarin-458-258.webp" alt="Лицевая сторона фото на холсте" title="Лицевая сторона фото на холсте" width="458" height="288" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
                                 </div>
@@ -262,8 +267,8 @@
                                         </video>
                                     </div>
                                 </div>
-                            </el-tab-panels>
-                        </el-tab-group>
+                            </div>
+                        </div>
                         
                         <p class="mt-6">
                             <strong>Фото на холсте</strong> — это фотография, напечатанная на холсте под заказ и натянутая на подрамник. Изображение можно предварительно обработать в цифровом виде, а после — покрыть лаком и оформить в багетную раму.
@@ -274,7 +279,7 @@
         </section>
 
         <!-- Цена (Калькулятор - placeholder) -->
-        <section class="py-16 lg:py-20" id="calc">
+        <section class="py-16 lg:py-20 content-auto" id="calc">
             <div class="container">
                 <h2 class="heading-section text-center mb-8">Цена</h2>
                 <div class="text-center">
@@ -294,7 +299,7 @@
         </section>
 
         <!-- Варианты для заказа (как на старой странице — без карточек) -->
-        <section class="bg-secondary py-16 lg:py-20" id="varianty-dlya-zakaza">
+        <section class="bg-secondary py-16 lg:py-20 content-auto" id="varianty-dlya-zakaza">
             <div class="container">
                 <h2 class="heading-section text-center mb-12">Варианты для заказа</h2>
             </div>
@@ -345,61 +350,55 @@
                         <h3 class="heading-card">Обработка фото</h3>
 
                         <div class="text-left mt-3 space-y-3">
-                            <div class="group">
-                                <button type="button" command="--toggle" commandfor="processing-basic" class="flex items-center justify-between gap-4 py-2 cursor-pointer list-none font-medium hover:opacity-80 transition-opacity group w-full text-left">
+                            <details class="group">
+                                <summary class="flex items-center justify-between gap-4 py-2 cursor-pointer list-none font-medium hover:opacity-80 transition-opacity w-full text-left">
                                     <span>Базовая</span>
-                                    <svg class="size-5 flex-shrink-0 transition-transform duration-300 group-[aria-expanded=true]:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
-                                </button>
-                                <el-disclosure id="processing-basic" hidden>
-                                    <div class="mt-2">
-                                        <p>Базовая обработка перед печатью — включена в цену. Состоит из:</p>
-                                        <ul class="list-disc pl-5 mt-2 space-y-1">
-                                            <li>Полной оптимизации цвета;</li>
-                                            <li>Улучшения контрастности и экспозиции;</li>
-                                            <li>Повышения резкости;</li>
-                                            <li>Устранения шумов;</li>
-                                            <li>Удаления эффекта красных глаз, даты и незначительных дефектов.</li>
-                                        </ul>
-                                    </div>
-                                </el-disclosure>
-                            </div>
+                                    <svg class="size-5 flex-shrink-0 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                                </summary>
+                                <div class="mt-2">
+                                    <p>Базовая обработка перед печатью — включена в цену. Состоит из:</p>
+                                    <ul class="list-disc pl-5 mt-2 space-y-1">
+                                        <li>Полной оптимизации цвета;</li>
+                                        <li>Улучшения контрастности и экспозиции;</li>
+                                        <li>Повышения резкости;</li>
+                                        <li>Устранения шумов;</li>
+                                        <li>Удаления эффекта красных глаз, даты и незначительных дефектов.</li>
+                                    </ul>
+                                </div>
+                            </details>
 
-                            <div class="group">
-                                <button type="button" command="--toggle" commandfor="processing-optimal" class="flex items-center justify-between gap-4 py-2 cursor-pointer list-none font-medium hover:opacity-80 transition-opacity group w-full text-left">
+                            <details class="group">
+                                <summary class="flex items-center justify-between gap-4 py-2 cursor-pointer list-none font-medium hover:opacity-80 transition-opacity w-full text-left">
                                     <span>Оптимальная</span>
-                                    <svg class="size-5 flex-shrink-0 transition-transform duration-300 group-[aria-expanded=true]:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
-                                </button>
-                                <el-disclosure id="processing-optimal" hidden>
-                                    <div class="mt-2">
-                                        <p>Дополнительная услуга к базовой:</p>
-                                        <ul class="list-disc pl-5 mt-2 space-y-1">
-                                            <li>Естественная портретная ретушь;</li>
-                                            <li>Гладкий и чистый вид кожи;</li>
-                                            <li>Коррекция лица, фигуры;</li>
-                                            <li>Подчеркнутая выразительность глаз и белоснежность улыбки;</li>
-                                            <li>Настройка цвета/экспозиции;</li>
-                                            <li>Добавление текста;</li>
-                                            <li>Корректировка красных лиц.</li>
-                                        </ul>
-                                    </div>
-                                </el-disclosure>
-                            </div>
+                                    <svg class="size-5 flex-shrink-0 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                                </summary>
+                                <div class="mt-2">
+                                    <p>Дополнительная услуга к базовой:</p>
+                                    <ul class="list-disc pl-5 mt-2 space-y-1">
+                                        <li>Естественная портретная ретушь;</li>
+                                        <li>Гладкий и чистый вид кожи;</li>
+                                        <li>Коррекция лица, фигуры;</li>
+                                        <li>Подчеркнутая выразительность глаз и белоснежность улыбки;</li>
+                                        <li>Настройка цвета/экспозиции;</li>
+                                        <li>Добавление текста;</li>
+                                        <li>Корректировка красных лиц.</li>
+                                    </ul>
+                                </div>
+                            </details>
 
-                            <div class="group">
-                                <button type="button" command="--toggle" commandfor="processing-premium" class="flex items-center justify-between gap-4 py-2 cursor-pointer list-none font-medium hover:opacity-80 transition-opacity group w-full text-left">
+                            <details class="group">
+                                <summary class="flex items-center justify-between gap-4 py-2 cursor-pointer list-none font-medium hover:opacity-80 transition-opacity w-full text-left">
                                     <span>Премиальная</span>
-                                    <svg class="size-5 flex-shrink-0 transition-transform duration-300 group-[aria-expanded=true]:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
-                                </button>
-                                <el-disclosure id="processing-premium" hidden>
-                                    <div class="mt-2">
-                                        <p>Дополнительная услуга к оптимальной;</p>
-                                        <ul class="list-disc pl-5 mt-2 space-y-1">
-                                            <li>Замена фона, лиц, удаление части изображения;</li>
-                                            <li>Черно-белое в цветное (раскрашивание), реставрация.</li>
-                                        </ul>
-                                    </div>
-                                </el-disclosure>
-                            </div>
+                                    <svg class="size-5 flex-shrink-0 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                                </summary>
+                                <div class="mt-2">
+                                    <p>Дополнительная услуга к оптимальной;</p>
+                                    <ul class="list-disc pl-5 mt-2 space-y-1">
+                                        <li>Замена фона, лиц, удаление части изображения;</li>
+                                        <li>Черно-белое в цветное (раскрашивание), реставрация.</li>
+                                    </ul>
+                                </div>
+                            </details>
                         </div>
                     </div>
 
@@ -437,10 +436,10 @@
         </section>
 
         <!-- Как заказать -->
-        <section class="order-steps-section order-steps-section--dark py-16 lg:py-24" id="kak-zakazat">
+        <section class="bg-dark py-16 lg:py-24 content-auto" id="kak-zakazat">
             <div class="container mb-8">
                 <div class="text-center">
-                    <h2 class="heading-section order-steps__heading">Как заказать</h2>
+                    <h2 class="heading-section">Как заказать</h2>
                 </div>
             </div>
             <div class="container">
@@ -469,62 +468,59 @@
                                     <source src="https://muse.ooo/video/portret-po-foto-na-zakaz-na-holste.mp4" type="video/mp4">
                                 </video>
                             </div>
-                            <figcaption class="mt-4 text-center order-steps__caption">Видео о печати фото на холсте в Muse</figcaption>
+                            <figcaption class="mt-4 text-center text-gray-300">Видео о печати фото на холсте в Muse</figcaption>
                         </figure>
                     </div>
 
                     <!-- Процесс -->
-                    <div class="relative">
-                        <!-- Пунктирная линия между шагами -->
-                        <div class="absolute left-6 top-12 bottom-12 w-0 border-l-[3px] border-dashed border-primary/30"></div>
+                    <div class="step-container">
+                        <div class="step-line"></div>
 
-                        <div class="space-y-12 relative">
-                            <!-- Шаг 1 -->
-                            <div class="flex gap-4">
-                                <div class="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center relative z-10 order-steps__badge">
-                                    <span class="text-xl font-bold order-steps__badge-number">1</span>
-                                </div>
-                                <div>
-                                    <h3 class="heading-card mb-2 order-steps__title">Оформление заказа</h3>
-                                    <p class="order-steps__text">
-                                        - Перейдите в раздел <a class="underline hover:text-primary" href="#calc">Цена ↑</a>.<br>
-                                        - Загрузите изображение.<br>
-                                        - Выберите подходящие варианты для заказа.<br>
-                                        - Рассчитайте стоимость.<br>
-                                        - Заполните форму.<br>
-                                        - Нажмите кнопку Заказать.<br><br>
-                                        <b>Возникли затруднения?</b> Нажмите любую кнопку <a href="https://muse.ooo/order/" class="underline hover:text-primary">Заказать ↗</a> на странице и отправьте нам изображение для печати.<br>
-                                        <b>Заинтересованы портретами?</b> Перейдите, пожалуйста, в раздел <a class="underline hover:text-primary" href="https://muse.ooo/portret-na-zakaz-po-foto-na-kholste-sankt-peterburg/">Портрет на холсте ↗</a>.
-                                    </p>
-                                </div>
+                        <!-- Шаг 1 -->
+                        <div class="process-step flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center relative z-10">
+                                <span class="text-xl font-bold text-primary">1</span>
                             </div>
-
-                            <!-- Шаг 2 -->
-                            <div class="flex gap-4">
-                                <div class="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center relative z-10 order-steps__badge">
-                                    <span class="text-xl font-bold order-steps__badge-number">2</span>
-                                </div>
-                                <div>
-                                    <h3 class="heading-card mb-2 order-steps__title">Согласование макета</h3>
-                                    <p class="order-steps__text">
-                                        <b>В течение 1 рабочего часа</b> после получения изображения свяжемся с вами. Обсудим детали и предоставим консультацию дизайнера. При необходимости выполним обработку фото. После согласования и подтверждения макета приступим к печати.
-                                    </p>
-                                </div>
+                            <div class="step-content">
+                                <h3 class="heading-card mb-2">Оформление заказа</h3>
+                                <p class="text-body text-gray-300">
+                                    - Перейдите в раздел <a class="underline hover:text-primary" href="#calc">Цена ↑</a>.<br>
+                                    - Загрузите изображение.<br>
+                                    - Выберите подходящие варианты для заказа.<br>
+                                    - Рассчитайте стоимость.<br>
+                                    - Заполните форму.<br>
+                                    - Нажмите кнопку Заказать.<br><br>
+                                    <b>Возникли затруднения?</b> Нажмите любую кнопку <a href="https://muse.ooo/order/" class="underline hover:text-primary">Заказать ↗</a> на странице и отправьте нам изображение для печати.<br>
+                                    <b>Заинтересованы портретами?</b> Перейдите, пожалуйста, в раздел <a class="underline hover:text-primary" href="https://muse.ooo/portret-na-zakaz-po-foto-na-kholste-sankt-peterburg/">Портрет на холсте ↗</a>.
+                                </p>
                             </div>
+                        </div>
 
-                            <!-- Шаг 3 -->
-                            <div class="flex gap-4">
-                                <div class="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center relative z-10 order-steps__badge">
-                                    <span class="text-xl font-bold order-steps__badge-number">3</span>
-                                </div>
-                                <div>
-                                    <h3 class="heading-card mb-2 order-steps__title">Изготовление и отправка</h3>
-                                    <p class="order-steps__text">
-                                        Ваш заказ будет готов на следующий день после подтверждения макета.<br>
-                                        Вышлем вам <b>фото готовой картины</b>, а по запросу — видео.<br>
-                                        Предложим подарочную упаковку, а затем передадим заказ в транспортную компанию для доставки.
-                                    </p>
-                                </div>
+                        <!-- Шаг 2 -->
+                        <div class="process-step flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center relative z-10">
+                                <span class="text-xl font-bold text-primary">2</span>
+                            </div>
+                            <div class="step-content">
+                                <h3 class="heading-card mb-2">Согласование макета</h3>
+                                <p class="text-body text-gray-300">
+                                    <b>В течение 1 рабочего часа</b> после получения изображения свяжемся с вами. Обсудим детали и предоставим консультацию дизайнера. При необходимости выполним обработку фото. После согласования и подтверждения макета приступим к печати.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Шаг 3 -->
+                        <div class="process-step flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center relative z-10">
+                                <span class="text-xl font-bold text-primary">3</span>
+                            </div>
+                            <div class="step-content">
+                                <h3 class="heading-card mb-2">Изготовление и отправка</h3>
+                                <p class="text-body text-gray-300">
+                                    Ваш заказ будет готов на следующий день после подтверждения макета.<br>
+                                    Вышлем вам <b>фото готовой картины</b>, а по запросу — видео.<br>
+                                    Предложим подарочную упаковку, а затем передадим заказ в транспортную компанию для доставки.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -533,7 +529,7 @@
         </section>
 
         <!-- Доставка (как на старой странице) -->
-        <section class="bg-secondary py-16 lg:py-20" id="dostavka">
+        <section class="bg-secondary py-16 lg:py-20 content-auto" id="dostavka">
             <div class="container">
                 <h2 class="heading-section text-center mb-8">Доставка</h2>
                 <ul class="text-body-lg space-y-3">
@@ -546,7 +542,7 @@
         </section>
 
         <!-- Оплата (как на старой странице) -->
-        <section class="py-16 lg:py-20" id="oplata">
+        <section class="py-16 lg:py-20 content-auto" id="oplata">
             <div class="container">
                 <h2 class="heading-section text-center mb-8">Оплата</h2>
                 <p class="text-body-lg text-left">
@@ -558,7 +554,7 @@
         </section>
 
         <!-- Преимущества (1:1 по смыслу/структуре как на старой странице; SVG — заглушки) -->
-        <section class="bg-primary py-16 lg:py-20" id="preimushchestva-pechati-foto-na-holste">
+        <section class="bg-primary py-16 lg:py-20 content-auto" id="preimushchestva-pechati-foto-na-holste">
             <div class="container">
                 <h2 class="heading-section text-center mb-12">Преимущества</h2>
 
@@ -607,7 +603,7 @@
         </section>
 
         <!-- Вопросы и ответы (FAQ) -->
-        <section class="py-16 lg:py-20" id="faq">
+        <section class="py-16 lg:py-20 content-auto" id="faq">
             <div class="container">
                 <h2 class="heading-section text-center mb-12">Вопросы и ответы</h2>
                 
@@ -772,7 +768,7 @@
         </section>
 
         <!-- Примеры печати фото на холсте -->
-        <section class="bg-white py-16 lg:py-20" id="primery-foto-na-holste">
+        <section class="bg-white py-16 lg:py-20 content-auto" id="primery-foto-na-holste">
             <div class="container mb-8">
                 <h2 class="heading-section text-center">Примеры печати фото на холсте</h2>
             </div>
@@ -856,7 +852,7 @@
         </section>
 
         <!-- Отзывы (placeholder) -->
-        <section class="py-16 lg:py-20" id="review">
+        <section class="py-16 lg:py-20 content-auto" id="review">
             <div class="container">
                 <h2 class="heading-section text-center mb-8">Отзывы</h2>
                 <div class="text-center">
@@ -866,7 +862,7 @@
         </section>
 
         <!-- Блог -->
-        <section class="bg-secondary py-16 lg:py-20">
+        <section class="bg-secondary py-16 lg:py-20 content-auto">
             <div class="container">
                 <h2 class="heading-section text-center mb-12">Блог</h2>
                 
@@ -923,7 +919,6 @@
     
 
     <!-- Tailwind Plus Elements (el-* components) -->
-    <script src="js/tailwindplus-elements.js" type="module"></script>
     <!-- Navigation Scripts -->
     <script src="js/nav.js" defer></script>
 </body>

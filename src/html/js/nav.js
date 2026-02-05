@@ -3,6 +3,7 @@
  * - Page Navigator (боковая навигация)
  * - Back to Top (кнопка "Наверх")
  * - Carousel (Карусель: драг, колесико, кнопки)
+ * - Native Dialog Controls (замена tailwindplus-elements.js)
  */
 // Global helper: BxPopup (kept global for compatibility with inline onclicks)
 if (!window.BxPopup) {
@@ -13,9 +14,55 @@ if (!window.BxPopup) {
     window.open(url, '', 'width=' + width + ',height=' + height + ',top=' + top + ',left=' + left);
   };
 }
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('✅ nav.js loaded and DOMContentLoaded fired');
 
+// --- Native Dialog Controls (replaces tailwindplus-elements.js) ---
+document.querySelectorAll('[data-open-dialog]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        var dialog = document.getElementById(btn.dataset.openDialog);
+        if (dialog && typeof dialog.showModal === 'function') {
+            dialog.showModal();
+        }
+    });
+});
+document.querySelectorAll('[data-close-dialog]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        var dialog = btn.closest('dialog');
+        if (dialog && typeof dialog.close === 'function') {
+            dialog.close();
+        }
+    });
+});
+
+// --- Native Tabs (replaces el-tab-group from tailwindplus) ---
+document.querySelectorAll('[data-tabs]').forEach(function(tabGroup) {
+    var tabList = tabGroup.querySelector('[data-tab-list]');
+    var tabPanels = tabGroup.querySelector('[data-tab-panels]');
+    if (!tabList || !tabPanels) return;
+    
+    var buttons = tabList.querySelectorAll('button');
+    var panels = tabPanels.children;
+    
+    // Initialize: first tab active
+    if (buttons.length > 0) {
+        buttons[0].setAttribute('aria-selected', 'true');
+    }
+    
+    buttons.forEach(function(btn, index) {
+        btn.addEventListener('click', function() {
+            // Deselect all
+            buttons.forEach(function(b) { b.setAttribute('aria-selected', 'false'); });
+            Array.from(panels).forEach(function(p) { p.hidden = true; });
+            
+            // Select clicked
+            btn.setAttribute('aria-selected', 'true');
+            if (panels[index]) {
+                panels[index].hidden = false;
+            }
+        });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
     // --- 0. INPUT MASKS (RU phone) ---
     function formatRuPhone(rawDigits) {
         var digits = (rawDigits || '').replace(/\D/g, '');

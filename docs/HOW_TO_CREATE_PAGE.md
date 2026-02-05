@@ -203,6 +203,51 @@ npm run copy-css
 
 ---
 
+## Performance-оптимизация для длинных страниц
+
+Для страниц с 5+ секциями применяй следующие оптимизации:
+
+### Обязательные оптимизации
+
+| Оптимизация | Как применить |
+|-------------|---------------|
+| **defer на nav.js** | `<script src="js/nav.js" defer></script>` — подключать перед `</body>` |
+| **content-visibility: auto** | Добавь класс `content-auto` на секции below fold (ниже первого экрана) |
+| **preload LCP-изображения** | `<link rel="preload" as="image" fetchpriority="high" href="...">` в `<head>` |
+| **fetchpriority="high"** | На LCP-изображение (первое большое изображение на странице) |
+| **loading="lazy"** | На все изображения КРОМЕ LCP |
+| **Critical CSS inline** | Базовые CSS-переменные в `<style>` в `<head>` |
+
+### Пример preload LCP-изображения
+
+```html
+<!-- В <head> после </style> -->
+<link rel="preload" as="image" fetchpriority="high"
+      href="https://muse.ooo/upload/img/lcp-image.webp"
+      imagesrcset="...400w, ...600w, ...952w"
+      imagesizes="(max-width: 767px) 100vw, 50vw">
+```
+
+### Пример content-auto на секциях
+
+```html
+<!-- Секции НИЖЕ первого экрана (below fold) -->
+<section class="py-16 lg:py-20 content-auto" id="calc">...</section>
+<section class="bg-dark py-16 lg:py-24 content-auto" id="order">...</section>
+```
+
+**НЕ ПРИМЕНЯТЬ content-auto к:**
+- Hero-секции
+- Первой секции после hero (может быть видна на больших экранах)
+- Promo-баннерам (маленькие, не влияют на TBT)
+- CTA-секциям в футере
+
+### Результат
+
+Эти оптимизации снижают TBT на 50-100ms и уменьшают количество long-tasks.
+
+---
+
 ## Частые ошибки
 
 | Ошибка | Как избежать |
@@ -212,3 +257,5 @@ npm run copy-css
 | Вложенные контейнеры | Секция full-width, внутри один `.container` |
 | Забыл nav.js | Подключай перед `</body>` |
 | Inline стили вместо классов | Используй семантические классы из input.css |
+| Нет content-auto на длинных страницах | Добавь класс на секции below fold |
+| Нет preload для LCP | Добавь `<link rel="preload">` в `<head>` |

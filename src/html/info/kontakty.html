@@ -58,17 +58,17 @@
         <!-- Contact Details with Tabs -->
         <section class="py-16 lg:py-24 bg-white">
             <div class="container">
-                <el-tab-group>
-                    <el-tab-list class="flex border-b border-gray-200 mb-8 overflow-x-auto" aria-label="Города">
+                <div data-tabs>
+                    <div data-tab-list class="flex border-b border-gray-200 mb-8 overflow-x-auto" aria-label="Города">
                         <button type="button" class="px-6 py-3 text-lg font-medium text-gray-400 hover:text-gray-600 focus:outline-none border-b-2 border-transparent transition-colors rounded-t-md aria-[selected=true]:border-primary aria-[selected=true]:text-dark aria-[selected=true]:font-semibold">
                             Москва
                         </button>
                         <button type="button" class="px-6 py-3 text-lg font-medium text-gray-400 hover:text-gray-600 focus:outline-none border-b-2 border-transparent transition-colors rounded-t-md aria-[selected=true]:border-primary aria-[selected=true]:text-dark aria-[selected=true]:font-semibold">
                             Санкт-Петербург
                         </button>
-                    </el-tab-list>
+                    </div>
 
-                    <el-tab-panels>
+                    <div data-tab-panels>
                         <!-- Moscow Content -->
                         <div class="tab-content">
                             <div class="space-y-4 text-body text-lg max-w-3xl">
@@ -120,8 +120,8 @@
                                 </div>
                             </div>
                         </div>
-                    </el-tab-panels>
-                </el-tab-group>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -130,7 +130,6 @@
     
 
     <!-- Navigation Scripts -->
-    <script type="module" src="../../js/tailwindplus-elements.js"></script>
     <script src="../../js/nav.js" defer></script>
 </body>
 </html>

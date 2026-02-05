@@ -120,7 +120,7 @@ body {
 
     <main>
         <!-- Hero Section (с изображением справа, как в оригинале) -->
-        <section class="bg-dark py-12 lg:py-20">
+        <section class="bg-dark py-12 lg:py-20 content-auto">
             <div class="container">
                 <div class="grid lg:grid-cols-2 gap-8 items-center">
                     <!-- Текстовый блок -->
@@ -145,7 +145,7 @@ body {
                         
                         <p class="text-lead mb-6">От 4311 руб. Под заказ.</p>
                         
-                        <a href="https://muse.ooo/order/" class="btn-primary">
+                        <a href="https://muse.ooo/order/" class="btn-header-cta">
                             Заказать
                         </a>
                     </div>
@@ -166,7 +166,7 @@ body {
         </section>
 
         <!-- Примеры (заглушка для Bitrix) -->
-        <section class="bg-dark py-16 lg:py-20" id="primery">
+        <section class="bg-dark py-16 lg:py-20 content-auto" id="primery">
             <div class="container">
                 <h2 class="heading-section text-center mb-8">Примеры</h2>
                 <p class="text-center mb-8">Поп-арт портреты</p>
@@ -186,7 +186,7 @@ body {
         </section>
 
         <!-- Promo Banner -->
-        <section class="promo-section">
+        <section class="promo-section content-auto">
             <div class="container">
                 <div class="flex items-center justify-center">
                     <p class="text-lead">Скидка 20% с 3 по 4 января</p>
@@ -195,7 +195,7 @@ body {
         </section>
 
         <!-- Цена (заглушка для калькулятора Bitrix) -->
-        <section class="py-16 lg:py-20" id="calc">
+        <section class="py-16 lg:py-20 content-auto" id="calc">
             <div class="container">
                 <h2 class="heading-section text-center mb-8">Цена</h2>
                 
@@ -208,7 +208,7 @@ body {
         </section>
 
         <!-- Как заказать -->
-        <section class="py-16 lg:py-24" id="kak-zakazat">
+        <section class="py-16 lg:py-24 content-auto" id="kak-zakazat">
             <div class="container mb-8">
                 <div class="text-center">
                     <h2 class="heading-section">Как заказать</h2>
@@ -310,7 +310,7 @@ body {
         </section>
 
         <!-- Характеристики -->
-        <section class="py-16 lg:py-20" id="harakteristiki">
+        <section class="py-16 lg:py-20 content-auto" id="harakteristiki">
             <div class="container">
                 <h2 class="heading-section text-center mb-12">Характеристики</h2>
             </div>
@@ -358,7 +358,7 @@ body {
                     <!-- Слайдер изображений (на ПК справа, на мобильном сверху) -->
                     <div class="order-1 lg:order-2">
                         <!-- ВИДЕО-ШАБЛОН (раскомментировать при готовом видео)
-                        1) ВСТАВЬТЕ КНОПКУ в <el-tab-list>:
+                        1) ВСТАВЬТЕ КНОПКУ в <div data-tab-list>:
                         <button type="button" class="relative flex h-16 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden" data-video-tab>
                             <span class="sr-only">[ТЕКСТ: Видео]</span>
                             <span class="absolute inset-0 overflow-hidden rounded">
@@ -370,7 +370,7 @@ body {
                             <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
                         </button>
 
-                        2) ВСТАВЬТЕ ПАНЕЛЬ в <el-tab-panels>:
+                        2) ВСТАВЬТЕ ПАНЕЛЬ в <div data-tab-panels>:
                         <div hidden data-video-panel>
                             <div class="video-cover aspect-video rounded-lg" data-video-cover>
                                 <img src="[URL_458x258.webp]" alt="[ТЕКСТ: Обложка видео]" width="458" height="258" class="w-full h-full object-cover rounded-lg" loading="lazy" decoding="async" />
@@ -384,9 +384,9 @@ body {
                             </div>
                         </div>
                         -->
-                        <el-tab-group class="flex flex-col-reverse">
+                        <div data-tabs class="flex flex-col-reverse">
                             <!-- Миниатюры -->
-                            <el-tab-list class="mx-auto mt-4 w-full max-w-md grid grid-cols-4 gap-3">
+                            <div data-tab-list class="mx-auto mt-4 w-full max-w-md grid grid-cols-4 gap-3">
                                     <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
                                         <span class="sr-only">Лицевая сторона поп-арт портрета на холсте</span>
                                         <span class="absolute inset-0 overflow-hidden rounded">
@@ -408,10 +408,10 @@ body {
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
                                     </button>
-                            </el-tab-list>
+                            </div>
                             
                             <!-- Большие изображения -->
-                            <el-tab-panels>
+                            <div data-tab-panels>
                                 <div>
                                     <img src="https://muse.ooo/upload/img/pop-art-05052019-442.webp" alt="Лицевая сторона поп-арт портрета на холсте" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
                                 </div>
@@ -421,15 +421,15 @@ body {
                                 <div hidden>
                                     <img src="https://muse.ooo/upload/img/pop-art-05052019-442-back.webp" alt="Обратная сторона поп-арт портрета на холсте" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
                                 </div>
-                            </el-tab-panels>
-                        </el-tab-group>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Преимущества (на голубом фоне) -->
-        <section class="advantages-section" id="preimushchestva">
+        <section class="advantages-section content-auto" id="preimushchestva">
             <div class="container mb-12">
                 <h2 class="advantages-title">Преимущества</h2>
             </div>
@@ -504,7 +504,7 @@ body {
         </section>
 
         <!-- Выберите свой стиль -->
-        <section class="bg-secondary py-16 lg:py-20" id="art">
+        <section class="bg-secondary py-16 lg:py-20 content-auto" id="art">
             <div class="container">
                 <h2 class="heading-section text-center mb-12">Выберите свой стиль</h2>
             </div>
@@ -565,7 +565,7 @@ body {
         </section>
 
         <!-- Отзывы -->
-        <section class="bg-secondary py-16 lg:py-20" id="otzyvy">
+        <section class="bg-secondary py-16 lg:py-20 content-auto" id="otzyvy">
             <div class="container">
                 <h2 class="heading-section text-center mb-8">Поп-арт портрет: отзывы</h2>
                 
@@ -581,7 +581,7 @@ body {
       
 
         <!-- Описание -->
-        <section class="py-16 lg:py-20" id="opisanie">
+        <section class="py-16 lg:py-20 content-auto" id="opisanie">
             <div class="container">
                 <h2 class="heading-section text-center mb-12">Описание</h2>
           
@@ -657,7 +657,7 @@ body {
             </div>
         </section>
          <!-- CTA (структура как в foto-na-kholste) -->
-        <section class="cta-section">
+        <section class="cta-section content-auto">
             <div class="cta-container">
                 <h2 class="cta-title">
                     Создай своё произведение искусства
@@ -679,7 +679,6 @@ body {
       
 
     <!-- Scripts -->
-    <script type="module" src="../../js/tailwindplus-elements.js"></script>
     <script defer src="../../js/nav.js"></script>
 </body>
 </html>

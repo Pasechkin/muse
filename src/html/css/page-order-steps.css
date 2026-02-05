@@ -1,0 +1,62 @@
+/* === Как заказать (order-steps) — страничный CSS === */
+
+.order-steps-section {
+  background-color: #ffffff;
+}
+
+.order-steps__heading,
+.order-steps__title {
+  color: var(--dark);
+}
+
+.order-steps__text {
+  color: var(--body);
+}
+
+.order-steps__caption {
+  color: #6b7280;
+}
+
+.order-steps__badge {
+  border: 2px solid var(--primary);
+  background-color: #ffffff;
+}
+
+.order-steps__badge-number {
+  color: var(--primary);
+}
+
+.order-steps-section--dark {
+  background-color: var(--dark);
+}
+
+.order-steps-section--dark .order-steps__heading,
+.order-steps-section--dark .order-steps__title {
+  color: #ffffff;
+}
+
+.order-steps-section--dark .order-steps__text {
+  color: #d1d5db;
+}
+
+.order-steps-section--dark .order-steps__text a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.order-steps-section--dark .order-steps__text a:hover {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.order-steps-section--dark .order-steps__caption {
+  color: #e5e7eb;
+}
+
+.order-steps-section--dark .order-steps__badge {
+  background-color: var(--dark);
+}
+
+.order-steps-section--dark .order-steps__badge-number {
+  color: #ffffff;
+}

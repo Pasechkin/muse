@@ -1,0 +1,80 @@
+/* === Video Modal (страница info) === */
+
+.video-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.95);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-modal.active {
+  display: flex;
+}
+
+.video-modal-content {
+  position: relative;
+  max-width: 400px;
+  width: 100%;
+  max-height: 90vh;
+}
+
+.video-modal video {
+  width: 100%;
+  max-height: 80vh;
+  border-radius: 8px;
+}
+
+.video-modal .ui-control {
+  position: absolute;
+  z-index: 10;
+}
+
+.video-modal .ui-control--close {
+  top: 10px;
+  right: 10px;
+}
+
+.video-modal .ui-control--mute {
+  top: 10px;
+  left: 10px;
+}
+
+.video-modal .ui-control--prev {
+  top: 50%;
+  left: -60px;
+  transform: translateY(-50%);
+}
+
+.video-modal .ui-control--next {
+  top: 50%;
+  right: -60px;
+  transform: translateY(-50%);
+}
+
+@media (max-width: 600px) {
+  .video-modal .ui-control--prev {
+    left: 10px;
+    top: auto;
+    bottom: 80px;
+    transform: none;
+  }
+
+  .video-modal .ui-control--next {
+    right: 10px;
+    top: auto;
+    bottom: 80px;
+    transform: none;
+  }
+}
+
+.video-modal-open .page-navigator {
+  display: none !important;
+}
+
+/* === Advantages gradient (info page) === */
+.advantages-gradient {
+  background: linear-gradient(135deg, #6fa6d4 0%, #4e86bb 45%, #2f6ea8 100%);
+}
