@@ -166,7 +166,7 @@
 ## Примечания
 
 - **Эталоны по группам:** см. PROJECT.md → “Эталоны по группам страниц”
-- **Скрипты:** по умолчанию `js/nav.js`; Tailwind Plus Elements (`js/tailwindplus-elements.js`) подключать только при использовании `el-*` (без inline-скриптов для типовых компонентов)
+- **Скрипты:** подключаем только `js/nav.js`; `tailwindplus-elements.js` не используется
 - **CDN:** допускается только в `src/html/_drafts/` для demo/экспериментов; для production — `output.css`
 - **Инструкции:** см. `AI_INSTRUCTIONS.md` и `DESIGN_SYSTEM.md`
 

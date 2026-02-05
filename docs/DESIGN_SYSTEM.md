@@ -26,7 +26,7 @@
 
 **Не менять и не трогать:**
 - Контент, тексты, alt/title, meta‑теги, JSON‑LD, порядок секций и вложенность.
-- Header/Footer, `<dialog>` и Tailwind Plus Elements.
+- Header/Footer и `<dialog>`.
 - Подключения скриптов и preload.
 
 **Контейнер:** использовать класс `container` (макс. ширина 1170px, padding 16px).
@@ -68,50 +68,12 @@
 
 ---
 
-## Tailwind Plus Elements — где используем
+## Tailwind Plus Elements — не используем
 
-- **Mobile Menu:** `el-dialog` (см. раздел “Mobile Menu”).
-- **Tabs:** `el-tab-group` (галерея характеристик).
-- **Accordion:** `el-disclosure` (UI-аккордеоны). Для публичного FAQ (SEO) — приоритет у нативного `<details>` (см. “FAQ Accordion”).
+Tailwind Plus Elements отключён. `el-*` компоненты больше не применяем.
 
-Подключение: локальный файл `src/html/js/tailwindplus-elements.js`.
-
-**Канон (порядок подключения скриптов):**
-
-Ставим скрипты перед `</body>`.
-
-Если используются `el-*`, подключаем Tailwind Plus Elements как модуль **перед** нашим общим `nav.js`:
-
-```html
-<!-- Tailwind Plus Elements (если используются el-*) -->
-<script type="module" src="js/tailwindplus-elements.js"></script>
-
-<!-- Общий скрипт проекта -->
-<script src="js/nav.js"></script>
-```
-
-**Важно:** это вендорный (минифицированный) файл из `@tailwindplus/elements`.
-- Не редактировать и не рефакторить.
-- Подключать как ES-модуль:
-
-```html
-<script type="module" src="js/tailwindplus-elements.js"></script>
-```
-
-**Разделение ответственности:**
-- `tailwindplus-elements.js` — web components `el-*` (диалоги, табы, disclosure и их доступность/полифиллы).
-- `nav.js` — наш общий JS (навигация, карусели, video cover, маски, а11y-обвязка и т.д.).
-
-**Что включено в Tailwind Plus Elements (для этой версии):**
-- Introduction
-- Autocomplete → `el-autocomplete`
-- Command palette → `el-command-palette`
-- Copy button → `el-copyable`
-- Dialog → `el-dialog`
-- Disclosure → `el-disclosure`
-- Dropdown menu → `el-dropdown` + `el-menu`
-- Popover → `el-popover`
-- Select → `el-select`
+- Если встречаются `el-*` в старых страницах — это legacy, подлежит замене на нативные элементы (`<dialog>`, `<details>`) и/или логику из `js/nav.js`.
+- Скрипт `tailwindplus-elements.js` не подключаем.
 ### Header (шапка сайта)
 
 ```html
@@ -171,7 +133,7 @@
 
 ### Mobile Menu
 
-Использует Tailwind Plus Elements (`<el-dialog>`):
+Legacy: ранее использовался `<el-dialog>`. Теперь используем нативный `<dialog>`:
 
 ```html
 <el-dialog>
@@ -929,52 +891,46 @@ https://tailwindcss.com/plus/ui-blocks/application-ui/forms/form-layouts
 
 ### Modal / Dialog
 
-Используем Tailwind Plus Elements (`<el-dialog>` + `<dialog>`). Сохраняем структуру и доступность.
+Legacy: ранее использовался `<el-dialog>` + `<dialog>`. Теперь используем нативный `<dialog>`.
 
 ```html
-<el-dialog>
-    <dialog id="dialog-example" class="backdrop:bg-black/40">
-        <el-dialog-panel class="bg-white rounded-lg p-6">
-            <h3 class="text-xl font-medium text-dark mb-2">[ТЕКСТ: Заголовок]</h3>
-            <p class="text-body">[ТЕКСТ: Текст модального окна]</p>
-            <div class="mt-6 flex justify-end gap-3">
-                <button type="button" command="close" commandfor="dialog-example" class="btn-inverse">[ТЕКСТ: Закрыть]</button>
-                <button type="button" class="btn-primary">[ТЕКСТ: Подтвердить]</button>
-            </div>
-        </el-dialog-panel>
-    </dialog>
-</el-dialog>
+<dialog id="dialog-example" class="backdrop:bg-black/40">
+    <div class="bg-white rounded-lg p-6">
+        <h3 class="text-xl font-medium text-dark mb-2">[ТЕКСТ: Заголовок]</h3>
+        <p class="text-body">[ТЕКСТ: Текст модального окна]</p>
+        <div class="mt-6 flex justify-end gap-3">
+            <button type="button" data-dialog-close class="btn-inverse">[ТЕКСТ: Закрыть]</button>
+            <button type="button" class="btn-primary">[ТЕКСТ: Подтвердить]</button>
+        </div>
+    </div>
+</dialog>
 ```
 
 ### Секция «Отзывы» и модальное окно OAuth
 
-**Эталон:** [portret-maslom.html](../src/html/portret-na-zakaz/style/portret-maslom.html) — полная реализация с `el-dialog` и Invoker Commands API.
+**Эталон:** [portret-maslom.html](../src/html/portret-na-zakaz/style/portret-maslom.html) — реализация с нативным `<dialog>`.
 
 **На остальных страницах** секция «Отзывы» упрощена до заглушки — Bitrix-программист добавит реализацию при интеграции.
 
-#### Кнопка открытия (Invoker Commands):
+#### Кнопка открытия:
 ```html
-<button type="button" command="show-modal" commandfor="review-modal" class="btn-primary btn-lg">
+<button type="button" data-dialog-open="review-modal" class="btn-primary btn-lg">
     Оставить отзыв
 </button>
 ```
 
 #### Модальное окно:
 ```html
-<el-dialog>
-    <dialog id="review-modal" class="m-auto p-0 border-none bg-transparent backdrop:bg-black/60">
-        <el-dialog-panel>
-            <div class="bg-dark text-white rounded-lg shadow-2xl max-w-md w-full p-6">
-                <!-- Заголовок, OAuth-кнопки, подпись -->
-            </div>
-        </el-dialog-panel>
-    </dialog>
-</el-dialog>
+<dialog id="review-modal" class="m-auto p-0 border-none bg-transparent backdrop:bg-black/60">
+    <div class="bg-dark text-white rounded-lg shadow-2xl max-w-md w-full p-6">
+        <!-- Заголовок, OAuth-кнопки, подпись -->
+    </div>
+</dialog>
 ```
 
-#### Кнопка закрытия (Invoker Commands):
+#### Кнопка закрытия:
 ```html
-<button type="button" command="close" commandfor="review-modal" aria-label="Закрыть окно">
+<button type="button" data-dialog-close aria-label="Закрыть окно">
     <svg>...</svg>
 </button>
 ```
@@ -1229,7 +1185,7 @@ https://tailwindcss.com/plus/ui-blocks/application-ui/forms/form-layouts
 - Ручка: 32×32px, `rgba(0,0,0,0.4)`, белая иконка, `backdrop-blur`
 - Линия: 2px, `rgba(0,0,0,0.4)`
 
-**Миниатюра видео в табах (el-tab-group):**
+**Миниатюра видео в табах (legacy el-tab-group):**
 ```html
 <span class="ui-control ui-control--sm absolute inset-0 m-auto">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
@@ -1751,7 +1707,7 @@ JavaScript для подсветки активной секции находи�
 
 Нативный HTML аккордеон без JavaScript, использует `<details>` и `<summary>`.
 
-**Приоритет:** для публичных страниц с FAQ (SEO) используем этот вариант (без JS). `el-disclosure` оставляем для UI-аккордеонов/сложных интерфейсов.
+**Приоритет:** для публичных страниц с FAQ (SEO) используем этот вариант (без JS). `el-disclosure` не используем.
 
 ```html
 <div class="space-y-0 divide-y divide-gray-200">
@@ -1813,7 +1769,7 @@ JavaScript для подсветки активной секции находи�
 
 ### Tabs (вкладки)
 
-**Статус:** fallback/legacy. По умолчанию используем `el-tab-group` (см. следующий раздел). Этот вариант применять только если `el-tab-group` временно недоступен/нестабилен на конкретной странице.
+**Статус:** fallback/legacy. `el-tab-group` не используем. Этот вариант применять только как временную заглушку.
 
 Переключение между контентом с подчеркиванием активной вкладки.
 
@@ -1888,9 +1844,9 @@ JavaScript для подсветки активной секции находи�
 
 ---
 
-### Tabs (Tailwind Plus Elements) — галерея характеристик
+### Tabs (legacy) — галерея характеристик
 
-Переключение изображений через `el-tab-group` с миниатюрами (используется в секции характеристик).
+Legacy: пример с `el-tab-group` для истории. В новых страницах не использовать.
 
 ```html
 <el-tab-group class="flex flex-col-reverse">
@@ -2218,7 +2174,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 ### Mobile Menu
 
-Использует Tailwind Plus Elements (`<el-dialog>`):
+Legacy: ранее использовался `<el-dialog>`. Теперь используем нативный `<dialog>`:
 
 ```html
 <el-dialog>
@@ -2916,9 +2872,6 @@ document.addEventListener('DOMContentLoaded', function() {
         .container { width: 100%; margin: 0 auto; padding: 0 1rem; }
         @media (min-width: 1170px) { .container { max-width: 1170px; } }
     </style>
-
-    <!-- Tailwind Plus Elements (если используются el-*) -->
-    <script type="module" src="js/tailwindplus-elements.js"></script>
 
     <!-- Основной CSS (собранный Tailwind v4) -->
     <link rel="stylesheet" href="css/output.css">

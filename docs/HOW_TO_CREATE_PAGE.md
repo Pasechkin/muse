@@ -38,7 +38,7 @@
 Открой эталон своей группы и возьми из него:
 - Структуру `<head>` (meta, preload, critical CSS)
 - Подключение CSS (`css/output.css`)
-- Подключение скриптов (`js/nav.js`, при необходимости `js/tailwindplus-elements.js`)
+- Подключение скриптов (`js/nav.js`)
 - Структуру `<body>` (порядок секций, компоненты)
 
 ### 1.3 Найди источник контента
@@ -109,9 +109,6 @@ body {
 Перед `</body>`:
 
 ```html
-<!-- Если есть el-* компоненты -->
-<script type="module" src="js/tailwindplus-elements.js"></script>
-
 <!-- Всегда подключаем -->
 <script src="js/nav.js"></script>
 ```

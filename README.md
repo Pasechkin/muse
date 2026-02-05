@@ -128,7 +128,7 @@ tailwind-project/
 ## Технические особенности
 
 - **CSS:** Tailwind v4, локальная сборка: `src/input.css` → `src/css/output.css`, для предпросмотра копия → `src/html/css/output.css` (Tailwind CDN не используется в production)
-- **Скрипты:** по умолчанию `js/nav.js`; Tailwind Plus Elements (`js/tailwindplus-elements.js`) подключать только при использовании `el-*` (без inline-скриптов для типовых компонентов)
+- **Скрипты:** подключаем только `js/nav.js`; `tailwindplus-elements.js` не используется
 - **Контейнер:** 1170px, padding 16px
 - **Брейкпоинты:** sm=640, md=768, lg=1024, xl=1280
 
