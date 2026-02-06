@@ -48,18 +48,6 @@
 
 /* Примечание: переменные --primary, --dark и др. определены в критическом CSS на страницах */
 
-/* === 3D Canvas Effect === */
-@utility canvas-3d {
-  --depth: 30px;
-  position: relative;
-  box-shadow: var(--depth) var(--depth) 50px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s ease;
-
-  &:hover {
-    transform: translate(-5px, -5px);
-  }
-}
-
 /* === Refined Before/After Slider (v4) === */
 @utility before-after-slider {
   --pos: 50%;

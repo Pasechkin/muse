@@ -151,14 +151,14 @@
                     
                     <!-- Изображение -->
                     <div class="relative">
-                        <img 
+                        <img loading="eager" 
                             src="https://muse.ooo/upload/img/maslom-portret-1119-458-580_1.webp"
                             alt="Портрет Джеффа Бриджеса в технике масляной живописи"
                             title="Портрет маслом на холсте"
                             width="458"
                             height="580"
                             class="w-full max-w-md mx-auto lg:ml-auto hero-media-image shadow-2xl"
-                            loading="eager" decoding="async" fetchpriority="high"
+                            decoding="async" fetchpriority="high"
                         >
                     </div>
                 </div>
@@ -166,7 +166,7 @@
         </section>
 
         <!-- Примеры (заглушка для Bitrix) -->
-        <section class="bg-dark py-16 lg:py-20 content-auto" id="primery">
+        <section class="bg-dark py-16 lg:py-20" id="primery">
             <div class="container">
                 <h2 class="heading-section text-center mb-8">Примеры</h2>
                 <p class="text-center mb-8">Портреты маслом</p>
@@ -539,10 +539,8 @@
             - OAuth URL должны генерироваться динамически на сервере
             - BxPopup — функция Bitrix для OAuth popup
         -->
-        <el-dialog>
-            <dialog id="review-modal" class="m-auto p-0 border-none bg-transparent backdrop:bg-black/60">
-                <el-dialog-panel>
-                    <div class="bg-dark rounded-lg shadow-2xl max-w-md w-full p-6">
+        <dialog id="review-modal" class="m-auto p-0 border-none bg-transparent backdrop:bg-black/60">
+            <div class="bg-dark rounded-lg shadow-2xl max-w-md w-full p-6">
                         <!-- Заголовок и кнопка закрытия -->
                         <div class="flex items-center justify-between mb-6">
                             <h3 class="heading-card">Представьтесь, пожалуйста</h3>
@@ -625,10 +623,8 @@
                                 Авторизация необходима для подтверждения подлинности отзыва
                             </p>
                         </div>
-                    </div>
-                </el-dialog-panel>
-            </dialog>
-        </el-dialog>
+            </div>
+        </dialog>
 
         <!-- Описание -->
         <section class="py-16 lg:py-20 content-auto" id="opisanie">

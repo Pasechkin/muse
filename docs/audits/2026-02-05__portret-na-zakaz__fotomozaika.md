@@ -50,3 +50,11 @@ status: "✅"
 - Примечание: meta robots (dev-режим) — преднамеренно и не считается проблемой.
 
 Отчёт составлен строго по чек-листу `docs/AUDIT/Task-1.md`.
+
+
+## Дополнение 2026-02-06
+Статус: ⚠️
+Проблемы:
+- B: критический CSS содержит `.detail` и `.drift-zoom-pane` (по правилам в head только :root и body).
+- C: есть inline JS (`onload`) для Drift CSS/JS. Drift на странице нужен, но inline-обработчики нарушают чек-лист.
+- D: есть `img` с `.jpg` (YouTube thumbnail) — по правилам должен быть webp или inline SVG.

@@ -119,7 +119,7 @@
 
     <main>
         <!-- Первый экран (Hero) с Ken Burns эффектом -->
-        <section class="relative h-[70vh] overflow-hidden flex items-center bg-dark content-auto">
+        <section class="relative h-[70vh] overflow-hidden flex items-center bg-dark">
             <!-- Background Image + Animation (не грузится на мобильных) -->
             <div class="absolute inset-0 z-0 bg-black">
                 <picture>
@@ -140,6 +140,8 @@
                         class="w-full h-full object-cover ken-burns-img"
                         width="1000"
                         height="778"
+                        loading="eager"
+                        decoding="async"
                         fetchpriority="high"
                     >
                 </picture>
@@ -176,7 +178,7 @@
         </section>
 
         <!-- Promo Banner -->
-        <section class="promo-section content-auto">
+        <section class="promo-section">
             <div class="container">
                 <div class="flex items-center justify-center">
                     <p class="text-lead">Скидка 20% с 15 по 16 января</p>

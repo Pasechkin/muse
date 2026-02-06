@@ -34,30 +34,76 @@ document.querySelectorAll('[data-close-dialog]').forEach(function(btn) {
 });
 
 // --- Native Tabs (replaces el-tab-group from tailwindplus) ---
-document.querySelectorAll('[data-tabs]').forEach(function(tabGroup) {
+document.querySelectorAll('[data-tabs]').forEach(function(tabGroup, groupIndex) {
     var tabList = tabGroup.querySelector('[data-tab-list]');
     var tabPanels = tabGroup.querySelector('[data-tab-panels]');
     if (!tabList || !tabPanels) return;
-    
-    var buttons = tabList.querySelectorAll('button');
-    var panels = tabPanels.children;
-    
-    // Initialize: first tab active
-    if (buttons.length > 0) {
-        buttons[0].setAttribute('aria-selected', 'true');
+
+    var buttons = Array.from(tabList.querySelectorAll('button'));
+    var panels = Array.from(tabPanels.children);
+    if (buttons.length === 0 || panels.length === 0) return;
+
+    var groupId = tabGroup.dataset.tabsId || tabGroup.id || ('tabs-' + groupIndex);
+
+    if (!tabList.getAttribute('role')) {
+        tabList.setAttribute('role', 'tablist');
     }
-    
+
+    buttons.forEach(function(btn, index) {
+        var panel = panels[index];
+        if (!panel) return;
+
+        if (!btn.getAttribute('role')) {
+            btn.setAttribute('role', 'tab');
+        }
+
+        var tabId = btn.id || (groupId + '-tab-' + index);
+        if (!btn.id) {
+            btn.id = tabId;
+        }
+
+        var panelId = panel.id || (groupId + '-panel-' + index);
+        if (!panel.id) {
+            panel.id = panelId;
+        }
+
+        if (!btn.getAttribute('aria-controls')) {
+            btn.setAttribute('aria-controls', panelId);
+        }
+
+        if (!panel.getAttribute('role')) {
+            panel.setAttribute('role', 'tabpanel');
+        }
+
+        if (!panel.hasAttribute('tabindex')) {
+            panel.setAttribute('tabindex', '0');
+        }
+
+        panel.setAttribute('aria-labelledby', tabId);
+    });
+
+    var selectedIndex = buttons.findIndex(function(btn) {
+        return btn.getAttribute('aria-selected') === 'true';
+    });
+    if (selectedIndex === -1) selectedIndex = 0;
+
+    function syncTabs(activeIndex) {
+        buttons.forEach(function(btn, index) {
+            var isActive = index === activeIndex;
+            btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            btn.setAttribute('tabindex', isActive ? '0' : '-1');
+        });
+
+        panels.forEach(function(panel, index) {
+            panel.hidden = index !== activeIndex;
+        });
+    }
+
+    syncTabs(selectedIndex);
+
     buttons.forEach(function(btn, index) {
         btn.addEventListener('click', function() {
-            // Deselect all
-            buttons.forEach(function(b) { b.setAttribute('aria-selected', 'false'); });
-            Array.from(panels).forEach(function(p) { p.hidden = true; });
-            
-            // Select clicked
-            btn.setAttribute('aria-selected', 'true');
-            if (panels[index]) {
-                panels[index].hidden = false;
-            }
+            syncTabs(index);
         });
     });
 });

@@ -99,8 +99,7 @@
     <!-- ============================================
          МОБИЛЬНОЕ МЕНЮ (через Tailwind Plus Elements)
          ============================================ -->
-    <el-dialog>
-        <dialog id="mobile-menu" class="mobile-menu-dialog backdrop:bg-black/40 m-0 p-0 border-0 bg-transparent fixed inset-0 w-full h-full max-w-none max-h-none sm:inset-y-0 sm:right-0 sm:left-auto sm:w-auto sm:max-w-sm">
+    <dialog id="mobile-menu" class="mobile-menu-dialog backdrop:bg-black/40 m-0 p-0 border-0 bg-transparent fixed inset-0 w-full h-full max-w-none max-h-none sm:inset-y-0 sm:right-0 sm:left-auto sm:w-auto sm:max-w-sm">
             <div class="absolute bottom-0 left-0 right-0 sm:relative sm:bottom-auto sm:left-auto sm:right-auto w-full bg-dark shadow-2xl rounded-t-3xl sm:rounded-none" data-swipe-panel>
                 <!-- Индикатор свайпа (только mobile) -->
                 <div class="sm:hidden pt-3 pb-2">
@@ -181,11 +180,9 @@
                     </div>
                 </div>
             </div>
-        </dialog>
-    </el-dialog>
+    </dialog>
 
-    <el-dialog>
-        <dialog id="city-dialog" class="backdrop:bg-black/60 hidden open:block sm:open:flex p-0 w-full max-w-none h-svh bg-white border-0 outline-none sm:h-auto sm:open:fixed sm:open:inset-0 sm:open:z-50 sm:open:bg-black/60 sm:open:items-center sm:open:justify-center sm:open:p-6">
+    <dialog id="city-dialog" class="backdrop:bg-black/60 hidden open:block sm:open:flex p-0 w-full max-w-none h-svh bg-white border-0 outline-none sm:h-auto sm:open:fixed sm:open:inset-0 sm:open:z-50 sm:open:bg-black/60 sm:open:items-center sm:open:justify-center sm:open:p-6">
             <div class="w-full h-full bg-white sm:h-auto sm:w-full sm:max-w-city sm:rounded-3xl shadow-2xl overflow-hidden">
                 <div class="p-6 pb-4 border-b border-gray-100 sticky top-0 bg-white">
                     <div class="flex items-center justify-between mb-4">
@@ -248,8 +245,7 @@
                     </div>
                 </div>
             </div>
-        </dialog>
-    </el-dialog>
+    </dialog>
 
     <!-- Page Navigator -->
     <nav class="page-navigator" id="page-navigator">
@@ -687,7 +683,7 @@
         </section>
 
         <!-- CTA Section -->
-        <section class="cta-section">
+        <section class="cta-section content-auto">
             <div class="cta-container">
                 <h2 class="cta-title">Создай своё произведение искусства</h2>
                 <div class="cta-actions">
