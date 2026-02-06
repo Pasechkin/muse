@@ -210,12 +210,10 @@ npm run copy-css
 |-------------|---------------|
 | **defer на nav.js** | `<script src="js/nav.js" defer></script>` — подключать перед `</body>` |
 | **content-visibility: auto** | Добавь класс `content-auto` на секции below fold (ниже первого экрана) |
-| **preload LCP-изображения** | `<link rel="preload" as="image" fetchpriority="high" href="...">` в `<head>` (только если LCP = изображение первого экрана) |
-| **fetchpriority="high"** | На LCP-изображение (первое большое изображение на первом экране) |
+| **preload LCP-изображения** | `<link rel="preload" as="image" fetchpriority="high" href="...">` в `<head>` |
+| **fetchpriority="high"** | На LCP-изображение (первое большое изображение на странице) |
 | **loading="lazy"** | На все изображения КРОМЕ LCP |
 | **Critical CSS inline** | Базовые CSS-переменные в `<style>` в `<head>` |
-
-**Исключение по LCP:** если на первом экране видео или нет видимого изображения (LCP = текст/видео/иконки), правила для LCP-изображения не применяются. Считаем LCP по фактическому первому экрану (desktop/mobile).
 
 ### Пример preload LCP-изображения
 
