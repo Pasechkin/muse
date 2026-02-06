@@ -182,7 +182,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Кэш позиций секций для избежания forced reflow
     let sectionCache = [];
+    let navLinkById = {};
     let cacheValid = false;
+
+    function cacheNavLinks() {
+        navLinkById = {};
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && href.charAt(0) === '#') {
+                navLinkById[href.slice(1)] = link;
+            }
+        });
+    }
 
     function cacheSectionPositions() {
         const sections = document.querySelectorAll('section[id]');
@@ -194,6 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 height: section.offsetHeight
             });
         });
+        cacheNavLinks();
         cacheValid = true;
     }
 
@@ -205,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         for (let i = 0; i < sectionCache.length; i++) {
             const section = sectionCache[i];
-            const navLink = document.querySelector(`.page-navigator a[href="#${section.id}"]`);
+            const navLink = navLinkById[section.id];
 
             if (navLink) {
                 if (scrollPos >= section.top && scrollPos < section.top + section.height) {

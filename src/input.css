@@ -170,6 +170,9 @@
   .bg-primary { --section-text: var(--color-white); color: var(--section-text); }
   .bg-dark { --section-text: var(--color-white); color: var(--section-text); }
 
+  /* Improve contrast for text-gray-300 on dark backgrounds */
+  .bg-dark .text-gray-300 { color: #e5e7eb; }
+
   /* Типографика наследует цвет от секции */
   .heading-hero,
   .heading-section,
