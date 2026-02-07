@@ -65,7 +65,23 @@ if ([string]::IsNullOrWhiteSpace($commitMessage)) {
 & git commit -m $commitMessage | Tee-Object -FilePath $logFile -Append
 
 Log "Step 8: Push to GitHub..."
-& git push | Tee-Object -FilePath $logFile -Append
+& git push origin main 2>&1 | Tee-Object -FilePath $logFile -Append
+if ($LASTEXITCODE -ne 0) {
+    Log "ERROR: git push failed (exit code $LASTEXITCODE)"
+    Log "Try: git push origin main manually"
+    Start-Process notepad.exe $logFile
+    throw "git push failed"
+}
+
+# Verify push succeeded
+$localCommit = (& git rev-parse HEAD).Trim()
+$remoteCommit = (& git rev-parse origin/main).Trim()
+if ($localCommit -ne $remoteCommit) {
+    Log "WARNING: Local ($localCommit) != Remote ($remoteCommit). Push may have failed."
+    Start-Process notepad.exe $logFile
+    throw "push verification failed"
+}
 
 Log "SUCCESS! Changes pushed to GitHub."
+Log "Local and remote are in sync: $localCommit"
 Start-Process notepad.exe $logFile

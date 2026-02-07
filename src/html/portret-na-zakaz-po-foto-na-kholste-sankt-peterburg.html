@@ -19,10 +19,11 @@
             --secondary: #fafafa;
         }
         body { background-color: #fff; color: var(--body); overflow-x: hidden; }
-       
+        /* Предотвращение CLS: резервирование пространства для hero */
+        .h-\[65vh\] { min-height: 65vh; }
     </style>
     
-<link rel="stylesheet" href="css/output.css">
+    <link rel="stylesheet" href="css/output.css">
     <link rel="canonical" href="https://muse.ooo/portret-na-zakaz-po-foto-na-kholste-sankt-peterburg/">
 
     <!-- Structured Data: FAQPage -->
@@ -183,7 +184,7 @@
     </section>
 
     <!-- Promo Banner -->
-    <section class="promo-section content-auto">
+    <section class="promo-section">
         <div class="container">
             <div class="flex items-center justify-center">
                 <p class="text-lead">Скидка 20% с 3 по 4 января</p>
@@ -208,7 +209,7 @@
         <svg fill="none" aria-hidden="true" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></svg>
     </a>
 
-    <main>
+    <main class="main-stable">
         <!-- Portraits from Photo -->
         <section class="bg-secondary py-16 lg:py-24 content-auto" id="portraits-from-photo">
             <div class="container">

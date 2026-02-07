@@ -21,6 +21,16 @@
   contain-intrinsic-size: auto 500px;
 }
 
+/* Изоляция секций для оптимизации рендеринга (снижает style/layout recalculations) */
+@utility section-contain {
+  contain: layout style;
+}
+
+/* Предотвращение CLS для главного контента */
+@utility main-stable {
+  contain: layout;
+}
+
 @utility link-on-dark {
   color: #ffffff;
   text-decoration-line: underline;
