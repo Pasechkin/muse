@@ -21,6 +21,27 @@
   contain-intrinsic-size: auto 500px;
 }
 
+@utility link-on-dark {
+  color: #ffffff;
+  text-decoration-line: underline;
+  text-decoration-color: #2f6ea8;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+  &:hover {
+    color: #ffffff;
+    text-decoration-color: #2f6ea8;
+  }
+}
+
+@utility link-on-dark-plain {
+  color: #e5e7eb;
+  transition-property: color;
+  transition-duration: 150ms;
+  &:hover {
+    color: #ffffff;
+  }
+}
+
 @layer utilities {
   .canvas-3d {
     --depth: 30px;
@@ -139,7 +160,7 @@
   .heading-hero { @apply text-4xl lg:text-6xl font-light; }
   .heading-section { @apply text-3xl lg:text-4xl font-light; }
   .heading-subsection { @apply text-2xl font-light; }
-  .heading-card { @apply text-xl font-medium text-body; }
+  .heading-card { @apply text-xl font-medium; }
   .text-lead { @apply text-lg lg:text-xl; }
   .text-lead-xl { @apply text-xl lg:text-2xl font-light; }
   .text-body-lg { @apply text-base lg:text-lg; }
@@ -163,21 +184,45 @@
   .style-portraits .drift-zoom-pane { border-radius: 8px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2); z-index: 100 !important; }
 
   /* === Background-based typography color helpers === */
-  /* Используем CSS-переменные вместо дублирования селекторов */
-  
-  .bg-white { --section-text: var(--color-body); color: var(--section-text); }
-  .bg-secondary { --section-text: var(--color-dark); color: var(--section-text); }
-  .bg-primary { --section-text: var(--color-white); color: var(--section-text); }
-  .bg-dark { --section-text: var(--color-white); color: var(--section-text); }
+  .bg-white { color: var(--color-body); }               /* белый фон → серый текст */
+  :where(.bg-secondary) { color: var(--color-dark); }   /* серый фон → чёрный текст */
+  :where(.bg-dark, .bg-primary) { color: var(--color-white); }
 
-  /* Improve contrast for text-gray-300 on dark backgrounds */
+  :where(.bg-white)
+    :is(.heading-hero, .heading-section, .heading-subsection, .heading-card, summary) {
+    color: var(--color-body);  /* белый фон → серые заголовки */
+  }
+
+  :where(.bg-secondary)
+    :is(.heading-hero, .heading-section, .heading-subsection, .heading-card, summary) {
+    color: var(--color-dark);  /* серый фон → чёрные заголовки */
+  }
+
+  :where(.bg-dark, .bg-primary)
+    :is(.heading-hero, .heading-section, .heading-subsection, .heading-card, summary) {
+    color: var(--color-white);
+  }
+
+  /* Контраст text-gray-300 на фонах (меню и т.д.) */
   .bg-dark .text-gray-300 { color: #e5e7eb; }
 
+  /* Хлебные крошки: иерархия цветов на тёмном фоне */
+  .breadcrumbs {
+    color: rgba(255, 255, 255, 0.5); /* разделители */
+  }
+  .breadcrumbs a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .breadcrumbs a:hover {
+    color: #fff;
+  }
+  .breadcrumbs li:last-child span {
+    color: #fff; /* текущая страница — яркий */
+  }
+
   /* Типографика наследует цвет от секции */
-  .heading-hero,
-  .heading-section,
-  .heading-subsection,
-  .heading-card,
   .text-lead,
   .text-lead-xl,
   .text-body,
@@ -185,13 +230,6 @@
   .text-small,
   .text-tiny { color: inherit; }
 
-  /* Принудительный белый для тёмных/цветных фонов (на случай вложенности) */
-  .bg-primary *,
-  .bg-dark * { color: var(--color-white); }
-  
-  /* Исключения для элементов внутри белых карточек */
-  .bg-primary .bg-white *,
-  .bg-dark .bg-white * { color: var(--color-body); }
 
   /* === Button Components === */
   /* Базовые стили кнопки */
@@ -484,6 +522,12 @@
     display: flex;
     flex-direction: column;
     gap: 3rem;
+  }
+
+  /* Явный фон для корректной проверки контраста при content-visibility: auto */
+  .bg-dark .step-container,
+  .bg-dark .step-content {
+    background-color: var(--color-dark);
   }
   
   .step-line {

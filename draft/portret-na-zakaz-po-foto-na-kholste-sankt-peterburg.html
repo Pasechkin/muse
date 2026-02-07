@@ -130,27 +130,6 @@
         ]
     }
     </script>
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "VideoObject",
-        "name": "Портрет на заказ по фото. Печать на холсте. Вопрос-ответ.",
-        "description": "Видео о создании портрета на холсте в студии Muse. Рассказываем о процессе работы, сроках и гарантиях.",
-        "thumbnailUrl": "https://muse.ooo/img/portret-na-zakaz-cover-555.webp",
-        "contentUrl": "https://muse.ooo/video/portret-po-foto-na-zakaz-na-holste.mp4",
-        "embedUrl": "https://muse.ooo/video/portret-po-foto-na-zakaz-na-holste.mp4",
-        "uploadDate": "2024-01-15",
-        "duration": "PT3M45S",
-        "publisher": {
-            "@type": "Organization",
-            "name": "Студия Muse",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "https://muse.ooo/img/logo.svg"
-            }
-        }
-    }
-    </script>
 </head>
 <body class="bg-white overflow-x-hidden">
     <!-- Header -->
@@ -158,8 +137,10 @@
 
     <!-- Hero Section -->
     <section class="relative h-[65vh] lg:h-screen overflow-hidden bg-dark">
-            <!-- Видео вставляется через JS только на desktop после загрузки страницы -->
-            <div id="hero-video-container" class="absolute inset-0 w-full h-full hidden lg:block"></div>
+            <video class="absolute inset-0 w-full h-full object-cover hidden lg:block" autoplay loop muted playsinline preload="none" title="Ролик про стили портретов от Muse.">
+                <source src="https://muse.ooo/video/portret-po-foto.webm" media="(min-width: 1024px)" type="video/webm">
+                <source src="https://muse.ooo/video/portret-po-foto.mp4" media="(min-width: 1024px)" type="video/mp4">
+            </video>
             <div class="absolute inset-0 bg-dark opacity-20 lg:opacity-20"></div>
             <div class="container h-full flex items-center relative z-10">
                 <div class="max-w-2xl">
@@ -390,7 +371,238 @@
             </div>
         </section>
 
-        
+        <!-- Calculator -->
+        <section class="bg-secondary py-16 lg:py-24 content-auto" id="calc">
+            <div class="container">
+                <div class="text-center mb-8">
+                    <h2 class="heading-section">Цена</h2>
+                </div>
+                
+                <!-- Калькулятор -->
+                <div class="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
+                    <!-- Верхняя часть: превью + опции -->
+                    <div class="grid lg:grid-cols-2 gap-0">
+                        <!-- Превью изображения -->
+                        <div class="relative">
+                            <img src="https://muse.ooo/assets/calculator/img/canvas_ad_mirrored_size_628_398.webp" height="628" width="398" alt="Портрет на холсте" class="w-full h-auto" loading="lazy" decoding="async">
+                            <div class="p-4 text-center bg-gray-50">
+                                <div class="flex items-baseline justify-center gap-3">
+                                    <span class="text-2xl font-light text-gray-400 line-through">5 464 ₽</span>
+                                    <span class="text-2xl font-medium text-primary">4 371 ₽</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Опции конфигурации -->
+                        <div class="p-6 lg:p-8">
+                            <form id="calculator-form" class="space-y-5">
+                                <!-- Размер -->
+                                <div>
+                                    <span class="block text-sm font-medium text-dark mb-2" id="size-label">Размер</span>
+                                    <div class="flex items-center gap-2">
+                                        <label for="calc-width" class="sr-only">Ширина (см)</label>
+                                        <input type="number" id="calc-width" value="20" min="20" step="5" aria-labelledby="size-label" class="w-24 border border-gray-300 rounded-md px-4 py-2.5 text-base text-center focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        <span class="text-gray-500" aria-hidden="true">×</span>
+                                        <label for="calc-height" class="sr-only">Высота (см)</label>
+                                        <input type="number" id="calc-height" value="30" min="20" step="5" aria-labelledby="size-label" class="w-24 border border-gray-300 rounded-md px-4 py-2.5 text-base text-center focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    </div>
+                                </div>
+                                
+                                <!-- Стиль -->
+                                <div>
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <label for="calc-style" class="text-sm font-medium text-dark">Стиль</label>
+                                        <button popovertarget="tooltip-style" type="button" class="w-5 h-5 rounded-full bg-gray-200 text-gray-600 text-xs inline-flex items-center justify-center hover:bg-gray-300 transition-colors">?</button>
+                                    </div>
+                                    <select id="calc-style" class="w-full border border-gray-300 rounded-md px-4 py-2.5 text-sm bg-white appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M6%208L1%203h10z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:12px] bg-[right_12px_center] bg-no-repeat pr-10 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent cursor-pointer">
+                                        <option value="18" selected>Под масло</option>
+                                        <option value="21">Портрет акварелью</option>
+                                        <option value="22">Портрет карандашом</option>
+                                        <option value="20">Портрет в образе</option>
+                                        <option value="25">Шарж по фото</option>
+                                        <option value="32">Комикс</option>
+                                        <option value="29">Из слов с прорисовкой</option>
+                                        <option value="30">Из слов по фото</option>
+                                        <option value="34">Мозаика с прорисовкой</option>
+                                        <option value="35">Мозаика</option>
+                                        <option value="27">Гранж портрет</option>
+                                        <option value="33">Flower Art</option>
+                                        <option value="1">Рисованный Love is...</option>
+                                        <option value="7">Love is... из фото</option>
+                                        <option value="31">Бьюти-арт</option>
+                                        <option value="28">WPAP портрет</option>
+                                        <option value="17">Дрим-арт портрет</option>
+                                        <option value="13">Поп-арт Монро</option>
+                                        <option value="14">Поп-арт Че</option>
+                                        <option value="15">Поп-арт Уорхол</option>
+                                    </select>
+                                </div>
+                                
+                                <!-- Количество лиц -->
+                                <div>
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <label for="calc-faces" class="text-sm font-medium text-dark">Количество лиц</label>
+                                        <button popovertarget="tooltip-faces" type="button" class="w-5 h-5 rounded-full bg-gray-200 text-gray-600 text-xs inline-flex items-center justify-center hover:bg-gray-300 transition-colors">?</button>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <select id="calc-faces" class="flex-1 border border-gray-300 rounded-md px-4 py-2.5 text-sm bg-white appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M6%208L1%203h10z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:12px] bg-[right_12px_center] bg-no-repeat pr-10 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent cursor-pointer">
+                                            <option value="1" selected>1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </select>
+                                        <span class="ml-4 text-sm text-primary font-medium">1 920 ₽</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Печать, подрамник -->
+                                <div>
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <label for="calc-frame" class="text-sm font-medium text-dark">Печать, подрамник</label>
+                                        <button popovertarget="tooltip-frame" type="button" class="w-5 h-5 rounded-full bg-gray-200 text-gray-600 text-xs inline-flex items-center justify-center hover:bg-gray-300 transition-colors">?</button>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <select id="calc-frame" class="flex-1 border border-gray-300 rounded-md px-4 py-2.5 text-sm bg-white appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M6%208L1%203h10z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:12px] bg-[right_12px_center] bg-no-repeat pr-10 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent cursor-pointer">
+                                            <option value="2" selected>Стандартный</option>
+                                            <option value="1">Толстый</option>
+                                        </select>
+                                        <span class="ml-4 text-sm text-primary font-medium">2 391 ₽</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Чекбоксы -->
+                                <div class="space-y-3 pt-2">
+                                    <!-- Покрытие лаком -->
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <input type="checkbox" id="checkbox-lak" checked class="w-5 h-5 text-primary border-2 border-gray-300 rounded focus:ring-primary focus:ring-2 cursor-pointer accent-primary">
+                                            <label for="checkbox-lak" class="text-sm text-dark cursor-pointer">Покрытие лаком</label>
+                                            <button popovertarget="tooltip-lak" type="button" class="w-5 h-5 rounded-full bg-gray-200 text-gray-600 text-xs inline-flex items-center justify-center hover:bg-gray-300 transition-colors">?</button>
+                                        </div>
+                                        <span class="text-sm text-primary font-medium">60 ₽</span>
+                                    </div>
+                                    
+                                    <!-- Подарочная упаковка -->
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <input type="checkbox" id="checkbox-wrapper" class="w-5 h-5 text-primary border-2 border-gray-300 rounded focus:ring-primary focus:ring-2 cursor-pointer accent-primary">
+                                            <label for="checkbox-wrapper" class="text-sm text-dark cursor-pointer">Подарочная упаковка</label>
+                                            <button popovertarget="tooltip-wrapper" type="button" class="w-5 h-5 rounded-full bg-gray-200 text-gray-600 text-xs inline-flex items-center justify-center hover:bg-gray-300 transition-colors">?</button>
+                                        </div>
+                                        <span class="text-sm text-primary font-medium">650 ₽</span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Кнопка загрузки фото -->
+                    <div class="p-6 border-t border-gray-200 text-center bg-gray-50">
+                        <button type="button" class="btn-primary">
+                            Загрузите фото
+                        </button>
+                    </div>
+                    
+                    <!-- Форма контактов -->
+                    <div class="p-6 lg:p-8 border-t border-gray-200">
+                        <!-- Верхняя строка: Имя, Телефон, E-mail, Комментарий -->
+                        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <!-- Имя -->
+                            <div>
+                                <label for="calc-name-input" class="sr-only">Имя</label>
+                                <input type="text" id="calc-name-input" placeholder="Имя*" required class="w-full border border-gray-300 rounded-md px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                            <!-- Телефон -->
+                            <div>
+                                <label for="calc-phone-input" class="sr-only">Телефон</label>
+                                <input type="tel" id="calc-phone-input" placeholder="Телефон*" required class="w-full border border-gray-300 rounded-md px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                            <!-- Email -->
+                            <div>
+                                <label for="calc-email-input" class="sr-only">E-mail</label>
+                                <input type="email" id="calc-email-input" placeholder="E-mail" class="w-full border border-gray-300 rounded-md px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                            <!-- Комментарий -->
+                            <div class="md:col-span-2 lg:col-span-1">
+                                <label for="calc-comment-input" class="sr-only">Комментарий</label>
+                                <textarea id="calc-comment-input" placeholder="Комментарий" rows="1" class="w-full border border-gray-300 rounded-md px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"></textarea>
+                            </div>
+                        </div>
+                        
+                        <!-- Нижняя строка: Ссылка (1 кол.) + Согласие (2 кол.) + Кнопка (1 кол.) -->
+                        <div class="mt-4 grid md:grid-cols-4 gap-4 items-center">
+                            <!-- Поле для ссылки - 1 колонка -->
+                            <div>
+                                <label for="calc-link-input" class="sr-only">Ссылка на фото или облако</label>
+                                <textarea id="calc-link-input" placeholder="Поле для ссылки на фото или облако" rows="2" class="w-full border border-gray-300 rounded-md px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"></textarea>
+                            </div>
+                            <!-- Согласие - 2 колонки -->
+                            <div class="md:col-span-2">
+                                <p class="text-xs text-body">
+                                    Заполняя форму, я соглашаюсь с условиями <a href="https://muse.ooo/info/oferta/" class="text-primary underline hover:no-underline">Оферты ↗</a> и даю своё согласие на обработку персональных данных в соответствии с <a href="https://muse.ooo/info/politika_konfidentsialnosti_sayta/" class="text-primary underline hover:no-underline">Политикой конфиденциальности сайта ↗</a>
+                                </p>
+                            </div>
+                            <!-- Кнопка - 1 колонка -->
+                            <div class="text-center md:text-right">
+                                <button type="submit" class="btn-primary">
+                                    Заказать
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tooltips (Popovers) -->
+                <el-popover id="tooltip-style" anchor="bottom" popover class="bg-white rounded-lg shadow-xl border border-gray-200 p-6 max-w-sm z-50">
+                    <button popovertarget="tooltip-style" popovertargetaction="hide" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+                        <svg fill="none" stroke="currentColor" class="w-5 h-5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 18 6M6 6l12 12"/></svg>
+                    </button>
+                    <h3 class="text-lg font-light text-dark text-center mb-2">Стиль</h3>
+                    <p class="text-sm text-body">Выберите художественный стиль для вашего портрета. Каждый стиль имеет свои особенности обработки.</p>
+                </el-popover>
+                
+                <el-popover id="tooltip-faces" anchor="bottom" popover class="bg-white rounded-lg shadow-xl border border-gray-200 p-6 max-w-sm z-50">
+                    <button popovertarget="tooltip-faces" popovertargetaction="hide" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+                        <svg fill="none" stroke="currentColor" class="w-5 h-5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 18 6M6 6l12 12"/></svg>
+                    </button>
+                    <h3 class="text-lg font-light text-dark text-center mb-2">Количество лиц</h3>
+                    <p class="text-sm text-body">Укажите количество людей, которые будут изображены на портрете. Стоимость зависит от количества лиц.</p>
+                </el-popover>
+                
+                <el-popover id="tooltip-frame" anchor="bottom" popover class="bg-white rounded-lg shadow-xl border border-gray-200 p-6 max-w-sm z-50">
+                    <button popovertarget="tooltip-frame" popovertargetaction="hide" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+                        <svg fill="none" stroke="currentColor" class="w-5 h-5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 18 6M6 6l12 12"/></svg>
+                    </button>
+                    <h3 class="text-lg font-light text-dark text-center mb-2">Печать, подрамник</h3>
+                    <p class="text-sm text-body">Стандартный подрамник толщиной 2 см. Толстый подрамник — 4 см, создаёт более объёмный вид картины.</p>
+                </el-popover>
+                
+                <el-popover id="tooltip-lak" anchor="bottom" popover class="bg-white rounded-lg shadow-xl border border-gray-200 p-6 max-w-sm z-50">
+                    <button popovertarget="tooltip-lak" popovertargetaction="hide" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+                        <svg fill="none" stroke="currentColor" class="w-5 h-5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 18 6M6 6l12 12"/></svg>
+                    </button>
+                    <h3 class="text-lg font-light text-dark text-center mb-2">Покрытие лаком</h3>
+                    <p class="text-sm text-body">Защитное покрытие лаком продлевает срок службы картины, защищает от влаги и выцветания. Рекомендуется для всех работ.</p>
+                </el-popover>
+                
+                <el-popover id="tooltip-wrapper" anchor="bottom" popover class="bg-white rounded-lg shadow-xl border border-gray-200 p-6 max-w-sm z-50">
+                    <button popovertarget="tooltip-wrapper" popovertargetaction="hide" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+                        <svg fill="none" stroke="currentColor" class="w-5 h-5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 18 6M6 6l12 12"/></svg>
+                    </button>
+                    <div class="text-center mb-4">
+                        <svg fill="currentColor" class="w-10 h-10 mx-auto text-primary" viewBox="0 0 458.9 458.9"><path d="m451.2 95.4.3-.8L238.6 7.9l-36.1 13.7c3.8 4.1 7.3 8.4 10.7 12.9l25.2-9.6 51.2 20.9c15.6-2.5 29.6-1.7 41.6 2.6 14 5.1 24.7 14.3 32.3 27.5l67.5 27.5-55.4 21.8c-.4 6.5-2 13.3-5.6 19.3l65.8-26v244.7l-198.4 78.3V196.8l92.3-36.4c-8.3-1.1-17.2-3.5-26.4-6.6l-73.8 29.1-71-28 35-15.9c-2.9-1.2-5.6-3.1-7.6-5.7-3.1-3.8-4.7-8.6-4.4-13.4-1.9-2.2-7.4-4.7-13.9-7l-56 23.6-81.7-32.2 56.4-21.4c-4.4-3.6-8-7.9-10.4-13L8 95.5l-.7-.3v.6h-.1V374l214.3 84.6v.3h15.9v-.3l214.3-84.5V95.2z"/></svg>
+                    </div>
+                    <h3 class="text-lg font-light text-dark text-center mb-2">Подарочная упаковка</h3>
+                    <p class="text-sm text-body">По желанию упакуем работу в подарочную крафт-бумагу с красивым бантом. Варианты оформления обязательно с Вами предварительно согласуем.</p>
+                </el-popover>
+            </div>
+        </section>
 
         <!-- Характеристики и Сроки -->
         <section class="bg-secondary py-16 content-auto">
@@ -459,8 +671,8 @@
             <div class="container">
                 <div class="grid gap-10 xl:grid-cols-2">
                     <!-- Видео -->
-                    <figure>
-                        <div class="video-cover aspect-[555/358] rounded-lg" data-video-cover>
+                    <div>
+                        <div class="video-cover aspect-video rounded-lg" data-video-cover>
                             <img 
                                 src="https://muse.ooo/img/portret-na-zakaz-cover-555.webp"
                                 alt="Обложка для видео: Портрет на заказ по фото. Печать на холсте. Вопрос-ответ." 
@@ -472,13 +684,13 @@
                             <button type="button" class="ui-control ui-control--xl ui-control--play" data-play-btn aria-label="Воспроизвести видео">
                                 <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             </button>
-                            <video title="Процесс создания портрета в студии Muse" preload="none" playsinline class="hidden" poster="https://muse.ooo/img/portret-na-zakaz-cover-555.webp">
+                            <video title="Процесс создания портрета в студии Muse" preload="none" playsinline class="hidden">
                                 <source src="https://muse.ooo/video/portret-po-foto-na-zakaz-na-holste.webm" type="video/webm">
                                 <source src="https://muse.ooo/video/portret-po-foto-na-zakaz-na-holste.mp4" type="video/mp4">
                             </video>
                         </div>
-                        <figcaption class="mt-4 text-white/80">Видео о создании портрета на холсте в Muse</figcaption>
-                    </figure>
+                        <p class="mt-4 text-white/80">Видео о создании портрета на холсте в Muse</p>
+                    </div>
                     <!-- Процесс -->
                     <div class="step-container">
                         <div class="step-line"></div>
@@ -601,7 +813,7 @@
                     <!-- Left Column -->
                     <div class="space-y-0 divide-y divide-gray-200 overflow-hidden">
                         <details class="group">
-                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium hover:opacity-80 transition-opacity list-none w-full">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
                                 <span class="break-words">Сколько стоит портрет по фото на холсте?</span>
                                 <svg fill="currentColor" class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.06z" clip-rule="evenodd"/></svg>
                             </summary>
@@ -639,7 +851,7 @@
                         </details>
 
                         <details class="group">
-                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium hover:opacity-80 transition-opacity list-none w-full">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
                                 <span>Какие сроки исполнения заказа?</span>
                                 <svg fill="currentColor" class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.06z" clip-rule="evenodd"/></svg>
                             </summary>
@@ -649,7 +861,7 @@
                         </details>
 
                         <details class="group">
-                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium hover:opacity-80 transition-opacity list-none w-full">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
                                 <span>В чём особенность портретов по фото?</span>
                                 <svg fill="currentColor" class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.06z" clip-rule="evenodd"/></svg>
                             </summary>
@@ -657,7 +869,7 @@
                         </details>
 
                         <details class="group">
-                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium hover:opacity-80 transition-opacity list-none w-full">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
                                 <span>Вы печатаете или рисуете?</span>
                                 <svg fill="currentColor" class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.06z" clip-rule="evenodd"/></svg>
                             </summary>
@@ -665,7 +877,7 @@
                         </details>
 
                         <details class="group">
-                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium hover:opacity-80 transition-opacity list-none w-full">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
                                 <span>Есть ли преимущества у цифры перед кистью?</span>
                                 <svg fill="currentColor" class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.06z" clip-rule="evenodd"/></svg>
                             </summary>
@@ -673,7 +885,7 @@
                         </details>
 
                         <details class="group">
-                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium hover:opacity-80 transition-opacity list-none w-full">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
                                 <span class="break-words min-w-0">Какие будут гарантии при работе с вами?</span>
                                 <svg fill="currentColor" class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.06z" clip-rule="evenodd"/></svg>
                             </summary>
@@ -696,7 +908,7 @@
                     <!-- Right Column -->
                     <div class="space-y-0 divide-y divide-gray-200 overflow-hidden">
                         <details class="group">
-                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium hover:opacity-80 transition-opacity list-none w-full">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
                                 <span class="break-words min-w-0">Почему не напечатать просто фото?</span>
                                 <svg fill="currentColor" class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.06z" clip-rule="evenodd"/></svg>
                             </summary>
@@ -717,7 +929,7 @@
                         </details>
 
                         <details class="group">
-                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium hover:opacity-80 transition-opacity list-none w-full">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
                                 <span>Какие требования к фото?</span>
                                 <svg fill="currentColor" class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.06z" clip-rule="evenodd"/></svg>
                             </summary>
@@ -726,7 +938,7 @@
                         </details>
 
                         <details class="group">
-                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium hover:opacity-80 transition-opacity list-none w-full">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
                                 <span class="break-words min-w-0">На чём печатаете?</span>
                                 <svg fill="currentColor" class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.06z" clip-rule="evenodd"/></svg>
                             </summary>
@@ -739,7 +951,7 @@
                         </details>
 
                         <details class="group">
-                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium hover:opacity-80 transition-opacity list-none w-full">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
                                 <span class="break-words min-w-0">Недорого ли у вас печатать?</span>
                                 <svg fill="currentColor" class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.06z" clip-rule="evenodd"/></svg>
                             </summary>
@@ -754,7 +966,7 @@
                         </details>
 
                         <details class="group">
-                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium hover:opacity-80 transition-opacity list-none w-full">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
                                 <span>Почему портрет на холсте долговечен?</span>
                                 <svg fill="currentColor" class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.06z" clip-rule="evenodd"/></svg>
                             </summary>
@@ -762,7 +974,7 @@
                         </details>
 
                         <details class="group">
-                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium hover:opacity-80 transition-opacity list-none w-full">
+                            <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none w-full">
                                 <span>Где вы находитесь?</span>
                                 <svg fill="currentColor" class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.06z" clip-rule="evenodd"/></svg>
                             </summary>
@@ -868,23 +1080,6 @@
  
     <!-- Scripts -->
     <script src="js/nav.js" defer></script>
-    <script>
-    // Hero video: ленивая загрузка только на desktop после отрисовки страницы
-    if (window.matchMedia('(min-width: 1024px)').matches) {
-        requestAnimationFrame(function() {
-            var c = document.getElementById('hero-video-container');
-            if (!c) return;
-            var v = document.createElement('video');
-            v.className = 'w-full h-full object-cover opacity-0';
-            v.style.transition = 'opacity 0.7s';
-            v.autoplay = v.loop = v.muted = v.playsInline = true;
-            v.title = 'Ролик про стили портретов от Muse.';
-            v.innerHTML = '<source src="https://muse.ooo/video/portret-po-foto.webm" type="video/webm"><source src="https://muse.ooo/video/portret-po-foto.mp4" type="video/mp4">';
-            v.oncanplay = function() { this.style.opacity = '1'; };
-            c.appendChild(v);
-        });
-    }
-    </script>
 
 </body>
 </html>

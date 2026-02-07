@@ -337,8 +337,8 @@ Legacy: ранее использовался `<el-dialog>`. Теперь исп
 
 | Фон секции | Заголовки | Основной текст |
 |------------|-----------|----------------|
-| `bg-white` | `--color-dark` (#262626) | `--color-body` (#525252) |
-| `bg-secondary` | `--color-dark` | `--color-body` |
+| `bg-white` | `--color-body` (#525252) | `--color-body` (#525252) |
+| `bg-secondary` | `--color-dark` (#262626) | `--color-dark` (#262626) |
 | `bg-dark` | `white` | `white` |
 | `bg-primary` | `white` | `white` |
 
@@ -468,7 +468,9 @@ Legacy: ранее использовался `<el-dialog>`. Теперь исп
 |------------|-----------------|-------------------|
 | В тексте | `text-primary underline hover:no-underline` | Ссылки внутри абзацев |
 | Навигационная | `text-primary hover:text-primary-hover` | Меню, навигация |
-| На тёмном фоне | `text-gray-300 hover:text-white` | Footer, тёмные секции |
+| На тёмном фоне (основная) | `link-on-dark` | Ссылки в тексте на `bg-dark` |
+| На тёмном фоне (навигация) | `link-on-dark-plain` | Меню, хлебные крошки на тёмном фоне |
+| Footer | `text-gray-300 hover:text-white` | Нижний колонтитул |
 
 ```html
 <!-- Ссылка в тексте (обязательно с подчёркиванием для доступности) -->
@@ -480,8 +482,21 @@ Legacy: ранее использовался `<el-dialog>`. Теперь исп
 <!-- Ссылка внутри страницы (стрелка вверх) -->
 <a href="#calc" class="text-primary underline hover:no-underline">Цена ↑</a>
 
-<!-- Ссылка на тёмном фоне -->
-<a href="/" class="text-gray-300 hover:text-white transition-colors">Главная</a>
+<!-- Ссылка на тёмном фоне (с синим подчёркиванием) -->
+<a href="#calc" class="link-on-dark">Цена ↑</a>
+
+<!-- Ссылка на тёмном фоне (без подчёркивания, для навигации) -->
+<a href="/" class="link-on-dark-plain">Главная</a>
+
+**Стили `link-on-dark` (утилита в `input.css`):**
+- Белый текст `#ffffff`
+- Синее подчёркивание `#2f6ea8` (2px толщиной)
+- Отступ подчёркивания 2px
+
+**Стили `link-on-dark-plain`:**
+- Светло-серый текст `#e5e7eb`
+- Без подчёркивания
+- При наведении → белый
 
 **Важно:** синий (`text-primary`) на чёрном фоне не используем — контраст недостаточный.
 ```
