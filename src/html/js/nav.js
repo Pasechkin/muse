@@ -48,100 +48,99 @@ function setupDialogAria(dialog) {
 // Кэш для breakpoint (обновляется при resize)
 var isDesktop = window.innerWidth >= 1024;
 
-// --- Native Dialog Controls (replaces tailwindplus-elements.js) ---
-document.querySelectorAll('[data-open-dialog]').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-        var dialog = document.getElementById(btn.dataset.openDialog);
-        if (dialog && typeof dialog.showModal === 'function') {
-            dialog.showModal();
-        }
-    });
-});
-document.querySelectorAll('[data-close-dialog]').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-        var dialog = btn.closest('dialog');
-        if (dialog && typeof dialog.close === 'function') {
-            dialog.close();
-        }
-    });
-});
-
-// --- Native Tabs (replaces el-tab-group from tailwindplus) ---
-document.querySelectorAll('[data-tabs]').forEach(function(tabGroup, groupIndex) {
-    var tabList = tabGroup.querySelector('[data-tab-list]');
-    var tabPanels = tabGroup.querySelector('[data-tab-panels]');
-    if (!tabList || !tabPanels) return;
-
-    var buttons = Array.from(tabList.querySelectorAll('button'));
-    var panels = Array.from(tabPanels.children);
-    if (buttons.length === 0 || panels.length === 0) return;
-
-    var groupId = tabGroup.dataset.tabsId || tabGroup.id || ('tabs-' + groupIndex);
-
-    if (!tabList.getAttribute('role')) {
-        tabList.setAttribute('role', 'tablist');
-    }
-
-    buttons.forEach(function(btn, index) {
-        var panel = panels[index];
-        if (!panel) return;
-
-        if (!btn.getAttribute('role')) {
-            btn.setAttribute('role', 'tab');
-        }
-
-        var tabId = btn.id || (groupId + '-tab-' + index);
-        if (!btn.id) {
-            btn.id = tabId;
-        }
-
-        var panelId = panel.id || (groupId + '-panel-' + index);
-        if (!panel.id) {
-            panel.id = panelId;
-        }
-
-        if (!btn.getAttribute('aria-controls')) {
-            btn.setAttribute('aria-controls', panelId);
-        }
-
-        if (!panel.getAttribute('role')) {
-            panel.setAttribute('role', 'tabpanel');
-        }
-
-        if (!panel.hasAttribute('tabindex')) {
-            panel.setAttribute('tabindex', '0');
-        }
-
-        panel.setAttribute('aria-labelledby', tabId);
-    });
-
-    var selectedIndex = buttons.findIndex(function(btn) {
-        return btn.getAttribute('aria-selected') === 'true';
-    });
-    if (selectedIndex === -1) selectedIndex = 0;
-
-    function syncTabs(activeIndex) {
-        buttons.forEach(function(btn, index) {
-            var isActive = index === activeIndex;
-            btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
-            btn.setAttribute('tabindex', isActive ? '0' : '-1');
-        });
-
-        panels.forEach(function(panel, index) {
-            panel.hidden = index !== activeIndex;
-        });
-    }
-
-    syncTabs(selectedIndex);
-
-    buttons.forEach(function(btn, index) {
-        btn.addEventListener('click', function() {
-            syncTabs(index);
-        });
-    });
-});
-
 document.addEventListener('DOMContentLoaded', function() {
+    // --- Native Dialog Controls (replaces tailwindplus-elements.js) ---
+    document.querySelectorAll('[data-open-dialog]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var dialog = document.getElementById(btn.dataset.openDialog);
+            if (dialog && typeof dialog.showModal === 'function') {
+                dialog.showModal();
+            }
+        });
+    });
+    document.querySelectorAll('[data-close-dialog]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var dialog = btn.closest('dialog');
+            if (dialog && typeof dialog.close === 'function') {
+                dialog.close();
+            }
+        });
+    });
+
+    // --- Native Tabs (replaces el-tab-group from tailwindplus) ---
+    document.querySelectorAll('[data-tabs]').forEach(function(tabGroup, groupIndex) {
+        var tabList = tabGroup.querySelector('[data-tab-list]');
+        var tabPanels = tabGroup.querySelector('[data-tab-panels]');
+        if (!tabList || !tabPanels) return;
+
+        var buttons = Array.from(tabList.querySelectorAll('button'));
+        var panels = Array.from(tabPanels.children);
+        if (buttons.length === 0 || panels.length === 0) return;
+
+        var groupId = tabGroup.dataset.tabsId || tabGroup.id || ('tabs-' + groupIndex);
+
+        if (!tabList.getAttribute('role')) {
+            tabList.setAttribute('role', 'tablist');
+        }
+
+        buttons.forEach(function(btn, index) {
+            var panel = panels[index];
+            if (!panel) return;
+
+            if (!btn.getAttribute('role')) {
+                btn.setAttribute('role', 'tab');
+            }
+
+            var tabId = btn.id || (groupId + '-tab-' + index);
+            if (!btn.id) {
+                btn.id = tabId;
+            }
+
+            var panelId = panel.id || (groupId + '-panel-' + index);
+            if (!panel.id) {
+                panel.id = panelId;
+            }
+
+            if (!btn.getAttribute('aria-controls')) {
+                btn.setAttribute('aria-controls', panelId);
+            }
+
+            if (!panel.getAttribute('role')) {
+                panel.setAttribute('role', 'tabpanel');
+            }
+
+            if (!panel.hasAttribute('tabindex')) {
+                panel.setAttribute('tabindex', '0');
+            }
+
+            panel.setAttribute('aria-labelledby', tabId);
+        });
+
+        var selectedIndex = buttons.findIndex(function(btn) {
+            return btn.getAttribute('aria-selected') === 'true';
+        });
+        if (selectedIndex === -1) selectedIndex = 0;
+
+        function syncTabs(activeIndex) {
+            buttons.forEach(function(btn, index) {
+                var isActive = index === activeIndex;
+                btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                btn.setAttribute('tabindex', isActive ? '0' : '-1');
+            });
+
+            panels.forEach(function(panel, index) {
+                panel.hidden = index !== activeIndex;
+            });
+        }
+
+        syncTabs(selectedIndex);
+
+        buttons.forEach(function(btn, index) {
+            btn.addEventListener('click', function() {
+                syncTabs(index);
+            });
+        });
+    });
     // --- 0. INPUT MASKS (RU phone) ---
     function formatRuPhone(rawDigits) {
         var digits = (rawDigits || '').replace(/\D/g, '');
@@ -317,6 +316,23 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onResize);
     
+    // Пересчёт кэша после полной загрузки (изображения, шрифты)
+    window.addEventListener('load', function() {
+        cacheValid = false;
+        cacheSectionPositions();
+        toggleUI();
+    });
+    
+    // ResizeObserver для секций (раскрывающиеся блоки, ленивая загрузка)
+    if (typeof ResizeObserver !== 'undefined') {
+        var sectionResizeObserver = new ResizeObserver(function() {
+            cacheValid = false;
+        });
+        document.querySelectorAll('section[id]').forEach(function(section) {
+            sectionResizeObserver.observe(section);
+        });
+    }
+    
     // Инициализация: кэшируем позиции после полной загрузки
     cacheSectionPositions();
     toggleUI();
@@ -361,6 +377,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Accessibility: dialogs focus management, keyboard, and accessible play controls
     (function(){
+        // Проверка поддержки HTMLDialogElement
+        if (typeof HTMLDialogElement === 'undefined') return;
+        
         var origShow = HTMLDialogElement.prototype.showModal;
         var origClose = HTMLDialogElement.prototype.close;
 
@@ -635,7 +654,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 video.muted = false;
                 modal.classList.add('active');
                 document.body.classList.add('video-modal-open');
-                video.play();
+                video.play().catch(function() {});
             }
         }
         
@@ -671,7 +690,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- 4. Mobile menu swipe-to-close ---
     (function() {
         const dialog = document.getElementById('mobile-menu');
-        if (!(dialog instanceof HTMLDialogElement)) return;
+        if (!dialog || dialog.tagName !== 'DIALOG') return;
 
         const panel = dialog.querySelector('[data-swipe-panel]');
         if (!panel) return;
@@ -714,7 +733,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- 5. City dialog ---
     (function () {
         const dialog = document.getElementById('city-dialog');
-        if (!(dialog instanceof HTMLDialogElement)) return;
+        if (!dialog || dialog.tagName !== 'DIALOG') return;
 
         const searchInput = document.getElementById('city-search');
         const gridRoot = document.getElementById('city-grid');

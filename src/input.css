@@ -21,11 +21,6 @@
   contain-intrinsic-size: auto 500px;
 }
 
-/* Изоляция секций для оптимизации рендеринга (снижает style/layout recalculations) */
-@utility section-contain {
-  contain: layout style;
-}
-
 /* Предотвращение CLS для главного контента */
 @utility main-stable {
   contain: layout;
@@ -583,8 +578,23 @@
     color: #D1D5DB;
   }
 
-  /* Примечание: медиазапрос @media (min-width: 1536px) .container удалён — 
-     max-width уже задан в @utility container */
+  /* === Reduced Motion: отключение анимаций для доступности === */
+  @media (prefers-reduced-motion: reduce) {
+    .ken-burns-img {
+      animation: none;
+    }
+    .canvas-3d {
+      transition: none;
+    }
+    .canvas-3d:hover {
+      transform: none;
+    }
+    .ba-handle,
+    .ui-control--play {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+  }
 }
 
 /* === Музейные иконки (Restore original Muse paths) === */
