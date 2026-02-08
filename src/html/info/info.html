@@ -74,6 +74,8 @@
         .text-xs { font-size: 0.75rem; }
         .text-gray-300 { color: #d1d5db; }
         .space-x-2 > * + * { margin-left: 0.5rem; }
+        /* Typed.js - резервируем место для предотвращения CLS */
+        #typed-text { display: inline-block; min-width: 11ch; } /* Самое длинное слово: репродукции */
         /* Typed.js cursor */
         .typed-cursor { display: inline-block; width: 3px; background-color: var(--primary); animation: blink 1s infinite; margin-left: 2px; }
         @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
@@ -162,7 +164,7 @@
                     </ol>
                 </nav>
                 <h1 class="heading-hero mb-4">
-                    Печатаем <span id="typed-text" class="text-primary"></span><span class="typed-cursor">&nbsp;</span><br class="hidden sm:block">на холсте и пишем портреты по фото
+                    Печатаем <span id="typed-text" class="text-primary">фото</span><span class="typed-cursor">&nbsp;</span><br class="hidden sm:block">на холсте и пишем портреты по фото
                 </h1>
             </div>
         </div>
