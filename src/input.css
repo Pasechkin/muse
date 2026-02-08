@@ -52,15 +52,13 @@
   }
 }
 
-@layer utilities {
-  .canvas-3d {
-    --depth: 30px;
-    position: relative;
-    box-shadow: var(--depth) var(--depth) 50px rgba(0, 0, 0, 0.4);
-    transition: transform 300ms ease;
-  }
-
-  .canvas-3d:hover {
+/* 3D-эффект холста (конвертировано из @layer utilities в @utility) */
+@utility canvas-3d {
+  --depth: 30px;
+  position: relative;
+  box-shadow: var(--depth) var(--depth) 50px rgba(0, 0, 0, 0.4);
+  transition: transform 300ms ease;
+  &:hover {
     transform: translate(-5px, -5px);
   }
 }
@@ -72,7 +70,7 @@
   --color-dark: #262626;
   --color-body: #525252;
   --color-secondary: #fafafa;
-  --color-white: #FFFFFF;
+  /* Примечание: --color-white удалён — используйте white или #fff */
 
   /* Font Family */
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -80,6 +78,11 @@
   /* Font Weights */
   --font-weight-normal: 400;
   --font-weight-light: 300;
+
+  /* Transition tokens (унифицированные длительности) */
+  --transition-fast: 150ms;
+  --transition-normal: 200ms;
+  --transition-slow: 300ms;
 
   /* Ken Burns animation */
   --animate-ken-burns: kenburns 20s ease-out forwards;
@@ -91,6 +94,28 @@
 }
 
 /* Примечание: переменные --primary, --dark и др. определены в критическом CSS на страницах */
+
+/* === Глобальные фокус-стили для доступности === */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Skip-link для клавиатурной навигации */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: var(--color-dark);
+  color: white;
+  text-decoration: none;
+  border-radius: 0.25rem;
+  &:focus {
+    top: 1rem;
+  }
+}
 
 /* === Refined Before/After Slider (v4) === */
 @utility before-after-slider {
@@ -170,6 +195,10 @@
   .heading-hero { @apply text-4xl lg:text-6xl font-light; }
   .heading-section { @apply text-3xl lg:text-4xl font-light; }
   .heading-subsection { @apply text-2xl font-light; }
+
+  /* Legal pages: hide empty paragraphs (Word artifacts) */
+  .legal-content p:empty,
+  .legal-content div:empty { display: none; }
   .heading-card { @apply text-xl font-medium; }
   .text-lead { @apply text-lg lg:text-xl; }
   .text-lead-xl { @apply text-xl lg:text-2xl font-light; }
@@ -182,16 +211,17 @@
   .hero-media-image { border-radius: 0; }
 
   /* === Before/After: remove rounding globally === */
+  /* Двойной селектор повышает специфичность без !important */
   .before-after-slider.before-after-slider,
-  .ba-card.ba-card { border-radius: 0 !important; }
+  .ba-card.ba-card { border-radius: 0; }
 
   /* === Style pages: description video covers straight corners === */
-  .style-portraits #opisanie [data-video-cover] { border-radius: 0 !important; }
-  .style-portraits #opisanie [data-video-cover] img { border-radius: 0 !important; }
+  .style-portraits #opisanie [data-video-cover],
+  .style-portraits #opisanie [data-video-cover] img { border-radius: 0; }
 
   /* === Style pages: Drift zoom overlay above steps === */
-  .style-portraits .detail { overflow: visible !important; position: relative; }
-  .style-portraits .drift-zoom-pane { border-radius: 8px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2); z-index: 100 !important; }
+  .style-portraits .detail { overflow: visible; position: relative; }
+  .style-portraits .drift-zoom-pane { border-radius: 8px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2); z-index: 100; }
 
   /* === Background-based typography color helpers === */
   .bg-white { color: var(--color-body); }               /* белый фон → серый текст */
@@ -242,17 +272,20 @@
 
 
   /* === Button Components === */
-  /* Базовые стили кнопки */
-  .btn-primary,
-  .btn-header-cta {
-    @apply inline-flex items-center justify-center px-6 py-2.5 rounded bg-primary text-white;
+  /* Базовый класс кнопки (DRY) */
+  .btn-base {
+    @apply inline-flex items-center justify-center px-6 py-2.5 rounded;
     @apply text-xs font-bold uppercase tracking-widest;
-    @apply transition-colors duration-200 hover:bg-primary-hover;
+    @apply transition-colors duration-200;
   }
 
-  /* btn-primary: полная ширина на мобильных */
   .btn-primary {
+    @apply btn-base bg-primary text-white hover:bg-primary-hover;
     @apply w-full md:w-auto;
+  }
+
+  .btn-header-cta {
+    @apply btn-base bg-primary text-white hover:bg-primary-hover;
   }
 
   /* === Mobile Menu Animations === */
@@ -299,9 +332,8 @@
   /* Optional modifiers */
   
   .btn-inverse {
-    @apply inline-flex items-center justify-center px-6 py-2.5 rounded bg-transparent text-white border border-white/30;
-    @apply text-xs font-bold uppercase tracking-widest;
-    @apply transition-colors duration-200 hover:bg-white hover:text-dark;
+    @apply btn-base bg-transparent text-white border border-white/30;
+    @apply hover:bg-white hover:text-dark;
     @apply w-full md:w-auto;
   }
 
@@ -346,7 +378,7 @@
 
   /* Подписи в карусели на тёмном фоне — белые */
   .bg-dark .carousel-scroll .text-body {
-    color: var(--color-white) !important;
+    color: white;
   }
 
   /* ============================================
@@ -434,12 +466,8 @@
     justify-content: center;
   }
 
-  .promo-section .text-lead,
-  .promo-section .text-body,
-  .promo-section .heading-section,
-  .promo-section .heading-subsection,
-  .promo-section p {
-    color: white !important;
+  .promo-section :is(.text-lead, .text-body, .heading-section, .heading-subsection, p) {
+    color: white;
   }
 
   /* ==========================================
@@ -462,34 +490,29 @@
     @apply w-16 h-16 mb-4 flex items-center justify-start;
   }
 
+  /* Унифицированные стили иконок преимуществ (объединены .advantage-card__icon и .icon-advantage) */
   .advantage-card__icon svg,
-  .advantage-card__icon img {
-    width: 2.5rem !important;
-    height: 2.5rem !important;
-    max-width: 2.5rem !important;
-    max-height: 2.5rem !important;
+  .advantage-card__icon img,
+  .icon-advantage {
+    width: 2.5rem;
+    height: 2.5rem;
+    max-width: 2.5rem;
+    max-height: 2.5rem;
+    flex-shrink: 0;
+  }
+
+  .icon-advantage,
+  .advantage-card__icon svg {
+    color: var(--color-primary);
+    fill: var(--color-primary);
+  }
+
+  .icon-advantage path {
+    fill: inherit;
   }
 
   .advantage-card__text {
     @apply text-lg leading-7 text-body;
-  }
-
-  /* ==========================================
-     SVG иконки — inline подход
-     ========================================== */
-
-  .icon-advantage {
-    width: 2.5rem !important;
-    height: 2.5rem !important;
-    max-width: 2.5rem !important;
-    max-height: 2.5rem !important;
-    color: var(--color-primary) !important;
-    fill: var(--color-primary) !important;
-    flex-shrink: 0;
-  }
-
-  .icon-advantage path {
-    fill: var(--color-primary) !important;
   }
 
   /* === Список с галочками (DRY) === */
@@ -560,11 +583,8 @@
     color: #D1D5DB;
   }
 
-  @media (min-width: 1536px) {
-    .container {
-      max-width: 1170px;
-    }
-  }
+  /* Примечание: медиазапрос @media (min-width: 1536px) .container удалён — 
+     max-width уже задан в @utility container */
 }
 
 /* === Музейные иконки (Restore original Muse paths) === */

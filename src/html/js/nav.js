@@ -15,6 +15,39 @@ if (!window.BxPopup) {
   };
 }
 
+// Helper: добавить keyboard accessibility для button-like элементов
+function makeKeyboardAccessible(el, label) {
+    if (el.tagName !== 'BUTTON') {
+        el.setAttribute('role', 'button');
+        el.setAttribute('tabindex', '0');
+    }
+    if (label && !el.hasAttribute('aria-label')) {
+        el.setAttribute('aria-label', label);
+    }
+    el.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            el.click();
+        }
+    });
+}
+
+// Helper: настройка ARIA-атрибутов для диалога
+function setupDialogAria(dialog) {
+    if (!dialog.hasAttribute('role')) dialog.setAttribute('role', 'dialog');
+    dialog.setAttribute('aria-modal', 'true');
+    if (!dialog.hasAttribute('aria-labelledby')) {
+        var heading = dialog.querySelector('h1,h2,h3,h4,h5,h6');
+        if (heading) {
+            if (!heading.id) heading.id = 'dialog-title-' + Math.random().toString(36).slice(2, 9);
+            dialog.setAttribute('aria-labelledby', heading.id);
+        }
+    }
+}
+
+// Кэш для breakpoint (обновляется при resize)
+var isDesktop = window.innerWidth >= 1024;
+
 // --- Native Dialog Controls (replaces tailwindplus-elements.js) ---
 document.querySelectorAll('[data-open-dialog]').forEach(function(btn) {
     btn.addEventListener('click', function() {
@@ -269,11 +302,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Debounce для resize (сброс кэша + обновление UI)
-    let resizeTimeout;
+    // Debounce для resize (сброс кэша + обновление UI + breakpoint)
+    var resizeTimeout;
     function onResize() {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(function() {
+            isDesktop = window.innerWidth >= 1024; // Обновляем кэш breakpoint
             cacheValid = false; // Сброс кэша позиций
             cacheSectionPositions();
             toggleUI();
@@ -327,112 +361,114 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Accessibility: dialogs focus management, keyboard, and accessible play controls
     (function(){
-        const origShow = HTMLDialogElement.prototype.showModal;
-        const origClose = HTMLDialogElement.prototype.close;
+        var origShow = HTMLDialogElement.prototype.showModal;
+        var origClose = HTMLDialogElement.prototype.close;
 
         HTMLDialogElement.prototype.showModal = function(){
-            // Save opener (activeElement)
-            const opener = document.activeElement;
-            this.__muse_opener = opener;
+            var dialog = this;
+            var opener = document.activeElement;
+            dialog.__muse_opener = opener;
 
-            // Ensure ARIA attributes
-            if (!this.hasAttribute('role')) this.setAttribute('role','dialog');
-            this.setAttribute('aria-modal','true');
-            if (!this.hasAttribute('aria-labelledby')){
-                const heading = this.querySelector('h1,h2,h3,h4,h5,h6');
-                if (heading){
-                    if (!heading.id) heading.id = 'dialog-title-' + Math.random().toString(36).slice(2,9);
-                    this.setAttribute('aria-labelledby', heading.id);
-                }
-            }
+            // Используем общий helper для ARIA
+            setupDialogAria(dialog);
 
             // Focusable elements inside dialog
-            const focusableSelector = 'a[href], area[href], input:not([disabled]):not([type=hidden]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex]:not([tabindex="-1"])';
-            this.__focusables = Array.from(this.querySelectorAll(focusableSelector));
-            this.__firstFocusable = this.__focusables[0] || this;
-            this.__lastFocusable = this.__focusables[this.__focusables.length-1] || this;
-            this.__previouslyFocused = document.activeElement;
+            var focusableSelector = 'a[href], area[href], input:not([disabled]):not([type=hidden]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+            dialog.__focusables = Array.from(dialog.querySelectorAll(focusableSelector));
+            dialog.__firstFocusable = dialog.__focusables[0] || dialog;
+            dialog.__lastFocusable = dialog.__focusables[dialog.__focusables.length - 1] || dialog;
+            dialog.__previouslyFocused = document.activeElement;
 
-            // Call native and then set focus (in try/catch for safety)
-            origShow.call(this);
-            try{ this.__firstFocusable.focus(); }catch(e){}
+            origShow.call(dialog);
+            try { dialog.__firstFocusable.focus(); } catch (e) {}
 
             // Keydown handler: Escape + focus trap
-            this.__keydownHandler = function(e){
-                if (e.key === 'Escape'){
+            dialog.__keydownHandler = function(e) {
+                if (e.key === 'Escape') {
                     e.preventDefault();
-                    try{ this.close(); }catch(e){}
+                    try { dialog.close(); } catch (err) {}
                 }
-                if (e.key === 'Tab'){
-                    const active = document.activeElement;
-                    if (e.shiftKey){
-                        if (active === this.__firstFocusable || active === this){ e.preventDefault(); this.__lastFocusable.focus(); }
+                if (e.key === 'Tab') {
+                    var active = document.activeElement;
+                    if (e.shiftKey) {
+                        if (active === dialog.__firstFocusable || active === dialog) {
+                            e.preventDefault();
+                            dialog.__lastFocusable.focus();
+                        }
                     } else {
-                        if (active === this.__lastFocusable || active === this){ e.preventDefault(); this.__firstFocusable.focus(); }
+                        if (active === dialog.__lastFocusable || active === dialog) {
+                            e.preventDefault();
+                            dialog.__firstFocusable.focus();
+                        }
                     }
                 }
-            }.bind(this);
-            document.addEventListener('keydown', this.__keydownHandler);
+            };
+            document.addEventListener('keydown', dialog.__keydownHandler);
 
-            // Set aria-expanded / aria-controls on opener if applicable
-            try{
-                if (opener && opener.setAttribute){
-                    if (this.id) opener.setAttribute('aria-controls', this.id);
-                    opener.setAttribute('aria-expanded','true');
+            // Set aria-expanded on opener
+            try {
+                if (opener && opener.setAttribute) {
+                    if (dialog.id) opener.setAttribute('aria-controls', dialog.id);
+                    opener.setAttribute('aria-expanded', 'true');
                 }
-            }catch(e){}
+            } catch (e) {}
         };
 
         HTMLDialogElement.prototype.close = function(){
-            try{ if (this.__keydownHandler) document.removeEventListener('keydown', this.__keydownHandler); }catch(e){}
-            try{ if (this.__previouslyFocused) this.__previouslyFocused.focus(); }catch(e){}
-            try{ if (this.__muse_opener && this.__muse_opener.setAttribute) this.__muse_opener.setAttribute('aria-expanded','false'); }catch(e){}
+            try { if (this.__keydownHandler) document.removeEventListener('keydown', this.__keydownHandler); } catch (e) {}
+            try { if (this.__previouslyFocused) this.__previouslyFocused.focus(); } catch (e) {}
+            try { if (this.__muse_opener && this.__muse_opener.setAttribute) this.__muse_opener.setAttribute('aria-expanded', 'false'); } catch (e) {}
             origClose.call(this);
         };
 
-        // Ensure existing dialogs have ARIA attributes and labelledby
-        document.querySelectorAll('dialog').forEach(function(d){
-            if (!d.hasAttribute('role')) d.setAttribute('role','dialog');
-            d.setAttribute('aria-modal','true');
-            if (!d.hasAttribute('aria-labelledby')){
-                const heading = d.querySelector('h1,h2,h3,h4,h5,h6');
-                if (heading){ if (!heading.id) heading.id = 'dialog-title-' + Math.random().toString(36).slice(2,9); d.setAttribute('aria-labelledby', heading.id); }
-            }
-            // Make close buttons accessible
-            d.querySelectorAll('[onclick*=".close("] , button[onclick*=".close("]').forEach(function(btn){ if (!btn.hasAttribute('aria-label')) btn.setAttribute('aria-label','Закрыть окно'); });
+        // Инициализация существующих диалогов (используем общий helper)
+        document.querySelectorAll('dialog').forEach(function(d) {
+            setupDialogAria(d);
+            // Accessible close buttons
+            d.querySelectorAll('[onclick*=".close("], button[onclick*=".close("]').forEach(function(btn) {
+                if (!btn.hasAttribute('aria-label')) btn.setAttribute('aria-label', 'Закрыть окно');
+            });
         });
 
-        // Make video play controls keyboard-accessible and add ARIA
-        document.querySelectorAll('.ui-control--play, .video-play-icon, [data-play-btn]').forEach(function(el){
-            if (el.tagName !== 'BUTTON'){
-                el.setAttribute('role','button');
-                el.setAttribute('tabindex','0');
-            }
-            if (!el.hasAttribute('aria-label')) el.setAttribute('aria-label','Воспроизвести видео');
-            el.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); } });
+        // Video play controls — используем helper
+        document.querySelectorAll('.ui-control--play, .video-play-icon, [data-play-btn]').forEach(function(el) {
+            makeKeyboardAccessible(el, 'Воспроизвести видео');
 
-            const cover = el.closest('[data-video-cover], .video-cover');
-            if (cover){
-                const video = cover.querySelector('video');
-                const iframe = cover.querySelector('iframe');
+            var cover = el.closest('[data-video-cover], .video-cover');
+            if (cover) {
+                var video = cover.querySelector('video');
+                var iframe = cover.querySelector('iframe');
                 if (video && video.id) el.setAttribute('aria-controls', video.id);
-                if (iframe){ if (!iframe.id) iframe.id = 'iframe-' + Math.random().toString(36).slice(2,9); el.setAttribute('aria-controls', iframe.id); if (!iframe.hasAttribute('title')) iframe.setAttribute('title','Видео'); }
+                if (iframe) {
+                    if (!iframe.id) iframe.id = 'iframe-' + Math.random().toString(36).slice(2, 9);
+                    el.setAttribute('aria-controls', iframe.id);
+                    if (!iframe.hasAttribute('title')) iframe.setAttribute('title', 'Видео');
+                }
             }
         });
 
-        // Observe video-cover class changes to update aria-expanded
-        const mc = new MutationObserver(function(records){
-            records.forEach(function(r){ if (r.type === 'attributes' && r.attributeName === 'class'){ const el = r.target; const btn = el.querySelector('.ui-control--play, .video-play-icon, [data-play-btn]'); if (btn){ if (el.classList.contains('video-playing')) btn.setAttribute('aria-expanded','true'); else btn.setAttribute('aria-expanded','false'); } } });
+        // MutationObserver для video-cover
+        var mc = new MutationObserver(function(records) {
+            records.forEach(function(r) {
+                if (r.type === 'attributes' && r.attributeName === 'class') {
+                    var el = r.target;
+                    var btn = el.querySelector('.ui-control--play, .video-play-icon, [data-play-btn]');
+                    if (btn) {
+                        btn.setAttribute('aria-expanded', el.classList.contains('video-playing') ? 'true' : 'false');
+                    }
+                }
+            });
         });
-        document.querySelectorAll('[data-video-cover], .video-cover').forEach(function(c){ mc.observe(c, { attributes: true }); });
-
+        document.querySelectorAll('[data-video-cover], .video-cover').forEach(function(c) {
+            mc.observe(c, { attributes: true });
+        });
     })();
 
     // Carousel Scroll (drag + wheel + защита от случайного клика)
     document.querySelectorAll('.carousel-scroll').forEach(function(carousel) {
-        // Прокрутка колесиком мыши
+        // Прокрутка колесиком мыши (используем кэшированный breakpoint)
         carousel.addEventListener('wheel', function(e) {
-            if (window.innerWidth < 1024) return;
+            if (!isDesktop) return;
             if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) {
                 e.preventDefault();
                 carousel.scrollBy({ left: e.deltaY * 0.6, behavior: 'auto' });
@@ -440,14 +476,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }, { passive: false });
         
         // Drag-to-scroll с защитой от случайного клика
-        var isDown = false, startX, startScrollLeft, hasMoved = false, clickBlocked = false;
+        var isDown = false, startX, startScrollLeft, clickBlocked = false;
         var DRAG_THRESHOLD = 5;
         carousel.style.cursor = 'grab';
         
         carousel.addEventListener('mousedown', function(e) {
-            if (window.innerWidth < 1024) return;
+            if (!isDesktop) return;
             isDown = true;
-            hasMoved = false;
             clickBlocked = false;
             carousel.style.cursor = 'grabbing';
             startX = e.pageX;
@@ -456,11 +491,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         carousel.addEventListener('mousemove', function(e) {
-            if (!isDown || window.innerWidth < 1024) return;
+            if (!isDown || !isDesktop) return;
             e.preventDefault();
             var moveDistance = Math.abs(e.pageX - startX);
             if (moveDistance > DRAG_THRESHOLD) {
-                hasMoved = true;
                 clickBlocked = true;
             }
             carousel.scrollLeft = startScrollLeft - (e.pageX - startX) * 1.2;
@@ -468,7 +502,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Блокировка клика после перетаскивания
         carousel.addEventListener('click', function(e) {
-            if (clickBlocked && window.innerWidth >= 1024) {
+            if (clickBlocked && isDesktop) {
                 e.preventDefault();
                 e.stopPropagation();
                 clickBlocked = false;
@@ -478,8 +512,7 @@ document.addEventListener('DOMContentLoaded', function() {
         carousel.addEventListener('mouseup', function() {
             isDown = false;
             carousel.style.cursor = 'grab';
-            if (hasMoved) {
-                clickBlocked = true;
+            if (clickBlocked) {
                 setTimeout(function() { clickBlocked = false; }, 100);
             }
         });
@@ -487,7 +520,7 @@ document.addEventListener('DOMContentLoaded', function() {
         carousel.addEventListener('mouseleave', function() {
             if (isDown) {
                 isDown = false;
-                hasMoved = false;
+                clickBlocked = false;
                 carousel.style.cursor = 'grab';
             }
         });

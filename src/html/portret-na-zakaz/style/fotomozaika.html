@@ -10,42 +10,11 @@
     <meta name="robots" content="noindex, nofollow">
     <link rel="canonical" href="https://muse.ooo/portret-na-zakaz/fotomozaika/">
     
-    <!-- Критический CSS (универсальный для страниц стилей портретов) -->
-       <style>
-       :root {
-    --primary: #2f6ea8;
-    --primary-hover: #275d8f;
-    --dark: #262626;
-    --body: #525252;
-    --secondary: #fafafa;
-}
-
-body {
-    background-color: #fff;
-    color: var(--body);
-    overflow-x: hidden;
-}
-    </style>
+    
     
     <!-- Preload Hero изображения (ускоряет LCP) -->
     <link rel="preload" as="image" href="https://muse.ooo/upload/img/fotomozaika-l-458.webp" fetchpriority="high">
     
-    <!-- Основной CSS: output.css (Tailwind v4, локальная сборка) -->
-
-	<!-- Drift CSS (асинхронная загрузка - не блокирует LCP) -->
-	<link rel="stylesheet" href="https://muse.ooo/css/drift-basic.min.css" media="print" onload="this.media='all'">
-	<noscript><link rel="stylesheet" href="https://muse.ooo/css/drift-basic.min.css"></noscript>
-
-    
-
-    
-    <style>
-        /* Page Navigator moved to src/input.css */
-        
-        /* Стили для Drift */
-        .detail { overflow: visible !important; position: relative; }
-        .drift-zoom-pane { border-radius: 8px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2); z-index: 100 !important; }
-    </style>
 
     <!-- Structured Data: Product -->
     <script type="application/ld+json">
@@ -107,6 +76,15 @@ body {
     }
     </script>
     <link rel="stylesheet" href="../../css/output.css">
+    <link rel="stylesheet" href="https://muse.ooo/css/drift-basic.min.css" media="print" onload="this.media='all'">
+	<noscript><link rel="stylesheet" href="https://muse.ooo/css/drift-basic.min.css"></noscript>
+     <style>
+
+        
+        /* Стили для Drift */
+        .detail { overflow: visible !important; position: relative; }
+        .drift-zoom-pane { border-radius: 8px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2); z-index: 100 !important; }
+    </style>
 </head>
 <body class="bg-white overflow-x-hidden style-portraits">
     <!-- Back to Top Button -->

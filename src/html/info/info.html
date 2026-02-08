@@ -14,95 +14,25 @@
     <!-- Preload LCP-изображения (только десктоп) -->
     <link rel="preload" as="image" href="https://muse.ooo/upload/img/pavlosk-office.webp" media="(min-width: 1024px)" fetchpriority="high">
     
-    <!-- Критический CSS (above-the-fold) -->
+    <!-- Критический CSS: Ken Burns + Typed.js стабильность -->
     <style>
-        /* CSS Variables */
-        :root {
-            --primary: #2f6ea8;
-            --primary-hover: #275d8f;
-            --dark: #262626;
-            --body: #525252;
-            --secondary: #fafafa;
-        }
-        /* Base styles */
-        body { background-color: #fff; color: var(--body); overflow-x: hidden; margin: 0; font-family: system-ui, -apple-system, sans-serif; }
-        .bg-white { background-color: #fff; }
-        .bg-dark { background-color: var(--dark); }
-        .bg-secondary { background-color: var(--secondary); }
-        .text-white { color: #fff; }
-        .text-primary { color: var(--primary); }
-        .text-dark { color: var(--dark); }
-        .text-body { color: var(--body); }
-        /* Container */
-        .container { width: 100%; max-width: 1170px; margin: 0 auto; padding: 0 1rem; box-sizing: border-box; }
-        /* Hero section critical styles */
-        .relative { position: relative; }
-        .absolute { position: absolute; }
-        .inset-0 { inset: 0; }
-        .z-0 { z-index: 0; }
-        .z-10 { z-index: 10; }
-        .overflow-hidden { overflow: hidden; }
-        .flex { display: flex; }
-        .items-center { align-items: center; }
-        .h-full { height: 100%; }
-        .w-full { width: 100%; }
-        [class*="h-[70vh]"] { height: 70vh; }
-        .max-w-2xl { max-width: 42rem; }
-        .object-cover { object-fit: cover; }
-        .object-top { object-position: top; }
-        /* Typography */
-        .heading-hero { font-size: 2rem; font-weight: 300; line-height: 1.2; color: #fff; }
-        @media (min-width: 1024px) { .heading-hero { font-size: 3rem; } }
-        .heading-section { font-size: 1.5rem; font-weight: 300; color: var(--dark); }
-        @media (min-width: 1024px) { .heading-section { font-size: 2rem; } }
-        /* Ken Burns animation - оптимизировано для GPU */
+        /* Ken Burns animation (уникальна для info.html) */
         .ken-burns-img { 
             animation: kenBurns 20s ease-in-out infinite alternate; 
             will-change: transform; 
-            transform: translateZ(0); /* Force GPU compositing */
+            transform: translateZ(0);
         }
-        @keyframes kenBurns { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
+        @keyframes kenBurns { 
+            0% { transform: scale(1); } 
+            100% { transform: scale(1.1); } 
+        }
+        /* Typed.js: фиксируем высоту h1, чтобы контент не прыгал */
+        .heading-hero { min-height: 2.4em; }
+        @media (min-width: 640px) { .heading-hero { min-height: 4.8em; } }
         /* Уважаем prefers-reduced-motion */
         @media (prefers-reduced-motion: reduce) {
             .ken-burns-img { animation: none; }
-            .typed-cursor { animation: none; opacity: 1; }
         }
-        /* Overlay */
-        [class*="bg-black/40"] { background-color: rgba(0,0,0,0.4); }
-        /* Breadcrumbs */
-        .text-sm { font-size: 0.875rem; }
-        .text-xs { font-size: 0.75rem; }
-        .text-gray-300 { color: #d1d5db; }
-        .space-x-2 > * + * { margin-left: 0.5rem; }
-        /* Typed.js - эффект печати сохраняется, но h1 имеет фиксированную высоту */
-        .heading-hero { min-height: 2.4em; } /* Фиксируем высоту заголовка, чтобы контент ниже не прыгал */
-        @media (min-width: 640px) { .heading-hero { min-height: 4.8em; } } /* 2 строки на sm+ */
-        /* Typed.js cursor */
-        .typed-cursor { display: inline-block; width: 3px; background-color: var(--primary); animation: blink 1s infinite; margin-left: 2px; }
-        @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
-        /* Navigation */
-        .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
-        .gap-x-8 { column-gap: 2rem; }
-        .gap-y-2 { row-gap: 0.5rem; }
-        .flex-wrap { flex-wrap: wrap; }
-        .justify-start { justify-content: flex-start; }
-        .font-bold { font-weight: 700; }
-        .uppercase { text-transform: uppercase; }
-        .tracking-wider { letter-spacing: 0.05em; }
-        /* Hidden elements - show after CSS loads */
-        .hidden { display: none; }
-        @media (min-width: 640px) { [class*="sm:block"] { display: block; } }
-        @media (min-width: 768px) { [class*="md:flex"] { display: flex; } }
-        /* Back to top button placeholder */
-        #back-to-top { opacity: 0; pointer-events: none; }
-        /* Content-visibility для below-the-fold секций (улучшает Speed Index) */
-        .content-auto { 
-            content-visibility: auto; 
-            contain-intrinsic-size: auto 500px; /* Приблизительная высота секции */
-        }
-        /* Секции below-the-fold */
-        .py-16, .py-12, .py-8 { padding-top: 4rem; padding-bottom: 4rem; }
-        @media (min-width: 1024px) { [class*="lg:py-20"] { padding-top: 5rem; padding-bottom: 5rem; } [class*="lg:py-16"] { padding-top: 4rem; padding-bottom: 4rem; } [class*="lg:py-12"] { padding-top: 3rem; padding-bottom: 3rem; } }
     </style>
     
     <!-- Основной CSS (синхронно для стабильности макета) -->
