@@ -102,10 +102,7 @@
     
     <!-- Hero Section -->
     <section class="relative h-[65vh] lg:h-screen overflow-hidden bg-dark">
-            <video class="absolute inset-0 w-full h-full object-cover hidden lg:block" autoplay loop muted playsinline preload="none" title="Фоновый ролик о печати на холсте">
-                <source src="https://muse.ooo/video/pechat-na-holste-video.webm" media="(min-width: 1024px)" type="video/webm">
-                <source src="https://muse.ooo/video/pechat-na-holste-2.mp4" media="(min-width: 1024px)" type="video/mp4">
-            </video>
+            <div id="hero-video-container" class="absolute inset-0 w-full h-full hidden lg:block"></div>
             <div class="absolute inset-0 bg-dark opacity-20 lg:opacity-20"></div>
             <div class="container h-full flex items-center relative z-10">
                 <div class="max-w-2xl">
@@ -390,7 +387,7 @@
                 <div class="grid gap-8 lg:grid-cols-3">
                     <!-- Left Column - FAQ Items (2 columns) -->
                     <div class="lg:col-span-2 space-y-0 divide-y divide-gray-200 overflow-hidden lg:order-1">
-                        <details class="group" open>
+                        <details class="group">
                             <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium hover:opacity-80 transition-opacity list-none w-full">
                                 <span>Какие бывают размеры?</span>
                                 <svg fill="currentColor" class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.06z" clip-rule="evenodd"/></svg>
@@ -654,5 +651,22 @@
 
     <!-- Scripts -->
     <script src="js/nav.js" defer></script>
+    <script>
+    // Hero video: ленивая загрузка только на desktop после отрисовки страницы
+    if (window.matchMedia('(min-width: 1024px)').matches) {
+        requestAnimationFrame(function() {
+            var c = document.getElementById('hero-video-container');
+            if (!c) return;
+            var v = document.createElement('video');
+            v.className = 'w-full h-full object-cover opacity-0';
+            v.style.transition = 'opacity 0.7s';
+            v.autoplay = v.loop = v.muted = v.playsInline = true;
+            v.title = 'Фоновый ролик о печати на холсте';
+            v.innerHTML = '<source src="https://muse.ooo/video/pechat-na-holste-video.webm" type="video/webm"><source src="https://muse.ooo/video/pechat-na-holste-2.mp4" type="video/mp4">';
+            v.oncanplay = function() { this.style.opacity = '1'; };
+            c.appendChild(v);
+        });
+    }
+    </script>
 </body>
 </html>

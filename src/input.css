@@ -455,7 +455,7 @@
   }
 
   .advantage-card {
-    @apply bg-white rounded-lg p-6 text-left text-dark;
+    @apply bg-white rounded-lg p-6 text-left text-body;
   }
 
   .advantage-card__icon {

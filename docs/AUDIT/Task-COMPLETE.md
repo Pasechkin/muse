@@ -16,8 +16,6 @@
 ### index.html
 
 **Просмотр на Vercel:** https://muse-liard-one.vercel.app/
-Performance -95
-Accessibility -100
 ⚠️ Отсутствует structured data
 
 #### Задание 1: Технический аудит
