@@ -10,7 +10,7 @@
 |----------|----------|
 | [PROJECT.md](PROJECT.md) | Полное описание проекта |
 | [AI_INSTRUCTIONS.md](AI_INSTRUCTIONS.md) | Инструкции для ИИ-агента |
-| [docs/PAGES_LIST.md](docs/PAGES_LIST.md) | Список всех страниц |
+| [PROJECT.md](PROJECT.md#список-страниц-для-переверстки) | Список всех страниц |
 | [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md) | Дизайн-система |
 
 ### Для разработки

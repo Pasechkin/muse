@@ -36,19 +36,19 @@
 Если нужен фон/граница/подложка на всю ширину — секция остаётся full-width, а контент внутри одним `.container`.
 
 **Критический CSS (минимум):**
-- По умолчанию **не используем** критический CSS. Если требуется — **сначала согласовать**.
-- переменные `:root` и базовые `body`, `.sr-only`;
-- при наличии компонента добавить его критические классы: `.page-navigator`, `.ba-card`, `.canvas-3d`, `.carousel-scroll`.
-- для каждой страницы проверять обоснованность критического CSS: оставлять только то, что действительно нужно до загрузки основного CSS.
+- По умолчанию **не используем** критический CSS.
+- **Исключения:** только страницы, где без него ломается первый экран (например, info). Список исключений фиксируем в `PROJECT.md`.
+- Для страниц-исключений: только `:root` и базовые `body` (минимум под LCP).
+- **Не добавлять** `.sr-only`, `.page-navigator`, `.ba-card`, `.canvas-3d`, `.carousel-scroll` и любые стили, не влияющие на первый экран.
 
 **Интерактивные блоки:**
 - Video Cover — `data-video-cover` + `data-video-src` (JS в `js/nav.js`, без inline);
 - Carousel Scroll — CSS + общий `js/nav.js` (без обязательного inline JS);
 - Back to Top — обязательная кнопка перед `<header>`.
 
-**Слайдер “До/После”:** использовать `ba-card` + 4 строки CSS.
+**Слайдер “До/После”:** использовать `@utility before-after-slider` (или `.ba-card`) из `input.css`.
+## Скрипты nav.js
 
-**JavaScript (архитектура):**
 
 **Общий скрипт** — `src/html/js/nav.js` (подключается на страницах по умолчанию).
 
@@ -75,7 +75,8 @@ Tailwind Plus Elements отключён. `el-*` компоненты больш�
 
 - Если встречаются `el-*` в старых страницах — это legacy, подлежит замене на нативные элементы (`<dialog>`, `<details>`) и/или логику из `js/nav.js`.
 - Скрипт `tailwindplus-elements.js` не подключаем.
-### Header (шапка сайта)
+
+## Header
 
 ```html
 <header class="bg-dark sticky top-0 z-50">
@@ -96,7 +97,7 @@ Tailwind Plus Elements отключён. `el-*` компоненты больш�
 
         <!-- RIGHT -->
         <div class="hidden xl:flex items-center h-full ml-auto gap-x-6">
-            <button type="button" class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-gray-300 hover:text-white transition-colors" command="show-modal" commandfor="city-dialog" data-city-trigger aria-controls="city-dialog" aria-label="Выбор города">
+            <button type="button" class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-gray-300 hover:text-white transition-colors" data-open-dialog="city-dialog" data-city-trigger aria-controls="city-dialog" aria-label="Выбор города">
                 <span class="border-b border-dotted border-gray-400 hover:border-white" data-city-current>Санкт-Петербург</span>
                 <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">...</svg>
             </button>
@@ -104,7 +105,7 @@ Tailwind Plus Elements отключён. `el-*` компоненты больш�
             <a href="https://muse.ooo/order/" class="btn-header-cta">Заказать</a>
         </div>
 
-        <button type="button" class="xl:hidden ml-auto p-2.5 text-gray-300 hover:text-white" command="show-modal" commandfor="mobile-menu" aria-controls="mobile-menu" aria-label="Открыть меню">
+        <button type="button" class="xl:hidden ml-auto p-2.5 text-gray-300 hover:text-white" data-open-dialog="mobile-menu" aria-controls="mobile-menu" aria-label="Открыть меню">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
@@ -132,101 +133,120 @@ Tailwind Plus Elements отключён. `el-*` компоненты больш�
 - Блок города: `data-city-current` + `data-city-phone`
 - Mobile кнопка: `xl:hidden`, управление через `command/commandfor`
 
+<a id="mobile-menu"></a>
+
 ### Mobile Menu
 
-Legacy: ранее использовался `<el-dialog>`. Теперь используем нативный `<dialog>`:
+Нативный `<dialog>`:
 
 ```html
-<el-dialog>
-    <dialog id="mobile-menu" class="mobile-menu-dialog backdrop:bg-black/60 p-0 w-full max-w-none h-svh bg-dark sm:h-auto sm:max-w-sm sm:bg-transparent sm:ml-auto sm:mr-0">
-        <div class="w-full h-full sm:h-auto sm:max-h-[85vh] sm:mx-auto bg-dark shadow-2xl overflow-y-auto" data-swipe-panel>
-            <div class="p-6">
-                <div class="sm:hidden w-12 h-1 bg-white/20 rounded-full mx-auto mb-6"></div>
+<dialog id="mobile-menu" class="mobile-menu-dialog backdrop:bg-black/60 p-0 w-full max-w-none h-svh bg-dark sm:h-auto sm:max-w-sm sm:bg-transparent sm:ml-auto sm:mr-0">
+    <div class="w-full h-full sm:h-auto sm:max-h-[85vh] sm:mx-auto bg-dark shadow-2xl overflow-y-auto" data-swipe-panel>
+        <div class="p-6">
+            <div class="sm:hidden w-12 h-1 bg-white/20 rounded-full mx-auto mb-6"></div>
 
-                <div class="flex items-center justify-between mb-8">
-                    <a href="https://muse.ooo/" class="flex items-center" aria-label="Muse">
-                        <svg class="h-6 w-auto fill-white opacity-80">...</svg>
-                    </a>
-                    <button type="button" class="text-gray-300 hover:text-white" command="close" commandfor="mobile-menu" aria-label="Закрыть меню">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">...</svg>
-                    </button>
-                </div>
+            <div class="flex items-center justify-between mb-8">
+                <a href="https://muse.ooo/" class="flex items-center" aria-label="Muse">
+                    <svg class="h-6 w-auto fill-white opacity-80">...</svg>
+                </a>
+                <button type="button" class="text-gray-300 hover:text-white" data-close-dialog aria-label="Закрыть меню">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">...</svg>
+                </button>
+            </div>
 
-                <div class="mb-8">
-                    <a href="https://muse.ooo/order/" class="block w-full py-4 text-center bg-primary text-white font-bold uppercase tracking-widest text-sm hover:bg-primary-hover transition-colors rounded-lg">Заказать</a>
-                </div>
+            <div class="mb-8">
+                <a href="https://muse.ooo/order/" class="block w-full py-4 text-center bg-primary text-white font-bold uppercase tracking-widest text-sm hover:bg-primary-hover transition-colors rounded-lg">Заказать</a>
+            </div>
 
-                <nav class="flex flex-col space-y-4 mb-8">
-                    <a href="https://muse.ooo/portret-na-zakaz/" class="text-lg font-medium text-white hover:text-gray-300 transition-colors">Портреты</a>
-                    <a href="https://muse.ooo/pechat/" class="text-lg font-medium text-white hover:text-gray-300 transition-colors">Печать</a>
-                    <a href="https://muse.ooo/info/" class="text-lg font-medium text-white hover:text-gray-300 transition-colors">О нас</a>
-                </nav>
+            <nav class="flex flex-col space-y-4 mb-8">
+                <a href="https://muse.ooo/portret-na-zakaz/" class="text-lg font-medium text-white hover:text-gray-300 transition-colors">Портреты</a>
+                <a href="https://muse.ooo/pechat/" class="text-lg font-medium text-white hover:text-gray-300 transition-colors">Печать</a>
+                <a href="https://muse.ooo/info/" class="text-lg font-medium text-white hover:text-gray-300 transition-colors">О нас</a>
+            </nav>
 
-                <div class="flex items-center justify-between py-4 mb-4">
-                    <button type="button" class="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors" command="show-modal" commandfor="city-dialog" data-city-trigger aria-controls="city-dialog" aria-label="Выбор города">
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">...</svg>
-                        <span data-city-current>Санкт-Петербург</span>
-                        <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">...</svg>
-                    </button>
-                    <a href="tel:88007076921" class="text-sm font-medium text-white hover:text-gray-300 transition-colors" data-city-phone>
-                        <span data-city-phone-text>8 800 707-69-21</span>
-                    </a>
-                </div>
+            <div class="flex items-center justify-between py-4 mb-4">
+                <button type="button" class="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors" data-open-dialog="city-dialog" data-city-trigger aria-controls="city-dialog" aria-label="Выбор города">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">...</svg>
+                    <span data-city-current>Санкт-Петербург</span>
+                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">...</svg>
+                </button>
+                <a href="tel:88007076921" class="text-sm font-medium text-white hover:text-gray-300 transition-colors" data-city-phone>
+                    <span data-city-phone-text>8 800 707-69-21</span>
+                </a>
+            </div>
 
-                <div class="pt-4">
-                    <div class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-4">Написать нам</div>
-                    <div class="flex items-center gap-3">
-                        <a href="whatsapp://send?phone=74954091869" class="w-12 h-12 flex items-center justify-center rounded-lg bg-[#25D366] text-white hover:bg-[#1fad53] transition-colors" aria-label="WhatsApp">...</a>
-                        <a href="https://t.me/ArtMuse_bot" class="w-12 h-12 flex items-center justify-center rounded-lg bg-[#0088cc] text-white hover:bg-[#0077b3] transition-colors" aria-label="Telegram">...</a>
-                        <a href="https://vk.me/artwork.muse" class="w-12 h-12 flex items-center justify-center rounded-lg bg-[#4a76a8] text-white hover:bg-[#3d6590] transition-colors" aria-label="ВКонтакте">...</a>
-                        <a href="https://max.ru/id782575923262_bot" style="background-color: #630eff;" class="w-12 h-12 flex items-center justify-center rounded-lg text-white" aria-label="Max">...</a>
-                    </div>
+            <div class="pt-4">
+                <div class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-4">Написать нам</div>
+                <div class="flex items-center gap-3">
+                    <a href="whatsapp://send?phone=74954091869" class="w-12 h-12 flex items-center justify-center rounded-lg bg-[#25D366] text-white hover:bg-[#1fad53] transition-colors" aria-label="WhatsApp">...</a>
+                    <a href="https://t.me/ArtMuse_bot" class="w-12 h-12 flex items-center justify-center rounded-lg bg-[#0088cc] text-white hover:bg-[#0077b3] transition-colors" aria-label="Telegram">...</a>
+                    <a href="https://vk.me/artwork.muse" class="w-12 h-12 flex items-center justify-center rounded-lg bg-[#4a76a8] text-white hover:bg-[#3d6590] transition-colors" aria-label="ВКонтакте">...</a>
+                    <a href="https://max.ru/id782575923262_bot" style="background-color: #630eff;" class="w-12 h-12 flex items-center justify-center rounded-lg text-white" aria-label="Max">...</a>
                 </div>
             </div>
         </div>
-    </dialog>
-</el-dialog>
+    </div>
+</dialog>
 ```
 
 **Примечание:** свайп‑закрытие — отдельный скрипт `js/mobile-menu-swipe.js` (работает по `data-swipe-panel`).
 
+#### Анимации Mobile Menu
+
+Класс `.mobile-menu-dialog` включает плавные анимации открытия/закрытия:
+
+**Мобильные (< 640px):** Bottom sheet — выезжает снизу
+```css
+.mobile-menu-dialog > [data-swipe-panel] {
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.mobile-menu-dialog[open] > [data-swipe-panel] {
+    transform: translateY(0);
+}
+```
+
+**Планшеты (SM+, ≥ 640px):** Slide-in справа
+```css
+@media (min-width: 640px) {
+    .mobile-menu-dialog > [data-swipe-panel] {
+        transform: translateX(100%);
+    }
+    .mobile-menu-dialog[open] > [data-swipe-panel] {
+        transform: translateX(0);
+    }
+}
+```
+
 ### City Dialog
 
 ```html
-<el-dialog>
-    <dialog id="city-dialog" class="backdrop:bg-black/60 hidden open:block sm:open:flex p-0 w-full max-w-none h-svh bg-white border-0 outline-none sm:h-auto sm:open:fixed sm:open:inset-0 sm:open:z-50 sm:open:bg-black/60 sm:open:items-center sm:open:justify-center sm:open:p-6">
-        <div class="w-full h-full bg-white sm:h-auto sm:w-full sm:max-w-city sm:rounded-3xl shadow-2xl overflow-hidden">
-            <div class="p-6 pb-4 border-b border-gray-100 sticky top-0 bg-white">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-2xl text-gray-900">Выберите город</h2>
-                    <button type="button" class="p-2 text-gray-400 hover:text-black" command="close" commandfor="city-dialog" aria-label="Закрыть">...</button>
-                </div>
-                <label for="city-search" class="sr-only">Поиск города</label>
-                <input type="text" id="city-search" class="w-full bg-gray-50 rounded-2xl border border-gray-200 px-5 py-4 text-lg text-gray-900 placeholder:text-gray-400" placeholder="Найти ваш город..." autocomplete="off">
+<dialog id="city-dialog" class="backdrop:bg-black/60 hidden open:block sm:open:flex p-0 w-full max-w-none h-svh bg-white border-0 outline-none sm:h-auto sm:open:fixed sm:open:inset-0 sm:open:z-50 sm:open:bg-black/60 sm:open:items-center sm:open:justify-center sm:open:p-6">
+    <div class="w-full h-full bg-white sm:h-auto sm:w-full sm:max-w-city sm:rounded-3xl shadow-2xl overflow-hidden">
+        <div class="p-6 pb-4 border-b border-gray-100 sticky top-0 bg-white">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-2xl text-gray-900">Выберите город</h2>
+                <button type="button" class="p-2 text-gray-400 hover:text-black" data-close-dialog aria-label="Закрыть">...</button>
             </div>
+            <label for="city-search" class="sr-only">Поиск города</label>
+            <input type="text" id="city-search" class="w-full bg-gray-50 rounded-2xl border border-gray-200 px-5 py-4 text-lg text-gray-900 placeholder:text-gray-400" placeholder="Найти ваш город..." autocomplete="off">
+        </div>
 
-            <div class="p-6 pt-4 overflow-y-auto max-h-[calc(100svh-170px)] sm:max-h-[80vh]">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-10" id="city-grid">
-                    <!-- список городов (data-city-option) -->
-                </div>
-                <div id="city-no-results" class="hidden text-center py-16 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-100 mt-4">
-                    <p class="text-gray-500 font-bold text-lg">В этом городе пока нет нашей студии</p>
-                    <p class="text-gray-400 text-sm mt-2">Попробуйте выбрать ближайший к вам крупный город из списка миллионников.</p>
-                    <button type="button" data-city-reset class="mt-6 text-primary font-bold hover:underline">Показать все города</button>
-                </div>
+        <div class="p-6 pt-4 overflow-y-auto max-h-[calc(100svh-170px)] sm:max-h-[80vh]">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10" id="city-grid">
+                <!-- список городов (data-city-option) -->
+            </div>
+            <div id="city-no-results" class="hidden text-center py-16 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-100 mt-4">
+                <p class="text-gray-500 font-bold text-lg">В этом городе пока нет нашей студии</p>
+                <p class="text-gray-400 text-sm mt-2">Попробуйте выбрать ближайший к вам крупный город из списка миллионников.</p>
+                <button type="button" data-city-reset class="mt-6 text-primary font-bold hover:underline">Показать все города</button>
             </div>
         </div>
-    </dialog>
-</el-dialog>
+    </div>
+</dialog>
 ```
-  </div>
-  <div>
-    <div style="width: 100px; height: 100px; background: #ffffff; border: 1px solid #ddd;"></div>
-    <p><strong>White</strong><br>#ffffff</p>
-  </div>
-</div>
 
-### Использование цветов
+## Colors
 
 **Актуальные значения:**
 - `--color-primary`: #2f6ea8
@@ -280,6 +300,29 @@ Legacy: ранее использовался `<el-dialog>`. Теперь исп
 
 ---
 
+## Токены анимации
+
+Унифицированные CSS-переменные для длительности переходов, определены в `@theme`:
+
+| Переменная | Значение | Использование |
+|------------|----------|---------------|
+| `--transition-fast` | 150ms | Hover-эффекты, мелкие изменения |
+| `--transition-normal` | 200ms | Стандартные переходы |
+| `--transition-slow` | 300ms | Открытие/закрытие панелей, анимации |
+
+**Ken Burns эффект:**
+- `--animate-ken-burns`: `kenburns 20s ease-out forwards` — медленный zoom на Hero-изображениях
+
+**Пример использования:**
+```css
+/* В собственных компонентах */
+.my-component {
+    transition: opacity var(--transition-fast) ease;
+}
+```
+
+---
+
 ## Типографика
 
 ### Шрифт
@@ -322,15 +365,17 @@ Legacy: ранее использовался `<el-dialog>`. Теперь исп
 
 #### Текст
 
-| Класс | Назначение | Размер |
-|-------|------------|--------|
-| `text-lead-xl` | Вводный текст на Hero-секциях | 20px |
-| `text-lead` | Вводный текст после заголовка | 18px |
-| `text-body-lg` | Увеличенный основной текст | 16px |
-| `text-body` | Основной текст | 14px |
-| `text-small` | Мелкий текст, подписи | 12px |
-| `text-tiny` | Минимальный текст (метки, копирайты) | 10px |
-| `oauth-label` | Метки разделителей форм («или») | 10px, uppercase |
+| Класс | Назначение | CSS | Размер (mob → desk) |
+|-------|------------|-----|------------------------|
+| `text-lead-xl` | Вводный текст на Hero-секциях | `text-xl lg:text-2xl font-light` | 20px → 24px |
+| `text-lead` | Вводный текст после заголовка | `text-lg lg:text-xl` | 18px → 20px |
+| `text-body-lg` | Увеличенный основной текст | `text-base lg:text-lg` | 16px → 18px |
+| `text-body` | Основной текст (только цвет, без размера) | `color: inherit` | — |
+| `text-small` | Мелкий текст, подписи | `text-sm` | 14px |
+| `text-tiny` | Минимальный текст (метки, копирайты) | `text-xs` | 12px |
+| `oauth-label` | Метки разделителей форм («или») | `font-medium` | наследуется |
+
+> **Примечание:** `text-body` не задаёт размер шрифта — только цвет. Для размера используйте Tailwind-утилиты (`text-sm`, `text-base` и т.д.).
 
 #### Правила цвета по фону
 
@@ -343,7 +388,14 @@ Legacy: ранее использовался `<el-dialog>`. Теперь исп
 | `bg-dark` | `white` | `white` |
 | `bg-primary` | `white` | `white` |
 
-**Важно:** для тёмных фонов (`bg-dark`, `bg-primary`) используется `!important` в CSS, так как `@layer utilities` иначе переопределяет цвета.
+**Реализация:** в CSS используется `:where()` для понижения специфичности — это позволяет Tailwind-утилитам (например, `text-gray-300`) при необходимости переопределять цвета.
+
+```css
+/* Пример из input.css */
+:where(.bg-dark, .bg-primary) { color: white; }
+:where(.bg-dark, .bg-primary)
+  :is(.heading-hero, .heading-section, ...) { color: white; }
+```
 
 #### Пример использования
 
@@ -455,7 +507,7 @@ Legacy: ранее использовался `<el-dialog>`. Теперь исп
 <!-- Список с галочками (для характеристик) -->
 <ul class="space-y-3">
     <li class="flex items-start gap-3">
-        <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+        <svg class="w-5 h-5 shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
         </svg>
         <span>Текст характеристики</span>
@@ -527,6 +579,56 @@ Legacy: ранее использовался `<el-dialog>`. Теперь исп
 
 ---
 
+## Производительность
+
+CSS-утилиты для оптимизации рендеринга и предотвращения Layout Shift.
+
+### content-auto
+
+Отложенный рендеринг секций ниже первого экрана для снижения TBT (Total Blocking Time).
+
+```html
+<section class="content-auto py-16 lg:py-24">
+    <!-- Контент секции -->
+</section>
+```
+
+**CSS:**
+```css
+@utility content-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
+}
+```
+
+**Когда использовать:**
+- На секциях ниже первого экрана (below fold)
+- На тяжёлых секциях с большим количеством DOM-элементов
+- **НЕ** применять к Hero и первым видимым секциям
+
+### main-stable
+
+Предотвращение CLS (Cumulative Layout Shift) для основного контента.
+
+```html
+<main class="main-stable">
+    <!-- Весь контент страницы -->
+</main>
+```
+
+**CSS:**
+```css
+@utility main-stable {
+    contain: layout;
+}
+```
+
+**Когда использовать:**
+- На `<main>` или корневом контейнере страницы
+- Помогает браузеру изолировать layout-расчёты
+
+---
+
 ## Отступы и размеры
 
 ### Система отступов
@@ -559,12 +661,11 @@ Legacy: ранее использовался `<el-dialog>`. Теперь исп
 ```
 
 ```css
-@layer utilities {
-    .container {
-        margin-inline: auto;
-        padding-inline: 1rem;
-        max-width: 1170px;
-    }
+/* Tailwind v4 синтаксис */
+@utility container {
+    margin-inline: auto;
+    padding-inline: 1rem;
+    max-width: 1170px;
 }
 ```
 
@@ -657,8 +758,9 @@ Legacy: ранее использовался `<el-dialog>`. Теперь исп
 </button>
 ```
 
-**CSS класс `sr-only`** (уже есть в критическом CSS):
+**CSS класс `sr-only`** — встроенная утилита Tailwind v4 (не требует определения в `input.css`):
 ```css
+/* Tailwind автоматически генерирует: */
 .sr-only {
     position: absolute;
     width: 1px;
@@ -697,6 +799,26 @@ Legacy: ранее использовался `<el-dialog>`. Теперь исп
 | `text-dark (#262626)` | ~12.4:1 | ✅ OK |
 
 **Рекомендация:** для основного текста на белом фоне использовать `text-dark` или `text-body (#525252)`.
+
+### Reduced Motion (отключение анимаций)
+
+Для пользователей с вестибулярными нарушениями CSS автоматически отключает анимации:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+    .ken-burns-img { animation: none; }
+    .canvas-3d { transition: none; }
+    .canvas-3d:hover { transform: none; }
+    .ba-handle, .ui-control--play { backdrop-filter: none; }
+}
+```
+
+**Затронутые компоненты:**
+- Ken Burns эффект на Hero-изображениях
+- 3D эффект холста (hover-анимация)
+- Blur-эффекты на кнопках управления
+
+**Важно:** это происходит автоматически через CSS, никаких действий от разработчика не требуется.
 
 ### Изображения
 
@@ -737,9 +859,28 @@ Legacy: ранее использовался `<el-dialog>`. Теперь исп
 
 ---
 
-## Компоненты
+## Components
 
 > **Важно:** Используйте компонентный подход Tailwind v4 — семантические классы в `@layer components` + утилиты. Это снижает дублирование и ускоряет смену дизайна.
+
+**Список компонентов:**
+- Кнопки (`btn-primary`, `btn-dark`)
+- Формы (inputs, selects, checkboxes)
+- Таблицы данных
+- Alert / Notice
+- Modal / Dialog
+- Карточки (`card`, `advantage-card`, `work-card`)
+- Секции (`section-*`, `cta`, `hero`)
+- Слайдер "До/После" (`before-after-slider`)
+- Video Cover
+- Carousel Scroll
+- Page Navigator
+- FAQ Accordion
+- Tabs (вкладки)
+- Timeline/Steps
+- Ken Burns Effect
+- 3D Эффект Холста (`.canvas-3d`)
+- Виджет мессенджеров
 
 ### Зачем нужен компонентный подход
 
@@ -907,7 +1048,7 @@ https://tailwindcss.com/plus/ui-blocks/application-ui/forms/form-layouts
 
 ### Modal / Dialog
 
-Legacy: ранее использовался `<el-dialog>` + `<dialog>`. Теперь используем нативный `<dialog>`.
+Legacy: ранее использовался `` + `<dialog>`. Теперь используем нативный `<dialog>`.
 
 ```html
 <dialog id="dialog-example" class="backdrop:bg-black/40">
@@ -915,7 +1056,7 @@ Legacy: ранее использовался `<el-dialog>` + `<dialog>`. Теп
         <h3 class="text-xl font-medium text-dark mb-2">[ТЕКСТ: Заголовок]</h3>
         <p class="text-body">[ТЕКСТ: Текст модального окна]</p>
         <div class="mt-6 flex justify-end gap-3">
-            <button type="button" data-dialog-close class="btn-inverse">[ТЕКСТ: Закрыть]</button>
+            <button type="button" data-close-dialog class="btn-inverse">[ТЕКСТ: Закрыть]</button>
             <button type="button" class="btn-primary">[ТЕКСТ: Подтвердить]</button>
         </div>
     </div>
@@ -930,7 +1071,7 @@ Legacy: ранее использовался `<el-dialog>` + `<dialog>`. Теп
 
 #### Кнопка открытия:
 ```html
-<button type="button" data-dialog-open="review-modal" class="btn-primary btn-lg">
+<button type="button" data-open-dialog="review-modal" class="btn-primary">
     Оставить отзыв
 </button>
 ```
@@ -946,7 +1087,7 @@ Legacy: ранее использовался `<el-dialog>` + `<dialog>`. Теп
 
 #### Кнопка закрытия:
 ```html
-<button type="button" data-dialog-close aria-label="Закрыть окно">
+<button type="button" data-close-dialog aria-label="Закрыть окно">
     <svg>...</svg>
 </button>
 ```
@@ -969,10 +1110,10 @@ Legacy: ранее использовался `<el-dialog>` + `<dialog>`. Теп
 | Класс | Назначение | Фон | Текст |
 |-------|------------|-----|-------|
 | `.btn-primary` | Основная CTA | `bg-primary` | Белый |
-| `.btn-secondary` | Второстепенная | `bg-secondary` | Тёмный |
-| `.btn-outline` | С обводкой | Прозрачный | Тёмный |
 | `.btn-inverse` | На тёмном фоне | Прозрачный | Белый |
 | `.btn-header-cta` | В Header (идентичен btn-primary) | `bg-primary` | Белый |
+
+> **Примечание:** `.btn-secondary` и `.btn-outline` запланированы, но пока не реализованы в CSS.
 
 ```html
 <a href="#" class="btn-primary">Заказать</a>
@@ -994,24 +1135,26 @@ Legacy: ранее использовался `<el-dialog>` + `<dialog>`. Теп
 ```
 
 **CSS (input.css):**
-- Градиент: `linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary-hover) 100%)`
+- Градиент: `linear-gradient(90deg, #4e86bb 0%, #2f6ea8 55%, #275d8f 100%)`
 - Padding: `1.5rem` (py-6)
 - Текст: автоматически белый
 
 **Для изменения оформления акции — редактируйте только CSS, HTML не трогайте.**
 
-#### Шаги процесса: `step-container`, `process-step`
+#### Шаги процесса: `step-container`, `step-line`
+
+CSS-классы для вертикального списка шагов с пунктирной линией.
 
 ```html
 <div class="step-container">
     <div class="step-line"></div>
 
-    <div class="process-step flex gap-4">
-        <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-            <span class="text-xl font-bold text-primary">1</span>
+    <div class="flex gap-4">
+        <div class="shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
+            <span class="text-lead font-bold text-primary">1</span>
         </div>
         <div>
-            <h3 class="text-xl font-medium text-dark mb-2">[ТЕКСТ: Заголовок шага]</h3>
+            <h3 class="heading-card mb-2">[ТЕКСТ: Заголовок шага]</h3>
             <p class="text-body">[ТЕКСТ: Описание шага]</p>
         </div>
     </div>
@@ -1019,7 +1162,11 @@ Legacy: ранее использовался `<el-dialog>` + `<dialog>`. Теп
 </div>
 ```
 
-**Назначение:** единая вертикальная линия + отступы/структура шагов.
+**CSS-классы:**
+- `.step-container` — контейнер с `flex-direction: column` и `gap: 3rem`
+- `.step-line` — пунктирная линия слева (`border-left: 3px dashed`)
+- Заголовок шага — `.heading-card mb-2`
+- Описание шага — `.text-body`
 
 #### Характеристики: `check-list`
 
@@ -1036,7 +1183,7 @@ Legacy: ранее использовался `<el-dialog>` + `<dialog>`. Теп
 #### Преимущества: `advantages-section`, `advantages-grid`, `advantage-card`
 
 **Фон секции:** диагональный градиент `135deg` на основе primary.
-- `#4a8bc7` (светлый) → `#2f6ea8` (primary) → `#275d8f` (hover)
+- `linear-gradient(135deg, #6fa6d4 0%, #4e86bb 45%, #2f6ea8 100%)`
 
 **Текст по фону:**
 - Текст на фоне секции (градиент/тёмный) — белый (`text-white`)
@@ -1064,9 +1211,9 @@ Legacy: ранее использовался `<el-dialog>` + `<dialog>`. Теп
 </section>
 ```
 
-**Модификатор:** `.advantages-section--light` — белый фон вместо градиента.
-
 **Назначение:** единый визуальный блок преимуществ с иконками и сеткой.
+
+> **Примечание:** модификатор `.advantages-section--light` (белый фон) запланирован, но пока не реализован.
 
 #### CTA секция: `cta-section`, `cta-container`
 
@@ -1084,17 +1231,18 @@ Legacy: ранее использовался `<el-dialog>` + `<dialog>`. Теп
 
 **Назначение:** унификация CTA‑блоков на ключевых страницах.
 
-#### Лого‑облако: `logo-cloud`, `logo-cloud__list`, `logo-cloud__item`
+#### Лого‑облако (планируется)
 
+> ⚠️ **Статус:** Запланировано, но классы `.logo-cloud`, `.logo-cloud__list`, `.logo-cloud__item` пока не реализованы в CSS. Используйте inline Tailwind-классы.
+
+**Пример разметки:**
 ```html
-<section class="logo-cloud">
+<section class="bg-white py-16 lg:py-24">
     <div class="container mb-8 text-center">
         <h3 class="text-3xl lg:text-4xl font-light text-dark">[ТЕКСТ: Нам доверяют]</h3>
     </div>
-    <div class="logo-cloud__list">
-        <div class="logo-cloud__item">
-            <img src="logo.webp" alt="[ТЕКСТ: Компания]" width="73" height="50" loading="lazy" decoding="async">
-        </div>
+    <div class="flex flex-wrap justify-center items-center gap-8 lg:gap-12">
+        <img src="logo.webp" alt="[ТЕКСТ: Компания]" width="73" height="50" loading="lazy" decoding="async" class="h-12 w-auto opacity-60 grayscale hover:opacity-100 hover:grayscale-0 transition-all">
         <!-- ... другие логотипы -->
     </div>
 </section>
@@ -1138,10 +1286,10 @@ Legacy: ранее использовался `<el-dialog>` + `<dialog>`. Теп
   background: rgba(0,0,0,0.4);
   color: white;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 .ui-control:hover {
-  background-color: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.6);
 }
 ```
 
@@ -1219,6 +1367,33 @@ Legacy: ранее использовался `<el-dialog>` + `<dialog>`. Теп
 - Показывается при скролле через JS
 - Видимость: `hidden md:flex` (скрыта на мобильных)
 - Доступность: `aria-label="Наверх"`
+
+### Виджет мессенджеров (Floating Messenger Widget)
+
+Назначение: плавающий виджет для ненавязчивого доступа к мессенджерам.
+
+**Файлы:**
+- Демо/пример: [src/html/_drafts/widget.html](src/html/_drafts/widget.html)
+- Иконки (соцсети/провайдеры, цветные 24px): [src/html/social-icons-demo.html](src/html/social-icons-demo.html)
+
+**Поведение (канон):**
+1) Отложенное появление (10 секунд после загрузки).
+2) Открытие/закрытие по клику на кнопку.
+3) Автозакрытие при клике вне виджета и при скролле.
+4) Состояние управляется через `aria-expanded` и класс `is-open` у списка.
+
+**Размеры (канон):**
+- Кнопка: 48×48 (`w-12 h-12`)
+- Иконка: 24×24 (`w-6 h-6`)
+
+**CSS (канон):**
+- Компонентные классы в [src/input.css](src/input.css): `messenger-widget`, `messenger-list`, `messenger-list.is-open`.
+- Для предпросмотра через Live Server нужна актуальная копия CSS: [src/html/css/output.css](src/html/css/output.css) (обновляется `npm run copy-css`).
+
+**Доступность:**
+- Кнопка открытия должна иметь `aria-label` и управлять `aria-expanded`.
+
+---
 
 #### Модальное окно отзыва (OAuth)
 
@@ -1409,13 +1584,13 @@ Legacy: ранее использовался `<el-dialog>` + `<dialog>`. Теп
 ```html
 <ul class="space-y-1">
     <li class="flex items-start gap-3 py-1.5 odd:bg-primary/5 odd:rounded odd:px-3 odd:-mx-3">
-        <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+        <svg class="w-5 h-5 shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
         </svg>
         <span><strong>Название:</strong> Значение</span>
     </li>
     <li class="flex items-start gap-3 py-1.5 odd:bg-primary/5 odd:rounded odd:px-3 odd:-mx-3">
-        <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+        <svg class="w-5 h-5 shrink-0 mt-0.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
         </svg>
         <span><strong>Название:</strong> Значение</span>
@@ -1475,37 +1650,41 @@ Legacy: ранее использовался `<el-dialog>` + `<dialog>`. Теп
 
 Компоненты, требующие CSS и/или JavaScript. Начиная с версии Tailwind v4, основные эффекты вынесены в глобальные утилиты в `input.css`.
 
-### Слайдер "До/После" (ba-card)
+### Слайдер "До/После" (before-after-slider)
 
 Используется для сравнения оригинала фото и готового портрета.
 
+> **Важно:** стили `.after-image`, `.ba-divider`, `.ba-handle` определены в CSS (`@utility before-after-slider`). Не дублируйте их в HTML.
+
 **HTML:**
 ```html
-<div class="ba-card relative w-full aspect-[378/265] overflow-hidden rounded-xl shadow-2xl" style="--pos: 50%;">
+<div class="before-after-slider aspect-[378/265] rounded-xl shadow-2xl" style="--pos: 50%;">
     <!-- Изображение "До" (фоновое) -->
-    <img class="absolute inset-0 w-full h-full object-cover pointer-events-none select-none" 
-         src="img/before.jpg" alt="Оригинал">
+    <img src="img/before.jpg" alt="Оригинал">
     
-    <!-- Изображение "После" (обрезаемое) -->
-    <img class="after-image absolute inset-0 w-full h-full object-cover pointer-events-none select-none" 
-         src="img/after.jpg" alt="Результат">
+    <!-- Изображение "После" (обрезаемое через clip-path) -->
+    <img class="after-image" src="img/after.jpg" alt="Результат">
     
-    <!-- Контроллер (ползунок) -->
+    <!-- Контроллер (ползунок) — JS обновляет --pos -->
     <input type="range" min="0" max="100" value="50" 
            aria-label="Сравнить изображения до и после"
-           class="absolute inset-0 opacity-0 cursor-ew-resize w-full h-full m-0 z-20" 
-           oninput="this.parentNode.style.setProperty('--pos', this.value + '%')">
+           class="absolute inset-0 opacity-0 cursor-ew-resize w-full h-full m-0 z-40">
     
-    <!-- Визуальный разделитель -->
-    <div class="ba-divider absolute top-0 bottom-0 w-[3px] bg-white -translate-x-1/2 pointer-events-none z-10"></div>
+    <!-- Разделительная линия (стили из CSS) -->
+    <div class="ba-divider"></div>
     
-    <!-- Ручка (Handle) -->
-    <div class="ba-handle absolute top-1/2 -translate-x-1/2 -translate-y-1/2 w-[46px] h-[70px] pointer-events-none z-[15]">
-        <span class="absolute top-1/2 -translate-y-1/2 -left-4 text-2xl font-bold text-white drop-shadow-xl select-none">‹</span>
-        <span class="absolute top-1/2 -translate-y-1/2 -right-4 text-2xl font-bold text-white drop-shadow-xl select-none">›</span>
+    <!-- Ручка (стили из CSS) -->
+    <div class="ba-handle">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8L22 12L18 16M6 8L2 12L6 16"/>
+        </svg>
     </div>
 </div>
 ```
+
+**Альтернативный класс:** `.ba-card` — алиас для `.before-after-slider`.
+
+**JavaScript:** обработчик `input[type=range]` в `js/nav.js` автоматически обновляет `--pos`.
 
 ### 3D Эффект Холста (.canvas-3d)
 
@@ -1576,8 +1755,8 @@ Legacy: ранее использовался `<el-dialog>` + `<dialog>`. Теп
 <div class="carousel-scroll pb-4">
     <div class="flex gap-4 px-4" style="min-width: max-content;">
         <!-- Элементы карусели -->
-        <div class="flex-shrink-0 w-[223px] snap-center">...</div>
-        <div class="flex-shrink-0 w-[223px] snap-center">...</div>
+        <div class="shrink-0 w-[223px] snap-center">...</div>
+        <div class="shrink-0 w-[223px] snap-center">...</div>
     </div>
 </div>
 ```
@@ -1731,7 +1910,7 @@ JavaScript для подсветки активной секции находи�
     <details class="group" open>
         <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none [&::-webkit-details-marker]:hidden">
             <span>Какие бывают размеры?</span>
-            <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+            <svg class="size-5 shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
             </svg>
         </summary>
@@ -1744,7 +1923,7 @@ JavaScript для подсветки активной секции находи�
     <details class="group">
         <summary class="flex items-center justify-between gap-4 py-4 cursor-pointer text-lg font-medium text-dark hover:opacity-80 transition-opacity list-none [&::-webkit-details-marker]:hidden">
             <span>Сколько стоит?</span>
-            <svg class="size-5 flex-shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+            <svg class="size-5 shrink-0 text-dark transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
             </svg>
         </summary>
@@ -1785,84 +1964,45 @@ JavaScript для подсветки активной секции находи�
 
 ### Tabs (вкладки)
 
-**Статус:** fallback/legacy. `el-tab-group` не используем. Этот вариант применять только как временную заглушку.
-
-Переключение между контентом с подчеркиванием активной вкладки.
+Переключение между контентом. Поддерживается в `nav.js` через атрибуты `data-tabs`, `data-tab-list`, `data-tab-panels`.
 
 ```html
-<!-- Tabs Navigation -->
-<div class="flex border-b border-gray-200 mb-8 overflow-x-auto">
-    <button 
-        class="px-6 py-3 text-lg font-medium text-dark hover:text-dark focus:outline-none border-b-2 border-primary transition-colors" 
-        data-tab="moscow"
-    >
-        Москва
-    </button>
-    <button 
-        class="px-6 py-3 text-lg font-medium text-body hover:text-dark focus:outline-none border-b-2 border-transparent transition-colors" 
-        data-tab="spb"
-    >
-        Санкт-Петербург
-    </button>
-</div>
-
-<!-- Tab Content -->
-<div id="moscow" class="tab-content block">
-    <p>Контент для Москвы...</p>
-</div>
-<div id="spb" class="tab-content hidden">
-    <p>Контент для Санкт-Петербурга...</p>
+<div data-tabs>
+    <!-- Кнопки вкладок -->
+    <div data-tab-list class="flex border-b border-gray-200 mb-8 overflow-x-auto">
+        <button aria-selected="true" class="px-6 py-3 text-lg font-medium border-b-2 border-primary text-dark">
+            Москва
+        </button>
+        <button class="px-6 py-3 text-lg font-medium border-b-2 border-transparent text-body hover:text-dark">
+            Санкт-Петербург
+        </button>
+    </div>
+    
+    <!-- Контент вкладок -->
+    <div data-tab-panels>
+        <div>Контент для Москвы...</div>
+        <div hidden>Контент для Санкт-Петербурга...</div>
+    </div>
 </div>
 ```
 
-**CSS (критический):**
-```css
-.tab-content { animation: fadeIn 0.3s ease-in-out; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-```
+**Атрибуты:**
+- `data-tabs` — контейнер группы вкладок
+- `data-tab-list` — контейнер кнопок
+- `data-tab-panels` — контейнер панелей
+- `aria-selected="true"` — активная вкладка по умолчанию
+- `hidden` — скрытые панели
 
-**JavaScript (inline перед `</body>`):**
-```javascript
-(() => {
-    const buttons = document.querySelectorAll('[data-tab]');
-    const panels = document.querySelectorAll('.tab-content');
-    if (!buttons.length || !panels.length) return;
-
-    buttons.forEach((btn) => {
-        btn.addEventListener('click', () => {
-            buttons.forEach((b) => {
-                b.classList.remove('border-primary', 'text-dark');
-                b.classList.add('border-transparent');
-            });
-            panels.forEach((panel) => {
-                panel.classList.add('hidden');
-                panel.classList.remove('block');
-            });
-
-            btn.classList.remove('border-transparent');
-            btn.classList.add('border-primary', 'text-dark');
-
-            const target = document.getElementById(btn.dataset.tab);
-            if (target) {
-                target.classList.remove('hidden');
-                target.classList.add('block');
-            }
-        });
-    });
-})();
-```
+**JavaScript:** логика переключения и ARIA-атрибуты добавляются автоматически в `nav.js` (inline JS не нужен).
 
 **Ключевые классы:**
 - `border-b-2 border-primary` — подчеркивание активной вкладки
 - `border-transparent` — неактивная вкладка
 - `overflow-x-auto` — горизонтальная прокрутка на мобильных
-- `hidden` / `block` — переключение видимости контента
 
 ---
 
-### Tabs (legacy) — галерея характеристик
-
-Legacy: пример с `el-tab-group` для истории. В новых страницах не использовать.
+### Tabs (legacy) — НЕ ИСПОЛЬЗОВАТЬ
 
 ```html
 <el-tab-group class="flex flex-col-reverse">
@@ -1921,7 +2061,7 @@ Legacy: пример с `el-tab-group` для истории. В новых ст
     <div class="space-y-8 relative">
         <!-- Шаг 1 -->
         <div class="flex gap-4">
-            <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center relative z-10">
+            <div class="shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center relative z-10">
                 <span class="text-xl font-bold text-white">1</span>
             </div>
             <div>
@@ -1931,7 +2071,7 @@ Legacy: пример с `el-tab-group` для истории. В новых ст
         </div>
         <!-- Шаг 2 -->
         <div class="flex gap-4">
-            <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center relative z-10">
+            <div class="shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center relative z-10">
                 <span class="text-xl font-bold text-white">2</span>
             </div>
             <div>
@@ -2057,7 +2197,7 @@ Legacy: пример с `el-tab-group` для истории. В новых ст
 
 Анимация печатающегося текста с мигающим курсором.
 
-**CSS (в критическом CSS):**
+**CSS (обычный, не критический):**
 ```css
 .typed-cursor { display: inline-block; width: 3px; background-color: var(--primary); animation: blink 1s infinite; margin-left: 2px; }
 @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
@@ -2128,149 +2268,6 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="aspect-[4/3]">...</div>
 <div class="aspect-[378/265]">...</div>
 <div class="aspect-[360/648]">...</div>
-```
-
----
-
-## Header и Mobile Menu
-
-### Header (шапка сайта)
-
-```html
-<header class="bg-dark sticky top-0 z-50">
-    <nav class="container h-20 flex items-center">
-        <!-- LOGO -->
-        <div class="shrink-0 h-full flex items-center pr-6 mr-6">
-            <a href="https://muse.ooo/" class="opacity-100 hover:opacity-70 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark" aria-label="Muse">
-                <svg height="26" viewBox="0 0 1285 359" width="74" xmlns="http://www.w3.org/2000/svg" class="h-6 w-auto fill-white">
-                    <path d="M10 359l353 0-63-63-226 0-64 63zm364-10l0-285c-24 7-45 18-64 34l0 188 64 63zm-374-285l0 285 63-63 0-188c-19-16-40-27-63-34z"/>
-                    <path d="M300 0c-49 0-92 28-113 68-22-40-65-68-114-68-27 0-52 8-73 23 82 9 149 79 187 166 37-87 104-157 187-166-21-15-47-23-74-23z"/>
-                    <path d="M494 20c-11-11-27-18-45-17-16 1-26 8-32 17 36 0 60 19 77 48 17-29 41-48 78-48-7-9-17-16-33-17-17-1-33 6-45 17z"/>
-                    <path d="M1152 178c4-24 18-40 41-40 22 0 36 16 39 40l-80 0zm46 114c34 0 59-13 77-35l-31-28c-14 14-27 20-45 20-24 0-41-13-47-37l132 0c0-5 1-10 1-14 0-54-29-103-92-103-55 0-94 45-94 99 0 58 42 98 99 98z"/>
-                    <path d="M1008 291c41 0 73-19 73-61 0-35-31-48-57-57-21-7-39-12-39-22 0-8 7-14 20-14 14 0 32 7 51 18l21-37c-21-14-47-22-71-22-38 0-69 21-69 60 0 37 30 50 56 57 21 7 39 10 39 22 0 9-7 15-22 15-18 0-39-8-60-23l-23 36c25 19 55 28 81 28z"/>
-                    <path d="M792 291c24 0 46-15 56-25l0 22 55 0 0-189-58 0 0 107c0 21-13 43-33 43-19 0-31-13-31-39l0-111-54 0 0 122c0 43 24 70 65 70z"/>
-                    <path d="M623 95c-30 0-49 17-60 28-10-16-25-27-46-28-25-1-43 15-53 26l0-22-55 0 0 189 58 0 0-109c0-22 15-41 33-41 18 0 29 11 29 36l0 114 12 0 34 0 8 0 0-139c5-5 12-11 24-11 16 0 30 11 30 38l0 112 54 0 0-123c0-43-26-70-68-70z"/>
-                </svg>
-            </a>
-        </div>
-
-        <!-- NAV -->
-        <div class="hidden xl:flex items-center gap-x-8 h-full">
-            <a href="https://muse.ooo/portret-na-zakaz/" class="text-xs font-bold uppercase tracking-wider text-gray-300 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark">Портреты</a>
-            <a href="https://muse.ooo/pechat/" class="text-xs font-bold uppercase tracking-wider text-gray-300 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark">Печать</a>
-            <a href="https://muse.ooo/info/" class="text-xs font-bold uppercase tracking-wider text-gray-300 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark">О нас</a>
-        </div>
-
-        <!-- RIGHT -->
-        <div class="hidden xl:flex items-center h-full ml-auto gap-x-6">
-            <button type="button" class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-gray-300 hover:text-white transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark" command="show-modal" commandfor="city-dialog" data-city-trigger aria-controls="city-dialog" aria-label="Выбор города">
-                <span class="border-b border-dotted border-gray-400 hover:border-white" data-city-current>Санкт-Петербург</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-            </button>
-            <a href="tel:88007076921" class="text-sm font-medium text-white hover:text-gray-300 transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark" data-city-phone>8 800 707-69-21</a>
-            <!-- CTA: Primary -->
-            <a href="https://muse.ooo/order/" class="btn-header-cta focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark">Заказать</a>
-        </div>
-
-        <button type="button" class="xl:hidden ml-auto p-2.5 text-gray-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark" command="show-modal" commandfor="mobile-menu" aria-controls="mobile-menu" aria-label="Открыть меню">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-6 h-6">
-                <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-        </button>
-    </nav>
-</header>
-```
-
-**Характеристики:**
-- Фон: `bg-dark` (#262626)
-- Позиция: `sticky top-0 z-50`
-- Ссылки: `text-gray-400 hover:text-white transition-colors uppercase`
-- Desktop меню: `hidden xl:flex`
-- Mobile кнопка: `xl:hidden`
-
-### Mobile Menu
-
-Legacy: ранее использовался `<el-dialog>`. Теперь используем нативный `<dialog>`:
-
-```html
-<el-dialog>
-    <dialog id="mobile-menu" class="mobile-menu-dialog backdrop:bg-black/60 p-0 w-full max-w-none h-svh bg-dark sm:h-auto sm:max-w-sm sm:bg-transparent sm:ml-auto sm:mr-0">
-        <div class="w-full h-full sm:h-auto sm:max-h-[85vh] sm:mx-auto bg-dark shadow-2xl overflow-y-auto" data-swipe-panel>
-            <div class="p-6">
-                <!-- Индикатор свайпа (только mobile) -->
-                <div class="sm:hidden w-12 h-1 bg-white/20 rounded-full mx-auto mb-6"></div>
-
-                <div class="flex items-center justify-between mb-8">
-                    <a href="https://muse.ooo/" class="flex items-center" aria-label="Muse">
-                        <svg class="h-6 w-auto fill-white opacity-80" viewBox="0 0 1285 359" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M10 359l353 0-63-63-226 0-64 63zm364-10l0-285c-24 7-45 18-64 34l0 188 64 63zm-374-285l0 285 63-63 0-188c-19-16-40-27-63-34z"/>
-                            <path d="M300 0c-49 0-92 28-113 68-22-40-65-68-114-68-27 0-52 8-73 23 82 9 149 79 187 166 37-87 104-157 187-166-21-15-47-23-74-23z"/>
-                            <path d="M494 20c-11-11-27-18-45-17-16 1-26 8-32 17 36 0 60 19 77 48 17-29 41-48 78-48-7-9-17-16-33-17-17-1-33 6-45 17z"/>
-                        </svg>
-                    </a>
-                    <button type="button" class="text-gray-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark" command="close" commandfor="mobile-menu" aria-label="Закрыть меню">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-6 h-6">
-                            <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </button>
-                </div>
-
-                <!-- Основное действие: Заказать -->
-                <div class="mb-8">
-                    <a href="https://muse.ooo/order/" class="block w-full py-4 text-center bg-primary text-white font-bold uppercase tracking-widest text-sm hover:bg-primary-hover transition-colors rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark">Заказать</a>
-                </div>
-
-                <!-- Навигация -->
-                <nav class="flex flex-col space-y-4 mb-8">
-                    <a href="https://muse.ooo/portret-na-zakaz/" class="text-lg font-medium text-white hover:text-gray-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark">Портреты</a>
-                    <a href="https://muse.ooo/pechat/" class="text-lg font-medium text-white hover:text-gray-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark">Печать</a>
-                    <a href="https://muse.ooo/info/" class="text-lg font-medium text-white hover:text-gray-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark">О нас</a>
-                </nav>
-
-                <!-- Город + Телефон -->
-                <div class="flex items-center justify-between py-4 mb-4">
-                    <button type="button" class="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark" command="show-modal" commandfor="city-dialog" data-city-trigger aria-controls="city-dialog" aria-label="Выбор города">
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" /></svg>
-                        <span data-city-current>Санкт-Петербург</span>
-                        <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-                    </button>
-                    <a href="tel:88007076921" class="text-sm font-medium text-white hover:text-gray-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark" data-city-phone>
-                        <span data-city-phone-text>8 800 707-69-21</span>
-                    </a>
-                </div>
-
-                <!-- Написать нам -->
-                <div class="pt-4">
-                    <div class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-4">Написать нам</div>
-                    <div class="flex items-center gap-3">
-                        <a href="whatsapp://send?phone=74954091869" class="w-12 h-12 flex items-center justify-center rounded-lg bg-[#25D366] text-white hover:bg-[#1fad53] transition-colors" aria-label="WhatsApp">
-                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884" />
-                            </svg>
-                        </a>
-                        <a href="https://t.me/ArtMuse_bot" class="w-12 h-12 flex items-center justify-center rounded-lg bg-[#0088cc] text-white hover:bg-[#0077b3] transition-colors" aria-label="Telegram">
-                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
-                            </svg>
-                        </a>
-                        <a href="https://vk.me/artwork.muse" class="w-12 h-12 flex items-center justify-center rounded-lg bg-[#4a76a8] text-white hover:bg-[#3d6590] transition-colors" aria-label="ВКонтакте">
-                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.170.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744z" />
-                            </svg>
-                        </a>
-                        <a href="https://max.ru/id782575923262_bot" style="background-color: #630eff;" class="w-12 h-12 flex items-center justify-center rounded-lg text-white hover:text-white transition-colors" aria-label="Max">
-                            <svg class="w-6 h-6 fill-current" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <g id="surface1">
-                                    <path style="stroke:none;fill-rule:evenodd;fill-opacity:1;" d="M 7.421875 23.246094 C 7.292969 23.15625 7.121094 23.179688 7.015625 23.292969 C 5.59375 24.808594 1.964844 25.867188 1.796875 23.804688 C 1.796875 22.1875 1.433594 20.824219 1.035156 19.320312 C 0.546875 17.484375 0 15.4375 0 12.464844 C 0 5.378906 5.8125 0.046875 12.703125 0.046875 C 19.597656 0.046875 25 5.636719 25 12.535156 C 25 19.429688 19.425781 24.882812 12.769531 24.882812 C 10.410156 24.882812 9.261719 24.550781 7.421875 23.246094 Z M 12.898438 6.191406 C 9.628906 6.023438 7.074219 8.292969 6.511719 11.84375 C 6.046875 14.785156 6.871094 18.371094 7.578125 18.550781 C 7.878906 18.625 8.601562 18.074219 9.125 17.578125 C 9.222656 17.488281 9.375 17.472656 9.488281 17.542969 C 10.308594 18.042969 11.234375 18.417969 12.253906 18.472656 C 15.613281 18.648438 18.589844 16.019531 18.765625 12.660156 C 18.941406 9.304688 16.253906 6.371094 12.898438 6.191406 Z M 12.898438 6.191406 " />
-                                </g>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </dialog>
-</el-dialog>
 ```
 
 ---
@@ -2412,10 +2409,20 @@ Legacy: ранее использовался `<el-dialog>`. Теперь исп
 Кнопка размещается **перед** `<header>`.
 
 ```html
-<a href="#" id="back-to-top" class="hidden md:flex fixed bottom-5 right-5 w-12 h-12 items-center justify-center rounded-full bg-white text-dark hover:bg-dark hover:text-white border border-gray-300 hover:border-dark transition-colors z-50 opacity-0 pointer-events-none" aria-label="Наверх">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6"><path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<a href="#" id="back-to-top" 
+   class="ui-control ui-control--lg fixed bottom-5 right-5 z-50 opacity-0 pointer-events-none hidden md:flex" 
+   aria-label="Наверх">
+    <svg fill="none" aria-hidden="true" viewBox="0 0 24 24">
+        <path d="m18 15-6-6-6 6" />
+    </svg>
 </a>
 ```
+
+**Ключевые классы:**
+- `ui-control ui-control--lg` — стилизация кнопки из UI Control system
+- `opacity-0 pointer-events-none` — скрыто по умолчанию
+- `hidden md:flex` — только на десктопе
+- JavaScript в `nav.js` управляет появлением при прокрутке
 
 ### Карточка статьи (Article Card)
 
@@ -2667,7 +2674,7 @@ Legacy: ранее использовался `<el-dialog>`. Теперь исп
     <div class="carousel-scroll pb-4">
         <div class="flex gap-0 px-4 min-w-max">
             <!-- Элемент карусели -->
-            <div class="text-center flex-shrink-0 snap-center w-[223px]">
+            <div class="text-center shrink-0 snap-center w-[223px]">
                 <a href="/item/">
                     <img src="image.webp" alt="Описание" 
                          class="rounded" width="223" height="297"
@@ -2742,7 +2749,7 @@ Legacy: ранее использовался `<el-dialog>`. Теперь исп
     </div>
     <div class="carousel-scroll py-8">
         <div class="flex gap-8 items-center min-w-max mx-auto w-fit">
-            <div class="flex-shrink-0 snap-center w-[73px] h-[50px] flex items-center justify-center">
+            <div class="shrink-0 snap-center w-[73px] h-[50px] flex items-center justify-center">
                 <img src="logo.webp" alt="Компания" 
                      class="h-full w-auto object-contain opacity-60 hover:opacity-100 transition-opacity"
                      width="73" height="50" loading="lazy">
@@ -2882,12 +2889,7 @@ Legacy: ранее использовался `<el-dialog>`. Теперь исп
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Заголовок страницы</title>
     
-    <!-- Критический CSS -->
-    <style>
-        :root { --primary: #2f6ea8; --dark: #262626; }
-        .container { width: 100%; margin: 0 auto; padding: 0 1rem; }
-        @media (min-width: 1170px) { .container { max-width: 1170px; } }
-    </style>
+    <!-- Критический CSS не используем. Только для страниц-исключений. -->
 
     <!-- Основной CSS (собранный Tailwind v4) -->
     <link rel="stylesheet" href="css/output.css">
@@ -2929,7 +2931,7 @@ Legacy: ранее использовался `<el-dialog>`. Теперь исп
 - [ ] Допускаются компонентные классы из `input.css` (например, `btn-*`)
 - [ ] Контейнер: использовать `container` без двойных обёрток
 - [ ] Правильные цвета из палитры (primary, dark, secondary, body)
-- [ ] Проверить скрипты, стили и критический путь на странице
+- [ ] Проверить скрипты и стили; критический путь только для страниц-исключений
 
 ### Типографика
 - [ ] H1: `text-4xl lg:text-6xl font-light` (1 на страницу)
@@ -2949,14 +2951,14 @@ Legacy: ранее использовался `<el-dialog>`. Теперь исп
 
 ### Навигация
 - [ ] Breadcrumbs: `text-sm text-gray-400` с разделителем `/`
-- [ ] Page Navigator: CSS в критическом блоке + `js/nav.js`
+- [ ] Page Navigator: CSS в `input.css` + `js/nav.js`
 - [ ] Back to Top: HTML элемент с `id="back-to-top"` + `js/nav.js`
 
 ### Интерактивные компоненты
-- [ ] Before/After (ba-card): минимальный CSS (4 строки) + HTML с Tailwind
+- [ ] Before/After: `@utility before-after-slider` (или `.ba-card`) из `input.css`
 - [ ] Video Cover: `data-video-cover` + `data-video-src` + `js/nav.js` (без inline)
 - [ ] Carousel Scroll: CSS + общий `js/nav.js`
-- [ ] Характеристики: `odd:bg-primary/5` на каждом `<li>`
+- [ ] Характеристики: `.check-list` + `.check-list-item` (фон через `:nth-child(odd)` в CSS)
 - [ ] Калькуляторы: предусмотреть вёрстку и подключение скрипта по задаче
 
 ### Изображения
@@ -2992,3 +2994,5 @@ Legacy: ранее использовался `<el-dialog>`. Теперь исп
 - [Правила проекта](../AI_INSTRUCTIONS.md)
 - [Текущий прогресс и эталоны страниц](../PROJECT.md)
 - [Как создать новую страницу](./HOW_TO_CREATE_PAGE.md)
+
+
