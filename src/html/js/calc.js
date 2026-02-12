@@ -374,6 +374,25 @@
         badgeProcessing: getEl('badge-processing')
       };
 
+      var calcMainLayout = getEl('calc-main-layout');
+
+      function isSizeInputFocused() {
+        return document.activeElement === els.inpW || document.activeElement === els.inpH;
+      }
+
+      function liftCalcToTop(smooth) {
+        if (!isMobileViewport()) return;
+        var anchor = calcMainLayout || getEl('calc-main-layout');
+        if (!anchor) return;
+        var targetTop = Math.max(0, anchor.getBoundingClientRect().top + window.scrollY - 8);
+        window.scrollTo({ top: targetTop, behavior: smooth ? 'smooth' : 'auto' });
+      }
+
+      function onSizeInputFocus() {
+        if (!isMobileViewport()) return;
+        setTimeout(function () { liftCalcToTop(true); }, 40);
+      }
+
       var onDimChange = function () {
         STATE.w = Math.max(20, Math.min(200, parseInt(els.inpW.value) || 0));
         STATE.h = Math.max(20, Math.min(200, parseInt(els.inpH.value) || 0));
@@ -385,6 +404,13 @@
 
       if (els.inpW) els.inpW.addEventListener('input', onDimChange);
       if (els.inpH) els.inpH.addEventListener('input', onDimChange);
+
+      if (els.inpW) {
+        els.inpW.addEventListener('focus', onSizeInputFocus);
+      }
+      if (els.inpH) {
+        els.inpH.addEventListener('focus', onSizeInputFocus);
+      }
 
       if (els.inpW) {
         els.inpW.addEventListener('keydown', function (e) {
@@ -406,8 +432,20 @@
 
       window.addEventListener('resize', function () {
         renderSizePresets();
-        if (!isMobileViewport()) setCustomSizeInputsVisibility(true);
+        if (!isMobileViewport()) {
+          setCustomSizeInputsVisibility(true);
+        } else if (isSizeInputFocused()) {
+          liftCalcToTop(false);
+        }
       });
+
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', function () {
+          if (isSizeInputFocused()) {
+            liftCalcToTop(false);
+          }
+        });
+      }
 
       var extraTrack = getEl('size-extra-presets-track');
 
