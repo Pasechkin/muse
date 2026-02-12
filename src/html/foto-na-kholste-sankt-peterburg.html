@@ -263,16 +263,268 @@
             </div>
         </section>
 
-        <!-- Цена (Калькулятор - placeholder) -->
+        <!-- Цена (Калькулятор) -->
         <section class="py-16 lg:py-20 content-auto" id="calc">
             <div class="container">
                 <h2 class="heading-section text-center mb-8">Цена</h2>
-                <div class="text-center">
-                    <p><!-- Здесь будет калькулятор Bitrix --></p>
-                    <p class="text-small mt-4">Калькулятор будет добавлен при интеграции с Bitrix</p>
+
+                <div class="relative">
+                    <div class="flex flex-col lg:flex-row items-start relative lg:gap-8 mb-8">
+                        <!-- LEFT: Визуализатор -->
+                        <div class="w-full lg:flex-1 bg-slate-100 shadow-xl lg:shadow-none lg:bg-transparent sticky top-0 lg:top-4 z-40 transition-all">
+                            <div class="relative w-full bg-slate-100 overflow-hidden lg:rounded-2xl lg:shadow-xl lg:border lg:border-slate-200">
+                                <div class="relative room-bg" id="room-container">
+                                    <div id="visualizer-container" class="absolute inset-0 w-full h-full pointer-events-none">
+                                        <div id="preview-canvas" class="bg-white transition-transform pointer-events-auto">
+                                            <div class="absolute -top-12 left-1/2 -translate-x-1/2 flex gap-1 pointer-events-none">
+                                                <div class="dim-badge"><span id="lbl-w">20</span> см</div>
+                                            </div>
+                                            <div class="absolute top-1/2 -left-16 -translate-y-1/2 flex gap-1 pointer-events-none">
+                                                <div class="dim-badge -rotate-90 origin-center"><span id="lbl-h">30</span> см</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="calc-upload-section">
+                                    <div id="uploader-zone" class="uploader-zone bg-white/90 backdrop-blur border-t border-slate-200 p-4">
+                                        <div class="w-full max-w-sm mx-auto">
+                                            <input type="file" id="file-upload" class="hidden" accept="image/jpeg,image/png,image/gif,image/webp" multiple>
+                                            <button id="btn-upload-empty" class="w-full bg-primary hover:bg-primary-hover text-white font-bold py-3 rounded-xl text-sm uppercase tracking-wide shadow-lg shadow-blue-200 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M12 12v9"/><path d="m16 16-4-4-4 4"/></svg>
+                                                <span>Загрузить фото</span>
+                                            </button>
+                                            <div id="uploader-thumbnails" class="uploader-thumbnails" role="listbox" aria-label="Загруженные фотографии"></div>
+                                            <div id="uploader-alert" class="uploader-alert" role="status" aria-live="polite"></div>
+                                            <div id="uploader-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- RIGHT: Панель настроек -->
+                        <div class="w-full lg:w-[420px] bg-white lg:rounded-2xl lg:shadow-xl lg:border lg:border-slate-200 flex flex-col relative z-10">
+                            <div class="p-6 space-y-8">
+                                <!-- Размер -->
+                                <section>
+                                    <div class="section-title"><span>Размер, см</span><span class="text-primary font-bold" id="price-size">0 ₽</span></div>
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <input type="number" id="inp-w" value="20" class="w-full h-12 text-center border border-slate-200 rounded-lg text-lg font-bold text-slate-800 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition" placeholder="Ш">
+                                        <span class="text-slate-300">✕</span>
+                                        <input type="number" id="inp-h" value="30" class="w-full h-12 text-center border border-slate-200 rounded-lg text-lg font-bold text-slate-800 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition" placeholder="В">
+                                    </div>
+                                    <div id="quality-warning" class="hidden calc-alert-warning mb-3">
+                                        <svg class="w-4 h-4 shrink-0 mt-0.5 text-yellow-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                                        <span>Качество фото низкое для этого размера. Мы проверим, что можно сделать.</span>
+                                    </div>
+                                    <div class="grid grid-cols-4 gap-2" id="size-presets-grid"></div>
+                                </section>
+
+                                <!-- Печать и подрамник -->
+                                <section>
+                                    <div class="section-title"><span>Печать и подрамник</span><span id="badge-wrap" class="calc-badge">ВКЛЮЧЕНО</span></div>
+                                    <div class="flex p-1 bg-slate-100 rounded-lg">
+                                        <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-medium transition bg-white text-slate-900 shadow-sm" data-val="STANDARD">Стандартный</button>
+                                        <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-medium transition text-slate-700" data-val="GALLERY">Толстый</button>
+                                        <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-medium transition text-slate-700" data-val="NO_FRAME">Рулон</button>
+                                    </div>
+                                </section>
+
+                                <!-- Обработка фото -->
+                                <section id="calc-processing-section">
+                                    <div class="section-title"><div class="flex items-center gap-2"><span>Обработка фото</span></div><span id="badge-processing" class="calc-badge">ВКЛЮЧЕНО</span></div>
+                                    <div class="relative">
+                                        <select id="processing-select" aria-label="Обработка фото" class="w-full appearance-none bg-white border border-slate-200 text-slate-700 py-3 px-4 pr-8 rounded-lg text-sm font-medium focus:outline-none focus:border-primary">
+                                            <option value="0">Базовая</option>
+                                            <option value="300">Оптимальная (+300 ₽)</option>
+                                            <option value="900">Премиальная (+900 ₽)</option>
+                                        </select>
+                                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m6 9 6 6 6-6"/></svg></div>
+                                    </div>
+                                </section>
+
+                                <!-- Оформление в багет -->
+                                <section>
+                                    <div class="section-title"><span>Оформление в багет</span><span class="text-slate-500 font-medium normal-case" id="price-frame">0 ₽</span></div>
+                                    <div id="frame-section" class="border border-slate-200 rounded-lg p-4 flex items-center gap-4 cursor-pointer hover:border-primary transition group bg-white">
+                                        <div class="w-10 h-10 bg-slate-50 rounded border border-slate-200 flex items-center justify-center text-slate-300"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></div>
+                                        <div>
+                                            <div class="text-sm font-bold text-slate-800" id="selected-frame-text">Без багета</div>
+                                            <div class="text-xs text-primary font-medium group-hover:underline">Выбрать из каталога →</div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <!-- Покрытие лаком + Подарочная упаковка -->
+                                <section class="space-y-6">
+                                    <div class="bg-white">
+                                        <div class="section-title mb-2"><span>Покрытие лаком</span><span class="text-xs font-bold text-slate-500 normal-case" id="price-varnish">0 ₽</span></div>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-xs text-slate-500 leading-tight pr-4">Защитит от влаги и выцветания</span>
+                                            <div class="group relative inline-flex w-10 h-6 shrink-0 rounded-full bg-slate-200 p-0.5 transition-colors duration-200 ease-in-out has-checked:bg-primary select-none">
+                                                <span class="size-5 rounded-full bg-white shadow-xs ring-1 ring-slate-900/5 transition-transform duration-200 ease-in-out group-has-checked:translate-x-4"></span>
+                                                <input type="checkbox" name="varnish" id="toggle-varnish" aria-label="Покрытие лаком" class="absolute inset-0 size-full appearance-none cursor-pointer focus:outline-hidden" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="h-px bg-slate-100"></div>
+                                    <div class="bg-white">
+                                        <div class="section-title mb-2"><span>Подарочная упаковка</span><span class="text-xs font-bold text-slate-500 normal-case" id="price-gift">0 ₽</span></div>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-xs text-slate-500 leading-tight pr-4">Крафт-бумага, лента и открытка</span>
+                                            <div class="group relative inline-flex w-10 h-6 shrink-0 rounded-full bg-slate-200 p-0.5 transition-colors duration-200 ease-in-out has-checked:bg-primary select-none">
+                                                <span class="size-5 rounded-full bg-white shadow-xs ring-1 ring-slate-900/5 transition-transform duration-200 ease-in-out group-has-checked:translate-x-4"></span>
+                                                <input type="checkbox" name="gift" id="toggle-gift" aria-label="Подарочная упаковка" class="absolute inset-0 size-full appearance-none cursor-pointer focus:outline-hidden" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <!-- Портретные опции (скрыты, активируются через конфиг) -->
+                                <section id="calc-faces-section" class="hidden">
+                                    <div class="section-title"><span>Количество лиц</span><span class="text-primary font-bold" id="price-faces">0 ₽</span></div>
+                                    <div class="flex items-center gap-4">
+                                        <button id="faces-minus" class="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center text-slate-600 hover:bg-slate-200 transition text-lg font-bold">−</button>
+                                        <span id="faces-count" class="text-xl font-bold text-slate-800">1</span>
+                                        <button id="faces-plus" class="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center text-slate-600 hover:bg-slate-200 transition text-lg font-bold">+</button>
+                                    </div>
+                                </section>
+                                <section id="calc-gel-section" class="hidden">
+                                    <div class="section-title mb-2"><span>Покрытие гелем</span><span class="text-xs font-bold text-slate-500 normal-case" id="price-gel">0 ₽</span></div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs text-slate-500 leading-tight pr-4">Текстурное покрытие для имитации мазков</span>
+                                        <div class="group relative inline-flex w-10 h-6 shrink-0 rounded-full bg-slate-200 p-0.5 transition-colors duration-200 ease-in-out has-checked:bg-primary select-none">
+                                            <span class="size-5 rounded-full bg-white shadow-xs ring-1 ring-slate-900/5 transition-transform duration-200 ease-in-out group-has-checked:translate-x-4"></span>
+                                            <input type="checkbox" name="gel" id="toggle-gel" aria-label="Покрытие гелем" class="absolute inset-0 size-full appearance-none cursor-pointer focus:outline-hidden" />
+                                        </div>
+                                    </div>
+                                </section>
+                                <section id="calc-acrylic-section" class="hidden">
+                                    <div class="section-title mb-2"><span>Прорисовка акрилом</span><span class="text-xs font-bold text-slate-500 normal-case" id="price-acrylic">0 ₽</span></div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs text-slate-500 leading-tight pr-4">Ручная прорисовка акриловыми красками</span>
+                                        <div class="group relative inline-flex w-10 h-6 shrink-0 rounded-full bg-slate-200 p-0.5 transition-colors duration-200 ease-in-out has-checked:bg-primary select-none">
+                                            <span class="size-5 rounded-full bg-white shadow-xs ring-1 ring-slate-900/5 transition-transform duration-200 ease-in-out group-has-checked:translate-x-4"></span>
+                                            <input type="checkbox" name="acrylic" id="toggle-acrylic" aria-label="Прорисовка акрилом" class="absolute inset-0 size-full appearance-none cursor-pointer focus:outline-hidden" />
+                                        </div>
+                                    </div>
+                                </section>
+                                <section id="calc-oil-section" class="hidden">
+                                    <div class="section-title mb-2"><span>Прорисовка маслом</span><span class="text-xs font-bold text-slate-500 normal-case" id="price-oil">0 ₽</span></div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs text-slate-500 leading-tight pr-4">Ручная прорисовка масляными красками</span>
+                                        <div class="group relative inline-flex w-10 h-6 shrink-0 rounded-full bg-slate-200 p-0.5 transition-colors duration-200 ease-in-out has-checked:bg-primary select-none">
+                                            <span class="size-5 rounded-full bg-white shadow-xs ring-1 ring-slate-900/5 transition-transform duration-200 ease-in-out group-has-checked:translate-x-4"></span>
+                                            <input type="checkbox" name="oil" id="toggle-oil" aria-label="Прорисовка маслом" class="absolute inset-0 size-full appearance-none cursor-pointer focus:outline-hidden" />
+                                        </div>
+                                    </div>
+                                </section>
+                                <section id="calc-potal-section" class="hidden">
+                                    <div class="section-title mb-2"><span>Покрытие поталью</span><span class="text-xs font-bold text-slate-500 normal-case" id="price-potal">0 ₽</span></div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs text-slate-500 leading-tight pr-4">Декоративное покрытие под золото</span>
+                                        <div class="group relative inline-flex w-10 h-6 shrink-0 rounded-full bg-slate-200 p-0.5 transition-colors duration-200 ease-in-out has-checked:bg-primary select-none">
+                                            <span class="size-5 rounded-full bg-white shadow-xs ring-1 ring-slate-900/5 transition-transform duration-200 ease-in-out group-has-checked:translate-x-4"></span>
+                                            <input type="checkbox" name="potal" id="toggle-potal" aria-label="Покрытие поталью" class="absolute inset-0 size-full appearance-none cursor-pointer focus:outline-hidden" />
+                                        </div>
+                                    </div>
+                                </section>
+                                <section id="calc-digital-section" class="hidden">
+                                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                                        <span class="text-xs font-medium text-slate-700">Цифровой макет без изготовления картины</span>
+                                        <div class="group relative inline-flex w-10 h-6 shrink-0 rounded-full bg-slate-200 p-0.5 transition-colors duration-200 ease-in-out has-checked:bg-primary select-none">
+                                            <span class="size-5 rounded-full bg-white shadow-xs ring-1 ring-slate-900/5 transition-transform duration-200 ease-in-out group-has-checked:translate-x-4"></span>
+                                            <input type="checkbox" name="digitalOnly" id="toggle-digital" aria-label="Цифровой макет" class="absolute inset-0 size-full appearance-none cursor-pointer focus:outline-hidden" />
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+
+                            <!-- Итого (десктоп) -->
+                            <div class="hidden lg:block p-6 border-t border-slate-100 bg-white lg:rounded-b-2xl">
+                                <div class="flex justify-between items-end">
+                                    <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Итого к оплате</span>
+                                    <div class="flex flex-col items-end">
+                                        <div class="text-sm font-bold text-slate-500 line-through decoration-slate-500 decoration-1 mb-0.5"><span id="old-price">1 500</span> ₽</div>
+                                        <div class="text-3xl font-bold text-primary leading-none"><span id="total-price">890</span> <span>₽</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Форма заказа -->
+                    <div class="bg-white rounded-2xl p-6 lg:p-8 shadow-md border border-slate-200 mt-8 mb-0 pb-20 lg:pb-8" id="order-form-container">
+                        <h3 class="text-xl font-bold text-slate-800 mb-6">Оформление заказа</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                            <div><input type="text" id="client-name" class="form-input" placeholder="Имя*"></div>
+                            <div><input type="tel" id="client-phone" class="form-input" placeholder="Телефон*"></div>
+                            <div><input type="email" id="client-email" class="form-input" placeholder="E-mail"></div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                            <div><textarea id="client-link" class="form-input h-full resize-none" rows="4" placeholder="Поле для ссылки на фото или облако"></textarea></div>
+                            <div><textarea id="client-comment" class="form-input h-full resize-none" rows="4" placeholder="Комментарий"></textarea></div>
+                        </div>
+                        <div class="flex flex-col md:flex-row items-center justify-between gap-6 border-t border-slate-100 pt-6">
+                            <div class="text-xs text-slate-500 text-left">Заполняя форму, я соглашаюсь с условиями Оферты и даю свое согласие на обработку персональных данных.</div>
+                            <button id="btn-submit-order" class="hidden lg:block w-full md:w-auto btn-header-cta px-10 py-4 shadow-lg shadow-blue-200 active:scale-[0.98]">Заказать</button>
+                        </div>
+                    </div>
+
+                    <!-- Mobile sticky bar -->
+                    <div id="mobile-sticky-bar" class="lg:hidden sticky bottom-0 left-0 w-full bg-white border-t border-slate-200 shadow-[0_-4px_15px_rgba(0,0,0,0.1)] z-50 p-4 flex justify-between items-center rounded-t-xl">
+                        <div class="flex flex-col">
+                            <span class="text-[10px] text-slate-500 font-bold uppercase">Итого</span>
+                            <div class="text-xl font-bold text-primary" id="sticky-total-price">890 ₽</div>
+                        </div>
+                        <button id="btn-sticky-order" class="btn-header-cta px-8 py-3 shadow-lg shadow-blue-200 active:scale-[0.98] text-sm">Заказать</button>
+                    </div>
                 </div>
             </div>
         </section>
+
+        <!-- Модалка каталога багетов -->
+        <div id="frame-modal" style="z-index: 9999;" class="fixed inset-0 hidden items-center justify-center bg-black/70 backdrop-blur-sm transition-opacity">
+            <div class="bg-white rounded-xl shadow-2xl w-[800px] max-w-[95%] h-[85vh] flex flex-col overflow-hidden" id="frame-modal-content">
+                <div class="flex justify-between items-center px-6 py-4 border-b border-slate-100 shrink-0">
+                    <h3 class="text-xl font-bold text-slate-800">Каталог багета</h3>
+                    <button id="close-frame-modal" class="text-slate-400 hover:text-slate-600 p-2 rounded-full hover:bg-slate-100 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                    </button>
+                </div>
+                <div class="flex-1 overflow-y-auto custom-scrollbar p-6 bg-slate-50">
+                    <div id="frame-upload-cta" class="text-center p-4 bg-white rounded-lg border border-dashed border-slate-300 mb-8">
+                        <p class="text-xs text-slate-500 mb-3">Загрузите фото для примерки багета</p>
+                        <button id="modal-upload-btn" class="bg-white border border-slate-200 text-slate-700 hover:border-primary hover:text-primary font-bold py-2 px-4 rounded-lg text-xs transition flex items-center justify-center gap-2 mx-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M12 12v9"/><path d="m16 16-4-4-4 4"/></svg>
+                            <span>Загрузить фото</span>
+                        </button>
+                    </div>
+                    <div class="mb-8">
+                        <div class="section-title mb-4 px-1">Студийный багет (Минимализм)</div>
+                        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4" id="frames-grid-studio"></div>
+                    </div>
+                    <div>
+                        <div class="section-title mb-4 px-1">Классический багет (Дерево, Золото)</div>
+                        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4" id="frames-grid-classic"></div>
+                    </div>
+                </div>
+                <div class="p-4 border-t border-slate-100 bg-white shrink-0 flex justify-end gap-3">
+                    <button id="cancel-frame-selection" class="px-6 py-3 rounded-lg text-sm font-bold text-slate-500 hover:bg-slate-100 transition">Отмена</button>
+                    <button id="apply-frame-selection" class="px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded-lg text-sm font-bold shadow-lg shadow-blue-200 transition active:scale-[0.98]">Выбрать этот багет</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lightbox -->
+        <div id="lightbox" class="fixed inset-0 z-[10000] hidden items-center justify-center bg-black/90 backdrop-blur-sm transition-opacity" style="opacity: 0;">
+            <div class="absolute top-4 right-4 z-[10001]">
+                <button id="lightbox-close" class="text-white bg-black/40 hover:bg-black/60 p-2 rounded-full transition pointer-events-auto backdrop-blur-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </button>
+            </div>
+            <div id="lightbox-content" class="relative transition-transform duration-300"></div>
+        </div>
 
         <!-- Promo Banner (1:1 как в эталоне). Порядок блока — как на старой странице -->
         <section class="promo-section">
@@ -876,5 +1128,8 @@
     <!-- Tailwind Plus Elements (el-* components) -->
     <!-- Navigation Scripts -->
     <script src="js/nav.js" defer></script>
+    <script src="js/uploader.js" defer></script>
+    <script src="js/calc.js" defer></script>
+    <script>document.addEventListener('DOMContentLoaded', function () { CalcInit({ type: 'canvas', showProcessing: true, showUpload: true }); });</script>
 </body>
 </html>

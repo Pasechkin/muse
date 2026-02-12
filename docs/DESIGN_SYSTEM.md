@@ -866,6 +866,7 @@ CSS-утилиты для оптимизации рендеринга и пре�
 **Список компонентов:**
 - Кнопки (`btn-primary`, `btn-dark`)
 - Формы (inputs, selects, checkboxes)
+- Калькулятор (`calc-badge`, `calc-alert-warning`, `form-input`, `section-title`)
 - Таблицы данных
 - Alert / Notice
 - Modal / Dialog
@@ -971,6 +972,10 @@ CSS-утилиты для оптимизации рендеринга и пре�
 Базовые стили для полей и состояния ошибок. Текст форм — только с оригинала, иначе использовать плейсхолдеры.
 
 **Правило:** у каждого поля есть `label`, `name` и корректный `type`.
+
+**Фокус (единый стандарт):** при фокусе серая рамка (`border`) становится прозрачной, появляется `outline` в цвете primary. Никогда не показывать двойную рамку (border + outline).
+- Для `.form-input` это закреплено в CSS: `border-color: transparent; outline: 2px solid primary`.
+- Для inline-полей использовать: `focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary`.
 
 **UI‑референс (зафиксировано):** Tailwind Plus UI Blocks → Application UI → Forms → Form layouts:
 https://tailwindcss.com/plus/ui-blocks/application-ui/forms/form-layouts
@@ -2269,6 +2274,181 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="aspect-[378/265]">...</div>
 <div class="aspect-[360/648]">...</div>
 ```
+
+---
+
+## Калькулятор
+
+Компоненты калькулятора печати на холсте. Используется на страницах: `calc.html`, `foto-na-kholste-sankt-peterburg.html`.
+
+**Скрипт:** `js/calc.js` (подключается отдельно, инициализация через `CalcInit()`).
+
+**Принцип:** компонентный подход — повторяющиеся паттерны вынесены в `@layer components` в `input.css`, утилиты — только для точечной кастомизации в HTML.
+
+### Компонентные классы калькулятора
+
+| Класс | Назначение | Файл |
+|-------|------------|------|
+| `.section-title` | Заголовок секции (мелкий uppercase) | `input.css` |
+| `.calc-badge` | Бэдж «ВКЛЮЧЕНО» рядом с заголовком | `input.css` |
+| `.calc-alert-warning` | Предупреждение о качестве фото | `input.css` |
+| `.form-input` | Поля формы заказа (имя, телефон, email, textarea) | `input.css` |
+| `.form-input.error` | Состояние ошибки поля (добавляется через JS) | `input.css` |
+| `.room-bg` | Фон визуализатора интерьера | `input.css` |
+| `.dim-badge` | Бэдж размеров на превью холста | `input.css` |
+| `.btn-header-cta` | Кнопки «Заказать» | `input.css` |
+
+### Toggle-переключатели (лак, упаковка)
+
+Используется паттерн Tailwind v4 `has-checked:` без кастомного CSS. Классы `.toggle-checkbox` / `.toggle-label` удалены из `input.css`.
+
+```html
+<div class="group relative inline-flex w-10 h-6 shrink-0 rounded-full bg-slate-200 p-0.5
+            transition-colors duration-200 ease-in-out has-checked:bg-primary select-none">
+    <span class="size-5 rounded-full bg-white shadow-xs ring-1 ring-slate-900/5
+               transition-transform duration-200 ease-in-out group-has-checked:translate-x-4"></span>
+    <input type="checkbox" name="varnish" id="toggle-varnish" aria-label="Покрытие лаком"
+           class="absolute inset-0 size-full appearance-none cursor-pointer focus:outline-hidden" />
+</div>
+```
+
+**Ключевые моменты:**
+- `has-checked:bg-primary` на обёртке — фон меняется при чек-боксе checked
+- `group-has-checked:translate-x-4` на knob — сдвиг круга вправо
+- `<input>` наложен через `absolute inset-0` — кликабельная область
+- JS обращается по `id` (`toggle-varnish`, `toggle-gift`), не по классам
+
+### Badge (`.calc-badge`)
+
+```html
+<span id="badge-wrap" class="calc-badge">ВКЛЮЧЕНО</span>
+```
+
+**CSS (`input.css`):**
+```css
+.calc-badge {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--color-primary);
+    background-color: #eff6ff; /* blue-50 */
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+```
+
+### Alert (`.calc-alert-warning`)
+
+Предупреждение о низком качестве фото. Показывается/скрывается через JS (класс `hidden`).
+
+```html
+<div id="quality-warning" class="hidden calc-alert-warning mb-3">
+    <svg class="w-4 h-4 shrink-0 mt-0.5 text-yellow-500" ...><!-- иконка --></svg>
+    <span>Качество фото низкое для этого размера. Мы проверим, что можно сделать.</span>
+</div>
+```
+
+**CSS (`input.css`):**
+```css
+.calc-alert-warning {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    background-color: #fefce8; /* yellow-50 */
+    border: 1px solid #fde68a; /* yellow-200 */
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-size: 0.75rem;
+    color: #854d0e; /* yellow-800 */
+}
+```
+
+### Select (выпадающий список)
+
+Grid-паттерн Tailwind v4 — стрелка наложена через `grid` вместо `relative`/`absolute`.
+
+```html
+<div class="grid grid-cols-1">
+    <select id="processing-select" aria-label="Обработка фото"
+            class="col-start-1 row-start-1 w-full appearance-none bg-white border border-slate-200
+                   text-slate-700 py-3 pl-4 pr-8 rounded-lg text-sm font-medium
+                   focus-visible:border-transparent focus-visible:outline-2
+                   focus-visible:-outline-offset-2 focus-visible:outline-primary">
+        <option value="0">Базовая</option>
+    </select>
+    <svg class="pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5
+               self-center justify-self-end text-slate-500">...</svg>
+</div>
+```
+
+### Number inputs (размер холста)
+
+```html
+<input type="number" id="inp-w" value="20"
+       class="w-full h-12 text-center border border-slate-200 rounded-lg text-lg font-bold
+              text-slate-800 focus-visible:border-transparent focus-visible:outline-2
+              focus-visible:-outline-offset-2 focus-visible:outline-primary outline-none transition"
+       placeholder="Ш">
+```
+
+### Форма заказа (`.form-input`)
+
+Компонентный класс для полей формы заказа (имя, телефон, e-mail, ссылка, комментарий).
+
+```html
+<input type="text" id="client-name" class="form-input" placeholder="Имя*">
+<textarea id="client-comment" class="form-input h-full resize-none" rows="4" placeholder="Комментарий"></textarea>
+```
+
+**Фокус:** серая рамка становится прозрачной, появляется `outline: 2px solid primary` (без двойной рамки).
+
+**Валидация:** JS добавляет `.error` (красная рамка) на поля имени и телефона при пустых значениях.
+
+### Кнопки калькулятора
+
+**Без теней.** Классы `shadow-lg shadow-blue-200` удалены — в дизайн-системе кнопки без декоративных теней.
+
+| Кнопка | Классы |
+|--------|--------|
+| Загрузить фото | `bg-primary hover:bg-primary-hover text-white` + утилиты |
+| Заменить | `bg-white border border-slate-200 hover:border-primary hover:text-primary` |
+| Удалить | `bg-red-50 border border-red-100 text-red-500` |
+| Заказать | `.btn-header-cta` + `active:scale-[0.98]` |
+| Выбрать багет | `bg-primary hover:bg-primary-hover text-white` |
+
+### Сегментированный контрол (подрамник)
+
+```html
+<div class="flex p-1 bg-slate-100 rounded-lg">
+    <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-medium transition
+                   bg-white text-slate-900 shadow-sm" data-val="STANDARD">Стандартный</button>
+    <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-medium transition
+                   text-slate-700" data-val="GALLERY">Толстый</button>
+</div>
+```
+
+Активная кнопка получает `bg-white text-slate-900 shadow-sm` через JS.
+
+### Иконки SVG
+
+Все иконки — inline SVG (Lucide), цвет управляется через CSS:
+
+```html
+<svg fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+    <!-- paths -->
+</svg>
+```
+
+- `stroke="currentColor"` — цвет наследуется от родителя (`text-slate-500`, `text-yellow-500` и т.д.)
+- Размер: `w-4 h-4` — `w-6 h-6` в зависимости от контекста
+- `stroke-width="2"` — стандарт Lucide, допускается `1.5` для header-иконок
+
+### Модальное окно багета
+
+Открывается через JS (не `<dialog>` — специфика калькулятора, inline-управление `hidden`/`flex`).
+
+### Lightbox (превью холста)
+
+Компонентные классы `.lightbox-enter` / `.lightbox-enter-active` в `input.css`.
 
 ---
 
