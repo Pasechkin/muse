@@ -375,6 +375,7 @@
       };
 
       var calcMainLayout = getEl('calc-main-layout');
+      var blurHeightTimer = null;
 
       function isSizeInputFocused() {
         return document.activeElement === els.inpW || document.activeElement === els.inpH;
@@ -384,7 +385,7 @@
         if (!isMobileViewport()) return;
         var anchor = calcMainLayout || getEl('calc-main-layout');
         if (!anchor) return;
-        var targetTop = Math.max(0, anchor.getBoundingClientRect().top + window.scrollY - 8);
+        var targetTop = Math.max(0, anchor.getBoundingClientRect().top + window.scrollY - 36);
         window.scrollTo({ top: targetTop, behavior: smooth ? 'smooth' : 'auto' });
       }
 
@@ -426,6 +427,23 @@
           if (e.key === 'Enter') {
             e.preventDefault();
             els.inpH.blur();
+          }
+        });
+
+        els.inpH.addEventListener('input', function () {
+          if (!isMobileViewport()) return;
+          if (blurHeightTimer) clearTimeout(blurHeightTimer);
+          blurHeightTimer = setTimeout(function () {
+            if (document.activeElement === els.inpH) {
+              els.inpH.blur();
+            }
+          }, 850);
+        });
+
+        els.inpH.addEventListener('blur', function () {
+          if (blurHeightTimer) {
+            clearTimeout(blurHeightTimer);
+            blurHeightTimer = null;
           }
         });
       }
