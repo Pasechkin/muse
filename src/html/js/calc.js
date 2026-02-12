@@ -57,6 +57,24 @@
     SQUARE:    [{ w: 40, h: 40 }, { w: 50, h: 50 }, { w: 60, h: 60 }, { w: 70, h: 70 }]
   };
 
+  var MOBILE_SIZE_PRESETS = [
+    { w: 30, h: 45 },
+    { w: 40, h: 50 },
+    { w: 50, h: 75 },
+    { w: 60, h: 80 },
+    { w: 90, h: 120 },
+    { w: 30, h: 30 }
+  ];
+
+  var DESKTOP_EXTRA_SIZE_PRESETS = [
+    { w: 30, h: 45 },
+    { w: 40, h: 50 },
+    { w: 50, h: 75 },
+    { w: 60, h: 80 },
+    { w: 90, h: 120 },
+    { w: 30, h: 30 }
+  ];
+
   var DEFAULT_PRICES = {
     canvasPerSqM: 2500,
     stretcherPerM: 500,
@@ -93,7 +111,7 @@
     var STATE = {
       w: 20, h: 30, wrap: 'STANDARD', varnish: false, gift: false,
       image: null, frame: 'NONE', orientation: 'PORTRAIT',
-      imgW: 0, imgH: 0, interior: 'GIRL', processing: 0,
+      interior: 'GIRL', processing: 0,
       images: []
     };
 
@@ -101,6 +119,34 @@
 
     var tempFrameState = 'NONE';
     var getEl = function (id) { return document.getElementById(id); };
+
+    function isMobileViewport() {
+      return window.matchMedia('(max-width: 1023px)').matches;
+    }
+
+    function getCurrentSizePresetList() {
+      if (isMobileViewport()) return MOBILE_SIZE_PRESETS;
+      return SIZE_PRESETS[STATE.orientation] || SIZE_PRESETS['PORTRAIT'];
+    }
+
+    function isCurrentSizePreset(presetList) {
+      return presetList.some(function (preset) {
+        return preset.w === STATE.w && preset.h === STATE.h;
+      });
+    }
+
+    function setCustomSizeInputsVisibility(show) {
+      var sizeInputsRow = getEl('size-inputs-row');
+      if (!sizeInputsRow) return;
+      if (isMobileViewport()) {
+        sizeInputsRow.classList.toggle('hidden', !show);
+        sizeInputsRow.classList.toggle('flex', !!show);
+      } else {
+        sizeInputsRow.classList.remove('flex');
+        sizeInputsRow.classList.remove('hidden');
+        sizeInputsRow.classList.add('lg:flex');
+      }
+    }
 
     /* ---------- Feature flag UI ---------- */
 
@@ -313,6 +359,7 @@
         priceFrame: getEl('price-frame'),
         selectedFrameText: getEl('selected-frame-text'),
         stickyTotal: getEl('sticky-total-price'),
+        stickyOld: getEl('sticky-old-price'),
         wrapBtns: document.querySelectorAll('.wrap-btn'),
         frameSection: getEl('frame-section'),
         frameModal: getEl('frame-modal'),
@@ -337,6 +384,22 @@
 
       if (els.inpW) els.inpW.addEventListener('input', onDimChange);
       if (els.inpH) els.inpH.addEventListener('input', onDimChange);
+
+      window.addEventListener('resize', function () {
+        renderSizePresets();
+        if (!isMobileViewport()) setCustomSizeInputsVisibility(true);
+      });
+
+      var extraTrack = getEl('size-extra-presets-track');
+
+      if (extraTrack) {
+        extraTrack.addEventListener('wheel', function (e) {
+          if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+            e.preventDefault();
+            extraTrack.scrollBy({ left: e.deltaY, behavior: 'smooth' });
+          }
+        }, { passive: false });
+      }
 
       if (els.wrapBtns) {
         els.wrapBtns.forEach(function (btn) {
@@ -389,8 +452,6 @@
           onActiveImageChange: function (img) {
             if (img) {
               STATE.image = img.dataUrl;
-              STATE.imgW = img.width;
-              STATE.imgH = img.height;
               var ratio = img.width / img.height;
               var newOrientation = 'SQUARE';
               if (ratio > 1.05) newOrientation = 'LANDSCAPE';
@@ -415,8 +476,6 @@
               }
             } else {
               STATE.image = null;
-              STATE.imgW = 0;
-              STATE.imgH = 0;
             }
             updateUI(els);
           }
@@ -482,10 +541,71 @@
       var container = getEl('size-presets-grid');
       if (!container) return;
       container.innerHTML = '';
-      var currentPresets = SIZE_PRESETS[STATE.orientation] || SIZE_PRESETS['PORTRAIT'];
+      var currentPresets = getCurrentSizePresetList();
+      var hasPresetMatch = isCurrentSizePreset(currentPresets);
+
       currentPresets.forEach(function (preset) {
         var btn = document.createElement('button');
-        btn.className = 'size-btn py-1.5 rounded bg-slate-100 text-xs font-medium text-slate-700 hover:bg-slate-200 transition';
+        var isActive = preset.w === STATE.w && preset.h === STATE.h;
+        btn.className = isActive
+          ? 'size-btn shrink-0 px-3 py-1.5 rounded border border-primary bg-blue-50 text-xs font-bold text-primary transition'
+          : 'size-btn shrink-0 px-3 py-1.5 rounded border border-slate-200 bg-slate-100 text-xs font-medium text-slate-700 hover:bg-slate-200 transition';
+        btn.textContent = preset.w + '×' + preset.h;
+        btn.onclick = function () {
+          STATE.w = preset.w;
+          STATE.h = preset.h;
+          getEl('inp-w').value = STATE.w;
+          getEl('inp-h').value = STATE.h;
+          setCustomSizeInputsVisibility(false);
+          saveStateToStorage();
+          renderFrameCatalog();
+          updateUI(null);
+          renderSizePresets();
+        };
+        container.appendChild(btn);
+      });
+
+      if (isMobileViewport()) {
+        var customBtn = document.createElement('button');
+        customBtn.type = 'button';
+        customBtn.className = hasPresetMatch
+          ? 'size-btn shrink-0 px-3 py-1.5 rounded border border-slate-200 bg-white text-xs font-medium text-slate-700 hover:bg-slate-100 transition'
+          : 'size-btn shrink-0 px-3 py-1.5 rounded border border-primary bg-blue-50 text-xs font-bold text-primary transition';
+        customBtn.textContent = 'Свой размер';
+        customBtn.onclick = function () {
+          setCustomSizeInputsVisibility(true);
+          customBtn.className = 'size-btn shrink-0 px-3 py-1.5 rounded border border-primary bg-blue-50 text-xs font-bold text-primary transition';
+        };
+        container.appendChild(customBtn);
+        setCustomSizeInputsVisibility(!hasPresetMatch);
+      } else {
+        setCustomSizeInputsVisibility(true);
+        renderDesktopSizeScroller();
+      }
+    }
+
+    function renderDesktopSizeScroller() {
+      var track = getEl('size-extra-presets-track');
+      if (!track) return;
+      track.innerHTML = '';
+
+      var currentPresets = SIZE_PRESETS[STATE.orientation] || SIZE_PRESETS['PORTRAIT'];
+      var allPresets = currentPresets.concat(DESKTOP_EXTRA_SIZE_PRESETS);
+      var uniquePresets = [];
+      allPresets.forEach(function (preset) {
+        var exists = uniquePresets.some(function (item) {
+          return item.w === preset.w && item.h === preset.h;
+        });
+        if (!exists) uniquePresets.push(preset);
+      });
+
+      uniquePresets.forEach(function (preset) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        var isActive = preset.w === STATE.w && preset.h === STATE.h;
+        btn.className = isActive
+          ? 'size-btn shrink-0 px-3 py-1.5 rounded border border-primary bg-blue-50 text-xs font-bold text-primary transition'
+          : 'size-btn shrink-0 px-3 py-1.5 rounded border border-slate-200 bg-white text-xs font-medium text-slate-700 hover:bg-slate-100 transition';
         btn.textContent = preset.w + '×' + preset.h;
         btn.onclick = function () {
           STATE.w = preset.w;
@@ -495,8 +615,9 @@
           saveStateToStorage();
           renderFrameCatalog();
           updateUI(null);
+          renderSizePresets();
         };
-        container.appendChild(btn);
+        track.appendChild(btn);
       });
     }
 
@@ -665,6 +786,7 @@
           priceGift: getEl('price-gift'), priceFrame: getEl('price-frame'),
           selectedFrameText: getEl('selected-frame-text'),
           stickyTotal: getEl('sticky-total-price'),
+          stickyOld: getEl('sticky-old-price'),
           wrapBtns: document.querySelectorAll('.wrap-btn'),
           processingSelect: getEl('processing-select'),
           badgeWrap: getEl('badge-wrap'),
@@ -694,6 +816,7 @@
       if (els.priceOld) {
         var fakeOldPrice = Math.round(costs.total / 0.8 / 10) * 10;
         els.priceOld.textContent = fakeOldPrice.toLocaleString();
+        if (els.stickyOld) els.stickyOld.textContent = fakeOldPrice.toLocaleString() + ' ₽';
       }
 
       if (els.priceSize) els.priceSize.textContent = costs.sizeCost > 0 ? costs.sizeCost + ' ₽' : '0 ₽';
@@ -758,22 +881,6 @@
       /* Size labels */
       if (els.lblW) els.lblW.textContent = STATE.w;
       if (els.lblH) els.lblH.textContent = STATE.h;
-
-      /* DPI quality warning */
-      var qualityWarning = getEl('quality-warning');
-      if (STATE.imgW > 0 && STATE.imgH > 0 && qualityWarning) {
-        var dpiW = STATE.imgW / (STATE.w / 2.54);
-        var dpiH = STATE.imgH / (STATE.h / 2.54);
-        if (Math.min(dpiW, dpiH) < 100) {
-          qualityWarning.classList.remove('hidden');
-          qualityWarning.classList.add('flex');
-        } else {
-          qualityWarning.classList.add('hidden');
-          qualityWarning.classList.remove('flex');
-        }
-      } else if (qualityWarning) {
-        qualityWarning.classList.add('hidden');
-      }
 
       /* Canvas preview */
       if (els.canvas) {

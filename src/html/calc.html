@@ -49,7 +49,7 @@
                     <div class="p-6 space-y-8">
                         <section>
                             <div class="section-title"><span>Размер, см</span><span class="text-primary font-bold" id="price-size">0 ₽</span></div>
-                            <div class="flex items-center gap-2 mb-3">
+                            <div id="size-inputs-row" class="hidden lg:flex items-center gap-2 mb-3">
                                 <input type="number" id="inp-w" value="20" class="w-full h-12 text-center border border-slate-200 rounded-lg text-lg font-bold text-slate-800 focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary outline-none transition" placeholder="Ш">
                                 <span class="text-slate-300">✕</span>
                                 <input type="number" id="inp-h" value="30" class="w-full h-12 text-center border border-slate-200 rounded-lg text-lg font-bold text-slate-800 focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary outline-none transition" placeholder="В">
@@ -58,7 +58,13 @@
                                 <svg class="w-4 h-4 shrink-0 mt-0.5 text-yellow-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                                 <span>Качество фото низкое для этого размера. Мы проверим, что можно сделать.</span>
                             </div>
-                            <div class="grid grid-cols-4 gap-2" id="size-presets-grid"></div>
+                            <div class="flex lg:hidden gap-2 overflow-x-auto pb-1" id="size-presets-grid"></div>
+                            <div id="size-extra-carousel" class="hidden lg:block mt-3">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Размеры</span>
+                                </div>
+                                <div id="size-extra-presets-track" class="flex gap-2 overflow-x-auto pb-1 scroll-smooth"></div>
+                            </div>
                         </section>
                         <section>
                             <div class="section-title"><span>Печать и подрамник</span><span id="badge-wrap" class="calc-badge">ВКЛЮЧЕНО</span></div>
@@ -142,12 +148,13 @@
                 </div>
             </div>
 
-            <div id="mobile-sticky-bar" class="lg:hidden sticky bottom-0 left-0 w-full bg-white border-t border-slate-200 shadow-[0_-4px_15px_rgba(0,0,0,0.1)] z-50 p-4 flex justify-between items-center rounded-t-xl">
-                <div class="flex flex-col">
-                    <span class="text-[10px] text-slate-500 font-bold uppercase">Итого</span>
-                    <div class="text-xl font-bold text-primary" id="sticky-total-price">890 ₽</div>
+            <div id="mobile-sticky-bar" class="lg:hidden sticky bottom-0 left-0 w-full bg-white border-t border-slate-200 shadow-[0_-4px_15px_rgba(0,0,0,0.1)] z-50 p-3 flex justify-between items-center gap-3 rounded-t-xl">
+                <div class="flex items-center gap-2 min-w-0">
+                    <div class="text-lg font-bold text-primary whitespace-nowrap" id="sticky-total-price">9 543 ₽</div>
+                    <span class="text-[11px] text-slate-500 font-medium whitespace-nowrap">цена со скидкой</span>
+                    <div class="text-xs font-bold text-slate-400 line-through decoration-slate-400 decoration-1 whitespace-nowrap" id="sticky-old-price">11 930 ₽</div>
                 </div>
-                <button id="btn-sticky-order" class="btn-header-cta px-8 py-3 active:scale-[0.98] text-sm">Заказать</button>
+                <button id="btn-sticky-order" class="btn-header-cta px-5 py-2.5 active:scale-[0.98] text-sm shrink-0">Заказать</button>
             </div>
 
         </div>
