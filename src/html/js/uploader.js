@@ -84,6 +84,7 @@
     /* --- Internal state --- */
     var images = [];
     var activeImageId = null;
+    var pendingRemoveId = null;
     var dragCounter = 0;
     var alertTimer = null;
     var destroyed = false;
@@ -321,6 +322,7 @@
       updateUploadBtn();
       notifyChange();
       announce('Удалено фото ' + escapeHtml(removedName));
+      pendingRemoveId = null;
     }
 
     /* ========== SET ACTIVE ========== */
@@ -349,6 +351,7 @@
     function clearAll() {
       images = [];
       activeImageId = null;
+      pendingRemoveId = null;
       if (fileInput()) fileInput().value = '';
       renderThumbnails();
       updateUploadBtn();
@@ -388,14 +391,15 @@
       for (var i = 0; i < images.length; i++) {
         var img = images[i];
         var isActive = (img.id === activeImageId);
+        var isPendingRemove = (img.id === pendingRemoveId);
         html +=
           '<div class="uploader-thumb-wrap' + (isActive ? ' uploader-thumb-active' : '') + '" ' +
               'role="option" aria-selected="' + isActive + '" tabindex="0" ' +
               'data-img-id="' + img.id + '" ' +
               'aria-label="' + escapeHtml(img.name) + '">' +
             '<img src="' + img.dataUrl + '" class="uploader-thumb" alt="' + escapeHtml(img.name) + '" draggable="false">' +
-            '<button type="button" class="uploader-thumb-remove" data-img-id="' + img.id + '" ' +
-              'aria-label="Удалить ' + escapeHtml(img.name) + '" tabindex="0">' +
+            '<button type="button" class="uploader-thumb-remove' + (isPendingRemove ? ' uploader-thumb-remove-armed' : '') + '" data-img-id="' + img.id + '" ' +
+              'aria-label="' + (isPendingRemove ? 'Подтвердить удаление ' : 'Удалить ') + escapeHtml(img.name) + '" tabindex="0">' +
               '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>' +
             '</button>' +
           '</div>';
@@ -423,12 +427,14 @@
         (function (wrap) {
           wrap.addEventListener('click', function (e) {
             if (e.target.closest('.uploader-thumb-remove')) return;
+            if (pendingRemoveId) pendingRemoveId = null;
             setActiveImage(wrap.dataset.imgId);
           });
           wrap.addEventListener('keydown', function (e) {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
               if (e.target.closest('.uploader-thumb-remove')) return;
+              if (pendingRemoveId) pendingRemoveId = null;
               setActiveImage(wrap.dataset.imgId);
             }
           });
@@ -441,13 +447,27 @@
         (function (btn) {
           btn.addEventListener('click', function (e) {
             e.stopPropagation();
-            removeImage(btn.dataset.imgId);
+            var id = btn.dataset.imgId;
+            if (pendingRemoveId !== id) {
+              pendingRemoveId = id;
+              renderThumbnails();
+              announce('Нажмите ещё раз, чтобы удалить фото');
+              return;
+            }
+            removeImage(id);
           });
           btn.addEventListener('keydown', function (e) {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
               e.stopPropagation();
-              removeImage(btn.dataset.imgId);
+              var id = btn.dataset.imgId;
+              if (pendingRemoveId !== id) {
+                pendingRemoveId = id;
+                renderThumbnails();
+                announce('Нажмите ещё раз, чтобы удалить фото');
+                return;
+              }
+              removeImage(id);
             }
           });
         })(removeBtns[r]);
@@ -457,6 +477,10 @@
       var addButton = container.querySelector('.uploader-add-btn');
       if (addButton) {
         addButton.addEventListener('click', function () {
+          if (pendingRemoveId) {
+            pendingRemoveId = null;
+            renderThumbnails();
+          }
           if (fileInput()) fileInput().click();
         });
       }

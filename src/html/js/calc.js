@@ -111,7 +111,7 @@
     var STATE = {
       w: 20, h: 30, wrap: 'STANDARD', varnish: false, gift: false,
       image: null, frame: 'NONE', orientation: 'PORTRAIT',
-      interior: 'GIRL', processing: 0,
+      interior: 'GIRL', processing: 0, customSizeMode: false,
       images: []
     };
 
@@ -377,6 +377,7 @@
       var onDimChange = function () {
         STATE.w = Math.max(20, Math.min(200, parseInt(els.inpW.value) || 0));
         STATE.h = Math.max(20, Math.min(200, parseInt(els.inpH.value) || 0));
+        if (isMobileViewport()) STATE.customSizeMode = true;
         saveStateToStorage();
         renderFrameCatalog();
         updateUI(els);
@@ -384,6 +385,24 @@
 
       if (els.inpW) els.inpW.addEventListener('input', onDimChange);
       if (els.inpH) els.inpH.addEventListener('input', onDimChange);
+
+      if (els.inpW) {
+        els.inpW.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            if (els.inpH) els.inpH.focus();
+          }
+        });
+      }
+
+      if (els.inpH) {
+        els.inpH.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            els.inpH.blur();
+          }
+        });
+      }
 
       window.addEventListener('resize', function () {
         renderSizePresets();
@@ -554,6 +573,7 @@
         btn.onclick = function () {
           STATE.w = preset.w;
           STATE.h = preset.h;
+          STATE.customSizeMode = false;
           getEl('inp-w').value = STATE.w;
           getEl('inp-h').value = STATE.h;
           setCustomSizeInputsVisibility(false);
@@ -568,17 +588,22 @@
       if (isMobileViewport()) {
         var customBtn = document.createElement('button');
         customBtn.type = 'button';
-        customBtn.className = hasPresetMatch
+        var customActive = STATE.customSizeMode || !hasPresetMatch;
+        customBtn.className = customActive
           ? 'size-btn shrink-0 px-3 py-1.5 rounded border border-slate-200 bg-white text-xs font-medium text-slate-700 hover:bg-slate-100 transition'
           : 'size-btn shrink-0 px-3 py-1.5 rounded border border-primary bg-blue-50 text-xs font-bold text-primary transition';
         customBtn.textContent = 'Свой размер';
         customBtn.onclick = function () {
+          STATE.customSizeMode = true;
           setCustomSizeInputsVisibility(true);
           customBtn.className = 'size-btn shrink-0 px-3 py-1.5 rounded border border-primary bg-blue-50 text-xs font-bold text-primary transition';
+          var inpW = getEl('inp-w');
+          if (inpW) inpW.focus();
         };
         container.appendChild(customBtn);
-        setCustomSizeInputsVisibility(!hasPresetMatch);
+        setCustomSizeInputsVisibility(STATE.customSizeMode || !hasPresetMatch);
       } else {
+        STATE.customSizeMode = false;
         setCustomSizeInputsVisibility(true);
         renderDesktopSizeScroller();
       }
