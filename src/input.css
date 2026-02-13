@@ -581,6 +581,13 @@
 
   /* === Calculator Components === */
 
+  /* Mobile: сдвиг sticky-превью вверх при фокусе на полях ввода размера */
+  @media (max-width: 1023px) {
+    #calc-preview-column.preview-shifted {
+      top: -80px;
+    }
+  }
+
   /* Toggle switches: migrated to Tailwind v4 has-checked: utilities in HTML
      See calc.html for usage: group + has-checked:bg-primary + group-has-checked:translate-x-4 */
 

@@ -131,16 +131,16 @@
                 </div>
             </div>
 
-            <form id="order-form-container" class="bg-white rounded-2xl p-6 lg:p-8 shadow-md border border-slate-200 mt-8 mb-0 pb-20 lg:pb-8" autocomplete="off" novalidate>
+            <form id="order-form-container" class="bg-white rounded-2xl p-6 lg:p-8 shadow-md border border-slate-200 mt-8 mb-0 pb-20 lg:pb-8" novalidate>
                 <h3 class="text-xl font-bold text-slate-800 mb-6">Оформление заказа</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                    <div><input type="text" id="client-name" name="client_name_x" class="form-input" placeholder="Имя*" autocomplete="nope"></div>
-                    <div><input type="tel" id="client-phone" name="client_phone_x" class="form-input" placeholder="Телефон*" autocomplete="nope"></div>
-                    <div><input type="text" id="client-email" name="client_email_x" class="form-input" placeholder="E-mail" autocomplete="nope"></div>
+                    <div><input type="text" id="client-name" name="client_name_x" class="form-input" placeholder="Имя*" autocomplete="name"></div>
+                    <div><input type="tel" id="client-phone" name="client_phone_x" class="form-input" placeholder="Телефон*" autocomplete="tel"></div>
+                    <div><input type="email" id="client-email" name="client_email_x" class="form-input" placeholder="E-mail" autocomplete="email"></div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <div><textarea id="client-link" name="client_link_x" class="form-input h-full resize-none" rows="4" placeholder="Поле для ссылки на фото или облако" autocomplete="nope"></textarea></div>
-                    <div><textarea id="client-comment" name="client_comment_x" class="form-input h-full resize-none" rows="4" placeholder="Комментарий" autocomplete="nope"></textarea></div>
+                    <div><textarea id="client-link" name="client_link_x" class="form-input h-full resize-none" rows="4" placeholder="Поле для ссылки на фото или облако"></textarea></div>
+                    <div><textarea id="client-comment" name="client_comment_x" class="form-input h-full resize-none" rows="4" placeholder="Комментарий"></textarea></div>
                 </div>
                 <div class="flex flex-col md:flex-row items-center justify-between gap-6 border-t border-slate-100 pt-6">
                     <div class="text-xs text-slate-500 text-left">Заполняя форму, я соглашаюсь с условиями Оферты и даю свое согласие на обработку персональных данных.</div>

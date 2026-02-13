@@ -360,18 +360,21 @@
 
       function onSizeInputFocus() {
         if (!isMobileViewport()) return;
-        // Скроллим поля ввода под sticky-превью, учитывая его высоту
+        // Сдвигаем sticky-превью вверх, чтобы освободить место под клавиатуру
+        var preview = getEl('calc-preview-column');
+        if (preview) preview.classList.add('preview-shifted');
         setTimeout(function () {
           if (!isSizeInputFocused() || !sizeInputsRow) return;
-          var preview = getEl('calc-preview-column');
           var previewH = preview ? preview.offsetHeight : 0;
           var rowTop = sizeInputsRow.getBoundingClientRect().top + window.scrollY;
           window.scrollTo({ top: Math.max(0, rowTop - previewH - 8), behavior: 'smooth' });
-        }, 350);
+        }, 400);
       }
 
       function onSizeInputBlur() {
-        // Ничего не делаем — не мешаем браузеру
+        if (!isMobileViewport()) return;
+        var preview = getEl('calc-preview-column');
+        if (preview) preview.classList.remove('preview-shifted');
       }
 
       var onDimChange = function () {
