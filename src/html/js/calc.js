@@ -350,67 +350,25 @@
         return document.activeElement === els.inpW || document.activeElement === els.inpH;
       }
 
-      function liftCalcToTop(smooth) {
-        if (!isMobileViewport()) return;
-        var anchor = sizeInputsRow || sizeSection || calcMainLayout;
-        if (!anchor) return;
-        var rect = anchor.getBoundingClientRect();
-        // Если поле уже видно в верхней половине экрана — не скроллить
-        if (rect.top >= 0 && rect.top < window.innerHeight * 0.4) return;
-        var targetTop = Math.max(0, rect.top + window.scrollY - 12);
-        window.scrollTo({ top: targetTop, behavior: smooth ? 'smooth' : 'auto' });
-      }
-
-      function setPreviewStickyEditingMode(enabled) {
-        if (!previewColumn || !isMobileViewport()) return;
-        if (enabled) {
-          previewColumn.classList.remove('sticky', 'top-0', 'z-40');
-        } else {
-          previewColumn.classList.add('sticky', 'top-0', 'z-40');
-        }
-      }
-
-      function applyKeyboardCompensation() {
-        if (!isMobileViewport()) {
-          if (calcMainLayout) calcMainLayout.style.paddingBottom = '';
-          if (sizeInputsRow) sizeInputsRow.style.marginBottom = '';
-          return;
-        }
-
-        var kbHeight = 0;
-        if (window.visualViewport) {
-          kbHeight = Math.max(0, Math.round(window.innerHeight - window.visualViewport.height));
-        }
-
-        if (isSizeInputFocused() && kbHeight > 0) {
-          // marginBottom на полях ввода вместо paddingBottom на layout — меньше перерисовок
-          if (sizeInputsRow) {
-            sizeInputsRow.style.marginBottom = kbHeight + 'px';
-          }
-        } else {
-          if (sizeInputsRow) sizeInputsRow.style.marginBottom = '';
-          if (calcMainLayout) calcMainLayout.style.paddingBottom = '';
-        }
+      /* Скролл превью к верхнему краю экрана (мобильный) */
+      function scrollPreviewToTop() {
+        if (!isMobileViewport() || !previewColumn) return;
+        var targetTop = Math.max(0, previewColumn.getBoundingClientRect().top + window.scrollY);
+        window.scrollTo({ top: targetTop, behavior: 'smooth' });
       }
 
       function onSizeInputFocus() {
         if (!isMobileViewport()) return;
-        setPreviewStickyEditingMode(true);
-        // Даём клавиатуре время полностью открыться, затем один раз позиционируем
+        // Мягкий скролл — поля ввода видны под sticky-превью
         setTimeout(function () {
-          applyKeyboardCompensation();
-          liftCalcToTop(true);
-        }, 300);
+          if (isSizeInputFocused() && sizeInputsRow) {
+            sizeInputsRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }, 350);
       }
 
       function onSizeInputBlur() {
-        setTimeout(function () {
-          if (!isSizeInputFocused()) {
-            setPreviewStickyEditingMode(false);
-            if (sizeInputsRow) sizeInputsRow.style.marginBottom = '';
-            if (calcMainLayout) calcMainLayout.style.paddingBottom = '';
-          }
-        }, 150);
+        // Ничего не делаем — не мешаем браузеру
       }
 
       var onDimChange = function () {
@@ -455,35 +413,8 @@
         renderSizePresets();
         if (!isMobileViewport()) {
           setCustomSizeInputsVisibility(true);
-          setPreviewStickyEditingMode(false);
         }
-        // Убрали агрессивный скролл и компенсацию при resize — источник "прыжков"
       });
-
-      if (window.visualViewport) {
-        var _vpTimer = null;
-        var onViewportShift = function () {
-          // Дебаунс — не реагируем на каждый кадр анимации клавиатуры
-          clearTimeout(_vpTimer);
-          _vpTimer = setTimeout(function () {
-            if (isSizeInputFocused()) {
-              applyKeyboardCompensation();
-              // Подскролливаем только если поля ушли за пределы видимости
-              if (sizeInputsRow) {
-                var rect = sizeInputsRow.getBoundingClientRect();
-                var vpH = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-                if (rect.bottom > vpH || rect.top < 0) {
-                  liftCalcToTop(false);
-                }
-              }
-            } else {
-              applyKeyboardCompensation();
-            }
-          }, 120);
-        };
-        window.visualViewport.addEventListener('resize', onViewportShift);
-        // НЕ слушаем scroll — это основной источник "прыжков"
-      }
 
       var extraTrack = getEl('size-extra-presets-track');
 
@@ -667,14 +598,8 @@
           STATE.customSizeMode = true;
           setCustomSizeInputsVisibility(true);
           renderSizePresets();
-          // НЕ ставим автофокус — пользователь сам тапнет в нужное поле.
-          // Это предотвращает мгновенное открытие клавиатуры и "прыжки".
-          setTimeout(function () {
-            var row = getEl('size-inputs-row');
-            if (row) {
-              row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-          }, 50);
+          // Подтягиваем превью к верхнему краю, поля ввода окажутся сразу под ним
+          setTimeout(function () { scrollPreviewToTop(); }, 50);
         };
         container.appendChild(customBtn);
         setCustomSizeInputsVisibility(STATE.customSizeMode || !hasPresetMatch);
