@@ -7,8 +7,8 @@
  *   <script>
  *     CalcInit({
  *       type: 'canvas',
- *       showProcessing: true,
- *       showUpload: true
+ *       prices: { ... },
+ *       frames: [ ... ]
  *     });
  *   </script>
  */
@@ -100,17 +100,6 @@
     var SIZE_PRESETS  = cfg.sizePresets || DEFAULT_SIZE_PRESETS;
     var PRICES        = cfg.prices     || DEFAULT_PRICES;
 
-    /* --- Feature flags --- */
-    var showProcessing  = cfg.showProcessing !== false;
-    var showUpload      = cfg.showUpload !== false;
-    var showFaces       = !!cfg.showFaces;
-    var showGel         = !!cfg.showGel;
-    var showAcrylic     = !!cfg.showAcrylic;
-    var showOil         = !!cfg.showOil;
-    var showPotal       = !!cfg.showPotal;
-    var showDigitalOnly = !!cfg.showDigitalOnly;
-    var showTooltips    = !!cfg.showTooltips;
-
     /* --- Internal state --- */
     var STATE = {
       w: 20, h: 30, wrap: 'STANDARD', varnish: true, gift: false,
@@ -151,42 +140,7 @@
       }
     }
 
-    /* ---------- Feature flag UI ---------- */
-
-    function applyFeatureFlags() {
-      toggle('calc-processing-section', showProcessing);
-      toggle('calc-upload-section', showUpload);
-      toggle('calc-faces-section', showFaces);
-      toggle('calc-gel-section', showGel);
-      toggle('calc-acrylic-section', showAcrylic);
-      toggle('calc-oil-section', showOil);
-      toggle('calc-potal-section', showPotal);
-      toggle('calc-digital-section', showDigitalOnly);
-
-      function toggle(id, show) {
-        var el = getEl(id);
-        if (el) el.classList.toggle('hidden', !show);
-      }
-    }
-
     /* ---------- Interiors ---------- */
-
-    function renderInteriors() {
-      var container = getEl('interiors-list');
-      if (!container) return;
-      container.innerHTML = '';
-      INTERIORS_DB.forEach(function (room) {
-        var el = document.createElement('div');
-        el.className = 'interior-thumb' + (room.id === STATE.interior ? ' active' : '');
-        el.innerHTML = '<img src="' + room.url + '" alt="' + room.name + '" title="' + room.name + '">';
-        el.onclick = function () {
-          STATE.interior = room.id;
-          renderInteriors();
-          updateUI(null);
-        };
-        container.appendChild(el);
-      });
-    }
 
     /* ---------- Order form ---------- */
 
@@ -252,7 +206,7 @@
 
       FRAMES_DB.forEach(function (frame) {
         var el = document.createElement('div');
-        el.className = 'frame-option group relative cursor-pointer flex flex-col items-center gap-2 p-2 rounded-xl border-2 border-transparent hover:bg-slate-100 transition';
+        el.className = 'frame-option group relative cursor-pointer flex flex-col items-center gap-2 p-2 rounded-xl border-2 border-transparent hover:bg-secondary transition';
         el.dataset.id = frame.id;
 
         var borderStyle = (frame.width > 0 ? '8px' : '0') + ' solid ' + frame.color;
@@ -277,8 +231,8 @@
             '</div>' +
             noFrameIcon +
           '</div>' +
-          '<span class="text-[10px] font-bold text-slate-600 text-center leading-tight group-hover:text-primary transition">' + frame.name + '</span>' +
-          '<button class="zoom-btn absolute top-3 right-3 w-6 h-6 bg-white/90 rounded-full shadow-md flex items-center justify-center text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity hover:text-primary hover:bg-white z-30" title="Смотреть крупно" data-frame-id="' + frame.id + '">' +
+          '<span class="text-[10px] font-bold text-body text-center leading-tight group-hover:text-primary transition">' + frame.name + '</span>' +
+          '<button class="zoom-btn absolute top-3 right-3 w-6 h-6 bg-white/90 rounded-full shadow-md flex items-center justify-center text-body opacity-0 group-hover:opacity-100 transition-opacity hover:text-primary hover:bg-white z-30" title="Смотреть крупно" data-frame-id="' + frame.id + '">' +
             '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>' +
           '</button>';
 
@@ -341,42 +295,6 @@
       if (els.toggleVarnish) els.toggleVarnish.checked = STATE.varnish;
       if (els.toggleGift) els.toggleGift.checked = STATE.gift;
 
-      var calcMainLayout = getEl('calc-main-layout');
-      var sizeInputsRow = getEl('size-inputs-row');
-      var sizeSection = getEl('size-section');
-      var previewColumn = getEl('calc-preview-column');
-
-      function isSizeInputFocused() {
-        return document.activeElement === els.inpW || document.activeElement === els.inpH;
-      }
-
-      /* Скролл превью к верхнему краю экрана (мобильный) */
-      function scrollPreviewToTop() {
-        if (!isMobileViewport() || !calcMainLayout) return;
-        // Скроллим к родительскому контейнеру — sticky-превью прилипнет к top:0
-        var targetTop = calcMainLayout.getBoundingClientRect().top + window.scrollY;
-        window.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
-      }
-
-      function onSizeInputFocus() {
-        if (!isMobileViewport()) return;
-        // Сдвигаем sticky-превью вверх, чтобы освободить место под клавиатуру
-        var preview = getEl('calc-preview-column');
-        if (preview) preview.classList.add('preview-shifted');
-        setTimeout(function () {
-          if (!isSizeInputFocused() || !sizeInputsRow) return;
-          var previewH = preview ? preview.offsetHeight : 0;
-          var rowTop = sizeInputsRow.getBoundingClientRect().top + window.scrollY;
-          window.scrollTo({ top: Math.max(0, rowTop - previewH - 8), behavior: 'smooth' });
-        }, 400);
-      }
-
-      function onSizeInputBlur() {
-        if (!isMobileViewport()) return;
-        var preview = getEl('calc-preview-column');
-        if (preview) preview.classList.remove('preview-shifted');
-      }
-
       var onDimChange = function () {
         STATE.w = Math.max(20, Math.min(200, parseInt(els.inpW.value) || 0));
         STATE.h = Math.max(20, Math.min(200, parseInt(els.inpH.value) || 0));
@@ -387,15 +305,6 @@
 
       if (els.inpW) els.inpW.addEventListener('input', onDimChange);
       if (els.inpH) els.inpH.addEventListener('input', onDimChange);
-
-      if (els.inpW) {
-        els.inpW.addEventListener('focus', onSizeInputFocus);
-        els.inpW.addEventListener('blur', onSizeInputBlur);
-      }
-      if (els.inpH) {
-        els.inpH.addEventListener('focus', onSizeInputFocus);
-        els.inpH.addEventListener('blur', onSizeInputBlur);
-      }
 
       if (els.inpW) {
         els.inpW.addEventListener('keydown', function (e) {
@@ -433,14 +342,12 @@
         }, { passive: false });
       }
 
-      if (els.wrapBtns) {
-        els.wrapBtns.forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            STATE.wrap = btn.dataset.val;
-            updateUI(els);
-          });
+      els.wrapBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          STATE.wrap = btn.dataset.val;
+          updateUI(els);
         });
-      }
+      });
 
       if (els.toggleVarnish) {
         els.toggleVarnish.addEventListener('change', function (e) {
@@ -519,16 +426,14 @@
 
       if (els.frameSection && els.frameModal) {
         els.frameSection.addEventListener('click', function () {
-          els.frameModal.classList.remove('hidden');
-          els.frameModal.classList.add('flex');
+          els.frameModal.showModal();
           tempFrameState = STATE.frame;
           highlightSelectedFrameInModal(tempFrameState);
           updateModalPreviews();
         });
 
         var closeModal = function () {
-          els.frameModal.classList.remove('flex');
-          els.frameModal.classList.add('hidden');
+          els.frameModal.close();
           tempFrameState = STATE.frame;
         };
 
@@ -540,8 +445,14 @@
         }
         if (els.cancelFrame) els.cancelFrame.addEventListener('click', closeModal);
 
+        /* Закрытие по клику на backdrop (за пределами контента) */
         els.frameModal.addEventListener('click', function (e) {
           if (e.target === els.frameModal) closeModal();
+        });
+
+        /* Нативное закрытие по Escape — сброс выбора рамки */
+        els.frameModal.addEventListener('cancel', function () {
+          tempFrameState = STATE.frame;
         });
 
         if (els.modalUploadBtn) {
@@ -575,8 +486,8 @@
         var btn = document.createElement('button');
         var isActive = !STATE.customSizeMode && preset.w === STATE.w && preset.h === STATE.h;
         btn.className = isActive
-          ? 'size-btn shrink-0 px-3 py-1.5 rounded border border-primary bg-blue-50 text-xs font-bold text-primary transition'
-          : 'size-btn shrink-0 px-3 py-1.5 rounded border border-slate-200 bg-slate-100 text-xs font-medium text-slate-700 hover:bg-slate-200 transition';
+          ? 'size-btn shrink-0 px-3 py-1.5 rounded border border-primary bg-primary-light text-xs font-bold text-primary transition'
+          : 'size-btn shrink-0 px-3 py-1.5 rounded border border-slate-200 bg-secondary text-xs font-medium text-body hover:bg-slate-200 transition';
         btn.textContent = preset.w + '×' + preset.h;
         btn.onclick = function () {
           STATE.w = preset.w;
@@ -597,8 +508,8 @@
         customBtn.type = 'button';
         var customActive = STATE.customSizeMode || !hasPresetMatch;
         customBtn.className = customActive
-          ? 'size-btn shrink-0 px-3 py-1.5 rounded border border-primary bg-blue-50 text-xs font-bold text-primary transition'
-          : 'size-btn shrink-0 px-3 py-1.5 rounded border border-slate-200 bg-white text-xs font-medium text-slate-700 hover:bg-slate-100 transition';
+          ? 'size-btn shrink-0 px-3 py-1.5 rounded border border-primary bg-primary-light text-xs font-bold text-primary transition'
+          : 'size-btn shrink-0 px-3 py-1.5 rounded border border-slate-200 bg-white text-xs font-medium text-body hover:bg-secondary transition';
         customBtn.textContent = 'Свой размер';
         customBtn.onclick = function () {
           STATE.customSizeMode = true;
@@ -636,8 +547,8 @@
         btn.type = 'button';
         var isActive = preset.w === STATE.w && preset.h === STATE.h;
         btn.className = isActive
-          ? 'size-btn shrink-0 px-3 py-1.5 rounded border border-primary bg-blue-50 text-xs font-bold text-primary transition'
-          : 'size-btn shrink-0 px-3 py-1.5 rounded border border-slate-200 bg-white text-xs font-medium text-slate-700 hover:bg-slate-100 transition';
+          ? 'size-btn shrink-0 px-3 py-1.5 rounded border border-primary bg-primary-light text-xs font-bold text-primary transition'
+          : 'size-btn shrink-0 px-3 py-1.5 rounded border border-slate-200 bg-white text-xs font-medium text-body hover:bg-secondary transition';
         btn.textContent = preset.w + '×' + preset.h;
         btn.onclick = function () {
           STATE.w = preset.w;
@@ -724,7 +635,6 @@
       lightbox.classList.add('flex');
       requestAnimationFrame(function () {
         lightbox.style.opacity = '1';
-        content.classList.remove('lightbox-enter');
         content.classList.add('lightbox-enter-active');
       });
     }
@@ -741,10 +651,10 @@
       var allOptions = document.querySelectorAll('.frame-option');
       allOptions.forEach(function (opt) {
         if (opt.dataset.id === id) {
-          opt.classList.add('border-primary', 'bg-blue-50');
+          opt.classList.add('border-primary', 'bg-primary-light');
           opt.classList.remove('border-transparent');
         } else {
-          opt.classList.remove('border-primary', 'bg-blue-50');
+          opt.classList.remove('border-primary', 'bg-primary-light');
           opt.classList.add('border-transparent');
         }
       });
@@ -873,24 +783,16 @@
 
       /* Wrap badge */
       if (els.badgeWrap) {
-        if (costs.gallerySurcharge > 0) {
-          els.badgeWrap.textContent = '+' + costs.gallerySurcharge.toLocaleString() + ' ₽';
-          els.badgeWrap.className = 'text-primary text-[10px] font-bold bg-blue-50 px-2 py-0.5 rounded';
-        } else {
-          els.badgeWrap.textContent = 'ВКЛЮЧЕНО';
-          els.badgeWrap.className = 'text-primary text-[10px] font-bold bg-blue-50 px-2 py-0.5 rounded';
-        }
+        els.badgeWrap.textContent = costs.gallerySurcharge > 0
+          ? '+' + costs.gallerySurcharge.toLocaleString() + ' ₽'
+          : 'ВКЛЮЧЕНО';
       }
 
       /* Processing badge */
       if (els.badgeProcessing) {
-        if (costs.processingCost > 0) {
-          els.badgeProcessing.textContent = '+' + costs.processingCost.toLocaleString() + ' ₽';
-          els.badgeProcessing.className = 'text-primary text-[10px] font-bold bg-blue-50 px-2 py-0.5 rounded';
-        } else {
-          els.badgeProcessing.textContent = 'ВКЛЮЧЕНО';
-          els.badgeProcessing.className = 'text-primary text-[10px] font-bold bg-blue-50 px-2 py-0.5 rounded';
-        }
+        els.badgeProcessing.textContent = costs.processingCost > 0
+          ? '+' + costs.processingCost.toLocaleString() + ' ₽'
+          : 'ВКЛЮЧЕНО';
       }
 
       if (els.selectedFrameText) {
@@ -899,15 +801,13 @@
       }
 
       /* Wrap buttons */
-      if (els.wrapBtns) {
-        els.wrapBtns.forEach(function (btn) {
-          if (btn.dataset.val === STATE.wrap) {
-            btn.className = 'wrap-btn flex-1 py-2 rounded-md text-xs font-bold transition bg-white text-slate-900 shadow-sm border border-slate-100';
-          } else {
-            btn.className = 'wrap-btn flex-1 py-2 rounded-md text-xs font-medium transition text-slate-700 hover:text-slate-900 hover:bg-slate-200/50';
-          }
-        });
-      }
+      els.wrapBtns.forEach(function (btn) {
+        if (btn.dataset.val === STATE.wrap) {
+          btn.className = 'wrap-btn flex-1 py-2 rounded-md text-xs font-bold transition bg-white text-dark shadow-sm border border-slate-100';
+        } else {
+          btn.className = 'wrap-btn flex-1 py-2 rounded-md text-xs font-medium transition text-body hover:text-dark hover:bg-slate-200/50';
+        }
+      });
 
       /* Size labels */
       if (els.lblW) els.lblW.textContent = STATE.w;
@@ -956,11 +856,9 @@
     /* ========== BOOTSTRAP ========== */
 
     renderFrameCatalog();
-    renderInteriors();
     initMain();
     initLightbox();
     renderSizePresets();
     initOrderForm();
-    applyFeatureFlags();
   };
 })();

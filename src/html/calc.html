@@ -10,30 +10,30 @@
 
     <main>
 
-    <div class="w-full max-w-7xl mx-auto lg:px-4 lg:py-8">
-        <h2 class="text-3xl font-bold text-center text-slate-800 mb-8 block">Цена</h2>
+    <div class="container lg:py-8">
+        <h2 class="text-3xl font-bold text-center text-body mb-8 block">Цена</h2>
 
         <div class="relative">
             
             <div id="calc-main-layout" class="flex flex-col lg:flex-row items-start relative lg:gap-8 mb-8">
                 <div class="w-full lg:flex-1">
-                    <div id="uploader-zone" class="uploader-zone bg-white p-4 lg:bg-transparent lg:p-0 lg:mb-4">
+                    <div id="uploader-zone" class="uploader-zone mb-2 lg:mb-4">
                         <div class="w-full max-w-sm mx-auto lg:max-w-none">
                             <input type="file" id="file-upload" class="hidden" accept="image/jpeg,image/png,image/gif,image/webp" multiple>
-                            <button id="btn-upload-empty" class="w-full bg-primary hover:bg-primary-hover text-white font-bold py-3 rounded-xl text-sm uppercase tracking-wide transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                            <button id="btn-upload-empty" class="w-full bg-primary hover:bg-primary-hover text-white font-bold py-3 rounded-lg text-sm uppercase tracking-wide transition-all active:scale-[0.98] flex items-center justify-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M12 12v9"/><path d="m16 16-4-4-4 4"/></svg>
                                 <span>Загрузить фото</span>
                             </button>
-                            <div id="uploader-thumbnails" class="uploader-thumbnails" role="listbox" aria-label="Загруженные фотографии"></div>
+                            <div id="uploader-thumbnails" class="uploader-thumbnails thin-scrollbar-x" role="listbox" aria-label="Загруженные фотографии"></div>
                             <div id="uploader-alert" class="uploader-alert" role="status" aria-live="polite"></div>
                             <div id="uploader-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
                         </div>
                     </div>
-                    <div id="calc-preview-column" class="w-full bg-slate-100 shadow-xl lg:shadow-none lg:bg-transparent sticky top-0 lg:top-4 z-40 transition-all">
-                        <div class="relative w-full bg-slate-100 overflow-hidden pt-3 lg:rounded-2xl lg:shadow-xl lg:border lg:border-slate-200">
+                    <div id="calc-preview-column" class="w-full bg-secondary shadow-xl lg:shadow-none lg:bg-transparent sticky top-0 lg:top-4 z-40 transition-all">
+                        <div class="relative w-full overflow-hidden lg:rounded-2xl lg:shadow-xl lg:border lg:border-slate-200">
                             <div class="relative room-bg" id="room-container">
                                 <div id="visualizer-container" class="absolute inset-0 w-full h-full pointer-events-none">
-                                    <div id="preview-canvas" class="bg-white transition-transform pointer-events-auto">
+                                    <div id="preview-canvas" class="calc-preview-canvas bg-white transition-transform pointer-events-auto">
                                          <div class="absolute -top-12 left-1/2 -translate-x-1/2 flex gap-1 pointer-events-none">
                                              <div class="dim-badge"><span id="lbl-w">20</span> см</div>
                                          </div>
@@ -47,20 +47,16 @@
                     </div>
                 </div>
 
-                <div class="w-full lg:w-[420px] bg-white lg:rounded-2xl lg:shadow-xl lg:border lg:border-slate-200 flex flex-col relative z-10">
+                <div class="calc-panel">
                     <div class="p-4 lg:p-6 space-y-6 lg:space-y-8">
                         <section id="size-section">
                             <div class="section-title"><span>Размер, см</span><span class="text-primary font-bold" id="price-size">0 ₽</span></div>
                             <div id="size-inputs-row" class="hidden lg:flex items-center gap-2 mb-3">
-                                <input type="number" id="inp-w" value="20" enterkeyhint="next" autocomplete="off" inputmode="numeric" class="w-full h-10 lg:h-12 text-center border border-slate-200 rounded-lg text-base lg:text-lg font-bold text-slate-800 focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary outline-none transition" placeholder="Ш">
+                                <input type="number" id="inp-w" value="20" enterkeyhint="next" autocomplete="off" inputmode="numeric" class="w-full h-10 lg:h-12 text-center border border-slate-200 rounded-lg text-base lg:text-lg font-bold text-dark focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary outline-none transition" placeholder="Ш">
                                 <span class="text-slate-300">✕</span>
-                                <input type="number" id="inp-h" value="30" enterkeyhint="done" autocomplete="off" inputmode="numeric" class="w-full h-10 lg:h-12 text-center border border-slate-200 rounded-lg text-base lg:text-lg font-bold text-slate-800 focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary outline-none transition" placeholder="В">
+                                <input type="number" id="inp-h" value="30" enterkeyhint="done" autocomplete="off" inputmode="numeric" class="w-full h-10 lg:h-12 text-center border border-slate-200 rounded-lg text-base lg:text-lg font-bold text-dark focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary outline-none transition" placeholder="В">
                             </div>
-                            <div id="quality-warning" class="hidden calc-alert-warning mb-3">
-                                <svg class="w-4 h-4 shrink-0 mt-0.5 text-yellow-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                                <span>Качество фото низкое для этого размера. Мы проверим, что можно сделать.</span>
-                            </div>
-                            <div class="flex lg:hidden gap-2 overflow-x-auto pb-1" id="size-presets-grid"></div>
+                            <div class="flex lg:hidden gap-2 overflow-x-auto pb-1 thin-scrollbar-x" id="size-presets-grid"></div>
                             <div id="size-extra-carousel" class="hidden lg:block mt-3">
                                 <div class="flex items-center justify-between mb-2">
                                     <span class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Размеры</span>
@@ -70,16 +66,16 @@
                         </section>
                         <section>
                             <div class="section-title"><span>Печать и подрамник</span><span id="badge-wrap" class="calc-badge">ВКЛЮЧЕНО</span></div>
-                            <div class="flex p-1 bg-slate-100 rounded-lg">
-                                <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-medium transition bg-white text-slate-900 shadow-sm" data-val="STANDARD">Стандартный</button>
-                                <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-medium transition text-slate-700" data-val="GALLERY">Толстый</button>
-                                <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-medium transition text-slate-700" data-val="NO_FRAME">Рулон</button>
+                            <div class="flex p-1 bg-secondary rounded-lg">
+                                <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-medium transition bg-white text-dark shadow-sm" data-val="STANDARD">Стандартный</button>
+                                <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-medium transition text-body" data-val="GALLERY">Толстый</button>
+                                <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-medium transition text-body" data-val="NO_FRAME">Рулон</button>
                             </div>
                         </section>
                         <section>
                             <div class="section-title"><div class="flex items-center gap-2"><span>Обработка фото</span></div><span id="badge-processing" class="calc-badge">ВКЛЮЧЕНО</span></div>
                             <div class="grid grid-cols-1">
-                                <select id="processing-select" aria-label="Обработка фото" class="col-start-1 row-start-1 w-full appearance-none bg-white border border-slate-200 text-slate-700 py-3 pl-4 pr-8 rounded-lg text-sm font-medium focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary">
+                                <select id="processing-select" aria-label="Обработка фото" class="col-start-1 row-start-1 w-full appearance-none bg-white border border-slate-200 text-body py-3 pl-4 pr-8 rounded-lg text-sm font-medium focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary">
                                     <option value="0">Базовая</option>
                                     <option value="300">Оптимальная (+300 ₽)</option>
                                     <option value="900">Премиальная (+900 ₽)</option>
@@ -92,7 +88,7 @@
                             <div id="frame-section" class="border border-slate-200 rounded-lg p-4 flex items-center gap-4 cursor-pointer hover:border-primary transition group bg-white">
                                 <div class="w-10 h-10 bg-slate-50 rounded border border-slate-200 flex items-center justify-center text-slate-300"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></div>
                                 <div>
-                                    <div class="text-sm font-bold text-slate-800" id="selected-frame-text">Без багета</div>
+                                    <div class="text-sm font-bold text-dark" id="selected-frame-text">Без багета</div>
                                     <div class="text-xs text-primary font-medium group-hover:underline">Выбрать из каталога →</div>
                                 </div>
                             </div>
@@ -103,31 +99,31 @@
                                 <div class="flex gap-3">
                                     <div class="flex h-6 shrink-0 items-center">
                                         <div class="group grid size-4 grid-cols-1">
-                                            <input id="toggle-varnish" type="checkbox" name="varnish" checked aria-describedby="varnish-description" class="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-primary checked:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary forced-colors:appearance-auto cursor-pointer" />
+                                            <input id="toggle-varnish" type="checkbox" name="varnish" checked aria-describedby="varnish-description" class="calc-checkbox col-start-1 row-start-1 forced-colors:appearance-auto" />
                                             <svg viewBox="0 0 14 14" fill="none" class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white">
                                                 <path d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-0 group-has-checked:opacity-100" />
                                             </svg>
                                         </div>
                                     </div>
                                     <div class="text-sm/6">
-                                        <label for="toggle-varnish" class="font-medium text-slate-700 cursor-pointer">Защитит от влаги и выцветания</label>
+                                        <label for="toggle-varnish" class="font-medium text-body cursor-pointer">Защитит от влаги и выцветания</label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="h-px bg-slate-100"></div>
+                            <div class="h-px bg-secondary"></div>
                             <div class="bg-white">
                                 <div class="section-title mb-2"><span>Подарочная упаковка</span><span class="text-xs font-bold text-slate-500 normal-case" id="price-gift">0 ₽</span></div>
                                 <div class="flex gap-3">
                                     <div class="flex h-6 shrink-0 items-center">
                                         <div class="group grid size-4 grid-cols-1">
-                                            <input id="toggle-gift" type="checkbox" name="gift" aria-describedby="gift-description" class="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-primary checked:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary forced-colors:appearance-auto cursor-pointer" />
+                                            <input id="toggle-gift" type="checkbox" name="gift" aria-describedby="gift-description" class="calc-checkbox col-start-1 row-start-1 forced-colors:appearance-auto" />
                                             <svg viewBox="0 0 14 14" fill="none" class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white">
                                                 <path d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-0 group-has-checked:opacity-100" />
                                             </svg>
                                         </div>
                                     </div>
                                     <div class="text-sm/6">
-                                        <label for="toggle-gift" class="font-medium text-slate-700 cursor-pointer">Крафт-бумага, лента и открытка</label>
+                                        <label for="toggle-gift" class="font-medium text-body cursor-pointer">Крафт-бумага, лента и открытка</label>
                                     </div>
                                 </div>
                             </div>
@@ -145,8 +141,8 @@
                 </div>
             </div>
 
-            <form id="order-form-container" class="bg-white rounded-2xl p-6 lg:p-8 shadow-md border border-slate-200 mt-8 mb-0 pb-20 lg:pb-8" novalidate>
-                <h3 class="text-xl font-bold text-slate-800 mb-6 text-center">Оформление заказа</h3>
+            <form id="order-form-container" class="calc-order-form" novalidate>
+                <h3 class="text-xl font-bold text-body mb-6 text-center">Оформление заказа</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                     <div><input type="text" id="client-name" name="client_name_x" class="form-input" placeholder="Имя*" autocomplete="name"></div>
                     <div><input type="tel" id="client-phone" name="client_phone_x" class="form-input" placeholder="Телефон*" autocomplete="tel"></div>
@@ -162,7 +158,7 @@
                 </div>
             </form>
 
-            <div id="mobile-sticky-bar" class="lg:hidden sticky bottom-0 left-0 w-full bg-white border-t border-slate-200 shadow-[0_-4px_15px_rgba(0,0,0,0.1)] z-50 p-3 flex justify-between items-center gap-3 rounded-t-xl">
+            <div id="mobile-sticky-bar" class="calc-sticky-bar">
                 <div class="flex items-center gap-2 min-w-0">
                     <span class="text-[11px] text-slate-500 font-semibold whitespace-nowrap">Итого к оплате</span>
                     <div class="text-lg font-bold text-primary whitespace-nowrap" id="sticky-total-price">9 543 ₽</div>
@@ -176,18 +172,18 @@
         <div class="text-center text-slate-500 py-12 mt-8 border-t border-slate-100 border-dashed">Демо калькулятора</div>
     </div>
 
-    <div id="frame-modal" style="z-index: 9999;" class="fixed inset-0 hidden items-center justify-center bg-black/70 backdrop-blur-sm transition-opacity">
-        <div class="bg-white rounded-xl shadow-2xl w-[800px] max-w-[95%] h-[85vh] flex flex-col overflow-hidden" id="frame-modal-content">
-            <div class="flex justify-between items-center px-6 py-4 border-b border-slate-100 shrink-0">
-                <h3 class="text-xl font-bold text-slate-800">Каталог багета</h3>
-                <button id="close-frame-modal" class="text-slate-400 hover:text-slate-600 p-2 rounded-full hover:bg-slate-100 transition">
+    <dialog id="frame-modal" class="modal-shell">
+        <div class="calc-frame-modal-content" id="frame-modal-content">
+            <div class="calc-frame-modal-header">
+                <h3 class="text-xl font-bold text-body">Каталог багета</h3>
+                <button id="close-frame-modal" type="button" class="text-slate-400 hover:text-slate-600 p-2 rounded-full hover:bg-slate-100 transition">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                 </button>
             </div>
-            <div class="flex-1 overflow-y-auto custom-scrollbar p-6 bg-slate-50">
-                <div id="frame-upload-cta" class="text-center p-4 bg-white rounded-lg border border-dashed border-slate-300 mb-8">
+            <div class="calc-frame-modal-body custom-scrollbar">
+                <div id="frame-upload-cta" class="calc-frame-upload-cta">
                     <p class="text-xs text-slate-500 mb-3">Загрузите фото для примерки багета</p>
-                    <button id="modal-upload-btn" class="bg-white border border-slate-200 text-slate-700 hover:border-primary hover:text-primary font-bold py-2 px-4 rounded-lg text-xs transition flex items-center justify-center gap-2 mx-auto">
+                    <button id="modal-upload-btn" type="button" class="bg-white border border-slate-200 text-body hover:border-primary hover:text-primary font-bold py-2 px-4 rounded-lg text-xs transition flex items-center justify-center gap-2 mx-auto">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M12 12v9"/><path d="m16 16-4-4-4 4"/></svg>
                         <span>Загрузить фото</span>
                     </button>
@@ -201,16 +197,16 @@
                     <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4" id="frames-grid-classic"></div>
                 </div>
             </div>
-            <div class="p-4 border-t border-slate-100 bg-white shrink-0 flex justify-end gap-3">
-                 <button id="cancel-frame-selection" class="px-6 py-3 rounded-lg text-sm font-bold text-slate-500 hover:bg-slate-100 transition">Отмена</button>
-                <button id="apply-frame-selection" class="px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded-lg text-sm font-bold transition active:scale-[0.98]">Выбрать этот багет</button>
+            <div class="calc-frame-modal-footer">
+                 <button id="cancel-frame-selection" type="button" class="px-6 py-3 rounded-lg text-sm font-bold text-slate-500 hover:bg-slate-100 transition">Отмена</button>
+                <button id="apply-frame-selection" type="button" class="px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded-lg text-sm font-bold transition active:scale-[0.98]">Выбрать этот багет</button>
             </div>
         </div>
-    </div>
+    </dialog>
     
-    <div id="lightbox" class="fixed inset-0 z-[10000] hidden items-center justify-center bg-black/90 backdrop-blur-sm transition-opacity" style="opacity: 0;">
-        <div class="absolute top-4 right-4 z-[10001]">
-             <button id="lightbox-close" class="text-white bg-black/40 hover:bg-black/60 p-2 rounded-full transition pointer-events-auto backdrop-blur-sm">
+    <div id="lightbox" class="fixed inset-0 z-lightbox hidden items-center justify-center bg-black/90 backdrop-blur-sm transition-opacity" style="opacity: 0;">
+        <div class="absolute top-4 right-4 z-10">
+             <button id="lightbox-close" class="calc-lightbox-close text-white bg-black/40 hover:bg-black/60 p-2 rounded-full transition pointer-events-auto backdrop-blur-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
             </button>
         </div>
