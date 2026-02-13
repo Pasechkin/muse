@@ -50,9 +50,9 @@
                         <section id="size-section">
                             <div class="section-title"><span>Размер, см</span><span class="text-primary font-bold" id="price-size">0 ₽</span></div>
                             <div id="size-inputs-row" class="hidden lg:flex items-center gap-2 mb-3">
-                                <input type="number" id="inp-w" value="20" enterkeyhint="next" class="w-full h-10 lg:h-12 text-center border border-slate-200 rounded-lg text-base lg:text-lg font-bold text-slate-800 focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary outline-none transition" placeholder="Ш">
+                                <input type="number" id="inp-w" value="20" enterkeyhint="next" autocomplete="off" inputmode="numeric" class="w-full h-10 lg:h-12 text-center border border-slate-200 rounded-lg text-base lg:text-lg font-bold text-slate-800 focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary outline-none transition" placeholder="Ш">
                                 <span class="text-slate-300">✕</span>
-                                <input type="number" id="inp-h" value="30" enterkeyhint="done" class="w-full h-10 lg:h-12 text-center border border-slate-200 rounded-lg text-base lg:text-lg font-bold text-slate-800 focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary outline-none transition" placeholder="В">
+                                <input type="number" id="inp-h" value="30" enterkeyhint="done" autocomplete="off" inputmode="numeric" class="w-full h-10 lg:h-12 text-center border border-slate-200 rounded-lg text-base lg:text-lg font-bold text-slate-800 focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary outline-none transition" placeholder="В">
                             </div>
                             <div id="quality-warning" class="hidden calc-alert-warning mb-3">
                                 <svg class="w-4 h-4 shrink-0 mt-0.5 text-yellow-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
@@ -131,22 +131,22 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-6 lg:p-8 shadow-md border border-slate-200 mt-8 mb-0 pb-20 lg:pb-8" id="order-form-container">
+            <form id="order-form-container" class="bg-white rounded-2xl p-6 lg:p-8 shadow-md border border-slate-200 mt-8 mb-0 pb-20 lg:pb-8" autocomplete="off" novalidate>
                 <h3 class="text-xl font-bold text-slate-800 mb-6">Оформление заказа</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                    <div><input type="text" id="client-name" class="form-input" placeholder="Имя*" autocomplete="off" autocorrect="off"></div>
-                    <div><input type="tel" id="client-phone" class="form-input" placeholder="Телефон*" autocomplete="off"></div>
-                    <div><input type="email" id="client-email" class="form-input" placeholder="E-mail" autocomplete="off"></div>
+                    <div><input type="text" id="client-name" name="client_name_x" class="form-input" placeholder="Имя*" autocomplete="nope"></div>
+                    <div><input type="tel" id="client-phone" name="client_phone_x" class="form-input" placeholder="Телефон*" autocomplete="nope"></div>
+                    <div><input type="text" id="client-email" name="client_email_x" class="form-input" placeholder="E-mail" autocomplete="nope"></div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <div><textarea id="client-link" class="form-input h-full resize-none" rows="4" placeholder="Поле для ссылки на фото или облако" autocomplete="off"></textarea></div>
-                    <div><textarea id="client-comment" class="form-input h-full resize-none" rows="4" placeholder="Комментарий" autocomplete="off"></textarea></div>
+                    <div><textarea id="client-link" name="client_link_x" class="form-input h-full resize-none" rows="4" placeholder="Поле для ссылки на фото или облако" autocomplete="nope"></textarea></div>
+                    <div><textarea id="client-comment" name="client_comment_x" class="form-input h-full resize-none" rows="4" placeholder="Комментарий" autocomplete="nope"></textarea></div>
                 </div>
                 <div class="flex flex-col md:flex-row items-center justify-between gap-6 border-t border-slate-100 pt-6">
                     <div class="text-xs text-slate-500 text-left">Заполняя форму, я соглашаюсь с условиями Оферты и даю свое согласие на обработку персональных данных.</div>
-                    <button id="btn-submit-order" class="hidden lg:block w-full md:w-auto btn-header-cta px-10 py-4 active:scale-[0.98]">Заказать</button>
+                    <button type="button" id="btn-submit-order" class="hidden lg:block w-full md:w-auto btn-header-cta px-10 py-4 active:scale-[0.98]">Заказать</button>
                 </div>
-            </div>
+            </form>
 
             <div id="mobile-sticky-bar" class="lg:hidden sticky bottom-0 left-0 w-full bg-white border-t border-slate-200 shadow-[0_-4px_15px_rgba(0,0,0,0.1)] z-50 p-3 flex justify-between items-center gap-3 rounded-t-xl">
                 <div class="flex items-center gap-2 min-w-0">
