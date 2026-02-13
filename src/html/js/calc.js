@@ -58,6 +58,7 @@
   };
 
   var MOBILE_SIZE_PRESETS = [
+    { w: 20, h: 30 },
     { w: 30, h: 45 },
     { w: 40, h: 50 },
     { w: 50, h: 75 },
@@ -67,6 +68,7 @@
   ];
 
   var DESKTOP_EXTRA_SIZE_PRESETS = [
+    { w: 20, h: 30 },
     { w: 30, h: 45 },
     { w: 40, h: 50 },
     { w: 50, h: 75 },
@@ -109,7 +111,7 @@
 
     /* --- Internal state --- */
     var STATE = {
-      w: 20, h: 30, wrap: 'STANDARD', varnish: false, gift: false,
+      w: 20, h: 30, wrap: 'STANDARD', varnish: true, gift: false,
       image: null, frame: 'NONE', orientation: 'PORTRAIT',
       interior: 'GIRL', processing: 0, customSizeMode: false,
       images: []
@@ -335,6 +337,9 @@
         badgeProcessing: getEl('badge-processing')
       };
 
+      if (els.toggleVarnish) els.toggleVarnish.checked = STATE.varnish;
+      if (els.toggleGift) els.toggleGift.checked = STATE.gift;
+
       var calcMainLayout = getEl('calc-main-layout');
       var sizeInputsRow = getEl('size-inputs-row');
       var sizeSection = getEl('size-section');
@@ -397,6 +402,9 @@
         setTimeout(function () {
           if (!isSizeInputFocused()) {
             setPreviewStickyEditingMode(false);
+            if (isMobileViewport() && STATE.customSizeMode) {
+              setCustomSizeInputsVisibility(true);
+            }
             applyKeyboardCompensation();
           }
         }, 80);
@@ -637,8 +645,8 @@
         customBtn.type = 'button';
         var customActive = STATE.customSizeMode || !hasPresetMatch;
         customBtn.className = customActive
-          ? 'size-btn shrink-0 px-3 py-1.5 rounded border border-slate-200 bg-white text-xs font-medium text-slate-700 hover:bg-slate-100 transition'
-          : 'size-btn shrink-0 px-3 py-1.5 rounded border border-primary bg-blue-50 text-xs font-bold text-primary transition';
+          ? 'size-btn shrink-0 px-3 py-1.5 rounded border border-primary bg-blue-50 text-xs font-bold text-primary transition'
+          : 'size-btn shrink-0 px-3 py-1.5 rounded border border-slate-200 bg-white text-xs font-medium text-slate-700 hover:bg-slate-100 transition';
         customBtn.textContent = 'Свой размер';
         customBtn.onclick = function () {
           STATE.customSizeMode = true;
