@@ -375,7 +375,7 @@
       };
 
       var calcMainLayout = getEl('calc-main-layout');
-      var blurHeightTimer = null;
+      var sizeInputsRow = getEl('size-inputs-row');
 
       function isSizeInputFocused() {
         return document.activeElement === els.inpW || document.activeElement === els.inpH;
@@ -389,9 +389,51 @@
         window.scrollTo({ top: targetTop, behavior: smooth ? 'smooth' : 'auto' });
       }
 
+      function applyKeyboardCompensation() {
+        if (!isMobileViewport()) {
+          if (calcMainLayout) calcMainLayout.style.paddingBottom = '';
+          if (sizeInputsRow) {
+            sizeInputsRow.style.transform = '';
+            sizeInputsRow.style.transition = '';
+          }
+          return;
+        }
+
+        var kbHeight = 0;
+        if (window.visualViewport) {
+          kbHeight = Math.max(0, Math.round(window.innerHeight - window.visualViewport.height));
+        }
+
+        if (isSizeInputFocused() && kbHeight > 0) {
+          if (calcMainLayout) {
+            calcMainLayout.style.paddingBottom = 'calc(' + kbHeight + 'px + env(safe-area-inset-bottom))';
+          }
+          if (sizeInputsRow) {
+            var lift = Math.min(120, Math.round(kbHeight * 0.35));
+            sizeInputsRow.style.transition = 'transform 0.18s ease-out';
+            sizeInputsRow.style.transform = 'translateY(-' + lift + 'px)';
+          }
+        } else {
+          if (calcMainLayout) calcMainLayout.style.paddingBottom = '';
+          if (sizeInputsRow) {
+            sizeInputsRow.style.transform = '';
+            sizeInputsRow.style.transition = '';
+          }
+        }
+      }
+
       function onSizeInputFocus() {
         if (!isMobileViewport()) return;
-        setTimeout(function () { liftCalcToTop(true); }, 40);
+        setTimeout(function () {
+          liftCalcToTop(true);
+          applyKeyboardCompensation();
+        }, 40);
+      }
+
+      function onSizeInputBlur() {
+        setTimeout(function () {
+          if (!isSizeInputFocused()) applyKeyboardCompensation();
+        }, 80);
       }
 
       var onDimChange = function () {
@@ -408,9 +450,11 @@
 
       if (els.inpW) {
         els.inpW.addEventListener('focus', onSizeInputFocus);
+        els.inpW.addEventListener('blur', onSizeInputBlur);
       }
       if (els.inpH) {
         els.inpH.addEventListener('focus', onSizeInputFocus);
+        els.inpH.addEventListener('blur', onSizeInputBlur);
       }
 
       if (els.inpW) {
@@ -429,23 +473,6 @@
             els.inpH.blur();
           }
         });
-
-        els.inpH.addEventListener('input', function () {
-          if (!isMobileViewport()) return;
-          if (blurHeightTimer) clearTimeout(blurHeightTimer);
-          blurHeightTimer = setTimeout(function () {
-            if (document.activeElement === els.inpH) {
-              els.inpH.blur();
-            }
-          }, 850);
-        });
-
-        els.inpH.addEventListener('blur', function () {
-          if (blurHeightTimer) {
-            clearTimeout(blurHeightTimer);
-            blurHeightTimer = null;
-          }
-        });
       }
 
       window.addEventListener('resize', function () {
@@ -455,14 +482,18 @@
         } else if (isSizeInputFocused()) {
           liftCalcToTop(false);
         }
+        applyKeyboardCompensation();
       });
 
       if (window.visualViewport) {
-        window.visualViewport.addEventListener('resize', function () {
+        var onViewportShift = function () {
           if (isSizeInputFocused()) {
             liftCalcToTop(false);
           }
-        });
+          applyKeyboardCompensation();
+        };
+        window.visualViewport.addEventListener('resize', onViewportShift);
+        window.visualViewport.addEventListener('scroll', onViewportShift);
       }
 
       var extraTrack = getEl('size-extra-presets-track');
