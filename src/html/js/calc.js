@@ -166,44 +166,6 @@
       }
     }
 
-    /* ---------- localStorage ---------- */
-
-    function loadStateFromStorage() {
-      var saved = localStorage.getItem('museCalcState');
-      if (!saved) return;
-      try {
-        var p = JSON.parse(saved);
-        if (p.w) STATE.w = p.w;
-        if (p.h) STATE.h = p.h;
-        if (p.wrap) STATE.wrap = p.wrap;
-        if (p.frame) STATE.frame = p.frame;
-        if (p.varnish !== undefined) STATE.varnish = p.varnish;
-        if (p.gift !== undefined) STATE.gift = p.gift;
-        if (p.interior) STATE.interior = p.interior;
-        if (p.processing !== undefined) STATE.processing = p.processing;
-
-        var inpW = getEl('inp-w'), inpH = getEl('inp-h');
-        if (inpW) inpW.value = STATE.w;
-        if (inpH) inpH.value = STATE.h;
-        var tV = getEl('toggle-varnish'), tG = getEl('toggle-gift');
-        if (tV) tV.checked = STATE.varnish;
-        if (tG) tG.checked = STATE.gift;
-        var pS = getEl('processing-select');
-        if (pS) pS.value = STATE.processing;
-      } catch (e) {
-        console.error('CalcInit: error loading state', e);
-      }
-    }
-
-    function saveStateToStorage() {
-      var data = {
-        w: STATE.w, h: STATE.h, wrap: STATE.wrap, frame: STATE.frame,
-        varnish: STATE.varnish, gift: STATE.gift, interior: STATE.interior,
-        processing: STATE.processing
-      };
-      localStorage.setItem('museCalcState', JSON.stringify(data));
-    }
-
     /* ---------- Interiors ---------- */
 
     function renderInteriors() {
@@ -216,7 +178,6 @@
         el.innerHTML = '<img src="' + room.url + '" alt="' + room.name + '" title="' + room.name + '">';
         el.onclick = function () {
           STATE.interior = room.id;
-          saveStateToStorage();
           renderInteriors();
           updateUI(null);
         };
@@ -440,7 +401,6 @@
         STATE.w = Math.max(20, Math.min(200, parseInt(els.inpW.value) || 0));
         STATE.h = Math.max(20, Math.min(200, parseInt(els.inpH.value) || 0));
         if (isMobileViewport()) STATE.customSizeMode = true;
-        saveStateToStorage();
         renderFrameCatalog();
         updateUI(els);
       };
@@ -511,7 +471,6 @@
         els.wrapBtns.forEach(function (btn) {
           btn.addEventListener('click', function () {
             STATE.wrap = btn.dataset.val;
-            saveStateToStorage();
             updateUI(els);
           });
         });
@@ -520,7 +479,6 @@
       if (els.toggleVarnish) {
         els.toggleVarnish.addEventListener('change', function (e) {
           STATE.varnish = e.target.checked;
-          saveStateToStorage();
           updateUI(els);
         });
       }
@@ -528,7 +486,6 @@
       if (els.toggleGift) {
         els.toggleGift.addEventListener('change', function (e) {
           STATE.gift = e.target.checked;
-          saveStateToStorage();
           updateUI(els);
         });
       }
@@ -536,7 +493,6 @@
       if (els.processingSelect) {
         els.processingSelect.addEventListener('change', function (e) {
           STATE.processing = parseInt(e.target.value);
-          saveStateToStorage();
           updateUI(els);
         });
       }
@@ -631,7 +587,6 @@
         if (els.applyFrame) {
           els.applyFrame.addEventListener('click', function () {
             STATE.frame = tempFrameState;
-            saveStateToStorage();
             updateUI(els);
             closeModal();
           });
@@ -664,7 +619,6 @@
           getEl('inp-w').value = STATE.w;
           getEl('inp-h').value = STATE.h;
           setCustomSizeInputsVisibility(false);
-          saveStateToStorage();
           renderFrameCatalog();
           updateUI(null);
           renderSizePresets();
@@ -724,7 +678,6 @@
           STATE.h = preset.h;
           getEl('inp-w').value = STATE.w;
           getEl('inp-h').value = STATE.h;
-          saveStateToStorage();
           renderFrameCatalog();
           updateUI(null);
           renderSizePresets();
@@ -1036,7 +989,6 @@
 
     /* ========== BOOTSTRAP ========== */
 
-    loadStateFromStorage();
     renderFrameCatalog();
     renderInteriors();
     initMain();
