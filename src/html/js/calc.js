@@ -352,9 +352,10 @@
 
       /* Скролл превью к верхнему краю экрана (мобильный) */
       function scrollPreviewToTop() {
-        if (!isMobileViewport() || !previewColumn) return;
-        var targetTop = Math.max(0, previewColumn.getBoundingClientRect().top + window.scrollY);
-        window.scrollTo({ top: targetTop, behavior: 'smooth' });
+        if (!isMobileViewport() || !calcMainLayout) return;
+        // Скроллим к родительскому контейнеру — sticky-превью прилипнет к top:0
+        var targetTop = calcMainLayout.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
       }
 
       function onSizeInputFocus() {
