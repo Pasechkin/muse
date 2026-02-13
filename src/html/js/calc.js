@@ -600,7 +600,12 @@
           setCustomSizeInputsVisibility(true);
           renderSizePresets();
           // Подтягиваем превью к верхнему краю, поля ввода окажутся сразу под ним
-          setTimeout(function () { scrollPreviewToTop(); }, 50);
+          setTimeout(function () {
+            var layout = document.getElementById('calc-main-layout');
+            if (!layout || !isMobileViewport()) return;
+            var targetTop = layout.getBoundingClientRect().top + window.scrollY;
+            window.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
+          }, 50);
         };
         container.appendChild(customBtn);
         setCustomSizeInputsVisibility(STATE.customSizeMode || !hasPresetMatch);
