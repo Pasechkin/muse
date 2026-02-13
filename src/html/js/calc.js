@@ -573,7 +573,7 @@
 
       currentPresets.forEach(function (preset) {
         var btn = document.createElement('button');
-        var isActive = preset.w === STATE.w && preset.h === STATE.h;
+        var isActive = !STATE.customSizeMode && preset.w === STATE.w && preset.h === STATE.h;
         btn.className = isActive
           ? 'size-btn shrink-0 px-3 py-1.5 rounded border border-primary bg-blue-50 text-xs font-bold text-primary transition'
           : 'size-btn shrink-0 px-3 py-1.5 rounded border border-slate-200 bg-slate-100 text-xs font-medium text-slate-700 hover:bg-slate-200 transition';
