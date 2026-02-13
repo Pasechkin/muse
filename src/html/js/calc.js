@@ -52,30 +52,32 @@
   ];
 
   var DEFAULT_SIZE_PRESETS = {
-    PORTRAIT:  [{ w: 30, h: 40 }, { w: 40, h: 60 }, { w: 50, h: 70 }, { w: 60, h: 90 }],
-    LANDSCAPE: [{ w: 40, h: 30 }, { w: 60, h: 40 }, { w: 70, h: 50 }, { w: 90, h: 60 }],
-    SQUARE:    [{ w: 40, h: 40 }, { w: 50, h: 50 }, { w: 60, h: 60 }, { w: 70, h: 70 }]
+    PORTRAIT: [
+      { w: 20, h: 30 },
+      { w: 30, h: 40 },
+      { w: 30, h: 45 },
+      { w: 40, h: 50 },
+      { w: 40, h: 60 },
+      { w: 50, h: 70 },
+      { w: 50, h: 75 },
+      { w: 60, h: 80 },
+      { w: 60, h: 90 },
+      { w: 90, h: 120 }
+    ],
+    LANDSCAPE: [
+      { w: 30, h: 20 },
+      { w: 40, h: 30 },
+      { w: 45, h: 30 },
+      { w: 50, h: 40 },
+      { w: 60, h: 40 },
+      { w: 70, h: 50 },
+      { w: 75, h: 50 },
+      { w: 80, h: 60 },
+      { w: 90, h: 60 },
+      { w: 120, h: 90 }
+    ],
+    SQUARE: [{ w: 30, h: 30 }, { w: 40, h: 40 }, { w: 50, h: 50 }, { w: 60, h: 60 }, { w: 70, h: 70 }]
   };
-
-  var MOBILE_SIZE_PRESETS = [
-    { w: 20, h: 30 },
-    { w: 30, h: 45 },
-    { w: 40, h: 50 },
-    { w: 50, h: 75 },
-    { w: 60, h: 80 },
-    { w: 90, h: 120 },
-    { w: 30, h: 30 }
-  ];
-
-  var DESKTOP_EXTRA_SIZE_PRESETS = [
-    { w: 20, h: 30 },
-    { w: 30, h: 45 },
-    { w: 40, h: 50 },
-    { w: 50, h: 75 },
-    { w: 60, h: 80 },
-    { w: 90, h: 120 },
-    { w: 30, h: 30 }
-  ];
 
   var DEFAULT_PRICES = {
     canvasPerSqM: 2500,
@@ -127,7 +129,6 @@
     }
 
     function getCurrentSizePresetList() {
-      if (isMobileViewport()) return MOBILE_SIZE_PRESETS;
       return SIZE_PRESETS[STATE.orientation] || SIZE_PRESETS['PORTRAIT'];
     }
 
@@ -351,9 +352,12 @@
 
       function liftCalcToTop(smooth) {
         if (!isMobileViewport()) return;
-        var anchor = sizeSection || sizeInputsRow || calcMainLayout || getEl('calc-main-layout');
+        var anchor = sizeInputsRow || sizeSection || calcMainLayout;
         if (!anchor) return;
-        var targetTop = Math.max(0, anchor.getBoundingClientRect().top + window.scrollY - 12);
+        var rect = anchor.getBoundingClientRect();
+        // Если поле уже видно в верхней половине экрана — не скроллить
+        if (rect.top >= 0 && rect.top < window.innerHeight * 0.4) return;
+        var targetTop = Math.max(0, rect.top + window.scrollY - 12);
         window.scrollTo({ top: targetTop, behavior: smooth ? 'smooth' : 'auto' });
       }
 
@@ -369,7 +373,7 @@
       function applyKeyboardCompensation() {
         if (!isMobileViewport()) {
           if (calcMainLayout) calcMainLayout.style.paddingBottom = '';
-          if (sizeInputsRow) sizeInputsRow.style.transition = '';
+          if (sizeInputsRow) sizeInputsRow.style.marginBottom = '';
           return;
         }
 
@@ -379,35 +383,34 @@
         }
 
         if (isSizeInputFocused() && kbHeight > 0) {
-          if (calcMainLayout) {
-            calcMainLayout.style.paddingBottom = 'calc(' + kbHeight + 'px + env(safe-area-inset-bottom))';
+          // marginBottom на полях ввода вместо paddingBottom на layout — меньше перерисовок
+          if (sizeInputsRow) {
+            sizeInputsRow.style.marginBottom = kbHeight + 'px';
           }
-          if (sizeInputsRow) sizeInputsRow.style.transition = '';
         } else {
+          if (sizeInputsRow) sizeInputsRow.style.marginBottom = '';
           if (calcMainLayout) calcMainLayout.style.paddingBottom = '';
-          if (sizeInputsRow) sizeInputsRow.style.transition = '';
         }
       }
 
       function onSizeInputFocus() {
         if (!isMobileViewport()) return;
         setPreviewStickyEditingMode(true);
+        // Даём клавиатуре время полностью открыться, затем один раз позиционируем
         setTimeout(function () {
-          liftCalcToTop(true);
           applyKeyboardCompensation();
-        }, 40);
+          liftCalcToTop(true);
+        }, 300);
       }
 
       function onSizeInputBlur() {
         setTimeout(function () {
           if (!isSizeInputFocused()) {
             setPreviewStickyEditingMode(false);
-            if (isMobileViewport() && STATE.customSizeMode) {
-              setCustomSizeInputsVisibility(true);
-            }
-            applyKeyboardCompensation();
+            if (sizeInputsRow) sizeInputsRow.style.marginBottom = '';
+            if (calcMainLayout) calcMainLayout.style.paddingBottom = '';
           }
-        }, 80);
+        }, 150);
       }
 
       var onDimChange = function () {
@@ -453,21 +456,33 @@
         if (!isMobileViewport()) {
           setCustomSizeInputsVisibility(true);
           setPreviewStickyEditingMode(false);
-        } else if (isSizeInputFocused()) {
-          liftCalcToTop(false);
         }
-        applyKeyboardCompensation();
+        // Убрали агрессивный скролл и компенсацию при resize — источник "прыжков"
       });
 
       if (window.visualViewport) {
+        var _vpTimer = null;
         var onViewportShift = function () {
-          if (isSizeInputFocused()) {
-            liftCalcToTop(false);
-          }
-          applyKeyboardCompensation();
+          // Дебаунс — не реагируем на каждый кадр анимации клавиатуры
+          clearTimeout(_vpTimer);
+          _vpTimer = setTimeout(function () {
+            if (isSizeInputFocused()) {
+              applyKeyboardCompensation();
+              // Подскролливаем только если поля ушли за пределы видимости
+              if (sizeInputsRow) {
+                var rect = sizeInputsRow.getBoundingClientRect();
+                var vpH = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+                if (rect.bottom > vpH || rect.top < 0) {
+                  liftCalcToTop(false);
+                }
+              }
+            } else {
+              applyKeyboardCompensation();
+            }
+          }, 120);
         };
         window.visualViewport.addEventListener('resize', onViewportShift);
-        window.visualViewport.addEventListener('scroll', onViewportShift);
+        // НЕ слушаем scroll — это основной источник "прыжков"
       }
 
       var extraTrack = getEl('size-extra-presets-track');
@@ -651,9 +666,15 @@
         customBtn.onclick = function () {
           STATE.customSizeMode = true;
           setCustomSizeInputsVisibility(true);
-          customBtn.className = 'size-btn shrink-0 px-3 py-1.5 rounded border border-primary bg-blue-50 text-xs font-bold text-primary transition';
-          var inpW = getEl('inp-w');
-          if (inpW) inpW.focus();
+          renderSizePresets();
+          // НЕ ставим автофокус — пользователь сам тапнет в нужное поле.
+          // Это предотвращает мгновенное открытие клавиатуры и "прыжки".
+          setTimeout(function () {
+            var row = getEl('size-inputs-row');
+            if (row) {
+              row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+          }, 50);
         };
         container.appendChild(customBtn);
         setCustomSizeInputsVisibility(STATE.customSizeMode || !hasPresetMatch);
@@ -670,16 +691,8 @@
       track.innerHTML = '';
 
       var currentPresets = SIZE_PRESETS[STATE.orientation] || SIZE_PRESETS['PORTRAIT'];
-      var allPresets = currentPresets.concat(DESKTOP_EXTRA_SIZE_PRESETS);
-      var uniquePresets = [];
-      allPresets.forEach(function (preset) {
-        var exists = uniquePresets.some(function (item) {
-          return item.w === preset.w && item.h === preset.h;
-        });
-        if (!exists) uniquePresets.push(preset);
-      });
 
-      uniquePresets.forEach(function (preset) {
+      currentPresets.forEach(function (preset) {
         var btn = document.createElement('button');
         btn.type = 'button';
         var isActive = preset.w === STATE.w && preset.h === STATE.h;
