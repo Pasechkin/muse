@@ -360,11 +360,13 @@
 
       function onSizeInputFocus() {
         if (!isMobileViewport()) return;
-        // Мягкий скролл — поля ввода видны под sticky-превью
+        // Скроллим поля ввода под sticky-превью, учитывая его высоту
         setTimeout(function () {
-          if (isSizeInputFocused() && sizeInputsRow) {
-            sizeInputsRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
+          if (!isSizeInputFocused() || !sizeInputsRow) return;
+          var preview = getEl('calc-preview-column');
+          var previewH = preview ? preview.offsetHeight : 0;
+          var rowTop = sizeInputsRow.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({ top: Math.max(0, rowTop - previewH - 8), behavior: 'smooth' });
         }, 350);
       }
 
@@ -599,13 +601,16 @@
           STATE.customSizeMode = true;
           setCustomSizeInputsVisibility(true);
           renderSizePresets();
-          // Подтягиваем превью к верхнему краю, поля ввода окажутся сразу под ним
+          // Скроллим так, чтобы поля ввода оказались видны под sticky-превью
           setTimeout(function () {
-            var layout = document.getElementById('calc-main-layout');
-            if (!layout || !isMobileViewport()) return;
-            var targetTop = layout.getBoundingClientRect().top + window.scrollY;
-            window.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
-          }, 50);
+            var row = document.getElementById('size-inputs-row');
+            if (!row || !isMobileViewport()) return;
+            var preview = document.getElementById('calc-preview-column');
+            var previewH = preview ? preview.offsetHeight : 0;
+            var rowTop = row.getBoundingClientRect().top + window.scrollY;
+            // Целевая позиция: поля ввода сразу под sticky-превью
+            window.scrollTo({ top: Math.max(0, rowTop - previewH - 8), behavior: 'smooth' });
+          }, 80);
         };
         container.appendChild(customBtn);
         setCustomSizeInputsVisibility(STATE.customSizeMode || !hasPresetMatch);
