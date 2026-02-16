@@ -2285,38 +2285,60 @@ document.addEventListener('DOMContentLoaded', function() {
 
 **Принцип:** компонентный подход — повторяющиеся паттерны вынесены в `@layer components` в `input.css`, утилиты — только для точечной кастомизации в HTML.
 
+### Текущее состояние (февраль 2026)
+
+- **Source of truth (демо):**
+  - HTML: `src/html/calc.html`
+  - JS: `src/html/js/calc.js`
+  - CSS: `src/input.css` (компоненты) → `src/html/css/output.css` (preview)
+- **Модалка багета:** нативный `<dialog>` + `showModal()` / `close()`.
+- **Новые component classes:** `.calc-panel`, `.calc-sticky-bar`, `.modal-shell`, `.calc-order-form`, `.calc-frame-modal-content`, `.calc-frame-modal-header`, `.calc-frame-modal-body`, `.calc-frame-upload-cta`, `.calc-frame-modal-footer`, `.calc-preview-canvas`, `.calc-lightbox-close`.
+- **Preview workflow (обязательно):** после правок CSS запускать `npm run build:once` и `npm run copy-css`.
+
 ### Компонентные классы калькулятора
 
 | Класс | Назначение | Файл |
 |-------|------------|------|
+| `.calc-panel` | Правая панель опций калькулятора | `input.css` |
+| `.calc-sticky-bar` | Мобильный sticky-бар с итогом и CTA | `input.css` |
+| `.modal-shell` | Overlay и центрирование нативной `<dialog>` модалки | `input.css` |
+| `.calc-order-form` | Контейнер формы заказа | `input.css` |
+| `.calc-frame-modal-content` | Контентная обёртка модалки багета | `input.css` |
+| `.calc-frame-modal-header` | Header модалки багета | `input.css` |
+| `.calc-frame-modal-body` | Scroll-body модалки багета | `input.css` |
+| `.calc-frame-upload-cta` | Upload-блок внутри модалки багета | `input.css` |
+| `.calc-frame-modal-footer` | Footer модалки багета | `input.css` |
 | `.section-title` | Заголовок секции (мелкий uppercase) | `input.css` |
 | `.calc-badge` | Бэдж «ВКЛЮЧЕНО» рядом с заголовком | `input.css` |
-| `.calc-alert-warning` | Предупреждение о качестве фото | `input.css` |
+| `.calc-alert-warning` | Предупреждение о качестве фото (опционально, в `calc.html` сейчас не выведено) | `input.css` |
 | `.form-input` | Поля формы заказа (имя, телефон, email, textarea) | `input.css` |
 | `.form-input.error` | Состояние ошибки поля (добавляется через JS) | `input.css` |
 | `.room-bg` | Фон визуализатора интерьера | `input.css` |
+| `.calc-preview-canvas` | Стили холста-превью (бывший ID-first стиль) | `input.css` |
 | `.dim-badge` | Бэдж размеров на превью холста | `input.css` |
+| `.calc-lightbox-close` | Кнопка закрытия lightbox (бывший ID-first стиль) | `input.css` |
 | `.btn-header-cta` | Кнопки «Заказать» | `input.css` |
 
 ### Toggle-переключатели (лак, упаковка)
 
-Используется паттерн Tailwind v4 `has-checked:` без кастомного CSS. Классы `.toggle-checkbox` / `.toggle-label` удалены из `input.css`.
+Используется `input[type="checkbox"]` с компонентным классом `.calc-checkbox` и SVG-галкой на `group-has-checked:`.
 
 ```html
-<div class="group relative inline-flex w-10 h-6 shrink-0 rounded-full bg-slate-200 p-0.5
-            transition-colors duration-200 ease-in-out has-checked:bg-primary select-none">
-    <span class="size-5 rounded-full bg-white shadow-xs ring-1 ring-slate-900/5
-               transition-transform duration-200 ease-in-out group-has-checked:translate-x-4"></span>
-    <input type="checkbox" name="varnish" id="toggle-varnish" aria-label="Покрытие лаком"
-           class="absolute inset-0 size-full appearance-none cursor-pointer focus:outline-hidden" />
+<div class="group grid size-4 grid-cols-1">
+    <input id="toggle-varnish" type="checkbox" name="varnish"
+        class="calc-checkbox col-start-1 row-start-1 forced-colors:appearance-auto" />
+    <svg viewBox="0 0 14 14" fill="none"
+      class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white">
+     <path d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        class="opacity-0 group-has-checked:opacity-100" />
+    </svg>
 </div>
 ```
 
 **Ключевые моменты:**
-- `has-checked:bg-primary` на обёртке — фон меняется при чек-боксе checked
-- `group-has-checked:translate-x-4` на knob — сдвиг круга вправо
-- `<input>` наложен через `absolute inset-0` — кликабельная область
-- JS обращается по `id` (`toggle-varnish`, `toggle-gift`), не по классам
+- Визуальная часть чекбокса задаётся через `.calc-checkbox`.
+- Галка показывается через `group-has-checked:opacity-100`.
+- JS обращается по `id` (`toggle-varnish`, `toggle-gift`), не по классам.
 
 ### Badge (`.calc-badge`)
 
@@ -2330,7 +2352,7 @@ document.addEventListener('DOMContentLoaded', function() {
     font-size: 10px;
     font-weight: 700;
     color: var(--color-primary);
-    background-color: #eff6ff; /* blue-50 */
+    background-color: var(--color-primary-light);
     padding: 2px 8px;
     border-radius: 4px;
 }
@@ -2444,7 +2466,24 @@ Grid-паттерн Tailwind v4 — стрелка наложена через `
 
 ### Модальное окно багета
 
-Открывается через JS (не `<dialog>` — специфика калькулятора, inline-управление `hidden`/`flex`).
+Реализовано нативным `<dialog id="frame-modal" class="modal-shell">`.
+
+- Открытие: `frameModal.showModal()`
+- Закрытие: `frameModal.close()`
+- Закрытие по backdrop: клик по `dialog` вне контента
+- Закрытие по Escape: нативное событие `cancel`
+
+Структура контента внутри модалки:
+
+```html
+<dialog id="frame-modal" class="modal-shell">
+    <div class="calc-frame-modal-content" id="frame-modal-content">
+        <div class="calc-frame-modal-header">...</div>
+        <div class="calc-frame-modal-body custom-scrollbar">...</div>
+        <div class="calc-frame-modal-footer">...</div>
+    </div>
+</dialog>
+```
 
 ### Lightbox (превью холста)
 

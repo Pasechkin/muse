@@ -10,7 +10,7 @@
 
     <main>
 
-    <div class="container lg:py-8">
+    <section id="calc" data-calc-root class="container lg:py-8">
         <h2 class="text-3xl font-bold text-center text-body mb-8 block">Цена</h2>
 
         <div class="relative">
@@ -162,7 +162,7 @@
                 <div class="flex items-center gap-2 min-w-0">
                     <span class="text-[11px] text-slate-500 font-semibold whitespace-nowrap">Итого к оплате</span>
                     <div class="text-lg font-bold text-primary whitespace-nowrap" id="sticky-total-price">9 543 ₽</div>
-                    <div class="text-xs font-bold text-slate-400 line-through decoration-slate-400 decoration-1 whitespace-nowrap" id="sticky-old-price">11 930 ₽</div>
+                    <div class="text-xs font-bold text-slate-500 line-through decoration-slate-500 decoration-1 whitespace-nowrap" id="sticky-old-price">11 930 ₽</div>
                 </div>
                 <button id="btn-sticky-order" class="btn-header-cta px-5 py-2.5 active:scale-[0.98] text-sm shrink-0">Заказать</button>
             </div>
@@ -170,7 +170,7 @@
         </div>
 
         <div class="text-center text-slate-500 py-12 mt-8 border-t border-slate-100 border-dashed">Демо калькулятора</div>
-    </div>
+    </section>
 
     <dialog id="frame-modal" class="modal-shell">
         <div class="calc-frame-modal-content" id="frame-modal-content">
@@ -217,7 +217,36 @@
 
     <script src="js/nav.js" defer></script>
     <script src="js/uploader.js" defer></script>
-    <script src="js/calc.js?v=2" defer></script>
-    <script>document.addEventListener('DOMContentLoaded', function () { CalcInit(); });</script>
+        <script src="js/calc.js?v=2" defer></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var calcRoot = document.querySelector('[data-calc-root]');
+                if (!calcRoot) return;
+
+                function startCalc() {
+                    if (window.__MUSE_CALC_BOOTED__) return;
+                    window.__MUSE_CALC_BOOTED__ = true;
+                    CalcInit();
+                }
+
+                if (!('IntersectionObserver' in window)) {
+                    startCalc();
+                    return;
+                }
+
+                var observer = new IntersectionObserver(function (entries) {
+                    if (entries.some(function (entry) { return entry.isIntersecting; })) {
+                        observer.disconnect();
+                        if ('requestIdleCallback' in window) {
+                            requestIdleCallback(startCalc, { timeout: 800 });
+                        } else {
+                            setTimeout(startCalc, 0);
+                        }
+                    }
+                }, { rootMargin: '300px 0px' });
+
+                observer.observe(calcRoot);
+            });
+        </script>
 </body>
 </html>

@@ -195,6 +195,12 @@
 
     /* ---------- Frame catalog ---------- */
 
+    function getFramePrice(frame) {
+      var perimeter = (STATE.w + STATE.h) * 2 / 100;
+      var multiplier = (frame.cat === 'CLASSIC') ? 1.5 : 1;
+      return frame.id === 'NONE' ? 0 : Math.ceil(perimeter * PRICES.framePerM * multiplier);
+    }
+
     function renderFrameCatalog() {
       var studioContainer = getEl('frames-grid-studio');
       var classicContainer = getEl('frames-grid-classic');
@@ -224,6 +230,8 @@
             '</div>'
           : '';
 
+        var priceText = frame.id === 'NONE' ? 'Без багета' : getFramePrice(frame).toLocaleString() + ' р.';
+
         el.innerHTML =
           '<div class="relative w-full rounded-lg shadow-sm overflow-hidden bg-white frame-preview-box" style="' + aspectRatioStyle + '">' +
             '<div class="w-full h-full box-border relative z-10" style="border: ' + borderStyle + '; ' + styleCSS + ' transition: border 0.2s;">' +
@@ -231,24 +239,15 @@
             '</div>' +
             noFrameIcon +
           '</div>' +
-          '<span class="text-[10px] font-bold text-body text-center leading-tight group-hover:text-primary transition">' + frame.name + '</span>' +
-          '<button class="zoom-btn absolute top-3 right-3 w-6 h-6 bg-white/90 rounded-full shadow-md flex items-center justify-center text-body opacity-0 group-hover:opacity-100 transition-opacity hover:text-primary hover:bg-white z-30" title="Смотреть крупно" data-frame-id="' + frame.id + '">' +
-            '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>' +
-          '</button>';
+          '<span class="text-[10px] font-bold text-body text-center leading-tight group-hover:text-primary transition">' + priceText + '</span>';
 
         el.addEventListener('click', function (e) {
-          if (e.target.closest('.zoom-btn')) return;
-          handleFrameClickInModal(frame.id);
-        });
-
-        var zoomBtn = el.querySelector('.zoom-btn');
-        if (zoomBtn) {
-          zoomBtn.addEventListener('click', function (e) {
-            e.stopPropagation();
-            if (!STATE.image) { if (uploaderInstance) uploaderInstance.openFilePicker(); return; }
+          if (tempFrameState === frame.id && STATE.image) {
             openLightbox(frame.id);
-          });
-        }
+          } else {
+            handleFrameClickInModal(frame.id);
+          }
+        });
 
         if (frame.cat === 'STUDIO' || frame.id === 'NONE') {
           studioContainer.appendChild(el);
@@ -278,6 +277,8 @@
         selectedFrameText: getEl('selected-frame-text'),
         stickyTotal: getEl('sticky-total-price'),
         stickyOld: getEl('sticky-old-price'),
+        discountBadge: getEl('discount-badge'),
+        stickyDiscountBadge: getEl('sticky-discount-badge'),
         wrapBtns: document.querySelectorAll('.wrap-btn'),
         frameSection: getEl('frame-section'),
         frameModal: getEl('frame-modal'),
@@ -569,11 +570,7 @@
       var lightbox = getEl('lightbox');
       var closeBtn = getEl('lightbox-close');
       var closeAction = function () {
-        lightbox.style.opacity = '0';
-        setTimeout(function () {
-          lightbox.classList.add('hidden');
-          lightbox.classList.remove('flex');
-        }, 300);
+        if (lightbox && lightbox.open) lightbox.close();
       };
       if (closeBtn) {
         closeBtn.onclick = function (e) {
@@ -595,33 +592,66 @@
       if (!lightbox || !content || !STATE.image) return;
       content.innerHTML = '';
 
-      var vpW = window.innerWidth * 0.9;
-      var vpH = window.innerHeight * 0.9;
+      var vpW = window.innerWidth * 0.94;
+      var vpH = window.innerHeight * 0.94;
       var ratio = STATE.w / STATE.h;
-      var finalW, finalH;
-      if (vpW / ratio <= vpH) { finalW = vpW; finalH = vpW / ratio; }
-      else { finalH = vpH; finalW = vpH * ratio; }
+
+      var f = FRAMES_DB.find(function (x) { return x.id === frameIdToPreview; }) || FRAMES_DB[0];
+
+      /* First pass: fit image to viewport, then scale frame proportionally */
+      var imgW, imgH;
+      if (vpW / ratio <= vpH) { imgW = vpW; imgH = vpW / ratio; }
+      else { imgH = vpH; imgW = vpH * ratio; }
+
+      /* Scale frame border proportionally to image size */
+      var borderPx = 0;
+      if (frameIdToPreview !== 'NONE') {
+        var sf = Math.max(1, imgW / (STATE.w * 4));
+        borderPx = f.width * sf;
+      }
+
+      /* Shrink image so image + frame fits in viewport */
+      var totalW = imgW + borderPx * 2;
+      var totalH = imgH + borderPx * 2;
+      if (totalW > vpW || totalH > vpH) {
+        var scale = Math.min(vpW / totalW, vpH / totalH);
+        imgW = imgW * scale;
+        imgH = imgH * scale;
+        borderPx = borderPx * scale;
+      }
+
+      /* Frame cost for label */
+      var frameCost = 0;
+      if (frameIdToPreview !== 'NONE') {
+        frameCost = getFramePrice(f);
+      }
+
+      /* Wrapper: relative positioning for price overlay on desktop */
+      var wrapper = document.createElement('div');
+      wrapper.style.display = 'flex';
+      wrapper.style.alignItems = 'center';
+      wrapper.style.justifyContent = 'center';
+      wrapper.style.position = 'relative';
+      if (window.innerWidth < 1024) {
+        wrapper.style.flexDirection = 'column';
+        wrapper.style.gap = '1rem';
+      }
 
       var div = document.createElement('div');
-      div.style.width = finalW + 'px';
-      div.style.height = finalH + 'px';
-      div.style.backgroundClip = 'border-box';
-      div.style.backgroundOrigin = 'border-box';
+      div.style.boxSizing = 'content-box';
+      div.style.width = Math.round(imgW) + 'px';
+      div.style.height = Math.round(imgH) + 'px';
+      div.style.backgroundClip = 'padding-box';
+      div.style.backgroundOrigin = 'padding-box';
       div.style.backgroundImage = 'url(' + STATE.image + ')';
       div.style.backgroundSize = 'cover';
       div.style.backgroundPosition = 'center';
-      div.style.boxShadow = '0 20px 50px rgba(0,0,0,0.5)';
-
-      var f = FRAMES_DB.find(function (x) { return x.id === frameIdToPreview; }) || FRAMES_DB[0];
-      var scaleFactor = finalW / (STATE.w * 4);
-      var sf = Math.max(1, scaleFactor);
+      div.style.boxShadow = '0 8px 30px rgba(0,0,0,0.15)';
+      div.style.flexShrink = '0';
 
       if (frameIdToPreview !== 'NONE') {
-        div.style.boxSizing = 'border-box';
-        div.style.border = (f.width * sf) + 'px solid ' + f.color;
-        div.style.backgroundClip = 'padding-box';
-        div.style.backgroundOrigin = 'padding-box';
-        if (f.border) div.style.outline = (1 * sf) + 'px solid ' + f.border;
+        div.style.border = Math.round(borderPx) + 'px solid ' + f.color;
+        if (f.border) div.style.outline = Math.max(1, Math.round(borderPx / f.width)) + 'px solid ' + f.border;
         if (f.style === 'ornate_gold') {
           div.style.borderImage = 'linear-gradient(to bottom right, #bf953f, #fcf6ba, #b38728, #fbf5b7) 1';
           div.style.borderColor = '#d4af37';
@@ -630,11 +660,33 @@
         div.style.boxShadow = 'none';
       }
 
-      content.appendChild(div);
-      lightbox.classList.remove('hidden');
-      lightbox.classList.add('flex');
+      wrapper.appendChild(div);
+
+      /* Price label */
+      if (frameIdToPreview !== 'NONE') {
+        var priceLabel = document.createElement('div');
+        priceLabel.className = 'text-2xl font-bold text-primary';
+        priceLabel.style.whiteSpace = 'nowrap';
+        priceLabel.textContent = '\u0411\u0430\u0433\u0435\u0442\u043d\u0430\u044f \u0440\u0430\u043c\u0430: ' + frameCost.toLocaleString() + ' \u0440.';
+
+        if (window.innerWidth >= 1024) {
+          /* Desktop: position absolutely to top-left of image */
+          priceLabel.style.position = 'absolute';
+          priceLabel.style.left = '0';
+          priceLabel.style.top = '0';
+          priceLabel.style.transform = 'translateX(calc(-100% - 1.5rem))';
+        } else {
+          /* Mobile: below image */
+          priceLabel.style.textAlign = 'center';
+          wrapper.appendChild(priceLabel);
+        }
+
+        if (window.innerWidth >= 1024) wrapper.appendChild(priceLabel);
+      }
+
+      content.appendChild(wrapper);
+      if (!lightbox.open) lightbox.showModal();
       requestAnimationFrame(function () {
-        lightbox.style.opacity = '1';
         content.classList.add('lightbox-enter-active');
       });
     }
@@ -706,6 +758,7 @@
       return {
         total: total,
         sizeCost: Math.ceil(base + stretcher),
+        wrapCost: Math.ceil(base + stretcher + gallerySurcharge),
         gallerySurcharge: Math.ceil(gallerySurcharge),
         processingCost: STATE.processing,
         varnishCost: Math.ceil(varnish),
@@ -723,11 +776,13 @@
           lblW: getEl('lbl-w'), lblH: getEl('lbl-h'),
           canvas: getEl('preview-canvas'),
           priceTotal: getEl('total-price'), priceOld: getEl('old-price'),
-          priceSize: getEl('price-size'), priceVarnish: getEl('price-varnish'),
+          priceVarnish: getEl('price-varnish'),
           priceGift: getEl('price-gift'), priceFrame: getEl('price-frame'),
           selectedFrameText: getEl('selected-frame-text'),
           stickyTotal: getEl('sticky-total-price'),
           stickyOld: getEl('sticky-old-price'),
+          discountBadge: getEl('discount-badge'),
+          stickyDiscountBadge: getEl('sticky-discount-badge'),
           wrapBtns: document.querySelectorAll('.wrap-btn'),
           processingSelect: getEl('processing-select'),
           badgeWrap: getEl('badge-wrap'),
@@ -752,47 +807,65 @@
       /* Prices */
       var costs = calculate();
       if (els.priceTotal) els.priceTotal.textContent = costs.total.toLocaleString();
-      if (els.stickyTotal) els.stickyTotal.textContent = costs.total.toLocaleString() + ' ₽';
+      if (els.stickyTotal) els.stickyTotal.textContent = costs.total.toLocaleString() + ' р.';
 
       if (els.priceOld) {
         var fakeOldPrice = Math.round(costs.total / 0.8 / 10) * 10;
         els.priceOld.textContent = fakeOldPrice.toLocaleString();
-        if (els.stickyOld) els.stickyOld.textContent = fakeOldPrice.toLocaleString() + ' ₽';
+        if (els.stickyOld) els.stickyOld.textContent = fakeOldPrice.toLocaleString() + ' р.';
+
+        /* Discount badge */
+        var discountPercent = Math.round((1 - costs.total / fakeOldPrice) * 100);
+        var badgeText = '-' + discountPercent + '%';
+        if (els.discountBadge) {
+          els.discountBadge.textContent = badgeText;
+          els.discountBadge.style.display = discountPercent > 0 ? '' : 'none';
+        }
+        if (els.stickyDiscountBadge) {
+          els.stickyDiscountBadge.textContent = badgeText;
+          els.stickyDiscountBadge.style.display = discountPercent > 0 ? '' : 'none';
+        }
       }
 
-      if (els.priceSize) els.priceSize.textContent = costs.sizeCost > 0 ? costs.sizeCost + ' ₽' : '0 ₽';
+      /* priceSize removed — combined into badge-wrap */
 
       if (els.priceVarnish) {
-        els.priceVarnish.textContent = costs.varnishCost > 0 ? costs.varnishCost + ' ₽' : '0 ₽';
+        els.priceVarnish.textContent = costs.varnishCost > 0 ? costs.varnishCost + ' р.' : '0 р.';
         els.priceVarnish.className = costs.varnishCost > 0
-          ? 'text-xs font-bold text-primary normal-case'
-          : 'text-xs font-bold text-slate-500 normal-case';
+          ? 'text-sm font-bold text-primary normal-case'
+          : 'text-sm font-bold text-slate-500 normal-case';
       }
       if (els.priceGift) {
-        els.priceGift.textContent = costs.giftCost > 0 ? costs.giftCost + ' ₽' : '0 ₽';
+        els.priceGift.textContent = costs.giftCost > 0 ? costs.giftCost + ' р.' : '0 р.';
         els.priceGift.className = costs.giftCost > 0
-          ? 'text-xs font-bold text-primary normal-case'
-          : 'text-xs font-bold text-slate-500 normal-case';
+          ? 'text-sm font-bold text-primary normal-case'
+          : 'text-sm font-bold text-slate-500 normal-case';
       }
       if (els.priceFrame) {
-        els.priceFrame.textContent = costs.frameCost > 0 ? costs.frameCost + ' ₽' : '0 ₽';
+        els.priceFrame.textContent = costs.frameCost > 0 ? costs.frameCost + ' р.' : '0 р.';
         els.priceFrame.className = costs.frameCost > 0
-          ? 'text-xs font-bold text-primary normal-case'
-          : 'text-xs font-bold text-slate-500 normal-case';
+          ? 'text-sm font-bold text-primary normal-case'
+          : 'text-sm font-bold text-slate-500 normal-case';
       }
 
-      /* Wrap badge */
+      /* Wrap badge: combined print + stretcher + gallery surcharge */
       if (els.badgeWrap) {
-        els.badgeWrap.textContent = costs.gallerySurcharge > 0
-          ? '+' + costs.gallerySurcharge.toLocaleString() + ' ₽'
-          : 'ВКЛЮЧЕНО';
+        els.badgeWrap.textContent = costs.wrapCost > 0
+          ? costs.wrapCost.toLocaleString() + ' р.'
+          : '0 р.';
+        els.badgeWrap.className = costs.wrapCost > 0
+          ? 'text-sm font-bold text-primary normal-case'
+          : 'text-sm font-bold text-slate-500 normal-case';
       }
 
       /* Processing badge */
       if (els.badgeProcessing) {
         els.badgeProcessing.textContent = costs.processingCost > 0
-          ? '+' + costs.processingCost.toLocaleString() + ' ₽'
-          : 'ВКЛЮЧЕНО';
+          ? costs.processingCost.toLocaleString() + ' р.'
+          : '0 р.';
+        els.badgeProcessing.className = costs.processingCost > 0
+          ? 'text-sm font-bold text-primary normal-case'
+          : 'text-sm font-bold text-slate-500 normal-case';
       }
 
       if (els.selectedFrameText) {
@@ -831,13 +904,18 @@
           els.canvas.style.backgroundClip = 'padding-box';
           els.canvas.style.backgroundOrigin = 'padding-box';
           if (fr.border) els.canvas.style.outline = '1px solid ' + fr.border;
+          else els.canvas.style.outline = 'none';
           if (fr.style === 'ornate_gold') {
             els.canvas.style.borderImage = 'linear-gradient(to bottom right, #bf953f, #fcf6ba, #b38728, #fbf5b7) 1';
             els.canvas.style.borderColor = '#d4af37';
+          } else {
+            els.canvas.style.borderImage = 'none';
           }
         } else {
-          if (STATE.wrap === 'STANDARD') els.canvas.style.border = 'none';
-          else if (STATE.wrap === 'NO_FRAME') els.canvas.style.boxShadow = '2px 4px 10px rgba(0,0,0,0.1)';
+          els.canvas.style.border = 'none';
+          els.canvas.style.outline = 'none';
+          els.canvas.style.borderImage = 'none';
+          if (STATE.wrap === 'NO_FRAME') els.canvas.style.boxShadow = '2px 4px 10px rgba(0,0,0,0.1)';
         }
 
         if (STATE.image) {
