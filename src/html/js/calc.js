@@ -86,7 +86,14 @@
     giftWrapFixed: 450,
     noFrameDiscount: 0.8,
     framePerM: 1200,
-    gallerySurchargePerM: 300
+    gallerySurchargePerM: 300,
+    /* Portrait options (demo prices — replace later) */
+    faceExtra: 1,
+    gelPerSqM: 1,
+    acrylicPerSqM: 1,
+    oilPerSqM: 1,
+    potalPerSqM: 1,
+    digitalMockupFixed: 1
   };
 
   /* ========== PUBLIC API ========== */
@@ -105,8 +112,12 @@
       w: 20, h: 30, wrap: 'STANDARD', varnish: true, gift: false,
       image: null, frame: 'NONE', orientation: 'PORTRAIT',
       interior: 'GIRL', processing: 0, customSizeMode: false,
-      images: []
+      images: [],
+      /* Portrait options */
+      faces: 1, gel: false, acrylic: false, oil: false, potal: false, digitalMockup: false
     };
+
+    var isPortrait = cfg.type === 'portrait';
 
     var uploaderInstance = null;
 
@@ -130,7 +141,9 @@
     function setCustomSizeInputsVisibility(show) {
       var sizeInputsRow = getEl('size-inputs-row');
       if (!sizeInputsRow) return;
-      if (isMobileViewport()) {
+      if (isMobileViewport() || isPortrait) {
+        /* Mobile or portrait-desktop: toggle via hidden/flex */
+        sizeInputsRow.classList.remove('lg:flex');
         sizeInputsRow.classList.toggle('hidden', !show);
         sizeInputsRow.classList.toggle('flex', !!show);
       } else {
@@ -141,6 +154,463 @@
     }
 
     /* ---------- Interiors ---------- */
+
+    /* ---------- Hint dialog (tooltips) ---------- */
+
+    var hintDialog = null;
+
+    function initHintSystem() {
+      if (!cfg.tooltips) return;
+      hintDialog = document.createElement('dialog');
+      hintDialog.className = 'calc-hint-dialog';
+      hintDialog.innerHTML =
+        '<h3 class="text-base font-bold text-body mb-3" id="calc-hint-title"></h3>' +
+        '<div class="text-sm text-body leading-relaxed whitespace-pre-line" id="calc-hint-text"></div>' +
+        '<div class="mt-4 text-right">' +
+          '<button type="button" class="text-sm font-bold text-primary hover:underline cursor-pointer" id="calc-hint-close">Понятно</button>' +
+        '</div>';
+      document.body.appendChild(hintDialog);
+
+      hintDialog.querySelector('#calc-hint-close').addEventListener('click', function () {
+        hintDialog.close();
+      });
+      hintDialog.addEventListener('click', function (e) {
+        if (e.target === hintDialog) hintDialog.close();
+      });
+    }
+
+    var HINT_TITLES = {
+      faces: 'Количество лиц',
+      gel: 'Покрытие гелем',
+      acrylic: 'Прорисовка акрилом',
+      oil: 'Прорисовка маслом',
+      potal: 'Покрытие поталью',
+      digitalMockup: 'Цифровой макет',
+      varnish: 'Покрытие лаком',
+      gift: 'Подарочная упаковка'
+    };
+
+    function showHint(key) {
+      if (!hintDialog || !cfg.tooltips || !cfg.tooltips[key]) return;
+      var tip = cfg.tooltips[key];
+      var title = typeof tip === 'string' ? (HINT_TITLES[key] || '') : (tip.title || '');
+      var text  = typeof tip === 'string' ? tip : (tip.text || '');
+      hintDialog.querySelector('#calc-hint-title').textContent = title;
+      hintDialog.querySelector('#calc-hint-text').textContent = text;
+      hintDialog.showModal();
+    }
+
+    function createHintBtn(key) {
+      if (!cfg.tooltips || !cfg.tooltips[key]) return null;
+      var tip = cfg.tooltips[key];
+      var label = typeof tip === 'string' ? (HINT_TITLES[key] || 'Подсказка') : (tip.title || 'Подсказка');
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'calc-hint-btn';
+      btn.textContent = '?';
+      btn.setAttribute('aria-label', label);
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        showHint(key);
+      });
+      return btn;
+    }
+
+    /* ---------- Portrait sections generator ---------- */
+
+    var portraitEls = {};
+
+    function buildPortraitSections() {
+      if (!isPortrait) return;
+
+      var panel = document.querySelector('.calc-panel .p-4');
+      if (!panel) panel = document.querySelector('.calc-panel > div');
+      if (!panel) return;
+
+      /* Hide processing section for portraits */
+      var processingSelect = getEl('processing-select');
+      if (processingSelect) {
+        var procSection = processingSelect.closest('section');
+        if (procSection) procSection.style.display = 'none';
+        STATE.processing = 0;
+      }
+
+      /* Desktop: hide bare size inputs, show presets + "Свой размер" like mobile */
+      var sizeInputsRow = getEl('size-inputs-row');
+      if (sizeInputsRow) sizeInputsRow.classList.add('hidden');
+      var extraCarousel = getEl('size-extra-carousel');
+      if (extraCarousel) extraCarousel.style.display = 'none';
+      var presetsGrid = getEl('size-presets-grid');
+      if (presetsGrid) {
+        presetsGrid.classList.remove('lg:hidden');
+        presetsGrid.classList.add('flex');
+      }
+
+      /* ---------- Rewrite varnish + gift into inline rows ---------- */
+
+      var varnishGiftSection = getEl('varnish-gift-section');
+      if (!varnishGiftSection) {
+        var tv = getEl('toggle-varnish');
+        if (tv) varnishGiftSection = tv.closest('section.space-y-6');
+      }
+
+      var varnishSection = null;
+      var giftSection = null;
+
+      if (varnishGiftSection) {
+        varnishSection = makeInlineCheckboxSection(
+          'varnish', 'Покрытие лаком', 'varnish', 'price-varnish', STATE.varnish
+        );
+        giftSection = makeInlineCheckboxSection(
+          'gift', 'Подарочная упаковка', 'gift', 'price-gift', STATE.gift
+        );
+        varnishGiftSection.remove();
+      }
+
+      /* Locate static sections */
+      var sizeSection = getEl('size-section');
+      var wrapSection = null;
+      var frameSection = null;
+      var allSections = panel.querySelectorAll(':scope > section');
+      allSections.forEach(function (sec) {
+        if (sec.querySelector('.wrap-btn')) wrapSection = sec;
+        if (sec.querySelector('#frame-section')) frameSection = sec;
+      });
+
+      /* Helper: create compact inline checkbox row
+       * [ ✓ ] Label [?]                      price badge
+       * Options: { accentBadge: 'text' } — adds a small accent badge after label
+       */
+      function makeInlineCheckboxSection(id, label, hintKey, badgeId, checked, opts) {
+        var sec = document.createElement('section');
+        sec.id = id + '-section';
+        sec.setAttribute('data-portrait-option', id);
+
+        var row = document.createElement('div');
+        row.className = 'flex items-center gap-3';
+
+        /* Checkbox */
+        var chkWrap = document.createElement('div');
+        chkWrap.className = 'flex h-6 shrink-0 items-center';
+        var grp = document.createElement('div');
+        grp.className = 'group grid size-4 grid-cols-1';
+        var chk = document.createElement('input');
+        chk.type = 'checkbox';
+        chk.id = 'toggle-' + id;
+        chk.name = id;
+        chk.checked = !!checked;
+        chk.className = 'calc-checkbox col-start-1 row-start-1 forced-colors:appearance-auto';
+        grp.appendChild(chk);
+        var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('viewBox', '0 0 14 14');
+        svg.setAttribute('fill', 'none');
+        svg.setAttribute('class', 'pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white');
+        var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', 'M3 8L6 11L11 3.5');
+        path.setAttribute('stroke-width', '2');
+        path.setAttribute('stroke-linecap', 'round');
+        path.setAttribute('stroke-linejoin', 'round');
+        path.setAttribute('class', 'opacity-0 group-has-checked:opacity-100');
+        svg.appendChild(path);
+        grp.appendChild(svg);
+        chkWrap.appendChild(grp);
+        row.appendChild(chkWrap);
+
+        /* Label + hint btn + optional accent badge */
+        var labelWrap = document.createElement('div');
+        labelWrap.className = 'flex items-center gap-1 min-w-0 flex-1';
+        var lbl = document.createElement('label');
+        lbl.htmlFor = 'toggle-' + id;
+        lbl.className = 'text-sm font-medium text-body cursor-pointer truncate';
+        lbl.textContent = label;
+        labelWrap.appendChild(lbl);
+        if (opts && opts.accentBadge) {
+          var accent = document.createElement('span');
+          accent.className = 'calc-badge ml-1 shrink-0';
+          accent.textContent = opts.accentBadge;
+          labelWrap.appendChild(accent);
+        }
+        var hintBtn = createHintBtn(hintKey);
+        if (hintBtn) labelWrap.appendChild(hintBtn);
+        row.appendChild(labelWrap);
+
+        /* Price badge */
+        var badge = document.createElement('span');
+        badge.className = 'text-sm font-bold text-slate-500 normal-case whitespace-nowrap shrink-0';
+        badge.id = badgeId;
+        badge.textContent = '0 р.';
+        row.appendChild(badge);
+
+        sec.appendChild(row);
+        return { section: sec, checkbox: chk, badge: badge };
+      }
+
+      /* 1. Size section stays in place */
+
+      /* 2. Количество лиц — select dropdown */
+      var facesSec = document.createElement('section');
+      facesSec.id = 'portrait-faces-section';
+      facesSec.setAttribute('data-portrait-option', 'faces');
+
+      var facesTitleDiv = document.createElement('div');
+      facesTitleDiv.className = 'section-title';
+      var facesTitleLeft = document.createElement('span');
+      facesTitleLeft.className = 'flex items-center gap-1';
+      facesTitleLeft.textContent = 'Количество лиц';
+      var facesHint = createHintBtn('faces');
+      if (facesHint) facesTitleLeft.appendChild(facesHint);
+      facesTitleDiv.appendChild(facesTitleLeft);
+      var facesBadge = document.createElement('span');
+      facesBadge.className = 'text-sm font-bold text-slate-500 normal-case';
+      facesBadge.id = 'badge-faces';
+      facesBadge.textContent = 'включено';
+      facesTitleDiv.appendChild(facesBadge);
+      facesSec.appendChild(facesTitleDiv);
+
+      var facesGridWrap = document.createElement('div');
+      facesGridWrap.className = 'grid grid-cols-1';
+      var facesSelect = document.createElement('select');
+      facesSelect.id = 'portrait-faces';
+      facesSelect.setAttribute('aria-label', 'Количество лиц');
+      facesSelect.className = 'col-start-1 row-start-1 w-full appearance-none bg-white border border-slate-200 text-body py-3 pl-4 pr-8 rounded-lg text-sm font-medium focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary';
+      for (var i = 1; i <= 10; i++) {
+        var opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = i;
+        facesSelect.appendChild(opt);
+      }
+      facesGridWrap.appendChild(facesSelect);
+      var chevronSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      chevronSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+      chevronSvg.setAttribute('width', '24');
+      chevronSvg.setAttribute('height', '24');
+      chevronSvg.setAttribute('viewBox', '0 0 24 24');
+      chevronSvg.setAttribute('fill', 'none');
+      chevronSvg.setAttribute('stroke', 'currentColor');
+      chevronSvg.setAttribute('stroke-width', '2');
+      chevronSvg.setAttribute('stroke-linecap', 'round');
+      chevronSvg.setAttribute('stroke-linejoin', 'round');
+      chevronSvg.setAttribute('class', 'pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5 self-center justify-self-end text-slate-500');
+      var chevPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      chevPath.setAttribute('d', 'm6 9 6 6 6-6');
+      chevronSvg.appendChild(chevPath);
+      facesGridWrap.appendChild(chevronSvg);
+      facesSec.appendChild(facesGridWrap);
+
+      /* Create portrait-specific inline checkbox sections */
+      var gelData = makeInlineCheckboxSection('gel', 'Покрытие гелем', 'gel', 'price-gel', false);
+      var acrylicData = makeInlineCheckboxSection('acrylic', 'Прорисовка акрилом', 'acrylic', 'price-acrylic', false);
+      var oilData = makeInlineCheckboxSection('oil', 'Прорисовка маслом', 'oil', 'price-oil', false, { accentBadge: 'Популярное' });
+      var potalData = makeInlineCheckboxSection('potal', 'Покрытие поталью', 'potal', 'price-potal', false);
+      var mockupData = makeInlineCheckboxSection('digitalMockup', 'Цифровой макет', 'digitalMockup', 'price-digital-mockup', false);
+
+      /* Group: "Покрытие и обработка" — лак, гель, акрил, масло, поталь */
+      var coverageGroup = document.createElement('section');
+      coverageGroup.id = 'coverage-group-section';
+      var coverageTitle = document.createElement('div');
+      coverageTitle.className = 'section-title';
+      coverageTitle.textContent = 'Покрытие и обработка';
+      coverageGroup.appendChild(coverageTitle);
+      var coverageList = document.createElement('div');
+      coverageList.className = 'space-y-2';
+      if (varnishSection) coverageList.appendChild(varnishSection.section);
+      coverageList.appendChild(gelData.section);
+      coverageList.appendChild(acrylicData.section);
+      coverageList.appendChild(oilData.section);
+      coverageList.appendChild(potalData.section);
+      coverageGroup.appendChild(coverageList);
+
+      /* Divider + mockup wrapper (visual separation from physical options) */
+      var mockupWrapper = document.createElement('div');
+      var mockupDivider = document.createElement('div');
+      mockupDivider.className = 'h-px bg-slate-200 mb-4';
+      mockupWrapper.appendChild(mockupDivider);
+      var mockupNote = document.createElement('p');
+      mockupNote.className = 'text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-3';
+      mockupNote.textContent = 'Без изготовления картины';
+      mockupWrapper.appendChild(mockupNote);
+      mockupWrapper.appendChild(mockupData.section);
+
+      /*
+       * Target order:
+       *  1) Размер               — sizeSection
+       *  2) Подрамник и печать    — wrapSection
+       *  3) Количество лиц       — facesSec
+       *  4) Покрытие и обработка  — coverageGroup (лак, гель, акрил, масло, поталь)
+       *  5) Багетная рама         — frameSection
+       *  6) Подарочная упак.      — giftSection (rebuilt inline)
+       *  7) Цифровой макет        — mockupWrapper (with divider)
+       */
+
+      function detach(el) { if (el && el.parentNode) el.parentNode.removeChild(el); return el; }
+      detach(sizeSection);
+      detach(wrapSection);
+      detach(frameSection);
+
+      var sectionsToOrder = [
+        sizeSection,
+        wrapSection,
+        facesSec,
+        coverageGroup,
+        frameSection,
+        giftSection ? giftSection.section : null,
+        mockupWrapper
+      ];
+
+      var firstChild = panel.firstElementChild;
+      sectionsToOrder.forEach(function (sec) {
+        if (sec) panel.insertBefore(sec, firstChild);
+      });
+
+      /* Bind varnish/gift checkboxes */
+      if (varnishSection) {
+        varnishSection.checkbox.addEventListener('change', function () {
+          STATE.varnish = varnishSection.checkbox.checked;
+          enforceCompatibility('varnish');
+          updateUI(null);
+        });
+      }
+      if (giftSection) {
+        giftSection.checkbox.addEventListener('change', function () {
+          STATE.gift = giftSection.checkbox.checked;
+          updateUI(null);
+        });
+      }
+
+      /* Store references */
+      portraitEls = {
+        facesSelect: facesSelect,
+        badgeFaces: facesBadge,
+        gelCheckbox: gelData.checkbox,
+        gelSection: gelData.section,
+        badgeGel: gelData.badge,
+        acrylicCheckbox: acrylicData.checkbox,
+        acrylicSection: acrylicData.section,
+        badgeAcrylic: acrylicData.badge,
+        oilCheckbox: oilData.checkbox,
+        oilSection: oilData.section,
+        badgeOil: oilData.badge,
+        potalCheckbox: potalData.checkbox,
+        potalSection: potalData.section,
+        badgePotal: potalData.badge,
+        mockupCheckbox: mockupData.checkbox,
+        mockupSection: mockupData.section,
+        badgeMockup: mockupData.badge,
+        varnishSection: varnishSection ? varnishSection.section : null,
+        giftSection: giftSection ? giftSection.section : null,
+        mockupWrapper: mockupWrapper,
+        coverageGroup: coverageGroup
+      };
+
+      /* Event listeners */
+      facesSelect.addEventListener('change', function () {
+        STATE.faces = parseInt(facesSelect.value) || 1;
+        updateUI(null);
+      });
+
+      var portraitCheckboxHandler = function (stateKey, el) {
+        el.addEventListener('change', function () {
+          STATE[stateKey] = el.checked;
+          enforceCompatibility(stateKey);
+          updateUI(null);
+        });
+      };
+
+      portraitCheckboxHandler('gel', gelData.checkbox);
+      portraitCheckboxHandler('acrylic', acrylicData.checkbox);
+      portraitCheckboxHandler('oil', oilData.checkbox);
+      portraitCheckboxHandler('potal', potalData.checkbox);
+
+      mockupData.checkbox.addEventListener('change', function () {
+        STATE.digitalMockup = mockupData.checkbox.checked;
+        toggleDigitalMockupMode();
+        updateUI(null);
+      });
+    }
+
+    /* ---------- Compatibility engine ---------- */
+
+    /*
+     * Compatibility matrix (true = can coexist):
+     *                 varnish   gel   acrylic   oil   potal
+     * varnish           —       ✗       ✓       ✗      ✓
+     * gel               ✗       —       ✓       ✗      ✓
+     * acrylic           ✓       ✓       —       ✗      ✓
+     * oil               ✗       ✗       ✗       —      ✓
+     * potal             ✓       ✓       ✓       ✓      —
+     *
+     * When option X is turned ON, incompatible options are force-unchecked.
+     */
+    function enforceCompatibility(changed) {
+      if (!isPortrait) return;
+
+      var incompatible = {
+        varnish:  ['gel', 'oil'],
+        gel:      ['varnish', 'oil'],
+        acrylic:  ['oil'],
+        oil:      ['varnish', 'gel', 'acrylic'],
+        potal:    []
+      };
+
+      var toDisable = incompatible[changed] || [];
+      toDisable.forEach(function (key) {
+        STATE[key] = false;
+        var chk = getEl('toggle-' + key);
+        if (chk) chk.checked = false;
+      });
+    }
+
+    /* Digital mockup: disable physical production options */
+    function toggleDigitalMockupMode() {
+      if (!isPortrait) return;
+
+      /* Sections to disable: wrap, varnish, gel, acrylic, oil, potal, frame, gift */
+      var disableIds = [
+        'varnish-section', 'gift-section',
+        'gel-section', 'acrylic-section', 'oil-section', 'potal-section',
+        'coverage-group-section'
+      ];
+
+      var allSections = document.querySelectorAll('.calc-panel section');
+      allSections.forEach(function (sec) {
+        if (sec.id === 'portrait-faces-section') return;
+        if (sec.id === 'size-section') return;
+        if (sec.getAttribute('data-portrait-option') === 'digitalMockup') return;
+
+        /* Skip sections not in the disableable list — let wrap and frame also disable */
+        var isWrap = !!sec.querySelector('.wrap-btn');
+        var isFrame = !!sec.querySelector('#frame-section');
+        var inList = disableIds.indexOf(sec.id) !== -1;
+
+        if (isWrap || isFrame || inList) {
+          if (STATE.digitalMockup) {
+            sec.classList.add('calc-section-disabled');
+          } else {
+            sec.classList.remove('calc-section-disabled');
+          }
+        }
+      });
+
+      /* Reset physical state when enabling digital mockup */
+      if (STATE.digitalMockup) {
+        STATE.gel = false;
+        STATE.acrylic = false;
+        STATE.oil = false;
+        STATE.potal = false;
+        STATE.varnish = false;
+        STATE.gift = false;
+        STATE.frame = 'NONE';
+        STATE.wrap = 'STANDARD';
+        if (portraitEls.gelCheckbox) portraitEls.gelCheckbox.checked = false;
+        if (portraitEls.acrylicCheckbox) portraitEls.acrylicCheckbox.checked = false;
+        if (portraitEls.oilCheckbox) portraitEls.oilCheckbox.checked = false;
+        if (portraitEls.potalCheckbox) portraitEls.potalCheckbox.checked = false;
+        var toggleVarnish = getEl('toggle-varnish');
+        if (toggleVarnish) toggleVarnish.checked = false;
+        var toggleGift = getEl('toggle-gift');
+        if (toggleGift) toggleGift.checked = false;
+      }
+    }
 
     /* ---------- Order form ---------- */
 
@@ -173,7 +643,13 @@
           product: {
             width: STATE.w, height: STATE.h, wrap: STATE.wrap,
             frame: STATE.frame, varnish: STATE.varnish, gift: STATE.gift,
-            interior: STATE.interior, processing: STATE.processing
+            interior: STATE.interior, processing: STATE.processing,
+            faces: isPortrait ? STATE.faces : undefined,
+            gel: isPortrait ? STATE.gel : undefined,
+            acrylic: isPortrait ? STATE.acrylic : undefined,
+            oil: isPortrait ? STATE.oil : undefined,
+            potal: isPortrait ? STATE.potal : undefined,
+            digitalMockup: isPortrait ? STATE.digitalMockup : undefined
           },
           totalPrice: getEl('total-price').textContent
         };
@@ -327,7 +803,7 @@
 
       window.addEventListener('resize', function () {
         renderSizePresets();
-        if (!isMobileViewport()) {
+        if (!isMobileViewport() && !isPortrait) {
           setCustomSizeInputsVisibility(true);
         }
       });
@@ -504,7 +980,9 @@
         container.appendChild(btn);
       });
 
-      if (isMobileViewport()) {
+      if (isMobileViewport() || isPortrait) {
+        /* Mobile viewport OR portrait page (any viewport):  
+           show preset buttons + 'Свой размер', hide inputs until tapped */
         var customBtn = document.createElement('button');
         customBtn.type = 'button';
         var customActive = STATE.customSizeMode || !hasPresetMatch;
@@ -523,7 +1001,6 @@
             var preview = document.getElementById('calc-preview-column');
             var previewH = preview ? preview.offsetHeight : 0;
             var rowTop = row.getBoundingClientRect().top + window.scrollY;
-            // Целевая позиция: поля ввода сразу под sticky-превью
             window.scrollTo({ top: Math.max(0, rowTop - previewH - 8), behavior: 'smooth' });
           }, 80);
         };
@@ -735,6 +1212,24 @@
     function calculate() {
       var area = (STATE.w * STATE.h) / 10000;
       var perimeter = (STATE.w + STATE.h) * 2 / 100;
+
+      /* Portrait: face surcharge */
+      var faceCost = isPortrait ? Math.max(0, STATE.faces - 1) * PRICES.faceExtra : 0;
+
+      /* Digital mockup mode: only faces + processing + mockup fee */
+      if (isPortrait && STATE.digitalMockup) {
+        var mockupTotal = Math.ceil(faceCost + STATE.processing + PRICES.digitalMockupFixed);
+        return {
+          total: mockupTotal,
+          sizeCost: 0, wrapCost: 0, gallerySurcharge: 0,
+          processingCost: STATE.processing,
+          varnishCost: 0, giftCost: 0, frameCost: 0,
+          faceCost: faceCost,
+          gelCost: 0, acrylicCost: 0, oilCost: 0, potalCost: 0,
+          digitalMockupCost: PRICES.digitalMockupFixed
+        };
+      }
+
       var base = area * PRICES.canvasPerSqM;
       var stretcher = perimeter * PRICES.stretcherPerM;
 
@@ -753,7 +1248,14 @@
       if (currentFrameObj.cat === 'CLASSIC') frameMultiplier = 1.5;
       var frameCost = (STATE.frame !== 'NONE') ? (perimeter * PRICES.framePerM * frameMultiplier) : 0;
 
-      var total = Math.ceil(base + stretcher + gallerySurcharge + varnish + gift + frameCost + STATE.processing);
+      /* Portrait coatings */
+      var gelCost = (isPortrait && STATE.gel) ? area * PRICES.gelPerSqM : 0;
+      var acrylicCost = (isPortrait && STATE.acrylic) ? area * PRICES.acrylicPerSqM : 0;
+      var oilCost = (isPortrait && STATE.oil) ? area * PRICES.oilPerSqM : 0;
+      var potalCost = (isPortrait && STATE.potal) ? area * PRICES.potalPerSqM : 0;
+
+      var total = Math.ceil(base + stretcher + gallerySurcharge + varnish + gift + frameCost + STATE.processing
+        + faceCost + gelCost + acrylicCost + oilCost + potalCost);
 
       return {
         total: total,
@@ -763,7 +1265,13 @@
         processingCost: STATE.processing,
         varnishCost: Math.ceil(varnish),
         giftCost: Math.ceil(gift),
-        frameCost: Math.ceil(frameCost)
+        frameCost: Math.ceil(frameCost),
+        faceCost: faceCost,
+        gelCost: Math.ceil(gelCost),
+        acrylicCost: Math.ceil(acrylicCost),
+        oilCost: Math.ceil(oilCost),
+        potalCost: Math.ceil(potalCost),
+        digitalMockupCost: 0
       };
     }
 
@@ -868,6 +1376,45 @@
           : 'text-sm font-bold text-slate-500 normal-case';
       }
 
+      /* Portrait badges */
+      if (isPortrait && portraitEls) {
+        var activeCls = 'text-sm font-bold text-primary normal-case';
+        var inactiveCls = 'text-sm font-bold text-slate-500 normal-case';
+
+        if (portraitEls.badgeFaces) {
+          var nFaces = STATE.faces || 1;
+          if (nFaces <= 1) {
+            portraitEls.badgeFaces.textContent = 'включено';
+            portraitEls.badgeFaces.className = inactiveCls;
+          } else {
+            portraitEls.badgeFaces.textContent = costs.faceCost.toLocaleString() + ' р.';
+            portraitEls.badgeFaces.className = activeCls;
+          }
+        }
+        if (portraitEls.badgeGel) {
+          portraitEls.badgeGel.textContent = costs.gelCost > 0 ? costs.gelCost.toLocaleString() + ' р.' : '0 р.';
+          portraitEls.badgeGel.className = costs.gelCost > 0 ? activeCls : inactiveCls;
+        }
+        if (portraitEls.badgeAcrylic) {
+          portraitEls.badgeAcrylic.textContent = costs.acrylicCost > 0 ? costs.acrylicCost.toLocaleString() + ' р.' : '0 р.';
+          portraitEls.badgeAcrylic.className = costs.acrylicCost > 0 ? activeCls : inactiveCls;
+        }
+        if (portraitEls.badgeOil) {
+          portraitEls.badgeOil.textContent = costs.oilCost > 0 ? costs.oilCost.toLocaleString() + ' р.' : '0 р.';
+          portraitEls.badgeOil.className = costs.oilCost > 0 ? activeCls : inactiveCls;
+        }
+        if (portraitEls.badgePotal) {
+          portraitEls.badgePotal.textContent = costs.potalCost > 0 ? costs.potalCost.toLocaleString() + ' р.' : '0 р.';
+          portraitEls.badgePotal.className = costs.potalCost > 0 ? activeCls : inactiveCls;
+        }
+        if (portraitEls.badgeMockup) {
+          portraitEls.badgeMockup.textContent = costs.digitalMockupCost > 0
+            ? costs.digitalMockupCost.toLocaleString() + ' р.'
+            : '0 р.';
+          portraitEls.badgeMockup.className = costs.digitalMockupCost > 0 ? activeCls : inactiveCls;
+        }
+      }
+
       if (els.selectedFrameText) {
         var f = FRAMES_DB.find(function (x) { return x.id === STATE.frame; });
         els.selectedFrameText.textContent = f ? f.name : 'Без багета';
@@ -933,6 +1480,10 @@
 
     /* ========== BOOTSTRAP ========== */
 
+    if (isPortrait) {
+      initHintSystem();
+      buildPortraitSections();
+    }
     renderFrameCatalog();
     initMain();
     initLightbox();
