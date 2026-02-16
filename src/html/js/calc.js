@@ -80,6 +80,7 @@
   };
 
   var DEFAULT_PRICES = {
+    /* Canvas (units: m², m) */
     canvasPerSqM: 2500,
     stretcherPerM: 500,
     varnishPerSqM: 800,
@@ -87,13 +88,33 @@
     noFrameDiscount: 0.8,
     framePerM: 1200,
     gallerySurchargePerM: 300,
-    /* Portrait options (demo prices — replace later) */
-    faceExtra: 1,
-    gelPerSqM: 1,
-    acrylicPerSqM: 1,
-    oilPerSqM: 1,
-    potalPerSqM: 1,
-    digitalMockupFixed: 1
+    processingOptions: [0, 300, 900],
+    /* Portrait (units: cm², cm) — see prices.js for production values */
+    faceFirst: 1920,
+    faceExtra: 960,
+    digitalFaceFirst: 3600,
+    digitalFaceExtra: 1200,
+    digitalMockupFixed: 0,
+    printSqCoeff: 0.29,
+    printPStrCoeff: 0.04,
+    printPBaseCoeff: 0.76,
+    printConst: 1998.48,
+    stretcherStandard: 32,
+    stretcherGallery: 68,
+    stretcherRoll: 32,
+    varnishCoeff: 0.10,
+    gelCoeff: 0.375,
+    acrylicCoeff: 1.05,
+    oilCoeff: 2,
+    oilFaceExtra: 2400,
+    potalCoeff: 0.30,
+    giftWrapTiers: [
+      { maxW: 50, maxH: 70, price: 650 },
+      { maxW: 60, maxH: 90, price: 750 },
+      { maxW: 90, maxH: 120, price: 1200 }
+    ],
+    giftWrapOversizeLabel: 'по согласованию',
+    frameClassicMult: 1.5
   };
 
   /* ========== PUBLIC API ========== */
@@ -227,11 +248,15 @@
       if (!panel) panel = document.querySelector('.calc-panel > div');
       if (!panel) return;
 
-      /* Hide processing section for portraits */
+      /* Update processing option values for portrait prices */
       var processingSelect = getEl('processing-select');
-      if (processingSelect) {
-        var procSection = processingSelect.closest('section');
-        if (procSection) procSection.style.display = 'none';
+      if (processingSelect && PRICES.processingOptions) {
+        var pLabels = ['Базовая', 'Оптимальная', 'Премиальная'];
+        var pOpts = PRICES.processingOptions;
+        for (var pi = 0; pi < processingSelect.options.length && pi < pOpts.length; pi++) {
+          processingSelect.options[pi].value = pOpts[pi];
+          processingSelect.options[pi].textContent = pLabels[pi] + (pOpts[pi] > 0 ? ' (+' + pOpts[pi] + ' р.)' : '');
+        }
         STATE.processing = 0;
       }
 
@@ -1210,25 +1235,111 @@
     /* ---------- Price calculation ---------- */
 
     function calculate() {
-      var area = (STATE.w * STATE.h) / 10000;
-      var perimeter = (STATE.w + STATE.h) * 2 / 100;
 
-      /* Portrait: face surcharge */
-      var faceCost = isPortrait ? Math.max(0, STATE.faces - 1) * PRICES.faceExtra : 0;
+      /* ── Portrait mode (units: cm², cm) ── */
+      if (isPortrait) {
+        var sq = STATE.w * STATE.h;
+        var perim = (STATE.w + STATE.h) * 2;
 
-      /* Digital mockup mode: only faces + processing + mockup fee */
-      if (isPortrait && STATE.digitalMockup) {
-        var mockupTotal = Math.ceil(faceCost + STATE.processing + PRICES.digitalMockupFixed);
+        /* Face cost */
+        var faceCost;
+        if (STATE.digitalMockup) {
+          faceCost = (PRICES.digitalFaceFirst || 0)
+            + Math.max(0, STATE.faces - 1) * (PRICES.digitalFaceExtra || 0);
+        } else {
+          faceCost = (PRICES.faceFirst || 0)
+            + Math.max(0, STATE.faces - 1) * (PRICES.faceExtra || 0);
+        }
+
+        /* Digital mockup: only faces + processing, no physical output */
+        if (STATE.digitalMockup) {
+          var mockupTotal = Math.ceil(faceCost + STATE.processing);
+          return {
+            total: mockupTotal, sizeCost: 0, wrapCost: 0, gallerySurcharge: 0,
+            processingCost: STATE.processing, varnishCost: 0, giftCost: 0,
+            frameCost: 0, faceCost: Math.ceil(faceCost),
+            gelCost: 0, acrylicCost: 0, oilCost: 0, potalCost: 0,
+            digitalMockupCost: 0, giftLabel: null
+          };
+        }
+
+        /* Print + stretcher: 0.29·S + 0.04·P·strPrice + 0.76·P + const */
+        var strPrice = PRICES.stretcherStandard || 32;
+        if (STATE.wrap === 'GALLERY') strPrice = PRICES.stretcherGallery || 68;
+        else if (STATE.wrap === 'NO_FRAME') strPrice = PRICES.stretcherRoll || 32;
+
+        var printCost = (PRICES.printSqCoeff || 0) * sq
+          + (PRICES.printPStrCoeff || 0) * perim * strPrice
+          + (PRICES.printPBaseCoeff || 0) * perim
+          + (PRICES.printConst || 0);
+
+        /* Gallery surcharge = difference vs standard stretcher */
+        var gallSurcharge = 0;
+        if (STATE.wrap === 'GALLERY') {
+          var stdPrint = (PRICES.printSqCoeff || 0) * sq
+            + (PRICES.printPStrCoeff || 0) * perim * (PRICES.stretcherStandard || 32)
+            + (PRICES.printPBaseCoeff || 0) * perim
+            + (PRICES.printConst || 0);
+          gallSurcharge = printCost - stdPrint;
+        }
+
+        /* Coatings (coefficient × area_cm²) */
+        var varnishCost = STATE.varnish ? sq * (PRICES.varnishCoeff || 0) : 0;
+        var gelCost     = STATE.gel     ? sq * (PRICES.gelCoeff || 0) : 0;
+        var acrylicCost = STATE.acrylic ? sq * (PRICES.acrylicCoeff || 0) : 0;
+        var oilCost     = STATE.oil     ? sq * (PRICES.oilCoeff || 0)
+          + Math.max(0, STATE.faces - 1) * (PRICES.oilFaceExtra || 0) : 0;
+        var potalCost   = STATE.potal   ? sq * (PRICES.potalCoeff || 0) : 0;
+
+        /* Gift wrap — tiered by dimensions */
+        var giftCost = 0;
+        var giftLabel = null;
+        if (STATE.gift && PRICES.giftWrapTiers) {
+          var minDim = Math.min(STATE.w, STATE.h);
+          var maxDim = Math.max(STATE.w, STATE.h);
+          for (var gi = 0; gi < PRICES.giftWrapTiers.length; gi++) {
+            var tier = PRICES.giftWrapTiers[gi];
+            if (minDim <= tier.maxW && maxDim <= tier.maxH) {
+              giftCost = tier.price;
+              break;
+            }
+          }
+          if (giftCost === 0) giftLabel = PRICES.giftWrapOversizeLabel || null;
+        }
+
+        /* Frame (perimeter in metres, same formula as canvas) */
+        var perimM = perim / 100;
+        var fPerM = PRICES.framePerM || 1200;
+        var fClassicMult = PRICES.frameClassicMult || 1.5;
+        var curFrame = FRAMES_DB.find(function (f) { return f.id === STATE.frame; }) || FRAMES_DB[0];
+        var fMult = curFrame.cat === 'CLASSIC' ? fClassicMult : 1;
+        var frameCost = (STATE.frame !== 'NONE') ? perimM * fPerM * fMult : 0;
+
+        var total = Math.ceil(printCost + faceCost + varnishCost + gelCost
+          + acrylicCost + oilCost + potalCost + giftCost + frameCost + STATE.processing);
+
         return {
-          total: mockupTotal,
-          sizeCost: 0, wrapCost: 0, gallerySurcharge: 0,
+          total: total,
+          sizeCost: Math.ceil(printCost),
+          wrapCost: Math.ceil(printCost),
+          gallerySurcharge: Math.ceil(gallSurcharge),
           processingCost: STATE.processing,
-          varnishCost: 0, giftCost: 0, frameCost: 0,
-          faceCost: faceCost,
-          gelCost: 0, acrylicCost: 0, oilCost: 0, potalCost: 0,
-          digitalMockupCost: PRICES.digitalMockupFixed
+          varnishCost: Math.ceil(varnishCost),
+          giftCost: Math.ceil(giftCost),
+          frameCost: Math.ceil(frameCost),
+          faceCost: Math.ceil(faceCost),
+          gelCost: Math.ceil(gelCost),
+          acrylicCost: Math.ceil(acrylicCost),
+          oilCost: Math.ceil(oilCost),
+          potalCost: Math.ceil(potalCost),
+          digitalMockupCost: 0,
+          giftLabel: giftLabel
         };
       }
+
+      /* ── Canvas mode (units: m², m) ── */
+      var area = (STATE.w * STATE.h) / 10000;
+      var perimeter = (STATE.w + STATE.h) * 2 / 100;
 
       var base = area * PRICES.canvasPerSqM;
       var stretcher = perimeter * PRICES.stretcherPerM;
@@ -1248,14 +1359,7 @@
       if (currentFrameObj.cat === 'CLASSIC') frameMultiplier = 1.5;
       var frameCost = (STATE.frame !== 'NONE') ? (perimeter * PRICES.framePerM * frameMultiplier) : 0;
 
-      /* Portrait coatings */
-      var gelCost = (isPortrait && STATE.gel) ? area * PRICES.gelPerSqM : 0;
-      var acrylicCost = (isPortrait && STATE.acrylic) ? area * PRICES.acrylicPerSqM : 0;
-      var oilCost = (isPortrait && STATE.oil) ? area * PRICES.oilPerSqM : 0;
-      var potalCost = (isPortrait && STATE.potal) ? area * PRICES.potalPerSqM : 0;
-
-      var total = Math.ceil(base + stretcher + gallerySurcharge + varnish + gift + frameCost + STATE.processing
-        + faceCost + gelCost + acrylicCost + oilCost + potalCost);
+      var total = Math.ceil(base + stretcher + gallerySurcharge + varnish + gift + frameCost + STATE.processing);
 
       return {
         total: total,
@@ -1266,12 +1370,9 @@
         varnishCost: Math.ceil(varnish),
         giftCost: Math.ceil(gift),
         frameCost: Math.ceil(frameCost),
-        faceCost: faceCost,
-        gelCost: Math.ceil(gelCost),
-        acrylicCost: Math.ceil(acrylicCost),
-        oilCost: Math.ceil(oilCost),
-        potalCost: Math.ceil(potalCost),
-        digitalMockupCost: 0
+        faceCost: 0,
+        gelCost: 0, acrylicCost: 0, oilCost: 0, potalCost: 0,
+        digitalMockupCost: 0, giftLabel: null
       };
     }
 
@@ -1344,10 +1445,15 @@
           : 'text-sm font-bold text-slate-500 normal-case';
       }
       if (els.priceGift) {
-        els.priceGift.textContent = costs.giftCost > 0 ? costs.giftCost + ' р.' : '0 р.';
-        els.priceGift.className = costs.giftCost > 0
-          ? 'text-sm font-bold text-primary normal-case'
-          : 'text-sm font-bold text-slate-500 normal-case';
+        if (costs.giftLabel) {
+          els.priceGift.textContent = costs.giftLabel;
+          els.priceGift.className = 'text-sm font-bold text-amber-600 normal-case';
+        } else {
+          els.priceGift.textContent = costs.giftCost > 0 ? costs.giftCost.toLocaleString() + ' р.' : '0 р.';
+          els.priceGift.className = costs.giftCost > 0
+            ? 'text-sm font-bold text-primary normal-case'
+            : 'text-sm font-bold text-slate-500 normal-case';
+        }
       }
       if (els.priceFrame) {
         els.priceFrame.textContent = costs.frameCost > 0 ? costs.frameCost + ' р.' : '0 р.';
@@ -1382,14 +1488,10 @@
         var inactiveCls = 'text-sm font-bold text-slate-500 normal-case';
 
         if (portraitEls.badgeFaces) {
-          var nFaces = STATE.faces || 1;
-          if (nFaces <= 1) {
-            portraitEls.badgeFaces.textContent = 'включено';
-            portraitEls.badgeFaces.className = inactiveCls;
-          } else {
-            portraitEls.badgeFaces.textContent = costs.faceCost.toLocaleString() + ' р.';
-            portraitEls.badgeFaces.className = activeCls;
-          }
+          portraitEls.badgeFaces.textContent = costs.faceCost > 0
+            ? costs.faceCost.toLocaleString() + ' р.'
+            : 'включено';
+          portraitEls.badgeFaces.className = costs.faceCost > 0 ? activeCls : inactiveCls;
         }
         if (portraitEls.badgeGel) {
           portraitEls.badgeGel.textContent = costs.gelCost > 0 ? costs.gelCost.toLocaleString() + ' р.' : '0 р.';
