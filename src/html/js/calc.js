@@ -80,21 +80,7 @@
   };
 
   var DEFAULT_PRICES = {
-    /* Canvas (units: m², m) */
-    canvasPerSqM: 2500,
-    stretcherPerM: 500,
-    varnishPerSqM: 800,
-    giftWrapFixed: 450,
-    noFrameDiscount: 0.8,
-    framePerM: 1200,
-    gallerySurchargePerM: 300,
-    processingOptions: [0, 300, 900],
-    /* Portrait (units: cm², cm) — see prices.js for production values */
-    faceFirst: 1920,
-    faceExtra: 960,
-    digitalFaceFirst: 3600,
-    digitalFaceExtra: 1200,
-    digitalMockupFixed: 0,
+    /* Universal formula: 0.29·S + 0.04·P·strPrice + 0.76·P + 1998.48 */
     printSqCoeff: 0.29,
     printPStrCoeff: 0.04,
     printPBaseCoeff: 0.76,
@@ -103,18 +89,26 @@
     stretcherGallery: 68,
     stretcherRoll: 32,
     varnishCoeff: 0.10,
-    gelCoeff: 0.375,
-    acrylicCoeff: 1.05,
-    oilCoeff: 2,
-    oilFaceExtra: 2400,
-    potalCoeff: 0.30,
+    processingOptions: [0, 300, 900],
     giftWrapTiers: [
       { maxW: 50, maxH: 70, price: 650 },
       { maxW: 60, maxH: 90, price: 750 },
       { maxW: 90, maxH: 120, price: 1200 }
     ],
     giftWrapOversizeLabel: 'по согласованию',
-    frameClassicMult: 1.5
+    framePerM: 1200,
+    frameClassicMult: 1.5,
+    /* Portrait-only extras */
+    faceFirst: 1920,
+    faceExtra: 960,
+    digitalFaceFirst: 3600,
+    digitalFaceExtra: 1200,
+    digitalMockupFixed: 0,
+    gelCoeff: 0.375,
+    acrylicCoeff: 1.05,
+    oilCoeff: 2,
+    oilFaceExtra: 2400,
+    potalCoeff: 0.30
   };
 
   /* ========== PUBLIC API ========== */
@@ -1232,13 +1226,13 @@
 
     function calculate() {
 
-      /* ── Portrait mode (units: cm², cm) ── */
-      if (isPortrait) {
-        var sq = STATE.w * STATE.h;
-        var perim = (STATE.w + STATE.h) * 2;
+      /* ── Universal formula (cm², cm) — same for canvas & portrait ── */
+      var sq = STATE.w * STATE.h;
+      var perim = (STATE.w + STATE.h) * 2;
 
-        /* Face cost */
-        var faceCost;
+      /* Face cost (portrait only; for canvas faces=1, faceCost=0) */
+      var faceCost = 0;
+      if (isPortrait) {
         if (STATE.digitalMockup) {
           faceCost = (PRICES.digitalFaceFirst || 0)
             + Math.max(0, STATE.faces - 1) * (PRICES.digitalFaceExtra || 0);
@@ -1246,129 +1240,91 @@
           faceCost = (PRICES.faceFirst || 0)
             + Math.max(0, STATE.faces - 1) * (PRICES.faceExtra || 0);
         }
+      }
 
-        /* Digital mockup: only faces + processing, no physical output */
-        if (STATE.digitalMockup) {
-          var mockupTotal = Math.ceil(faceCost + STATE.processing);
-          return {
-            total: mockupTotal, sizeCost: 0, wrapCost: 0, gallerySurcharge: 0,
-            processingCost: STATE.processing, varnishCost: 0, giftCost: 0,
-            frameCost: 0, faceCost: Math.ceil(faceCost),
-            gelCost: 0, acrylicCost: 0, oilCost: 0, potalCost: 0,
-            digitalMockupCost: 0, giftLabel: null
-          };
-        }
-
-        /* Print + stretcher: 0.29·S + 0.04·P·strPrice + 0.76·P + const */
-        var strPrice = PRICES.stretcherStandard || 32;
-        if (STATE.wrap === 'GALLERY') strPrice = PRICES.stretcherGallery || 68;
-        else if (STATE.wrap === 'NO_FRAME') strPrice = PRICES.stretcherRoll || 32;
-
-        var printCost = (PRICES.printSqCoeff || 0) * sq
-          + (PRICES.printPStrCoeff || 0) * perim * strPrice
-          + (PRICES.printPBaseCoeff || 0) * perim
-          + (PRICES.printConst || 0);
-
-        /* Gallery surcharge = difference vs standard stretcher */
-        var gallSurcharge = 0;
-        if (STATE.wrap === 'GALLERY') {
-          var stdPrint = (PRICES.printSqCoeff || 0) * sq
-            + (PRICES.printPStrCoeff || 0) * perim * (PRICES.stretcherStandard || 32)
-            + (PRICES.printPBaseCoeff || 0) * perim
-            + (PRICES.printConst || 0);
-          gallSurcharge = printCost - stdPrint;
-        }
-
-        /* Coatings (coefficient × area_cm²) */
-        var varnishCost = STATE.varnish ? sq * (PRICES.varnishCoeff || 0) : 0;
-        var gelCost     = STATE.gel     ? sq * (PRICES.gelCoeff || 0) : 0;
-        var acrylicCost = STATE.acrylic ? sq * (PRICES.acrylicCoeff || 0) : 0;
-        var oilCost     = STATE.oil     ? sq * (PRICES.oilCoeff || 0)
-          + Math.max(0, STATE.faces - 1) * (PRICES.oilFaceExtra || 0) : 0;
-        var potalCost   = STATE.potal   ? sq * (PRICES.potalCoeff || 0) : 0;
-
-        /* Gift wrap — tiered by dimensions */
-        var giftCost = 0;
-        var giftLabel = null;
-        if (STATE.gift && PRICES.giftWrapTiers) {
-          var minDim = Math.min(STATE.w, STATE.h);
-          var maxDim = Math.max(STATE.w, STATE.h);
-          for (var gi = 0; gi < PRICES.giftWrapTiers.length; gi++) {
-            var tier = PRICES.giftWrapTiers[gi];
-            if (minDim <= tier.maxW && maxDim <= tier.maxH) {
-              giftCost = tier.price;
-              break;
-            }
-          }
-          if (giftCost === 0) giftLabel = PRICES.giftWrapOversizeLabel || null;
-        }
-
-        /* Frame (perimeter in metres, same formula as canvas) */
-        var perimM = perim / 100;
-        var fPerM = PRICES.framePerM || 1200;
-        var fClassicMult = PRICES.frameClassicMult || 1.5;
-        var curFrame = FRAMES_DB.find(function (f) { return f.id === STATE.frame; }) || FRAMES_DB[0];
-        var fMult = curFrame.cat === 'CLASSIC' ? fClassicMult : 1;
-        var frameCost = (STATE.frame !== 'NONE') ? perimM * fPerM * fMult : 0;
-
-        var total = Math.ceil(printCost + faceCost + varnishCost + gelCost
-          + acrylicCost + oilCost + potalCost + giftCost + frameCost + STATE.processing);
-
+      /* Digital mockup: only faces + processing, no physical output */
+      if (isPortrait && STATE.digitalMockup) {
+        var mockupTotal = Math.ceil(faceCost + STATE.processing);
         return {
-          total: total,
-          sizeCost: Math.ceil(printCost),
-          wrapCost: Math.ceil(printCost),
-          gallerySurcharge: Math.ceil(gallSurcharge),
-          processingCost: STATE.processing,
-          varnishCost: Math.ceil(varnishCost),
-          giftCost: Math.ceil(giftCost),
-          frameCost: Math.ceil(frameCost),
-          faceCost: Math.ceil(faceCost),
-          gelCost: Math.ceil(gelCost),
-          acrylicCost: Math.ceil(acrylicCost),
-          oilCost: Math.ceil(oilCost),
-          potalCost: Math.ceil(potalCost),
-          digitalMockupCost: 0,
-          giftLabel: giftLabel
+          total: mockupTotal, sizeCost: 0, wrapCost: 0, gallerySurcharge: 0,
+          processingCost: STATE.processing, varnishCost: 0, giftCost: 0,
+          frameCost: 0, faceCost: Math.ceil(faceCost),
+          gelCost: 0, acrylicCost: 0, oilCost: 0, potalCost: 0,
+          digitalMockupCost: 0, giftLabel: null
         };
       }
 
-      /* ── Canvas mode (units: m², m) ── */
-      var area = (STATE.w * STATE.h) / 10000;
-      var perimeter = (STATE.w + STATE.h) * 2 / 100;
+      /* Print + stretcher: 0.29·S + 0.04·P·strPrice + 0.76·P + const */
+      var strPrice = PRICES.stretcherStandard || 32;
+      if (STATE.wrap === 'GALLERY') strPrice = PRICES.stretcherGallery || 68;
+      else if (STATE.wrap === 'NO_FRAME') strPrice = PRICES.stretcherRoll || 32;
 
-      var base = area * PRICES.canvasPerSqM;
-      var stretcher = perimeter * PRICES.stretcherPerM;
+      var printCost = (PRICES.printSqCoeff || 0) * sq
+        + (PRICES.printPStrCoeff || 0) * perim * strPrice
+        + (PRICES.printPBaseCoeff || 0) * perim
+        + (PRICES.printConst || 0);
 
-      if (STATE.wrap === 'NO_FRAME') {
-        stretcher = 0;
-        base *= PRICES.noFrameDiscount;
+      /* Gallery surcharge = difference vs standard stretcher */
+      var gallSurcharge = 0;
+      if (STATE.wrap === 'GALLERY') {
+        var stdPrint = (PRICES.printSqCoeff || 0) * sq
+          + (PRICES.printPStrCoeff || 0) * perim * (PRICES.stretcherStandard || 32)
+          + (PRICES.printPBaseCoeff || 0) * perim
+          + (PRICES.printConst || 0);
+        gallSurcharge = printCost - stdPrint;
       }
 
-      var gallerySurcharge = (STATE.wrap === 'GALLERY') ? perimeter * PRICES.gallerySurchargePerM : 0;
+      /* Coatings (coefficient × area_cm²) */
+      var varnishCost = STATE.varnish ? sq * (PRICES.varnishCoeff || 0) : 0;
+      var gelCost     = STATE.gel     ? sq * (PRICES.gelCoeff || 0) : 0;
+      var acrylicCost = STATE.acrylic ? sq * (PRICES.acrylicCoeff || 0) : 0;
+      var oilCost     = STATE.oil     ? sq * (PRICES.oilCoeff || 0)
+        + Math.max(0, (STATE.faces || 1) - 1) * (PRICES.oilFaceExtra || 0) : 0;
+      var potalCost   = STATE.potal   ? sq * (PRICES.potalCoeff || 0) : 0;
 
-      var varnish = STATE.varnish ? area * PRICES.varnishPerSqM : 0;
-      var gift = STATE.gift ? PRICES.giftWrapFixed : 0;
+      /* Gift wrap — tiered by dimensions */
+      var giftCost = 0;
+      var giftLabel = null;
+      if (STATE.gift && PRICES.giftWrapTiers) {
+        var minDim = Math.min(STATE.w, STATE.h);
+        var maxDim = Math.max(STATE.w, STATE.h);
+        for (var gi = 0; gi < PRICES.giftWrapTiers.length; gi++) {
+          var tier = PRICES.giftWrapTiers[gi];
+          if (minDim <= tier.maxW && maxDim <= tier.maxH) {
+            giftCost = tier.price;
+            break;
+          }
+        }
+        if (giftCost === 0) giftLabel = PRICES.giftWrapOversizeLabel || null;
+      }
 
-      var currentFrameObj = FRAMES_DB.find(function (f) { return f.id === STATE.frame; }) || FRAMES_DB[0];
-      var frameMultiplier = 1;
-      if (currentFrameObj.cat === 'CLASSIC') frameMultiplier = 1.5;
-      var frameCost = (STATE.frame !== 'NONE') ? (perimeter * PRICES.framePerM * frameMultiplier) : 0;
+      /* Frame (perimeter in metres) */
+      var perimM = perim / 100;
+      var fPerM = PRICES.framePerM || 1200;
+      var fClassicMult = PRICES.frameClassicMult || 1.5;
+      var curFrame = FRAMES_DB.find(function (f) { return f.id === STATE.frame; }) || FRAMES_DB[0];
+      var fMult = curFrame.cat === 'CLASSIC' ? fClassicMult : 1;
+      var frameCost = (STATE.frame !== 'NONE') ? perimM * fPerM * fMult : 0;
 
-      var total = Math.ceil(base + stretcher + gallerySurcharge + varnish + gift + frameCost + STATE.processing);
+      var total = Math.ceil(printCost + faceCost + varnishCost + gelCost
+        + acrylicCost + oilCost + potalCost + giftCost + frameCost + STATE.processing);
 
       return {
         total: total,
-        sizeCost: Math.ceil(base + stretcher),
-        wrapCost: Math.ceil(base + stretcher + gallerySurcharge),
-        gallerySurcharge: Math.ceil(gallerySurcharge),
+        sizeCost: Math.ceil(printCost),
+        wrapCost: Math.ceil(printCost),
+        gallerySurcharge: Math.ceil(gallSurcharge),
         processingCost: STATE.processing,
-        varnishCost: Math.ceil(varnish),
-        giftCost: Math.ceil(gift),
+        varnishCost: Math.ceil(varnishCost),
+        giftCost: Math.ceil(giftCost),
         frameCost: Math.ceil(frameCost),
-        faceCost: 0,
-        gelCost: 0, acrylicCost: 0, oilCost: 0, potalCost: 0,
-        digitalMockupCost: 0, giftLabel: null
+        faceCost: Math.ceil(faceCost),
+        gelCost: Math.ceil(gelCost),
+        acrylicCost: Math.ceil(acrylicCost),
+        oilCost: Math.ceil(oilCost),
+        potalCost: Math.ceil(potalCost),
+        digitalMockupCost: 0,
+        giftLabel: giftLabel
       };
     }
 

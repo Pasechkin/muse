@@ -2,28 +2,46 @@
  * MUSE — единый конфиг цен для всех калькуляторов
  * Обновлено: 16 февраля 2026
  *
- * Формулы (портрет):
+ * Универсальная формула (canvas + portrait):
  *   Печать+подрамник = 0.29·S + 0.04·P·stretcherPrice + 0.76·P + 1998.48
  *     где S = w×h (см²), P = (w+h)×2 (см)
  *   Лак       = S × 0.1
- *   Гель      = S × 0.375
- *   Акрил     = S × 1.05
- *   Масло     = TBD (ожидаем данные)
- *   Поталь    = S × 0.3
+ *   Гель      = S × 0.375   (только portrait)
+ *   Акрил     = S × 1.05    (только portrait)
+ *   Масло     = S × 2 + (лица − 1) × 2400  (только portrait)
+ *   Поталь    = S × 0.3     (только portrait)
  */
 
 window.MUSE_PRICES = {
 
   /* ───── Печать на холсте (canvas) ───── */
   canvas: {
-    canvasPerSqM:        2500,   // печать за м²
-    stretcherPerM:        500,   // подрамник за погонный метр
-    varnishPerSqM:        800,   // лак за м²
-    giftWrapFixed:        450,   // подарочная упаковка (фикс)
-    noFrameDiscount:      0.8,   // рулон: ×0.8
-    framePerM:           1200,   // багет за пог. метр
-    gallerySurchargePerM: 300,   // толстый подрамник за пог. метр
-    processingOptions:  [0, 300, 900]   // базовая / оптимальная / премиальная
+    /* Печать + подрамник: 0.29·S + 0.04·P·price + 0.76·P + 1998.48 */
+    printSqCoeff:     0.29,
+    printPStrCoeff:   0.04,
+    printPBaseCoeff:  0.76,
+    printConst:    1998.48,
+    stretcherStandard:  32,
+    stretcherGallery:   68,
+    stretcherRoll:      32,
+
+    /* Покрытия */
+    varnishCoeff:   0.10,    // лак: S × 0.1
+
+    /* Обработка фото */
+    processingOptions: [0, 300, 900],
+
+    /* Подарочная упаковка — по размеру */
+    giftWrapTiers: [
+      { maxW: 50,  maxH:  70, price:  650 },
+      { maxW: 60,  maxH:  90, price:  750 },
+      { maxW: 90,  maxH: 120, price: 1200 }
+    ],
+    giftWrapOversizeLabel: 'по согласованию',
+
+    /* Багет */
+    framePerM:           1200,
+    frameClassicMult:     1.5
   },
 
   /* ───── Портрет ───── */

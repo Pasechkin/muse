@@ -548,18 +548,19 @@ Production (muse.ooo) — 1С-Битрикс; пути `/bitrix/` и `/local/` �
 **Формула ценообразования (`calc.js`, функция `calculate()`):**
 
 ```
-area       = (w × h) / 10 000   (м²)
-perimeter  = (w + h) × 2 / 100  (м)
-base       = area × 2 500 ₽/м²
-stretcher  = perimeter × 500 ₽/м  (0 для рулона)
-gallery    = GALLERY ? perimeter × 300 ₽/м : 0
-varnish    = checked ? area × 800 ₽/м² : 0
-gift       = checked ? 450 ₽ : 0
-frameCost  = frame ? perimeter × 1 200 ₽/м × (CLASSIC ? 1.5 : 1) : 0
-processing = 0 | 300 | 900 ₽
-total      = ceil(base + stretcher + gallery + varnish + gift + frameCost + processing)
+S          = w × h          (см²)
+P          = (w + h) × 2    (см)
+print      = 0.29·S + 0.04·P·strPrice + 0.76·P + 1998.48
+varnish    = checked ? S × 0.1 : 0
+gift       = по таблице размеров (650/750/1200)
+frameCost  = frame ? (P/100) × 1 200 × (CLASSIC ? 1.5 : 1) : 0
+processing = 0 | 300 | 900 ₽  (только canvas)
+total      = ceil(print + varnish + gift + frameCost + processing
+             + faceCost + gelCost + acrylicCost + oilCost + potalCost)
 old_price  = total / 0.8  (фейковая скидка 20%)
 ```
+
+Формула единая для canvas и portrait. Разница только в наборе опций (портрет: лица, гель, акрил, масло, поталь; canvas: обработка фото).
 
 **Работающие функции:**
 - Расчёт цены (площадь × ставка + периметр × ставка + опции)
@@ -820,7 +821,7 @@ CalcInit({ prices: MUSE_PRICES.canvas })    ← foto-na-kholste.html
 calc.js: var PRICES = cfg.prices || DEFAULT_PRICES  ← fallback
 ```
 
-**Портретные формулы (единицы: см², см):**
+**Единые формулы для canvas и portrait (единицы: см², см):**
 
 | Опция | Формула | Пример 30×40 |
 |-------|---------|-------------|

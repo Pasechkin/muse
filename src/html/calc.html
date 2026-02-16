@@ -219,7 +219,8 @@
 
     <script src="js/nav.js" defer></script>
     <script src="js/uploader.js" defer></script>
-        <script src="js/calc.js?v=2" defer></script>
+        <script defer src="js/prices.js"></script>
+        <script src="js/calc.js?v=3" defer></script>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 var calcRoot = document.querySelector('[data-calc-root]');
@@ -228,7 +229,7 @@
                 function startCalc() {
                     if (window.__MUSE_CALC_BOOTED__) return;
                     window.__MUSE_CALC_BOOTED__ = true;
-                    CalcInit({ type: 'canvas', showProcessing: true, showUpload: true });
+                    CalcInit({ type: 'canvas', prices: window.MUSE_PRICES && window.MUSE_PRICES.canvas, showProcessing: true, showUpload: true });
                 }
 
                 if (!('IntersectionObserver' in window)) {
