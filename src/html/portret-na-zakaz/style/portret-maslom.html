@@ -243,9 +243,6 @@
                                     <div class="section-title"><span>Обработка фото</span><span id="badge-processing" class="text-sm font-bold text-slate-500 normal-case">0 р.</span></div>
                                     <div class="grid grid-cols-1">
                                         <select id="processing-select" aria-label="Обработка фото" class="col-start-1 row-start-1 w-full appearance-none bg-white border border-slate-200 text-body py-3 pl-4 pr-8 rounded-lg text-sm font-medium focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary">
-                                            <option value="0">Базовая</option>
-                                            <option value="300">Оптимальная (+300 р.)</option>
-                                            <option value="900">Премиальная (+900 р.)</option>
                                         </select>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5 self-center justify-self-end text-slate-500"><path d="m6 9 6 6 6-6"/></svg>
                                     </div>
@@ -909,7 +906,6 @@
                 CalcInit({
                     type: 'portrait',
                     prices: window.MUSE_PRICES && window.MUSE_PRICES.portrait,
-                    showUpload: true,
                     tooltips: {
                         faces: 'Стоимость цифрового портрета зависит от количества лиц на картине. Каждое дополнительное лицо требует отдельной детальной прорисовки черт, светотени и выражения, поэтому стоимость увеличивается пропорционально.',
                         gel: 'Гель придаёт плоскому отпечатку физический объём и текстуру, имитируя мазки кисти. Мастер вручную наносит прозрачный гель-медиум специальной кистью, повторяя направление мазков. После высыхания поверхность выглядит и ощущается на ощупь как настоящая живопись.',

@@ -89,7 +89,6 @@
     stretcherGallery: 68,
     stretcherRoll: 32,
     varnishCoeff: 0.10,
-    processingOptions: [0, 300, 900],
     giftWrapTiers: [
       { maxW: 50, maxH: 70, price: 650 },
       { maxW: 60, maxH: 90, price: 750 },
@@ -103,7 +102,6 @@
     faceExtra: 960,
     digitalFaceFirst: 3600,
     digitalFaceExtra: 1200,
-    digitalMockupFixed: 0,
     gelCoeff: 0.375,
     acrylicCoeff: 1.05,
     oilCoeff: 2,
@@ -167,8 +165,6 @@
         sizeInputsRow.classList.add('lg:flex');
       }
     }
-
-    /* ---------- Interiors ---------- */
 
     /* ---------- Hint dialog (tooltips) ---------- */
 
@@ -761,7 +757,6 @@
         canvas: getEl('preview-canvas'),
         priceTotal: getEl('total-price'),
         priceOld: getEl('old-price'),
-        priceSize: getEl('price-size'),
         priceVarnish: getEl('price-varnish'),
         priceGift: getEl('price-gift'),
         priceFrame: getEl('price-frame'),
@@ -856,6 +851,19 @@
       }
 
       if (els.processingSelect) {
+        /* Populate options from PRICES config */
+        if (PRICES.processingOptions && PRICES.processingOptions.length) {
+          els.processingSelect.innerHTML = '';
+          for (var pi = 0; pi < PRICES.processingOptions.length; pi++) {
+            var po = PRICES.processingOptions[pi];
+            var opt = document.createElement('option');
+            opt.value = po.value;
+            opt.textContent = po.value > 0
+              ? po.label + ' (+' + po.value.toLocaleString() + ' р.)'
+              : po.label;
+            els.processingSelect.appendChild(opt);
+          }
+        }
         els.processingSelect.addEventListener('change', function (e) {
           STATE.processing = parseInt(e.target.value);
           updateUI(els);
@@ -1246,11 +1254,11 @@
       if (isPortrait && STATE.digitalMockup) {
         var mockupTotal = Math.ceil(faceCost + STATE.processing);
         return {
-          total: mockupTotal, sizeCost: 0, wrapCost: 0, gallerySurcharge: 0,
+          total: mockupTotal, wrapCost: 0,
           processingCost: STATE.processing, varnishCost: 0, giftCost: 0,
           frameCost: 0, faceCost: Math.ceil(faceCost),
           gelCost: 0, acrylicCost: 0, oilCost: 0, potalCost: 0,
-          digitalMockupCost: 0, giftLabel: null
+          digitalMockupCost: Math.ceil(faceCost), giftLabel: null
         };
       }
 
@@ -1263,16 +1271,6 @@
         + (PRICES.printPStrCoeff || 0) * perim * strPrice
         + (PRICES.printPBaseCoeff || 0) * perim
         + (PRICES.printConst || 0);
-
-      /* Gallery surcharge = difference vs standard stretcher */
-      var gallSurcharge = 0;
-      if (STATE.wrap === 'GALLERY') {
-        var stdPrint = (PRICES.printSqCoeff || 0) * sq
-          + (PRICES.printPStrCoeff || 0) * perim * (PRICES.stretcherStandard || 32)
-          + (PRICES.printPBaseCoeff || 0) * perim
-          + (PRICES.printConst || 0);
-        gallSurcharge = printCost - stdPrint;
-      }
 
       /* Coatings (coefficient × area_cm²) */
       var varnishCost = STATE.varnish ? sq * (PRICES.varnishCoeff || 0) : 0;
@@ -1311,9 +1309,7 @@
 
       return {
         total: total,
-        sizeCost: Math.ceil(printCost),
         wrapCost: Math.ceil(printCost),
-        gallerySurcharge: Math.ceil(gallSurcharge),
         processingCost: STATE.processing,
         varnishCost: Math.ceil(varnishCost),
         giftCost: Math.ceil(giftCost),

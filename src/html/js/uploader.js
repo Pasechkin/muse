@@ -187,40 +187,67 @@
 
     /* ========== IMAGE LOADING ========== */
 
+    var PREVIEW_MAX = 1000;  // px — длинная сторона для превью/примерки
+    var THUMB_MAX   = 120;   // px — миниатюра в полосе
+
+    /**
+     * Ресайз изображения через offscreen <canvas>.
+     * Возвращает data URL (JPEG 0.85) уменьшенной копии.
+     */
+    function resizeImage(img, maxSide) {
+      var w = img.naturalWidth;
+      var h = img.naturalHeight;
+      if (w > maxSide || h > maxSide) {
+        if (w >= h) {
+          h = Math.round(h * maxSide / w);
+          w = maxSide;
+        } else {
+          w = Math.round(w * maxSide / h);
+          h = maxSide;
+        }
+      }
+      var c = document.createElement('canvas');
+      c.width = w;
+      c.height = h;
+      var ctx = c.getContext('2d');
+      ctx.drawImage(img, 0, 0, w, h);
+      return c.toDataURL('image/jpeg', 0.85);
+    }
+
     function loadImage(file, callback) {
-      var reader = new FileReader();
-      reader.onload = function (evt) {
-        var img = new Image();
-        img.onload = function () {
-          var imgObj = {
-            id: generateId(),
-            dataUrl: evt.target.result,
-            name: file.name,
-            size: file.size,
-            type: file.type,
-            width: img.naturalWidth,
-            height: img.naturalHeight
-          };
-          images.push(imgObj);
+      var objectUrl = URL.createObjectURL(file);
+      var img = new Image();
+      img.onload = function () {
+        var previewUrl = resizeImage(img, PREVIEW_MAX);
+        var thumbUrl   = resizeImage(img, THUMB_MAX);
 
-          // First image becomes active
-          if (images.length === 1) {
-            activeImageId = imgObj.id;
-          }
+        var imgObj = {
+          id: generateId(),
+          objectUrl: objectUrl,    // blob-ссылка на оригинал (для DPI)
+          previewUrl: previewUrl,  // ≤1000px — для превью/lightbox/багета
+          thumbUrl: thumbUrl,      // ≤120px  — для полосы миниатюр
+          dataUrl: previewUrl,     // обратная совместимость с calc.js
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          width: img.naturalWidth,
+          height: img.naturalHeight
+        };
+        images.push(imgObj);
 
-          if (callback) callback(imgObj);
-        };
-        img.onerror = function () {
-          showAlert('Ошибка чтения файла «' + escapeHtml(file.name) + '»', 'error');
-          if (callback) callback(null);
-        };
-        img.src = evt.target.result;
+        // First image becomes active
+        if (images.length === 1) {
+          activeImageId = imgObj.id;
+        }
+
+        if (callback) callback(imgObj);
       };
-      reader.onerror = function () {
+      img.onerror = function () {
+        URL.revokeObjectURL(objectUrl);
         showAlert('Ошибка чтения файла «' + escapeHtml(file.name) + '»', 'error');
         if (callback) callback(null);
       };
-      reader.readAsDataURL(file);
+      img.src = objectUrl;
     }
 
     /* ========== ADD FILES (with batch processing) ========== */
@@ -297,14 +324,21 @@
     function removeImage(id) {
       var removedName = '';
       var removedIdx = -1;
+      var removedObj = null;
       images = images.filter(function (img, idx) {
         if (img.id === id) {
           removedName = img.name;
           removedIdx = idx;
+          removedObj = img;
           return false;
         }
         return true;
       });
+
+      // Освободить blob URL оригинала
+      if (removedObj && removedObj.objectUrl) {
+        URL.revokeObjectURL(removedObj.objectUrl);
+      }
 
       // Update active
       if (activeImageId === id) {
@@ -349,6 +383,10 @@
     /* ========== CLEAR ALL ========== */
 
     function clearAll() {
+      // Освободить все blob URL
+      for (var i = 0; i < images.length; i++) {
+        if (images[i].objectUrl) URL.revokeObjectURL(images[i].objectUrl);
+      }
       images = [];
       activeImageId = null;
       pendingRemoveId = null;
@@ -397,7 +435,7 @@
               'role="option" aria-selected="' + isActive + '" tabindex="0" ' +
               'data-img-id="' + img.id + '" ' +
               'aria-label="' + escapeHtml(img.name) + '">' +
-            '<img src="' + img.dataUrl + '" class="uploader-thumb" alt="' + escapeHtml(img.name) + '" draggable="false">' +
+            '<img src="' + (img.thumbUrl || img.dataUrl) + '" class="uploader-thumb" alt="' + escapeHtml(img.name) + '" draggable="false">' +
             '<button type="button" class="uploader-thumb-remove' + (isPendingRemove ? ' uploader-thumb-remove-armed' : '') + '" data-img-id="' + img.id + '" ' +
               'aria-label="' + (isPendingRemove ? 'Подтвердить удаление ' : 'Удалить ') + escapeHtml(img.name) + '" tabindex="0">' +
               '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>' +
