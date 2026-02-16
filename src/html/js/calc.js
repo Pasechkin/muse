@@ -248,15 +248,11 @@
       if (!panel) panel = document.querySelector('.calc-panel > div');
       if (!panel) return;
 
-      /* Update processing option values for portrait prices */
+      /* Hide processing section — portraits don't use it */
       var processingSelect = getEl('processing-select');
-      if (processingSelect && PRICES.processingOptions) {
-        var pLabels = ['Базовая', 'Оптимальная', 'Премиальная'];
-        var pOpts = PRICES.processingOptions;
-        for (var pi = 0; pi < processingSelect.options.length && pi < pOpts.length; pi++) {
-          processingSelect.options[pi].value = pOpts[pi];
-          processingSelect.options[pi].textContent = pLabels[pi] + (pOpts[pi] > 0 ? ' (+' + pOpts[pi] + ' р.)' : '');
-        }
+      if (processingSelect) {
+        var procSection = processingSelect.closest('section');
+        if (procSection) procSection.style.display = 'none';
         STATE.processing = 0;
       }
 
