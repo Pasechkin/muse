@@ -2279,7 +2279,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 ## Калькулятор
 
-Компоненты калькулятора печати на холсте. Используется на страницах: `calc.html`, `foto-na-kholste-sankt-peterburg.html`.
+Компоненты калькулятора печати на холсте и портретов. Используется на страницах: `calc.html`, `foto-na-kholste-sankt-peterburg.html`, `portret-maslom.html`.
+
+> **Полная техническая документация:** [docs/CALCULATOR.md](CALCULATOR.md) — JS API (`CalcInit`, `MuseUploader`), формулы ценообразования, конфиг `prices.js`, каталог рамок, загрузчик изображений, требования к серверной интеграции.
 
 **Скрипт:** `js/calc.js` (подключается отдельно, инициализация через `CalcInit()`).
 

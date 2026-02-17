@@ -66,9 +66,13 @@ window.MUSE_PRICES = (function () {
     ],
     giftWrapOversizeLabel: 'по согласованию',
 
-    /* Багет */
-    framePerM:           1200,
-    frameClassicMult:     1.5
+    /* Багет — legacy fallback.
+     * Эти значения используются ТОЛЬКО если у рамы нет поля pricePerM.
+     * На продакшене каждая рама получает индивидуальный pricePerM
+     * из серверных данных (cfg.frames через Bitrix API).
+     * См. docs/CALCULATOR.md §10.3 — контракт API каталога рам. */
+    framePerM:           1200,   // fallback: цена за п.м. для STUDIO
+    frameClassicMult:     1.5    // fallback: множитель для CLASSIC (1200 × 1.5 = 1800)
   };
 
   /** Копирует все ключи из shared + extras в новый объект */

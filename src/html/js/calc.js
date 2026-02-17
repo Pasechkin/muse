@@ -17,34 +17,45 @@
 
   /* ========== DEFAULT DATA ========== */
 
+  /*
+   * DEFAULT_FRAMES — демо-каталог багетных рам (заглушка).
+   *
+   * Новые поля (готовы к серверным данным):
+   *   pricePerM  — цена за погонный метр (р.), null = fallback на PRICES.framePerM × multiplier
+   *   imageUrl   — URL фото рамы, null = CSS-рендер (цвет + border)
+   *   available  — доступна ли рама для заказа (true по умолчанию)
+   *
+   * ⚠️  Текущие pricePerM = демо-значения (1200/1800), НЕ реальные цены.
+   *     На продакшене (Bitrix) массив заменяется серверными данными через cfg.frames.
+   */
   var DEFAULT_FRAMES = [
-    { id: 'NONE', name: 'Без багета', cat: 'STUDIO', color: 'transparent', width: 0, style: 'flat' },
-    { id: 'ST_BLACK_M', name: 'Черный мат', cat: 'STUDIO', color: '#1a1a1a', width: 12, style: 'flat' },
-    { id: 'ST_WHITE_M', name: 'Белый мат', cat: 'STUDIO', color: '#ffffff', width: 12, style: 'flat', border: '#e2e8f0' },
-    { id: 'ST_GREY', name: 'Серый графит', cat: 'STUDIO', color: '#475569', width: 12, style: 'flat' },
-    { id: 'ST_SILVER_S', name: 'Серебро сатин', cat: 'STUDIO', color: '#cbd5e1', width: 10, style: 'metallic' },
-    { id: 'ST_GOLD_S', name: 'Золото сатин', cat: 'STUDIO', color: '#eab308', width: 10, style: 'metallic' },
-    { id: 'ST_BLUE_DP', name: 'Синий дип', cat: 'STUDIO', color: '#1e3a8a', width: 15, style: 'flat' },
-    { id: 'ST_RED_BR', name: 'Красный кирпич', cat: 'STUDIO', color: '#991b1b', width: 15, style: 'flat' },
-    { id: 'ST_BEIGE', name: 'Бежевый', cat: 'STUDIO', color: '#f5f5dc', width: 12, style: 'flat', border: '#d6d3d1' },
-    { id: 'ST_ALU_BLK', name: 'Алюм. черный', cat: 'STUDIO', color: '#000', width: 5, style: 'metallic' },
-    { id: 'ST_ALU_SIL', name: 'Алюм. серебро', cat: 'STUDIO', color: '#94a3b8', width: 5, style: 'metallic' },
-    { id: 'ST_ALU_GLD', name: 'Алюм. золото', cat: 'STUDIO', color: '#ca8a04', width: 5, style: 'metallic' },
-    { id: 'ST_WENGE', name: 'Венге', cat: 'STUDIO', color: '#3f2e26', width: 14, style: 'wood' },
-    { id: 'ST_OAK_L', name: 'Светлый дуб', cat: 'STUDIO', color: '#d4a373', width: 14, style: 'wood' },
-    { id: 'ST_WALNUT', name: 'Орех', cat: 'STUDIO', color: '#5D4037', width: 14, style: 'wood' },
-    { id: 'CL_GOLD_ORN', name: 'Золото узор', cat: 'CLASSIC', color: '#d4af37', width: 40, style: 'ornate_gold' },
-    { id: 'CL_SILV_ORN', name: 'Серебро узор', cat: 'CLASSIC', color: '#c0c0c0', width: 40, style: 'ornate_silver' },
-    { id: 'CL_MAHOGANY', name: 'Махагон', cat: 'CLASSIC', color: '#4a0404', width: 35, style: 'wood_gloss' },
-    { id: 'CL_VINT_WHT', name: 'Винтаж белый', cat: 'CLASSIC', color: '#f0f0f0', width: 30, style: 'shabby' },
-    { id: 'CL_BRONZE', name: 'Бронза антик', cat: 'CLASSIC', color: '#cd7f32', width: 35, style: 'metallic' },
-    { id: 'CL_BLK_GLD', name: 'Черный с золотом', cat: 'CLASSIC', color: '#1a1a1a', width: 45, style: 'ornate_gold_inner' },
-    { id: 'CL_ITALY_WD', name: 'Итал. орех', cat: 'CLASSIC', color: '#654321', width: 50, style: 'wood_carved' },
-    { id: 'CL_PROVANCE', name: 'Прованс', cat: 'CLASSIC', color: '#e5e7eb', width: 25, style: 'shabby' },
-    { id: 'CL_GOLD_LG', name: 'Золото широкое', cat: 'CLASSIC', color: '#ffd700', width: 60, style: 'ornate_gold' },
-    { id: 'CL_SILV_LG', name: 'Серебро широкое', cat: 'CLASSIC', color: '#e2e8f0', width: 60, style: 'ornate_silver' },
-    { id: 'CL_CHERRY', name: 'Вишня', cat: 'CLASSIC', color: '#722F37', width: 30, style: 'wood' },
-    { id: 'CL_PINE', name: 'Сосна лак', cat: 'CLASSIC', color: '#E3C08D', width: 25, style: 'wood' }
+    { id: 'NONE', name: 'Без багета', cat: 'STUDIO', color: 'transparent', width: 0, style: 'flat', pricePerM: null, imageUrl: null, available: true },
+    { id: 'ST_BLACK_M', name: 'Черный мат', cat: 'STUDIO', color: '#1a1a1a', width: 12, style: 'flat', pricePerM: 1200, imageUrl: null, available: true },
+    { id: 'ST_WHITE_M', name: 'Белый мат', cat: 'STUDIO', color: '#ffffff', width: 12, style: 'flat', border: '#e2e8f0', pricePerM: 1200, imageUrl: null, available: true },
+    { id: 'ST_GREY', name: 'Серый графит', cat: 'STUDIO', color: '#475569', width: 12, style: 'flat', pricePerM: 1200, imageUrl: null, available: true },
+    { id: 'ST_SILVER_S', name: 'Серебро сатин', cat: 'STUDIO', color: '#cbd5e1', width: 10, style: 'metallic', pricePerM: 1200, imageUrl: null, available: true },
+    { id: 'ST_GOLD_S', name: 'Золото сатин', cat: 'STUDIO', color: '#eab308', width: 10, style: 'metallic', pricePerM: 1200, imageUrl: null, available: true },
+    { id: 'ST_BLUE_DP', name: 'Синий дип', cat: 'STUDIO', color: '#1e3a8a', width: 15, style: 'flat', pricePerM: 1200, imageUrl: null, available: true },
+    { id: 'ST_RED_BR', name: 'Красный кирпич', cat: 'STUDIO', color: '#991b1b', width: 15, style: 'flat', pricePerM: 1200, imageUrl: null, available: true },
+    { id: 'ST_BEIGE', name: 'Бежевый', cat: 'STUDIO', color: '#f5f5dc', width: 12, style: 'flat', border: '#d6d3d1', pricePerM: 1200, imageUrl: null, available: true },
+    { id: 'ST_ALU_BLK', name: 'Алюм. черный', cat: 'STUDIO', color: '#000', width: 5, style: 'metallic', pricePerM: 1200, imageUrl: null, available: true },
+    { id: 'ST_ALU_SIL', name: 'Алюм. серебро', cat: 'STUDIO', color: '#94a3b8', width: 5, style: 'metallic', pricePerM: 1200, imageUrl: null, available: true },
+    { id: 'ST_ALU_GLD', name: 'Алюм. золото', cat: 'STUDIO', color: '#ca8a04', width: 5, style: 'metallic', pricePerM: 1200, imageUrl: null, available: true },
+    { id: 'ST_WENGE', name: 'Венге', cat: 'STUDIO', color: '#3f2e26', width: 14, style: 'wood', pricePerM: 1200, imageUrl: null, available: true },
+    { id: 'ST_OAK_L', name: 'Светлый дуб', cat: 'STUDIO', color: '#d4a373', width: 14, style: 'wood', pricePerM: 1200, imageUrl: null, available: true },
+    { id: 'ST_WALNUT', name: 'Орех', cat: 'STUDIO', color: '#5D4037', width: 14, style: 'wood', pricePerM: 1200, imageUrl: null, available: true },
+    { id: 'CL_GOLD_ORN', name: 'Золото узор', cat: 'CLASSIC', color: '#d4af37', width: 40, style: 'ornate_gold', pricePerM: 1800, imageUrl: null, available: true },
+    { id: 'CL_SILV_ORN', name: 'Серебро узор', cat: 'CLASSIC', color: '#c0c0c0', width: 40, style: 'ornate_silver', pricePerM: 1800, imageUrl: null, available: true },
+    { id: 'CL_MAHOGANY', name: 'Махагон', cat: 'CLASSIC', color: '#4a0404', width: 35, style: 'wood_gloss', pricePerM: 1800, imageUrl: null, available: true },
+    { id: 'CL_VINT_WHT', name: 'Винтаж белый', cat: 'CLASSIC', color: '#f0f0f0', width: 30, style: 'shabby', pricePerM: 1800, imageUrl: null, available: true },
+    { id: 'CL_BRONZE', name: 'Бронза антик', cat: 'CLASSIC', color: '#cd7f32', width: 35, style: 'metallic', pricePerM: 1800, imageUrl: null, available: true },
+    { id: 'CL_BLK_GLD', name: 'Черный с золотом', cat: 'CLASSIC', color: '#1a1a1a', width: 45, style: 'ornate_gold_inner', pricePerM: 1800, imageUrl: null, available: true },
+    { id: 'CL_ITALY_WD', name: 'Итал. орех', cat: 'CLASSIC', color: '#654321', width: 50, style: 'wood_carved', pricePerM: 1800, imageUrl: null, available: true },
+    { id: 'CL_PROVANCE', name: 'Прованс', cat: 'CLASSIC', color: '#e5e7eb', width: 25, style: 'shabby', pricePerM: 1800, imageUrl: null, available: true },
+    { id: 'CL_GOLD_LG', name: 'Золото широкое', cat: 'CLASSIC', color: '#ffd700', width: 60, style: 'ornate_gold', pricePerM: 1800, imageUrl: null, available: true },
+    { id: 'CL_SILV_LG', name: 'Серебро широкое', cat: 'CLASSIC', color: '#e2e8f0', width: 60, style: 'ornate_silver', pricePerM: 1800, imageUrl: null, available: true },
+    { id: 'CL_CHERRY', name: 'Вишня', cat: 'CLASSIC', color: '#722F37', width: 30, style: 'wood', pricePerM: 1800, imageUrl: null, available: true },
+    { id: 'CL_PINE', name: 'Сосна лак', cat: 'CLASSIC', color: '#E3C08D', width: 25, style: 'wood', pricePerM: 1800, imageUrl: null, available: true }
   ];
 
   var DEFAULT_INTERIORS = [
@@ -90,7 +101,7 @@
     varnishCoeff: 0,
     giftWrapTiers: [],
     giftWrapOversizeLabel: '',
-    framePerM: 0, frameClassicMult: 1,
+    framePerM: 0, frameClassicMult: 1,  /* legacy fallback — see frame.pricePerM */
     faceFirst: 0, faceExtra: 0,
     digitalFaceFirst: 0, digitalFaceExtra: 0,
     gelCoeff: 0, acrylicCoeff: 0, oilCoeff: 0, oilFaceExtra: 0, potalCoeff: 0
@@ -125,7 +136,9 @@
     cfg.sizePresets = cfg.sizePresets || null;
 
     /* --- Data (overridable via config) --- */
-    var FRAMES_DB    = cfg.frames      || DEFAULT_FRAMES;
+    var FRAMES_RAW   = cfg.frames      || DEFAULT_FRAMES;
+    /* Filter out unavailable frames (available !== false means visible) */
+    var FRAMES_DB    = FRAMES_RAW.filter(function (f) { return f.available !== false; });
     var INTERIORS_DB = cfg.interiors   || DEFAULT_INTERIORS;
     var SIZE_PRESETS  = cfg.sizePresets || DEFAULT_SIZE_PRESETS;
     var PRICES = mergePrices(cfg.prices);
@@ -809,10 +822,17 @@
 
     /* ---------- Frame catalog ---------- */
 
+    /**
+     * getFramePrice — стоимость рамы для текущего размера.
+     * Приоритет: frame.pricePerM (индивидуальная цена) → PRICES.framePerM × multiplier (fallback).
+     */
     function getFramePrice(frame) {
+      if (frame.id === 'NONE') return 0;
       var perimeter = (STATE.w + STATE.h) * 2 / 100;
-      var multiplier = (frame.cat === 'CLASSIC') ? 1.5 : 1;
-      return frame.id === 'NONE' ? 0 : Math.ceil(perimeter * PRICES.framePerM * multiplier);
+      var ppm = (typeof frame.pricePerM === 'number')
+        ? frame.pricePerM
+        : PRICES.framePerM * ((frame.cat === 'CLASSIC') ? PRICES.frameClassicMult : 1);
+      return Math.ceil(perimeter * ppm);
     }
 
     function renderFrameCatalog() {
@@ -837,6 +857,7 @@
         el.className = 'frame-option group relative cursor-pointer flex flex-col items-center gap-2 p-2 rounded-xl border-2 border-transparent hover:bg-secondary transition';
         el.dataset.id = frame.id;
 
+        var hasImage = !!frame.imageUrl;
         var borderStyle = (frame.width > 0 ? '8px' : '0') + ' solid ' + frame.color;
         var styleCSS = '';
         if (frame.id === 'NONE') {
@@ -854,14 +875,32 @@
 
         var priceText = frame.id === 'NONE' ? 'Без багета' : fmtPrice(getFramePrice(frame)) + ' р.';
 
-        el.innerHTML =
-          '<div class="relative w-full rounded-lg shadow-sm overflow-hidden bg-white frame-preview-box" style="' + aspectRatioStyle + '">' +
-            '<div class="w-full h-full box-border relative z-10" style="border: ' + borderStyle + '; ' + styleCSS + ' transition: border 0.2s;">' +
-              '<div class="w-full h-full bg-cover bg-center frame-image-preview" style="background-color: #f1f5f9;"></div>' +
+        /*
+         * imageUrl support: when frame has a photo, show it as background
+         * covering the entire preview box (no CSS border).
+         * When imageUrl is null — CSS-rendered border preview (current behavior).
+         */
+        var innerHtml;
+        if (hasImage) {
+          innerHtml =
+            '<div class="relative w-full rounded-lg shadow-sm overflow-hidden bg-white frame-preview-box" style="' + aspectRatioStyle + '">' +
+              '<div class="w-full h-full box-border relative z-10">' +
+                '<img src="' + frame.imageUrl + '" alt="' + frame.name + '" class="w-full h-full object-cover frame-image-preview" loading="lazy">' +
+              '</div>' +
+              noFrameIcon +
             '</div>' +
-            noFrameIcon +
-          '</div>' +
-          '<span class="text-xs font-bold text-body text-center leading-tight group-hover:text-primary transition">' + priceText + '</span>';
+            '<span class="text-xs font-bold text-body text-center leading-tight group-hover:text-primary transition">' + priceText + '</span>';
+        } else {
+          innerHtml =
+            '<div class="relative w-full rounded-lg shadow-sm overflow-hidden bg-white frame-preview-box" style="' + aspectRatioStyle + '">' +
+              '<div class="w-full h-full box-border relative z-10" style="border: ' + borderStyle + '; ' + styleCSS + ' transition: border 0.2s;">' +
+                '<div class="w-full h-full bg-cover bg-center frame-image-preview" style="background-color: #f1f5f9;"></div>' +
+              '</div>' +
+              noFrameIcon +
+            '</div>' +
+            '<span class="text-xs font-bold text-body text-center leading-tight group-hover:text-primary transition">' + priceText + '</span>';
+        }
+        el.innerHTML = innerHtml;
 
         /* Task 3.3: cache references for incremental updates */
         _frameNodeCache[frame.id] = {
@@ -1418,15 +1457,18 @@
       var cta = getEl('frame-upload-cta');
       if (STATE.image) {
         if (cta) cta.style.display = 'none';
-        previews.forEach(function (div) {
-          div.style.backgroundImage = 'url(' + STATE.image + ')';
-          div.style.backgroundColor = 'transparent';
+        previews.forEach(function (el) {
+          /* Skip <img> elements — these show the frame photo, not the user photo */
+          if (el.tagName === 'IMG') return;
+          el.style.backgroundImage = 'url(' + STATE.image + ')';
+          el.style.backgroundColor = 'transparent';
         });
       } else {
         if (cta) cta.style.display = 'block';
-        previews.forEach(function (div) {
-          div.style.backgroundImage = 'none';
-          div.style.backgroundColor = '#f1f5f9';
+        previews.forEach(function (el) {
+          if (el.tagName === 'IMG') return;
+          el.style.backgroundImage = 'none';
+          el.style.backgroundColor = '#f1f5f9';
         });
       }
     }
@@ -1505,13 +1547,13 @@
       var giftCost  = STATE.gift ? giftRaw : 0;
       var giftLabel = STATE.gift ? giftLabelRaw : null;
 
-      /* Frame (perimeter in metres) */
+      /* Frame (perimeter in metres) — uses frame.pricePerM if available */
       var perimM = perim / 100;
-      var fPerM = PRICES.framePerM;
-      var fClassicMult = PRICES.frameClassicMult;
       var curFrame = _frameMap[STATE.frame] || FRAMES_DB[0];
-      var fMult = curFrame.cat === 'CLASSIC' ? fClassicMult : 1;
-      var frameCost = (STATE.frame !== 'NONE') ? perimM * fPerM * fMult : 0;
+      var framePpm = (typeof curFrame.pricePerM === 'number')
+        ? curFrame.pricePerM
+        : PRICES.framePerM * (curFrame.cat === 'CLASSIC' ? PRICES.frameClassicMult : 1);
+      var frameCost = (STATE.frame !== 'NONE') ? perimM * framePpm : 0;
 
       var total = Math.ceil(printCost + faceCost + varnishCost + gelCost
         + acrylicCost + oilCost + potalCost + giftCost + frameCost + STATE.processing);
