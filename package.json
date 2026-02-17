@@ -22,7 +22,8 @@
     "postcss-cli": "^11.0.1",
     "svg-path-bounds": "^1.0.2",
     "svgo": "^4.0.0",
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "^4.1.18",
+    "terser": "^5.46.0"
   },
   "dependencies": {
     "@tailwindplus/elements": "^1.0.22"

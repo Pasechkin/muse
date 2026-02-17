@@ -18,3 +18,4 @@ Before generating code, you MUST check these files if context is missing:
 - **Refactoring:** When asked to refactor, check `src/html/js/nav.js` for existing logic.
 - **Images:** Keep existing paths. Do not invent new image files.
 - **Naming:** Use transliterated Russian filenames (e.g., `foto-na-kholste.html`).
+- **Calculator:** Source of truth is `src/html/calc.html`. Changes to calculator HTML/CSS go to `calc.html` FIRST, then propagate to product pages. NEVER edit calculator markup only on a product page.

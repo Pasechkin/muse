@@ -2287,10 +2287,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 ### Текущее состояние (февраль 2026)
 
-- **Source of truth (демо):**
-  - HTML: `src/html/calc.html`
+- **⚠️ Source of truth (ОБЯЗАТЕЛЬНО):**
+  - HTML-эталон: `src/html/calc.html` — **все изменения разметки вносить СНАЧАЛА сюда**
   - JS: `src/html/js/calc.js`
+  - Цены: `src/html/js/prices.js`
   - CSS: `src/input.css` (компоненты) → `src/html/css/output.css` (preview)
+- **Workflow:** `calc.html` → проверить → тиражировать на продуктовые страницы. Подробнее — `AI_INSTRUCTIONS.md` (раздел «Калькулятор: порядок внесения изменений»).
 - **Модалка багета:** нативный `<dialog>` + `showModal()` / `close()`.
 - **Новые component classes:** `.calc-panel`, `.calc-sticky-bar`, `.modal-shell`, `.calc-order-form`, `.calc-frame-modal-content`, `.calc-frame-modal-header`, `.calc-frame-modal-body`, `.calc-frame-upload-cta`, `.calc-frame-modal-footer`, `.calc-preview-canvas`, `.calc-lightbox-close`.
 - **Preview workflow (обязательно):** после правок CSS запускать `npm run build:once` и `npm run copy-css`.

@@ -223,7 +223,7 @@
 
         var imgObj = {
           id: generateId(),
-          objectUrl: objectUrl,    // blob-ссылка на оригинал (для DPI)
+          objectUrl: objectUrl,    // blob-ссылка на оригинал
           previewUrl: previewUrl,  // ≤1000px — для превью/lightbox/багета
           thumbUrl: thumbUrl,      // ≤120px  — для полосы миниатюр
           dataUrl: previewUrl,     // обратная совместимость с calc.js

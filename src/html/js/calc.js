@@ -79,46 +79,61 @@
     SQUARE: [{ w: 30, h: 30 }, { w: 40, h: 40 }, { w: 50, h: 50 }, { w: 60, h: 60 }, { w: 70, h: 70 }]
   };
 
-  var DEFAULT_PRICES = {
-    /* Universal formula: 0.29·S + 0.04·P·strPrice + 0.76·P + 1998.48 */
-    printSqCoeff: 0.29,
-    printPStrCoeff: 0.04,
-    printPBaseCoeff: 0.76,
-    printConst: 1998.48,
-    stretcherStandard: 32,
-    stretcherGallery: 68,
-    stretcherRoll: 32,
-    varnishCoeff: 0.10,
-    giftWrapTiers: [
-      { maxW: 50, maxH: 70, price: 650 },
-      { maxW: 60, maxH: 90, price: 750 },
-      { maxW: 90, maxH: 120, price: 1200 }
-    ],
-    giftWrapOversizeLabel: 'по согласованию',
-    framePerM: 1200,
-    frameClassicMult: 1.5,
-    /* Portrait-only extras */
-    faceFirst: 1920,
-    faceExtra: 960,
-    digitalFaceFirst: 3600,
-    digitalFaceExtra: 1200,
-    gelCoeff: 0.375,
-    acrylicCoeff: 1.05,
-    oilCoeff: 2,
-    oilFaceExtra: 2400,
-    potalCoeff: 0.30
+  /**
+   * MINIMAL_FALLBACK — минимальный набор, чтобы калькулятор не упал без prices.js.
+   * Реальные цены должны приходить через cfg.prices из prices.js (MUSE_PRICES).
+   * Значения здесь — только чтобы формулы не делили на NaN/undefined.
+   */
+  var MINIMAL_FALLBACK = {
+    printSqCoeff: 0, printPStrCoeff: 0, printPBaseCoeff: 0, printConst: 0,
+    stretcherStandard: 1, stretcherGallery: 1, stretcherRoll: 1,
+    varnishCoeff: 0,
+    giftWrapTiers: [],
+    giftWrapOversizeLabel: '',
+    framePerM: 0, frameClassicMult: 1,
+    faceFirst: 0, faceExtra: 0,
+    digitalFaceFirst: 0, digitalFaceExtra: 0,
+    gelCoeff: 0, acrylicCoeff: 0, oilCoeff: 0, oilFaceExtra: 0, potalCoeff: 0
   };
+
+  /** Сливает MINIMAL_FALLBACK с переданным cfg.prices (поключево, не «всё или ничего»). */
+  function mergePrices(override) {
+    var result = {};
+    var k;
+    for (k in MINIMAL_FALLBACK) {
+      if (MINIMAL_FALLBACK.hasOwnProperty(k)) result[k] = MINIMAL_FALLBACK[k];
+    }
+    if (override) {
+      for (k in override) {
+        if (override.hasOwnProperty(k)) result[k] = override[k];
+      }
+    }
+    return result;
+  }
 
   /* ========== PUBLIC API ========== */
 
   window.CalcInit = function (cfg) {
     cfg = cfg || {};
 
+    /* --- Normalize config once --- */
+    cfg.type       = cfg.type || 'canvas';
+    cfg.tooltips   = cfg.tooltips || null;
+    cfg.prices     = cfg.prices || null;
+    cfg.frames     = cfg.frames || null;
+    cfg.interiors  = cfg.interiors || null;
+    cfg.sizePresets = cfg.sizePresets || null;
+
     /* --- Data (overridable via config) --- */
     var FRAMES_DB    = cfg.frames      || DEFAULT_FRAMES;
     var INTERIORS_DB = cfg.interiors   || DEFAULT_INTERIORS;
     var SIZE_PRESETS  = cfg.sizePresets || DEFAULT_SIZE_PRESETS;
-    var PRICES        = cfg.prices     || DEFAULT_PRICES;
+    var PRICES = mergePrices(cfg.prices);
+
+    /* --- Warn if prices.js was not loaded (all zeros from fallback) --- */
+    if (!cfg.prices) {
+      console.warn('[CalcInit] cfg.prices is empty — prices.js not loaded? Using MINIMAL_FALLBACK (prices will be 0).');
+    }
 
     /* --- Internal state --- */
     var STATE = {
@@ -136,6 +151,43 @@
 
     var tempFrameState = 'NONE';
     var getEl = function (id) { return document.getElementById(id); };
+
+    /* --- Debounce helper --- */
+    var _resizeTimer = null;
+    function debounceResize(fn, delay) {
+      if (_resizeTimer) clearTimeout(_resizeTimer);
+      _resizeTimer = setTimeout(fn, delay);
+    }
+
+    /* --- Debounce helper for dimension input (task 3.1) --- */
+    var _dimInputTimer = null;
+    function debounceDimInput(fn) {
+      if (_dimInputTimer) clearTimeout(_dimInputTimer);
+      _dimInputTimer = setTimeout(fn, 200);
+    }
+
+    /* --- Lightweight preview update (instant response, no recalc) --- */
+    function updatePreviewSize(els) {
+      if (!els) els = _cachedEls;
+      if (!els) return;
+      if (els.canvas) {
+        var factorW = 7.5 / 20;
+        var factorH = 17.5 / 30;
+        els.canvas.style.width = (STATE.w * factorW) + '%';
+        els.canvas.style.height = (STATE.h * factorH) + '%';
+      }
+      if (els.lblW) els.lblW.textContent = STATE.w;
+      if (els.lblH) els.lblH.textContent = STATE.h;
+    }
+
+    /* --- Frame catalog cache (task 3.3) --- */
+    var _frameCatalogRendered = false;
+    var _frameNodeCache = {};       /* frameId → { priceSpan, previewBox } */
+    var _cachedFrameOptions = null; /* Array of .frame-option elements */
+    var _cachedFramePreviews = null; /* Array of .frame-image-preview elements */
+
+    /* --- Cached DOM refs (populated once in initMain, reused everywhere) --- */
+    var _cachedEls = null;
 
     function isMobileViewport() {
       return window.matchMedia('(max-width: 1023px)').matches;
@@ -225,6 +277,53 @@
         showHint(key);
       });
       return btn;
+    }
+
+    /* ---------- Enhance static varnish/gift for non-portrait pages ---------- */
+
+    function enhanceStaticVarnishGift() {
+      if (!cfg.tooltips) return;
+      ['varnish', 'gift'].forEach(function (key) {
+        var priceEl = getEl('price-' + key);
+        if (!priceEl) return;
+        var titleDiv = priceEl.closest('.section-title');
+        if (!titleDiv) return;
+        var container = titleDiv.parentNode;
+        var toggleId = 'toggle-' + key;
+        var chk = getEl(toggleId);
+        if (!chk) return;
+
+        /* Build single-line row: [ ✓ ] Label [?]   price */
+        var row = document.createElement('div');
+        row.className = 'flex items-center gap-3';
+
+        /* Reuse existing checkbox group */
+        var chkGroup = chk.closest('.group');
+        var chkWrap = document.createElement('div');
+        chkWrap.className = 'flex h-6 shrink-0 items-center';
+        chkWrap.appendChild(chkGroup);
+        row.appendChild(chkWrap);
+
+        /* Label + hint button */
+        var labelWrap = document.createElement('div');
+        labelWrap.className = 'flex items-center gap-1 min-w-0 flex-1';
+        var lbl = document.createElement('label');
+        lbl.htmlFor = toggleId;
+        lbl.className = 'text-sm font-medium text-body cursor-pointer truncate';
+        lbl.textContent = HINT_TITLES[key];
+        labelWrap.appendChild(lbl);
+        var hintBtn = createHintBtn(key);
+        if (hintBtn) labelWrap.appendChild(hintBtn);
+        row.appendChild(labelWrap);
+
+        /* Move price badge */
+        priceEl.className = 'text-sm font-bold text-slate-500 normal-case whitespace-nowrap shrink-0';
+        row.appendChild(priceEl);
+
+        /* Replace container content */
+        container.innerHTML = '';
+        container.appendChild(row);
+      });
     }
 
     /* ---------- Portrait sections generator ---------- */
@@ -337,7 +436,7 @@
         labelWrap.appendChild(lbl);
         if (opts && opts.accentBadge) {
           var accent = document.createElement('span');
-          accent.className = 'calc-badge ml-1 shrink-0';
+          accent.className = 'calc-accent ml-1 shrink-0';
           accent.textContent = opts.accentBadge;
           labelWrap.appendChild(accent);
         }
@@ -437,7 +536,7 @@
       mockupDivider.className = 'h-px bg-slate-200 mb-4';
       mockupWrapper.appendChild(mockupDivider);
       var mockupNote = document.createElement('p');
-      mockupNote.className = 'text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-3';
+      mockupNote.className = 'text-xs font-bold uppercase tracking-widest text-slate-500 mb-3';
       mockupNote.textContent = 'Без изготовления картины';
       mockupWrapper.appendChild(mockupNote);
       mockupWrapper.appendChild(mockupData.section);
@@ -692,6 +791,14 @@
       var studioContainer = getEl('frames-grid-studio');
       var classicContainer = getEl('frames-grid-classic');
       if (!studioContainer || !classicContainer) return;
+
+      /* Task 3.3: after first render, only update prices + aspect ratio */
+      if (_frameCatalogRendered) {
+        updateFramePricesOnly();
+        updateModalPreviews();
+        return;
+      }
+
       studioContainer.innerHTML = '';
       classicContainer.innerHTML = '';
 
@@ -726,7 +833,13 @@
             '</div>' +
             noFrameIcon +
           '</div>' +
-          '<span class="text-[10px] font-bold text-body text-center leading-tight group-hover:text-primary transition">' + priceText + '</span>';
+          '<span class="text-xs font-bold text-body text-center leading-tight group-hover:text-primary transition">' + priceText + '</span>';
+
+        /* Task 3.3: cache references for incremental updates */
+        _frameNodeCache[frame.id] = {
+          priceSpan: el.querySelector('span'),
+          previewBox: el.querySelector('.frame-preview-box')
+        };
 
         el.addEventListener('click', function (e) {
           if (tempFrameState === frame.id && STATE.image) {
@@ -743,7 +856,26 @@
         }
       });
 
+      /* Task 3.2: cache frame element lists after first render */
+      _cachedFrameOptions = Array.prototype.slice.call(studioContainer.querySelectorAll('.frame-option'))
+        .concat(Array.prototype.slice.call(classicContainer.querySelectorAll('.frame-option')));
+      _cachedFramePreviews = Array.prototype.slice.call(studioContainer.querySelectorAll('.frame-image-preview'))
+        .concat(Array.prototype.slice.call(classicContainer.querySelectorAll('.frame-image-preview')));
+
+      _frameCatalogRendered = true;
       updateModalPreviews();
+    }
+
+    /** Task 3.3: update only price text + aspect ratio in existing frame elements */
+    function updateFramePricesOnly() {
+      var aspectRatio = (STATE.w && STATE.h) ? STATE.w + '/' + STATE.h : '1/1';
+      FRAMES_DB.forEach(function (frame) {
+        var cached = _frameNodeCache[frame.id];
+        if (!cached) return;
+        var priceText = frame.id === 'NONE' ? 'Без багета' : getFramePrice(frame).toLocaleString() + ' р.';
+        if (cached.priceSpan) cached.priceSpan.textContent = priceText;
+        if (cached.previewBox) cached.previewBox.style.aspectRatio = aspectRatio;
+      });
     }
 
     /* ---------- Main init ---------- */
@@ -756,15 +888,11 @@
         lblH: getEl('lbl-h'),
         canvas: getEl('preview-canvas'),
         priceTotal: getEl('total-price'),
-        priceOld: getEl('old-price'),
         priceVarnish: getEl('price-varnish'),
         priceGift: getEl('price-gift'),
         priceFrame: getEl('price-frame'),
         selectedFrameText: getEl('selected-frame-text'),
         stickyTotal: getEl('sticky-total-price'),
-        stickyOld: getEl('sticky-old-price'),
-        discountBadge: getEl('discount-badge'),
-        stickyDiscountBadge: getEl('sticky-discount-badge'),
         wrapBtns: document.querySelectorAll('.wrap-btn'),
         frameSection: getEl('frame-section'),
         frameModal: getEl('frame-modal'),
@@ -776,8 +904,12 @@
         toggleVarnish: getEl('toggle-varnish'),
         toggleGift: getEl('toggle-gift'),
         badgeWrap: getEl('badge-wrap'),
-        badgeProcessing: getEl('badge-processing')
+        badgeProcessing: getEl('badge-processing'),
+        roomBg: document.querySelector('.room-bg')  /* task 3.2 */
       };
+
+      /* Populate cache so updateUI(null) reuses these refs */
+      _cachedEls = els;
 
       if (els.toggleVarnish) els.toggleVarnish.checked = STATE.varnish;
       if (els.toggleGift) els.toggleGift.checked = STATE.gift;
@@ -786,8 +918,13 @@
         STATE.w = Math.max(20, Math.min(200, parseInt(els.inpW.value) || 0));
         STATE.h = Math.max(20, Math.min(200, parseInt(els.inpH.value) || 0));
         if (isMobileViewport()) STATE.customSizeMode = true;
-        renderFrameCatalog();
-        updateUI(els);
+        /* Task 3.1: instant lightweight preview (canvas size + labels) */
+        updatePreviewSize(els);
+        /* Task 3.1: debounced heavy operations (frame catalog + full recalc) */
+        debounceDimInput(function () {
+          renderFrameCatalog();
+          updateUI(els);
+        });
       };
 
       if (els.inpW) els.inpW.addEventListener('input', onDimChange);
@@ -812,10 +949,12 @@
       }
 
       window.addEventListener('resize', function () {
-        renderSizePresets();
-        if (!isMobileViewport() && !isPortrait) {
-          setCustomSizeInputsVisibility(true);
-        }
+        debounceResize(function () {
+          renderSizePresets();
+          if (!isMobileViewport() && !isPortrait) {
+            setCustomSizeInputsVisibility(true);
+          }
+        }, 150);
       });
 
       var extraTrack = getEl('size-extra-presets-track');
@@ -985,9 +1124,7 @@
       currentPresets.forEach(function (preset) {
         var btn = document.createElement('button');
         var isActive = !STATE.customSizeMode && preset.w === STATE.w && preset.h === STATE.h;
-        btn.className = isActive
-          ? 'size-btn shrink-0 px-3 py-1.5 rounded border border-primary bg-primary-light text-xs font-bold text-primary transition'
-          : 'size-btn shrink-0 px-3 py-1.5 rounded border border-slate-200 bg-secondary text-xs font-medium text-body hover:bg-slate-200 transition';
+        btn.className = 'size-btn' + (isActive ? ' is-active' : '');
         btn.textContent = preset.w + '×' + preset.h;
         btn.onclick = function () {
           STATE.w = preset.w;
@@ -1009,9 +1146,7 @@
         var customBtn = document.createElement('button');
         customBtn.type = 'button';
         var customActive = STATE.customSizeMode || !hasPresetMatch;
-        customBtn.className = customActive
-          ? 'size-btn shrink-0 px-3 py-1.5 rounded border border-primary bg-primary-light text-xs font-bold text-primary transition'
-          : 'size-btn shrink-0 px-3 py-1.5 rounded border border-slate-200 bg-white text-xs font-medium text-body hover:bg-secondary transition';
+        customBtn.className = 'size-btn' + (customActive ? ' is-active' : '');
         customBtn.textContent = 'Свой размер';
         customBtn.onclick = function () {
           STATE.customSizeMode = true;
@@ -1047,9 +1182,7 @@
         var btn = document.createElement('button');
         btn.type = 'button';
         var isActive = preset.w === STATE.w && preset.h === STATE.h;
-        btn.className = isActive
-          ? 'size-btn shrink-0 px-3 py-1.5 rounded border border-primary bg-primary-light text-xs font-bold text-primary transition'
-          : 'size-btn shrink-0 px-3 py-1.5 rounded border border-slate-200 bg-white text-xs font-medium text-body hover:bg-secondary transition';
+        btn.className = 'size-btn' + (isActive ? ' is-active' : '');
         btn.textContent = preset.w + '×' + preset.h;
         btn.onclick = function () {
           STATE.w = preset.w;
@@ -1200,7 +1333,7 @@
     }
 
     function highlightSelectedFrameInModal(id) {
-      var allOptions = document.querySelectorAll('.frame-option');
+      var allOptions = _cachedFrameOptions || document.querySelectorAll('.frame-option');
       allOptions.forEach(function (opt) {
         if (opt.dataset.id === id) {
           opt.classList.add('border-primary', 'bg-primary-light');
@@ -1213,7 +1346,7 @@
     }
 
     function updateModalPreviews() {
-      var previews = document.querySelectorAll('.frame-image-preview');
+      var previews = _cachedFramePreviews || document.querySelectorAll('.frame-image-preview');
       var cta = getEl('frame-upload-cta');
       if (STATE.image) {
         if (cta) cta.style.display = 'none';
@@ -1242,11 +1375,11 @@
       var faceCost = 0;
       if (isPortrait) {
         if (STATE.digitalMockup) {
-          faceCost = (PRICES.digitalFaceFirst || 0)
-            + Math.max(0, STATE.faces - 1) * (PRICES.digitalFaceExtra || 0);
+          faceCost = PRICES.digitalFaceFirst
+            + Math.max(0, STATE.faces - 1) * PRICES.digitalFaceExtra;
         } else {
-          faceCost = (PRICES.faceFirst || 0)
-            + Math.max(0, STATE.faces - 1) * (PRICES.faceExtra || 0);
+          faceCost = PRICES.faceFirst
+            + Math.max(0, STATE.faces - 1) * PRICES.faceExtra;
         }
       }
 
@@ -1263,43 +1396,51 @@
       }
 
       /* Print + stretcher: 0.29·S + 0.04·P·strPrice + 0.76·P + const */
-      var strPrice = PRICES.stretcherStandard || 32;
-      if (STATE.wrap === 'GALLERY') strPrice = PRICES.stretcherGallery || 68;
-      else if (STATE.wrap === 'NO_FRAME') strPrice = PRICES.stretcherRoll || 32;
+      var strPrice = PRICES.stretcherStandard;
+      if (STATE.wrap === 'GALLERY') strPrice = PRICES.stretcherGallery;
+      else if (STATE.wrap === 'NO_FRAME') strPrice = PRICES.stretcherRoll;
 
-      var printCost = (PRICES.printSqCoeff || 0) * sq
-        + (PRICES.printPStrCoeff || 0) * perim * strPrice
-        + (PRICES.printPBaseCoeff || 0) * perim
-        + (PRICES.printConst || 0);
+      var printCost = PRICES.printSqCoeff * sq
+        + PRICES.printPStrCoeff * perim * strPrice
+        + PRICES.printPBaseCoeff * perim
+        + PRICES.printConst;
 
-      /* Coatings (coefficient × area_cm²) */
-      var varnishCost = STATE.varnish ? sq * (PRICES.varnishCoeff || 0) : 0;
-      var gelCost     = STATE.gel     ? sq * (PRICES.gelCoeff || 0) : 0;
-      var acrylicCost = STATE.acrylic ? sq * (PRICES.acrylicCoeff || 0) : 0;
-      var oilCost     = STATE.oil     ? sq * (PRICES.oilCoeff || 0)
-        + Math.max(0, (STATE.faces || 1) - 1) * (PRICES.oilFaceExtra || 0) : 0;
-      var potalCost   = STATE.potal   ? sq * (PRICES.potalCoeff || 0) : 0;
+      /* Coatings — always compute potential cost; include in total only when active */
+      var varnishRaw  = sq * PRICES.varnishCoeff;
+      var gelRaw      = sq * PRICES.gelCoeff;
+      var acrylicRaw  = sq * PRICES.acrylicCoeff;
+      var oilRaw      = sq * PRICES.oilCoeff
+        + Math.max(0, (STATE.faces || 1) - 1) * PRICES.oilFaceExtra;
+      var potalRaw    = sq * PRICES.potalCoeff;
 
-      /* Gift wrap — tiered by dimensions */
-      var giftCost = 0;
-      var giftLabel = null;
-      if (STATE.gift && PRICES.giftWrapTiers) {
+      var varnishCost = STATE.varnish ? varnishRaw : 0;
+      var gelCost     = STATE.gel     ? gelRaw     : 0;
+      var acrylicCost = STATE.acrylic ? acrylicRaw : 0;
+      var oilCost     = STATE.oil     ? oilRaw     : 0;
+      var potalCost   = STATE.potal   ? potalRaw   : 0;
+
+      /* Gift wrap — always compute potential; include only when active */
+      var giftRaw = 0;
+      var giftLabelRaw = null;
+      if (PRICES.giftWrapTiers) {
         var minDim = Math.min(STATE.w, STATE.h);
         var maxDim = Math.max(STATE.w, STATE.h);
         for (var gi = 0; gi < PRICES.giftWrapTiers.length; gi++) {
           var tier = PRICES.giftWrapTiers[gi];
           if (minDim <= tier.maxW && maxDim <= tier.maxH) {
-            giftCost = tier.price;
+            giftRaw = tier.price;
             break;
           }
         }
-        if (giftCost === 0) giftLabel = PRICES.giftWrapOversizeLabel || null;
+        if (giftRaw === 0) giftLabelRaw = PRICES.giftWrapOversizeLabel || null;
       }
+      var giftCost  = STATE.gift ? giftRaw : 0;
+      var giftLabel = STATE.gift ? giftLabelRaw : null;
 
       /* Frame (perimeter in metres) */
       var perimM = perim / 100;
-      var fPerM = PRICES.framePerM || 1200;
-      var fClassicMult = PRICES.frameClassicMult || 1.5;
+      var fPerM = PRICES.framePerM;
+      var fClassicMult = PRICES.frameClassicMult;
       var curFrame = FRAMES_DB.find(function (f) { return f.id === STATE.frame; }) || FRAMES_DB[0];
       var fMult = curFrame.cat === 'CLASSIC' ? fClassicMult : 1;
       var frameCost = (STATE.frame !== 'NONE') ? perimM * fPerM * fMult : 0;
@@ -1320,7 +1461,15 @@
         oilCost: Math.ceil(oilCost),
         potalCost: Math.ceil(potalCost),
         digitalMockupCost: 0,
-        giftLabel: giftLabel
+        giftLabel: giftLabel,
+        /* Potential costs (shown gray when option is off) */
+        varnishPotential: Math.ceil(varnishRaw),
+        giftPotential: Math.ceil(giftRaw),
+        giftLabelPotential: giftLabelRaw,
+        gelPotential: Math.ceil(gelRaw),
+        acrylicPotential: Math.ceil(acrylicRaw),
+        oilPotential: Math.ceil(oilRaw),
+        potalPotential: Math.ceil(potalRaw)
       };
     }
 
@@ -1328,28 +1477,29 @@
 
     function updateUI(els) {
       if (!els) {
-        els = {
-          inpW: getEl('inp-w'), inpH: getEl('inp-h'),
-          lblW: getEl('lbl-w'), lblH: getEl('lbl-h'),
-          canvas: getEl('preview-canvas'),
-          priceTotal: getEl('total-price'), priceOld: getEl('old-price'),
-          priceVarnish: getEl('price-varnish'),
-          priceGift: getEl('price-gift'), priceFrame: getEl('price-frame'),
-          selectedFrameText: getEl('selected-frame-text'),
-          stickyTotal: getEl('sticky-total-price'),
-          stickyOld: getEl('sticky-old-price'),
-          discountBadge: getEl('discount-badge'),
-          stickyDiscountBadge: getEl('sticky-discount-badge'),
-          wrapBtns: document.querySelectorAll('.wrap-btn'),
-          processingSelect: getEl('processing-select'),
-          badgeWrap: getEl('badge-wrap'),
-          badgeProcessing: getEl('badge-processing')
-        };
+        if (!_cachedEls) {
+          _cachedEls = {
+            inpW: getEl('inp-w'), inpH: getEl('inp-h'),
+            lblW: getEl('lbl-w'), lblH: getEl('lbl-h'),
+            canvas: getEl('preview-canvas'),
+            priceTotal: getEl('total-price'),
+            priceVarnish: getEl('price-varnish'),
+            priceGift: getEl('price-gift'), priceFrame: getEl('price-frame'),
+            selectedFrameText: getEl('selected-frame-text'),
+            stickyTotal: getEl('sticky-total-price'),
+            wrapBtns: document.querySelectorAll('.wrap-btn'),
+            processingSelect: getEl('processing-select'),
+            badgeWrap: getEl('badge-wrap'),
+            badgeProcessing: getEl('badge-processing'),
+            roomBg: document.querySelector('.room-bg')  /* task 3.2 */
+          };
+        }
+        els = _cachedEls;
       }
 
       /* Interior background */
       var roomData = INTERIORS_DB.find(function (r) { return r.id === STATE.interior; }) || INTERIORS_DB[0];
-      var roomBg = document.querySelector('.room-bg');
+      var roomBg = els.roomBg || document.querySelector('.room-bg');  /* task 3.2: use cached ref */
       if (roomBg) roomBg.style.backgroundImage = "url('" + roomData.url + "')";
 
       if (els.canvas) {
@@ -1366,48 +1516,29 @@
       if (els.priceTotal) els.priceTotal.textContent = costs.total.toLocaleString();
       if (els.stickyTotal) els.stickyTotal.textContent = costs.total.toLocaleString() + ' р.';
 
-      if (els.priceOld) {
-        var fakeOldPrice = Math.round(costs.total / 0.8 / 10) * 10;
-        els.priceOld.textContent = fakeOldPrice.toLocaleString();
-        if (els.stickyOld) els.stickyOld.textContent = fakeOldPrice.toLocaleString() + ' р.';
-
-        /* Discount badge */
-        var discountPercent = Math.round((1 - costs.total / fakeOldPrice) * 100);
-        var badgeText = '-' + discountPercent + '%';
-        if (els.discountBadge) {
-          els.discountBadge.textContent = badgeText;
-          els.discountBadge.style.display = discountPercent > 0 ? '' : 'none';
-        }
-        if (els.stickyDiscountBadge) {
-          els.stickyDiscountBadge.textContent = badgeText;
-          els.stickyDiscountBadge.style.display = discountPercent > 0 ? '' : 'none';
-        }
-      }
-
       /* priceSize removed — combined into badge-wrap */
 
       if (els.priceVarnish) {
-        els.priceVarnish.textContent = costs.varnishCost > 0 ? costs.varnishCost + ' р.' : '0 р.';
-        els.priceVarnish.className = costs.varnishCost > 0
-          ? 'text-sm font-bold text-primary normal-case'
-          : 'text-sm font-bold text-slate-500 normal-case';
+        var vShow = costs.varnishCost > 0 ? costs.varnishCost : costs.varnishPotential;
+        els.priceVarnish.textContent = vShow > 0 ? vShow.toLocaleString() + ' р.' : '0 р.';
+        els.priceVarnish.className = 'calc-badge' + (costs.varnishCost > 0 ? ' is-active' : '');
       }
       if (els.priceGift) {
         if (costs.giftLabel) {
           els.priceGift.textContent = costs.giftLabel;
-          els.priceGift.className = 'text-sm font-bold text-amber-600 normal-case';
+          els.priceGift.className = 'calc-badge is-warning';
+        } else if (costs.giftLabelPotential && costs.giftCost === 0) {
+          els.priceGift.textContent = costs.giftLabelPotential;
+          els.priceGift.className = 'calc-badge';
         } else {
-          els.priceGift.textContent = costs.giftCost > 0 ? costs.giftCost.toLocaleString() + ' р.' : '0 р.';
-          els.priceGift.className = costs.giftCost > 0
-            ? 'text-sm font-bold text-primary normal-case'
-            : 'text-sm font-bold text-slate-500 normal-case';
+          var gShow = costs.giftCost > 0 ? costs.giftCost : costs.giftPotential;
+          els.priceGift.textContent = gShow > 0 ? gShow.toLocaleString() + ' р.' : '0 р.';
+          els.priceGift.className = 'calc-badge' + (costs.giftCost > 0 ? ' is-active' : '');
         }
       }
       if (els.priceFrame) {
         els.priceFrame.textContent = costs.frameCost > 0 ? costs.frameCost + ' р.' : '0 р.';
-        els.priceFrame.className = costs.frameCost > 0
-          ? 'text-sm font-bold text-primary normal-case'
-          : 'text-sm font-bold text-slate-500 normal-case';
+        els.priceFrame.className = 'calc-badge' + (costs.frameCost > 0 ? ' is-active' : '');
       }
 
       /* Wrap badge: combined print + stretcher + gallery surcharge */
@@ -1415,9 +1546,7 @@
         els.badgeWrap.textContent = costs.wrapCost > 0
           ? costs.wrapCost.toLocaleString() + ' р.'
           : '0 р.';
-        els.badgeWrap.className = costs.wrapCost > 0
-          ? 'text-sm font-bold text-primary normal-case'
-          : 'text-sm font-bold text-slate-500 normal-case';
+        els.badgeWrap.className = 'calc-badge' + (costs.wrapCost > 0 ? ' is-active' : '');
       }
 
       /* Processing badge */
@@ -1425,57 +1554,60 @@
         els.badgeProcessing.textContent = costs.processingCost > 0
           ? costs.processingCost.toLocaleString() + ' р.'
           : '0 р.';
-        els.badgeProcessing.className = costs.processingCost > 0
-          ? 'text-sm font-bold text-primary normal-case'
-          : 'text-sm font-bold text-slate-500 normal-case';
+        els.badgeProcessing.className = 'calc-badge' + (costs.processingCost > 0 ? ' is-active' : '');
       }
 
       /* Portrait badges */
       if (isPortrait && portraitEls) {
-        var activeCls = 'text-sm font-bold text-primary normal-case';
-        var inactiveCls = 'text-sm font-bold text-slate-500 normal-case';
-
         if (portraitEls.badgeFaces) {
           portraitEls.badgeFaces.textContent = costs.faceCost > 0
             ? costs.faceCost.toLocaleString() + ' р.'
             : 'включено';
-          portraitEls.badgeFaces.className = costs.faceCost > 0 ? activeCls : inactiveCls;
+          portraitEls.badgeFaces.className = 'calc-badge' + (costs.faceCost > 0 ? ' is-active' : '');
         }
         if (portraitEls.badgeGel) {
-          portraitEls.badgeGel.textContent = costs.gelCost > 0 ? costs.gelCost.toLocaleString() + ' р.' : '0 р.';
-          portraitEls.badgeGel.className = costs.gelCost > 0 ? activeCls : inactiveCls;
+          var gelShow = costs.gelCost > 0 ? costs.gelCost : costs.gelPotential;
+          portraitEls.badgeGel.textContent = gelShow > 0 ? gelShow.toLocaleString() + ' р.' : '0 р.';
+          portraitEls.badgeGel.className = 'calc-badge' + (costs.gelCost > 0 ? ' is-active' : '');
         }
         if (portraitEls.badgeAcrylic) {
-          portraitEls.badgeAcrylic.textContent = costs.acrylicCost > 0 ? costs.acrylicCost.toLocaleString() + ' р.' : '0 р.';
-          portraitEls.badgeAcrylic.className = costs.acrylicCost > 0 ? activeCls : inactiveCls;
+          var acrShow = costs.acrylicCost > 0 ? costs.acrylicCost : costs.acrylicPotential;
+          portraitEls.badgeAcrylic.textContent = acrShow > 0 ? acrShow.toLocaleString() + ' р.' : '0 р.';
+          portraitEls.badgeAcrylic.className = 'calc-badge' + (costs.acrylicCost > 0 ? ' is-active' : '');
         }
         if (portraitEls.badgeOil) {
-          portraitEls.badgeOil.textContent = costs.oilCost > 0 ? costs.oilCost.toLocaleString() + ' р.' : '0 р.';
-          portraitEls.badgeOil.className = costs.oilCost > 0 ? activeCls : inactiveCls;
+          var oilShow = costs.oilCost > 0 ? costs.oilCost : costs.oilPotential;
+          portraitEls.badgeOil.textContent = oilShow > 0 ? oilShow.toLocaleString() + ' р.' : '0 р.';
+          portraitEls.badgeOil.className = 'calc-badge' + (costs.oilCost > 0 ? ' is-active' : '');
         }
         if (portraitEls.badgePotal) {
-          portraitEls.badgePotal.textContent = costs.potalCost > 0 ? costs.potalCost.toLocaleString() + ' р.' : '0 р.';
-          portraitEls.badgePotal.className = costs.potalCost > 0 ? activeCls : inactiveCls;
+          var potShow = costs.potalCost > 0 ? costs.potalCost : costs.potalPotential;
+          portraitEls.badgePotal.textContent = potShow > 0 ? potShow.toLocaleString() + ' р.' : '0 р.';
+          portraitEls.badgePotal.className = 'calc-badge' + (costs.potalCost > 0 ? ' is-active' : '');
         }
         if (portraitEls.badgeMockup) {
           portraitEls.badgeMockup.textContent = costs.digitalMockupCost > 0
             ? costs.digitalMockupCost.toLocaleString() + ' р.'
             : '0 р.';
-          portraitEls.badgeMockup.className = costs.digitalMockupCost > 0 ? activeCls : inactiveCls;
+          portraitEls.badgeMockup.className = 'calc-badge' + (costs.digitalMockupCost > 0 ? ' is-active' : '');
         }
       }
 
+      /* Cache current frame lookup (used for text + canvas preview) */
+      var _curFrame = FRAMES_DB.find(function (x) { return x.id === STATE.frame; }) || FRAMES_DB[0];
+
       if (els.selectedFrameText) {
-        var f = FRAMES_DB.find(function (x) { return x.id === STATE.frame; });
-        els.selectedFrameText.textContent = f ? f.name : 'Без багета';
+        els.selectedFrameText.textContent = _curFrame ? _curFrame.name : 'Без багета';
       }
 
       /* Wrap buttons */
       els.wrapBtns.forEach(function (btn) {
         if (btn.dataset.val === STATE.wrap) {
-          btn.className = 'wrap-btn flex-1 py-2 rounded-md text-xs font-bold transition bg-white text-dark shadow-sm border border-slate-100';
+          btn.className = 'wrap-btn is-active';
+          btn.setAttribute('aria-checked', 'true');
         } else {
-          btn.className = 'wrap-btn flex-1 py-2 rounded-md text-xs font-medium transition text-body hover:text-dark hover:bg-slate-200/50';
+          btn.className = 'wrap-btn';
+          btn.setAttribute('aria-checked', 'false');
         }
       });
 
@@ -1495,7 +1627,7 @@
         if (STATE.image) els.canvas.classList.add('has-image');
         else els.canvas.classList.remove('has-image');
 
-        var fr = FRAMES_DB.find(function (x) { return x.id === STATE.frame; }) || FRAMES_DB[0];
+        var fr = _curFrame;
         if (STATE.frame !== 'NONE') {
           els.canvas.style.border = fr.width + 'px solid ' + fr.color;
           els.canvas.style.backgroundClip = 'padding-box';
@@ -1533,6 +1665,9 @@
     if (isPortrait) {
       initHintSystem();
       buildPortraitSections();
+    } else if (cfg.tooltips) {
+      initHintSystem();
+      enhanceStaticVarnishGift();
     }
     renderFrameCatalog();
     initMain();

@@ -46,9 +46,10 @@ function setupDialogAria(dialog) {
 }
 
 // Кэш для breakpoint (обновляется при resize)
-var isDesktop = window.innerWidth >= 1024;
+var isDesktop = false;
 
 document.addEventListener('DOMContentLoaded', function() {
+    isDesktop = window.innerWidth >= 1024;
     // --- Native Dialog Controls (replaces tailwindplus-elements.js) ---
     document.querySelectorAll('[data-open-dialog]').forEach(function(btn) {
         btn.addEventListener('click', function() {
