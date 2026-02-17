@@ -189,6 +189,33 @@
     /* --- Cached DOM refs (populated once in initMain, reused everywhere) --- */
     var _cachedEls = null;
 
+    /* --- Perf: FRAMES_DB lookup map (fix #4) --- */
+    var _frameMap = {};
+    FRAMES_DB.forEach(function (f) { _frameMap[f.id] = f; });
+
+    /* --- Perf: cached .calc-panel sections for toggleDigitalMockupMode (fix #3) --- */
+    var _calcPanelSections = null;
+
+    /* --- Perf: size presets DOM cache (fix #2) --- */
+    var _presetBtnCache = [];
+    var _presetCacheOrientation = null;
+    var _desktopPresetCache = [];
+    var _desktopPresetOrientation = null;
+
+    /* --- Perf: guard for roomBg backgroundImage (fix #9) --- */
+    var _lastRoomBgUrl = null;
+
+    /* --- Perf: fast price formatter without ICU (fix #5) --- */
+    function fmtPrice(n) {
+      var s = String(n);
+      var result = '';
+      for (var i = s.length - 1, c = 0; i >= 0; i--, c++) {
+        if (c > 0 && c % 3 === 0) result = ' ' + result;
+        result = s[i] + result;
+      }
+      return result;
+    }
+
     function isMobileViewport() {
       return window.matchMedia('(max-width: 1023px)').matches;
     }
@@ -317,7 +344,7 @@
         row.appendChild(labelWrap);
 
         /* Move price badge */
-        priceEl.className = 'text-sm font-bold text-slate-500 normal-case whitespace-nowrap shrink-0';
+        priceEl.className = 'calc-badge whitespace-nowrap shrink-0';
         row.appendChild(priceEl);
 
         /* Replace container content */
@@ -446,7 +473,7 @@
 
         /* Price badge */
         var badge = document.createElement('span');
-        badge.className = 'text-sm font-bold text-slate-500 normal-case whitespace-nowrap shrink-0';
+        badge.className = 'calc-badge whitespace-nowrap shrink-0';
         badge.id = badgeId;
         badge.textContent = '0 р.';
         row.appendChild(badge);
@@ -471,7 +498,7 @@
       if (facesHint) facesTitleLeft.appendChild(facesHint);
       facesTitleDiv.appendChild(facesTitleLeft);
       var facesBadge = document.createElement('span');
-      facesBadge.className = 'text-sm font-bold text-slate-500 normal-case';
+      facesBadge.className = 'calc-badge';
       facesBadge.id = 'badge-faces';
       facesBadge.textContent = 'включено';
       facesTitleDiv.appendChild(facesBadge);
@@ -482,7 +509,7 @@
       var facesSelect = document.createElement('select');
       facesSelect.id = 'portrait-faces';
       facesSelect.setAttribute('aria-label', 'Количество лиц');
-      facesSelect.className = 'col-start-1 row-start-1 w-full appearance-none bg-white border border-slate-200 text-body py-3 pl-4 pr-8 rounded-lg text-sm font-medium focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary';
+      facesSelect.className = 'col-start-1 row-start-1 w-full appearance-none bg-white border border-gray-200 text-body py-3 pl-4 pr-8 rounded-lg text-sm font-medium focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary';
       for (var i = 1; i <= 10; i++) {
         var opt = document.createElement('option');
         opt.value = i;
@@ -500,7 +527,7 @@
       chevronSvg.setAttribute('stroke-width', '2');
       chevronSvg.setAttribute('stroke-linecap', 'round');
       chevronSvg.setAttribute('stroke-linejoin', 'round');
-      chevronSvg.setAttribute('class', 'pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5 self-center justify-self-end text-slate-500');
+      chevronSvg.setAttribute('class', 'pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5 self-center justify-self-end text-gray-500');
       var chevPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
       chevPath.setAttribute('d', 'm6 9 6 6 6-6');
       chevronSvg.appendChild(chevPath);
@@ -533,10 +560,10 @@
       /* Divider + mockup wrapper (visual separation from physical options) */
       var mockupWrapper = document.createElement('div');
       var mockupDivider = document.createElement('div');
-      mockupDivider.className = 'h-px bg-slate-200 mb-4';
+      mockupDivider.className = 'h-px bg-gray-200 mb-4';
       mockupWrapper.appendChild(mockupDivider);
       var mockupNote = document.createElement('p');
-      mockupNote.className = 'text-xs font-bold uppercase tracking-widest text-slate-500 mb-3';
+      mockupNote.className = 'text-xs font-bold uppercase tracking-widest text-gray-500 mb-3';
       mockupNote.textContent = 'Без изготовления картины';
       mockupWrapper.appendChild(mockupNote);
       mockupWrapper.appendChild(mockupData.section);
@@ -681,7 +708,8 @@
         'coverage-group-section'
       ];
 
-      var allSections = document.querySelectorAll('.calc-panel section');
+      var allSections = _calcPanelSections || (_calcPanelSections =
+        Array.prototype.slice.call(document.querySelectorAll('.calc-panel section')));
       allSections.forEach(function (sec) {
         if (sec.id === 'portrait-faces-section') return;
         if (sec.id === 'size-section') return;
@@ -824,7 +852,7 @@
             '</div>'
           : '';
 
-        var priceText = frame.id === 'NONE' ? 'Без багета' : getFramePrice(frame).toLocaleString() + ' р.';
+        var priceText = frame.id === 'NONE' ? 'Без багета' : fmtPrice(getFramePrice(frame)) + ' р.';
 
         el.innerHTML =
           '<div class="relative w-full rounded-lg shadow-sm overflow-hidden bg-white frame-preview-box" style="' + aspectRatioStyle + '">' +
@@ -872,7 +900,7 @@
       FRAMES_DB.forEach(function (frame) {
         var cached = _frameNodeCache[frame.id];
         if (!cached) return;
-        var priceText = frame.id === 'NONE' ? 'Без багета' : getFramePrice(frame).toLocaleString() + ' р.';
+        var priceText = frame.id === 'NONE' ? 'Без багета' : fmtPrice(getFramePrice(frame)) + ' р.';
         if (cached.priceSpan) cached.priceSpan.textContent = priceText;
         if (cached.previewBox) cached.previewBox.style.aspectRatio = aspectRatio;
       });
@@ -998,7 +1026,7 @@
             var opt = document.createElement('option');
             opt.value = po.value;
             opt.textContent = po.value > 0
-              ? po.label + ' (+' + po.value.toLocaleString() + ' р.)'
+              ? po.label + ' (+' + fmtPrice(po.value) + ' р.)'
               : po.label;
             els.processingSelect.appendChild(opt);
           }
@@ -1043,8 +1071,8 @@
                   var val = Math.max(STATE.w, STATE.h); STATE.w = val; STATE.h = val;
                 }
                 STATE.orientation = newOrientation;
-                getEl('inp-w').value = STATE.w;
-                getEl('inp-h').value = STATE.h;
+                if (els.inpW) els.inpW.value = STATE.w;
+                if (els.inpH) els.inpH.value = STATE.h;
                 renderSizePresets();
                 renderFrameCatalog();
               }
@@ -1112,57 +1140,68 @@
       updateUI(els);
     }
 
-    /* ---------- Size presets ---------- */
+    /* ---------- Size presets (perf fix #2: DOM caching) ---------- */
 
     function renderSizePresets() {
       var container = getEl('size-presets-grid');
       if (!container) return;
-      container.innerHTML = '';
       var currentPresets = getCurrentSizePresetList();
       var hasPresetMatch = isCurrentSizePreset(currentPresets);
+      var orientationKey = STATE.orientation + (isMobileViewport() || isPortrait ? '_mob' : '_desk');
 
-      currentPresets.forEach(function (preset) {
-        var btn = document.createElement('button');
-        var isActive = !STATE.customSizeMode && preset.w === STATE.w && preset.h === STATE.h;
-        btn.className = 'size-btn' + (isActive ? ' is-active' : '');
-        btn.textContent = preset.w + '×' + preset.h;
-        btn.onclick = function () {
-          STATE.w = preset.w;
-          STATE.h = preset.h;
-          STATE.customSizeMode = false;
-          getEl('inp-w').value = STATE.w;
-          getEl('inp-h').value = STATE.h;
-          setCustomSizeInputsVisibility(false);
-          renderFrameCatalog();
-          updateUI(null);
-          renderSizePresets();
-        };
-        container.appendChild(btn);
-      });
+      /* Rebuild DOM only when orientation/viewport changes */
+      if (_presetCacheOrientation !== orientationKey) {
+        container.innerHTML = '';
+        _presetBtnCache = [];
+
+        currentPresets.forEach(function (preset) {
+          var btn = document.createElement('button');
+          btn.textContent = preset.w + '×' + preset.h;
+          btn.onclick = function () {
+            STATE.w = preset.w;
+            STATE.h = preset.h;
+            STATE.customSizeMode = false;
+            if (_cachedEls) {
+              if (_cachedEls.inpW) _cachedEls.inpW.value = STATE.w;
+              if (_cachedEls.inpH) _cachedEls.inpH.value = STATE.h;
+            }
+            setCustomSizeInputsVisibility(false);
+            renderFrameCatalog();
+            updateUI(null);
+            _updatePresetActiveStates();
+          };
+          _presetBtnCache.push({ btn: btn, w: preset.w, h: preset.h, isCustom: false });
+          container.appendChild(btn);
+        });
+
+        if (isMobileViewport() || isPortrait) {
+          var customBtn = document.createElement('button');
+          customBtn.type = 'button';
+          customBtn.textContent = 'Свой размер';
+          customBtn.onclick = function () {
+            STATE.customSizeMode = true;
+            setCustomSizeInputsVisibility(true);
+            _updatePresetActiveStates();
+            setTimeout(function () {
+              var row = document.getElementById('size-inputs-row');
+              if (!row || !isMobileViewport()) return;
+              var preview = document.getElementById('calc-preview-column');
+              var previewH = preview ? preview.offsetHeight : 0;
+              var rowTop = row.getBoundingClientRect().top + window.scrollY;
+              window.scrollTo({ top: Math.max(0, rowTop - previewH - 8), behavior: 'smooth' });
+            }, 80);
+          };
+          _presetBtnCache.push({ btn: customBtn, w: -1, h: -1, isCustom: true });
+          container.appendChild(customBtn);
+        }
+
+        _presetCacheOrientation = orientationKey;
+      }
+
+      /* Fast path: toggle is-active classes only */
+      _updatePresetActiveStates();
 
       if (isMobileViewport() || isPortrait) {
-        /* Mobile viewport OR portrait page (any viewport):  
-           show preset buttons + 'Свой размер', hide inputs until tapped */
-        var customBtn = document.createElement('button');
-        customBtn.type = 'button';
-        var customActive = STATE.customSizeMode || !hasPresetMatch;
-        customBtn.className = 'size-btn' + (customActive ? ' is-active' : '');
-        customBtn.textContent = 'Свой размер';
-        customBtn.onclick = function () {
-          STATE.customSizeMode = true;
-          setCustomSizeInputsVisibility(true);
-          renderSizePresets();
-          // Скроллим так, чтобы поля ввода оказались видны под sticky-превью
-          setTimeout(function () {
-            var row = document.getElementById('size-inputs-row');
-            if (!row || !isMobileViewport()) return;
-            var preview = document.getElementById('calc-preview-column');
-            var previewH = preview ? preview.offsetHeight : 0;
-            var rowTop = row.getBoundingClientRect().top + window.scrollY;
-            window.scrollTo({ top: Math.max(0, rowTop - previewH - 8), behavior: 'smooth' });
-          }, 80);
-        };
-        container.appendChild(customBtn);
         setCustomSizeInputsVisibility(STATE.customSizeMode || !hasPresetMatch);
       } else {
         STATE.customSizeMode = false;
@@ -1171,29 +1210,58 @@
       }
     }
 
+    function _updatePresetActiveStates() {
+      var hasMatch = isCurrentSizePreset(getCurrentSizePresetList());
+      _presetBtnCache.forEach(function (item) {
+        if (item.isCustom) {
+          item.btn.className = 'size-btn' + ((STATE.customSizeMode || !hasMatch) ? ' is-active' : '');
+        } else {
+          var isActive = !STATE.customSizeMode && item.w === STATE.w && item.h === STATE.h;
+          item.btn.className = 'size-btn' + (isActive ? ' is-active' : '');
+        }
+      });
+    }
+
     function renderDesktopSizeScroller() {
       var track = getEl('size-extra-presets-track');
       if (!track) return;
-      track.innerHTML = '';
 
       var currentPresets = SIZE_PRESETS[STATE.orientation] || SIZE_PRESETS['PORTRAIT'];
 
-      currentPresets.forEach(function (preset) {
-        var btn = document.createElement('button');
-        btn.type = 'button';
-        var isActive = preset.w === STATE.w && preset.h === STATE.h;
-        btn.className = 'size-btn' + (isActive ? ' is-active' : '');
-        btn.textContent = preset.w + '×' + preset.h;
-        btn.onclick = function () {
-          STATE.w = preset.w;
-          STATE.h = preset.h;
-          getEl('inp-w').value = STATE.w;
-          getEl('inp-h').value = STATE.h;
-          renderFrameCatalog();
-          updateUI(null);
-          renderSizePresets();
-        };
-        track.appendChild(btn);
+      /* Rebuild only on orientation change */
+      if (_desktopPresetOrientation !== STATE.orientation) {
+        track.innerHTML = '';
+        _desktopPresetCache = [];
+
+        currentPresets.forEach(function (preset) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.textContent = preset.w + '×' + preset.h;
+          btn.onclick = function () {
+            STATE.w = preset.w;
+            STATE.h = preset.h;
+            if (_cachedEls) {
+              if (_cachedEls.inpW) _cachedEls.inpW.value = STATE.w;
+              if (_cachedEls.inpH) _cachedEls.inpH.value = STATE.h;
+            }
+            renderFrameCatalog();
+            updateUI(null);
+            _updateDesktopPresetStates();
+            _updatePresetActiveStates();
+          };
+          _desktopPresetCache.push({ btn: btn, w: preset.w, h: preset.h });
+          track.appendChild(btn);
+        });
+        _desktopPresetOrientation = STATE.orientation;
+      }
+
+      _updateDesktopPresetStates();
+    }
+
+    function _updateDesktopPresetStates() {
+      _desktopPresetCache.forEach(function (item) {
+        var isActive = item.w === STATE.w && item.h === STATE.h;
+        item.btn.className = 'size-btn' + (isActive ? ' is-active' : '');
       });
     }
 
@@ -1229,7 +1297,7 @@
       var vpH = window.innerHeight * 0.94;
       var ratio = STATE.w / STATE.h;
 
-      var f = FRAMES_DB.find(function (x) { return x.id === frameIdToPreview; }) || FRAMES_DB[0];
+      var f = _frameMap[frameIdToPreview] || FRAMES_DB[0];
 
       /* First pass: fit image to viewport, then scale frame proportionally */
       var imgW, imgH;
@@ -1300,7 +1368,7 @@
         var priceLabel = document.createElement('div');
         priceLabel.className = 'text-2xl font-bold text-primary';
         priceLabel.style.whiteSpace = 'nowrap';
-        priceLabel.textContent = '\u0411\u0430\u0433\u0435\u0442\u043d\u0430\u044f \u0440\u0430\u043c\u0430: ' + frameCost.toLocaleString() + ' \u0440.';
+        priceLabel.textContent = '\u0411\u0430\u0433\u0435\u0442\u043d\u0430\u044f \u0440\u0430\u043c\u0430: ' + fmtPrice(frameCost) + ' \u0440.';
 
         if (window.innerWidth >= 1024) {
           /* Desktop: position absolutely to top-left of image */
@@ -1441,7 +1509,7 @@
       var perimM = perim / 100;
       var fPerM = PRICES.framePerM;
       var fClassicMult = PRICES.frameClassicMult;
-      var curFrame = FRAMES_DB.find(function (f) { return f.id === STATE.frame; }) || FRAMES_DB[0];
+      var curFrame = _frameMap[STATE.frame] || FRAMES_DB[0];
       var fMult = curFrame.cat === 'CLASSIC' ? fClassicMult : 1;
       var frameCost = (STATE.frame !== 'NONE') ? perimM * fPerM * fMult : 0;
 
@@ -1500,27 +1568,25 @@
       /* Interior background */
       var roomData = INTERIORS_DB.find(function (r) { return r.id === STATE.interior; }) || INTERIORS_DB[0];
       var roomBg = els.roomBg || document.querySelector('.room-bg');  /* task 3.2: use cached ref */
-      if (roomBg) roomBg.style.backgroundImage = "url('" + roomData.url + "')";
+      if (roomBg && _lastRoomBgUrl !== roomData.url) {
+        roomBg.style.backgroundImage = "url('" + roomData.url + "')";
+        _lastRoomBgUrl = roomData.url;
+      }
 
       if (els.canvas) {
-        els.canvas.style.top = roomData.top;
-        els.canvas.style.right = roomData.right;
-        els.canvas.style.transformOrigin = roomData.origin;
-        els.canvas.style.translate = roomData.translate || '0 0';
-        if (STATE.wrap === 'GALLERY') els.canvas.classList.add('gallery-3d');
-        else els.canvas.classList.remove('gallery-3d');
+        els.canvas.classList.toggle('gallery-3d', STATE.wrap === 'GALLERY');
       }
 
       /* Prices */
       var costs = calculate();
-      if (els.priceTotal) els.priceTotal.textContent = costs.total.toLocaleString();
-      if (els.stickyTotal) els.stickyTotal.textContent = costs.total.toLocaleString() + ' р.';
+      if (els.priceTotal) els.priceTotal.textContent = fmtPrice(costs.total);
+      if (els.stickyTotal) els.stickyTotal.textContent = fmtPrice(costs.total) + ' р.';
 
       /* priceSize removed — combined into badge-wrap */
 
       if (els.priceVarnish) {
         var vShow = costs.varnishCost > 0 ? costs.varnishCost : costs.varnishPotential;
-        els.priceVarnish.textContent = vShow > 0 ? vShow.toLocaleString() + ' р.' : '0 р.';
+        els.priceVarnish.textContent = vShow > 0 ? fmtPrice(vShow) + ' р.' : '0 р.';
         els.priceVarnish.className = 'calc-badge' + (costs.varnishCost > 0 ? ' is-active' : '');
       }
       if (els.priceGift) {
@@ -1532,7 +1598,7 @@
           els.priceGift.className = 'calc-badge';
         } else {
           var gShow = costs.giftCost > 0 ? costs.giftCost : costs.giftPotential;
-          els.priceGift.textContent = gShow > 0 ? gShow.toLocaleString() + ' р.' : '0 р.';
+          els.priceGift.textContent = gShow > 0 ? fmtPrice(gShow) + ' р.' : '0 р.';
           els.priceGift.className = 'calc-badge' + (costs.giftCost > 0 ? ' is-active' : '');
         }
       }
@@ -1544,7 +1610,7 @@
       /* Wrap badge: combined print + stretcher + gallery surcharge */
       if (els.badgeWrap) {
         els.badgeWrap.textContent = costs.wrapCost > 0
-          ? costs.wrapCost.toLocaleString() + ' р.'
+          ? fmtPrice(costs.wrapCost) + ' р.'
           : '0 р.';
         els.badgeWrap.className = 'calc-badge' + (costs.wrapCost > 0 ? ' is-active' : '');
       }
@@ -1552,7 +1618,7 @@
       /* Processing badge */
       if (els.badgeProcessing) {
         els.badgeProcessing.textContent = costs.processingCost > 0
-          ? costs.processingCost.toLocaleString() + ' р.'
+          ? fmtPrice(costs.processingCost) + ' р.'
           : '0 р.';
         els.badgeProcessing.className = 'calc-badge' + (costs.processingCost > 0 ? ' is-active' : '');
       }
@@ -1561,40 +1627,40 @@
       if (isPortrait && portraitEls) {
         if (portraitEls.badgeFaces) {
           portraitEls.badgeFaces.textContent = costs.faceCost > 0
-            ? costs.faceCost.toLocaleString() + ' р.'
+            ? fmtPrice(costs.faceCost) + ' р.'
             : 'включено';
           portraitEls.badgeFaces.className = 'calc-badge' + (costs.faceCost > 0 ? ' is-active' : '');
         }
         if (portraitEls.badgeGel) {
           var gelShow = costs.gelCost > 0 ? costs.gelCost : costs.gelPotential;
-          portraitEls.badgeGel.textContent = gelShow > 0 ? gelShow.toLocaleString() + ' р.' : '0 р.';
+          portraitEls.badgeGel.textContent = gelShow > 0 ? fmtPrice(gelShow) + ' р.' : '0 р.';
           portraitEls.badgeGel.className = 'calc-badge' + (costs.gelCost > 0 ? ' is-active' : '');
         }
         if (portraitEls.badgeAcrylic) {
           var acrShow = costs.acrylicCost > 0 ? costs.acrylicCost : costs.acrylicPotential;
-          portraitEls.badgeAcrylic.textContent = acrShow > 0 ? acrShow.toLocaleString() + ' р.' : '0 р.';
+          portraitEls.badgeAcrylic.textContent = acrShow > 0 ? fmtPrice(acrShow) + ' р.' : '0 р.';
           portraitEls.badgeAcrylic.className = 'calc-badge' + (costs.acrylicCost > 0 ? ' is-active' : '');
         }
         if (portraitEls.badgeOil) {
           var oilShow = costs.oilCost > 0 ? costs.oilCost : costs.oilPotential;
-          portraitEls.badgeOil.textContent = oilShow > 0 ? oilShow.toLocaleString() + ' р.' : '0 р.';
+          portraitEls.badgeOil.textContent = oilShow > 0 ? fmtPrice(oilShow) + ' р.' : '0 р.';
           portraitEls.badgeOil.className = 'calc-badge' + (costs.oilCost > 0 ? ' is-active' : '');
         }
         if (portraitEls.badgePotal) {
           var potShow = costs.potalCost > 0 ? costs.potalCost : costs.potalPotential;
-          portraitEls.badgePotal.textContent = potShow > 0 ? potShow.toLocaleString() + ' р.' : '0 р.';
+          portraitEls.badgePotal.textContent = potShow > 0 ? fmtPrice(potShow) + ' р.' : '0 р.';
           portraitEls.badgePotal.className = 'calc-badge' + (costs.potalCost > 0 ? ' is-active' : '');
         }
         if (portraitEls.badgeMockup) {
           portraitEls.badgeMockup.textContent = costs.digitalMockupCost > 0
-            ? costs.digitalMockupCost.toLocaleString() + ' р.'
+            ? fmtPrice(costs.digitalMockupCost) + ' р.'
             : '0 р.';
           portraitEls.badgeMockup.className = 'calc-badge' + (costs.digitalMockupCost > 0 ? ' is-active' : '');
         }
       }
 
       /* Cache current frame lookup (used for text + canvas preview) */
-      var _curFrame = FRAMES_DB.find(function (x) { return x.id === STATE.frame; }) || FRAMES_DB[0];
+      var _curFrame = _frameMap[STATE.frame] || FRAMES_DB[0];
 
       if (els.selectedFrameText) {
         els.selectedFrameText.textContent = _curFrame ? _curFrame.name : 'Без багета';
@@ -1615,49 +1681,48 @@
       if (els.lblW) els.lblW.textContent = STATE.w;
       if (els.lblH) els.lblH.textContent = STATE.h;
 
-      /* Canvas preview */
+      /* Canvas preview — batched style writes (Fix #6) */
       if (els.canvas) {
         var factorW = 7.5 / 20;
         var factorH = 17.5 / 30;
         var wPct = STATE.w * factorW;
         var hPct = STATE.h * factorH;
-        els.canvas.style.width = wPct + '%';
-        els.canvas.style.height = hPct + '%';
 
-        if (STATE.image) els.canvas.classList.add('has-image');
-        else els.canvas.classList.remove('has-image');
+        els.canvas.classList.toggle('has-image', !!STATE.image);
 
         var fr = _curFrame;
+        /* Include positioning props so cssText doesn't wipe them */
+        var css = 'top:' + roomData.top + ';right:' + roomData.right + ';'
+          + 'transform-origin:' + roomData.origin + ';'
+          + 'translate:' + (roomData.translate || '0 0') + ';'
+          + 'width:' + wPct + '%;height:' + hPct + '%;';
+
         if (STATE.frame !== 'NONE') {
-          els.canvas.style.border = fr.width + 'px solid ' + fr.color;
-          els.canvas.style.backgroundClip = 'padding-box';
-          els.canvas.style.backgroundOrigin = 'padding-box';
-          if (fr.border) els.canvas.style.outline = '1px solid ' + fr.border;
-          else els.canvas.style.outline = 'none';
+          css += 'border:' + fr.width + 'px solid ' + fr.color + ';';
+          css += 'background-clip:padding-box;background-origin:padding-box;';
+          css += fr.border ? 'outline:1px solid ' + fr.border + ';' : 'outline:none;';
           if (fr.style === 'ornate_gold') {
-            els.canvas.style.borderImage = 'linear-gradient(to bottom right, #bf953f, #fcf6ba, #b38728, #fbf5b7) 1';
-            els.canvas.style.borderColor = '#d4af37';
+            css += 'border-image:linear-gradient(to bottom right,#bf953f,#fcf6ba,#b38728,#fbf5b7) 1;';
+            css += 'border-color:#d4af37;';
           } else {
-            els.canvas.style.borderImage = 'none';
+            css += 'border-image:none;';
           }
         } else {
-          els.canvas.style.border = 'none';
-          els.canvas.style.outline = 'none';
-          els.canvas.style.borderImage = 'none';
-          if (STATE.wrap === 'NO_FRAME') els.canvas.style.boxShadow = '2px 4px 10px rgba(0,0,0,0.1)';
+          css += 'border:none;outline:none;border-image:none;';
+          if (STATE.wrap === 'NO_FRAME') css += 'box-shadow:2px 4px 10px rgba(0,0,0,0.1);';
         }
 
         if (STATE.image) {
-          els.canvas.style.backgroundImage = 'url(' + STATE.image + ')';
-          els.canvas.style.backgroundSize = 'cover';
-          els.canvas.style.backgroundPosition = 'center';
+          css += 'background-image:url(' + STATE.image + ');background-size:cover;background-position:center;';
         } else {
-          els.canvas.style.backgroundImage = 'none';
-          els.canvas.style.backgroundColor = '#fff';
+          css += 'background-image:none;background-color:#fff;';
         }
+
+        els.canvas.style.cssText = css;
       }
 
-      updateModalPreviews();
+      /* Fix #1: skip heavy preview update when modal is closed */
+      if (els.frameModal && els.frameModal.open) updateModalPreviews();
     }
 
     /* ========== BOOTSTRAP ========== */

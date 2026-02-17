@@ -98,8 +98,8 @@ window.MUSE_PRICES = (function () {
       /* Обработка фото (только для холста) */
       processingOptions: [
         { value: 0,    label: 'Базовая' },
-        { value: 300,  label: 'Оптимальная' },
-        { value: 900,  label: 'Премиальная' }
+        { value: 499,  label: 'Оптимальная' },
+        { value: 999,  label: 'Премиальная' }
       ]
     }),
 

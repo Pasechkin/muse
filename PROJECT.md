@@ -934,6 +934,29 @@ prices.js
 | 3.3 | `renderFrameCatalog()` — обновлять только цены, не пересоздавать 27 DOM-элементов | `calc.js` | ✅ |
 | 3.4 | Замерить Lighthouse Performance до/после на `calc.html` и `foto-na-kholste` | — | ✅ |
 
+#### Этап 3b — Глубокая оптимизация runtime (февраль 2026)
+
+Проведён code-level аудит `calc.js` (runtime + loading). Выявлено 11 проблем (2 HIGH, 4 MED, 5 LOW). Все исправлены.
+
+| # | Серьёзность | Проблема | Решение | Статус |
+|---|-------------|---------|---------|--------|
+| 3b.1 | **HIGH** | `updateModalPreviews()` вызывается на каждый `updateUI()` даже при закрытой модалке (54 DOM-записи впустую) | Guard: `if (els.frameModal && els.frameModal.open)` — пропускает вызов, если модалка закрыта | ✅ |
+| 3b.2 | **HIGH** | `renderSizePresets()` уничтожает и пересоздаёт все DOM-узлы кнопок при каждом клике | DOM-кэш `_presetBtnCache` / `_desktopPresetCache` — кнопки создаются один раз, при повторных вызовах только переключаются CSS-классы через `_updatePresetActiveStates()` | ✅ |
+| 3b.3 | **MED** | `querySelectorAll('.calc-panel section')` без кэширования в `toggleDigitalMockupMode()` | Lazy-кэш `_calcPanelSections` — запрос к DOM выполняется только один раз | ✅ |
+| 3b.4 | **MED** | `FRAMES_DB.find()` — O(n) поиск вызывается 2–3 раза за цикл `updateUI()` | Lookup-map `_frameMap` (id → объект), O(1) доступ; заменены все 3 вызова `.find()` | ✅ |
+| 3b.5 | **MED** | `toLocaleString()` ×16 за цикл — тяжёлый ICU-вызов | Быстрый форматтер `fmtPrice()` с ручной вставкой пробелов; заменены все 16 вызовов | ✅ |
+| 3b.6 | **MED** | 12+ индивидуальных `style.*` записей на canvas-элемент за цикл | Батчинг через `els.canvas.style.cssText = css` — одна запись вместо 12+ | ✅ |
+| 3b.7 | **LOW** | `getEl('inp-w')` / `getEl('inp-h')` вместо кэшированных `els.inpW` / `els.inpH` в `onActiveImageChange` | Заменены на `els.inpW` / `els.inpH` | ✅ |
+| 3b.8 | **LOW** | Аналогично в onclick пресетных кнопок | Исправлено в рамках 3b.2 (кнопки используют `els` напрямую) | ✅ |
+| 3b.9 | **LOW** | `backgroundImage` перезаписывается каждый `updateUI()` даже при том же интерьере | Guard `_lastRoomBgUrl` — пропускает запись, если URL не изменился | ✅ |
+| 3b.10 | **LOW** | Рекурсивный вызов `renderSizePresets()` после `updateUI()` | Устранено в рамках 3b.2 — используется `_updatePresetActiveStates()` | ✅ |
+| 3b.11 | **LOW** | Дублирование scrollbar-стилей `.thin-scrollbar-x` и `.custom-scrollbar` | Объединены в общий селектор с разделением только по dimension (height:4px vs width:6px) | ✅ |
+
+**Дополнительно:**
+- Исправлены цены обработки в `prices.js`: Базовая 0, Оптимальная 499 р., Премиальная 999 р.
+- Lighthouse-аудит calc.html (Performance 58/100 на мобильном эмуляторе как standalone). Основные потери — TBT (900ms), CLS (0.26), LCP (3.2s) — обусловлены standalone-режимом. На продуктовых страницах калькулятор ниже фолда, инициализируется лениво через `IntersectionObserver` + `requestIdleCallback`, поэтому эти метрики **не влияют** на реальные CWV.
+- Продуктовые страницы оптимизированы корректно: `preload` + `fetchpriority="high"` для LCP-hero, `defer` на скриптах, `loading="lazy"` на всех изображениях ниже фолда, `preload="none"` на видео.
+
 ### Фаза 4 — Доработки функционала
 
 **Цель:** закрыть запланированные улучшения до тиражирования.
