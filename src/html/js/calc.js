@@ -1121,7 +1121,25 @@
             updateUI(els);
           }
         });
+        // expose uploader for cross-iframe collage bridge
+        window.__museUploader = uploaderInstance;
       }
+
+      // Expose programmatic size setter for collage→calc bridge
+      window.__museCalcSetSize = function (w, h) {
+        STATE.w = w;
+        STATE.h = h;
+        var ratio = w / h;
+        STATE.orientation = ratio > 1.05 ? 'LANDSCAPE' : ratio < 0.95 ? 'PORTRAIT' : 'SQUARE';
+        STATE.customSizeMode = !isCurrentSizePreset(getCurrentSizePresetList());
+        if (_cachedEls) {
+          if (_cachedEls.inpW) _cachedEls.inpW.value = w;
+          if (_cachedEls.inpH) _cachedEls.inpH.value = h;
+        }
+        renderSizePresets();
+        renderFrameCatalog();
+        updateUI(null);
+      };
 
       if (els.canvas) {
         els.canvas.addEventListener('click', function () {

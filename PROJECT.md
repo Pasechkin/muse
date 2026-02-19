@@ -17,7 +17,7 @@
 
 ## Прогресс
 
-**Обновлено:** 17 февраля 2026
+**Обновлено:** 18 февраля 2026
 
 | Категория | Готово | Всего |
 |-----------|--------|-------|
@@ -26,10 +26,10 @@
 | Объекты портретов | 5 | 5 |
 | Блог | 20 | 20 |
 | Info | 9 | 9 |
-| Прочие страницы | 0 | 14 |
-| **Итого** | **56** | **70** |
+| Прочие страницы | 1 | 14 |
+| **Итого** | **57** | **70** |
 
-**⏳ Осталось:** 14 страниц → [Ожидают переверстки](#ожидают-переверстки)
+**☸️ Осталось:** 13 страниц → [Ожидают переверстки](#ожидают-переверстки)
 
 ### Что сделано
 
@@ -143,7 +143,7 @@ npm run copy-css     # Копия для Live Server
 
 ---
 
-## Готовые страницы (56)
+## Готовые страницы (57)
 
 ### Главные (4) ✅
 `index.html`, `portret-na-zakaz-po-foto-na-kholste-sankt-peterburg.html`, `pechat-na-kholste-sankt-peterburg.html`, `foto-na-kholste-sankt-peterburg.html`
@@ -160,9 +160,12 @@ npm run copy-css     # Копия для Live Server
 ### Info (9) ✅
 `faq.html`, `kontakty.html`, `info.html`, `avtorstvo.html`, `guarantee.html`, `partnerstvo.html`, `oferta.html`, `politika-konfidentsialnosti-sayta.html`, `dostavka.html`
 
+### Печать (1) ✅
+`fotokollazh-na-kholste.html` (с калькулятором + конструктор коллажей через iframe → `konstruktor-kollazha.html`)
+
 ---
 
-## Ожидают переверстки (14)
+## Ожидают переверстки (13)
 
 | Страница | URL | Приоритет |
 |----------|-----|-----------|
@@ -176,7 +179,6 @@ npm run copy-css     # Копия для Live Server
 | Страница 404 | `/404/` | Низкий |
 | Страница художника | `/personal/forart/...` | Средний |
 | Модульная картина | `/pechat/modulnaya-kartina/` | С калькулятором |
-| Фотоколлаж на холсте | `/pechat/fotokollazh-na-kholste/` | С калькулятором |
 | Фото в рамке | `/pechat/foto-v-ramke/` | С калькулятором |
 | Фотоколлаж в рамке | `/pechat/fotokollazh-v-ramke/` | С калькулятором |
 | Репродукция | `/pechat/reproduktsiya/` | С поиском |
