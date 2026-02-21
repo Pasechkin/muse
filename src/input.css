@@ -1240,3 +1240,42 @@
 }
 
 /* === Музейные иконки (Restore original Muse paths) === */
+
+/* ═══════════════════════════════════════════════════════════
+ *  Конструктор модульных картин (#mc-calc-root)
+ * ═══════════════════════════════════════════════════════════ */
+@utility mc-constructor-h {
+  /* Mobile: экран минус заголовок + отступ + sticky-бар (~110px) */
+  height: calc(100dvh - 160px);
+  min-height: 420px;
+  @media (min-width: 1024px) {
+    height: 640px;
+  }
+}
+
+@utility mc-no-touch-action {
+  touch-action: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+}
+
+@utility mc-hw-accel {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+@utility mc-module-item {
+  transition: box-shadow 0.15s ease;
+  &:hover {
+    box-shadow: 0 0 0 2px var(--color-primary);
+  }
+}
+
+@utility mc-custom-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--color-primary), transparent 70%) transparent;
+  &::-webkit-scrollbar { width: 4px; height: 4px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar-thumb { background-color: color-mix(in srgb, var(--color-primary), transparent 70%); border-radius: 20px; }
+}

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "postcss ./src/input.css -o ./src/css/output.css --watch",
     "build:once": "postcss ./src/input.css -o ./src/css/output.css",
-    "copy-css": "node -e \"const fs=require('fs');const path=require('path');const outDir='src/html/css';if(!fs.existsSync(outDir))fs.mkdirSync(outDir,{recursive:true});const files=['output.css','page-info.css'];files.forEach(f=>{const src=path.join('src/css',f);const dest=path.join(outDir,f);if(fs.existsSync(src))fs.copyFileSync(src,dest);});\"",
+    "copy-css": "node -e \"const fs=require('fs');const path=require('path');const d='src/html/css';if(!fs.existsSync(d))fs.mkdirSync(d,{recursive:true});['output.css','page-info.css'].forEach(f=>{const src=path.join('src/css',f);if(fs.existsSync(src))fs.copyFileSync(src,path.join(d,f))});\"",
     "dev": "npm run build",
     "preview": "npm run build:once && npm run copy-css && npx http-server src/html -p 3000",
     "preview:mobile": "npm run build:once && npm run copy-css && npx http-server src/html -p 3000 -a 0.0.0.0 --cors"

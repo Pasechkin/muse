@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Muse Architect</title>
+    
+    <!-- Стили (Tailwind) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4A90E2',
+                        'primary-hover': '#357ABD',
+                        dark: '#1a1a1a',
+                        body: '#444444',
+                        secondary: '#f5f5f7',
+                    },
+                    fontFamily: {
+                        sans: ['system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #f3f4f6;
+            overflow-x: hidden;
+            overflow-y: auto; /* Allow global page scroll */
+        }
+        
+        /* Custom Scrollbar for horizontal lists */
+        .custom-scroll::-webkit-scrollbar { height: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+        .custom-scroll::-webkit-scrollbar-thumb { background-color: #e5e7eb; border-radius: 20px; }
+        .custom-scroll::-webkit-scrollbar-thumb:hover { background-color: #d1d5db; }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .cursor-ew-resize { cursor: ew-resize; }
+        .cursor-ns-resize { cursor: ns-resize; }
+        .cursor-move { cursor: move; }
+
+        /* CRITICAL FOR SCROLL VS DRAG */
+        #workspace-area {
+            touch-action: pan-y; /* Allows vertical scroll on the background */
+        }
+        
+        .module-item {
+            touch-action: none; /* Prevents scroll when touching the module, enabling drag */
+            -webkit-user-drag: none;
+            user-select: none;
+        }
+        
+        .hardware-accelerated {
+            will-change: transform;
+            transform: translate3d(0, 0, 0); /* Force GPU layer promotion */
+            backface-visibility: hidden;
+        }
+
+        #canvas-root {
+            overflow: visible;
+        }
+    </style>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="min-h-screen flex flex-col font-sans text-gray-900">
+
+    <!-- Navbar -->
+    <div class="w-full bg-white border-b border-gray-200 py-3 px-4 lg:px-8 shadow-sm flex-none z-50">
+        <h1 class="text-lg lg:text-xl font-bold text-dark">Muse Architect</h1>
+    </div>
+
+    <!-- APP CONTAINER 
+         Uses calc(100dvh - 80px) to fit exactly on mobile screen including address bar logic
+    -->
+    <div class="flex flex-col lg:flex-row w-full lg:max-w-6xl mx-auto bg-white overflow-hidden text-body select-none shadow-xl lg:rounded-xl border-gray-100 lg:mb-10 lg:h-[80vh] h-[calc(100dvh-60px)]">
+        
+        <!-- WORKSPACE (Top on mobile, Left on Desktop) 
+             Increased height to 64% on mobile for maximum view
+        -->
+        <div class="relative w-full bg-secondary overflow-hidden flex flex-col order-1 lg:order-2 h-[64%] lg:h-auto lg:flex-1 border-b lg:border-b-0 group z-10">
+            
+            <!-- Toolbar -->
+            <div class="bg-white border-b border-gray-200 px-3 py-2 flex items-center justify-between z-20 shrink-0 shadow-sm">
+                <div class="bg-gray-100 rounded-lg p-1 flex">
+                   <button id="btn-mode-layout" class="px-3 py-1.5 rounded-md text-[10px] uppercase font-bold tracking-wider transition-all bg-white text-primary shadow-sm">Макет</button>
+                   <button id="btn-mode-image" class="px-3 py-1.5 rounded-md text-[10px] uppercase font-bold tracking-wider transition-all text-gray-500 hover:text-gray-700">Фото</button>
+                </div>
+                
+                <div class="flex items-center gap-2" id="img-controls" style="display: none;">
+                    <button id="btn-zoom-out" class="p-1.5 hover:bg-gray-100 rounded-full text-gray-600 transition-colors"></button>
+                    <button id="btn-center" class="p-1.5 hover:bg-gray-100 rounded-full text-gray-600 transition-colors"></button>
+                    <button id="btn-zoom-in" class="p-1.5 hover:bg-gray-100 rounded-full text-gray-600 transition-colors"></button>
+                </div>
+            </div>
+             
+            <!-- Canvas Area -->
+            <div id="workspace-area" class="flex-1 w-full h-full relative cursor-default bg-secondary overflow-hidden">
+                <!-- Grid -->
+                <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 20px 20px; pointer-events: none;"></div>
+                
+                <!-- The Canvas Root -->
+                <div id="canvas-root" class="absolute origin-top-left hardware-accelerated w-0 h-0">
+                    <!-- Modules injected here -->
+                </div>
+            </div>
+             
+            <!-- Size Label -->
+            <div id="size-label" class="absolute bottom-4 left-4 z-10 bg-white/95 text-dark border border-gray-100 px-3 py-1.5 rounded-lg text-xs font-bold shadow-sm pointer-events-none transition-opacity duration-300">
+                0 x 0 см
+            </div>
+        </div>
+
+        <!-- SIDEBAR (Bottom on mobile, Right on Desktop) 
+             Reduced height to 36% on mobile
+        -->
+        <div class="flex-none bg-white w-full lg:w-[380px] border-t lg:border-t-0 lg:border-r border-gray-200 flex flex-col order-2 lg:order-1 z-30 shadow-[0_-5px_20px_rgba(0,0,0,0.05)] relative h-[36%] lg:h-auto">
+             
+            <!-- Tab Content (Scrollable) -->
+            <div id="sidebar-content" class="flex-1 overflow-y-auto bg-white overscroll-contain"></div>
+
+            <!-- Tabs (Fixed at bottom) -->
+            <div id="tab-bar" class="flex-none flex bg-white border-t border-gray-100 pb-safe shrink-0"></div>
+        </div>
+    </div>
+
+    <input type="file" id="file-input" hidden accept="image/*">
+
+    <script>
+        // --- ICONS ---
+        const Icons = {
+            Upload: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>`,
+            Photo: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`,
+            Format: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>`,
+            Layout: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>`,
+            Order: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>`,
+            ZoomIn: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>`,
+            ZoomOut: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>`,
+            Center: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>`,
+            X: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`,
+            LockClosed: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+            LockOpen: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-300"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>`
+        };
+
+        const SCALE = 4;
+        const GAP_CM = 3;
+
+        const State = {
+            modules: [],
+            uploadedImages: [],
+            previewImage: null,
+            activeTab: 'photos',
+            interactionMode: 'layout',
+            imgSize: { w: 0, h: 0 },
+            imageZoom: 1,
+            imagePan: { x: 0, y: 0 },
+            viewParams: { x: 0, y: 0, scale: 1 },
+            totals: { fullWidth: 0, fullHeight: 0, minTop: 0, maxBottom: 0, minLeft: 0, price: 0 },
+            filterCount: 3,
+            aspectLocked: true,
+            isDragOver: false,
+            // Cache stores { el, bg, label, lastState: { x, y, w, h } }
+            domCache: new Map() 
+        };
+
+        const Gesture = {
+            mode: 'idle',
+            startX: 0, startY: 0,
+            startPan: {x:0, y:0},
+            startZoom: 1,
+            startDist: 0,
+            moduleId: null,
+            resizeType: null,
+            initialModules: [],
+            rafId: null
+        };
+
+        // --- PRESETS & HELPERS ---
+        function generatePresets() {
+            const all = [];
+            let globalCounter = 1;
+            const add = (count, modules, cols) => {
+                all.push({ 
+                    name: `Вариант ${globalCounter++}`, 
+                    count, 
+                    cols: cols || count,
+                    modules: modules.map(m => ({ width: m.w, height: m.h, offsetTop: m.ot })) 
+                });
+            };
+            // 2 Modules
+            add(2, [{w:50, h:80, ot:0}, {w:50, h:80, ot:0}]);
+            add(2, [{w:50, h:80, ot:10}, {w:50, h:80, ot:0}]);
+            add(2, [{w:50, h:80, ot:0}, {w:50, h:80, ot:10}]);
+            add(2, [{w:35, h:80, ot:0}, {w:65, h:80, ot:0}]);
+            add(2, [{w:65, h:80, ot:0}, {w:35, h:80, ot:0}]);
+            add(2, [{w:40, h:60, ot:20}, {w:40, h:80, ot:0}]);
+            add(2, [{w:40, h:80, ot:0}, {w:40, h:60, ot:20}]);
+            add(2, [{w:40, h:80, ot:0}, {w:40, h:80, ot:20}]);
+            add(2, [{w:45, h:45, ot:0}, {w:45, h:45, ot:0}]);
+            // 3 Modules
+            add(3, [{w:33,h:80,ot:0}, {w:33,h:80,ot:0}, {w:33,h:80,ot:0}]);
+            add(3, [{w:33,h:80,ot:0}, {w:33,h:80,ot:10}, {w:33,h:80,ot:20}]);
+            add(3, [{w:33,h:80,ot:20}, {w:33,h:80,ot:10}, {w:33,h:80,ot:0}]);
+            add(3, [{w:33,h:60,ot:10}, {w:33,h:80,ot:0}, {w:33,h:60,ot:10}]);
+            add(3, [{w:33,h:80,ot:0}, {w:33,h:60,ot:10}, {w:33,h:80,ot:0}]);
+            add(3, [{w:25,h:60,ot:10}, {w:50,h:80,ot:0}, {w:25,h:60,ot:10}]);
+            add(3, [{w:40,h:80,ot:0}, {w:20,h:60,ot:10}, {w:40,h:80,ot:0}]);
+            add(3, [{w:50,h:80,ot:0}, {w:25,h:60,ot:10}, {w:25,h:40,ot:20}]);
+            add(3, [{w:25,h:40,ot:20}, {w:25,h:60,ot:10}, {w:50,h:80,ot:0}]);
+            add(3, [{w:30,h:80,ot:0}, {w:30,h:80,ot:15}, {w:30,h:80,ot:0}]);
+            add(3, [{w:30,h:80,ot:15}, {w:30,h:80,ot:0}, {w:30,h:80,ot:15}]);
+            add(3, [{w:40,h:50,ot:15}, {w:40,h:80,ot:0}, {w:20,h:50,ot:15}]);
+            add(3, [{w:33,h:33,ot:0}, {w:33,h:33,ot:0}, {w:33,h:33,ot:0}]);
+            add(3, [{w:33,h:40,ot:20}, {w:33,h:80,ot:0}, {w:33,h:40,ot:20}]);
+            add(3, [{w:20,h:80,ot:0}, {w:60,h:80,ot:0}, {w:20,h:80,ot:0}]);
+            add(3, [{w:33,h:80,ot:0}, {w:33,h:70,ot:5}, {w:33,h:60,ot:10}]);
+            add(3, [{w:33,h:60,ot:10}, {w:33,h:70,ot:5}, {w:33,h:80,ot:0}]);
+            // 4+ Modules (simplified selection for brevity, matching React logic)
+            add(4, [{w:22,h:80,ot:0}, {w:28,h:80,ot:0}, {w:28,h:80,ot:0}, {w:22,h:80,ot:0}]); 
+            add(4, [{w:48,h:48,ot:0}, {w:48,h:48,ot:0}, {w:48,h:48,ot:51}, {w:48,h:48,ot:51}], 2); 
+            add(4, [{w:20,h:60,ot:20}, {w:30,h:80,ot:0}, {w:30,h:80,ot:0}, {w:20,h:60,ot:20}]); 
+            add(4, [{w:30,h:80,ot:0}, {w:20,h:60,ot:10}, {w:20,h:60,ot:10}, {w:30,h:80,ot:0}]); 
+            add(4, [{w:22,h:50,ot:30}, {w:28,h:70,ot:10}, {w:28,h:80,ot:0}, {w:22,h:60,ot:20}]); 
+            add(4, [{w:25,h:80,ot:0}, {w:25,h:80,ot:10}, {w:25,h:80,ot:20}, {w:25,h:80,ot:30}]);
+            add(4, [{w:25,h:80,ot:30}, {w:25,h:80,ot:20}, {w:25,h:80,ot:10}, {w:25,h:80,ot:0}]);
+            add(4, [{w:20,h:60,ot:10}, {w:30,h:80,ot:0}, {w:30,h:80,ot:0}, {w:20,h:60,ot:10}]);
+            add(4, [{w:30,h:80,ot:0}, {w:20,h:60,ot:10}, {w:20,h:60,ot:10}, {w:30,h:80,ot:0}]);
+            add(4, [{w:40,h:80,ot:0}, {w:20,h:60,ot:10}, {w:20,h:60,ot:10}, {w:20,h:40,ot:20}]);
+            add(4, [{w:22,h:60,ot:10}, {w:28,h:80,ot:0}, {w:28,h:80,ot:20}, {w:22,h:60,ot:30}]);
+            add(4, [{w:22,h:80,ot:0}, {w:28,h:80,ot:20}, {w:28,h:80,ot:0}, {w:22,h:80,ot:20}]);
+            add(4, [{w:22,h:80,ot:20}, {w:28,h:80,ot:0}, {w:28,h:80,ot:20}, {w:22,h:80,ot:0}]);
+            add(4, [{w:20,h:50,ot:15}, {w:30,h:80,ot:0}, {w:30,h:80,ot:0}, {w:20,h:50,ot:15}]);
+            add(4, [{w:15,h:80,ot:0}, {w:35,h:80,ot:0}, {w:35,h:80,ot:0}, {w:15,h:80,ot:0}]);
+            add(4, [{w:35,h:80,ot:0}, {w:15,h:80,ot:0}, {w:15,h:80,ot:0}, {w:35,h:80,ot:0}]);
+            add(4, [{w:25,h:25,ot:0}, {w:25,h:25,ot:0}, {w:25,h:25,ot:0}, {w:25,h:25,ot:0}]);
+            add(5, Array(5).fill({w:19,h:80,ot:0}));
+            add(5, [{w:15,h:60,ot:15}, {w:15,h:75,ot:7.5}, {w:40,h:90,ot:0}, {w:15,h:75,ot:7.5}, {w:15,h:60,ot:15}]);
+            add(5, [{w:18,h:80,ot:20}, {w:18,h:80,ot:10}, {w:18,h:80,ot:0}, {w:18,h:80,ot:10}, {w:18,h:80,ot:20}]);
+            add(5, [{w:18,h:80,ot:0}, {w:18,h:80,ot:10}, {w:18,h:80,ot:20}, {w:18,h:80,ot:10}, {w:18,h:80,ot:0}]);
+            add(5, [{w:18,h:80,ot:0}, {w:18,h:80,ot:10}, {w:18,h:80,ot:20}, {w:18,h:80,ot:30}, {w:18,h:80,ot:40}]);
+            add(5, [{w:20,h:60,ot:10}, {w:20,h:80,ot:0}, {w:20,h:40,ot:20}, {w:20,h:80,ot:0}, {w:20,h:60,ot:10}]);
+            add(5, [{w:32,h:32,ot:0}, {w:32,h:32,ot:0}, {w:32,h:32,ot:0}, {w:48,h:48,ot:35}, {w:48,h:48,ot:35}], 3);
+            add(5, [{w:48,h:48,ot:0}, {w:48,h:48,ot:0}, {w:32,h:32,ot:51}, {w:32,h:32,ot:51}, {w:32,h:32,ot:51}], 2);
+            add(5, [{w:20,h:40,ot:20}, {w:20,h:60,ot:10}, {w:20,h:80,ot:0}, {w:20,h:60,ot:10}, {w:20,h:40,ot:20}]);
+            add(6, Array(6).fill({w:15,h:80,ot:0}));
+            add(6, [...Array(3).fill({w:32, h:45, ot:0}), ...Array(3).fill({w:32, h:45, ot:48})], 3);
+            add(6, [...Array(2).fill({w:48, h:32, ot:0}), ...Array(2).fill({w:48, h:32, ot:35}), ...Array(2).fill({w:48, h:32, ot:70})], 2);
+            add(6, [{w:15,h:60,ot:10}, {w:15,h:80,ot:0}, {w:15,h:60,ot:10}, {w:15,h:60,ot:10}, {w:15,h:80,ot:0}, {w:15,h:60,ot:10}]);
+            add(7, [{w:13,h:50,ot:15}, {w:13,h:60,ot:10}, {w:13,h:70,ot:5}, {w:13,h:80,ot:0}, {w:13,h:70,ot:5}, {w:13,h:60,ot:10}, {w:13,h:50,ot:15}]);
+            add(8, [...Array(4).fill({w:23, h:35, ot:0}), ...Array(4).fill({w:23, h:35, ot:38})], 4);
+            add(8, Array(8).fill({w:11, h:80, ot:0}));
+            add(10, [...Array(5).fill({w:19, h:35, ot:0}), ...Array(5).fill({w:19, h:35, ot:38})], 5);
+            add(12, [...Array(3).fill({w:30,h:20,ot:0}), ...Array(3).fill({w:30,h:20,ot:23}), ...Array(3).fill({w:30,h:20,ot:46}), ...Array(3).fill({w:30,h:20,ot:69})], 3);
+            add(14, [...Array(7).fill({w:13, h:35, ot:0}), ...Array(7).fill({w:13, h:35, ot:38})], 7);
+            add(16, [...Array(4).fill({w:23,h:23,ot:0}), ...Array(4).fill({w:23,h:23,ot:26}), ...Array(4).fill({w:23,h:23,ot:52}), ...Array(4).fill({w:23,h:23,ot:78})], 4);
+            return all;
+        }
+
+        const PRESETS = generatePresets();
+        const MODULE_COUNTS = Array.from(new Set(PRESETS.map(p => p.count))).sort((a,b) => a - b);
+        
+        const FORMAT_PRESETS = [
+            { rw: 1, rh: 1, label: '1x1', targetW: 100, targetH: 100 },
+            { rw: 2, rh: 3, label: '2x3', targetW: 80, targetH: 120 },
+            { rw: 3, rh: 2, label: '3x2', targetW: 120, targetH: 80 },
+            { rw: 3, rh: 4, label: '3x4', targetW: 90, targetH: 120 },
+            { rw: 4, rh: 3, label: '4x3', targetW: 120, targetH: 90 },
+            { rw: 16, rh: 9, label: '16x9', targetW: 160, targetH: 90 },
+            { rw: 9, rh: 16, label: '9x16', targetW: 90, targetH: 160 },
+            { rw: 2, rh: 1, label: '2x1', targetW: 150, targetH: 75 },
+            { rw: 1, rh: 2, label: '1x2', targetW: 75, targetH: 150 },
+            { rw: 3, rh: 1, label: '3x1', targetW: 150, targetH: 50 },
+            { rw: 1, rh: 3, label: '1x3', targetW: 50, targetH: 150 },
+            { rw: 5, rh: 4, label: '5x4', targetW: 100, targetH: 80 },
+            { rw: 4, rh: 5, label: '4x5', targetW: 80, targetH: 100 },
+        ];
+
+        // --- CORE LOGIC ---
+
+        function applyLayout(preset) {
+            let itemsPerRow = preset.cols || preset.count;
+            if (!preset.cols) {
+                // Heuristics for old presets
+                if (preset.count === 4 && preset.modules.every(m => m.width === preset.modules[0].width) && preset.modules[0].width > 30) itemsPerRow = 2;
+                else if (preset.count === 6 && preset.modules[0].width > 30) itemsPerRow = 3;
+                else if (preset.count === 8) itemsPerRow = 4;
+                else if (preset.count === 9 && Math.abs(preset.modules[0].offsetTop - preset.modules[3].offsetTop) > 20) itemsPerRow = 3;
+                else if (preset.count === 10) itemsPerRow = 5;
+                else if (preset.count === 12) itemsPerRow = 4;
+                else if (preset.count === 16) itemsPerRow = 4;
+            }
+
+            let currentX = 0;
+            let tempModules = preset.modules.map((m, i) => {
+                if (i > 0 && i % itemsPerRow === 0) currentX = 0;
+                const offsetLeft = currentX;
+                currentX += m.width + GAP_CM;
+                return { ...m, id: Date.now() + i + Math.random(), offsetLeft, offsetTop: m.height ? m.offsetTop : 0 };
+            });
+
+            // Normalize
+            let minL = Infinity, minT = Infinity;
+            tempModules.forEach(m => { minL = Math.min(minL, m.offsetLeft); minT = Math.min(minT, m.offsetTop); });
+            return tempModules.map(m => ({ ...m, offsetLeft: m.offsetLeft - minL, offsetTop: m.offsetTop - minT }));
+        }
+
+        function calculateTotals() {
+            let minTop = Infinity, maxBottom = -Infinity, maxRight = 0, minLeft = Infinity;
+            State.modules.forEach(m => {
+                minTop = Math.min(minTop, m.offsetTop);
+                minLeft = Math.min(minLeft, m.offsetLeft);
+                maxBottom = Math.max(maxBottom, m.offsetTop + m.height);
+                maxRight = Math.max(maxRight, m.offsetLeft + m.width);
+            });
+            if (minTop === Infinity) { minTop=0; maxBottom=0; maxRight=0; minLeft=0; }
+
+            State.totals = { fullWidth: maxRight - minLeft, fullHeight: maxBottom - minTop, minTop, maxBottom, minLeft, price: 2500 + ((maxRight-minLeft)*(maxBottom-minTop)*0.5) };
+            document.getElementById('size-label').textContent = `${Math.round(State.totals.fullWidth)} x ${Math.round(State.totals.fullHeight)} см`;
+        }
+
+        function fitView() {
+            const workspace = document.getElementById('workspace-area');
+            const { clientWidth, clientHeight } = workspace;
+            const contentW = State.totals.fullWidth * SCALE;
+            const contentH = State.totals.fullHeight * SCALE;
+            if (!contentW || !contentH) return;
+            
+            const padding = 60;
+            const scale = Math.min((clientWidth - padding) / contentW, (clientHeight - padding) / contentH, 1.2);
+            
+            // Center the Bounding Box relative to origin
+            const bbCenterX = (State.totals.minLeft + State.totals.fullWidth / 2) * SCALE;
+            const bbCenterY = (State.totals.minTop + State.totals.fullHeight / 2) * SCALE;
+            
+            State.viewParams = { scale, x: (clientWidth / 2) - (bbCenterX * scale), y: (clientHeight / 2) - (bbCenterY * scale) };
+            updateCanvasTransform();
+        }
+
+        function updateCanvasTransform() {
+            document.getElementById('canvas-root').style.transform = `translate3d(${State.viewParams.x}px, ${State.viewParams.y}px, 0) scale(${State.viewParams.scale})`;
+        }
+
+        // --- RENDERERS (OPTIMIZED) ---
+
+        function updateModuleBackground(m, dom) {
+            if (!State.previewImage || !dom) return;
+            
+            const compW = State.totals.fullWidth * SCALE;
+            const compH = State.totals.fullHeight * SCALE;
+            const imgRatio = State.imgSize.w / State.imgSize.h || 1;
+            
+            let bgW, bgH;
+            if (imgRatio > (compW/compH)) { bgH = compH; bgW = bgH * imgRatio; } 
+            else { bgW = compW; bgH = bgW / imgRatio; }
+            
+            const zoomedW = bgW * State.imageZoom;
+            const zoomedH = bgH * State.imageZoom;
+            
+            const cx = (State.totals.minLeft + State.totals.fullWidth / 2) * SCALE;
+            const cy = (State.totals.minTop + State.totals.fullHeight / 2) * SCALE;
+            
+            const imgX = cx - (zoomedW / 2) + (State.imagePan.x * SCALE);
+            const imgY = cy - (zoomedH / 2) + (State.imagePan.y * SCALE);
+            
+            const bgPosX = imgX - (m.offsetLeft * SCALE);
+            const bgPosY = imgY - (m.offsetTop * SCALE);
+
+            // Removing dirty check for BG to fix "sticker" lag on drag
+            dom.bg.style.backgroundPosition = `${bgPosX}px ${bgPosY}px`;
+            dom.bg.style.backgroundSize = `${zoomedW}px ${zoomedH}px`;
+            
+            if (!dom.lastState?.hasImage) { 
+                dom.bg.style.backgroundImage = `url(${State.previewImage})`; 
+            }
+            
+            // Still update state for other uses
+            dom.lastState = { ...(dom.lastState || {}), bgX: bgPosX, bgY: bgPosY, bgScaleW: zoomedW, hasImage: true };
+        }
+
+        function updateAllBackgrounds() {
+            if (!State.previewImage) return;
+            State.modules.forEach(m => { const dom = State.domCache.get(m.id); if (dom) updateModuleBackground(m, dom); });
+        }
+
+        function updateModuleGeometry(m) {
+            const dom = State.domCache.get(m.id);
+            if (!dom) return;
+            
+            const last = dom.lastState || {};
+            const x = m.offsetLeft * SCALE;
+            const y = m.offsetTop * SCALE;
+            const w = m.width * SCALE;
+            const h = m.height * SCALE;
+
+            // Dirty Check Geometry
+            if (last.x !== x || last.y !== y) {
+                dom.el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+                last.x = x; last.y = y;
+            }
+            if (last.w !== w || last.h !== h) {
+                dom.el.style.width = `${w}px`;
+                dom.el.style.height = `${h}px`;
+                dom.label.textContent = `${Math.round(m.width)}x${Math.round(m.height)}`;
+                last.w = w; last.h = h;
+            }
+            
+            dom.lastState = last;
+            if (State.previewImage) updateModuleBackground(m, dom);
+        }
+
+        function renderModules() {
+            const canvas = document.getElementById('canvas-root');
+            canvas.innerHTML = '';
+            State.domCache.clear();
+
+            State.modules.forEach(m => {
+                const el = document.createElement('div');
+                el.dataset.moduleId = m.id;
+                // Add class module-item to identify it for drag logic, draggable="false" prevents native ghost
+                el.className = `absolute bg-white shadow-xl group hardware-accelerated module-item ${State.interactionMode === 'layout' ? 'cursor-move' : ''}`;
+                el.setAttribute('draggable', 'false');
+
+                // Set initial styles directly
+                const x = m.offsetLeft * SCALE, y = m.offsetTop * SCALE, w = m.width * SCALE, h = m.height * SCALE;
+                el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+                el.style.width = `${w}px`;
+                el.style.height = `${h}px`;
+
+                const bg = document.createElement('div');
+                bg.className = 'absolute inset-0 bg-no-repeat pointer-events-none bg-gray-100 transition-colors duration-200';
+                el.appendChild(bg);
+
+                if (State.interactionMode === 'layout') {
+                    const border = document.createElement('div');
+                    border.className = 'absolute inset-0 border-2 border-transparent group-hover:border-primary/40 transition-colors pointer-events-none';
+                    el.appendChild(border);
+                    [
+                        { t: 'e', c: 'top-0 bottom-0 right-[-10px] w-[20px] cursor-ew-resize' },
+                        { t: 'w', c: 'top-0 bottom-0 left-[-10px] w-[20px] cursor-ew-resize' },
+                        { t: 's', c: 'left-0 right-0 bottom-[-10px] h-[20px] cursor-ns-resize' },
+                        { t: 'n', c: 'left-0 right-0 top-[-10px] h-[20px] cursor-ns-resize' }
+                    ].forEach(p => {
+                        const h = document.createElement('div');
+                        h.dataset.resizeType = p.t;
+                        h.className = `absolute z-10 ${p.c}`;
+                        el.appendChild(h);
+                    });
+                }
+
+                const label = document.createElement('div');
+                label.className = 'absolute bottom-1 right-1 bg-black/60 text-white text-[12px] font-bold px-1.5 py-0.5 rounded shadow-sm pointer-events-none z-20';
+                label.textContent = `${Math.round(m.width)}x${Math.round(m.height)}`;
+                el.appendChild(label);
+
+                canvas.appendChild(el);
+                State.domCache.set(m.id, { el, bg, label, lastState: { x, y, w, h } });
+            });
+            updateAllBackgrounds();
+        }
+
+        // --- GESTURES (OPTIMIZED) ---
+        function getTouchDist(t1, t2) { return Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY); }
+
+        function handleStart(clientX, clientY, target, isTouch, touches) {
+            // FIX: Allow scrolling by touching background
+            // Only start drag if touching a module or resize handle
+            if (target.id === 'workspace-area' || target.id === 'canvas-root') {
+                return; // Let browser handle scroll
+            }
+
+            Gesture.startX = clientX;
+            Gesture.startY = clientY;
+            
+            if (isTouch && touches.length === 2) {
+                Gesture.mode = 'pinch';
+                Gesture.startDist = getTouchDist(touches[0], touches[1]);
+                Gesture.startZoom = State.imageZoom;
+                return;
+            }
+
+            const moduleEl = target.closest('[data-module-id]');
+            if (moduleEl) {
+                Gesture.mode = 'drag';
+                Gesture.moduleId = parseFloat(moduleEl.dataset.moduleId);
+                Gesture.resizeType = target.dataset.resizeType;
+                
+                if (State.interactionMode === 'layout') {
+                    // Deep copy to prevent reference issues
+                    Gesture.initialModules = JSON.parse(JSON.stringify(State.modules));
+                } else {
+                    Gesture.startPan = { ...State.imagePan };
+                }
+            } else if (State.interactionMode === 'image' && State.previewImage && target.closest('#workspace-area')) {
+                 // For image mode, we do allow drag on background IF specified, 
+                 // but based on request, we might want to limit this too?
+                 // Current request: "edit only when clicking edges or image".
+                 // If in Image Mode, clicking the image (module) is caught above.
+                 // So we can probably skip this else-if if we want strict behavior.
+                 // However, "panning" the image usually feels better if you can grab empty space?
+                 // Let's stick to the module-only logic for better scrolling.
+                 
+                 // Gesture.mode = 'drag';
+                 // Gesture.startPan = { ...State.imagePan };
+            } else {
+                Gesture.mode = 'idle';
+            }
+        }
+
+        function handleMove(clientX, clientY, isTouch, touches) {
+            if (isTouch && touches.length === 2) {
+                if (Gesture.mode !== 'pinch') { Gesture.mode = 'pinch'; Gesture.startDist = getTouchDist(touches[0], touches[1]); Gesture.startZoom = State.imageZoom; }
+                const newDist = getTouchDist(touches[0], touches[1]);
+                if (Gesture.startDist > 0) {
+                    State.imageZoom = Math.max(0.1, Math.min(5, Gesture.startZoom * (newDist / Gesture.startDist)));
+                    if (!Gesture.rafId) Gesture.rafId = requestAnimationFrame(() => { updateAllBackgrounds(); Gesture.rafId = null; });
+                }
+                return true; 
+            }
+
+            if (Gesture.mode === 'drag') {
+                const dx = clientX - Gesture.startX;
+                const dy = clientY - Gesture.startY;
+                const modelDx = dx / (SCALE * State.viewParams.scale);
+                const modelDy = dy / (SCALE * State.viewParams.scale);
+
+                if (State.interactionMode === 'image' && State.previewImage) {
+                    const z = State.imageZoom;
+                    State.imagePan.x = Gesture.startPan.x + (dx / (SCALE * State.viewParams.scale * z));
+                    State.imagePan.y = Gesture.startPan.y + (dy / (SCALE * State.viewParams.scale * z));
+                    if (!Gesture.rafId) Gesture.rafId = requestAnimationFrame(() => { updateAllBackgrounds(); Gesture.rafId = null; });
+                
+                } else if (State.interactionMode === 'layout' && Gesture.moduleId) {
+                    const initMod = Gesture.initialModules.find(m => m.id === Gesture.moduleId);
+                    if (!initMod) return true;
+
+                    // Apply deltas to state
+                    State.modules = Gesture.initialModules.map(m => {
+                        if (m.id !== Gesture.moduleId) return m;
+                        let changes = {};
+                        if (Gesture.resizeType) {
+                            switch (Gesture.resizeType) {
+                                case 'e': changes = { width: Math.max(5, m.width + modelDx) }; break;
+                                case 'w': { const w = Math.max(5, m.width - modelDx); changes = { width: w, offsetLeft: m.offsetLeft + (m.width - w) }; break; }
+                                case 's': changes = { height: Math.max(5, m.height + modelDy) }; break;
+                                case 'n': { const h = Math.max(5, m.height - modelDy); changes = { height: h, offsetTop: m.offsetTop + (m.height - h) }; break; }
+                            }
+                        } else {
+                            changes = { offsetLeft: initMod.offsetLeft + modelDx, offsetTop: initMod.offsetTop + modelDy };
+                        }
+                        return { ...m, ...changes };
+                    });
+                    
+                    if (!Gesture.rafId) {
+                        Gesture.rafId = requestAnimationFrame(() => {
+                            const activeMod = State.modules.find(m => m.id === Gesture.moduleId);
+                            if(activeMod) updateModuleGeometry(activeMod);
+                            Gesture.rafId = null;
+                        });
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
+        function handleEnd() {
+            if(Gesture.mode === 'drag' && State.interactionMode === 'layout') {
+                calculateTotals(); 
+                updateAllBackgrounds();
+                if(State.activeTab === 'order') renderSidebar(); // Update Inputs
+            }
+            Gesture.mode = 'idle';
+        }
+
+        const ws = document.getElementById('workspace-area');
+        ws.onmousedown = (e) => { if(e.button===0) handleStart(e.clientX, e.clientY, e.target, false); };
+        window.onmousemove = (e) => { if(Gesture.mode !== 'idle' && handleMove(e.clientX, e.clientY, false)) e.preventDefault(); };
+        window.onmouseup = handleEnd;
+        ws.ontouchstart = (e) => { handleStart(e.touches[0].clientX, e.touches[0].clientY, e.target, true, e.touches); };
+        ws.ontouchmove = (e) => { if(Gesture.mode !== 'idle' && handleMove(e.touches[0].clientX, e.touches[0].clientY, true, e.touches)) { if(e.cancelable) e.preventDefault(); } };
+        ws.ontouchend = (e) => { if(e.touches.length === 0) handleEnd(); };
+        
+        ws.onwheel = (e) => {
+            if (State.interactionMode === 'image' && State.previewImage) {
+                 e.stopPropagation(); e.preventDefault();
+                 const delta = e.deltaY > 0 ? 0.95 : 1.05;
+                 State.imageZoom = Math.max(0.1, Math.min(5, State.imageZoom * delta));
+                 updateAllBackgrounds();
+            }
+        };
+
+        window.onresize = () => fitView();
+
+        // --- UI ---
+        function renderSidebar() {
+            const container = document.getElementById('sidebar-content');
+            container.innerHTML = '';
+            if (State.activeTab === 'layout') {
+                container.innerHTML = `
+                    <div class="space-y-4 py-5">
+                        <div class="space-y-2">
+                            <div class="px-5 text-[10px] uppercase font-bold tracking-widest text-gray-400">Количество модулей</div>
+                            <!-- Added custom-scroll and pr-5 for better end visibility -->
+                            <div class="flex overflow-x-auto gap-2 px-5 pb-2 snap-x custom-scroll pr-5" id="count-filters"></div>
+                        </div>
+                        <div class="px-5 text-[10px] uppercase font-bold tracking-widest text-gray-400">Схема расположения</div>
+                        <div class="flex overflow-x-auto gap-3 px-5 pb-4 snap-x custom-scroll pr-5 lg:grid lg:grid-cols-2 lg:gap-4 lg:overflow-visible lg:pr-5" id="preset-list"></div>
+                    </div>
+                `;
+                const filterCont = document.getElementById('count-filters');
+                MODULE_COUNTS.forEach(c => {
+                    const btn = document.createElement('button');
+                    const isActive = State.filterCount === c;
+                    btn.className = `flex-none w-12 h-12 rounded-xl flex items-center justify-center text-sm font-bold border transition-all ${isActive ? 'bg-primary border-primary text-white shadow-lg scale-105' : 'bg-white border-gray-200 text-gray-600'}`;
+                    btn.textContent = c;
+                    btn.onclick = () => { State.filterCount = c; renderSidebar(); };
+                    filterCont.appendChild(btn);
+                });
+                const presetCont = document.getElementById('preset-list');
+                PRESETS.filter(p => p.count === State.filterCount).forEach(p => {
+                    const btn = document.createElement('button');
+                    btn.className = "snap-start flex-none w-28 lg:w-full h-28 border border-gray-200 rounded-xl p-2 hover:border-primary text-gray-400 hover:text-primary transition-all flex flex-col items-center bg-gray-50/50";
+                    const layout = applyLayout(p);
+                    let minX=Infinity, minY=Infinity, maxX=-Infinity, maxY=-Infinity;
+                    layout.forEach(m=>{ minX=Math.min(minX,m.offsetLeft); minY=Math.min(minY,m.offsetTop); maxX=Math.max(maxX,m.offsetLeft+m.width); maxY=Math.max(maxY,m.offsetTop+m.height); });
+                    const w=maxX-minX, h=maxY-minY;
+                    let svgInner = layout.map(m => `<rect x="${m.offsetLeft}" y="${m.offsetTop}" width="${m.width}" height="${m.height}" fill="currentColor" opacity="0.8" rx="2" />`).join('');
+                    btn.innerHTML = `<div class="flex-1 w-full flex items-center justify-center min-h-0"><svg viewBox="${minX} ${minY} ${w} ${h}" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" class="pointer-events-none p-2">${svgInner}</svg></div><div class="flex-none h-6 flex items-center justify-center w-full border-t border-gray-100 mt-1"><span class="text-[9px] font-bold uppercase text-gray-500">${p.name}</span></div>`;
+                    btn.onclick = () => { State.modules = applyLayout(p); calculateTotals(); fitView(); renderModules(); };
+                    presetCont.appendChild(btn);
+                });
+            } else if (State.activeTab === 'photos') {
+                container.innerHTML = `
+                    <div class="p-5 space-y-4">
+                        <div id="drop-zone" class="w-full h-24 border-2 border-dashed ${State.isDragOver ? 'border-primary bg-primary/5 text-primary' : 'border-gray-300 text-gray-400 hover:border-primary hover:text-primary'} rounded-xl flex flex-col items-center justify-center transition-colors gap-2 cursor-pointer">
+                            ${Icons.Upload}
+                            <span class="text-[10px] font-black uppercase tracking-widest">${State.isDragOver ? 'Отпустите файл' : 'Загрузить'}</span>
+                        </div>
+                        <div class="grid grid-cols-4 gap-2" id="img-list"></div>
+                    </div>
+                `;
+                document.getElementById('drop-zone').onclick = () => document.getElementById('file-input').click();
+                const list = document.getElementById('img-list');
+                State.uploadedImages.forEach(img => {
+                    const item = document.createElement('div');
+                    item.className = 'aspect-square rounded overflow-hidden relative cursor-pointer group shadow-sm border border-gray-100';
+                    item.innerHTML = `<img src="${img.url}" class="w-full h-full object-cover" draggable="false"><div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors"></div><button class="btn-del absolute top-1 right-1 bg-black/50 hover:bg-red-500 text-white p-0.5 rounded-full transition-all opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100">${Icons.X}</button>`;
+                    item.onclick = () => { State.previewImage = img.url; State.interactionMode = 'image'; renderUI(); };
+                    item.querySelector('.btn-del').onclick = (e) => { e.stopPropagation(); State.uploadedImages = State.uploadedImages.filter(i => i.id !== img.id); if (State.previewImage === img.url) State.previewImage = State.uploadedImages[0]?.url || null; renderUI(); };
+                    list.appendChild(item);
+                });
+            } else if (State.activeTab === 'order') {
+                const w = Math.round(State.totals.fullWidth);
+                const h = Math.round(State.totals.fullHeight);
+                container.innerHTML = `
+                    <div class="p-5 space-y-6">
+                        <div class="bg-gray-50 p-6 rounded-2xl space-y-6">
+                            <div class="space-y-3">
+                                <div class="text-[10px] uppercase tracking-widest text-gray-400 font-bold text-center">Размер конструкции (см)</div>
+                                <div class="flex items-center gap-4">
+                                    <div class="flex-1">
+                                        <label class="text-[10px] text-gray-400 font-bold block mb-1">Ширина</label>
+                                        <input type="number" id="inp-width" value="${w}" class="w-full text-center font-bold text-xl p-2 rounded-lg border border-gray-200 focus:border-primary outline-none">
+                                    </div>
+                                    <span class="text-gray-300 text-xl pt-4">x</span>
+                                    <div class="flex-1">
+                                        <label class="text-[10px] text-gray-400 font-bold block mb-1">Высота</label>
+                                        <input type="number" id="inp-height" value="${h}" class="w-full text-center font-bold text-xl p-2 rounded-lg border border-gray-200 focus:border-primary outline-none">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-dark text-white p-6 rounded-2xl shadow-xl shadow-dark/20"><div class="flex justify-between items-baseline mb-4"><span class="text-sm font-medium text-gray-400">Стоимость</span><span class="text-3xl font-light tracking-tight">${Math.round(State.totals.price).toLocaleString()} ₽</span></div><button class="w-full bg-primary hover:bg-primary-hover text-white py-4 rounded-xl font-black uppercase text-sm tracking-widest transition-all transform active:scale-95 shadow-lg shadow-primary/30">Заказать</button></div>
+                        </div>
+                    </div>`;
+                    
+                // Add event listeners for inputs
+                const inpW = document.getElementById('inp-width');
+                const inpH = document.getElementById('inp-height');
+                const triggerResize = () => {
+                     const nw = parseFloat(inpW.value) || w;
+                     const nh = parseFloat(inpH.value) || h;
+                     if(nw > 0 && nh > 0) handleResize(nw, nh);
+                };
+                inpW.onchange = triggerResize;
+                inpH.onchange = triggerResize;
+            } else if (State.activeTab === 'format') {
+                container.innerHTML = `<div class="px-5 py-5 grid grid-cols-3 gap-3" id="format-list"></div>`;
+                const list = document.getElementById('format-list');
+                FORMAT_PRESETS.forEach(p => {
+                    const btn = document.createElement('button');
+                    btn.className = "flex-none w-full h-28 border border-gray-200 rounded-xl hover:border-primary hover:text-primary transition-colors flex flex-col items-center justify-center gap-3";
+                    btn.innerHTML = `<div class="w-12 h-12 flex items-center justify-center"><div class="border-2 border-current rounded-sm opacity-60" style="aspect-ratio:${p.rw}/${p.rh}; width:${p.rw>=p.rh?'100%':'auto'}; height:${p.rh>p.rw?'100%':'auto'}"></div></div><span class="text-[10px] font-bold">${p.label}</span>`;
+                    btn.onclick = () => handleResize(p.targetW, p.targetH);
+                    list.appendChild(btn);
+                });
+            }
+        }
+        
+        function renderTabs() {
+            const bar = document.getElementById('tab-bar');
+            bar.innerHTML = '';
+            [{ id: 'photos', label: 'Фото', icon: Icons.Photo }, { id: 'format', label: 'Формат', icon: Icons.Format }, { id: 'layout', label: 'Макет', icon: Icons.Layout }, { id: 'order', label: 'Заказ', icon: Icons.Order }].forEach(tab => {
+                const btn = document.createElement('button');
+                btn.className = `flex-1 py-3 lg:py-4 flex flex-col items-center justify-center gap-1.5 transition-colors duration-200 ${State.activeTab === tab.id ? 'text-primary' : 'text-gray-400 hover:text-gray-600'}`;
+                btn.innerHTML = `${tab.icon}<span class="text-[10px] font-black uppercase tracking-wider">${tab.label}</span>`;
+                btn.onclick = () => { State.activeTab = tab.id; renderSidebar(); renderTabs(); };
+                bar.appendChild(btn);
+            });
+        }
+
+        function renderToolbar() {
+            const btnLayout = document.getElementById('btn-mode-layout');
+            const btnImage = document.getElementById('btn-mode-image');
+            const imgControls = document.getElementById('img-controls');
+            const activeClass = "px-4 py-1.5 rounded-md text-[11px] uppercase font-bold tracking-wider transition-all bg-white text-primary shadow-sm ring-1 ring-black/5";
+            const inactiveClass = "px-4 py-1.5 rounded-md text-[11px] uppercase font-bold tracking-wider transition-all text-gray-500 hover:text-gray-700 hover:bg-gray-50";
+            btnLayout.className = State.interactionMode === 'layout' ? activeClass : inactiveClass;
+            btnImage.className = State.interactionMode === 'image' ? activeClass : inactiveClass;
+            imgControls.style.display = State.previewImage ? 'flex' : 'none';
+            document.getElementById('btn-zoom-out').innerHTML = Icons.ZoomOut;
+            document.getElementById('btn-center').innerHTML = Icons.Center;
+            document.getElementById('btn-zoom-in').innerHTML = Icons.ZoomIn;
+            document.getElementById('workspace-area').style.cursor = (State.interactionMode === 'image' && State.previewImage) ? 'move' : 'default';
+        }
+
+        function renderUI() { renderModules(); renderSidebar(); renderTabs(); renderToolbar(); }
+
+        // --- ACTIONS ---
+        function handleResize(targetW, targetH) {
+            const scaleX = targetW / State.totals.fullWidth;
+            const scaleY = targetH / State.totals.fullHeight;
+            State.modules = State.modules.map(m => ({ ...m, width: m.width * scaleX, height: m.height * scaleY, offsetLeft: m.offsetLeft * scaleX, offsetTop: m.offsetTop * scaleY }));
+            calculateTotals(); 
+            // Only re-render if we are NOT dragging to avoid loops, but here we are explicit resizing
+            renderModules();
+            if(State.activeTab === 'order') renderSidebar(); // Update input values if changed via presets
+        }
+
+        document.getElementById('btn-mode-layout').onclick = () => { State.interactionMode = 'layout'; renderUI(); };
+        document.getElementById('btn-mode-image').onclick = () => { State.interactionMode = 'image'; renderUI(); };
+        document.getElementById('btn-zoom-in').onclick = () => { State.imageZoom *= 1.1; updateAllBackgrounds(); };
+        document.getElementById('btn-zoom-out').onclick = () => { State.imageZoom *= 0.9; updateAllBackgrounds(); };
+        document.getElementById('btn-center').onclick = () => { State.imagePan = {x:0, y:0}; State.imageZoom = 1; updateAllBackgrounds(); };
+
+        document.getElementById('file-input').onchange = (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (evt) => {
+                const img = new Image();
+                img.onload = () => {
+                    const MAX_SIZE = 1500;
+                    let w = img.width, h = img.height;
+                    if (w > MAX_SIZE || h > MAX_SIZE) { if (w > h) { h = Math.round(h * (MAX_SIZE / w)); w = MAX_SIZE; } else { w = Math.round(w * (MAX_SIZE / h)); h = MAX_SIZE; } }
+                    const cvs = document.createElement('canvas');
+                    cvs.width = w; cvs.height = h;
+                    cvs.getContext('2d').drawImage(img, 0, 0, w, h);
+                    const url = cvs.toDataURL('image/jpeg', 0.85);
+                    State.uploadedImages.unshift({ id: Date.now().toString(), url });
+                    State.previewImage = url;
+                    State.imgSize = { w, h };
+                    State.interactionMode = 'layout';
+                    renderUI();
+                };
+                img.src = evt.target.result;
+            };
+            reader.readAsDataURL(file);
+        };
+        const dropZone = document.body; 
+        dropZone.ondragover = (e) => { e.preventDefault(); State.isDragOver = true; if(State.activeTab==='photos') renderSidebar(); };
+        dropZone.ondragleave = (e) => { e.preventDefault(); State.isDragOver = false; if(State.activeTab==='photos') renderSidebar(); };
+        dropZone.ondrop = (e) => { e.preventDefault(); State.isDragOver = false; if(State.activeTab==='photos') renderSidebar(); if (e.dataTransfer.files[0]) { document.getElementById('file-input').files = e.dataTransfer.files; document.getElementById('file-input').dispatchEvent(new Event('change')); } };
+
+        State.modules = applyLayout(PRESETS.find(p => p.count === 3) || PRESETS[0]);
+        calculateTotals();
+        renderUI();
+        setTimeout(() => { fitView(); renderModules(); }, 100);
+    </script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
