@@ -369,6 +369,16 @@
   function updateCanvasTransform() {
     var el = document.getElementById('mc-canvas-root');
     if (el) el.style.transform = 'translate3d(' + State.viewParams.x + 'px, ' + State.viewParams.y + 'px, 0) scale(' + State.viewParams.scale + ')';
+    updateLabelScales();
+  }
+
+  /** Keep module size labels readable at any zoom by applying inverse scale */
+  function updateLabelScales() {
+    var s = State.viewParams.scale || 1;
+    var inv = Math.min(1 / s, 3); // cap so labels don't get huge
+    State.domCache.forEach(function (dom) {
+      if (dom.label) dom.label.style.transform = 'scale(' + inv + ')';
+    });
   }
 
   /* ═══════════════════════════════════════════════════════════
@@ -458,7 +468,7 @@
       }
 
       var label = document.createElement('div');
-      label.className = 'absolute bottom-1 right-1 bg-black/60 text-white text-xs font-bold px-1.5 py-0.5 rounded shadow-sm pointer-events-none z-20';
+      label.className = 'absolute bottom-0 right-0 bg-black/60 text-white text-[11px] font-bold px-1.5 py-0.5 rounded shadow-sm pointer-events-none z-20 leading-tight origin-bottom-right';
       label.textContent = Math.round(m.width) + '×' + Math.round(m.height);
       el.appendChild(label);
 
@@ -558,20 +568,20 @@
 
     if (State.activeTab === 'layout') {
       container.innerHTML =
-        '<div class="space-y-4 py-5">' +
-          '<div class="space-y-2">' +
-            '<div class="px-5 text-[10px] uppercase font-bold tracking-widest text-gray-500">Количество модулей</div>' +
-            '<div class="flex overflow-x-auto gap-2 px-5 pb-2 snap-x thin-scrollbar-x" id="mc-count-filters"></div>' +
+        '<div class="space-y-2 py-3">' +
+          '<div class="space-y-1">' +
+            '<div class="px-4 text-[10px] uppercase font-bold tracking-widest text-gray-500">Количество модулей</div>' +
+            '<div class="flex overflow-x-auto gap-1.5 px-4 pb-1 snap-x thin-scrollbar-x" id="mc-count-filters"></div>' +
           '</div>' +
-          '<div class="px-5 text-[10px] uppercase font-bold tracking-widest text-gray-500">Схема расположения</div>' +
-          '<div class="flex overflow-x-auto gap-3 px-5 pb-4 snap-x thin-scrollbar-x lg:grid lg:grid-cols-2 lg:gap-4 lg:overflow-visible" id="mc-preset-list"></div>' +
+          '<div class="px-4 text-[10px] uppercase font-bold tracking-widest text-gray-500">Схема расположения</div>' +
+          '<div class="flex overflow-x-auto gap-2 px-4 pb-2 snap-x thin-scrollbar-x lg:grid lg:grid-cols-2 lg:gap-4 lg:overflow-visible" id="mc-preset-list"></div>' +
         '</div>';
 
       var filterCont = document.getElementById('mc-count-filters');
       MODULE_COUNTS.forEach(function (c) {
         var btn = document.createElement('button');
         var isActive = State.filterCount === c;
-        btn.className = 'flex-none w-12 h-12 rounded-xl flex items-center justify-center text-sm font-bold border transition-all ' +
+        btn.className = 'flex-none w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold border transition-all ' +
           (isActive ? 'bg-primary border-primary text-white shadow-lg scale-105' : 'bg-white border-gray-200 text-gray-600');
         btn.textContent = c;
         btn.onclick = function () { State.filterCount = c; renderSidebar(); };
@@ -580,7 +590,7 @@
       var presetCont = document.getElementById('mc-preset-list');
       PRESETS.filter(function (p) { return p.count === State.filterCount; }).forEach(function (p) {
         var btn = document.createElement('button');
-        btn.className = 'snap-start flex-none w-28 lg:w-full h-28 border border-gray-200 rounded-xl p-2 hover:border-primary text-gray-500 hover:text-primary transition-all flex flex-col items-center bg-secondary/50';
+        btn.className = 'snap-start flex-none w-24 lg:w-full h-24 border border-gray-200 rounded-xl p-1.5 hover:border-primary text-gray-500 hover:text-primary transition-all flex flex-col items-center bg-secondary/50';
         var layout = applyLayout(p);
         var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
         layout.forEach(function (m) { minX = Math.min(minX, m.offsetLeft); minY = Math.min(minY, m.offsetTop); maxX = Math.max(maxX, m.offsetLeft + m.width); maxY = Math.max(maxY, m.offsetTop + m.height); });
@@ -595,22 +605,22 @@
       var fw = Math.round(State.totals.fullWidth);
       var fh = Math.round(State.totals.fullHeight);
       container.innerHTML =
-        '<div class="py-5 space-y-4">' +
-          '<div class="flex overflow-x-auto gap-3 px-5 pb-2 snap-x snap-mandatory thin-scrollbar-x lg:grid lg:grid-cols-3 lg:gap-3 lg:overflow-visible" id="mc-format-list"></div>' +
-          '<div class="border-t border-gray-200 mx-5"></div>' +
-          '<div class="bg-secondary mx-5 p-4 rounded-2xl space-y-3">' +
+        '<div class="py-3 space-y-3">' +
+          '<div class="flex overflow-x-auto gap-2 px-4 pb-1 snap-x snap-mandatory thin-scrollbar-x lg:grid lg:grid-cols-3 lg:gap-3 lg:overflow-visible" id="mc-format-list"></div>' +
+          '<div class="border-t border-gray-200 mx-4"></div>' +
+          '<div class="bg-secondary mx-4 p-3 rounded-2xl space-y-2">' +
             '<div class="text-[10px] uppercase tracking-widest text-gray-500 font-bold text-center">Размер конструкции (см)</div>' +
-            '<div class="flex items-center gap-4">' +
-              '<div class="flex-1"><label class="text-[10px] text-gray-500 font-bold block mb-1">Ширина</label><input type="number" id="mc-inp-w" value="' + fw + '" min="30" max="300" class="w-full text-center font-bold text-xl p-2 rounded-lg border border-gray-200 focus:border-primary outline-none"></div>' +
-              '<span class="text-gray-300 text-xl pt-4">×</span>' +
-              '<div class="flex-1"><label class="text-[10px] text-gray-500 font-bold block mb-1">Высота</label><input type="number" id="mc-inp-h" value="' + fh + '" min="30" max="300" class="w-full text-center font-bold text-xl p-2 rounded-lg border border-gray-200 focus:border-primary outline-none"></div>' +
+            '<div class="flex items-center gap-3">' +
+              '<div class="flex-1"><label class="text-[10px] text-gray-500 font-bold block mb-0.5">Ширина</label><input type="number" id="mc-inp-w" value="' + fw + '" min="30" max="300" class="w-full text-center font-bold text-lg p-1.5 rounded-lg border border-gray-200 focus:border-primary outline-none"></div>' +
+              '<span class="text-gray-300 text-lg pt-3">×</span>' +
+              '<div class="flex-1"><label class="text-[10px] text-gray-500 font-bold block mb-0.5">Высота</label><input type="number" id="mc-inp-h" value="' + fh + '" min="30" max="300" class="w-full text-center font-bold text-lg p-1.5 rounded-lg border border-gray-200 focus:border-primary outline-none"></div>' +
             '</div>' +
           '</div>' +
         '</div>';
       var flist = document.getElementById('mc-format-list');
       FORMAT_PRESETS.forEach(function (p) {
         var btn = document.createElement('button');
-        btn.className = 'snap-start flex-none w-24 h-24 lg:w-full lg:h-28 border border-gray-200 rounded-xl hover:border-primary hover:text-primary transition-colors flex flex-col items-center justify-center gap-2';
+        btn.className = 'snap-start flex-none w-20 h-20 lg:w-full lg:h-28 border border-gray-200 rounded-xl hover:border-primary hover:text-primary transition-colors flex flex-col items-center justify-center gap-1';
         btn.innerHTML = '<div class="w-10 h-10 lg:w-12 lg:h-12 flex items-center justify-center"><div class="border-2 border-current rounded-sm opacity-60" style="aspect-ratio:' + p.rw + '/' + p.rh + '; width:' + (p.rw >= p.rh ? '100%' : 'auto') + '; height:' + (p.rh > p.rw ? '100%' : 'auto') + '"></div></div><span class="text-[10px] font-bold">' + p.label + '</span>';
         btn.onclick = function () { handleResize(p.targetW, p.targetH); };
         flist.appendChild(btn);
@@ -670,9 +680,9 @@
       }
 
       container.innerHTML =
-        '<div class="p-5 space-y-5">' +
+        '<div class="px-4 py-3 space-y-4">' +
           /* Options — unified with foto-na-kholste */
-          '<div class="space-y-6">' +
+          '<div class="space-y-4">' +
             /* Varnish — single row: [✓] label [?] price */
             '<div class="flex items-center gap-3">' +
               '<div class="flex h-6 shrink-0 items-center">' +
@@ -691,7 +701,7 @@
             '<section>' +
               '<div class="section-title"><span>Обработка фото</span><span id="mc-proc-price" class="calc-badge' + (procVal > 0 ? ' is-active' : '') + '">' + procText + '</span></div>' +
               '<div class="grid grid-cols-1">' +
-                '<select id="mc-select-processing" aria-label="Обработка фото" class="col-start-1 row-start-1 w-full appearance-none bg-white border border-gray-200 text-body py-3 pl-4 pr-8 rounded-lg text-sm font-medium focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary">' + procOpts + '</select>' +
+                '<select id="mc-select-processing" aria-label="Обработка фото" class="col-start-1 row-start-1 w-full appearance-none bg-white border border-gray-200 text-body py-2 pl-3 pr-8 rounded-lg text-sm font-medium focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary">' + procOpts + '</select>' +
                 '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5 self-center justify-self-end text-gray-500"><path d="m6 9 6 6 6-6"/></svg>' +
               '</div>' +
             '</section>' +
@@ -775,23 +785,9 @@
           (State.activeTab === tab.id ? 'text-primary' : 'text-gray-500 hover:text-gray-700');
         btn.innerHTML = tab.icon + '<span class="text-[10px] font-black uppercase tracking-wider">' + tab.label + '</span>';
         btn.onclick = function () {
-          if (State.mobileLayout === 'sheet') {
-            var sidebar = document.getElementById('mc-sidebar');
-            if (State.activeTab === tab.id && sidebar && sidebar.classList.contains('mc-sidebar-sheet-open')) {
-              /* Toggle: close sheet on re-tap of active tab */
-              sidebar.classList.remove('mc-sidebar-sheet-open');
-              return;
-            }
-            State.activeTab = tab.id;
-            renderSidebar();
-            renderTabs();
-            /* Open sheet */
-            if (sidebar) sidebar.classList.add('mc-sidebar-sheet-open');
-          } else {
-            State.activeTab = tab.id;
-            renderSidebar();
-            renderTabs();
-          }
+          State.activeTab = tab.id;
+          renderSidebar();
+          renderTabs();
         };
         bar.appendChild(btn);
       });
@@ -803,8 +799,8 @@
     var btnI = document.getElementById('mc-btn-mode-image');
     var ctrl = document.getElementById('mc-img-controls');
     if (!btnL || !btnI || !ctrl) return;
-    var active = 'px-3 py-1.5 rounded-md text-[10px] uppercase font-bold tracking-wider transition-all bg-white text-primary shadow-sm ring-1 ring-black/5';
-    var inactive = 'px-3 py-1.5 rounded-md text-[10px] uppercase font-bold tracking-wider transition-all text-gray-500 hover:text-gray-700 hover:bg-gray-50';
+    var active = 'px-2.5 py-1 rounded-md text-[10px] uppercase font-bold tracking-wider transition-all bg-white text-primary shadow-sm ring-1 ring-black/5';
+    var inactive = 'px-2.5 py-1 rounded-md text-[10px] uppercase font-bold tracking-wider transition-all text-gray-500 hover:text-gray-700 hover:bg-gray-50';
     btnL.className = State.interactionMode === 'layout' ? active : inactive;
     btnI.className = State.interactionMode === 'image' ? active : inactive;
     ctrl.style.display = State.previewImage ? 'flex' : 'none';
@@ -857,26 +853,8 @@
     var root = document.getElementById('mc-calc-root');
     if (!root) return;
 
-    // Detect mobile layout mode (A=sheet / B=split)
-    State.mobileLayout = root.getAttribute('data-mobile-layout') || 'sheet';
-    var sidebar = document.getElementById('mc-sidebar');
-    if (sidebar) {
-      if (State.mobileLayout === 'split') {
-        sidebar.classList.remove('mc-sidebar-sheet');
-        sidebar.classList.add('mc-sidebar-split');
-      }
-      // Sheet: close on outside tap (workspace)
-      if (State.mobileLayout === 'sheet') {
-        var wsTap = document.getElementById('mc-workspace');
-        if (wsTap) {
-          wsTap.addEventListener('click', function (e) {
-            if (sidebar.classList.contains('mc-sidebar-sheet-open') && !e.defaultPrevented) {
-              sidebar.classList.remove('mc-sidebar-sheet-open');
-            }
-          });
-        }
-      }
-    }
+    // Mobile layout mode
+    State.mobileLayout = root.getAttribute('data-mobile-layout') || 'split';
 
     // Bind workspace gestures
     var ws = document.getElementById('mc-workspace');
@@ -925,8 +903,9 @@
             State.previewImage = img.previewUrl || img.dataUrl;
             State.imgSize = { w: img.width, h: img.height };
             State.interactionMode = 'layout';
-            updateAllBackgrounds();
             renderToolbar();
+            // Toolbar may change height (img controls shown) → re-center
+            requestAnimationFrame(function () { fitView(); renderModules(); });
           } else {
             State.previewImage = null;
             renderModules();
