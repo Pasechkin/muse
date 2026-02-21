@@ -105,12 +105,12 @@ npm run copy-css     # Копия для Live Server
 > **⚠️ Vercel — временный стенд** для тестирования статических страниц. Production-сайт будет на Bitrix-сервере muse.ooo после интеграции. На Vercel нет серверной логики: заказы не отправляются, фото не загружаются, каталог рамок — демо.
 
 **Ссылки:**
-- Vercel (тестовый): https://muse-liard-one.vercel.app/
+- Vercel (тестовый): 
 - Оригинал (production): https://muse.ooo
 
 ### Защита от индексации
 Все страницы закрыты (`robots.txt` + `<meta name="robots">`).
-Убрать защиту только после переноса на production.
+Убрать защиту только после https://muse-liard-one.vercel.app/переноса на production.
 
 ---
 

@@ -131,7 +131,9 @@
     // calculator options
     varnish: true,
     processing: 0,
-    gift: false
+    gift: false,
+    // mobile layout mode: 'sheet' (A) or 'split' (B)
+    mobileLayout: 'sheet'
   };
 
   var Gesture = {
@@ -590,19 +592,44 @@
       });
 
     } else if (State.activeTab === 'format') {
-      container.innerHTML = '<div class="px-5 py-5 grid grid-cols-3 gap-3" id="mc-format-list"></div>';
+      var fw = Math.round(State.totals.fullWidth);
+      var fh = Math.round(State.totals.fullHeight);
+      container.innerHTML =
+        '<div class="py-5 space-y-4">' +
+          '<div class="flex overflow-x-auto gap-3 px-5 pb-2 snap-x snap-mandatory thin-scrollbar-x lg:grid lg:grid-cols-3 lg:gap-3 lg:overflow-visible" id="mc-format-list"></div>' +
+          '<div class="border-t border-gray-200 mx-5"></div>' +
+          '<div class="bg-secondary mx-5 p-4 rounded-2xl space-y-3">' +
+            '<div class="text-[10px] uppercase tracking-widest text-gray-500 font-bold text-center">Размер конструкции (см)</div>' +
+            '<div class="flex items-center gap-4">' +
+              '<div class="flex-1"><label class="text-[10px] text-gray-500 font-bold block mb-1">Ширина</label><input type="number" id="mc-inp-w" value="' + fw + '" min="30" max="300" class="w-full text-center font-bold text-xl p-2 rounded-lg border border-gray-200 focus:border-primary outline-none"></div>' +
+              '<span class="text-gray-300 text-xl pt-4">×</span>' +
+              '<div class="flex-1"><label class="text-[10px] text-gray-500 font-bold block mb-1">Высота</label><input type="number" id="mc-inp-h" value="' + fh + '" min="30" max="300" class="w-full text-center font-bold text-xl p-2 rounded-lg border border-gray-200 focus:border-primary outline-none"></div>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
       var flist = document.getElementById('mc-format-list');
       FORMAT_PRESETS.forEach(function (p) {
         var btn = document.createElement('button');
-        btn.className = 'flex-none w-full h-28 border border-gray-200 rounded-xl hover:border-primary hover:text-primary transition-colors flex flex-col items-center justify-center gap-3';
-        btn.innerHTML = '<div class="w-12 h-12 flex items-center justify-center"><div class="border-2 border-current rounded-sm opacity-60" style="aspect-ratio:' + p.rw + '/' + p.rh + '; width:' + (p.rw >= p.rh ? '100%' : 'auto') + '; height:' + (p.rh > p.rw ? '100%' : 'auto') + '"></div></div><span class="text-[10px] font-bold">' + p.label + '</span>';
+        btn.className = 'snap-start flex-none w-24 h-24 lg:w-full lg:h-28 border border-gray-200 rounded-xl hover:border-primary hover:text-primary transition-colors flex flex-col items-center justify-center gap-2';
+        btn.innerHTML = '<div class="w-10 h-10 lg:w-12 lg:h-12 flex items-center justify-center"><div class="border-2 border-current rounded-sm opacity-60" style="aspect-ratio:' + p.rw + '/' + p.rh + '; width:' + (p.rw >= p.rh ? '100%' : 'auto') + '; height:' + (p.rh > p.rw ? '100%' : 'auto') + '"></div></div><span class="text-[10px] font-bold">' + p.label + '</span>';
         btn.onclick = function () { handleResize(p.targetW, p.targetH); };
         flist.appendChild(btn);
       });
 
+      // Size input event listeners
+      var inpWF = document.getElementById('mc-inp-w');
+      var inpHF = document.getElementById('mc-inp-h');
+      if (inpWF && inpHF) {
+        var doResizeF = function () {
+          var nw = parseFloat(inpWF.value) || fw;
+          var nh = parseFloat(inpHF.value) || fh;
+          if (nw > 0 && nh > 0) handleResize(nw, nh);
+        };
+        inpWF.onchange = doResizeF;
+        inpHF.onchange = doResizeF;
+      }
+
     } else if (State.activeTab === 'order') {
-      var w = Math.round(State.totals.fullWidth);
-      var h = Math.round(State.totals.fullHeight);
 
       // Build processing options
       var procOpts = '';
@@ -644,15 +671,6 @@
 
       container.innerHTML =
         '<div class="p-5 space-y-5">' +
-          /* Size inputs */
-          '<div class="bg-secondary p-5 rounded-2xl space-y-4">' +
-            '<div class="text-[10px] uppercase tracking-widest text-gray-500 font-bold text-center">Размер конструкции (см)</div>' +
-            '<div class="flex items-center gap-4">' +
-              '<div class="flex-1"><label class="text-[10px] text-gray-500 font-bold block mb-1">Ширина</label><input type="number" id="mc-inp-w" value="' + w + '" min="30" max="300" class="w-full text-center font-bold text-xl p-2 rounded-lg border border-gray-200 focus:border-primary outline-none"></div>' +
-              '<span class="text-gray-300 text-xl pt-4">×</span>' +
-              '<div class="flex-1"><label class="text-[10px] text-gray-500 font-bold block mb-1">Высота</label><input type="number" id="mc-inp-h" value="' + h + '" min="30" max="300" class="w-full text-center font-bold text-xl p-2 rounded-lg border border-gray-200 focus:border-primary outline-none"></div>' +
-            '</div>' +
-          '</div>' +
           /* Options — unified with foto-na-kholste */
           '<div class="space-y-6">' +
             /* Varnish — single row: [✓] label [?] price */
@@ -693,19 +711,6 @@
             '</div>' +
           '</div>' +
         '</div>';
-
-      // Event listeners
-      var inpW = document.getElementById('mc-inp-w');
-      var inpH = document.getElementById('mc-inp-h');
-      if (inpW && inpH) {
-        var doResize = function () {
-          var nw = parseFloat(inpW.value) || w;
-          var nh = parseFloat(inpH.value) || h;
-          if (nw > 0 && nh > 0) handleResize(nw, nh);
-        };
-        inpW.onchange = doResize;
-        inpH.onchange = doResize;
-      }
 
       // Varnish checkbox
       var varnishToggle = document.getElementById('mc-toggle-varnish');
@@ -769,7 +774,25 @@
         btn.className = 'flex-1 py-3 lg:py-4 flex flex-col items-center justify-center gap-1.5 transition-colors ' +
           (State.activeTab === tab.id ? 'text-primary' : 'text-gray-500 hover:text-gray-700');
         btn.innerHTML = tab.icon + '<span class="text-[10px] font-black uppercase tracking-wider">' + tab.label + '</span>';
-        btn.onclick = function () { State.activeTab = tab.id; renderSidebar(); renderTabs(); };
+        btn.onclick = function () {
+          if (State.mobileLayout === 'sheet') {
+            var sidebar = document.getElementById('mc-sidebar');
+            if (State.activeTab === tab.id && sidebar && sidebar.classList.contains('mc-sidebar-sheet-open')) {
+              /* Toggle: close sheet on re-tap of active tab */
+              sidebar.classList.remove('mc-sidebar-sheet-open');
+              return;
+            }
+            State.activeTab = tab.id;
+            renderSidebar();
+            renderTabs();
+            /* Open sheet */
+            if (sidebar) sidebar.classList.add('mc-sidebar-sheet-open');
+          } else {
+            State.activeTab = tab.id;
+            renderSidebar();
+            renderTabs();
+          }
+        };
         bar.appendChild(btn);
       });
     });
@@ -820,7 +843,7 @@
       });
     });
     calculateTotals(); renderModules();
-    if (State.activeTab === 'order') renderSidebar();
+    if (State.activeTab === 'order' || State.activeTab === 'format') renderSidebar();
   }
 
   /* ═══════════════════════════════════════════════════════════
@@ -833,6 +856,27 @@
   function init() {
     var root = document.getElementById('mc-calc-root');
     if (!root) return;
+
+    // Detect mobile layout mode (A=sheet / B=split)
+    State.mobileLayout = root.getAttribute('data-mobile-layout') || 'sheet';
+    var sidebar = document.getElementById('mc-sidebar');
+    if (sidebar) {
+      if (State.mobileLayout === 'split') {
+        sidebar.classList.remove('mc-sidebar-sheet');
+        sidebar.classList.add('mc-sidebar-split');
+      }
+      // Sheet: close on outside tap (workspace)
+      if (State.mobileLayout === 'sheet') {
+        var wsTap = document.getElementById('mc-workspace');
+        if (wsTap) {
+          wsTap.addEventListener('click', function (e) {
+            if (sidebar.classList.contains('mc-sidebar-sheet-open') && !e.defaultPrevented) {
+              sidebar.classList.remove('mc-sidebar-sheet-open');
+            }
+          });
+        }
+      }
+    }
 
     // Bind workspace gestures
     var ws = document.getElementById('mc-workspace');
