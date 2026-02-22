@@ -1245,11 +1245,25 @@
  *  Конструктор модульных картин (#mc-calc-root)
  * ═══════════════════════════════════════════════════════════ */
 @utility mc-constructor-h {
-  /* Mobile: экран минус header + h2 + sticky + tab-bar (~160px) */
-  height: calc(100dvh - 160px);
-  min-height: 420px;
+  /* Mobile: natural scroll — no fixed height, content flows freely */
+  height: auto;
   @media (min-width: 1024px) {
-    height: 640px;
+    height: 80vh;
+    min-height: 540px;
+    max-height: 900px;
+  }
+}
+
+/* Workspace preview — fixed height on mobile so it doesn't compete with sidebar */
+@utility mc-workspace-h {
+  height: 65vh;
+  min-height: 280px;
+  max-height: 500px;
+  @media (min-width: 1024px) {
+    /* Desktop: flex-1 handles height inside mc-constructor-h */
+    height: auto;
+    min-height: 0;
+    max-height: none;
   }
 }
 
@@ -1313,6 +1327,14 @@
 @utility mc-no-touch-action {
   touch-action: none;
   -webkit-touch-callout: none;
+  -webkit-user-select: none;
+}
+
+/* Per-module touch block — allows page scroll on empty workspace */
+@utility mc-module-touch {
+  touch-action: none;
+  -webkit-touch-callout: none;
+  user-select: none;
   -webkit-user-select: none;
 }
 

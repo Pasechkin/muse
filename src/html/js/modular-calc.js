@@ -440,7 +440,7 @@
     State.modules.forEach(function (m) {
       var el = document.createElement('div');
       el.dataset.moduleId = m.id;
-      el.className = 'absolute bg-white shadow-xl group mc-hw-accel mc-module-item' + (State.interactionMode === 'layout' ? ' cursor-move' : '');
+      el.className = 'absolute bg-white shadow-xl group mc-hw-accel mc-module-item mc-module-touch' + (State.interactionMode === 'layout' ? ' cursor-move' : '');
       el.setAttribute('draggable', 'false');
       var x = m.offsetLeft * SCALE, y = m.offsetTop * SCALE, w = m.width * SCALE, h = m.height * SCALE;
       el.style.transform = 'translate3d(' + x + 'px, ' + y + 'px, 0)';
@@ -808,7 +808,10 @@
     document.getElementById('mc-btn-center').innerHTML = Icons.Center;
     document.getElementById('mc-btn-zoom-in').innerHTML = Icons.ZoomIn;
     var ws = document.getElementById('mc-workspace');
-    if (ws) ws.style.cursor = (State.interactionMode === 'image' && State.previewImage) ? 'move' : 'default';
+    if (ws) {
+      ws.style.touchAction = (State.interactionMode === 'image' && State.previewImage) ? 'none' : 'pan-y';
+      ws.style.cursor = (State.interactionMode === 'image' && State.previewImage) ? 'move' : 'default';
+    }
   }
 
   function updateStickyBar() {
@@ -973,8 +976,16 @@
       if (el) el.addEventListener('input', function () { el.classList.remove('error'); });
     });
 
-    // Resize observer
-    window.addEventListener('resize', fitView);
+    // ResizeObserver for stable fitView (replaces window.resize)
+    if (ws && typeof ResizeObserver !== 'undefined') {
+      var roTimer = null;
+      new ResizeObserver(function () {
+        if (roTimer) clearTimeout(roTimer);
+        roTimer = setTimeout(function () { fitView(); }, 80);
+      }).observe(ws);
+    } else {
+      window.addEventListener('resize', fitView);
+    }
 
     // Init hint/tooltip system
     initHintSystem();
