@@ -487,7 +487,9 @@
     if (target.id === 'mc-workspace' || target.id === 'mc-canvas-root') return;
     Gesture.startX = clientX; Gesture.startY = clientY;
     if (isTouch && touches && touches.length === 2) {
-      Gesture.mode = 'pinch'; Gesture.startDist = getTouchDist(touches[0], touches[1]); Gesture.startZoom = State.imageZoom;
+      if (State.interactionMode === 'image') {
+        Gesture.mode = 'pinch'; Gesture.startDist = getTouchDist(touches[0], touches[1]); Gesture.startZoom = State.imageZoom;
+      }
       return;
     }
     var moduleEl = target.closest('[data-module-id]');
@@ -501,6 +503,7 @@
 
   function handleMove(clientX, clientY, isTouch, touches) {
     if (isTouch && touches && touches.length === 2) {
+      if (State.interactionMode !== 'image') return false;
       if (Gesture.mode !== 'pinch') { Gesture.mode = 'pinch'; Gesture.startDist = getTouchDist(touches[0], touches[1]); Gesture.startZoom = State.imageZoom; }
       var nd = getTouchDist(touches[0], touches[1]);
       if (Gesture.startDist > 0) {
@@ -816,7 +819,7 @@
     document.getElementById('mc-btn-zoom-in').innerHTML = Icons.ZoomIn;
     var ws = document.getElementById('mc-workspace');
     if (ws) {
-      ws.style.touchAction = (State.interactionMode === 'image' && State.previewImage) ? 'none' : 'pan-y';
+      ws.style.touchAction = 'pan-y';
       ws.style.cursor = (State.interactionMode === 'image' && State.previewImage) ? 'move' : 'default';
     }
   }
@@ -855,6 +858,22 @@
   /* ═══════════════════════════════════════════════════════════
    *  FILE UPLOAD — handled by MuseUploader (uploader.js)
    * ═══════════════════════════════════════════════════════════ */
+
+  /* ═══════════════════════════════════════════════════════════
+   *  ONBOARDING TOAST (one-time hint)
+   * ═══════════════════════════════════════════════════════════ */
+  function showOnboardingToast() {
+    if (localStorage.getItem('mc-hint-shown')) return;
+    var ws = document.getElementById('mc-workspace');
+    if (!ws) return;
+    localStorage.setItem('mc-hint-shown', '1');
+    var toast = document.createElement('div');
+    toast.textContent = '\u0414\u0432\u0438\u0433\u0430\u0439\u0442\u0435 \u0444\u043E\u0442\u043E \u043F\u0430\u043B\u044C\u0446\u0435\u043C \u2022 \u041F\u0435\u0440\u0435\u043A\u043B\u044E\u0447\u0430\u0439\u0442\u0435 \u0440\u0435\u0436\u0438\u043C \u043A\u043D\u043E\u043F\u043A\u0430\u043C\u0438';
+    toast.style.cssText = 'position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.75);color:#fff;font-size:12px;line-height:1.4;padding:8px 14px;border-radius:10px;pointer-events:none;z-index:50;max-width:90%;text-align:center;transition:opacity 0.5s;opacity:1';
+    ws.appendChild(toast);
+    setTimeout(function () { toast.style.opacity = '0'; }, 3500);
+    setTimeout(function () { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 4000);
+  }
 
   /* ═══════════════════════════════════════════════════════════
    *  INIT (called automatically)
@@ -912,8 +931,9 @@
           if (img) {
             State.previewImage = img.previewUrl || img.dataUrl;
             State.imgSize = { w: img.width, h: img.height };
-            State.interactionMode = 'layout';
+            State.interactionMode = 'image';
             renderToolbar();
+            showOnboardingToast();
             // Toolbar may change height (img controls shown) → re-center
             requestAnimationFrame(function () { fitView(); renderModules(); });
           } else {

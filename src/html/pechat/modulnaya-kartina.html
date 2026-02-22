@@ -413,8 +413,8 @@
                             <!-- Toolbar (above workspace, not overlapping) -->
                             <div id="mc-toolbar" class="flex-none px-3 py-1.5 flex items-center justify-between bg-white border-b border-gray-100">
                                 <div class="p-0.5 bg-gray-100 rounded-lg flex items-center gap-1">
+                                    <button id="mc-btn-mode-image" class="px-2.5 py-1 rounded-md text-[10px] uppercase font-bold tracking-wider text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-all">Сдвиг фото</button>
                                     <button id="mc-btn-mode-layout" class="px-2.5 py-1 rounded-md text-[10px] uppercase font-bold tracking-wider bg-white text-primary shadow-sm ring-1 ring-black/5 transition-all">Макет</button>
-                                    <button id="mc-btn-mode-image" class="px-2.5 py-1 rounded-md text-[10px] uppercase font-bold tracking-wider text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-all">Фото</button>
                                 </div>
                                 <span id="mc-size-label" class="text-xs font-bold text-gray-500 whitespace-nowrap">0 × 0 см</span>
                                 <div id="mc-img-controls" class="hidden items-center gap-1">
@@ -454,6 +454,8 @@
 
             <!-- Mobile sticky bottom (sticky — уходит при прокрутке мимо секции #calc) -->
             <div id="mc-mobile-bottom" class="sticky bottom-0 z-50 lg:hidden">
+                <!-- Mobile tab bar -->
+                <div id="mc-tab-bar" class="bg-secondary border-t border-gray-100 flex"></div>
                 <!-- Mobile sticky bar -->
                 <div id="mc-sticky-bar" class="bg-white border-t border-gray-200 shadow-[0_-4px_15px_rgba(0,0,0,0.1)] px-4 py-2.5 flex items-center justify-between">
                     <div class="min-w-0">
@@ -462,8 +464,6 @@
                     </div>
                     <button id="mc-sticky-btn" class="btn-header-cta px-5 py-2.5 active:scale-[0.98] text-sm shrink-0">Заказать</button>
                 </div>
-                <!-- Mobile tab bar -->
-                <div id="mc-tab-bar" class="bg-secondary border-t border-gray-100 flex"></div>
             </div>
 
             <!-- Order Form -->
