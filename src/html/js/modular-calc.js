@@ -118,7 +118,7 @@
     modules: [],
     uploadedImages: [],
     previewImage: null,
-    activeTab: 'layout',
+    activeTab: 'format',
     interactionMode: 'layout',
     imgSize: { w: 0, h: 0 },
     imageZoom: 1,
@@ -604,17 +604,18 @@
     } else if (State.activeTab === 'format') {
       var fw = Math.round(State.totals.fullWidth);
       var fh = Math.round(State.totals.fullHeight);
+      var ratio = (State.totals.fullHeight && State.totals.fullWidth) ? State.totals.fullHeight / State.totals.fullWidth : 1;
       container.innerHTML =
         '<div class="py-3 space-y-3">' +
           '<div class="flex overflow-x-auto gap-2 px-4 pb-1 snap-x snap-mandatory thin-scrollbar-x lg:grid lg:grid-cols-3 lg:gap-3 lg:overflow-visible" id="mc-format-list"></div>' +
           '<div class="border-t border-gray-200 mx-4"></div>' +
           '<div class="bg-secondary mx-4 p-3 rounded-2xl space-y-2">' +
-            '<div class="text-[10px] uppercase tracking-widest text-gray-500 font-bold text-center">Размер конструкции (см)</div>' +
-            '<div class="flex items-center gap-3">' +
-              '<div class="flex-1"><label class="text-[10px] text-gray-500 font-bold block mb-0.5">Ширина</label><input type="number" id="mc-inp-w" value="' + fw + '" min="30" max="300" class="w-full text-center font-bold text-lg p-1.5 rounded-lg border border-gray-200 focus:border-primary outline-none"></div>' +
-              '<span class="text-gray-300 text-lg pt-3">×</span>' +
-              '<div class="flex-1"><label class="text-[10px] text-gray-500 font-bold block mb-0.5">Высота</label><input type="number" id="mc-inp-h" value="' + fh + '" min="30" max="300" class="w-full text-center font-bold text-lg p-1.5 rounded-lg border border-gray-200 focus:border-primary outline-none"></div>' +
+            '<div class="flex items-center justify-between">' +
+              '<span class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Размер</span>' +
+              '<span id="mc-size-display" class="text-sm font-bold text-body">' + fw + ' × ' + fh + ' см</span>' +
             '</div>' +
+            '<input type="range" id="mc-size-slider" min="60" max="200" step="1" value="' + fw + '" class="w-full accent-primary cursor-pointer">' +
+            '<div class="flex justify-between text-[9px] text-gray-400 font-medium"><span>60 см</span><span>200 см</span></div>' +
           '</div>' +
         '</div>';
       var flist = document.getElementById('mc-format-list');
@@ -626,17 +627,23 @@
         flist.appendChild(btn);
       });
 
-      // Size input event listeners
-      var inpWF = document.getElementById('mc-inp-w');
-      var inpHF = document.getElementById('mc-inp-h');
-      if (inpWF && inpHF) {
-        var doResizeF = function () {
-          var nw = parseFloat(inpWF.value) || fw;
-          var nh = parseFloat(inpHF.value) || fh;
-          if (nw > 0 && nh > 0) handleResize(nw, nh);
+      // Proportional range slider
+      var slider = document.getElementById('mc-size-slider');
+      var sizeDisp = document.getElementById('mc-size-display');
+      if (slider) {
+        var updateSliderDisplay = function () {
+          var w = parseInt(slider.value, 10);
+          var curRatio = (State.totals.fullHeight && State.totals.fullWidth) ? State.totals.fullHeight / State.totals.fullWidth : ratio;
+          var h = Math.round(w * curRatio);
+          if (sizeDisp) sizeDisp.textContent = w + ' \u00d7 ' + h + ' \u0441\u043c';
         };
-        inpWF.onchange = doResizeF;
-        inpHF.onchange = doResizeF;
+        slider.oninput = function () { updateSliderDisplay(); };
+        slider.onchange = function () {
+          var w = parseInt(slider.value, 10);
+          var curRatio = (State.totals.fullHeight && State.totals.fullWidth) ? State.totals.fullHeight / State.totals.fullWidth : ratio;
+          var h = Math.round(w * curRatio);
+          handleResize(w, h);
+        };
       }
 
     } else if (State.activeTab === 'order') {
@@ -772,8 +779,8 @@
       document.getElementById('mc-tab-bar-desktop')
     ];
     var tabs = [
-      { id: 'layout', label: 'Макет', icon: Icons.Layout },
       { id: 'format', label: 'Формат', icon: Icons.Format },
+      { id: 'layout', label: 'Макет', icon: Icons.Layout },
       { id: 'order', label: 'Опции', icon: Icons.Options }
     ];
     bars.forEach(function (bar) {
@@ -841,7 +848,7 @@
         offsetLeft: m.offsetLeft * sx, offsetTop: m.offsetTop * sy
       });
     });
-    calculateTotals(); renderModules();
+    calculateTotals(); fitView(); renderModules();
     if (State.activeTab === 'order' || State.activeTab === 'format') renderSidebar();
   }
 
@@ -990,10 +997,21 @@
     // Init hint/tooltip system
     initHintSystem();
 
-    // Start with 3-module preset
+    // Start with 3-module preset, default width 140 cm
     var defaultPreset = PRESETS.filter(function (p) { return p.count === 3; })[0] || PRESETS[0];
     State.modules = applyLayout(defaultPreset);
     calculateTotals();
+    // Scale to default ~140 cm width (2/3 of standard sofa)
+    if (State.totals.fullWidth > 0) {
+      var defRatio = 140 / State.totals.fullWidth;
+      State.modules = State.modules.map(function (m) {
+        return Object.assign({}, m, {
+          width: clampW(m.width * defRatio), height: clampH(m.height * defRatio),
+          offsetLeft: m.offsetLeft * defRatio, offsetTop: m.offsetTop * defRatio
+        });
+      });
+      calculateTotals();
+    }
     renderUI();
     setTimeout(function () { fitView(); renderModules(); }, 100);
   }
