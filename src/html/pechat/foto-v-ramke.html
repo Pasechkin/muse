@@ -65,7 +65,7 @@
             </div>
 
             <div class="container relative z-10">
-                <div class="max-w-3xl lg:pt-[35vh]">
+                <div class="max-w-3xl">
                     <nav class="breadcrumbs mb-4" aria-label="Breadcrumb">
                         <ol class="flex list-none p-0">
                             <li class="flex items-center">
@@ -179,16 +179,203 @@
         </section>
 
         <!-- ===============================================
-             4. ЦЕНА — заглушка калькулятора
+             4. ЦЕНА — калькулятор «Фото в рамке»
         ================================================ -->
-        <section class="py-16 lg:py-20 content-auto" id="calc">
+        <section class="py-16 lg:py-20 content-auto" id="calc" data-calc-root>
             <div class="container">
-                <h2 class="heading-section text-center mb-8">Цена</h2>
-                <div class="bg-secondary rounded-lg p-8 lg:p-12 text-center max-w-2xl mx-auto">
-                    <p class="text-body-lg mb-6">Калькулятор в разработке. Свяжитесь с нами для расчёта стоимости.</p>
-                    <a href="https://muse.ooo/order/" class="btn-primary">Связаться</a>
+            <h2 class="heading-section text-center mb-8">Цена</h2>
+
+            <div class="relative">
+
+                <div id="calc-main-layout" class="flex flex-col lg:grid lg:grid-cols-[1fr_auto] items-stretch lg:items-start relative lg:gap-8">
+                    <div class="w-full">
+                        <div id="uploader-zone" class="uploader-zone mb-2 lg:mb-4">
+                            <div class="w-full max-w-sm mx-auto lg:max-w-none">
+                                <input type="file" id="file-upload" class="hidden" accept="image/jpeg,image/png,image/gif,image/webp" multiple>
+                                <button id="btn-upload-empty" class="w-full bg-primary hover:bg-primary-hover text-white font-bold py-3 rounded-lg text-sm uppercase tracking-wide transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                                    <span>Загрузить фото</span>
+                                </button>
+                                <div id="uploader-thumbnails" class="uploader-thumbnails thin-scrollbar-x" role="listbox" aria-label="Загруженные фотографии"></div>
+                                <div id="uploader-alert" class="uploader-alert" role="status" aria-live="polite"></div>
+                                <div id="uploader-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+                            </div>
+                        </div>
+                        <div id="calc-preview-column" class="w-full bg-secondary shadow-xl lg:shadow-none lg:bg-transparent z-40 transition-all">
+                            <div class="relative w-full overflow-hidden lg:rounded-2xl lg:shadow-xl lg:border lg:border-gray-200">
+                                <div class="relative room-bg" id="room-container">
+                                    <div id="visualizer-container" class="absolute inset-0 w-full h-full pointer-events-none">
+                                        <div id="preview-canvas" class="calc-preview-canvas bg-white transition-transform pointer-events-auto">
+                                             <div class="absolute -top-12 left-1/2 -translate-x-1/2 flex gap-1 pointer-events-none">
+                                                 <div class="dim-badge"><span id="lbl-w">20</span> см</div>
+                                             </div>
+                                             <div class="absolute top-1/2 -left-16 -translate-y-1/2 flex gap-1 pointer-events-none">
+                                                 <div class="dim-badge -rotate-90 origin-center"><span id="lbl-h">30</span> см</div>
+                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="calc-panel lg:row-span-2 lg:sticky lg:top-4 lg:self-start">
+                        <div class="p-4 lg:p-6 space-y-6 lg:space-y-8">
+                            <section id="size-section">
+                                <div class="section-title"><span>Размер, см</span></div>
+                                <div id="size-inputs-row" class="hidden lg:flex items-center gap-2 mb-3">
+                                    <input type="number" id="inp-w" value="20" enterkeyhint="next" autocomplete="off" inputmode="numeric" class="w-full h-10 lg:h-12 text-center border border-gray-200 rounded-lg text-base lg:text-lg font-bold text-dark focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary outline-none transition" placeholder="Ш">
+                                    <span class="text-gray-400">✕</span>
+                                    <input type="number" id="inp-h" value="30" enterkeyhint="done" autocomplete="off" inputmode="numeric" class="w-full h-10 lg:h-12 text-center border border-gray-200 rounded-lg text-base lg:text-lg font-bold text-dark focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary outline-none transition" placeholder="В">
+                                </div>
+                                <div class="flex lg:hidden gap-2 overflow-x-auto pb-1 thin-scrollbar-x" id="size-presets-grid"></div>
+                                <div id="size-extra-carousel" class="hidden lg:block mt-3">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-xs font-bold uppercase tracking-widest text-gray-500">Размеры</span>
+                                    </div>
+                                    <div id="size-extra-presets-track" class="flex gap-2 overflow-x-auto pb-1 scroll-smooth"></div>
+                                </div>
+                            </section>
+                            <!-- Подрамник скрыт для type:frame (JS удалит при инициализации) -->
+                            <section>
+                                <div class="section-title"><span>Печать и подрамник</span><span id="badge-wrap" class="calc-badge">0 р.</span></div>
+                                <div class="flex p-1 bg-secondary rounded-lg" role="radiogroup" aria-label="Тип подрамника">
+                                    <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-medium transition bg-white text-body shadow-sm font-bold" data-val="STANDARD" role="radio" aria-checked="true">Стандартный</button>
+                                    <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-medium transition" data-val="GALLERY" role="radio" aria-checked="false">Толстый</button>
+                                    <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-medium transition" data-val="NO_FRAME" role="radio" aria-checked="false">Рулон</button>
+                                </div>
+                            </section>
+                            <section>
+                                <div class="section-title"><span>Обработка фото</span><span id="badge-processing" class="calc-badge">0 р.</span></div>
+                                <div class="grid grid-cols-1">
+                                    <select id="processing-select" aria-label="Обработка фото" class="col-start-1 row-start-1 w-full appearance-none bg-white border border-gray-200 text-body py-3 pl-4 pr-8 rounded-lg text-sm font-medium focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary">
+                                    </select>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5 self-center justify-self-end text-gray-500"><path d="m6 9 6 6 6-6"/></svg>
+                                </div>
+                            </section>
+                            <section>
+                                <div class="section-title"><span>Оформление в багет</span><span class="calc-badge" id="price-frame">0 р.</span></div>
+                                <div id="frame-section" class="border border-gray-200 rounded-lg p-4 flex items-center gap-4 cursor-pointer hover:border-primary transition group bg-white">
+                                    <div class="w-10 h-10 bg-gray-50 rounded border border-gray-200 flex items-center justify-center text-gray-400"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></div>
+                                    <div>
+                                        <div class="text-sm font-bold text-body" id="selected-frame-text">Без багета</div>
+                                        <div class="text-xs text-primary font-medium group-hover:underline">Выбрать из каталога →</div>
+                                    </div>
+                                </div>
+                            </section>
+                            <!-- Лак и подарочная упаковка (лак скрыт JS-ом для frame) -->
+                            <section id="varnish-gift-section" class="space-y-6">
+                                <div class="bg-white">
+                                    <div class="section-title mb-2"><span>Покрытие лаком</span><span class="calc-badge" id="price-varnish">0 р.</span></div>
+                                    <div class="flex gap-3">
+                                        <div class="flex h-6 shrink-0 items-center">
+                                            <div class="group grid size-4 grid-cols-1">
+                                                <input id="toggle-varnish" type="checkbox" name="varnish" checked aria-label="Покрытие лаком" class="calc-checkbox col-start-1 row-start-1 forced-colors:appearance-auto" />
+                                                <svg viewBox="0 0 14 14" fill="none" class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white">
+                                                    <path d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-0 group-has-checked:opacity-100" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="text-sm/6">
+                                            <label for="toggle-varnish" class="font-medium text-body cursor-pointer">Защитит от влаги и выцветания</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="h-px bg-secondary"></div>
+                                <div class="bg-white">
+                                    <div class="section-title mb-2"><span>Подарочная упаковка</span><span class="calc-badge" id="price-gift">0 р.</span></div>
+                                    <div class="flex gap-3">
+                                        <div class="flex h-6 shrink-0 items-center">
+                                            <div class="group grid size-4 grid-cols-1">
+                                                <input id="toggle-gift" type="checkbox" name="gift" aria-label="Подарочная упаковка" class="calc-checkbox col-start-1 row-start-1 forced-colors:appearance-auto" />
+                                                <svg viewBox="0 0 14 14" fill="none" class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white">
+                                                    <path d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-0 group-has-checked:opacity-100" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="text-sm/6">
+                                            <label for="toggle-gift" class="font-medium text-body cursor-pointer">Крафт-бумага, лента и открытка</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="hidden lg:block p-6 border-t border-gray-100 bg-white lg:rounded-b-2xl">
+                            <div class="flex items-baseline justify-between">
+                                <span class="text-sm text-gray-500">Цена со скидкой 20%</span>
+                                <span class="text-2xl font-bold text-primary leading-none whitespace-nowrap"><span id="total-price">890</span> р.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form id="order-form-container" class="calc-order-form w-full lg:col-start-1 lg:row-start-2" novalidate>
+                        <h3 class="text-xl font-bold text-body text-center lg:text-left mb-6">Оформление заказа</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                            <div><input type="text" id="client-name" name="client_name_x" class="form-input" placeholder="Имя*" autocomplete="name"></div>
+                            <div><input type="tel" id="client-phone" name="client_phone_x" class="form-input" placeholder="Телефон*" autocomplete="tel"></div>
+                            <div><input type="email" id="client-email" name="client_email_x" class="form-input" placeholder="E-mail" autocomplete="email"></div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                            <div><textarea id="client-link" name="client_link_x" class="form-input h-full resize-none" rows="4" placeholder="Поле для ссылки на фото или облако"></textarea></div>
+                            <div><textarea id="client-comment" name="client_comment_x" class="form-input h-full resize-none" rows="4" placeholder="Комментарий"></textarea></div>
+                        </div>
+                        <div class="flex flex-col md:flex-row items-center justify-between gap-6 border-t border-gray-100 pt-6">
+                            <div class="text-xs text-gray-500 text-left">Заполняя форму, я соглашаюсь с условиями <a href="https://muse.ooo/info/oferta/" class="underline hover:text-primary">Оферты</a> и даю свое согласие на обработку персональных данных в соответствии с <a href="https://muse.ooo/info/politika_konfidentsialnosti_sayta/" class="underline hover:text-primary">Политикой конфиденциальности сайта</a></div>
+                            <button type="button" id="btn-submit-order" class="hidden lg:block w-full md:w-auto btn-header-cta px-10 py-4 active:scale-[0.98]">Заказать</button>
+                        </div>
+                    </form>
                 </div>
+
+                <div id="mobile-sticky-bar" class="calc-sticky-bar">
+                    <div class="min-w-0">
+                        <div class="text-lg font-bold text-primary whitespace-nowrap" id="sticky-total-price">9 543 р.</div>
+                        <div class="text-xs text-gray-500 whitespace-nowrap">— цена со скидкой 20%</div>
+                    </div>
+                    <button id="btn-sticky-order" class="btn-header-cta px-5 py-2.5 active:scale-[0.98] text-sm shrink-0">Заказать</button>
+                </div>
+
             </div>
+            </div>
+
+            <dialog id="frame-modal" class="modal-shell">
+                <div class="calc-frame-modal-content" id="frame-modal-content">
+                    <div class="calc-frame-modal-header">
+                        <h3 class="text-xl font-bold text-body">Каталог багета</h3>
+                        <button id="close-frame-modal" type="button" class="p-2 text-gray-500 hover:text-black transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                        </button>
+                    </div>
+                    <div class="calc-frame-modal-body custom-scrollbar">
+                        <div id="frame-upload-cta" class="calc-frame-upload-cta">
+                            <p class="text-xs text-gray-500 mb-3">Загрузите фото для примерки багета</p>
+                            <button id="modal-upload-btn" type="button" class="bg-white border border-gray-200 text-body hover:border-primary hover:text-primary font-bold py-2 px-4 rounded-lg text-xs uppercase tracking-widest transition flex items-center justify-center gap-2 mx-auto">
+                                <span>Загрузить фото</span>
+                            </button>
+                        </div>
+                        <div class="mb-8">
+                            <div class="section-title mb-4 px-1">Студийный багет (Минимализм)</div>
+                            <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4" id="frames-grid-studio"></div>
+                        </div>
+                        <div>
+                            <div class="section-title mb-4 px-1">Классический багет (Дерево, Золото)</div>
+                            <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4" id="frames-grid-classic"></div>
+                        </div>
+                    </div>
+                    <div class="calc-frame-modal-footer">
+                        <button id="cancel-frame-selection" type="button" class="px-6 py-3 rounded-lg text-xs font-bold uppercase tracking-widest text-body hover:bg-gray-100 transition">Отмена</button>
+                        <button id="apply-frame-selection" type="button" class="btn-header-cta px-8 py-3 active:scale-[0.98]">Выбрать этот багет</button>
+                    </div>
+                </div>
+            </dialog>
+
+            <dialog id="lightbox" class="modal-shell bg-white/95 backdrop-blur-sm">
+                <div class="absolute top-4 right-4 z-10">
+                    <button id="lightbox-close" class="calc-lightbox-close p-2 text-gray-500 hover:text-black transition pointer-events-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                    </button>
+                </div>
+                <div id="lightbox-content" class="relative transition-transform duration-300"></div>
+            </dialog>
+
         </section>
 
         <!-- ===============================================
@@ -203,76 +390,60 @@
                 <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
                     <!-- Размер -->
                     <div class="text-center">
-                        <div class="icon-advantage mx-auto mb-4 bg-gray-100 rounded flex items-center justify-center">
-                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1889 1889"><path d="M130 0h1729c17 0 30 13 30 30v1729c0 17-13 30-30 30h-590v20c0 17-14 30-30 30H605v20c0 17-13 30-30 30H30c-17 0-30-13-30-30v-545c0-17 13-30 30-30h20V650c0-16 13-30 30-30h20V30c0-17 13-30 30-30m475 1779h604V680H110v604h465c17 0 30 13 30 30zm-60-435H60v485h485zm724 385h560V60H160v560h1079c16 0 30 14 30 30z"/></svg>
-                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 1889 1889"><path d="M130 0h1729c17 0 30 13 30 30v1729c0 17-13 30-30 30h-590v20c0 17-14 30-30 30H605v20c0 17-13 30-30 30H30c-17 0-30-13-30-30v-545c0-17 13-30 30-30h20V650c0-16 13-30 30-30h20V30c0-17 13-30 30-30m475 1779h604V680H110v604h465c17 0 30 13 30 30zm-60-435H60v485h485zm724 385h560V60H160v560h1079c16 0 30 14 30 30z"/></svg>
                         <h3 class="heading-card">Размер</h3>
                         <p class="text-left mt-3">Выберите любой из популярных размеров или же задайте «Свой». В диапазоне от 30 см. и до 60 см. по одной из сторон.</p>
                     </div>
 
                     <!-- Материал -->
                     <div class="text-center">
-                        <div class="icon-advantage mx-auto mb-4 bg-gray-100 rounded flex items-center justify-center">
-                            <span class="text-gray-400 text-small">SVG</span>
-                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 226 226"><path d="M117 217l100 0 0-182-45 0 0 174c0 2-2 4-5 4l-50 0 0 4zm-18-188l-13 24 13 24c0 2 0 4-2 5-1 1-2 1-3 0l-24-12-25 12c-1 1-4 0-4-1-1-1-1-3 0-4l12-24-12-24c-1-2-1-4 1-5 1 0 2 0 3 0l25 12 24-12c2-1 4 0 5 2 0 1 0 2 0 3zm-20 23l8-17-16 8c-1 1-2 1-3 0l-16-8 8 17c0 1 0 2 0 3l-8 16 16-8c1-1 2-1 3 0l16 8-8-16c0-1 0-2 0-3zm-14 83l-9 18 9 18c1 2 0 4-2 5-1 0-2 0-3 0l-18-9-18 9c-2 1-4 0-5-2-1-1-1-2 0-3l9-18-9-18c-1-2 0-4 1-5 1-1 3 0 4 0l18 9 18-9c2-1 4 0 5 2 0 1 0 2 0 3zm-17 16l6-10-11 5c-1 1-2 1-3 0l-10-5 5 10c0 1 0 3 0 4l-5 10 10-5c1-1 2-1 3 0l11 5-6-10c0-1 0-3 0-4zm-39 40l99 0 0-182-99 0 0 182zm104 9l-50 0 0 4 100 0 0-182-46 0 0 174c0 2-2 4-4 4zm-59 0l-50 0c-2 0-4-2-4-4l0-192c0-2 2-4 4-4l109 0c2 0 4 2 4 4l0 9 50 0c3 0 5 2 5 4l0 9 49 0c3 0 5 2 5 4l0 191c0 3-2 5-5 5l-108 0c-2 0-4-2-4-5l0-8-50 0c-3 0-5-2-5-4l0-9zm148-121c-2 2-5 2-7 0-1-2-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 4 0 6l-10 10zm-20 0c-2 2-5 2-7 0-1-2-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 4 0 6l-10 10zm20-22c-2 2-5 2-7 0-1-1-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 5 0 6l-10 10zm-20 0c-2 2-5 2-7 0-1-1-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 5 0 6l-10 10zm20 87c-2 2-5 2-7 0-1-1-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 5 0 6l-10 10zm-20 0c-2 2-5 2-7 0-1-1-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 5 0 6l-10 10zm20 22c-2 2-5 2-7 0-1-2-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 5 0 6l-10 10zm-20 0c-2 2-5 2-7 0-1-2-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 5 0 6l-10 10zm20 22c-2 2-5 2-7 0-1-2-1-5 0-6l10-10c2-2 5-2 7 0 1 1 1 4 0 6l-10 10zm-20 0c-2 2-5 2-7 0-1-2-1-5 0-6l10-10c2-2 5-2 7 0 1 1 1 4 0 6l-10 10zm20-65c-2 1-5 1-7 0-1-2-1-5 0-7l10-10c2-1 5-1 7 0 1 2 1 5 0 7l-10 10zm-20 0c-2 1-5 1-7 0-1-2-1-5 0-7l10-10c2-1 5-1 7 0 1 2 1 5 0 7l-10 10zm20-22c-2 2-5 2-7 0-1-2-1-5 0-6l10-10c2-2 5-2 7 0 1 1 1 4 0 6l-10 10zm-20 0c-2 2-5 2-7 0-1-2-1-5 0-6l10-10c2-2 5-2 7 0 1 1 1 4 0 6l-10 10zm20 109c-2 1-5 1-7 0-1-2-1-5 0-7l10-10c2-1 5-1 7 0 1 2 1 5 0 7l-10 10zm-20 0c-2 1-5 1-7 0-1-2-1-5 0-7l10-10c2-1 5-1 7 0 1 2 1 5 0 7l-10 10z"/></svg>
                         <h3 class="heading-card">Материал</h3>
                         <p class="text-left mt-3">Суперглянцевая и атласная (полуматовая) микропористая фотобумага премиум класса; бархатная бумага для художественной стилизации.</p>
                     </div>
 
                     <!-- Стекло -->
                     <div class="text-center">
-                        <div class="icon-advantage mx-auto mb-4 bg-gray-100 rounded flex items-center justify-center">
-                            <span class="text-gray-400 text-small">SVG</span>
-                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 119 145"><path d="M6 32l0 41c0 16 5 31 15 43 10 12 23 20 39 24 15-4 28-12 38-24 10-12 15-27 15-43l0-41c-10-2-20-5-29-9-9-5-18-10-24-16-7 6-16 11-25 16-9 4-19 7-29 9zm18 14l0 27c0 10 4 20 10 28 6 8 15 14 26 16 10-2 19-8 25-16 6-8 10-18 10-28l0-27c-7-1-13-4-19-6-6-3-12-7-16-11-5 4-11 8-16 11-6 2-13 5-20 6zm-6 27l0-29c0-2 1-3 3-3 7-1 14-4 20-7 6-3 12-6 17-11 1-1 2-1 3 0 5 5 11 8 17 11 6 3 13 6 20 7 2 0 3 1 3 3l0 29c0 12-4 23-12 32-7 9-17 15-29 18 0 0-1 0-1 0-12-3-22-9-29-18-8-9-12-20-12-32zm-18 0l0-43c0-1 1-3 2-3 11-2 22-5 31-9 9-5 18-11 25-17 1-1 2-1 3 0 7 6 16 12 25 16 9 5 20 8 30 10 2 0 3 1 3 3l0 43c0 17-6 33-17 46-10 13-25 23-42 26 0 0-1 0-1 0-17-3-32-13-42-26-11-13-17-29-17-46z"/></svg>
                         <h3 class="heading-card">Стекло</h3>
                         <p class="text-left mt-3">Органическое акриловое стекло - не бликует, защищает от ультрафиолетового излучения типа А, прочнее в 5 раз и легче в 2 раза обычного багетного стекла.</p>
                     </div>
 
                     <!-- Ширина паспарту -->
                     <div class="text-center">
-                        <div class="icon-advantage mx-auto mb-4 bg-gray-100 rounded flex items-center justify-center">
-                            <span class="text-gray-400 text-small">SVG</span>
-                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 226 226"><path d="M217 9l-97 0 11 12c2 2 2 4 0 6-1 2-4 2-6 0l-8-8 0 37 8-8c2-1 5-1 6 0 2 2 2 5 0 7l-11 12 35 0c2 0 4 2 4 4l0 35 12-12c2-1 5-1 6 0 2 2 2 5 0 7l-7 7 37 0-8-7c-2-2-2-5 0-7 2-1 4-1 6 0l12 12 0-97zm-123 46c-1-2-1-5 0-7 2-1 5-1 7 0l7 8 0-37-7 8c-2 2-5 2-7 0-1-2-1-4 0-6l12-12-97 0 0 96 10-11c2-1 5-1 6 0 2 2 2 5 0 7l-7 7 37 0-8-7c-2-2-2-5 0-7 2-1 4-1 6 0l14 14 0-37c0-2 2-4 4-4l35 0-12-12zm-41 76c-2 2-4 2-6 0-2-1-2-4 0-6l8-8-37 0 7 8c2 2 2 5 0 6-1 2-4 2-6 0l-10-10 0 96 97 0-12-12c-1-2-1-4 0-6 2-2 5-2 7 0l7 8 0-37-7 7c-2 2-5 2-7 0-1-1-1-4 0-6l12-12-35 0c-2 0-4-2-4-4l0-37-14 13zm78 40c2 2 2 5 0 6-1 2-4 2-6 0l-8-7 0 37 8-8c2-2 5-2 6 0 2 2 2 4 0 6l-11 12 97 0 0-97-12 11c-2 2-4 2-6 0-2-1-2-4 0-6l8-8-37 0 7 8c2 2 2 5 0 6-1 2-4 2-6 0l-12-11 0 35c0 2-2 4-4 4l-35 0 11 12zm19-96l-75 0 0 75 75 0 0-75zm-146-75l217 0c3 0 5 2 5 4l0 217c0 3-2 5-5 5l-217 0c-2 0-4-2-4-5l0-217c0-2 2-4 4-4z"/></svg>
                         <h3 class="heading-card">Ширина паспарту</h3>
                         <p class="text-left mt-3">Выберите предустановленную в Конструкторе Muse ширину паспарту или напишите нам, и мы сделаем Ваш размер.</p>
                     </div>
 
                     <!-- Цвет паспарту -->
                     <div class="text-center">
-                        <div class="icon-advantage mx-auto mb-4 bg-gray-100 rounded flex items-center justify-center">
-                            <span class="text-gray-400 text-small">SVG</span>
-                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 226 226"><path d="M211 9h-24l-47 47h23zm-36 0h-24l-47 47h23zm-37 0h-23L67 56h24zm-36 0H79L9 79v23zM66 9H42L9 42v24zM30 9H9v21zM9 115v23l47-47V67zm0 36v24l47-48v-23zm0 36v24l47-48v-23zm6 30h24l47-47H63zm36 0h24l47-47H99zm37 0h23l48-47h-24zm36 0h23l70-70v-23zm36 0h23l34-34v-23zm36 0h21v-21zm21-106V88l-47 47v24zm0-36V51l-47 48v23zm0-36V15l-47 48v23zM1 225v-2H0V4c0-2 2-4 4-4h219v1h2v2h1v218c0 3-2 5-5 5H3v-1zM161 65H65v96h96z"/></svg>
                         <h3 class="heading-card">Цвет паспарту</h3>
                         <p class="text-left mt-3">Выберите в Конструкторе Muse один из популярных цветов или напишите нам, и мы постараемся найти Ваш цвет.</p>
                     </div>
 
                     <!-- Рамка -->
                     <div class="text-center">
-                        <div class="icon-advantage mx-auto mb-4 bg-gray-100 rounded flex items-center justify-center">
-                            <span class="text-gray-400 text-small">SVG</span>
-                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 1889 1889"><path d="M1787 60H102l298 298h1089zM400 1531l-298 298h1685l-298-298zM60 1787l298-298V400L60 102zm1471-298 298 298V102l-298 298zm-60-1071H418v1053h1053zM30 0h1832c1 0 2 0 3 1h3l1 1h2v1h2v1h2v1h1v1h2v1h1v1h1v1h1v1h1v1h1v2h1v1h1v2h1v2h1v2l1 1v3c1 1 1 2 1 3v1835c0 1 0 2-1 3v3l-1 1v2h-1v2h-1v2h-1v1h-1v2h-1v1h-1v1h-1v1h-1v1h-1v1h-2v1h-1v1h-2v1h-2v1h-2l-1 1h-3c-1 1-2 1-3 1H27c-1 0-2 0-3-1h-3l-1-1h-2v-1h-2v-1h-2v-1h-1v-1h-2v-1h-1v-1H9v-1H8v-1H7v-1H6v-2H5v-1H4v-2H3v-2H2v-2l-1-1v-3c-1-1-1-2-1-3V27c0-1 0-2 1-3v-3l1-1v-2h1v-2h1v-2h1v-1h1v-2h1v-1h1V9h1V8h1V7h1V6h2V5h1V4h2V3h2V2h2l1-1h3c1-1 2-1 3-1z"/></svg>
                         <h3 class="heading-card">Рамка</h3>
                         <p class="text-left mt-3">В Конструкторе Muse выберете рамку, рассчитайте ее стоимость, примерьте ее к своей фотографии, паспарту и интерьеру.</p>
                     </div>
 
                     <!-- Крепление -->
                     <div class="text-center">
-                        <div class="icon-advantage mx-auto mb-4 bg-gray-100 rounded flex items-center justify-center">
-                            <span class="text-gray-400 text-small">SVG</span>
-                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 122 169"><path d="M70 117l-45-26c0 0-1 0-1 0l-15-9 11 41 8 5-4-17c-1-1 0-2 0-2l3-7c1-2 3-3 4-2 1 0 2 1 2 1l5 9 1-1c1-2 3-3 4-2 1 0 1 1 2 1l5 9 1-1c0-2 2-3 4-2 1 0 1 1 1 1l9 14c0 0 0 1 1 1l3 12c0 0 0 0 0 0l3 11 9 5-11-41zm-36 21c0 0 0 0 0 0l0 0-1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0c0 0 0 0-1 0l0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0-1 0 0 0 0 0 0 0 0 0 0 0 0-17-9c-1-1-1-1-1-2l-14-50 0 0c0-1 0-2 0-3 1-1 3-2 5-1l18 10 0-68c0-3 1-7 4-10l0 0c3-2 6-4 10-4 1 0 2 0 4 0 1 1 2 1 2 2l70 39c1 1 3 2 5 4l0 0c2 2 4 6 4 10l0 42c0 2-2 3-4 3 0 0-1 0-1 0l-18-10 0 70c0 2 0 3-1 3l-10 5c-1 1-2 1-3 0l-18-10c-1-1-1-1-2-2l-2-11-20-12-8 4 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0-1 0 0 0zm1-8l6-3c1-1 3-1 4 0l15 9-1-4-5-8 0 1c-1 1-1 1-2 2-1 1-3 0-4-1l-6-9 0 1c0 1-1 1-2 2-1 1-3 0-4-1l-5-9-1 0 5 20zm64-48l16 9 0-36c0-2-1-4-2-6l0 0c-2-1-4-2-6-2-2 0-4 1-5 2-2 2-3 4-3 6l0 27zm2-40l-61-35c0 0 0 0-1 0-1 0-1 0-2 0-2 0-4 1-5 2-2 1-3 3-3 5l0 72 46 26c1 1 1 1 1 2l13 47 4-3 0-103c0-4 1-8 4-10 1-1 2-2 4-3z"/></svg>
                         <h3 class="heading-card">Крепление</h3>
                         <p class="text-left mt-3">Как правило устанавливаем на работу подвески для крепления на стену Clip Over. На работы больших размеров крепления согласовываем с Вами отдельно.</p>
                     </div>
 
-                    <!-- Дизайн (с accordion) -->
+                    <!-- Обработка фото (с accordion) -->
                     <div class="text-center">
-                        <div class="icon-advantage mx-auto mb-4 bg-gray-100 rounded flex items-center justify-center">
-                            <span class="text-gray-400 text-small">SVG</span>
-                        </div>
-                        <h3 class="heading-card">Дизайн</h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 2119 1889"><path d="M1829 60H60v1769h1769V691c-116 79-261 170-421 262l-1 1c-126 72-245 137-351 190-106 54-199 97-272 126-27 49-83 85-150 100-49 11-104 12-157-1-54-12-107-37-151-78-68-63-114-163-111-307 0-5 2-10 4-14 0-1 1-2 1-3l1-1 1-1 1-1 1-1 1-1 1-1h1v-1c3-2 6-3 10-4 2-1 5-2 8-2 6 0 10 2 15 4 0 1 1 1 2 2l1 1h1v1h1v1h1v1h1v1h1v1h1v1l1 1c79 113 177 99 269 87 80-10 155-20 220 33 54-39 118-83 190-130 100-66 217-137 342-209l2-2c204-117 394-216 536-279zM279 1067c12 81 45 140 88 180 36 33 79 54 123 64s90 10 131 1c39-9 73-26 95-49a82 82 0 0 1-38-74c0-12 2-24 7-37 2-6 5-11 10-14q6-6 15-12c-45-27-102-20-163-12-88 12-182 25-268-47m915-192c3 23 10 42 20 59 9 15 22 28 37 39 41-23 83-47 126-71l1-1c204-117 383-232 508-323 111-80 179-133 177-139-3-6-83 26-209 83-141 63-329 160-531 277l-3 2c-43 24-85 49-126 74m1 129c-13-12-24-25-33-40-10-16-17-35-22-56-56 34-109 68-159 100-98 64-181 123-242 170-1 5-1 9-1 12-1 7 1 13 4 17 2 4 6 6 11 8 1 1 3 1 5 1 72-28 165-71 271-125 53-27 108-56 166-87m694-354v1209c0 17-13 30-30 30H30c-17 0-30-13-30-30V30C0 13 13 0 30 0h1829c17 0 30 13 30 30v412c124-50 208-65 226-33 5 8 5 19 1 28-13 42-84 110-195 190-10 7-21 15-32 23"/></svg>
+                        <h3 class="heading-card">Обработка фото</h3>
 
                         <div class="text-left mt-3 space-y-3">
-                            <details class="group" open>
+                            <details class="group">
                                 <summary class="flex items-center justify-between gap-4 py-2 cursor-pointer list-none font-medium hover:opacity-80 transition-opacity w-full text-left">
                                     <span>Базовый дизайн</span>
                                     <svg fill="currentColor" class="size-5 shrink-0 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.06z" clip-rule="evenodd"/></svg>
@@ -334,7 +505,15 @@
             <div class="container">
                 <h2 class="heading-section text-center mb-12">Как заказать</h2>
 
-                <div class="max-w-xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-12 items-start">
+                    <!-- Фото балерины -->
+                    <div>
+                        <img loading="lazy" decoding="async" width="458" height="686" alt="Пример фото в рамке с балериной" title="Фото в рамке" src="https://muse.ooo/img/o-photo-in-frame-main.jpg" class="rounded-lg shadow-xl w-full max-w-md mx-auto">
+                        <p class="text-small mt-3 text-center">
+                            Фотограф: Дарья Ченикова. Источник: <a rel="nofollow" href="https://vk.com/dariachenikova" target="_blank" title="Открыть в новом окне сайт VK" class="text-primary underline hover:no-underline">vk.com</a>
+                        </p>
+                    </div>
+
                     <div class="step-container">
                         <div class="step-line"></div>
 
@@ -395,69 +574,6 @@
         </section>
 
         <!-- ===============================================
-             7. ВАШИ ПРЕИМУЩЕСТВА — фото + кружки с цифрами
-        ================================================ -->
-        <section class="py-16 lg:py-20 content-auto">
-            <div class="container">
-                <h2 class="heading-section text-center mb-12">Ваши преимущества</h2>
-
-                <div class="grid lg:grid-cols-2 gap-12 items-start">
-                    <!-- Фото балерины -->
-                    <div>
-                        <img loading="lazy" decoding="async" width="458" height="686" alt="Пример фото в рамке с балериной" title="Фото в рамке" src="https://muse.ooo/img/o-photo-in-frame-main.jpg" class="rounded-lg shadow-xl w-full max-w-md mx-auto">
-                        <p class="text-small mt-3 text-center">
-                            Фотограф: Дарья Ченикова. Источник: <a rel="nofollow" href="https://vk.com/dariachenikova" target="_blank" title="Открыть в новом окне сайт VK" class="text-primary underline hover:no-underline">vk.com</a>
-                        </p>
-                    </div>
-
-                    <!-- Вертикальные кружки с цифрами (step-container) -->
-                    <div class="step-container">
-                        <div class="step-line"></div>
-
-                        <!-- Шаг 1 — Цветопередача -->
-                        <div class="flex gap-4">
-                            <div class="shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                                <span class="text-xl font-bold text-primary">1</span>
-                            </div>
-                            <div>
-                                <h3 class="heading-card mb-2">Цветопередача</h3>
-                                <p>
-                                    Благодаря чернилам Epson UltraChrome HDX Вы получите реалистичную цветопередачу, мягкие переходы оттенков и богатые полутона. Этот набор чернил из десяти цветов сертифицирован по стандарту Pantone и передаёт до 98% его цветовой гаммы. Уникальная формула чернил гарантирует высокую светостойкость. Цвет может оставаться насыщенным более 60 лет.
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Шаг 2 — Превосходное качество -->
-                        <div class="flex gap-4">
-                            <div class="shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                                <span class="text-xl font-bold text-primary">2</span>
-                            </div>
-                            <div>
-                                <h3 class="heading-card mb-2">Превосходное качество</h3>
-                                <p>
-                                    Ваша работа будет напечатана плоттером Epson SureColor SC-P7000. Он предназначен для фотографов, которым важна как реалистичная цветопередача, так и плавные цветовые переходы в сочетании с четкостью изображения. Для этого в нем используется печатающая голова Epson PrecisionCore TFP с разрешением 2880 x 1440 dpi и технологией печати каплями переменного размера.
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Шаг 3 — Материалы -->
-                        <div class="flex gap-4">
-                            <div class="shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-white flex items-center justify-center relative z-10">
-                                <span class="text-xl font-bold text-primary">3</span>
-                            </div>
-                            <div>
-                                <h3 class="heading-card mb-2">Материалы</h3>
-                                <p>
-                                    Для печати Ваших работ мы используем проверенную фотобумагу Lomond, защищаем отпечатки акриловым стеклом, которое обычно не купишь в магазине, а также оформляем в настоящее паспарту стандартного качества. Рамку сделаем вручную под именно Ваш размер и цвет.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===============================================
              8. ЭТО КЛАССИКА / ОНА ОСТАНЕТСЯ НАВСЕГДА — видео + картинка (только ПК)
         ================================================ -->
         <section class="hidden lg:grid lg:grid-cols-2 content-auto">
@@ -482,6 +598,47 @@
         </section>
 
         <!-- ===============================================
+             7. ВАШИ ПРЕИМУЩЕСТВА
+        ================================================ -->
+        <section class="bg-primary py-16 lg:py-20 content-auto" id="preimushchestva">
+            <div class="container">
+                <h2 class="heading-section text-center mb-12">Преимущества</h2>
+
+                <div class="grid gap-6 lg:grid-cols-3">
+                    <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-lg">
+                        <div class="flex items-start justify-between gap-4">
+                            <span class="heading-card">Цветопередача</span>
+                            <div class="w-10 h-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage" viewBox="0 0 512 512"><path d="M501.2 340.6H277.5l40-40 118.2-118.2a8.5 8.5 0 0 0 0-12L339.4 74a8.5 8.5 0 0 0-12 0L209 192.3l-40 40V8.4a8.5 8.5 0 0 0-8.5-8.5H24.4A8.5 8.5 0 0 0 16 8.5v359.8a95 95 0 0 0-13.6 49 94.9 94.9 0 0 0 150.5 76.6h348.4a8.5 8.5 0 0 0 8.5-8.6V349.1a8.5 8.5 0 0 0-8.5-8.5zM333.4 92l84.2 84.3-81 81-84.3-84.2zM32.9 17h119.2v114.6H33zm0 131.6h119.2v100.5L138 263.4H33zm0 131.7h88l-44.2 44.3a95 95 0 0 0-43.8 22.8zm111.9 198.2a77.9 77.9 0 0 1-125.5-61.4 78 78 0 0 1 12.3-41.9 78 78 0 0 1 51-34.5 78 78 0 0 1 14.5-1.4 77 77 0 0 1 47.7 16.4 78 78 0 0 1 9.6 8.8 78 78 0 0 1 20.4 52.6l-.2 5.2a78 78 0 0 1-29.8 56.2m84.5-1.8h-58.6a95 95 0 0 0 20.7-50l29.2-29.3 8.7-8.7zm-20.8-91.3-17.7 17.7a95 95 0 0 0-23.9-50 96 96 0 0 0-11.7-10.8 94 94 0 0 0-52.4-19.8l44.3-44.3 7.5 7.5 69.3 69.3 7.5 7.5zM236 343l-69.2-69.3-7.5-7.5 7.5-7.5 54.5-54.5 19-19 84.3 84.2-19 19-54.5 54.6-7.6 7.5zm125 133.8H246.4v-105l3-3.2 11.1-11H361zm131.7 0H378.1V357.6h114.6z"/><path d="M97 358.7a58.5 58.5 0 1 0 .2 117.1 58.5 58.5 0 0 0-.1-117m0 99.8a41.5 41.5 0 1 1 0-83 41.5 41.5 0 0 1 0 83"/><path d="M97 383.7a8.5 8.5 0 0 0 0 17c9.1 0 16.5 7.4 16.5 16.5a8.5 8.5 0 0 0 17 0c0-18.5-15-33.5-33.4-33.5"/></svg>
+                            </div>
+                        </div>
+                        <p class="mt-3">Благодаря чернилам Epson UltraChrome HDX Вы получите реалистичную цветопередачу, мягкие переходы оттенков и богатые полутона. Этот набор чернил из десяти цветов сертифицирован по стандарту Pantone и передаёт до 98% его цветовой гаммы. Уникальная формула чернил гарантирует высокую светостойкость. Цвет может оставаться насыщенным более 60 лет.</p>
+                    </div>
+
+                    <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-lg">
+                        <div class="flex items-start justify-between gap-4">
+                            <span class="heading-card">Превосходное качество</span>
+                            <div class="w-10 h-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage" viewBox="0 0 325.9 325.9"><path d="M297.4 47.8h-24.5v-7.1c0-9.3-7.5-16.8-16.8-16.8H69.7c-9.3 0-16.8 7.5-16.8 16.8v7.1H28.5A28.4 28.4 0 0 0 0 76.2V116c0 12.6 8.3 23.2 19.7 27v115.7L9.5 289.6c-1.6 5 1 10.3 6 11.9q1.5.5 3 .5c4 0 7.7-2.5 9-6.5l10.7-32.4h.4v-1.3l10.2-30.9a9.4 9.4 0 0 0-10.2-12.3v-74.1h22.9v111.4h202.9V144.5h17.2v69.4a9.5 9.5 0 0 0-14.8 10.4l21.3 64.6a9.4 9.4 0 0 0 12 6c5-1.6 7.6-7 6-11.9l-6.6-19.9h1V144.2a28.3 28.3 0 0 0 25.4-28.2V76.2a28.5 28.5 0 0 0-28.5-28.4M63.7 40.7a6 6 0 0 1 6-6h186.4a6 6 0 0 1 6 6v7.1H63.7zm189.9 103.8v100.6H72.3V123.9c0-8.1 4.1-19.5 8.9-24.8l8.7-9.6h146l8.7 9.6a43 43 0 0 1 8.9 24.8v20.6z"/><path d="M232.7 106.4H93.2c-3 0-5.4 2.4-5.4 5.4s2.4 5.4 5.4 5.4h139.5c3 0 5.4-2.4 5.4-5.4s-2.5-5.4-5.4-5.4"/></svg>
+                            </div>
+                        </div>
+                        <p class="mt-3">Ваша работа будет напечатана плоттером Epson SureColor SC-P7000. Он предназначен для фотографов, которым важна как реалистичная цветопередача, так и плавные цветовые переходы в сочетании с четкостью изображения. Для этого в нем используется печатающая голова Epson PrecisionCore TFP с разрешением 2880 x 1440 dpi и технологией печати каплями переменного размера.</p>
+                    </div>
+
+                    <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-lg">
+                        <div class="flex items-start justify-between gap-4">
+                            <span class="heading-card">Материалы</span>
+                            <div class="w-10 h-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage" viewBox="0 0 226 226"><path d="M117 217l100 0 0-182-45 0 0 174c0 2-2 4-5 4l-50 0 0 4zm-18-188l-13 24 13 24c0 2 0 4-2 5-1 1-2 1-3 0l-24-12-25 12c-1 1-4 0-4-1-1-1-1-3 0-4l12-24-12-24c-1-2-1-4 1-5 1 0 2 0 3 0l25 12 24-12c2-1 4 0 5 2 0 1 0 2 0 3zm-20 23l8-17-16 8c-1 1-2 1-3 0l-16-8 8 17c0 1 0 2 0 3l-8 16 16-8c1-1 2-1 3 0l16 8-8-16c0-1 0-2 0-3zm-14 83l-9 18 9 18c1 2 0 4-2 5-1 0-2 0-3 0l-18-9-18 9c-2 1-4 0-5-2-1-1-1-2 0-3l9-18-9-18c-1-2 0-4 1-5 1-1 3 0 4 0l18 9 18-9c2-1 4 0 5 2 0 1 0 2 0 3zm-17 16l6-10-11 5c-1 1-2 1-3 0l-10-5 5 10c0 1 0 3 0 4l-5 10 10-5c1-1 2-1 3 0l11 5-6-10c0-1 0-3 0-4zm-39 40l99 0 0-182-99 0 0 182zm104 9l-50 0 0 4 100 0 0-182-46 0 0 174c0 2-2 4-4 4zm-59 0l-50 0c-2 0-4-2-4-4l0-192c0-2 2-4 4-4l109 0c2 0 4 2 4 4l0 9 50 0c3 0 5 2 5 4l0 9 49 0c3 0 5 2 5 4l0 191c0 3-2 5-5 5l-108 0c-2 0-4-2-4-5l0-8-50 0c-3 0-5-2-5-4l0-9zm148-121c-2 2-5 2-7 0-1-2-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 4 0 6l-10 10zm-20 0c-2 2-5 2-7 0-1-2-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 4 0 6l-10 10zm20-22c-2 2-5 2-7 0-1-1-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 5 0 6l-10 10zm-20 0c-2 2-5 2-7 0-1-1-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 5 0 6l-10 10zm20 87c-2 2-5 2-7 0-1-1-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 5 0 6l-10 10zm-20 0c-2 2-5 2-7 0-1-1-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 5 0 6l-10 10zm20 22c-2 2-5 2-7 0-1-2-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 5 0 6l-10 10zm-20 0c-2 2-5 2-7 0-1-2-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 5 0 6l-10 10zm20 22c-2 2-5 2-7 0-1-2-1-5 0-6l10-10c2-2 5-2 7 0 1 1 1 4 0 6l-10 10zm-20 0c-2 2-5 2-7 0-1-2-1-5 0-6l10-10c2-2 5-2 7 0 1 1 1 4 0 6l-10 10zm20-65c-2 1-5 1-7 0-1-2-1-5 0-7l10-10c2-1 5-1 7 0 1 2 1 5 0 7l-10 10zm-20 0c-2 1-5 1-7 0-1-2-1-5 0-7l10-10c2-1 5-1 7 0 1 2 1 5 0 7l-10 10zm20-22c-2 2-5 2-7 0-1-2-1-5 0-6l10-10c2-2 5-2 7 0 1 1 1 4 0 6l-10 10zm-20 0c-2 2-5 2-7 0-1-2-1-5 0-6l10-10c2-2 5-2 7 0 1 1 1 4 0 6l-10 10zm20 109c-2 1-5 1-7 0-1-2-1-5 0-7l10-10c2-1 5-1 7 0 1 2 1 5 0 7l-10 10zm-20 0c-2 1-5 1-7 0-1-2-1-5 0-7l10-10c2-1 5-1 7 0 1 2 1 5 0 7l-10 10z"/></svg>
+                            </div>
+                        </div>
+                        <p class="mt-3">Для печати Ваших работ мы используем проверенную фотобумагу Lomond, защищаем отпечатки акриловым стеклом, которое обычно не купишь в магазине, а также оформляем в настоящее паспарту стандартного качества. Рамку сделаем вручную под именно Ваш размер и цвет.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===============================================
              9. ПРИМЕРЫ РАБОТ — carousel-scroll
         ================================================ -->
         <section class="py-16 lg:py-20 content-auto" id="primery">
@@ -492,72 +649,72 @@
             <div class="carousel-scroll carousel--cards-lg pb-4">
                 <div class="flex gap-0 px-4 min-w-max">
                     <div class="shrink-0 snap-center text-center">
-                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото в подарок молодому человеку" title="Пример напечатанного фото в подарок молодому человеку" src="https://muse.ooo/img/o-photo-frame-for-guy.jpg">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото в подарок молодому человеку" title="Пример напечатанного фото в подарок молодому человеку" src="https://muse.ooo/upload/imgsite/o-photo-frame-for-guy.webp">
                         <span class="text-lead block mt-2">Лучший подарок</span>
                         <p class="text-small">Молодому человеку</p>
                     </div>
                     <div class="shrink-0 snap-center text-center">
-                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото в подарок родителям" title="Пример напечатанного фото в подарок родителям" src="https://muse.ooo/img/o-photo-frame-for-parents.jpg">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото в подарок родителям" title="Пример напечатанного фото в подарок родителям" src="https://muse.ooo/upload/imgsite/o-photo-frame-for-parents.webp">
                         <span class="text-lead block mt-2">Лучший подарок</span>
                         <p class="text-small">Родителям</p>
                     </div>
                     <div class="shrink-0 snap-center text-center">
-                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото в подарок друзьям" title="Пример напечатанного фото в подарок друзьям" src="https://muse.ooo/img/o-photo-frame-for-friends.jpg">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото в подарок друзьям" title="Пример напечатанного фото в подарок друзьям" src="https://muse.ooo/upload/imgsite/o-photo-frame-for-friends.webp">
                         <span class="text-lead block mt-2">Лучший подарок</span>
                         <p class="text-small">Друзьям</p>
                     </div>
                     <div class="shrink-0 snap-center text-center">
-                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото в подарок девушке" title="Пример напечатанного фото в подарок девушке" src="https://muse.ooo/img/o-photo-frame-for-girl.jpg">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото в подарок девушке" title="Пример напечатанного фото в подарок девушке" src="https://muse.ooo/upload/imgsite/o-photo-frame-for-girl.webp">
                         <span class="text-lead block mt-2">Лучший подарок</span>
                         <p class="text-small">Девушке</p>
                     </div>
                     <div class="shrink-0 snap-center text-center">
-                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото и багет: пример оформления семейного фото" title="Пример напечатанного и оформленного в багет с паспарту семейного фото" src="https://muse.ooo/img/o-photo-in-the-frame-of-the-family.jpg">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото и багет: пример оформления семейного фото" title="Пример напечатанного и оформленного в багет с паспарту семейного фото" src="https://muse.ooo/upload/imgsite/o-photo-in-the-frame-of-the-family.webp">
                         <span class="text-lead block mt-2">Памятное событие</span>
                         <p class="text-small">Семейный портрет</p>
                     </div>
                     <div class="shrink-0 snap-center text-center">
-                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото и багет: пример оформления детских фото" title="Пример напечатанного и оформленного в багет фото с детьми" src="https://muse.ooo/img/o-photo-frame-for-children.jpg">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото и багет: пример оформления детских фото" title="Пример напечатанного и оформленного в багет фото с детьми" src="https://muse.ooo/upload/imgsite/o-photo-frame-for-children.webp">
                         <span class="text-lead block mt-2">Памятное событие</span>
                         <p class="text-small">Детские фотографии</p>
                     </div>
                     <div class="shrink-0 snap-center text-center">
-                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото и багет: пример оформления фото с выпускного" title="Пример напечатанного и оформленного в багет фото с выпускного" src="https://muse.ooo/img/o-photo-in-the-frame-of-graduates.jpg">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото и багет: пример оформления фото с выпускного" title="Пример напечатанного и оформленного в багет фото с выпускного" src="https://muse.ooo/upload/imgsite/o-photo-in-the-frame-of-graduates.webp">
                         <span class="text-lead block mt-2">Памятное событие</span>
                         <p class="text-small">Выпускной</p>
                     </div>
                     <div class="shrink-0 snap-center text-center">
-                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото и багет: пример оформления свадебного фото" title="Пример напечатанного и оформленного в багет свадебного фото" src="https://muse.ooo/img/o-photo-in-frame-from-wedding.jpg">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото и багет: пример оформления свадебного фото" title="Пример напечатанного и оформленного в багет свадебного фото" src="https://muse.ooo/upload/imgsite/o-photo-in-frame-from-wedding.webp">
                         <span class="text-lead block mt-2">Памятное событие</span>
                         <p class="text-small">Свадьба</p>
                     </div>
                     <div class="shrink-0 snap-center text-center">
-                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото и багет: пример оформления фото из путешествий" title="Пример оформления фото из путешествий" src="https://muse.ooo/img/o-photo-in-frame-from-travel.jpg">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото и багет: пример оформления фото из путешествий" title="Пример оформления фото из путешествий" src="https://muse.ooo/upload/imgsite/o-photo-in-frame-from-travel.webp">
                         <span class="text-lead block mt-2">Памятное событие</span>
                         <p class="text-small">Путешествие</p>
                     </div>
                     <div class="shrink-0 snap-center text-center">
-                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото и багет для гостиной" title="Пример напечатанного и оформленного в багет со стеклом фото для гостиной" src="https://muse.ooo/img/o-photo-in-the-frame-for-the-living-room.jpg">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото и багет для гостиной" title="Пример напечатанного и оформленного в багет со стеклом фото для гостиной" src="https://muse.ooo/upload/imgsite/o-photo-in-the-frame-for-the-living-room.webp">
                         <span class="text-lead block mt-2">Декор интерьера</span>
                         <p class="text-small">Гостиная</p>
                     </div>
                     <div class="shrink-0 snap-center text-center">
-                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото и багет для кабинета" title="Пример напечатанного и оформленного в багет, паспарту и стекло фото для кабинета" src="https://muse.ooo/img/o-photo-in-the-frame-for-the-office.jpg">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото и багет для кабинета" title="Пример напечатанного и оформленного в багет, паспарту и стекло фото для кабинета" src="https://muse.ooo/upload/imgsite/o-photo-in-the-frame-for-the-office.webp">
                         <span class="text-lead block mt-2">Декор интерьера</span>
                         <p class="text-small">Кабинет</p>
                     </div>
                     <div class="shrink-0 snap-center text-center">
-                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото и багет для спальни" title="Пример напечатанного и оформленного в багет со стеклом фото для спальни" src="https://muse.ooo/img/o-photo-in-the-frame-for-the-bedroom.jpg">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото и багет для спальни" title="Пример напечатанного и оформленного в багет со стеклом фото для спальни" src="https://muse.ooo/upload/imgsite/o-photo-in-the-frame-for-the-bedroom.webp">
                         <span class="text-lead block mt-2">Декор интерьера</span>
                         <p class="text-small">Спальня</p>
                     </div>
                     <div class="shrink-0 snap-center text-center">
-                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото и багет для кухни" title="Пример напечатанного и оформленного в багет со стеклом фото для кухни" src="https://muse.ooo/img/o-photo-in-the-frame-for-the-kitchen.jpg">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото и багет для кухни" title="Пример напечатанного и оформленного в багет со стеклом фото для кухни" src="https://muse.ooo/upload/imgsite/o-photo-in-the-frame-for-the-kitchen.webp">
                         <span class="text-lead block mt-2">Декор интерьера</span>
                         <p class="text-small">Кухня или столовая</p>
                     </div>
                     <div class="shrink-0 snap-center text-center">
-                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото и багет для детской" title="Пример напечатанного и оформленного в багет фото для детской" src="https://muse.ooo/img/o-photo-in-the-frame-for-the-room.jpg">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Печать фото и багет для детской" title="Пример напечатанного и оформленного в багет фото для детской" src="https://muse.ooo/upload/imgsite/o-photo-in-the-frame-for-the-room.webp">
                         <span class="text-lead block mt-2">Декор интерьера</span>
                         <p class="text-small">Детская комната</p>
                     </div>
@@ -587,7 +744,7 @@
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     <article class="bg-white border border-gray-200">
                         <a href="https://muse.ooo/blog/paspartu/" class="block">
-                            <img loading="lazy" decoding="async" width="300" height="200" alt="Примеры паспарту" title="Что такое паспарту и как его правильно подобрать к фотографии или картине?" src="https://muse.ooo/img/types-of-passepartout.jpg" class="w-full">
+                            <img loading="lazy" decoding="async" width="300" height="200" alt="Примеры паспарту" title="Что такое паспарту и как его правильно подобрать к фотографии или картине?" src="https://muse.ooo/upload/imgsite/types-of-passepartout.webp" class="w-full">
                             <div class="p-4 border-t border-gray-200">
                                 <span class="text-gray-600">Что такое паспарту и как его правильно подобрать к фотографии или картине?</span>
                             </div>
@@ -595,7 +752,7 @@
                     </article>
                     <article class="bg-white border border-gray-200">
                         <a href="https://muse.ooo/blog/pechat-foto-i-reproduktsiy-na-fotobumage/" class="block">
-                            <img loading="lazy" decoding="async" width="500" height="333" alt="Фотопечати на фотобумаге" title="Печать фотографий и репродукций на бумаге" src="https://muse.ooo/img/printing-on-photo-paper.jpg" class="w-full">
+                            <img loading="lazy" decoding="async" width="500" height="333" alt="Фотопечати на фотобумаге" title="Печать фотографий и репродукций на бумаге" src="https://muse.ooo/upload/imgsite/printing-on-photo-paper.webp" class="w-full">
                             <div class="p-4 border-t border-gray-200">
                                 <span class="text-gray-600">Печать фотографий и репродукций на бумаге</span>
                             </div>
@@ -603,7 +760,7 @@
                     </article>
                     <article class="bg-white border border-gray-200">
                         <a href="https://muse.ooo/blog/ramka-dlya-foto-i-kartin/" class="block">
-                            <img loading="lazy" decoding="async" width="297" height="200" alt="О багете и оформлении в раму" title="Что такое багет и зачем он нужен?" src="https://muse.ooo/img/canvas_in_frame.jpg" class="w-full">
+                            <img loading="lazy" decoding="async" width="297" height="200" alt="О багете и оформлении в раму" title="Что такое багет и зачем он нужен?" src="https://muse.ooo/upload/imgsite/canvas_in_frame.webp" class="w-full">
                             <div class="p-4 border-t border-gray-200">
                                 <span class="text-gray-600">Что такое багет и зачем он нужен?</span>
                             </div>
@@ -611,7 +768,7 @@
                     </article>
                     <article class="bg-white border border-gray-200">
                         <a href="https://muse.ooo/blog/vybor-razmera-foto-i-reproduktsiy/" class="block">
-                            <img loading="lazy" decoding="async" width="300" height="200" alt="Рекомендации по подбору фото на холсте правильного размера" title="7 рекомендаций по подбору фотокартин правильного размера" src="https://muse.ooo/img/canvas_print.jpg" class="w-full">
+                            <img loading="lazy" decoding="async" width="300" height="200" alt="Рекомендации по подбору фото на холсте правильного размера" title="7 рекомендаций по подбору фотокартин правильного размера" src="https://muse.ooo/upload/imgsite/canvas_print.webp" class="w-full">
                             <div class="p-4 border-t border-gray-200">
                                 <span class="text-gray-600">7 рекомендаций по подбору фотокартин правильного размера</span>
                             </div>
@@ -657,13 +814,11 @@
             </div>
         </section>
 
-        <!-- ===============================================
-             13. CTA — призыв к действию
-        ================================================ -->
+        <!-- CTA (структура как в эталоне, цвета из страницы) -->
         <section class="cta-section">
             <div class="cta-container">
                 <h2 class="cta-title">
-                    Оформите фото в рамку
+                    Создай своё произведение искусства
                 </h2>
                 <div class="cta-actions">
                     <a href="https://muse.ooo/order/" class="btn-primary">
@@ -682,5 +837,43 @@
 
     <!-- Navigation Scripts -->
     <script defer src="../js/nav.js"></script>
+    <!-- Calculator Scripts (type: frame) -->
+    <script defer src="../js/uploader.js"></script>
+    <script defer src="../js/prices.js"></script>
+    <script defer src="../js/calc.js?v=3"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calcRoot = document.querySelector('[data-calc-root]');
+            if (!calcRoot) return;
+
+            function startCalc() {
+                if (window.__MUSE_CALC_BOOTED__) return;
+                window.__MUSE_CALC_BOOTED__ = true;
+                CalcInit({
+                    type: 'frame',
+                    prices: window.MUSE_PRICES && window.MUSE_PRICES.frame,
+                    tooltips: window.MUSE_TOOLTIPS && window.MUSE_TOOLTIPS.frame
+                });
+            }
+
+            if (!('IntersectionObserver' in window)) {
+                startCalc();
+                return;
+            }
+
+            var observer = new IntersectionObserver(function (entries) {
+                if (entries.some(function (entry) { return entry.isIntersecting; })) {
+                    observer.disconnect();
+                    if ('requestIdleCallback' in window) {
+                        requestIdleCallback(startCalc, { timeout: 800 });
+                    } else {
+                        setTimeout(startCalc, 0);
+                    }
+                }
+            }, { rootMargin: '300px 0px' });
+
+            observer.observe(calcRoot);
+        });
+    </script>
 </body>
 </html>

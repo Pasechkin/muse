@@ -35,9 +35,10 @@
     <!-- Page Navigator -->
     <nav class="page-navigator" id="page-navigator">
         <ul>
+            <li><a href="#work" class="inner-link" data-title="Характеристики"><span class="sr-only">Характеристики</span></a></li>
             <li><a href="#calc" class="inner-link" data-title="Цена"><span class="sr-only">Цена</span></a></li>
-            <li><a href="#work" class="inner-link" data-title="Включено"><span class="sr-only">Включено</span></a></li>
             <li><a href="#order" class="inner-link" data-title="Как заказать"><span class="sr-only">Как заказать</span></a></li>
+            <li><a href="#primery" class="inner-link" data-title="Примеры"><span class="sr-only">Примеры работ</span></a></li>
             <li><a href="#review" class="inner-link" data-title="Отзывы"><span class="sr-only">Отзывы</span></a></li>
         </ul>
     </nav>
@@ -83,7 +84,7 @@
             </div>
 
             <div class="container relative z-10">
-                <div class="max-w-3xl lg:pt-[35vh]">
+                <div class="max-w-3xl">
                     <nav class="breadcrumbs mb-4" aria-label="Breadcrumb">
                         <ol class="flex list-none p-0">
                             <li class="flex items-center">
@@ -110,47 +111,10 @@
             </div>
         </section>
 
-        <!-- Печать на холсте -->
-        <section class="py-16 lg:py-24 content-auto">
-            <div class="container">
-                <h2 class="heading-section text-center mb-4">Печать на холсте</h2>
-                <p class="text-lead text-center mb-12">
-                    Что делает печать на холсте от Muse столь привлекательной?
-                </p>
-
-                <div class="grid sm:grid-cols-3 gap-8">
-                    <!-- Видна каждая деталь -->
-                    <div class="text-center p-6 border border-gray-200 rounded-lg bg-secondary">
-                        <h3 class="heading-card mb-3">Видна каждая деталь</h3>
-                        <p>
-                            Плоттер для печати фотографий и репродукций Epson SC-P 7000 - один из самых лучших в мире.
-                        </p>
-                    </div>
-
-                    <!-- Стойкий цвет -->
-                    <div class="text-center p-6 border border-gray-200 rounded-lg bg-secondary">
-                        <h3 class="heading-card mb-3">Стойкий цвет</h3>
-                        <p>
-                            Оригинальные пигментные чернила Epson - не выгорают и сохраняют красоту цвета в течение десятилетий.
-                        </p>
-                        <span class="inline-block mt-3 text-small bg-primary/10 text-primary px-3 py-1 rounded-full">Цветопередача 98% Pantone</span>
-                    </div>
-
-                    <!-- Фактурный холст -->
-                    <div class="text-center p-6 border border-gray-200 rounded-lg bg-secondary">
-                        <h3 class="heading-card mb-3">Фактурный холст</h3>
-                        <p>
-                            Плотный натуральный холст Lomond - проверенное временем качество.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Включено -->
+        <!-- Характеристики -->
         <section class="bg-secondary py-16 lg:py-24 content-auto" id="work">
             <div class="container">
-                <h2 class="heading-section text-center mb-12">Включено</h2>
+            <h2 class="heading-section text-center mb-12">Характеристики</h2>
 
                 <div class="grid lg:grid-cols-2 gap-10 items-start">
                     <!-- Чеклист -->
@@ -168,20 +132,33 @@
                         <li class="check-list-item">Гарантия 5 лет</li>
                     </ul>
 
-                    <!-- Фото продукта -->
-                    <div class="space-y-4">
-                        <img src="/img/o-product-multi-panels-front-442.jpg"
-                            alt="Фото печать модульной картины на холсте с подрамником"
-                            title="Лицевая сторона модульной картины на холсте с подрамником"
-                            class="w-full rounded-lg"
-                            width="442" height="332"
-                            loading="lazy" decoding="async">
-                        <img src="/img/o-product-multi-panels-back-442.jpg"
-                            alt="Фото обратной стороны модульной картины на холсте с подрамником"
-                            title="Обратная сторона модульной картины на холсте с подрамником"
-                            class="w-full rounded-lg"
-                            width="442" height="332"
-                            loading="lazy" decoding="async">
+                    <!-- Слайдер продукта -->
+                    <div data-tabs class="flex flex-col-reverse">
+                        <div data-tab-list class="mx-auto mt-4 w-full max-w-md grid grid-cols-2 gap-3">
+                            <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
+                                <span class="sr-only">Лицевая сторона модульной картины</span>
+                                <span class="absolute inset-0 overflow-hidden rounded">
+                                    <img src="https://muse.ooo/upload/imgsite/o-product-multi-panels-front-442.webp" alt="Фото печать модульной картины на холсте с подрамником" title="Лицевая сторона модульной картины на холсте с подрамником" width="442" height="332" class="size-full object-cover" loading="lazy" decoding="async">
+                                </span>
+                                <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
+                            </button>
+                            <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
+                                <span class="sr-only">Обратная сторона модульной картины</span>
+                                <span class="absolute inset-0 overflow-hidden rounded">
+                                    <img src="https://muse.ooo/upload/imgsite/o-product-multi-panels-back-442.webp" alt="Фото обратной стороны модульной картины на холсте с подрамником" title="Обратная сторона модульной картины на холсте с подрамником" width="442" height="332" class="size-full object-cover" loading="lazy" decoding="async">
+                                </span>
+                                <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
+                            </button>
+                        </div>
+
+                        <div data-tab-panels>
+                            <div>
+                                <img src="https://muse.ooo/upload/imgsite/o-product-multi-panels-front-442.webp" alt="Фото печать модульной картины на холсте с подрамником" title="Лицевая сторона модульной картины на холсте с подрамником" width="442" height="332" class="w-full rounded-lg object-cover" loading="lazy" decoding="async">
+                            </div>
+                            <div hidden>
+                                <img src="https://muse.ooo/upload/imgsite/o-product-multi-panels-back-442.webp" alt="Фото обратной стороны модульной картины на холсте с подрамником" title="Обратная сторона модульной картины на холсте с подрамником" width="442" height="332" class="w-full rounded-lg object-cover" loading="lazy" decoding="async">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -191,198 +168,11 @@
             </div>
         </section>
 
-        <!-- Ваш выбор -->
-        <section class="py-16 lg:py-24 content-auto">
+        <!-- Promo Banner — скидка, показывается после секции характеристик -->
+        <section class="promo-section my-12 lg:my-16">
             <div class="container">
-                <h2 class="heading-section text-center mb-12">Ваш выбор</h2>
-
-                <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-                    <!-- Размер -->
-                    <div class="text-center">
-                        <!-- SVG placeholder -->
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 64 64"><rect width="64" height="64" rx="8" fill="none" stroke="currentColor" stroke-width="2"/><text x="32" y="36" text-anchor="middle" fill="currentColor" font-size="10">SVG</text></svg>
-                        <h3 class="heading-card">Размер</h3>
-                        <p class="text-left mt-3">Вы можете выбрать один из популярных размеров или выбрать "Свой" размер, начиная с 30x30 см. и заканчивая 55 см. по одной стороне и неограниченной длиной по другой.</p>
-                    </div>
-
-                    <!-- Материал -->
-                    <div class="text-center">
-                        <!-- SVG placeholder -->
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 64 64"><rect width="64" height="64" rx="8" fill="none" stroke="currentColor" stroke-width="2"/><text x="32" y="36" text-anchor="middle" fill="currentColor" font-size="10">SVG</text></svg>
-                        <h3 class="heading-card">Материал</h3>
-                        <p class="text-left mt-3">Для фотокачества - хлопок. Для художественного эффекта или фото с плохим разрешением - лён. У хлопка плетение гладкое, а у льна более выраженное.</p>
-                    </div>
-
-                    <!-- Подрамник -->
-                    <div class="text-center">
-                        <!-- SVG placeholder -->
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 64 64"><rect width="64" height="64" rx="8" fill="none" stroke="currentColor" stroke-width="2"/><text x="32" y="36" text-anchor="middle" fill="currentColor" font-size="10">SVG</text></svg>
-                        <h3 class="heading-card">Подрамник</h3>
-                        <p class="text-left mt-3">Подрамник 2 см.- это стандарт. На него легко найти багет. Для интерьеров в стиле лофт, кантри подойдет подрамник толщиной 3,5 см.</p>
-                    </div>
-
-                    <!-- Торец -->
-                    <div class="text-center">
-                        <!-- SVG placeholder -->
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 64 64"><rect width="64" height="64" rx="8" fill="none" stroke="currentColor" stroke-width="2"/><text x="32" y="36" text-anchor="middle" fill="currentColor" font-size="10">SVG</text></svg>
-                        <h3 class="heading-card">Торец</h3>
-                        <p class="text-left mt-3">Холст на подрамник натягивается галерейным способом. Изображение отзеркаливается и продолжается на торце. По Вашему желанию торец можно запечатать любым цветом.</p>
-                    </div>
-
-                    <!-- Лак -->
-                    <div class="text-center">
-                        <!-- SVG placeholder -->
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 64 64"><rect width="64" height="64" rx="8" fill="none" stroke="currentColor" stroke-width="2"/><text x="32" y="36" text-anchor="middle" fill="currentColor" font-size="10">SVG</text></svg>
-                        <h3 class="heading-card">Лак</h3>
-                        <p class="text-left mt-3">Пигментные чернила не выгорают, поэтому нет необходимости в покрытии лаком. Лак мы рекомендуем для придания изображению глянца или для картин, которые будут размещены в проходных местах.</p>
-                    </div>
-
-                    <!-- Багет -->
-                    <div class="text-center">
-                        <!-- SVG placeholder -->
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 64 64"><rect width="64" height="64" rx="8" fill="none" stroke="currentColor" stroke-width="2"/><text x="32" y="36" text-anchor="middle" fill="currentColor" font-size="10">SVG</text></svg>
-                        <h3 class="heading-card">Багет</h3>
-                        <p class="text-left mt-3">Если решите оформить работу в раму, то Вы можете самостоятельно подобрать её в конструкторе Muse на свой вкус или поручить нам, и мы пришлем варианты для выбора.</p>
-                    </div>
-
-                    <!-- Крепление -->
-                    <div class="text-center">
-                        <!-- SVG placeholder -->
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 64 64"><rect width="64" height="64" rx="8" fill="none" stroke="currentColor" stroke-width="2"/><text x="32" y="36" text-anchor="middle" fill="currentColor" font-size="10">SVG</text></svg>
-                        <h3 class="heading-card">Крепление</h3>
-                        <p class="text-left mt-3">Как правило устанавливаем зубчатые крепления "Крокодил". Работа будет висеть параллельно стене. Для живописных работ, оформленных в багет мы рекомендуем металлический трос.</p>
-                    </div>
-
-                    <!-- Базовый дизайн (с accordion) -->
-                    <div class="text-center">
-                        <!-- SVG placeholder -->
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 64 64"><rect width="64" height="64" rx="8" fill="none" stroke="currentColor" stroke-width="2"/><text x="32" y="36" text-anchor="middle" fill="currentColor" font-size="10">SVG</text></svg>
-                        <h3 class="heading-card">Обработка фото</h3>
-
-                        <div class="text-left mt-3 space-y-3">
-                            <details class="group" open>
-                                <summary class="flex items-center justify-between gap-4 py-2 cursor-pointer list-none font-medium hover:opacity-80 transition-opacity w-full text-left">
-                                    <span>Базовый дизайн</span>
-                                    <svg fill="currentColor" class="size-5 shrink-0 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.06z" clip-rule="evenodd"/></svg>
-                                </summary>
-                                <div class="mt-2">
-                                    <ul class="list-disc pl-5 mt-2 space-y-1">
-                                        <li>Полная оптимизация цвета;</li>
-                                        <li>Улучшение контрастности и экспозиции;</li>
-                                        <li>Повышение резкости изображения;</li>
-                                        <li>Устранение шумов изображения;</li>
-                                        <li>Удаление эффекта красных глаз, даты и незначительных дефектов.</li>
-                                    </ul>
-                                </div>
-                            </details>
-
-                            <details class="group">
-                                <summary class="flex items-center justify-between gap-4 py-2 cursor-pointer list-none font-medium hover:opacity-80 transition-opacity w-full text-left">
-                                    <span>Оптимальный дизайн</span>
-                                    <svg fill="currentColor" class="size-5 shrink-0 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.06z" clip-rule="evenodd"/></svg>
-                                </summary>
-                                <div class="mt-2">
-                                    <p>Дополнительно к базовому:</p>
-                                    <ul class="list-disc pl-5 mt-2 space-y-1">
-                                        <li>Естественная портретная ретушь;</li>
-                                        <li>Гладкий чистый вид кожи;</li>
-                                        <li>Коррекция лица фигуры;</li>
-                                        <li>Подчеркнутая выразительность глаз и белоснежность улыбки;</li>
-                                        <li>Настройка цвета/экспозиции;</li>
-                                        <li>Добавление текста;</li>
-                                        <li>Корректировка «красных лиц».</li>
-                                    </ul>
-                                </div>
-                            </details>
-
-                            <details class="group">
-                                <summary class="flex items-center justify-between gap-4 py-2 cursor-pointer list-none font-medium hover:opacity-80 transition-opacity w-full text-left">
-                                    <span>Премиальный дизайн</span>
-                                    <svg fill="currentColor" class="size-5 shrink-0 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.06z" clip-rule="evenodd"/></svg>
-                                </summary>
-                                <div class="mt-2">
-                                    <p>Дополнительно к оптимальному:</p>
-                                    <ul class="list-disc pl-5 mt-2 space-y-1">
-                                        <li>Замена фона, лиц, удаление части изображения;</li>
-                                        <li>Черно-белое в цветное.</li>
-                                    </ul>
-                                </div>
-                            </details>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Как заказать модульную картину -->
-        <section class="bg-secondary py-16 lg:py-24 content-auto" id="order">
-            <div class="container">
-                <h2 class="heading-section text-center mb-12">Как заказать модульную картину</h2>
-
-                <!-- Преимущества: 3 карточки -->
-                <div class="grid sm:grid-cols-3 gap-8 mb-16">
-                    <!-- Оплата при получении -->
-                    <div class="text-center p-6 border border-gray-200 rounded-lg bg-white">
-                        <!-- SVG placeholder -->
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 64 64"><rect width="64" height="64" rx="8" fill="none" stroke="currentColor" stroke-width="2"/><text x="32" y="36" text-anchor="middle" fill="currentColor" font-size="10">SVG</text></svg>
-                        <p class="heading-card">Оплата<br>при получении</p>
-                    </div>
-
-                    <!-- Бесплатная доставка -->
-                    <div class="text-center p-6 border border-gray-200 rounded-lg bg-white">
-                        <!-- SVG placeholder -->
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 64 64"><rect width="64" height="64" rx="8" fill="none" stroke="currentColor" stroke-width="2"/><text x="32" y="36" text-anchor="middle" fill="currentColor" font-size="10">SVG</text></svg>
-                        <p class="heading-card">Бесплатная доставка<br>до пунктов выдачи</p>
-                    </div>
-
-                    <!-- Гарантия 5 лет -->
-                    <div class="text-center p-6 border border-gray-200 rounded-lg bg-white">
-                        <!-- SVG placeholder -->
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 64 64"><rect width="64" height="64" rx="8" fill="none" stroke="currentColor" stroke-width="2"/><text x="32" y="36" text-anchor="middle" fill="currentColor" font-size="10">SVG</text></svg>
-                        <p class="heading-card">Гарантия<br>5 лет</p>
-                    </div>
-                </div>
-
-                <!-- Процесс заказа: 4 шага -->
-                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <!-- Шаг 1: Заказ -->
-                    <div>
-                        <div class="shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-secondary flex items-center justify-center mb-4">
-                            <span class="text-xl font-bold text-primary">1</span>
-                        </div>
-                        <h3 class="heading-card mb-2">Заказ</h3>
-                        <ul class="list-disc pl-5 space-y-1">
-                            <li>Нажмите кнопку "Конструктор" и в нём создайте эскиз своей будущей картины.</li>
-                            <li>Или нажмите кнопку "Заказать" и вышлите нам изображение (задание по поиску изображения) для Вашей картины, напишите пожелания.</li>
-                        </ul>
-                    </div>
-
-                    <!-- Шаг 2: Макет -->
-                    <div>
-                        <div class="shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-secondary flex items-center justify-center mb-4">
-                            <span class="text-xl font-bold text-primary">2</span>
-                        </div>
-                        <h3 class="heading-card mb-2">Макет</h3>
-                        <p>В течение 1 часа рабочего времени мы перезвоним Вам, чтобы обсудить детали. Внесём необходимые изменения в эскиз модульной картины из Конструктора Muse или уточним детали по дизайну. После того, как макет модульной картины будет создан, и Вы согласитесь, что всё устраивает и нет замечаний мы приступим к печати и оформлению.</p>
-                    </div>
-
-                    <!-- Шаг 3: Изготовление -->
-                    <div>
-                        <div class="shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-secondary flex items-center justify-center mb-4">
-                            <span class="text-xl font-bold text-primary">3</span>
-                        </div>
-                        <h3 class="heading-card mb-2">Изготовление</h3>
-                        <p>Модульная картина будет изготовлена за 1 день после согласования Вами макета: напечатана на холсте, оформлена на подрамник, упакована и отдана в службу доставки.</p>
-                    </div>
-
-                    <!-- Шаг 4: Доставка и оплата -->
-                    <div>
-                        <div class="shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-secondary flex items-center justify-center mb-4">
-                            <span class="text-xl font-bold text-primary">4</span>
-                        </div>
-                        <h3 class="heading-card mb-2">Доставка и оплата</h3>
-                        <p>Доставка в выбранный пункт выдачи заказов бесплатная. Можно вызвать курьерскую службу. Оплата при получении модульной картины.</p>
-                    </div>
+                <div class="flex items-center justify-center">
+                    <p class="text-lead mb-0">Скидка 20% c 18 по 19 февраля</p>
                 </div>
             </div>
         </section>
@@ -413,8 +203,8 @@
                             <!-- Toolbar (above workspace, not overlapping) -->
                             <div id="mc-toolbar" class="flex-none px-3 py-1.5 flex items-center justify-between bg-white border-b border-gray-100">
                                 <div class="p-0.5 bg-gray-100 rounded-lg flex items-center gap-1">
-                                    <button id="mc-btn-mode-image" class="px-2.5 py-1 rounded-md text-[10px] uppercase font-bold tracking-wider text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-all">Сдвиг фото</button>
-                                    <button id="mc-btn-mode-layout" class="px-2.5 py-1 rounded-md text-[10px] uppercase font-bold tracking-wider bg-white text-primary shadow-sm ring-1 ring-black/5 transition-all">Макет</button>
+                                    <button id="mc-btn-mode-image" class="px-3 py-2 rounded-md text-[10px] uppercase font-bold tracking-wider text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-all" aria-pressed="false">Сдвиг фото</button>
+                                    <button id="mc-btn-mode-layout" class="px-3 py-2 rounded-md text-[10px] uppercase font-bold tracking-wider bg-white text-primary shadow-sm ring-1 ring-black/5 transition-all" aria-pressed="true">Макет</button>
                                 </div>
                                 <span id="mc-size-label" class="text-xs font-bold text-gray-500 whitespace-nowrap">0 × 0 см</span>
                                 <div id="mc-img-controls" class="hidden items-center gap-1">
@@ -487,6 +277,300 @@
             </div>
         </section>
 
+        <!-- Ваш выбор -->
+        <section class="py-16 lg:py-24 content-auto">
+            <div class="container">
+                <h2 class="heading-section text-center mb-12">Варианты для заказа</h2>
+
+                <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+                    <!-- Размер -->
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 1889 1889"><path d="M130 0h1729c17 0 30 13 30 30v1729c0 17-13 30-30 30h-590v20c0 17-14 30-30 30H605v20c0 17-13 30-30 30H30c-17 0-30-13-30-30v-545c0-17 13-30 30-30h20V650c0-16 13-30 30-30h20V30c0-17 13-30 30-30m475 1779h604V680H110v604h465c17 0 30 13 30 30zm-60-435H60v485h485zm724 385h560V60H160v560h1079c16 0 30 14 30 30z"/></svg>
+                        <h3 class="heading-card">Размер</h3>
+                        <p class="text-left mt-3">Вы можете выбрать один из популярных размеров или выбрать "Свой" размер, начиная с 30x30 см. и заканчивая 55 см. по одной стороне и неограниченной длиной по другой.</p>
+                    </div>
+
+                    <!-- Материал -->
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 1889 1889"><path d="M517 1829h102v-6c0-16 14-30 30-30 17 0 30 14 30 30v6h358v-6c0-16 13-30 30-30 16 0 30 14 30 30v6h357v-6c0-16 13-30 30-30 16 0 30 14 30 30v6h315v-109h-4c-16 0-30-13-30-30 0-16 14-30 30-30h4v-357h-4c-16 0-30-13-30-30 0-16 14-30 30-30h4V886h-4c-16 0-30-14-30-30 0-17 14-30 30-30h4V517h-107a29.6 29.6 0 0 1-59 0h-358c-1 15-14 27-30 27-15 0-28-12-30-27H888c-2 15-14 27-30 27s-28-12-30-27H517v100c16 1 29 14 29 30 0 17-13 30-29 30v358c16 0 29 13 29 29 0 17-13 30-29 30v358c16 0 29 13 29 30 0 16-13 29-29 30zm1312-109v-60h-4c-16 0-30 14-30 30 0 17 14 30 30 30zM1722 517h-59a29.6 29.6 0 0 0 59 0m-105 995c-17 0-30-14-30-30 0-17 13-30 30-30h151c17 0 30 13 30 30 0 16-13 30-30 30zm105 254c0 17-13 30-30 30-16 0-30-13-30-30v-151c0-17 14-30 30-30 17 0 30 13 30 30zm-314-46c-16 0-30-13-30-30 0-16 14-30 30-30h152c16 0 30 14 30 30 0 17-14 30-30 30zm255-523c0-16 13-30 30-30 16 0 30 14 30 30v152c0 16-14 30-30 30-17 0-30-14-30-30zm-255 106c-16 0-30-13-30-30 0-16 14-30 30-30h152c16 0 30 14 30 30 0 17-14 30-30 30zm106 254c0 17-14 30-30 30-17 0-30-13-30-30v-151c0-16 13-30 30-30 16 0 30 14 30 30zm-314-45c-17 0-30-14-30-30 0-17 13-30 30-30h151c16 0 30 13 30 30 0 16-14 30-30 30zm105 254c0 17-13 30-30 30-16 0-30-13-30-30v-151c0-17 14-30 30-30 17 0 30 13 30 30zm-314-46c-17 0-30-13-30-30 0-16 13-30 30-30h151c17 0 30 14 30 30 0 17-13 30-30 30zm254-523c0-16 14-30 30-30 17 0 30 14 30 30v152c0 16-13 30-30 30-16 0-30-14-30-30zm-254 106c-17 0-30-13-30-30 0-16 13-30 30-30h151c17 0 30 14 30 30 0 17-13 30-30 30zm106 254c0 17-14 30-30 30-17 0-30-13-30-30v-151c0-16 13-30 30-30 16 0 30 14 30 30zm-315-45c-16 0-30-14-30-30 0-17 14-30 30-30h152c16 0 30 13 30 30 0 16-14 30-30 30zm106 254c0 17-13 30-30 30s-30-13-30-30v-151c0-17 13-30 30-30s30 13 30 30zm-314-46c-17 0-30-13-30-30 0-16 13-30 30-30h151c17 0 30 14 30 30 0 17-13 30-30 30zm254-523c0-16 13-30 30-30s30 14 30 30v152c0 16-13 30-30 30s-30-14-30-30zm-254 106c-17 0-30-13-30-30 0-16 13-30 30-30h151c17 0 30 14 30 30 0 17-13 30-30 30zm105 254c0 17-13 30-30 30-16 0-30-13-30-30v-151c0-16 14-30 30-30 17 0 30 14 30 30zm938-463c-17 0-30-13-30-30 0-16 13-30 30-30h151c17 0 30 14 30 30 0 17-13 30-30 30zm0-417c-17 0-30-13-30-30 0-16 13-30 30-30h151c17 0 30 14 30 30 0 17-13 30-30 30zm106 255c0 16-14 30-30 30-17 0-30-14-30-30V780c0-16 13-30 30-30 16 0 30 14 30 30zm-315-46c-16 0-30-14-30-30 0-17 14-30 30-30h152c16 0 30 13 30 30 0 16-14 30-30 30zm106 254c0 17-14 30-30 30-17 0-30-13-30-30V989c0-17 13-30 30-30 16 0 30 13 30 30zm-314-46c-17 0-30-13-30-30 0-16 13-30 30-30h151c16 0 30 14 30 30 0 17-14 30-30 30zm314-371c0 16-14 30-30 30-17 0-30-14-30-30V572c0-17 13-30 30-30 16 0 30 13 30 30zm-314-46c-17 0-30-13-30-30 0-16 13-30 30-30h151c16 0 30 14 30 30 0 17-14 30-30 30zm105 255c0 16-13 30-30 30-16 0-30-14-30-30V780c0-16 14-30 30-30 17 0 30 14 30 30zm-314-46c-17 0-30-14-30-30 0-17 13-30 30-30h151c17 0 30 13 30 30 0 16-13 30-30 30zm106 254c0 17-14 30-30 30-17 0-30-13-30-30V989c0-17 13-30 30-30 16 0 30 13 30 30zm-315-46c-16 0-30-13-30-30 0-16 14-30 30-30h152c16 0 30 14 30 30 0 17-14 30-30 30zm315-371c0 16-14 30-30 30-17 0-30-14-30-30V572c0-17 13-30 30-30 16 0 30 13 30 30zm-315-46c-16 0-30-13-30-30 0-16 14-30 30-30h152c16 0 30 14 30 30 0 17-14 30-30 30zm106 255c0 16-13 30-30 30s-30-14-30-30V780c0-16 13-30 30-30s30 14 30 30zm-314-46c-17 0-30-14-30-30 0-17 13-30 30-30h151c17 0 30 13 30 30 0 16-13 30-30 30zm105 254c0 17-13 30-30 30-16 0-30-13-30-30V989c0-17 14-30 30-30 17 0 30 13 30 30zm0-417c0 16-13 30-30 30-16 0-30-14-30-30V572c0-17 14-30 30-30 17 0 30 13 30 30zM60 1372h397v-63c-1-3-2-7-2-10 0-4 1-7 2-11v-57H336c-17 0-30-14-30-30 0-17 13-30 30-30h121v-58c-1-3-2-7-2-10 0-4 1-7 2-11v-57H336c-17 0-30-14-30-30 0-17 13-30 30-30h121v-58c-1-3-2-7-2-10 0-4 1-7 2-11v-57H336c-17 0-30-14-30-30 0-17 13-30 30-30h121v-58c-1-3-2-7-2-10 0-4 1-7 2-11v-57H336c-17 0-30-14-30-30 0-17 13-30 30-30h121v-58c-1-3-2-7-2-10 0-4 1-7 2-11v-17c0-16 14-30 30-30h885v-10h-137c-17 0-30-14-30-30 0-17 13-30 30-30h137v-41c-10-5-18-15-18-27s8-23 18-28v-40h-137c-17 0-30-14-30-30 0-17 13-30 30-30h137v-41c-10-5-18-15-18-27s8-23 18-28V60H60v34c13 3 22 15 22 29 0 13-9 25-22 29v39h142c16 0 30 13 30 30 0 16-14 30-30 30H60v39c13 3 22 15 22 29 0 13-9 25-22 29v39h142c16 0 30 13 30 30 0 16-14 30-30 30H60v39c13 3 22 15 22 29 0 13-9 25-22 28v40h142c16 0 30 13 30 30 0 16-14 30-30 30H60v39c13 3 22 15 22 29 0 13-9 25-22 28v40h142c16 0 30 13 30 30 0 16-14 30-30 30H60v39c13 3 22 15 22 29 0 13-9 25-22 28v40h142c16 0 30 13 30 30 0 16-14 30-30 30H60v39c13 3 22 15 22 29 0 13-9 25-22 28v40h142c16 0 30 13 30 30 0 16-14 30-30 30H60v39c13 3 22 15 22 29 0 13-9 25-22 28zm397 60H30c-17 0-30-14-30-30V30C0 13 13 0 30 0h1372c16 0 30 13 30 30v427h427c17 0 30 14 30 30v1372c0 17-13 30-30 30H487c-16 0-30-13-30-30zm628-1279c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm-300 0c-16 0-30-14-30-30 0-17 14-30 30-30h166c16 0 30 13 30 30 0 16-14 30-30 30zm-300 0c-16 0-30-14-30-30 0-17 14-30 30-30h166c17 0 30 13 30 30 0 16-13 30-30 30zm-299 0c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm899 196c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm-300 0c-16 0-30-14-30-30 0-17 14-30 30-30h166c16 0 30 13 30 30 0 16-14 30-30 30zm-300 0c-16 0-30-14-30-30 0-17 14-30 30-30h166c17 0 30 13 30 30 0 16-13 30-30 30zm-299 0c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm749-98c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm-300 0c-16 0-30-14-30-30 0-17 14-30 30-30h166c16 0 30 13 30 30 0 16-14 30-30 30zm-299 0c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zM186 545c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm749-98c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm-300 0c-16 0-30-14-30-30 0-17 14-30 30-30h166c16 0 30 13 30 30 0 16-14 30-30 30zm-299 0c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zM186 741c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm0 196c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm0 196c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm0 196c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30z"/></svg>
+                        <h3 class="heading-card">Материал</h3>
+                        <p class="text-left mt-3">Для фотокачества - хлопок. Для художественного эффекта или фото с плохим разрешением - лён. У хлопка плетение гладкое, а у льна более выраженное.</p>
+                    </div>
+
+                    <!-- Подрамник -->
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 1889 1889"><path d="M1229 117 846 607v1222h383zM473 0h343c16 0 30 13 30 30v480l388-496v-1l1-1 1-1v-1h1V9h1V8h1V7h1V6h2V5h1V4h2V3h2V2h3V1h3l1-1h605c17 0 30 13 30 30v1829c0 17-13 30-30 30H30c-17 0-30-13-30-30V597c0-7 2-13 6-19L448 14v-1h1v-1l1-1v-1h1V9h1V8h1V7h1l1-1h1V5h1V4h2V3h2V2h3V1h3l1-1zm313 60H503v1769h283zm1043 0h-540v1769h540zM443 117 60 607v1222h383z"/></svg>
+                        <h3 class="heading-card">Подрамник</h3>
+                        <p class="text-left mt-3">Подрамник 2 см.- это стандарт. На него легко найти багет. Для интерьеров в стиле лофт, кантри подойдет подрамник толщиной 3,5 см.</p>
+                    </div>
+
+                    <!-- Торец -->
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 1889 1889"><path d="M1388 0h471c17 0 30 13 30 30v1829c0 17-13 30-30 30H30c-17 0-30-13-30-30V597c0-7 2-13 6-19l221-282c1-1 1-2 2-3L448 14v-1h1v-1l1-1v-1h1V9h1V8h1V7h1l1-1h1V5h1V4h2V3h2V2h3V1h3l1-1h477c16 0 30 13 30 30v480l166-213c1-2 2-3 3-4l218-279 1-1v-1l1-1 1-1h1V9l1-1 1-1h1V6h1V5h1l1-1h1l1-1h2V2h2l1-1h3V0zm-195 327-218 774v147l335-1070zM975 881l121-429-121 155zM279 327 60 1101v156L400 172zM60 881l121-429L60 607zm383-646L61 1452c0 2 0 3-1 4v171L443 425zm60 177c2 6 3 13 1 20l-1 2v373c2 5 2 12 0 18v377c1 4 1 9 0 13v614h412V60H503zm-60 210L61 1819c0 2 0 3-1 4v6h50L443 815zm0 386-269 821h52l217-623zm0 379-154 442h53l101-233zm0 359-36 83h36zm975-947 411 225V699l-411-225zm411 293-411-225v325l411 225zm-471-866L975 1448v170l383-1202zm0 387L975 1815v14h47l336-1022zm0 386-273 830h52l220-630 1-1zm0 380-157 450h53l103-239 1-1zm0 360-39 90h39zM1496 60l333 182V60zm333 250L1418 85v321l411 224zm0 1175-411-225v324l411 225zm-87 344-324-177v177z"/></svg>
+                        <h3 class="heading-card">Торец</h3>
+                        <p class="text-left mt-3">Холст на подрамник натягивается галерейным способом. Изображение отзеркаливается и продолжается на торце. По Вашему желанию торец можно запечатать любым цветом.</p>
+                    </div>
+
+                    <!-- Лак -->
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 1889 1889"><path d="M1829 60H60v1769h1769zM956 1224l-102 205 102 204c8 15 2 33-13 40-9 4-19 4-27 0l-204-102-205 102c-14 7-32 1-40-13-4-9-4-19 0-27l103-204-103-205a30 30 0 0 1 40-40l205 102 204-102c15-7 33-1 40 13 5 9 4 19 0 27m-162 191 69-137-138 68c-8 4-18 5-27 0l-137-68 69 137c4 8 4 18 0 27l-69 138 137-69c9-4 18-5 27 0l138 69-69-138c-4-8-4-18 0-27m948-843-122 245 122 245c8 15 2 33-13 40-9 5-19 5-27 0l-245-122-245 122c-15 8-33 2-40-13q-6-13.5 0-27l122-245-122-245c-7-14-1-32 13-40 9-4 19-4 27 0l245 123 245-123c15-7 33-1 40 14 5 8 4 18 0 26m-182 232 89-178-178 89c-9 4-19 4-27 0l-179-89 90 178c4 8 4 18 0 27l-90 178 179-89c8-4 18-5 26 0l179 89-89-178c-4-8-5-18 0-27M864 173 667 497l197 323c9 14 4 33-10 41-10 6-22 6-32 0L499 664 176 861c-14 9-33 4-41-10-7-10-6-22 0-31l197-323-197-324c-9-14-5-33 9-41 11-6 23-6 32 0l323 197 324-197c14-9 32-4 41 10 6 10 6 22 0 31M606 481l143-234-234 142c-9 6-21 7-31 1L250 247l142 233c6 10 7 22 1 32L250 746l233-142c10-6 22-7 32-1l234 143-143-233c-6-10-6-22 0-32M30 0h1829c17 0 30 13 30 30v1829c0 17-13 30-30 30H30c-17 0-30-13-30-30V30C0 13 13 0 30 0"/></svg>
+                        <h3 class="heading-card">Лак</h3>
+                        <p class="text-left mt-3">Пигментные чернила не выгорают, поэтому нет необходимости в покрытии лаком. Лак мы рекомендуем для придания изображению глянца или для картин, которые будут размещены в проходных местах.</p>
+                    </div>
+
+                    <!-- Багет -->
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 1889 1889"><path d="M1787 60H102l298 298h1089zM400 1531l-298 298h1685l-298-298zM60 1787l298-298V400L60 102zm1471-298 298 298V102l-298 298zm-60-1071H418v1053h1053zM30 0h1832c1 0 2 0 3 1h3l1 1h2v1h2v1h2v1h1v1h2v1h1v1h1v1h1v1h1v1h1v2h1v1h1v2h1v2h1v2l1 1v3c1 1 1 2 1 3v1835c0 1 0 2-1 3v3l-1 1v2h-1v2h-1v2h-1v1h-1v2h-1v1h-1v1h-1v1h-1v1h-1v1h-2v1h-1v1h-2v1h-2v1h-2l-1 1h-3c-1 1-2 1-3 1H27c-1 0-2 0-3-1h-3l-1-1h-2v-1h-2v-1h-2v-1h-1v-1h-2v-1h-1v-1H9v-1H8v-1H7v-1H6v-2H5v-1H4v-2H3v-2H2v-2l-1-1v-3c-1-1-1-2-1-3V27c0-1 0-2 1-3v-3l1-1v-2h1v-2h1v-2h1v-1h1v-2h1v-1h1V9h1V8h1V7h1V6h2V5h1V4h2V3h2V2h2l1-1h3c1-1 2-1 3-1z"/></svg>
+                        <h3 class="heading-card">Багет</h3>
+                        <p class="text-left mt-3">Если решите оформить работу в раму, то Вы можете самостоятельно подобрать её в конструкторе Muse на свой вкус или поручить нам, и мы пришлем варианты для выбора.</p>
+                    </div>
+
+                    <!-- Крепление -->
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 1889 1200"><path d="M1550 0h309c17 0 30 13 30 30v1140c0 16-13 30-30 30h-309c-17 0-30-14-30-30v-90l-121-121-130 130c-12 12-31 12-43 0l-130-130-130 130c-12 12-31 12-43 0L793 959l-130 130c-12 12-31 12-43 0L490 959l-121 121v90c0 16-13 30-30 30H30c-17 0-30-14-30-30V30C0 13 13 0 30 0h309c17 0 30 13 30 30v90l121 121 130-130c12-12 31-12 43 0l130 130 130-130c12-12 31-12 43 0l130 130 130-130c12-12 31-12 43 0l130 130 121-121V30c0-17 13-30 30-30m30 807c0 16-14 30-30 30-17 0-30-14-30-30V393c0-17 13-30 30-30 16 0 30 13 30 30zm-1211 0c0 16-13 30-30 30-16 0-30-14-30-30V393c0-17 14-30 30-30 17 0 30 13 30 30zm1335-305c27 0 52 11 69 29a96.7 96.7 0 0 1 0 138 96.7 96.7 0 0 1-138 0c-17-18-28-42-28-69s11-52 28-69c18-18 42-29 69-29m27 71c-7-7-16-11-27-11-10 0-20 4-26 11a38.6 38.6 0 0 0 0 54c6 6 16 11 26 11 11 0 20-5 27-11a38.6 38.6 0 0 0 0-54M185 502c27 0 51 11 69 29 17 17 28 42 28 69s-11 51-28 69a96.7 96.7 0 0 1-138 0 96.7 96.7 0 0 1 0-138c17-18 42-29 69-29m26 71c-6-7-16-11-26-11-11 0-20 4-27 11s-11 16-11 27c0 10 4 20 11 27 7 6 16 11 27 11 10 0 20-5 26-11a38.6 38.6 0 0 0 0-54M1829 60h-249v73c0 7-3 15-9 21l-151 151c-12 11-31 11-42 0l-131-130-130 130c-12 11-31 11-42 0L945 175 814 305c-11 11-30 11-42 0L642 175 511 305c-11 11-30 11-42 0L318 154c-5-6-9-13-9-21V60H60v1080h249v-73c0-7 3-15 9-21l151-151c12-12 31-12 42 0l131 130 130-130c12-12 31-12 42 0l131 130 130-130c11-12 30-12 42 0l130 130 131-130c11-12 30-12 42 0l151 151c5 5 9 13 9 21v73h249z"/></svg>
+                        <h3 class="heading-card">Крепление</h3>
+                        <p class="text-left mt-3">Как правило устанавливаем зубчатые крепления "Крокодил". Работа будет висеть параллельно стене. Для живописных работ, оформленных в багет мы рекомендуем металлический трос.</p>
+                    </div>
+
+                    <!-- Обработка фото (с accordion) -->
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 2119 1889"><path d="M1829 60H60v1769h1769V691c-116 79-261 170-421 262l-1 1c-126 72-245 137-351 190-106 54-199 97-272 126-27 49-83 85-150 100-49 11-104 12-157-1-54-12-107-37-151-78-68-63-114-163-111-307 0-5 2-10 4-14 0-1 1-2 1-3l1-1 1-1 1-1 1-1 1-1h1v-1c3-2 6-3 10-4 2-1 5-2 8-2 6 0 10 2 15 4 0 1 1 1 2 2l1 1h1v1h1v1h1v1h1v1h1v1h1v1l1 1c79 113 177 99 269 87 80-10 155-20 220 33 54-39 118-83 190-130 100-66 217-137 342-209l2-2c204-117 394-216 536-279zM279 1067c12 81 45 140 88 180 36 33 79 54 123 64s90 10 131 1c39-9 73-26 95-49a82 82 0 0 1-38-74c0-12 2-24 7-37 2-6 5-11 10-14q6-6 15-12c-45-27-102-20-163-12-88 12-182 25-268-47m915-192c3 23 10 42 20 59 9 15 22 28 37 39 41-23 83-47 126-71l1-1c204-117 383-232 508-323 111-80 179-133 177-139-3-6-83 26-209 83-141 63-329 160-531 277l-3 2c-43 24-85 49-126 74m1 129c-13-12-24-25-33-40-10-16-17-35-22-56-56 34-109 68-159 100-98 64-181 123-242 170-1 5-1 9-1 12-1 7 1 13 4 17 2 4 6 6 11 8 1 1 3 1 5 1 72-28 165-71 271-125 53-27 108-56 166-87m694-354v1209c0 17-13 30-30 30H30c-17 0-30-13-30-30V30C0 13 13 0 30 0h1829c17 0 30 13 30 30v412c124-50 208-65 226-33 5 8 5 19 1 28-13 42-84 110-195 190-10 7-21 15-32 23"/></svg>
+                        <h3 class="heading-card">Обработка фото</h3>
+
+                        <div class="text-left mt-3 space-y-3">
+                            <details class="group">
+                                <summary class="flex items-center justify-between gap-4 py-2 cursor-pointer list-none font-medium hover:opacity-80 transition-opacity w-full text-left">
+                                    <span>Базовый дизайн</span>
+                                    <svg fill="currentColor" class="size-5 shrink-0 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.06z" clip-rule="evenodd"/></svg>
+                                </summary>
+                                <div class="mt-2">
+                                    <ul class="list-disc pl-5 mt-2 space-y-1">
+                                        <li>Полная оптимизация цвета;</li>
+                                        <li>Улучшение контрастности и экспозиции;</li>
+                                        <li>Повышение резкости изображения;</li>
+                                        <li>Устранение шумов изображения;</li>
+                                        <li>Удаление эффекта красных глаз, даты и незначительных дефектов.</li>
+                                    </ul>
+                                </div>
+                            </details>
+
+                            <details class="group">
+                                <summary class="flex items-center justify-between gap-4 py-2 cursor-pointer list-none font-medium hover:opacity-80 transition-opacity w-full text-left">
+                                    <span>Оптимальный дизайн</span>
+                                    <svg fill="currentColor" class="size-5 shrink-0 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.06z" clip-rule="evenodd"/></svg>
+                                </summary>
+                                <div class="mt-2">
+                                    <p>Дополнительно к базовому:</p>
+                                    <ul class="list-disc pl-5 mt-2 space-y-1">
+                                        <li>Естественная портретная ретушь;</li>
+                                        <li>Гладкий чистый вид кожи;</li>
+                                        <li>Коррекция лица фигуры;</li>
+                                        <li>Подчеркнутая выразительность глаз и белоснежность улыбки;</li>
+                                        <li>Настройка цвета/экспозиции;</li>
+                                        <li>Добавление текста;</li>
+                                        <li>Корректировка «красных лиц».</li>
+                                    </ul>
+                                </div>
+                            </details>
+
+                            <details class="group">
+                                <summary class="flex items-center justify-between gap-4 py-2 cursor-pointer list-none font-medium hover:opacity-80 transition-opacity w-full text-left">
+                                    <span>Премиальный дизайн</span>
+                                    <svg fill="currentColor" class="size-5 shrink-0 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.06z" clip-rule="evenodd"/></svg>
+                                </summary>
+                                <div class="mt-2">
+                                    <p>Дополнительно к оптимальному:</p>
+                                    <ul class="list-disc pl-5 mt-2 space-y-1">
+                                        <li>Замена фона, лиц, удаление части изображения;</li>
+                                        <li>Черно-белое в цветное.</li>
+                                    </ul>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Как заказать модульную картину -->
+        <section class="bg-dark py-16 lg:py-24 content-auto" id="order">
+            <div class="container">
+                <h2 class="heading-section text-center mb-12">Как заказать модульную картину</h2>
+
+                <div class="step-container max-w-4xl mx-auto">
+                    <div class="step-line"></div>
+
+                    <!-- Шаг 1: Заказ -->
+                    <div class="flex gap-4">
+                        <div class="shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center relative z-10">
+                            <span class="text-xl font-bold text-primary">1</span>
+                        </div>
+                        <div class="step-content">
+                            <h3 class="heading-card mb-2">Заказ</h3>
+                            <ul class="list-disc pl-5 space-y-1 text-white/80">
+                                <li>Нажмите кнопку "Конструктор" и в нём создайте эскиз своей будущей картины.</li>
+                                <li>Или нажмите кнопку "Заказать" и вышлите нам изображение (задание по поиску изображения) для Вашей картины, напишите пожелания.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Шаг 2: Макет -->
+                    <div class="flex gap-4">
+                        <div class="shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center relative z-10">
+                            <span class="text-xl font-bold text-primary">2</span>
+                        </div>
+                        <div class="step-content">
+                            <h3 class="heading-card mb-2">Макет</h3>
+                            <p class="text-white/80">В течение 1 часа рабочего времени мы перезвоним Вам, чтобы обсудить детали. Внесём необходимые изменения в эскиз модульной картины из Конструктора Muse или уточним детали по дизайну. После того, как макет модульной картины будет создан, и Вы согласитесь, что всё устраивает и нет замечаний мы приступим к печати и оформлению.</p>
+                        </div>
+                    </div>
+
+                    <!-- Шаг 3: Изготовление -->
+                    <div class="flex gap-4">
+                        <div class="shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center relative z-10">
+                            <span class="text-xl font-bold text-primary">3</span>
+                        </div>
+                        <div class="step-content">
+                            <h3 class="heading-card mb-2">Изготовление</h3>
+                            <p class="text-white/80">Модульная картина будет изготовлена за 1 день после согласования Вами макета: напечатана на холсте, оформлена на подрамник, упакована и отдана в службу доставки.</p>
+                        </div>
+                    </div>
+
+                    <!-- Шаг 4: Доставка и оплата -->
+                    <div class="flex gap-4">
+                        <div class="shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center relative z-10">
+                            <span class="text-xl font-bold text-primary">4</span>
+                        </div>
+                        <div class="step-content">
+                            <h3 class="heading-card mb-2">Доставка и оплата</h3>
+                            <p class="text-white/80">Доставка в выбранный пункт выдачи заказов бесплатная. Можно вызвать курьерскую службу. Оплата при получении модульной картины.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Преимущества -->
+        <section class="bg-primary py-16 lg:py-20 content-auto" id="preimushchestva">
+            <div class="container">
+                <h2 class="heading-section text-center mb-12">Преимущества</h2>
+
+                <div class="grid gap-6 lg:grid-cols-3">
+                    <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-lg">
+                        <div class="flex items-start justify-between gap-4">
+                            <span class="heading-card">Оборудование</span>
+                            <div class="w-10 h-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage" viewBox="0 0 325.9 325.9"><path d="M297.4 47.8h-24.5v-7.1c0-9.3-7.5-16.8-16.8-16.8H69.7c-9.3 0-16.8 7.5-16.8 16.8v7.1H28.5C12.7 47.8 0 60.5 0 76.2V116c0 12.6 8.3 23.2 19.7 27v115.7L9.5 289.6c-1.6 5 1 10.3 6 11.9 1 .3 2 .5 3 .5 4 0 7.7-2.5 9-6.5l10.7-32.4h.4v-1.3l10.2-30.9c1.6-5-1-10.3-6-11.9-1.4-.5-2.8-.5-4.2-.4v-74.1h22.9v111.4h202.9V144.5h17.2v69.4c-2.4-1.9-5.7-2.5-8.8-1.5-5 1.6-7.6 7-6 11.9l21.3 64.6c1.3 4 5 6.5 9 6.5 1 0 2-.2 3-.5 5-1.6 7.6-7 6-11.9l-6.6-19.9h1V144.2c14.3-1.5 25.4-13.5 25.4-28.2V76.2c0-15.7-12.8-28.4-28.5-28.4M63.7 40.7c0-3.3 2.7-6 6-6h186.4c3.3 0 6 2.7 6 6v7.1H63.7zm189.9 103.8v100.6H72.3V123.9c0-8.1 4.1-19.5 8.9-24.8l8.7-9.6h146l8.7 9.6c4.8 5.3 8.9 16.7 8.9 24.8v20.6z"/><path d="M232.7 106.4H93.2c-3 0-5.4 2.4-5.4 5.4s2.4 5.4 5.4 5.4h139.5c3 0 5.4-2.4 5.4-5.4s-2.5-5.4-5.4-5.4"/></svg>
+                            </div>
+                        </div>
+                        <p class="mt-3">Превратим фото в произведение искусства, напечатав его на одном из лучших широкоформатных принтеров: HP 315 или на Epson SC-P 7000.</p>
+                    </div>
+
+                    <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-lg">
+                        <div class="flex items-start justify-between gap-4">
+                            <span class="heading-card">Чернила</span>
+                            <div class="w-10 h-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage" viewBox="0 0 492.3 492.3"><path d="M394.1 208.4c-2.7-3.9-8.5-11.2-9-11.7C286.4 88 261.9 24.7 256.7 7.9 255.3 3.2 251 0 246.1 0c-4.8 0-9.1 3.2-10.5 7.9-5.2 16.8-29.7 80.2-128.8 189.3 0 0-5.8 7.3-8.5 11.2-24.7 35.2-35.9 78.4-31.6 121.7C75 414.2 141.9 482 225.8 491.2c7 .8 13.9 1.1 20.8 1.1 44.5 0 86.6-16 120.1-46 38.2-34.2 60.1-83.2 60.1-134.5-.1-37.3-11.4-73-32.7-103.4m-40.7 223.2c-34.5 30.9-79.1 45.1-125.6 40-74.7-8.2-134.3-68.6-141.7-143.5-3.8-38.6 6.2-77.1 28.2-108.5 2.4-3.4 7.4-9.8 7.4-9.8 77-84.8 110.4-143.7 124.4-174.9 14 31.2 47.3 90.1 124 174.5 0 0 5.3 6.7 7.8 10.2 19 27.1 29 59 29 92.1.1 45.8-19.4 89.4-53.5 119.9"/><path d="m136.5 323.1-19.6 1.9c5.8 59.4 55 109.2 114.3 115.8l2.2-19.6c-50.3-5.5-91.9-47.7-96.9-98.1"/></svg>
+                            </div>
+                        </div>
+                        <p class="mt-3">Благодаря печати оригинальными чернилами будет реалистичная цветопередача, богатые полутона и высокая светостойкость к выцветанию.</p>
+                    </div>
+
+                    <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-lg">
+                        <div class="flex items-start justify-between gap-4">
+                            <span class="heading-card">Холст</span>
+                            <div class="w-10 h-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage" viewBox="0 0 1889 1889"><path d="M517 1829h102v-6c0-16 14-30 30-30 17 0 30 14 30 30v6h358v-6c0-16 13-30 30-30 16 0 30 14 30 30v6h357v-6c0-16 13-30 30-30 16 0 30 14 30 30v6h315v-109h-4c-16 0-30-13-30-30 0-16 14-30 30-30h4v-357h-4c-16 0-30-13-30-30 0-16 14-30 30-30h4V886h-4c-16 0-30-14-30-30 0-17 14-30 30-30h4V517h-107c-1 15-14 27-29 27-16 0-29-12-30-27h-358c-1 15-14 27-30 27-15 0-28-12-30-27H888c-2 15-14 27-30 27s-28-12-30-27H517v100c16 1 29 14 29 30 0 17-13 30-29 30v358c16 0 29 13 29 29 0 17-13 30-29 30v358c16 0 29 13 29 30 0 16-13 29-29 30zm1312-109v-60h-4c-16 0-30 14-30 30 0 17 14 30 30 30zM1722 517h-59c1 15 14 27 30 27 15 0 28-12 29-27m-105 995c-17 0-30-14-30-30 0-17 13-30 30-30h151c17 0 30 13 30 30 0 16-13 30-30 30zm105 254c0 17-13 30-30 30-16 0-30-13-30-30v-151c0-17 14-30 30-30 17 0 30 13 30 30zm-314-46c-16 0-30-13-30-30 0-16 14-30 30-30h152c16 0 30 14 30 30 0 17-14 30-30 30zm255-523c0-16 13-30 30-30 16 0 30 14 30 30v152c0 16-14 30-30 30-17 0-30-14-30-30zm-255 106c-16 0-30-13-30-30 0-16 14-30 30-30h152c16 0 30 14 30 30 0 17-14 30-30 30zm106 254c0 17-14 30-30 30-17 0-30-13-30-30v-151c0-16 13-30 30-30 16 0 30 14 30 30zm-314-45c-17 0-30-14-30-30 0-17 13-30 30-30h151c16 0 30 13 30 30 0 16-14 30-30 30zm105 254c0 17-13 30-30 30-16 0-30-13-30-30v-151c0-17 14-30 30-30 17 0 30 13 30 30zm-314-46c-17 0-30-13-30-30 0-16 13-30 30-30h151c17 0 30 14 30 30 0 17-13 30-30 30zm254-523c0-16 14-30 30-30 17 0 30 14 30 30v152c0 16-13 30-30 30-16 0-30-14-30-30zm-254 106c-17 0-30-13-30-30 0-16 13-30 30-30h151c17 0 30 14 30 30 0 17-13 30-30 30zm106 254c0 17-14 30-30 30-17 0-30-13-30-30v-151c0-16 13-30 30-30 16 0 30 14 30 30zm-315-45c-16 0-30-14-30-30 0-17 14-30 30-30h152c16 0 30 13 30 30 0 16-14 30-30 30zm106 254c0 17-13 30-30 30s-30-13-30-30v-151c0-17 13-30 30-30s30 13 30 30zm-314-46c-17 0-30-13-30-30 0-16 13-30 30-30h151c17 0 30 14 30 30 0 17-13 30-30 30zm254-523c0-16 13-30 30-30s30 14 30 30v152c0 16-13 30-30 30s-30-14-30-30zm-254 106c-17 0-30-13-30-30 0-16 13-30 30-30h151c17 0 30 14 30 30 0 17-13 30-30 30zm105 254c0 17-13 30-30 30-16 0-30-13-30-30v-151c0-16 14-30 30-30 17 0 30 14 30 30zm938-463c-17 0-30-13-30-30 0-16 13-30 30-30h151c17 0 30 14 30 30 0 17-13 30-30 30zm0-417c-17 0-30-13-30-30 0-16 13-30 30-30h151c17 0 30 14 30 30 0 17-13 30-30 30zm106 255c0 16-14 30-30 30-17 0-30-14-30-30V780c0-16 13-30 30-30 16 0 30 14 30 30zm-315-46c-16 0-30-14-30-30 0-17 14-30 30-30h152c16 0 30 13 30 30 0 16-14 30-30 30zm106 254c0 17-14 30-30 30-17 0-30-13-30-30V989c0-17 13-30 30-30 16 0 30 13 30 30zm-314-46c-17 0-30-13-30-30 0-16 13-30 30-30h151c16 0 30 14 30 30 0 17-14 30-30 30zm314-371c0 16-14 30-30 30-17 0-30-14-30-30V572c0-17 13-30 30-30 16 0 30 13 30 30zm-314-46c-17 0-30-13-30-30 0-16 13-30 30-30h151c16 0 30 14 30 30 0 17-14 30-30 30zm105 255c0 16-13 30-30 30-16 0-30-14-30-30V780c0-16 14-30 30-30 17 0 30 14 30 30zm-314-46c-17 0-30-14-30-30 0-17 13-30 30-30h151c17 0 30 13 30 30 0 16-13 30-30 30zm106 254c0 17-14 30-30 30-17 0-30-13-30-30V989c0-17 13-30 30-30 16 0 30 13 30 30zm-315-46c-16 0-30-13-30-30 0-16 14-30 30-30h152c16 0 30 14 30 30 0 17-14 30-30 30zm315-371c0 16-14 30-30 30-17 0-30-14-30-30V572c0-17 13-30 30-30 16 0 30 13 30 30zm-315-46c-16 0-30-13-30-30 0-16 14-30 30-30h152c16 0 30 14 30 30 0 17-14 30-30 30zm106 255c0 16-13 30-30 30s-30-14-30-30V780c0-16 13-30 30-30s30 14 30 30zm-314-46c-17 0-30-14-30-30 0-17 13-30 30-30h151c17 0 30 13 30 30 0 16-13 30-30 30zm105 254c0 17-13 30-30 30-16 0-30-13-30-30V989c0-17 14-30 30-30 17 0 30 13 30 30zm0-417c0 16-13 30-30 30-16 0-30-14-30-30V572c0-17 14-30 30-30 17 0 30 13 30 30zM60 1372h397v-63c-1-3-2-7-2-10 0-4 1-7 2-11v-57H336c-17 0-30-14-30-30 0-17 13-30 30-30h121v-58c-1-3-2-7-2-10 0-4 1-7 2-11v-57H336c-17 0-30-14-30-30 0-17 13-30 30-30h121v-58c-1-3-2-7-2-10 0-4 1-7 2-11v-57H336c-17 0-30-14-30-30 0-17 13-30 30-30h121v-58c-1-3-2-7-2-10 0-4 1-7 2-11v-57H336c-17 0-30-14-30-30 0-17 13-30 30-30h121v-58c-1-3-2-7-2-10 0-4 1-7 2-11v-17c0-16 14-30 30-30h885v-10h-137c-17 0-30-14-30-30 0-17 13-30 30-30h137v-41c-10-5-18-15-18-27s8-23 18-28v-40h-137c-17 0-30-14-30-30 0-17 13-30 30-30h137v-41c-10-5-18-15-18-27s8-23 18-28V60H60v34c13 3 22 15 22 29 0 13-9 25-22 29v39h142c16 0 30 13 30 30 0 16-14 30-30 30H60v39c13 3 22 15 22 29 0 13-9 25-22 29v39h142c16 0 30 13 30 30 0 16-14 30-30 30H60v39c13 3 22 15 22 29 0 13-9 25-22 28v40h142c16 0 30 13 30 30 0 16-14 30-30 30H60v39c13 3 22 15 22 29 0 13-9 25-22 28v40h142c16 0 30 13 30 30 0 16-14 30-30 30H60v39c13 3 22 15 22 29 0 13-9 25-22 28v40h142c16 0 30 13 30 30 0 16-14 30-30 30H60v39c13 3 22 15 22 29 0 13-9 25-22 28v45zm397 60H30c-17 0-30-14-30-30V30C0 13 13 0 30 0h1372c16 0 30 13 30 30v427h427c17 0 30 14 30 30v1372c0 17-13 30-30 30H487c-16 0-30-13-30-30zm628-1279c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm-300 0c-16 0-30-14-30-30 0-17 14-30 30-30h166c16 0 30 13 30 30 0 16-14 30-30 30zm-300 0c-16 0-30-14-30-30 0-17 14-30 30-30h166c17 0 30 13 30 30 0 16-13 30-30 30zm-299 0c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm899 196c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm-300 0c-16 0-30-14-30-30 0-17 14-30 30-30h166c16 0 30 13 30 30 0 16-14 30-30 30zm-300 0c-16 0-30-14-30-30 0-17 14-30 30-30h166c17 0 30 13 30 30 0 16-13 30-30 30zm-299 0c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm749-98c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm-300 0c-16 0-30-14-30-30 0-17 14-30 30-30h166c16 0 30 13 30 30 0 16-14 30-30 30zm-299 0c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zM186 545c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm749-98c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm-300 0c-16 0-30-14-30-30 0-17 14-30 30-30h166c16 0 30 13 30 30 0 16-14 30-30 30zm-299 0c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zM186 741c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm0 196c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm0 196c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm0 196c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30z"/></svg>
+                            </div>
+                        </div>
+                        <p class="mt-3">Чтобы холст не провис и сохранил текстуру ткани, будем использовать натуральные материалы: хлопок или лён с плотностью от 380 г/кв. м.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Примеры работ -->
+        <section class="py-16 lg:py-20 content-auto" id="primery">
+            <div class="container mb-8">
+                <h2 class="heading-section text-center">Примеры работ</h2>
+            </div>
+
+            <div class="carousel-scroll carousel--cards-lg pb-4">
+                <div class="flex gap-0 px-4 min-w-max">
+                    <div class="shrink-0 snap-center text-center">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Модульная картина на холсте в подарок молодому человеку" title="Пример модульной картины на холсте в подарок молодому человеку" src="https://muse.ooo/upload/imgsite/o-modular-picture-on-canvas-for-guy.webp">
+                        <span class="text-lead block mt-2">Лучший подарок</span>
+                        <p class="text-small">Молодому человеку</p>
+                    </div>
+                    <div class="shrink-0 snap-center text-center">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Модульная картина на холсте с собакой" title="Фото модульной картины на холсте с собакой в интерьере" src="https://muse.ooo/upload/imgsite/o-modular-picture-on-canvas-with-dog.webp">
+                        <span class="text-lead block mt-2">Лучший подарок</span>
+                        <p class="text-small">Верному другу</p>
+                    </div>
+                    <div class="shrink-0 snap-center text-center">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Модульная картина цветы в подарок девушке" title="Пример модульной картины цветы в интерьере гостиной над диваном фото" src="https://muse.ooo/upload/imgsite/o-modular-picture-on-canvas-for-girl.webp">
+                        <span class="text-lead block mt-2">Лучший подарок</span>
+                        <p class="text-small">Девушке</p>
+                    </div>
+                    <div class="shrink-0 snap-center text-center">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Модульная картина на холсте в подарок друзьям" title="Пример модульной картины на холсте в подарок друзьям" src="https://muse.ooo/upload/imgsite/o-modular-picture-on-canvas-for-friends.webp">
+                        <span class="text-lead block mt-2">Лучший подарок</span>
+                        <p class="text-small">Друзьям</p>
+                    </div>
+                    <div class="shrink-0 snap-center text-center">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Семейный портрет на холсте" title="Пример модульной картины на холсте:семейный портрет" src="https://muse.ooo/upload/imgsite/o-family-modular-picture-on-canvas.webp">
+                        <span class="text-lead block mt-2">Памятное событие</span>
+                        <p class="text-small">Семейный портрет</p>
+                    </div>
+                    <div class="shrink-0 snap-center text-center">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Модульная картина на холсте для детской" title="Фото модульной картины на холсте для детской" src="https://muse.ooo/upload/imgsite/o-modular-picture-on-canvas-for-room.webp">
+                        <span class="text-lead block mt-2">Памятное событие</span>
+                        <p class="text-small">Герои детства</p>
+                    </div>
+                    <div class="shrink-0 snap-center text-center">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Модульная картина с цветами на день рождения" title="Пример модульной картины с розой. Подарок на день рождения" src="https://muse.ooo/upload/imgsite/o-modular-picture-on-canvas-for-birthday.webp">
+                        <span class="text-lead block mt-2">Памятное событие</span>
+                        <p class="text-small">День рождения</p>
+                    </div>
+                    <div class="shrink-0 snap-center text-center">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Поп-арт модульная картина над диваном" title="Пример модульной картины в стиле поп-арт" src="https://muse.ooo/upload/imgsite/o-pop-art-portret-for-friends.webp">
+                        <span class="text-lead block mt-2">Памятное событие</span>
+                        <p class="text-small">Встреча друзей</p>
+                    </div>
+                    <div class="shrink-0 snap-center text-center">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Модульная картина из фото путешествий" title="Пример модульной картины путишественника" src="https://muse.ooo/upload/imgsite/o-modular-picture-on-canvas-from-travel.webp">
+                        <span class="text-lead block mt-2">Памятное событие</span>
+                        <p class="text-small">Путешествие</p>
+                    </div>
+                    <div class="shrink-0 snap-center text-center">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Модульная картина в интерьере гостиной над диваном" title="Пример модульной картины в интерьере гостиной над диваном" src="https://muse.ooo/upload/imgsite/o-modular-picture-on-canvas-for-living-room.webp">
+                        <span class="text-lead block mt-2">Декор интерьера</span>
+                        <p class="text-small">Гостиная</p>
+                    </div>
+                    <div class="shrink-0 snap-center text-center">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Модульная картина на холсте для интерьера" title="Пример модульной картины на холсте из двух частей в интерьере кабинета" src="https://muse.ooo/upload/imgsite/o-modular-picture-on-canvas-for-office.webp">
+                        <span class="text-lead block mt-2">Декор интерьера</span>
+                        <p class="text-small">Кабинет</p>
+                    </div>
+                    <div class="shrink-0 snap-center text-center">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Модульная картина в спальню над кроватью" title="Пример модульной картины триптиха в спальню над кроватью" src="https://muse.ooo/upload/imgsite/o-modular-picture-on-canvas-for-bedroom.webp">
+                        <span class="text-lead block mt-2">Декор интерьера</span>
+                        <p class="text-small">Спальня</p>
+                    </div>
+                    <div class="shrink-0 snap-center text-center">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Модульная картина для кухни цветы" title="Пример модульной картины для кухни, из 5-ти частей, лилия" src="https://muse.ooo/upload/imgsite/o-modular-picture-on-canvas-for-kitchen.webp">
+                        <span class="text-lead block mt-2">Декор интерьера</span>
+                        <p class="text-small">Кухня или столовая</p>
+                    </div>
+                    <div class="shrink-0 snap-center text-center">
+                        <img loading="lazy" decoding="async" width="241" height="181" alt="Модульная картина на холсте в с детьми" title="Пример модульной картины на холсте в интерьере детской" src="https://muse.ooo/upload/imgsite/o-canvas-modular-picture-with-children.webp">
+                        <span class="text-lead block mt-2">Декор интерьера</span>
+                        <p class="text-small">Детская комната</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Отзывы -->
         <section class="bg-secondary py-16 lg:py-24 content-auto" id="review">
             <div class="container">
@@ -503,7 +587,7 @@
                 <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     <article class="bg-white border border-gray-200">
                         <a href="https://muse.ooo/blog/modulnaya-kartina-syuzhet-razmer-tsvet/" class="block" target="_blank">
-                            <img src="/img/modular-picture.jpg"
+                            <img src="https://muse.ooo/upload/imgsite/modular-picture.webp"
                                 alt="Фото модульной картины с подсолнухами"
                                 title="Как выбрать модульную картину?"
                                 width="360" height="254" class="w-full"
@@ -516,7 +600,7 @@
 
                     <article class="bg-white border border-gray-200">
                         <a href="https://muse.ooo/blog/modulnaya-kartina/" class="block" target="_blank">
-                            <img src="/img/modular-picture-dog.jpg"
+                            <img src="https://muse.ooo/upload/imgsite/modular-picture-dog.webp"
                                 alt="Фото модульной картины собаки"
                                 title="Как выбрать модульную картину?"
                                 width="360" height="254" class="w-full"
@@ -529,7 +613,7 @@
 
                     <article class="bg-white border border-gray-200">
                         <a href="https://muse.ooo/blog/pechat-na-kholste-foto-i-reproduktsiy/" class="block" target="_blank">
-                            <img src="/img/canvas-and-brush.jpg"
+                            <img src="https://muse.ooo/upload/imgsite/canvas-and-brush.webp"
                                 alt="Фото холста, подрамника и кистей"
                                 title="Холст для настоящего художника"
                                 width="360" height="254" class="w-full"
@@ -542,7 +626,7 @@
 
                     <article class="bg-white border border-gray-200">
                         <a href="https://muse.ooo/blog/vybor-razmera-foto-i-reproduktsiy/" class="block" target="_blank">
-                            <img src="/img/canvas_print.jpg"
+                            <img src="https://muse.ooo/upload/imgsite/canvas_print.webp"
                                 alt="Рекомендации по подбру фото на холсте правильного размера"
                                 title="7 рекомендаций по подбру фотокартин правильного размера"
                                 width="360" height="254" class="w-full"

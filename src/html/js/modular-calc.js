@@ -132,6 +132,9 @@
     varnish: true,
     processing: 0,
     gift: false,
+    // active selections for highlighting
+    activePresetName: null,
+    activeFormat: null,
     // mobile layout mode: 'sheet' (A) or 'split' (B)
     mobileLayout: 'sheet'
   };
@@ -440,7 +443,7 @@
     State.modules.forEach(function (m) {
       var el = document.createElement('div');
       el.dataset.moduleId = m.id;
-      el.className = 'absolute bg-white shadow-xl group mc-hw-accel mc-module-item mc-module-touch' + (State.interactionMode === 'layout' ? ' cursor-move' : '');
+      el.className = 'absolute bg-white shadow-xl ring-1 ring-black/10 group mc-hw-accel mc-module-item mc-module-touch' + (State.interactionMode === 'layout' ? ' cursor-move' : '');
       el.setAttribute('draggable', 'false');
       var x = m.offsetLeft * SCALE, y = m.offsetTop * SCALE, w = m.width * SCALE, h = m.height * SCALE;
       el.style.transform = 'translate3d(' + x + 'px, ' + y + 'px, 0)';
@@ -468,7 +471,7 @@
       }
 
       var label = document.createElement('div');
-      label.className = 'absolute bottom-0 right-0 bg-black/60 text-white text-[11px] font-bold px-1.5 py-0.5 rounded shadow-sm pointer-events-none z-20 leading-tight origin-bottom-right';
+      label.className = 'absolute bottom-0 right-0 bg-black/60 text-white text-[13px] font-bold px-2 py-1 rounded shadow-sm pointer-events-none z-20 leading-tight origin-bottom-right';
       label.textContent = Math.round(m.width) + '×' + Math.round(m.height);
       el.appendChild(label);
 
@@ -555,10 +558,42 @@
 
   function handleEnd() {
     if (Gesture.mode === 'drag' && State.interactionMode === 'layout') {
+      resolveOverlaps();
       calculateTotals(); updateAllBackgrounds();
       if (State.activeTab === 'order') renderSidebar();
     }
     Gesture.mode = 'idle';
+  }
+
+  /** Push dragged module away from others if overlapping */
+  function resolveOverlaps() {
+    var moved = Gesture.moduleId;
+    if (!moved) return;
+    var a = null;
+    State.modules.forEach(function (m) { if (m.id === moved) a = m; });
+    if (!a) return;
+    var aR = a.offsetLeft + a.width, aB = a.offsetTop + a.height;
+    var nudged = false;
+    State.modules.forEach(function (b) {
+      if (b.id === a.id) return;
+      var bR = b.offsetLeft + b.width, bB = b.offsetTop + b.height;
+      // Check AABB overlap
+      if (a.offsetLeft < bR && aR > b.offsetLeft && a.offsetTop < bB && aB > b.offsetTop) {
+        // Calculate minimal push distance on each axis
+        var pushRight = bR - a.offsetLeft, pushLeft = aR - b.offsetLeft;
+        var pushDown = bB - a.offsetTop, pushUp = aB - b.offsetTop;
+        var minH = Math.min(pushRight, pushLeft);
+        var minV = Math.min(pushDown, pushUp);
+        if (minH < minV) {
+          a.offsetLeft += (pushRight <= pushLeft) ? pushRight : -pushLeft;
+        } else {
+          a.offsetTop += (pushDown <= pushUp) ? pushDown : -pushUp;
+        }
+        aR = a.offsetLeft + a.width; aB = a.offsetTop + a.height;
+        nudged = true;
+      }
+    });
+    if (nudged) renderModules();
   }
 
   /* ═══════════════════════════════════════════════════════════
@@ -593,14 +628,27 @@
       var presetCont = document.getElementById('mc-preset-list');
       PRESETS.filter(function (p) { return p.count === State.filterCount; }).forEach(function (p) {
         var btn = document.createElement('button');
-        btn.className = 'snap-start flex-none w-24 lg:w-full h-24 border border-gray-200 rounded-xl p-1.5 hover:border-primary text-gray-500 hover:text-primary transition-all flex flex-col items-center bg-secondary/50';
+        var isActive = State.activePresetName === p.name;
+        btn.className = 'snap-start flex-none w-24 lg:w-full h-24 border-2 rounded-xl p-1.5 transition-all flex flex-col items-center ' +
+          (isActive ? 'border-primary text-primary bg-primary/5 shadow-md' : 'border-gray-200 text-gray-500 hover:border-primary hover:text-primary bg-secondary/50');
         var layout = applyLayout(p);
         var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
         layout.forEach(function (m) { minX = Math.min(minX, m.offsetLeft); minY = Math.min(minY, m.offsetTop); maxX = Math.max(maxX, m.offsetLeft + m.width); maxY = Math.max(maxY, m.offsetTop + m.height); });
         var w = maxX - minX, h = maxY - minY;
         var svgInner = layout.map(function (m) { return '<rect x="' + m.offsetLeft + '" y="' + m.offsetTop + '" width="' + m.width + '" height="' + m.height + '" fill="currentColor" opacity="0.8" rx="2" />'; }).join('');
         btn.innerHTML = '<div class="flex-1 w-full flex items-center justify-center min-h-0"><svg viewBox="' + minX + ' ' + minY + ' ' + w + ' ' + h + '" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" class="pointer-events-none p-2">' + svgInner + '</svg></div><div class="flex-none h-6 flex items-center justify-center w-full border-t border-gray-100 mt-1"><span class="text-[9px] font-bold uppercase text-gray-500">' + p.name + '</span></div>';
-        btn.onclick = function () { State.modules = applyLayout(p); calculateTotals(); fitView(); renderModules(); };
+        btn.onclick = function () {
+          var prevW = State.totals.fullWidth;
+          var prevH = State.totals.fullHeight;
+          State.activePresetName = p.name;
+          State.modules = applyLayout(p);
+          calculateTotals();
+          if (prevW > 0 && prevH > 0) {
+            handleResize(Math.round(prevW), Math.round(prevH));
+          } else {
+            fitView(); renderModules(); renderSidebar();
+          }
+        };
         presetCont.appendChild(btn);
       });
 
@@ -610,8 +658,6 @@
       var ratio = (State.totals.fullHeight && State.totals.fullWidth) ? State.totals.fullHeight / State.totals.fullWidth : 1;
       container.innerHTML =
         '<div class="py-3 space-y-3">' +
-          '<div class="flex overflow-x-auto gap-2 px-4 pb-1 snap-x snap-mandatory thin-scrollbar-x lg:grid lg:grid-cols-3 lg:gap-3 lg:overflow-visible" id="mc-format-list"></div>' +
-          '<div class="border-t border-gray-200 mx-4"></div>' +
           '<div class="bg-secondary mx-4 p-3 rounded-2xl space-y-2">' +
             '<div class="flex items-center justify-between">' +
               '<span class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Размер</span>' +
@@ -620,31 +666,38 @@
             '<input type="range" id="mc-size-slider" min="60" max="200" step="1" value="' + fw + '" class="w-full accent-primary cursor-pointer">' +
             '<div class="flex justify-between text-[9px] text-gray-400 font-medium"><span>60 см</span><span>200 см</span></div>' +
           '</div>' +
+          '<div class="border-t border-gray-200 mx-4"></div>' +
+          '<div class="flex overflow-x-auto gap-2 px-4 pb-1 snap-x snap-mandatory thin-scrollbar-x lg:grid lg:grid-cols-3 lg:gap-3 lg:overflow-visible" id="mc-format-list"></div>' +
         '</div>';
       var flist = document.getElementById('mc-format-list');
       FORMAT_PRESETS.forEach(function (p) {
         var btn = document.createElement('button');
-        btn.className = 'snap-start flex-none w-20 h-20 lg:w-full lg:h-28 border border-gray-200 rounded-xl hover:border-primary hover:text-primary transition-colors flex flex-col items-center justify-center gap-1';
+        var isActive = State.activeFormat === p.label;
+        btn.className = 'snap-start flex-none w-20 h-20 lg:w-full lg:h-28 border-2 rounded-xl transition-colors flex flex-col items-center justify-center gap-1 ' +
+          (isActive ? 'border-primary text-primary bg-primary/5 shadow-md' : 'border-gray-200 hover:border-primary hover:text-primary');
         btn.innerHTML = '<div class="w-10 h-10 lg:w-12 lg:h-12 flex items-center justify-center"><div class="border-2 border-current rounded-sm opacity-60" style="aspect-ratio:' + p.rw + '/' + p.rh + '; width:' + (p.rw >= p.rh ? '100%' : 'auto') + '; height:' + (p.rh > p.rw ? '100%' : 'auto') + '"></div></div><span class="text-[10px] font-bold">' + p.label + '</span>';
-        btn.onclick = function () { handleResize(p.targetW, p.targetH); };
+        btn.onclick = function () { State.activeFormat = p.label; handleResize(p.targetW, p.targetH); };
         flist.appendChild(btn);
       });
 
-      // Proportional range slider
+      // Proportional range slider — uniform scale (keeps aspect ratio of composition)
       var slider = document.getElementById('mc-size-slider');
       var sizeDisp = document.getElementById('mc-size-display');
       if (slider) {
+        var baseW = fw; // width at the moment sidebar was rendered
+        var baseH = fh;
         var updateSliderDisplay = function () {
           var w = parseInt(slider.value, 10);
-          var curRatio = (State.totals.fullHeight && State.totals.fullWidth) ? State.totals.fullHeight / State.totals.fullWidth : ratio;
-          var h = Math.round(w * curRatio);
-          if (sizeDisp) sizeDisp.textContent = w + ' \u00d7 ' + h + ' \u0441\u043c';
+          var scale = baseW ? w / baseW : 1;
+          var h = Math.round(baseH * scale);
+          if (sizeDisp) sizeDisp.textContent = w + ' × ' + h + ' см';
         };
         slider.oninput = function () { updateSliderDisplay(); };
         slider.onchange = function () {
           var w = parseInt(slider.value, 10);
-          var curRatio = (State.totals.fullHeight && State.totals.fullWidth) ? State.totals.fullHeight / State.totals.fullWidth : ratio;
-          var h = Math.round(w * curRatio);
+          var scale = baseW ? w / baseW : 1;
+          var h = Math.round(baseH * scale);
+          State.activeFormat = null;
           handleResize(w, h);
         };
       }
@@ -782,7 +835,7 @@
       document.getElementById('mc-tab-bar-desktop')
     ];
     var tabs = [
-      { id: 'format', label: 'Формат', icon: Icons.Format },
+      { id: 'format', label: 'Размер', icon: Icons.Format },
       { id: 'layout', label: 'Макет', icon: Icons.Layout },
       { id: 'order', label: 'Опции', icon: Icons.Options }
     ];
@@ -809,10 +862,12 @@
     var btnI = document.getElementById('mc-btn-mode-image');
     var ctrl = document.getElementById('mc-img-controls');
     if (!btnL || !btnI || !ctrl) return;
-    var active = 'px-2.5 py-1 rounded-md text-[10px] uppercase font-bold tracking-wider transition-all bg-white text-primary shadow-sm ring-1 ring-black/5';
-    var inactive = 'px-2.5 py-1 rounded-md text-[10px] uppercase font-bold tracking-wider transition-all text-gray-500 hover:text-gray-700 hover:bg-gray-50';
+    var active = 'px-3 py-2 rounded-md text-[10px] uppercase font-bold tracking-wider transition-all bg-white text-primary shadow-sm ring-1 ring-black/5';
+    var inactive = 'px-3 py-2 rounded-md text-[10px] uppercase font-bold tracking-wider transition-all text-gray-500 hover:text-gray-700 hover:bg-gray-50';
     btnL.className = State.interactionMode === 'layout' ? active : inactive;
     btnI.className = State.interactionMode === 'image' ? active : inactive;
+    btnL.setAttribute('aria-pressed', State.interactionMode === 'layout' ? 'true' : 'false');
+    btnI.setAttribute('aria-pressed', State.interactionMode === 'image' ? 'true' : 'false');
     ctrl.style.display = State.previewImage ? 'flex' : 'none';
     document.getElementById('mc-btn-zoom-out').innerHTML = Icons.ZoomOut;
     document.getElementById('mc-btn-center').innerHTML = Icons.Center;
@@ -847,7 +902,7 @@
     var sy = targetH / State.totals.fullHeight;
     State.modules = State.modules.map(function (m) {
       return Object.assign({}, m, {
-        width: clampW(m.width * sx), height: clampH(m.height * sy),
+        width: m.width * sx, height: m.height * sy,
         offsetLeft: m.offsetLeft * sx, offsetTop: m.offsetTop * sy
       });
     });
@@ -868,11 +923,11 @@
     if (!ws) return;
     localStorage.setItem('mc-hint-shown', '1');
     var toast = document.createElement('div');
-    toast.textContent = '\u0414\u0432\u0438\u0433\u0430\u0439\u0442\u0435 \u0444\u043E\u0442\u043E \u043F\u0430\u043B\u044C\u0446\u0435\u043C \u2022 \u041F\u0435\u0440\u0435\u043A\u043B\u044E\u0447\u0430\u0439\u0442\u0435 \u0440\u0435\u0436\u0438\u043C \u043A\u043D\u043E\u043F\u043A\u0430\u043C\u0438';
+    toast.textContent = 'Сдвиг фото -передвигайте фото • Макет - изменяйте границы модулей';
     toast.style.cssText = 'position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.75);color:#fff;font-size:12px;line-height:1.4;padding:8px 14px;border-radius:10px;pointer-events:none;z-index:50;max-width:90%;text-align:center;transition:opacity 0.5s;opacity:1';
     ws.appendChild(toast);
-    setTimeout(function () { toast.style.opacity = '0'; }, 3500);
-    setTimeout(function () { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 4000);
+    setTimeout(function () { toast.style.opacity = '0'; }, 5000);
+    setTimeout(function () { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 5500);
   }
 
   /* ═══════════════════════════════════════════════════════════
@@ -968,7 +1023,11 @@
     var stickyBtn = document.getElementById('mc-sticky-btn');
     if (stickyBtn) stickyBtn.onclick = function () {
       var form = document.getElementById('mc-order-form');
-      if (form) form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (form) {
+        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        var nameEl = document.getElementById('mc-client-name');
+        if (nameEl) setTimeout(function () { nameEl.focus(); }, 600);
+      }
     };
 
     // Order form submit handler

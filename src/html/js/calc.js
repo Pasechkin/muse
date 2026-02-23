@@ -104,7 +104,10 @@
     framePerM: 0, frameClassicMult: 1,  /* legacy fallback — see frame.pricePerM */
     faceFirst: 0, faceExtra: 0,
     digitalFaceFirst: 0, digitalFaceExtra: 0,
-    gelCoeff: 0, acrylicCoeff: 0, oilCoeff: 0, oilFaceExtra: 0, potalCoeff: 0
+    gelCoeff: 0, acrylicCoeff: 0, oilCoeff: 0, oilFaceExtra: 0, potalCoeff: 0,
+    /* Frame (foto-v-ramke) fallbacks */
+    framePrintCoeff: 0, passepartoutCoeff: 0,
+    minWidth: 20, minHeight: 30, defaultFrameId: 'NONE'
   };
 
   /** Сливает MINIMAL_FALLBACK с переданным cfg.prices (поключево, не «всё или ничего»). */
@@ -155,10 +158,16 @@
       interior: 'GIRL', processing: 0, customSizeMode: false,
       images: [],
       /* Portrait options */
-      faces: 1, gel: false, acrylic: false, oil: false, potal: false, digitalMockup: false
+      faces: 1, gel: false, acrylic: false, oil: false, potal: false, digitalMockup: false,
+      /* Frame (foto-v-ramke) options */
+      passepartout: false,
+      /* Portrait-style options */
+      style: (cfg.prices && cfg.prices.styles && cfg.prices.styles[0]) ? cfg.prices.styles[0].id : 'OIL_STYLE'
     };
 
-    var isPortrait = cfg.type === 'portrait';
+    var isPortrait      = cfg.type === 'portrait';
+    var isFrame         = cfg.type === 'frame';
+    var isPortraitStyle = cfg.type === 'portraitStyle';
 
     var uploaderInstance = null;
 
@@ -246,8 +255,8 @@
     function setCustomSizeInputsVisibility(show) {
       var sizeInputsRow = getEl('size-inputs-row');
       if (!sizeInputsRow) return;
-      if (isMobileViewport() || isPortrait) {
-        /* Mobile or portrait-desktop: toggle via hidden/flex */
+      if (isMobileViewport() || isPortrait || isFrame || isPortraitStyle) {
+        /* Mobile or portrait/frame-desktop: toggle via hidden/flex */
         sizeInputsRow.classList.remove('lg:flex');
         sizeInputsRow.classList.toggle('hidden', !show);
         sizeInputsRow.classList.toggle('flex', !!show);
@@ -678,6 +687,518 @@
       });
     }
 
+    /* ---------- Portrait Style (portret-po-foto) sections generator ---------- */
+
+    var portraitStyleEls = {};
+
+    function buildPortraitStyleSections() {
+      if (!isPortraitStyle) return;
+
+      var panel = document.querySelector('.calc-panel .p-4');
+      if (!panel) panel = document.querySelector('.calc-panel > div');
+      if (!panel) return;
+
+      /* Hide processing section */
+      var processingSelect = getEl('processing-select');
+      if (processingSelect) {
+        var procSection = processingSelect.closest('section');
+        if (procSection) procSection.style.display = 'none';
+        STATE.processing = 0;
+      }
+
+      /* Desktop: hide bare size inputs, show presets */
+      var sizeInputsRow = getEl('size-inputs-row');
+      if (sizeInputsRow) sizeInputsRow.classList.add('hidden');
+      var extraCarousel = getEl('size-extra-carousel');
+      if (extraCarousel) extraCarousel.style.display = 'none';
+      var presetsGrid = getEl('size-presets-grid');
+      if (presetsGrid) {
+        presetsGrid.classList.remove('lg:hidden');
+        presetsGrid.classList.add('flex');
+      }
+
+      /* ---------- Rewrite varnish + gift into inline rows ---------- */
+      var varnishGiftSection = getEl('varnish-gift-section');
+      if (!varnishGiftSection) {
+        var tv = getEl('toggle-varnish');
+        if (tv) varnishGiftSection = tv.closest('section.space-y-6');
+      }
+
+      var varnishSection = null;
+      var giftSection = null;
+
+      if (varnishGiftSection) {
+        varnishSection = makeInlineCheckboxSection(
+          'varnish', 'Покрытие лаком', 'varnish', 'price-varnish', STATE.varnish
+        );
+        giftSection = makeInlineCheckboxSection(
+          'gift', 'Подарочная упаковка', 'gift', 'price-gift', STATE.gift
+        );
+        varnishGiftSection.remove();
+      }
+
+      /* Reuse makeInlineCheckboxSection from portrait — it's in scope */
+      function makeInlineCheckboxSection(id, label, hintKey, badgeId, checked) {
+        var sec = document.createElement('section');
+        sec.id = id + '-section';
+        var row = document.createElement('div');
+        row.className = 'flex items-center gap-3';
+        var chkWrap = document.createElement('div');
+        chkWrap.className = 'flex h-6 shrink-0 items-center';
+        var grp = document.createElement('div');
+        grp.className = 'group grid size-4 grid-cols-1';
+        var chk = document.createElement('input');
+        chk.type = 'checkbox'; chk.id = 'toggle-' + id; chk.name = id;
+        chk.checked = !!checked;
+        chk.className = 'calc-checkbox col-start-1 row-start-1 forced-colors:appearance-auto';
+        grp.appendChild(chk);
+        var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('viewBox', '0 0 14 14'); svg.setAttribute('fill', 'none');
+        svg.setAttribute('class', 'pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white');
+        var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', 'M3 8L6 11L11 3.5'); path.setAttribute('stroke-width', '2');
+        path.setAttribute('stroke-linecap', 'round'); path.setAttribute('stroke-linejoin', 'round');
+        path.setAttribute('class', 'opacity-0 group-has-checked:opacity-100');
+        svg.appendChild(path); grp.appendChild(svg); chkWrap.appendChild(grp); row.appendChild(chkWrap);
+        var labelWrap = document.createElement('div');
+        labelWrap.className = 'flex items-center gap-1 min-w-0 flex-1';
+        var lbl = document.createElement('label');
+        lbl.htmlFor = 'toggle-' + id;
+        lbl.className = 'text-sm font-medium text-body cursor-pointer truncate';
+        lbl.textContent = label;
+        labelWrap.appendChild(lbl);
+        var hintBtn = createHintBtn(hintKey);
+        if (hintBtn) labelWrap.appendChild(hintBtn);
+        row.appendChild(labelWrap);
+        var badge = document.createElement('span');
+        badge.className = 'calc-badge whitespace-nowrap shrink-0';
+        badge.id = badgeId; badge.textContent = '0 р.';
+        row.appendChild(badge);
+        sec.appendChild(row);
+        return { section: sec, checkbox: chk, badge: badge };
+      }
+
+      /* Locate static sections */
+      var sizeSection = getEl('size-section');
+      var wrapSection = null;
+      var frameSection = null;
+      var allSections = panel.querySelectorAll(':scope > section');
+      allSections.forEach(function (sec) {
+        if (sec.querySelector('.wrap-btn')) wrapSection = sec;
+        if (sec.querySelector('#frame-section')) frameSection = sec;
+      });
+
+      /* --- Style select dropdown --- */
+      var styleSec = document.createElement('section');
+      styleSec.id = 'portrait-style-section';
+      var styleTitleDiv = document.createElement('div');
+      styleTitleDiv.className = 'section-title';
+      var styleTitleLeft = document.createElement('span');
+      styleTitleLeft.className = 'flex items-center gap-1';
+      styleTitleLeft.textContent = 'Стиль портрета';
+      var styleHint = createHintBtn('style');
+      if (styleHint) styleTitleLeft.appendChild(styleHint);
+      styleTitleDiv.appendChild(styleTitleLeft);
+      var styleBadge = document.createElement('span');
+      styleBadge.className = 'calc-badge';
+      styleBadge.id = 'badge-style';
+      styleBadge.textContent = '0 р.';
+      styleTitleDiv.appendChild(styleBadge);
+      styleSec.appendChild(styleTitleDiv);
+
+      var styleGridWrap = document.createElement('div');
+      styleGridWrap.className = 'grid grid-cols-1';
+      var styleSelect = document.createElement('select');
+      styleSelect.id = 'portrait-style-select';
+      styleSelect.setAttribute('aria-label', 'Стиль портрета');
+      styleSelect.className = 'col-start-1 row-start-1 w-full appearance-none bg-white border border-gray-200 text-body py-3 pl-4 pr-8 rounded-lg text-sm font-medium focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary';
+      var styles = PRICES.styles || [];
+      styles.forEach(function (s) {
+        var opt = document.createElement('option');
+        opt.value = s.id;
+        opt.textContent = s.name;
+        styleSelect.appendChild(opt);
+      });
+      styleGridWrap.appendChild(styleSelect);
+      var chevSvg1 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      chevSvg1.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+      chevSvg1.setAttribute('width', '24'); chevSvg1.setAttribute('height', '24');
+      chevSvg1.setAttribute('viewBox', '0 0 24 24'); chevSvg1.setAttribute('fill', 'none');
+      chevSvg1.setAttribute('stroke', 'currentColor'); chevSvg1.setAttribute('stroke-width', '2');
+      chevSvg1.setAttribute('stroke-linecap', 'round'); chevSvg1.setAttribute('stroke-linejoin', 'round');
+      chevSvg1.setAttribute('class', 'pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5 self-center justify-self-end text-gray-500');
+      var chevPath1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      chevPath1.setAttribute('d', 'm6 9 6 6 6-6');
+      chevSvg1.appendChild(chevPath1);
+      styleGridWrap.appendChild(chevSvg1);
+      styleSec.appendChild(styleGridWrap);
+
+      /* --- Faces select dropdown --- */
+      var facesSec = document.createElement('section');
+      facesSec.id = 'portrait-faces-section';
+      var facesTitleDiv = document.createElement('div');
+      facesTitleDiv.className = 'section-title';
+      var facesTitleLeft = document.createElement('span');
+      facesTitleLeft.className = 'flex items-center gap-1';
+      facesTitleLeft.textContent = 'Количество лиц';
+      var facesHint = createHintBtn('faces');
+      if (facesHint) facesTitleLeft.appendChild(facesHint);
+      facesTitleDiv.appendChild(facesTitleLeft);
+      var facesBadge = document.createElement('span');
+      facesBadge.className = 'calc-badge';
+      facesBadge.id = 'badge-faces';
+      facesBadge.textContent = 'включено';
+      facesTitleDiv.appendChild(facesBadge);
+      facesSec.appendChild(facesTitleDiv);
+
+      var facesGridWrap = document.createElement('div');
+      facesGridWrap.className = 'grid grid-cols-1';
+      var facesSelect = document.createElement('select');
+      facesSelect.id = 'portrait-faces';
+      facesSelect.setAttribute('aria-label', 'Количество лиц');
+      facesSelect.className = 'col-start-1 row-start-1 w-full appearance-none bg-white border border-gray-200 text-body py-3 pl-4 pr-8 rounded-lg text-sm font-medium focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary';
+      for (var fi = 1; fi <= 10; fi++) {
+        var fOpt = document.createElement('option');
+        fOpt.value = fi; fOpt.textContent = fi;
+        facesSelect.appendChild(fOpt);
+      }
+      facesGridWrap.appendChild(facesSelect);
+      var chevSvg2 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      chevSvg2.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+      chevSvg2.setAttribute('width', '24'); chevSvg2.setAttribute('height', '24');
+      chevSvg2.setAttribute('viewBox', '0 0 24 24'); chevSvg2.setAttribute('fill', 'none');
+      chevSvg2.setAttribute('stroke', 'currentColor'); chevSvg2.setAttribute('stroke-width', '2');
+      chevSvg2.setAttribute('stroke-linecap', 'round'); chevSvg2.setAttribute('stroke-linejoin', 'round');
+      chevSvg2.setAttribute('class', 'pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5 self-center justify-self-end text-gray-500');
+      var chevPath2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      chevPath2.setAttribute('d', 'm6 9 6 6 6-6');
+      chevSvg2.appendChild(chevPath2);
+      facesGridWrap.appendChild(chevSvg2);
+      facesSec.appendChild(facesGridWrap);
+
+      /* --- Assemble panel order --- */
+      function detach(el) { if (el && el.parentNode) el.parentNode.removeChild(el); return el; }
+      detach(sizeSection); detach(wrapSection); detach(frameSection);
+
+      /* Lak group (just varnish, no gel/acrylic/oil/potal) */
+      var varnishGroup = document.createElement('section');
+      varnishGroup.id = 'varnish-group-section';
+      var varnishGroupTitle = document.createElement('div');
+      varnishGroupTitle.className = 'section-title';
+      varnishGroupTitle.textContent = 'Покрытие';
+      varnishGroup.appendChild(varnishGroupTitle);
+      var varnishList = document.createElement('div');
+      varnishList.className = 'space-y-2';
+      if (varnishSection) varnishList.appendChild(varnishSection.section);
+      varnishGroup.appendChild(varnishList);
+
+      /*
+       * Target order:
+       *  1) Размер             — sizeSection
+       *  2) Подрамник и печать  — wrapSection
+       *  3) Стиль портрета     — styleSec
+       *  4) Количество лиц     — facesSec
+       *  5) Покрытие лаком     — varnishGroup
+       *  6) Багетная рама      — frameSection
+       *  7) Подарочная упак.   — giftSection
+       */
+      var sectionsToOrder = [
+        sizeSection, wrapSection, styleSec, facesSec,
+        varnishGroup, frameSection,
+        giftSection ? giftSection.section : null
+      ];
+
+      var firstChild = panel.firstElementChild;
+      sectionsToOrder.forEach(function (sec) {
+        if (sec) panel.insertBefore(sec, firstChild);
+      });
+
+      /* --- Helper: apply fixedFaces logic --- */
+      function applyStyleFacesLock() {
+        var curStyle = null;
+        styles.forEach(function (s) { if (s.id === STATE.style) curStyle = s; });
+        if (curStyle && curStyle.fixedFaces) {
+          STATE.faces = curStyle.fixedFaces;
+          facesSelect.value = curStyle.fixedFaces;
+          facesSelect.disabled = true;
+          facesSelect.style.opacity = '0.5';
+        } else {
+          facesSelect.disabled = false;
+          facesSelect.style.opacity = '1';
+        }
+      }
+      applyStyleFacesLock();
+
+      /* --- Event listeners --- */
+      styleSelect.addEventListener('change', function () {
+        STATE.style = styleSelect.value;
+        applyStyleFacesLock();
+        updateUI(null);
+      });
+
+      facesSelect.addEventListener('change', function () {
+        STATE.faces = parseInt(facesSelect.value) || 1;
+        updateUI(null);
+      });
+
+      if (varnishSection) {
+        varnishSection.checkbox.addEventListener('change', function () {
+          STATE.varnish = varnishSection.checkbox.checked;
+          updateUI(null);
+        });
+      }
+      if (giftSection) {
+        giftSection.checkbox.addEventListener('change', function () {
+          STATE.gift = giftSection.checkbox.checked;
+          updateUI(null);
+        });
+      }
+
+      /* Store refs */
+      portraitStyleEls = {
+        styleSelect: styleSelect,
+        badgeStyle: styleBadge,
+        facesSelect: facesSelect,
+        badgeFaces: facesBadge,
+        varnishSection: varnishSection ? varnishSection.section : null,
+        giftSection: giftSection ? giftSection.section : null
+      };
+    }
+
+    /* ---------- Frame (foto-v-ramke) sections generator ---------- */
+
+    var frameEls = {};
+
+    function buildFrameSections() {
+      if (!isFrame) return;
+
+      var panel = document.querySelector('.calc-panel .p-4');
+      if (!panel) panel = document.querySelector('.calc-panel > div');
+      if (!panel) return;
+
+      /* --- Set default frame from prices config --- */
+      var defaultId = PRICES.defaultFrameId || 'ST_BLACK_M';
+      if (_frameMap[defaultId]) {
+        STATE.frame = defaultId;
+      }
+
+      /* --- Hide stretcher section (no подрамник for frame product) --- */
+      var allSections = panel.querySelectorAll(':scope > section');
+      var wrapSection = null;
+      var varnishGiftSection = getEl('varnish-gift-section');
+      allSections.forEach(function (sec) {
+        if (sec.querySelector('.wrap-btn')) {
+          wrapSection = sec;
+          sec.style.display = 'none';
+        }
+      });
+
+      /* --- Hide varnish+gift section entirely; rebuild gift as compact inline row --- */
+      if (!varnishGiftSection) {
+        var tv = getEl('toggle-varnish');
+        if (tv) varnishGiftSection = tv.closest('section.space-y-6');
+      }
+
+      if (varnishGiftSection) {
+        varnishGiftSection.style.display = 'none';
+        /* Remove old IDs to avoid conflicts with newly created elements */
+        var oldGiftChk = varnishGiftSection.querySelector('#toggle-gift');
+        var oldPriceGift = varnishGiftSection.querySelector('#price-gift');
+        if (oldGiftChk)  oldGiftChk.removeAttribute('id');
+        if (oldPriceGift) oldPriceGift.removeAttribute('id');
+      }
+      STATE.varnish = false;
+      var toggleVarnishEl = getEl('toggle-varnish');
+      if (toggleVarnishEl) toggleVarnishEl.checked = false;
+
+      /* --- Add info badge: "В комплекте: фотобумага, стекло, рамка" --- */
+      var wrapBadgeSection = wrapSection;
+      if (wrapBadgeSection) {
+        /* Replace stretcher content with info badge */
+        var infoBadge = document.createElement('section');
+        infoBadge.id = 'frame-included-section';
+        infoBadge.innerHTML =
+          '<div class="section-title"><span>В комплекте</span><span class="calc-badge is-active" id="badge-print-frame">0 р.</span></div>' +
+          '<div class="flex flex-wrap gap-2">' +
+            '<span class="inline-flex items-center gap-1 text-xs font-medium text-body bg-secondary px-3 py-1.5 rounded-full">' +
+              '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>' +
+              'Фотобумага' +
+            '</span>' +
+            '<span class="inline-flex items-center gap-1 text-xs font-medium text-body bg-secondary px-3 py-1.5 rounded-full">' +
+              '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>' +
+              'Акриловое стекло' +
+            '</span>' +
+            '<span class="inline-flex items-center gap-1 text-xs font-medium text-body bg-secondary px-3 py-1.5 rounded-full">' +
+              '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>' +
+              'Задник' +
+            '</span>' +
+          '</div>';
+        wrapBadgeSection.parentNode.insertBefore(infoBadge, wrapBadgeSection);
+      }
+
+      /* --- Desktop: same preset-style size UI as portrait --- */
+      var sizeInputsRow = getEl('size-inputs-row');
+      if (sizeInputsRow) sizeInputsRow.classList.add('hidden');
+      var extraCarousel = getEl('size-extra-carousel');
+      if (extraCarousel) extraCarousel.style.display = 'none';
+      var presetsGrid = getEl('size-presets-grid');
+      if (presetsGrid) {
+        presetsGrid.classList.remove('lg:hidden');
+        presetsGrid.classList.add('flex');
+      }
+
+      /* --- Build passepartout checkbox section --- */
+      var passepartoutSec = document.createElement('section');
+      passepartoutSec.id = 'passepartout-section';
+
+      var passRow = document.createElement('div');
+      passRow.className = 'flex items-center gap-3';
+
+      /* Checkbox */
+      var chkWrap = document.createElement('div');
+      chkWrap.className = 'flex h-6 shrink-0 items-center';
+      var grp = document.createElement('div');
+      grp.className = 'group grid size-4 grid-cols-1';
+      var chk = document.createElement('input');
+      chk.type = 'checkbox';
+      chk.id = 'toggle-passepartout';
+      chk.name = 'passepartout';
+      chk.checked = false;
+      chk.className = 'calc-checkbox col-start-1 row-start-1 forced-colors:appearance-auto';
+      grp.appendChild(chk);
+      var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('viewBox', '0 0 14 14');
+      svg.setAttribute('fill', 'none');
+      svg.setAttribute('class', 'pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white');
+      var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', 'M3 8L6 11L11 3.5');
+      path.setAttribute('stroke-width', '2');
+      path.setAttribute('stroke-linecap', 'round');
+      path.setAttribute('stroke-linejoin', 'round');
+      path.setAttribute('class', 'opacity-0 group-has-checked:opacity-100');
+      svg.appendChild(path);
+      grp.appendChild(svg);
+      chkWrap.appendChild(grp);
+      passRow.appendChild(chkWrap);
+
+      /* Label + hint */
+      var labelWrap = document.createElement('div');
+      labelWrap.className = 'flex items-center gap-1 min-w-0 flex-1';
+      var lbl = document.createElement('label');
+      lbl.htmlFor = 'toggle-passepartout';
+      lbl.className = 'text-sm font-medium text-body cursor-pointer truncate';
+      lbl.textContent = 'Паспарту';
+      labelWrap.appendChild(lbl);
+      var hintBtn = createHintBtn('passepartout');
+      if (hintBtn) labelWrap.appendChild(hintBtn);
+      passRow.appendChild(labelWrap);
+
+      /* Price badge */
+      var passBadge = document.createElement('span');
+      passBadge.className = 'calc-badge whitespace-nowrap shrink-0';
+      passBadge.id = 'price-passepartout';
+      passBadge.textContent = '0 р.';
+      passRow.appendChild(passBadge);
+
+      passepartoutSec.appendChild(passRow);
+
+      /* Insert passepartout section before gift section (after frame selector) */
+      var frameSection = null;
+      allSections.forEach(function (sec) {
+        if (sec.querySelector('#frame-section')) frameSection = sec;
+      });
+      if (frameSection && frameSection.nextSibling) {
+        panel.insertBefore(passepartoutSec, frameSection.nextSibling);
+      } else if (varnishGiftSection) {
+        panel.insertBefore(passepartoutSec, varnishGiftSection);
+      } else {
+        panel.appendChild(passepartoutSec);
+      }
+
+      /* Bind passepartout checkbox */
+      chk.addEventListener('change', function () {
+        STATE.passepartout = chk.checked;
+        updateUI(null);
+      });
+
+      /* --- Build compact gift wrap checkbox (inline row, same style as passepartout) --- */
+      var giftSec = document.createElement('section');
+      giftSec.id = 'frame-gift-section';
+
+      var giftRow = document.createElement('div');
+      giftRow.className = 'flex items-center gap-3';
+
+      /* Gift checkbox */
+      var giftChkWrap = document.createElement('div');
+      giftChkWrap.className = 'flex h-6 shrink-0 items-center';
+      var giftGrp = document.createElement('div');
+      giftGrp.className = 'group grid size-4 grid-cols-1';
+      var giftChk = document.createElement('input');
+      giftChk.type = 'checkbox';
+      giftChk.id = 'toggle-gift';
+      giftChk.name = 'gift';
+      giftChk.checked = false;
+      giftChk.className = 'calc-checkbox col-start-1 row-start-1 forced-colors:appearance-auto';
+      giftGrp.appendChild(giftChk);
+      var giftSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      giftSvg.setAttribute('viewBox', '0 0 14 14');
+      giftSvg.setAttribute('fill', 'none');
+      giftSvg.setAttribute('class', 'pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white');
+      var giftPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      giftPath.setAttribute('d', 'M3 8L6 11L11 3.5');
+      giftPath.setAttribute('stroke-width', '2');
+      giftPath.setAttribute('stroke-linecap', 'round');
+      giftPath.setAttribute('stroke-linejoin', 'round');
+      giftPath.setAttribute('class', 'opacity-0 group-has-checked:opacity-100');
+      giftSvg.appendChild(giftPath);
+      giftGrp.appendChild(giftSvg);
+      giftChkWrap.appendChild(giftGrp);
+      giftRow.appendChild(giftChkWrap);
+
+      /* Gift label + hint */
+      var giftLabelWrap = document.createElement('div');
+      giftLabelWrap.className = 'flex items-center gap-1 min-w-0 flex-1';
+      var giftLbl = document.createElement('label');
+      giftLbl.htmlFor = 'toggle-gift';
+      giftLbl.className = 'text-sm font-medium text-body cursor-pointer truncate';
+      giftLbl.textContent = 'Подарочная упаковка';
+      giftLabelWrap.appendChild(giftLbl);
+      var giftHintBtn = createHintBtn('gift');
+      if (giftHintBtn) giftLabelWrap.appendChild(giftHintBtn);
+      giftRow.appendChild(giftLabelWrap);
+
+      /* Gift price badge */
+      var giftBadge = document.createElement('span');
+      giftBadge.className = 'calc-badge whitespace-nowrap shrink-0';
+      giftBadge.id = 'price-gift';
+      giftBadge.textContent = '0 р.';
+      giftRow.appendChild(giftBadge);
+
+      giftSec.appendChild(giftRow);
+
+      /* Insert gift section after passepartout */
+      if (passepartoutSec.nextSibling) {
+        panel.insertBefore(giftSec, passepartoutSec.nextSibling);
+      } else {
+        panel.appendChild(giftSec);
+      }
+
+      /* Bind gift checkbox */
+      giftChk.addEventListener('change', function () {
+        STATE.gift = giftChk.checked;
+        updateUI(null);
+      });
+
+      /* Store refs */
+      frameEls = {
+        passepartoutCheckbox: chk,
+        badgePassepartout: passBadge,
+        badgePrintFrame: document.getElementById('badge-print-frame'),
+        giftCheckbox: giftChk,
+        badgeGift: giftBadge
+      };
+    }
+
     /* ---------- Compatibility engine ---------- */
 
     /*
@@ -792,6 +1313,7 @@
             comment: getEl('client-comment').value
           },
           product: {
+            type: cfg.type,
             width: STATE.w, height: STATE.h, wrap: STATE.wrap,
             frame: STATE.frame, varnish: STATE.varnish, gift: STATE.gift,
             interior: STATE.interior, processing: STATE.processing,
@@ -800,7 +1322,8 @@
             acrylic: isPortrait ? STATE.acrylic : undefined,
             oil: isPortrait ? STATE.oil : undefined,
             potal: isPortrait ? STATE.potal : undefined,
-            digitalMockup: isPortrait ? STATE.digitalMockup : undefined
+            digitalMockup: isPortrait ? STATE.digitalMockup : undefined,
+            passepartout: isFrame ? STATE.passepartout : undefined
           },
           totalPrice: getEl('total-price').textContent
         };
@@ -1204,7 +1727,7 @@
       if (!container) return;
       var currentPresets = getCurrentSizePresetList();
       var hasPresetMatch = isCurrentSizePreset(currentPresets);
-      var orientationKey = STATE.orientation + (isMobileViewport() || isPortrait ? '_mob' : '_desk');
+      var orientationKey = STATE.orientation + (isMobileViewport() || isPortrait || isPortraitStyle ? '_mob' : '_desk');
 
       /* Rebuild DOM only when orientation/viewport changes */
       if (_presetCacheOrientation !== orientationKey) {
@@ -1231,7 +1754,7 @@
           container.appendChild(btn);
         });
 
-        if (isMobileViewport() || isPortrait) {
+        if (isMobileViewport() || isPortrait || isFrame || isPortraitStyle) {
           var customBtn = document.createElement('button');
           customBtn.type = 'button';
           customBtn.textContent = 'Свой размер';
@@ -1258,7 +1781,7 @@
       /* Fast path: toggle is-active classes only */
       _updatePresetActiveStates();
 
-      if (isMobileViewport() || isPortrait) {
+      if (isMobileViewport() || isPortrait || isFrame || isPortraitStyle) {
         setCustomSizeInputsVisibility(STATE.customSizeMode || !hasPresetMatch);
       } else {
         STATE.customSizeMode = false;
@@ -1499,6 +2022,145 @@
       var sq = STATE.w * STATE.h;
       var perim = (STATE.w + STATE.h) * 2;
 
+      /* ── Portrait Style type (portret-po-foto): shared formula + style-based face cost ── */
+      if (isPortraitStyle) {
+        /* Style lookup */
+        var pStyles = PRICES.styles || [];
+        var curStyle = null;
+        pStyles.forEach(function (s) { if (s.id === STATE.style) curStyle = s; });
+        if (!curStyle) curStyle = pStyles[0] || { faceFirst: 1920, faceExtra: 960 };
+
+        /* Face cost: faceFirst + (faces-1) × faceExtra */
+        var psExtraFaces = Math.max(0, (STATE.faces || 1) - 1) * (curStyle.faceExtra || 0);
+        var psFaceCost = curStyle.faceFirst + psExtraFaces;
+
+        /* Print + stretcher */
+        var psStrPrice = PRICES.stretcherStandard;
+        if (STATE.wrap === 'GALLERY') psStrPrice = PRICES.stretcherGallery;
+        else if (STATE.wrap === 'NO_FRAME') psStrPrice = PRICES.stretcherRoll;
+
+        var psPrintCost = PRICES.printSqCoeff * sq
+          + PRICES.printPStrCoeff * perim * psStrPrice
+          + PRICES.printPBaseCoeff * perim
+          + PRICES.printConst;
+
+        /* Varnish */
+        var psVarnishRaw = sq * PRICES.varnishCoeff;
+        var psVarnishCost = STATE.varnish ? psVarnishRaw : 0;
+
+        /* Gift wrap */
+        var psGiftRaw = 0;
+        var psGiftLabelRaw = null;
+        if (PRICES.giftWrapTiers) {
+          var psMinDim = Math.min(STATE.w, STATE.h);
+          var psMaxDim = Math.max(STATE.w, STATE.h);
+          for (var psi = 0; psi < PRICES.giftWrapTiers.length; psi++) {
+            var psTier = PRICES.giftWrapTiers[psi];
+            if (psMinDim <= psTier.maxW && psMaxDim <= psTier.maxH) {
+              psGiftRaw = psTier.price;
+              break;
+            }
+          }
+          if (psGiftRaw === 0) psGiftLabelRaw = PRICES.giftWrapOversizeLabel || null;
+        }
+        var psGiftCost  = STATE.gift ? psGiftRaw : 0;
+        var psGiftLabel = STATE.gift ? psGiftLabelRaw : null;
+
+        /* Frame (baguette) */
+        var psPerimM = perim / 100;
+        var psCurFrame = _frameMap[STATE.frame] || FRAMES_DB[0];
+        var psFramePpm = (typeof psCurFrame.pricePerM === 'number')
+          ? psCurFrame.pricePerM
+          : PRICES.framePerM * (psCurFrame.cat === 'CLASSIC' ? PRICES.frameClassicMult : 1);
+        var psFrameCost = (STATE.frame !== 'NONE') ? psPerimM * psFramePpm : 0;
+
+        var psTotal = Math.ceil(psPrintCost + psFaceCost + psVarnishCost + psGiftCost + psFrameCost);
+
+        return {
+          total: psTotal,
+          wrapCost: Math.ceil(psPrintCost),
+          processingCost: 0,
+          varnishCost: Math.ceil(psVarnishCost),
+          giftCost: Math.ceil(psGiftCost),
+          frameCost: Math.ceil(psFrameCost),
+          faceCost: Math.ceil(psFaceCost),
+          extraFacesCost: Math.ceil(psExtraFaces),
+          styleCost: curStyle.faceFirst,
+          gelCost: 0, acrylicCost: 0, oilCost: 0, potalCost: 0,
+          digitalMockupCost: 0,
+          giftLabel: psGiftLabel,
+          varnishPotential: Math.ceil(psVarnishRaw),
+          giftPotential: Math.ceil(psGiftRaw),
+          giftLabelPotential: psGiftLabelRaw,
+          gelPotential: 0, acrylicPotential: 0, oilPotential: 0, potalPotential: 0
+        };
+      }
+
+      /* ── Frame type (foto-v-ramke): separate formula ── */
+      if (isFrame) {
+        /* When passepartout is ON, add 5 cm on each side (+10 total) for frame only */
+        var passAdd  = STATE.passepartout ? 10 : 0;
+        var effPerim = (STATE.w + passAdd + STATE.h + passAdd) * 2;
+
+        /* Print on photo paper — always uses original photo size */
+        var framePrintCost = PRICES.framePrintCoeff * sq;
+
+        /* Passepartout: original S(cm²) × passepartoutCoeff (default 1 р.) */
+        var passRaw  = sq * PRICES.passepartoutCoeff;
+        var passCost = STATE.passepartout ? passRaw : 0;
+
+        /* Processing (same as canvas) */
+        var frameProcessing = STATE.processing || 0;
+
+        /* Gift wrap (same logic as canvas/portrait) */
+        var fGiftRaw = 0;
+        var fGiftLabelRaw = null;
+        if (PRICES.giftWrapTiers) {
+          var fMinDim = Math.min(STATE.w, STATE.h);
+          var fMaxDim = Math.max(STATE.w, STATE.h);
+          for (var fi = 0; fi < PRICES.giftWrapTiers.length; fi++) {
+            var fTier = PRICES.giftWrapTiers[fi];
+            if (fMinDim <= fTier.maxW && fMaxDim <= fTier.maxH) {
+              fGiftRaw = fTier.price;
+              break;
+            }
+          }
+          if (fGiftRaw === 0) fGiftLabelRaw = PRICES.giftWrapOversizeLabel || null;
+        }
+        var fGiftCost  = STATE.gift ? fGiftRaw : 0;
+        var fGiftLabel = STATE.gift ? fGiftLabelRaw : null;
+
+        /* Frame (baguette): perimeter in metres × pricePerM (uses effective dims) */
+        var fPerimM = effPerim / 100;
+        var fCurFrame = _frameMap[STATE.frame] || FRAMES_DB[0];
+        var fFramePpm = (typeof fCurFrame.pricePerM === 'number')
+          ? fCurFrame.pricePerM
+          : PRICES.framePerM * (fCurFrame.cat === 'CLASSIC' ? PRICES.frameClassicMult : 1);
+        var fFrameCost = (STATE.frame !== 'NONE') ? fPerimM * fFramePpm : 0;
+
+        var fTotal = Math.ceil(framePrintCost + passCost + fFrameCost + frameProcessing + fGiftCost);
+
+        return {
+          total: fTotal,
+          wrapCost: 0,
+          printFrameCost: Math.ceil(framePrintCost),
+          processingCost: frameProcessing,
+          varnishCost: 0,
+          giftCost: Math.ceil(fGiftCost),
+          frameCost: Math.ceil(fFrameCost),
+          faceCost: 0,
+          gelCost: 0, acrylicCost: 0, oilCost: 0, potalCost: 0,
+          digitalMockupCost: 0,
+          passepartoutCost: Math.ceil(passCost),
+          passepartoutPotential: Math.ceil(passRaw),
+          giftLabel: fGiftLabel,
+          varnishPotential: 0,
+          giftPotential: Math.ceil(fGiftRaw),
+          giftLabelPotential: fGiftLabelRaw,
+          gelPotential: 0, acrylicPotential: 0, oilPotential: 0, potalPotential: 0
+        };
+      }
+
       /* Face cost (portrait only; for canvas faces=1, faceCost=0) */
       var faceCost = 0;
       if (isPortrait) {
@@ -1719,6 +2381,69 @@
         }
       }
 
+      /* Portrait-Style badges */
+      if (isPortraitStyle && portraitStyleEls) {
+        if (portraitStyleEls.badgeStyle) {
+          portraitStyleEls.badgeStyle.textContent = costs.styleCost > 0
+            ? fmtPrice(costs.styleCost) + ' р.'
+            : 'включено';
+          portraitStyleEls.badgeStyle.className = 'calc-badge' + (costs.styleCost > 0 ? ' is-active' : '');
+        }
+        if (portraitStyleEls.badgeFaces) {
+          var psExtra = costs.extraFacesCost || 0;
+          portraitStyleEls.badgeFaces.textContent = psExtra > 0
+            ? '+' + fmtPrice(psExtra) + ' р.'
+            : 'включено';
+          portraitStyleEls.badgeFaces.className = 'calc-badge' + (psExtra > 0 ? ' is-active' : '');
+        }
+        if (portraitStyleEls.badgeVarnish) {
+          var psVShow = costs.varnishCost > 0 ? costs.varnishCost : costs.varnishPotential;
+          portraitStyleEls.badgeVarnish.textContent = psVShow > 0 ? fmtPrice(psVShow) + ' р.' : '0 р.';
+          portraitStyleEls.badgeVarnish.className = 'calc-badge' + (costs.varnishCost > 0 ? ' is-active' : '');
+        }
+        if (portraitStyleEls.badgeGift) {
+          if (costs.giftLabel) {
+            portraitStyleEls.badgeGift.textContent = costs.giftLabel;
+            portraitStyleEls.badgeGift.className = 'calc-badge is-warning';
+          } else if (costs.giftLabelPotential && costs.giftCost === 0) {
+            portraitStyleEls.badgeGift.textContent = costs.giftLabelPotential;
+            portraitStyleEls.badgeGift.className = 'calc-badge';
+          } else {
+            var psGShow = costs.giftCost > 0 ? costs.giftCost : costs.giftPotential;
+            portraitStyleEls.badgeGift.textContent = psGShow > 0 ? fmtPrice(psGShow) + ' р.' : '0 р.';
+            portraitStyleEls.badgeGift.className = 'calc-badge' + (costs.giftCost > 0 ? ' is-active' : '');
+          }
+        }
+      }
+
+      /* Frame (foto-v-ramke) badges */
+      if (isFrame && frameEls) {
+        if (frameEls.badgePrintFrame) {
+          frameEls.badgePrintFrame.textContent = costs.printFrameCost > 0
+            ? fmtPrice(costs.printFrameCost) + ' р.'
+            : '0 р.';
+          frameEls.badgePrintFrame.className = 'calc-badge' + (costs.printFrameCost > 0 ? ' is-active' : '');
+        }
+        if (frameEls.badgePassepartout) {
+          var passShow = costs.passepartoutCost > 0 ? costs.passepartoutCost : costs.passepartoutPotential;
+          frameEls.badgePassepartout.textContent = passShow > 0 ? fmtPrice(passShow) + ' р.' : '0 р.';
+          frameEls.badgePassepartout.className = 'calc-badge' + (costs.passepartoutCost > 0 ? ' is-active' : '');
+        }
+        if (frameEls.badgeGift) {
+          if (costs.giftLabel) {
+            frameEls.badgeGift.textContent = costs.giftLabel;
+            frameEls.badgeGift.className = 'calc-badge is-warning';
+          } else if (costs.giftLabelPotential && costs.giftCost === 0) {
+            frameEls.badgeGift.textContent = costs.giftLabelPotential;
+            frameEls.badgeGift.className = 'calc-badge';
+          } else {
+            var fgShow = costs.giftCost > 0 ? costs.giftCost : costs.giftPotential;
+            frameEls.badgeGift.textContent = fgShow > 0 ? fmtPrice(fgShow) + ' р.' : '0 р.';
+            frameEls.badgeGift.className = 'calc-badge' + (costs.giftCost > 0 ? ' is-active' : '');
+          }
+        }
+      }
+
       /* Cache current frame lookup (used for text + canvas preview) */
       var _curFrame = _frameMap[STATE.frame] || FRAMES_DB[0];
 
@@ -1748,6 +2473,12 @@
         var wPct = STATE.w * factorW;
         var hPct = STATE.h * factorH;
 
+        /* For frame type with passepartout, increase preview slightly to show mat */
+        if (isFrame && STATE.passepartout) {
+          wPct = (STATE.w + 10) * factorW;
+          hPct = (STATE.h + 10) * factorH;
+        }
+
         els.canvas.classList.toggle('has-image', !!STATE.image);
 
         var fr = _curFrame;
@@ -1772,6 +2503,13 @@
           if (STATE.wrap === 'NO_FRAME') css += 'box-shadow:2px 4px 10px rgba(0,0,0,0.1);';
         }
 
+        /* Passepartout visualization: white padding inside the frame border */
+        if (isFrame && STATE.passepartout) {
+          css += 'padding:12px;background-clip:content-box;background-origin:content-box;';
+        } else if (isFrame) {
+          css += 'padding:0;';
+        }
+
         if (STATE.image) {
           css += 'background-image:url(' + STATE.image + ');background-size:cover;background-position:center;';
         } else {
@@ -1790,6 +2528,12 @@
     if (isPortrait) {
       initHintSystem();
       buildPortraitSections();
+    } else if (isPortraitStyle) {
+      initHintSystem();
+      buildPortraitStyleSections();
+    } else if (isFrame) {
+      initHintSystem();
+      buildFrameSections();
     } else if (cfg.tooltips) {
       initHintSystem();
       enhanceStaticVarnishGift();
