@@ -903,30 +903,35 @@ CSS-утилиты для оптимизации рендеринга и пре�
 
 ### Кнопки
 
-#### Варианты кнопок (чистый Tailwind)
+#### Варианты кнопок
+
+Все кнопки используют CSS-компоненты из `input.css`. **Не пишите inline-утилиты для кнопок вручную.**
 
 ```html
-<!-- Primary кнопка (основная) -->
-<a href="#" class="inline-block px-6 py-2 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors">
-    Заказать
-</a>
+<!-- Primary CTA -->
+<a href="#" class="btn-primary">Заказать</a>
 
-<!-- Dark кнопка (на светлом фоне) -->
-<a href="#" class="inline-block px-6 py-2 bg-dark hover:bg-gray-700 text-white rounded uppercase transition-colors">
-    Обратный звонок
-</a>
+<!-- Ghost-кнопка на светлом фоне -->
+<a href="#" class="btn-dark">Подробнее</a>
 
-<!-- Большая кнопка (для Hero) -->
-<a href="#" class="inline-block px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded uppercase transition-colors text-lg">
-    Заказать
-</a>
+<!-- На тёмном фоне (CTA, footer) -->
+<a href="#" class="btn-inverse">Обратный звонок</a>
+
+<!-- В header -->
+<a href="#" class="btn-header-cta">Заказать</a>
+
+<!-- Компактная (notification-баннеры) -->
+<button class="btn-primary btn-compact">Принять</button>
+
+<!-- Submit в модальной форме -->
+<button type="submit" class="btn-primary btn-form">Отправить</button>
 ```
 
-**Характеристики:**
-- Padding: `py-2 px-6` (стандарт) или `py-3 px-8` (большая)
-- Border radius: `rounded` (6px)
-- Transition: `transition-colors`
-- Hover эффект: `hover:bg-primary-hover` или `hover:bg-gray-700`
+**Характеристики (базовые):**
+- Шрифт: `text-xs` (12px), `font-medium` (500), `uppercase`, `tracking-widest`
+- Padding: `px-6 py-2.5` (~40px высота)
+- Border radius: `rounded`
+- Transition: `transition-colors duration-200`
 
 #### Состояния кнопок
 
@@ -1118,8 +1123,8 @@ Legacy: ранее использовался `` + `<dialog>`. Теперь ис
 
 #### Кнопки: унифицированный стиль
 
-**Все кнопки компактные, как в Header:**
-- Шрифт: `text-xs font-bold uppercase tracking-widest`
+**Базовые стили всех кнопок:**
+- Шрифт: `text-xs font-medium uppercase tracking-widest` (12px, weight 500)
 - Padding: `px-6 py-2.5` (~40px высота)
 - Выравнивание: `inline-flex items-center justify-center`
 
@@ -1135,13 +1140,31 @@ Legacy: ранее использовался `` + `<dialog>`. Теперь ис
 - `.btn-dark` → `hover:bg-dark hover:text-white` (заливка тёмным)
 - `.btn-inverse` → `hover:bg-white hover:text-dark` (заливка белым)
 
-> **Все кнопки:** `font-medium` (500), `text-xs`, `uppercase`, `tracking-widest`, `border` с 30% прозрачностью.
+#### Модификаторы размеров
+
+| Класс | Назначение | Переопределяет |
+|-------|------------|----------------|
+| `.btn-compact` | Компактные кнопки в notification-баннерах (cookie, город) | `text-sm px-4 py-2` |
+| `.btn-form` | Submit-кнопки в модальных формах (обратный звонок) | `text-sm px-6 py-3 w-full` |
+
+> **Правило:** НЕ используйте inline-переопределения `text-sm`, `px-*`, `py-*` на кнопках.
+> Если нужен нестандартный размер — создайте модификатор в `input.css`.
 >
-> **Примечание:** `.btn-secondary` и `.btn-outline` запланированы, но пока не реализованы в CSS.
+> **Исключение:** sticky-bar калькулятора и кнопки submit заказа в калькуляторе (`calc.html`) — допустимы inline-padding для специфичной раскладки.
+>
+> **Примечание:** `.btn-secondary` и `.btn-outline` запланированы, но пока не реализованы.
 
 ```html
+<!-- Стандартная кнопка -->
 <a href="#" class="btn-primary">Заказать</a>
 <a href="#" class="btn-inverse">Обратный звонок</a>
+
+<!-- Компактная (в баннерах) -->
+<button class="btn-primary btn-compact">Принять</button>
+<button class="btn-dark btn-compact">Верно</button>
+
+<!-- Форма (full-width submit) -->
+<button type="submit" class="btn-primary btn-form">Отправить</button>
 ```
 
 **Важно:** модификатор `.btn-lg` устарел — все кнопки теперь одного компактного размера.
