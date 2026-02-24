@@ -84,8 +84,13 @@
   --transition-slow: 300ms;
 
   /* Z-index tokens */
+  --z-index-notification: 40;
+  --z-index-widget: 50;
   --z-index-modal: 9999;
   --z-index-lightbox: 10000;
+
+  /* Layout tokens */
+  --max-w-city: 48rem;
 
   /* Ken Burns animation */
   --animate-ken-burns: kenburns 20s ease-out forwards;
@@ -192,6 +197,78 @@
   .page-navigator li a[data-title]:hover:before { opacity: 1; }
   .page-navigator li a:hover { transform: scale(1.5); }
 
+  /* === Messenger Widget === */
+  .messenger-widget {
+    position: fixed;
+    bottom: 5rem;
+    right: 1.25rem;
+    z-index: var(--z-index-widget);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.75rem;
+  }
+  @media (min-width: 768px) {
+    .messenger-widget { bottom: 6rem; }
+  }
+  .messenger-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(0.5rem) scale(0.95);
+    transition: opacity 300ms ease, transform 300ms ease;
+  }
+  .messenger-list.is-open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  /* === Notification Banners (Cookie / City) === */
+  .notification-banner {
+    position: fixed;
+    z-index: var(--z-index-notification);
+    width: 22rem;
+    padding: 1.25rem;
+    background: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 400ms ease, transform 400ms ease;
+  }
+  .notification-banner.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .notification-banner--bottom {
+    bottom: 1.25rem;
+    left: 1.25rem;
+    transform: translateY(1rem);
+  }
+  .notification-banner--bottom.is-visible {
+    transform: translateY(0);
+  }
+  .notification-banner--top {
+    top: 0.75rem;
+    left: 1.25rem;
+    z-index: 51;
+    transform: translateY(-1rem);
+  }
+  .notification-banner--top.is-visible {
+    transform: translateY(0);
+  }
+  @media (max-width: 639px) {
+    .notification-banner {
+      left: 0.75rem;
+      right: 0.75rem;
+      width: auto;
+    }
+  }
+
   /* === Typography (pilot) === */
   .heading-hero { @apply text-4xl lg:text-6xl font-light; }
   .heading-section { @apply text-3xl lg:text-4xl font-light; }
@@ -278,8 +355,15 @@
   .btn-primary,
   .btn-header-cta {
     @apply inline-flex items-center justify-center px-6 py-2.5 rounded bg-primary text-white;
-    @apply text-xs font-bold uppercase tracking-widest;
+    @apply text-xs font-medium uppercase tracking-widest;
     @apply transition-colors duration-200 hover:bg-primary-hover;
+  }
+
+  .btn-dark {
+    @apply inline-flex items-center justify-center px-6 py-2.5 rounded;
+    @apply bg-transparent text-body border border-body/30;
+    @apply text-xs font-medium uppercase tracking-widest;
+    @apply transition-colors duration-200 hover:bg-dark hover:text-white hover:border-dark;
   }
 
   /* btn-primary: полная ширина на мобильных */
@@ -325,6 +409,40 @@
     
     .mobile-menu-dialog[open] > [data-swipe-panel] {
       transform: translateX(0) translateY(0);
+    }
+  }
+
+  /* === Bottom Sheet Dialog (Callback, etc.) === */
+  .bottom-sheet-dialog {
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+  }
+  .bottom-sheet-dialog[open] {
+    opacity: 1;
+  }
+  .bottom-sheet-dialog::backdrop {
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+  }
+  .bottom-sheet-dialog[open]::backdrop {
+    opacity: 1;
+  }
+  .bottom-sheet-dialog > [data-swipe-panel] {
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .bottom-sheet-dialog[open] > [data-swipe-panel] {
+    transform: translateY(0);
+  }
+  .bottom-sheet-handle {
+    @apply mx-auto mt-2 mb-1 h-1 w-10 rounded-full bg-gray-300;
+  }
+  @media (min-width: 640px) {
+    .bottom-sheet-handle {
+      display: none;
+    }
+    .bottom-sheet-dialog > [data-swipe-panel] {
+      transform: none;
     }
   }
 

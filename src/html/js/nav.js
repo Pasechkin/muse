@@ -284,10 +284,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Закрытие виджета мессенджеров при скролле (мост к IIFE секции 6)
+    function closeMessengerList() {
+        if (typeof window._messengerCloseList === 'function') {
+            window._messengerCloseList();
+        }
+    }
+
     function toggleUI() {
         toggleBackToTop();
         togglePageNavigator();
         updateActiveLink();
+        closeMessengerList();
     }
 
     // Throttle для scroll (16ms ≈ 60fps)
@@ -985,6 +993,195 @@ document.addEventListener('DOMContentLoaded', function() {
         dialog.addEventListener('cancel', function () {
             resetSearch();
         });
+    })();
+
+    // --- 6. MESSENGER WIDGET ---
+    (function () {
+        var widget = document.getElementById('messengerWidget');
+        if (!widget) return;
+
+        var toggle = document.getElementById('messengerToggle');
+        var list   = document.getElementById('messengerList');
+        var icon   = document.getElementById('toggleIcon');
+        if (!toggle || !list || !icon) return;
+
+        // Отложенное появление (10 секунд после загрузки)
+        setTimeout(function () {
+            widget.classList.remove('hidden');
+        }, 10000);
+
+        function openList() {
+            list.classList.add('is-open');
+            toggle.setAttribute('aria-expanded', 'true');
+            icon.classList.add('rotate-45');
+        }
+
+        function closeList() {
+            list.classList.remove('is-open');
+            toggle.setAttribute('aria-expanded', 'false');
+            icon.classList.remove('rotate-45');
+        }
+
+        // Экспорт для toggleUI() (автозакрытие при скролле)
+        window._messengerCloseList = closeList;
+
+        toggle.addEventListener('click', function (e) {
+            e.stopPropagation();
+            var isOpen = toggle.getAttribute('aria-expanded') === 'true';
+            isOpen ? closeList() : openList();
+        });
+
+        // Закрытие при клике вне виджета
+        document.addEventListener('click', function (e) {
+            if (!widget.contains(e.target)) closeList();
+        });
+    })();
+
+    // --- 7. COOKIE BANNER ---
+    (function () {
+        var banner = document.getElementById('cookieBanner');
+        var acceptBtn = document.getElementById('cookieAccept');
+        if (!banner || !acceptBtn) return;
+
+        // Не показывать, если уже принято
+        try {
+            if (localStorage.getItem('muse_cookie_accepted')) return;
+        } catch (e) { /* ignore */ }
+
+        // Показать через 1 секунду
+        setTimeout(function () {
+            banner.classList.add('is-visible');
+        }, 1000);
+
+        acceptBtn.addEventListener('click', function () {
+            banner.classList.remove('is-visible');
+            try {
+                localStorage.setItem('muse_cookie_accepted', '1');
+            } catch (e) { /* ignore */ }
+        });
+    })();
+
+    // --- 8. CITY CONFIRMATION BANNER ---
+    (function () {
+        var banner = document.getElementById('cityBanner');
+        var confirmBtn = document.getElementById('cityConfirm');
+        var changeBtn = document.getElementById('cityChange');
+        var cityDialog = document.getElementById('city-dialog');
+        if (!banner) return;
+
+        // Не показывать, если город уже подтверждён
+        try {
+            if (localStorage.getItem('muse_city_confirmed')) return;
+        } catch (e) { /* ignore */ }
+
+        function hideBanner(persist) {
+            banner.classList.remove('is-visible');
+            if (persist) {
+                try {
+                    localStorage.setItem('muse_city_confirmed', '1');
+                } catch (e) { /* ignore */ }
+            }
+        }
+
+        // Показать через 2 секунды (после cookie-баннера)
+        setTimeout(function () {
+            banner.classList.add('is-visible');
+        }, 2000);
+
+        // Автоскрытие через 20 секунд после появления (без записи в localStorage)
+        var hideTimer = setTimeout(function () {
+            hideBanner(false);
+        }, 22000);
+
+        if (confirmBtn) {
+            confirmBtn.addEventListener('click', function () {
+                clearTimeout(hideTimer);
+                hideBanner(true);
+            });
+        }
+
+        if (changeBtn && cityDialog) {
+            changeBtn.addEventListener('click', function () {
+                clearTimeout(hideTimer);
+                hideBanner(true);
+                try {
+                    cityDialog.showModal();
+                } catch (e) { /* ignore */ }
+            });
+        }
+    })();
+
+    // --- 9. CALLBACK FORM + SWIPE-TO-CLOSE ---
+    (function () {
+        var dialog = document.getElementById('callback-dialog');
+        var form = document.getElementById('callback-form');
+        var success = document.getElementById('callback-success');
+        if (!form) return;
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            var phone = form.querySelector('[name="user_tele"]');
+            if (phone && phone.value.replace(/\D/g, '').length < 11) {
+                phone.classList.add('error');
+                phone.focus();
+                return;
+            }
+            if (phone) phone.classList.remove('error');
+
+            // Заглушка: показать успех (заменить на fetch при интеграции)
+            form.classList.add('hidden');
+            if (success) success.classList.remove('hidden');
+
+            // Автозакрытие через 3 секунды
+            setTimeout(function () {
+                if (dialog && typeof dialog.close === 'function') dialog.close();
+                // Сброс формы для повторного открытия
+                form.reset();
+                form.classList.remove('hidden');
+                if (success) success.classList.add('hidden');
+            }, 3000);
+        });
+
+        // --- Swipe-down-to-close (mobile bottom sheet) ---
+        var panel = dialog ? dialog.querySelector('[data-swipe-panel]') : null;
+        if (panel && 'ontouchstart' in window) {
+            var startY = 0, currentY = 0, dragging = false;
+
+            panel.addEventListener('touchstart', function (e) {
+                var tag = e.target.tagName;
+                if (tag === 'INPUT' || tag === 'SELECT' || tag === 'BUTTON' || tag === 'TEXTAREA') return;
+                startY = e.touches[0].clientY;
+                currentY = startY;
+                dragging = true;
+                panel.style.transition = 'none';
+            }, { passive: true });
+
+            panel.addEventListener('touchmove', function (e) {
+                if (!dragging) return;
+                currentY = e.touches[0].clientY;
+                var dy = currentY - startY;
+                if (dy > 0) {
+                    panel.style.transform = 'translateY(' + dy + 'px)';
+                }
+            }, { passive: true });
+
+            panel.addEventListener('touchend', function () {
+                if (!dragging) return;
+                dragging = false;
+                var dy = currentY - startY;
+                panel.style.transition = '';
+                if (dy > 100) {
+                    panel.style.transform = 'translateY(100%)';
+                    setTimeout(function () {
+                        dialog.close();
+                        panel.style.transform = '';
+                    }, 300);
+                } else {
+                    panel.style.transform = '';
+                }
+            });
+        }
     })();
 
 });

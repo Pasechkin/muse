@@ -160,7 +160,8 @@ npm run copy-css     # Копия для Live Server
 ### Info (9) ✅
 `faq.html`, `kontakty.html`, `info.html`, `avtorstvo.html`, `guarantee.html`, `partnerstvo.html`, `oferta.html`, `politika-konfidentsialnosti-sayta.html`, `dostavka.html`
 
-### Печать (2)
+### Печать (3)
+`foto-v-ramke.html` (с калькулятором, в работе)
 `fotokollazh-na-kholste.html` (с калькулятором + конструктор коллажей через iframe → `konstruktor-kollazha.html`)
 `modulnaya-kartina.html` ⚠️ Каркас готов, см. [TODO](#modulnaya-kartina--todo)
 
@@ -199,20 +200,21 @@ npm run copy-css     # Копия для Live Server
 | Портреты Москва | `/portret-na-zakaz-po-foto-na-kholste-moskva/` | Средний |
 | Печать Москва | `/pechat-na-kholste-moskva/` | Средний |
 | Оплата | `/info/oplata/` | Средний |
-| Форма заказа | `/order/` | Средний |
-| Спасибо за заказ | — | Низкий |
+| ~~Форма заказа~~ | `/order/` | ✅ Быстрый заказ (`order.html`) — без хедера/футера, с загрузчиком |
+| ~~Спасибо за заказ~~ | `/spasibo/` | ✅ `spasibo.html` — без хедера/футера, редирект после заказа |
 | Страница заказчика | `/personal/orders/...` | Средний |
 | Подарочный сертификат | `/pechat/podarochnyy-sertifikat/` | Средний |
-| Страница 404 | `/404/` | Низкий |
+| ~~Страница 404~~ | `/404/` | ✅ `404.html` — тёмная секция, без хедера/футера |
 | Страница художника | `/personal/forart/...` | Средний |
 | ~~Модульная картина~~ | `/pechat/modulnaya-kartina/` | ⚠️ Каркас готов, доработки ниже |
-| Фото в рамке | `/pechat/foto-v-ramke/` | С калькулятором |
+| Фото в рамке | `/pechat/foto-v-ramke/` | ⚠️ В работе (`foto-v-ramke.html`), с калькулятором |
 | Фотоколлаж в рамке | `/pechat/fotokollazh-v-ramke/` | С калькулятором |
 | Репродукция | `/pechat/reproduktsiya/` | С поиском |
 
 ### UI-компоненты (ожидают)
-- Куки-баннер
-- «Это ваш город?»
+- ✅ Куки-баннер (демо на `index.html`, localStorage)
+- ✅ «Это ваш город?» (демо на `index.html`, «Изменить» → city-dialog)
+- ✅ Виджет мессенджеров (демо на `index.html`, ссылки — заглушки до интеграции)
 - Виджет отзывов
 
 ---

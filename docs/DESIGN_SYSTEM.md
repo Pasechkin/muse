@@ -61,6 +61,9 @@
 - Доступность `<dialog>`: фокус, `Escape`, aria-атрибуты, keyboard controls.
 - Carousel Scroll: wheel-scroll (desktop), drag-to-scroll, кнопки prev/next, ARIA и `sr-only` подсказка, авто-добавление кнопок при отсутствии.
 - Before/After: синхронизация `input[type=range]` с CSS-переменной `--pos` (`.ba-card/.before-after-slider`).
+- Messenger Widget: отложенное появление (10 с), toggle, автозакрытие при скролле/клике вне (`#messengerWidget`).
+- Cookie Banner: показ через 1 с, скрытие по клику «Принять», localStorage `muse_cookie_accepted` (`#cookieBanner`).
+- City Banner: показ через 2 с, автоскрытие 20 с, кнопки «Верно»/«Изменить», localStorage `muse_city_confirmed` (`#cityBanner`).
 
 **Page-specific JS** (скрипты только для отдельных страниц):
 - Допускается, если логика не переиспользуется и относится к уникальному блоку страницы.
@@ -1375,28 +1378,145 @@ CSS-классы для вертикального списка шагов с п
 
 ### Виджет мессенджеров (Floating Messenger Widget)
 
-Назначение: плавающий виджет для ненавязчивого доступа к мессенджерам.
+Назначение: плавающий виджет для ненавязчивого доступа к мессенджерам (WhatsApp, Telegram, VK, Max).
+
+**Статус:** ✅ Реализован (демо на `index.html`). Ссылки мессенджеров — заглушки (`href="#"`), реальные URL подставит программист при интеграции с Битрикс.
 
 **Файлы:**
-- Демо/пример: [src/html/_drafts/widget.html](src/html/_drafts/widget.html)
-- Иконки (соцсети/провайдеры, цветные 24px): [src/html/social-icons-demo.html](src/html/social-icons-demo.html)
+- **CSS-компоненты:** [src/input.css](src/input.css) → `@layer components` (`.messenger-widget`, `.messenger-list`, `.messenger-list.is-open`)
+- **JS-логика:** [src/html/js/nav.js](src/html/js/nav.js) → секция «6. MESSENGER WIDGET»
+- **HTML-разметка:** [src/html/index.html](src/html/index.html) → `#messengerWidget` (перед `<header>`)
+- Черновик/прототип: [draft/widget.html](../draft/widget.html)
+- Иконки мессенджеров: [src/html/social-icons-demo.html](src/html/social-icons-demo.html)
+- Toggle-иконка: icon-51 (chat-bubble-left-ellipsis, Heroicons)
+
+**Позиционирование:**
+- `position: fixed` — правый нижний угол
+- Мобильные: `bottom: 5rem; right: 1.25rem` (back-to-top скрыт на `< md`)
+- Desktop (md+): `bottom: 6rem; right: 1.25rem` (выше кнопки back-to-top)
+- Z-index: `var(--z-index-widget)` = `50` (на уровне back-to-top, ниже page-navigator / модалок)
 
 **Поведение (канон):**
-1) Отложенное появление (10 секунд после загрузки).
-2) Открытие/закрытие по клику на кнопку.
-3) Автозакрытие при клике вне виджета и при скролле.
-4) Состояние управляется через `aria-expanded` и класс `is-open` у списка.
+1) Отложенное появление (10 секунд после загрузки, `setTimeout` → `hidden` → visible).
+2) Открытие/закрытие по клику на toggle-кнопку.
+3) Автозакрытие при клике вне виджета (`document.click`).
+4) Автозакрытие при скролле (через `toggleUI()` → `closeMessengerList()`).
+5) Состояние управляется через `aria-expanded` и класс `is-open` у списка.
 
 **Размеры (канон):**
-- Кнопка: 48×48 (`w-12 h-12`)
-- Иконка: 24×24 (`w-6 h-6`)
+- Toggle-кнопка: `h-14 w-14` (мобильные), `sm:h-12 sm:w-12` (desktop)
+- Иконки мессенджеров: кнопка `h-12 w-12`, SVG `h-6 w-6`
 
-**CSS (канон):**
-- Компонентные классы в [src/input.css](src/input.css): `messenger-widget`, `messenger-list`, `messenger-list.is-open`.
-- Для предпросмотра через Live Server нужна актуальная копия CSS: [src/html/css/output.css](src/html/css/output.css) (обновляется `npm run copy-css`).
+**CSS-компоненты (источник: `src/input.css`):**
+
+| Класс | Назначение |
+|-------|-----------|
+| `.messenger-widget` | Контейнер: `fixed`, позиция, z-index, flex-column, gap |
+| `.messenger-list` | Список мессенджеров в закрытом состоянии: `opacity: 0`, `pointer-events: none`, `transform: translateY + scale` |
+| `.messenger-list.is-open` | Открытое состояние: `opacity: 1`, `pointer-events: auto`, сброс transform |
+
+**JS-API (источник: `nav.js`, секция 6):**
+
+| Функция | Назначение |
+|---------|-----------|
+| `openList()` | Добавляет `is-open`, `aria-expanded="true"`, `rotate-45` на иконку |
+| `closeList()` | Убирает `is-open`, `aria-expanded="false"`, сбрасывает `rotate-45` |
+| `window._messengerCloseList` | Мост для `toggleUI()` — автозакрытие при скролле |
+
+**Мессенджеры:**
+
+| Канал | Цвет фона | Примечание |
+|-------|----------|-----------|
+| WhatsApp | `bg-[#25d366]` | SVG fill-current |
+| Telegram | `bg-[#2ea2d9]` | SVG fill-current |
+| VK | `bg-[#4a76a8]` | SVG fill-current |
+| Max | `bg-gradient-to-br from-[#4bc2fd] to-[#4961fc]` | SVG fill-current |
 
 **Доступность:**
-- Кнопка открытия должна иметь `aria-label` и управлять `aria-expanded`.
+- Toggle-кнопка: `aria-label="Открыть мессенджеры"`, `aria-expanded`
+- Каждая ссылка: `aria-label="Написать в {Name}"`, `target="_blank"`, `rel="noopener"`
+- Focus ring: `focus:ring-2 focus:ring-white/70`
+
+**Z-index карта (обновлённая):**
+
+| Значение | Элемент |
+|----------|---------|
+| `40` | Notification Banners (Cookie, City) |
+| `50` | Back-to-top, Messenger Widget, Header (sticky) |
+| `100` | Review modal overlay |
+| `9999` | Page Navigator, Modal shell, Video modal |
+| `10000` | Lightbox |
+| `10001` | Lightbox close button |
+
+---
+
+### Уведомления (Notification Banners)
+
+Назначение: плавающие уведомления — cookie-согласие и подтверждение города.
+
+**Статус:** ✅ Реализованы (демо на `index.html`).
+
+**Файлы:**
+- **CSS-компоненты:** [src/input.css](src/input.css) → `@layer components` (`.notification-banner`, `--bottom`, `--top`, `.is-visible`)
+- **JS-логика:** [src/html/js/nav.js](src/html/js/nav.js) → секции «7. COOKIE BANNER» и «8. CITY CONFIRMATION BANNER»
+- **HTML-разметка:** [src/html/index.html](src/html/index.html) → `#cookieBanner`, `#cityBanner` (перед `<header>`)
+- Эталон оригинала: [src/html/cookie_city.html](src/html/cookie_city.html)
+
+**Позиционирование:**
+
+| Баннер | Позиция | Z-index |
+|--------|---------|---------|
+| Cookie | `fixed bottom-left` (bottom: 1.25rem, left: 1.25rem) | `var(--z-index-notification)` = `40` |
+| City | `fixed top-left` под хедером (top: 6rem, left: 1.25rem) | `var(--z-index-notification)` = `40` |
+
+На мобильных (`< 640px`) оба баннера растягиваются на всю ширину (`left: 0.75rem; right: 0.75rem`).
+
+**Поведение:**
+
+| Баннер | Показ | Скрытие | localStorage-ключ |
+|--------|-------|---------|--------------------|
+| Cookie | через 1 с | клик «Принять» | `muse_cookie_accepted` |
+| City | через 2 с | «Верно» / авто через 20 с / «Изменить» → city-dialog | `muse_city_confirmed` |
+
+**CSS-компоненты:**
+
+| Класс | Назначение |
+|-------|-----------|
+| `.notification-banner` | Базовый: fixed, max-width 22rem, белый фон, скруглённые углы, тень, opacity-анимация |
+| `.notification-banner--bottom` | Модификатор: нижний левый угол, анимация снизу |
+| `.notification-banner--top` | Модификатор: верхний левый угол (под хедером), анимация сверху |
+| `.notification-banner.is-visible` | Видимое состояние: opacity 1, pointer-events auto |
+
+**HTML-шаблон (cookie):**
+```html
+<div id="cookieBanner" class="notification-banner notification-banner--bottom" role="alert">
+    <p class="text-sm text-body leading-relaxed mb-3">
+        Собираем файлы cookie, применяем
+        <a href="info/politika-konfidentsialnosti-sayta.html" class="text-primary hover:text-primary-hover underline">рекомендательные системы</a>.
+    </p>
+    <button id="cookieAccept" class="btn-primary text-sm px-5 py-2 rounded">Принять</button>
+</div>
+```
+
+**HTML-шаблон (city):**
+```html
+<div id="cityBanner" class="notification-banner notification-banner--top" role="alert">
+    <p class="text-sm text-body leading-relaxed mb-3">
+        Ваш город: <strong class="text-dark" data-city-current>Санкт-Петербург</strong>?
+    </p>
+    <div class="flex gap-3">
+        <button id="cityConfirm" class="btn-dark text-sm px-4 py-2 rounded">Верно</button>
+        <button id="cityChange" class="btn-primary text-sm px-4 py-2 rounded">Изменить</button>
+    </div>
+</div>
+```
+
+**Доступность:** `role="alert"` для screen readers.
+
+**Примечания:**
+- City-баннер использует `data-city-current` — имя города подтягивается из city-dialog через nav.js.
+- Кнопка «Изменить» открывает `#city-dialog` (существующий полный диалог выбора города).
+- Текст cookie-баннера и ссылка на политику конфиденциальности — из оригинала muse.ooo.
 
 ---
 

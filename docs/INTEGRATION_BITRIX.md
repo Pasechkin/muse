@@ -356,6 +356,43 @@ Bitrix должен генерировать актуальные URL с:
 
 ---
 
+## Загрузчики изображений
+
+> **Полная техническая документация:** [docs/UPLOADERS.md](UPLOADERS.md) — архитектура, API, HTML-разметка, различия между страницами, требования к серверной части.
+
+### Три реализации
+
+В проекте три группы загрузчиков изображений:
+
+| Группа | Страницы | Загрузчик | Движок |
+|--------|----------|-----------|--------|
+| **A** — Стандартный калькулятор | 6 страниц (calc.html, portret-maslom, foto-na-kholste, foto-v-ramke, fotokollazh-na-kholste, portret-na-zakaz-spb) | `MuseUploader` из `uploader.js` | `calc.js` |
+| **A-standalone** — Быстрый заказ | 1 страница (order.html) | `MuseUploader` из `uploader.js` (без калькулятора) | inline |
+| **B** — Модульная картина | 1 страница (modulnaya-kartina) | `MuseUploader` из `uploader.js` (с `mc-` префиксами ID) | `modular-calc.js` |
+| **C** — Конструктор коллажей | 1 страница (konstruktor-kollazha) | Собственный inline-скрипт (без `uploader.js`) | inline |
+
+### Текущее состояние
+
+- Загрузка работает **полностью на клиенте** — файлы хранятся в памяти браузера (`blob-URL` / `data-URL`)
+- **Сервер не используется** — отправка фото на сервер является задачей интеграции
+- Конструктор коллажей передаёт итоговое изображение в калькулятор через мост (`window.__museUploader.addFiles()`)
+
+### Что нужно от Bitrix
+
+1. `POST /api/upload` — приём фотографий (multipart/form-data, до 20 файлов × 10 МБ)
+2. Включение серверных ID фото в заказ (`POST /api/order`, поле `photos`)
+
+### Что НЕ менять при интеграции
+
+- HTML-разметку загрузчика (стандартные ID)
+- Файл `uploader.js`
+- Порядок подключения скриптов: `prices.js` → `calc.js` → `uploader.js`
+- Глобальные переменные `window.__museUploader`, `window._mcUploader`, `window.__museCalcSetSize`, `window.__orderUploader`
+
+Подробности, полное API, примеры адаптации → [UPLOADERS.md](UPLOADERS.md)
+
+---
+
 ## Галерея / Портфолио
 
 Секции с `id="primery-portretov"` содержат заглушки для галерей из Bitrix.

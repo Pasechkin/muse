@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма заказа картины — студия Muse</title>
+    <meta name="description" content="Заполните форму и прикрепите изображение. Мы перезвоним в течение часа рабочего времени, чтобы обсудить заказ.">
+
+    <!-- Закрыто от индексации во время разработки -->
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="stylesheet" href="../css/output.css">
+    <link rel="canonical" href="https://muse.ooo/order/">
+</head>
+<body class="bg-white overflow-x-hidden">
+
+    <!-- Back to Top Button -->
+    <a href="#" id="back-to-top" class="ui-control ui-control--lg fixed bottom-5 right-5 z-50 opacity-0 pointer-events-none hidden md:flex" aria-label="Наверх">
+        <svg fill="none" aria-hidden="true" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></svg>
+    </a>
+
+    <main>
+        <!-- Hero & Breadcrumbs -->
+        <section class="pt-8 pb-8 lg:pt-12 lg:pb-12 bg-secondary">
+            <div class="container">
+                <nav class="text-sm text-gray-600 mb-4" aria-label="Хлебные крошки">
+                    <ol class="flex items-center space-x-2">
+                        <li><a href="/" class="hover:text-primary transition-colors">Главная</a></li>
+                        <li>/</li>
+                        <li class="text-dark">Оформление заказа</li>
+                    </ol>
+                </nav>
+                <h1 class="heading-hero">Оформление заказа</h1>
+            </div>
+        </section>
+
+        <!-- Uploader + Order Form -->
+        <section class="py-16 lg:py-24 bg-white">
+            <div class="container max-w-3xl">
+
+                <!-- Uploader Zone (Group A) -->
+                <div id="uploader-zone" class="uploader-zone mb-8">
+                    <div class="w-full max-w-sm mx-auto lg:max-w-none">
+                        <input type="file" id="file-upload" class="hidden" accept="image/jpeg,image/png,image/gif,image/webp" multiple>
+                        <button id="btn-upload-empty" class="w-full bg-primary hover:bg-primary-hover text-white font-bold py-3 rounded-lg text-sm uppercase tracking-wide transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                            <span>Загрузить фото</span>
+                        </button>
+                        <div id="uploader-thumbnails" class="uploader-thumbnails thin-scrollbar-x" role="listbox" aria-label="Загруженные фотографии"></div>
+                        <div id="uploader-alert" class="uploader-alert" role="status" aria-live="polite"></div>
+                        <div id="uploader-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+                    </div>
+                </div>
+
+                <!-- Order Form -->
+                <form id="order-form-container" class="w-full" novalidate>
+                    <h2 class="text-xl font-bold text-body text-center lg:text-left mb-6">Контактная информация</h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <div><input type="text" id="client-name" name="client_name_x" class="form-input" placeholder="Имя*" autocomplete="name" required></div>
+                        <div><input type="tel" id="client-phone" name="client_phone_x" class="form-input" placeholder="Телефон*" autocomplete="tel" required></div>
+                        <div><input type="email" id="client-email" name="client_email_x" class="form-input" placeholder="E-mail" autocomplete="email"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div><textarea id="client-link" name="client_link_x" class="form-input h-full resize-none" rows="4" placeholder="Поле для ссылки на фото или облако"></textarea></div>
+                        <div><textarea id="client-comment" name="client_comment_x" class="form-input h-full resize-none" rows="4" placeholder="Комментарий к заказу"></textarea></div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-6 border-t border-gray-100 pt-6">
+                        <div class="text-xs text-gray-600 text-left">
+                            Заполняя форму, я соглашаюсь с условиями
+                            <a href="https://muse.ooo/info/oferta/" class="text-primary underline hover:no-underline">Оферты</a>
+                            и даю свое согласие на обработку персональных данных в соответствии с
+                            <a href="https://muse.ooo/info/politika_konfidentsialnosti_sayta/" class="text-primary underline hover:no-underline">Политикой конфиденциальности сайта</a>
+                        </div>
+                        <button type="submit" id="btn-submit-order" class="w-full md:w-auto btn-header-cta px-10 py-4 active:scale-[0.98] shrink-0">Отправить заказ</button>
+                    </div>
+                </form>
+
+                <!-- Privacy Note -->
+                <div class="mt-12 pt-6 border-t border-gray-100">
+                    <p class="text-sm text-gray-500">Если Вы не заинтересованы в публикации работы в портфолио или социальных сетях, то сообщите нам, пожалуйста, любым удобным способом на любом этапе взаимодействия. Мы удалим всю информацию, связанную с заказом после получения его Вами.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../js/nav.js" defer></script>
+    <script src="../js/uploader.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            /* ── Инициализация загрузчика (Group A, standalone) ── */
+            if (typeof MuseUploader === 'function') {
+                window.__orderUploader = MuseUploader({
+                    dropZone:    '#uploader-zone',
+                    fileInput:   '#file-upload',
+                    thumbList:   '#uploader-thumbnails',
+                    alertBox:    '#uploader-alert',
+                    statusBox:   '#uploader-status',
+                    emptyBtn:    '#btn-upload-empty'
+                });
+            }
+
+            /* ── Валидация и отправка формы ── */
+            var form = document.getElementById('order-form-container');
+            if (!form) return;
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                var name  = document.getElementById('client-name');
+                var phone = document.getElementById('client-phone');
+
+                /* Простая валидация обязательных полей */
+                var hasError = false;
+
+                [name, phone].forEach(function (field) {
+                    field.classList.remove('border-red-400');
+                    if (!field.value.trim()) {
+                        field.classList.add('border-red-400');
+                        hasError = true;
+                    }
+                });
+
+                if (hasError) {
+                    name.focus();
+                    return;
+                }
+
+                /* Сбор данных */
+                var payload = {
+                    name:    name.value.trim(),
+                    phone:   phone.value.trim(),
+                    email:   document.getElementById('client-email').value.trim(),
+                    link:    document.getElementById('client-link').value.trim(),
+                    comment: document.getElementById('client-comment').value.trim(),
+                    images:  []
+                };
+
+                /* Собираем загруженные изображения из uploader */
+                if (window.__orderUploader && typeof window.__orderUploader.getImages === 'function') {
+                    payload.images = window.__orderUploader.getImages();
+                }
+
+                /*
+                 * TODO: отправка на сервер (Bitrix endpoint)
+                 * fetch('/api/order', { method: 'POST', body: JSON.stringify(payload) })
+                 *
+                 * Пока показываем подтверждение:
+                 */
+                var btn = document.getElementById('btn-submit-order');
+                btn.disabled = true;
+                btn.textContent = 'Отправлено!';
+                btn.classList.add('opacity-60', 'cursor-default');
+
+                console.log('[Muse Order]', payload);
+
+                /* Простое уведомление — заменить на модальное окно или redirect при интеграции */
+                setTimeout(function () {
+                    alert('Спасибо! Мы перезвоним в течение часа рабочего времени.');
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html>
