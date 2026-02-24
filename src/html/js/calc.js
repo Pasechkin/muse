@@ -279,7 +279,7 @@
         '<h3 class="text-base font-bold text-body mb-3" id="calc-hint-title"></h3>' +
         '<div class="text-sm text-body leading-relaxed whitespace-pre-line" id="calc-hint-text"></div>' +
         '<div class="mt-4 text-right">' +
-          '<button type="button" class="text-sm font-bold text-primary hover:underline cursor-pointer" id="calc-hint-close">Понятно</button>' +
+          '<button type="button" class="text-sm font-bold text-primary-text hover:underline cursor-pointer" id="calc-hint-close">Понятно</button>' +
         '</div>';
       document.body.appendChild(hintDialog);
 
@@ -1412,7 +1412,7 @@
               '</div>' +
               noFrameIcon +
             '</div>' +
-            '<span class="text-xs font-bold text-body text-center leading-tight group-hover:text-primary transition">' + priceText + '</span>';
+            '<span class="text-xs font-bold text-body text-center leading-tight group-hover:text-primary-text transition">' + priceText + '</span>';
         } else {
           innerHtml =
             '<div class="relative w-full rounded-lg shadow-sm overflow-hidden bg-white frame-preview-box" style="' + aspectRatioStyle + '">' +
@@ -1421,7 +1421,7 @@
               '</div>' +
               noFrameIcon +
             '</div>' +
-            '<span class="text-xs font-bold text-body text-center leading-tight group-hover:text-primary transition">' + priceText + '</span>';
+            '<span class="text-xs font-bold text-body text-center leading-tight group-hover:text-primary-text transition">' + priceText + '</span>';
         }
         el.innerHTML = innerHtml;
 

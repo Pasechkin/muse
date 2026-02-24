@@ -89,7 +89,7 @@
             <!-- Toolbar -->
             <div class="bg-white border-b border-gray-200 px-3 py-2 flex items-center justify-between z-20 shrink-0 shadow-sm">
                 <div class="bg-gray-100 rounded-lg p-1 flex">
-                   <button id="btn-mode-layout" class="px-3 py-1.5 rounded-md text-[10px] uppercase font-bold tracking-wider transition-all bg-white text-primary shadow-sm">Макет</button>
+                   <button id="btn-mode-layout" class="px-3 py-1.5 rounded-md text-[10px] uppercase font-bold tracking-wider transition-all bg-white text-primary-text shadow-sm">Макет</button>
                    <button id="btn-mode-image" class="px-3 py-1.5 rounded-md text-[10px] uppercase font-bold tracking-wider transition-all text-gray-500 hover:text-gray-700">Фото</button>
                 </div>
                 
@@ -144,7 +144,7 @@
             ZoomOut: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>`,
             Center: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>`,
             X: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`,
-            LockClosed: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+            LockClosed: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary-text"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
             LockOpen: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-300"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>`
         };
 
@@ -625,7 +625,7 @@
                 const presetCont = document.getElementById('preset-list');
                 PRESETS.filter(p => p.count === State.filterCount).forEach(p => {
                     const btn = document.createElement('button');
-                    btn.className = "snap-start flex-none w-28 lg:w-full h-28 border border-gray-200 rounded-xl p-2 hover:border-primary text-gray-400 hover:text-primary transition-all flex flex-col items-center bg-gray-50/50";
+                    btn.className = "snap-start flex-none w-28 lg:w-full h-28 border border-gray-200 rounded-xl p-2 hover:border-primary text-gray-400 hover:text-primary-text transition-all flex flex-col items-center bg-gray-50/50";
                     const layout = applyLayout(p);
                     let minX=Infinity, minY=Infinity, maxX=-Infinity, maxY=-Infinity;
                     layout.forEach(m=>{ minX=Math.min(minX,m.offsetLeft); minY=Math.min(minY,m.offsetTop); maxX=Math.max(maxX,m.offsetLeft+m.width); maxY=Math.max(maxY,m.offsetTop+m.height); });
@@ -638,7 +638,7 @@
             } else if (State.activeTab === 'photos') {
                 container.innerHTML = `
                     <div class="p-5 space-y-4">
-                        <div id="drop-zone" class="w-full h-24 border-2 border-dashed ${State.isDragOver ? 'border-primary bg-primary/5 text-primary' : 'border-gray-300 text-gray-400 hover:border-primary hover:text-primary'} rounded-xl flex flex-col items-center justify-center transition-colors gap-2 cursor-pointer">
+                        <div id="drop-zone" class="w-full h-24 border-2 border-dashed ${State.isDragOver ? 'border-primary bg-primary/5 text-primary-text' : 'border-gray-300 text-gray-400 hover:border-primary hover:text-primary-text'} rounded-xl flex flex-col items-center justify-center transition-colors gap-2 cursor-pointer">
                             ${Icons.Upload}
                             <span class="text-[10px] font-black uppercase tracking-widest">${State.isDragOver ? 'Отпустите файл' : 'Загрузить'}</span>
                         </div>
@@ -694,7 +694,7 @@
                 const list = document.getElementById('format-list');
                 FORMAT_PRESETS.forEach(p => {
                     const btn = document.createElement('button');
-                    btn.className = "flex-none w-full h-28 border border-gray-200 rounded-xl hover:border-primary hover:text-primary transition-colors flex flex-col items-center justify-center gap-3";
+                    btn.className = "flex-none w-full h-28 border border-gray-200 rounded-xl hover:border-primary hover:text-primary-text transition-colors flex flex-col items-center justify-center gap-3";
                     btn.innerHTML = `<div class="w-12 h-12 flex items-center justify-center"><div class="border-2 border-current rounded-sm opacity-60" style="aspect-ratio:${p.rw}/${p.rh}; width:${p.rw>=p.rh?'100%':'auto'}; height:${p.rh>p.rw?'100%':'auto'}"></div></div><span class="text-[10px] font-bold">${p.label}</span>`;
                     btn.onclick = () => handleResize(p.targetW, p.targetH);
                     list.appendChild(btn);
@@ -707,7 +707,7 @@
             bar.innerHTML = '';
             [{ id: 'photos', label: 'Фото', icon: Icons.Photo }, { id: 'format', label: 'Формат', icon: Icons.Format }, { id: 'layout', label: 'Макет', icon: Icons.Layout }, { id: 'order', label: 'Заказ', icon: Icons.Order }].forEach(tab => {
                 const btn = document.createElement('button');
-                btn.className = `flex-1 py-3 lg:py-4 flex flex-col items-center justify-center gap-1.5 transition-colors duration-200 ${State.activeTab === tab.id ? 'text-primary' : 'text-gray-400 hover:text-gray-600'}`;
+                btn.className = `flex-1 py-3 lg:py-4 flex flex-col items-center justify-center gap-1.5 transition-colors duration-200 ${State.activeTab === tab.id ? 'text-primary-text' : 'text-gray-400 hover:text-gray-600'}`;
                 btn.innerHTML = `${tab.icon}<span class="text-[10px] font-black uppercase tracking-wider">${tab.label}</span>`;
                 btn.onclick = () => { State.activeTab = tab.id; renderSidebar(); renderTabs(); };
                 bar.appendChild(btn);
@@ -718,7 +718,7 @@
             const btnLayout = document.getElementById('btn-mode-layout');
             const btnImage = document.getElementById('btn-mode-image');
             const imgControls = document.getElementById('img-controls');
-            const activeClass = "px-4 py-1.5 rounded-md text-[11px] uppercase font-bold tracking-wider transition-all bg-white text-primary shadow-sm ring-1 ring-black/5";
+            const activeClass = "px-4 py-1.5 rounded-md text-[11px] uppercase font-bold tracking-wider transition-all bg-white text-primary-text shadow-sm ring-1 ring-black/5";
             const inactiveClass = "px-4 py-1.5 rounded-md text-[11px] uppercase font-bold tracking-wider transition-all text-gray-500 hover:text-gray-700 hover:bg-gray-50";
             btnLayout.className = State.interactionMode === 'layout' ? activeClass : inactiveClass;
             btnImage.className = State.interactionMode === 'image' ? activeClass : inactiveClass;

@@ -73,7 +73,7 @@
       '<h3 class="text-base font-bold text-body mb-3" id="mc-hint-title"></h3>' +
       '<div class="text-sm text-body leading-relaxed whitespace-pre-line" id="mc-hint-text"></div>' +
       '<div class="mt-4 text-right">' +
-        '<button type="button" class="text-sm font-bold text-primary hover:underline cursor-pointer" id="mc-hint-close">Понятно</button>' +
+        '<button type="button" class="text-sm font-bold text-primary-text hover:underline cursor-pointer" id="mc-hint-close">Понятно</button>' +
       '</div>';
     document.body.appendChild(hintDialog);
     hintDialog.querySelector('#mc-hint-close').addEventListener('click', function () { hintDialog.close(); });
@@ -845,7 +845,7 @@
       tabs.forEach(function (tab) {
         var btn = document.createElement('button');
         btn.className = 'flex-1 py-3 lg:py-4 flex flex-col items-center justify-center gap-1.5 transition-colors ' +
-          (State.activeTab === tab.id ? 'text-primary' : 'text-gray-500 hover:text-gray-700');
+          (State.activeTab === tab.id ? 'text-primary-text' : 'text-gray-500 hover:text-gray-700');
         btn.innerHTML = tab.icon + '<span class="text-[10px] font-black uppercase tracking-wider">' + tab.label + '</span>';
         btn.onclick = function () {
           State.activeTab = tab.id;

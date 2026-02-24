@@ -22,8 +22,8 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>Конструктор фотоколлажей</title>
   <style> :root {
-     --primary-color:#2f6ea8;
-     --secondary-color:#275d8f;
+     --primary-color:#4a90e2;
+     --secondary-color:#3878C1;
      --border-color:#ddd;
      --text-color:#525252;
      --bg-color:#fafafa;
@@ -72,7 +72,7 @@ body,
 }
 
 /* Цветовые классы */
-.color--primary { color: #2f6ea8 !important; }
+.color--primary { color: #3878C1 !important; }
 .color--dark    { color: #262626 !important; }
 .color--white   { color: #fff !important; }
 .color--error   { color: #e23636 !important; }
@@ -97,7 +97,7 @@ strong, b,
 
 /* Ссылки */
 a, .text a, .constructor-text a, .collage-text a, .collage-hint-text a {
-  color: #2f6ea8;
+  color: #3878C1;
   text-decoration: none;
 }
 a:hover, .text a:hover, .constructor-text a:hover, .collage-text a:hover, .collage-hint-text a:hover {
@@ -283,7 +283,7 @@ a:hover, .text a:hover, .constructor-text a:hover, .collage-text a:hover, .colla
      right: 2px;
      width: 24px;
      height: 24px;
-     background: #2f6ea8 !important;
+     background: #4a90e2 !important;
      color: #fff !important;
      border: none;
      border-radius: 50%;
@@ -904,7 +904,7 @@ a:hover, .text a:hover, .constructor-text a:hover, .collage-text a:hover, .colla
      right: 6px;
      width: 28px;
      height: 28px;
-     background: #2f6ea8;
+     background: #4a90e2;
      color: #fff;
      border: none;
      border-radius: 50%;
@@ -997,7 +997,7 @@ a:hover, .text a:hover, .constructor-text a:hover, .collage-text a:hover, .colla
      transition: background 0.22s;
 }
  .hand-panel.active {
-     background: #2f6ea8;
+     background: #4a90e2;
 }
  .hand-btn {
      width: 36px;
@@ -1013,8 +1013,8 @@ a:hover, .text a:hover, .constructor-text a:hover, .collage-text a:hover, .colla
      justify-content: center;
 }
  .hand-panel .hand-btn svg path {
-     fill: #2f6ea8 !important;
-     stroke: #2f6ea8 !important;
+     fill: #4a90e2 !important;
+     stroke: #4a90e2 !important;
      stroke-width: 20px !important;
      transition: fill 0.22s, stroke 0.22s;
 }
@@ -1036,10 +1036,10 @@ a:hover, .text a:hover, .constructor-text a:hover, .collage-text a:hover, .colla
      transition: color 0.18s;
 }
  .zoom-value {
-     color: #2f6ea8;
+     color: #3878C1;
 }
  .zoom-value:hover {
-     text-decoration-color:#2f6ea8;
+     text-decoration-color:#3878C1;
 }
  .hand-panel.active .zoom-value {
      color: #fff !important;
@@ -1319,8 +1319,8 @@ body.drag-over {
    <!-- Кнопка сброса масштаба -->
    <button id="zoom-reset-btn" title="Сбросить масштаб к 100%" class="zoom-reset-btn" tabindex="0" aria-label="Сбросить масштаб">
       <svg width="22" height="22" viewBox="0 0 22 22">
-         <path d="M4 12a7 7 0 1 0 2-5" fill="none" stroke="#2f6ea8" stroke-width="2" stroke-linecap="round"/>
-         <polyline points="2,8 4,12 8,10" fill="none" stroke="#2f6ea8" stroke-width="2" stroke-linecap="round"/>
+         <path d="M4 12a7 7 0 1 0 2-5" fill="none" stroke="#4a90e2" stroke-width="2" stroke-linecap="round"/>
+         <polyline points="2,8 4,12 8,10" fill="none" stroke="#4a90e2" stroke-width="2" stroke-linecap="round"/>
       </svg>
    </button>
 </div>
@@ -8663,7 +8663,7 @@ function renderResizeHandles() {
     handle.style.zIndex = 10;
     handle.innerHTML = `
   <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 800.000000 800.000000" preserveAspectRatio="xMidYMid meet">
-<g transform="translate(0.000000,800.000000) scale(0.100000,-0.100000)" fill="#2f6ea8" stroke="none">
+<g transform="translate(0.000000,800.000000) scale(0.100000,-0.100000)" fill="#4a90e2" stroke="none">
 <path d="M1910 5321 c-87 -28 -127 -64 -656 -594 -517 -518 -543 -545 -564
 -602 -29 -80 -29 -170 0 -250 21 -57 47 -84 564 -602 621 -621 592 -598 746
 -598 84 0 101 3 147 28 66 34 116 84 150 150 25 46 28 63 28 147 0 142 -10
@@ -8740,8 +8740,8 @@ function renderResizeHandles() {
     handle.style.position = 'absolute';
     handle.style.zIndex = 10;
     handle.innerHTML = `
-  <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 800 800" fill="#2f6ea8" style="transform: rotate(90deg); display: block; margin: auto;">
-    <g transform="translate(0,800) scale(0.1,-0.1)" fill="#2f6ea8" stroke="none">
+  <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 800 800" fill="#4a90e2" style="transform: rotate(90deg); display: block; margin: auto;">
+    <g transform="translate(0,800) scale(0.1,-0.1)" fill="#4a90e2" stroke="none">
       <path d="M1910 5321 c-87 -28 -127 -64 -656 -594 -517 -518 -543 -545 -564
 -602 -29 -80 -29 -170 0 -250 21 -57 47 -84 564 -602 621 -621 592 -598 746
 -598 84 0 101 3 147 28 66 34 116 84 150 150 25 46 28 63 28 147 0 142 -10

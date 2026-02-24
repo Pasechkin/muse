@@ -29,12 +29,12 @@
 @utility link-on-dark {
   color: #ffffff;
   text-decoration-line: underline;
-  text-decoration-color: #2f6ea8;
+  text-decoration-color: var(--color-primary);
   text-decoration-thickness: 2px;
   text-underline-offset: 2px;
   &:hover {
     color: #ffffff;
-    text-decoration-color: #2f6ea8;
+    text-decoration-color: var(--color-primary);
   }
 }
 
@@ -60,9 +60,11 @@
 
 @theme {
   /* Colors */
-  --color-primary: #2f6ea8;
-  --color-primary-hover: #275d8f;
+  --color-primary: #4a90e2;
+  --color-primary-hover: #3b7cc6;
   --color-primary-light: #eff6ff;
+  --color-primary-text: #3878C1;
+  --color-primary-text-hover: #2f6ea8;
   --color-dark: #262626;
   --color-body: #525252;
   --color-secondary: #fafafa;
@@ -102,9 +104,11 @@
 }
 
 /* === Глобальные фокус-стили для доступности === */
-:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
 }
 
 /* Skip-link для клавиатурной навигации */
@@ -559,7 +563,7 @@
 
   /* Контейнер секции */
   .advantages-section {
-    background: linear-gradient(135deg, #6fa6d4 0%, #4e86bb 45%, #2f6ea8 100%);
+    background: linear-gradient(135deg, #8bb8eb 0%, #6aa0d9 45%, #4a90e2 100%);
     padding-block: 4rem;
   }
   @media (min-width: 1024px) {
@@ -573,7 +577,7 @@
      ========================================== */
 
   .promo-section {
-    background: linear-gradient(90deg, #4e86bb 0%, #2f6ea8 55%, #275d8f 100%);
+    background: linear-gradient(90deg, #6aa0d9 0%, #4a90e2 55%, #3b7cc6 100%);
     padding-block: 1.5rem;
     color: white;
   }
@@ -653,7 +657,7 @@
   }
 
   .check-list-item:nth-child(odd) {
-    background-color: rgba(47, 110, 168, 0.05); /* fallback */
+    background-color: rgba(74, 144, 226, 0.05); /* fallback */
     background-color: color-mix(in srgb, var(--color-primary), transparent 95%);
     border-radius: 0.25rem;
   }
@@ -663,7 +667,7 @@
     position: absolute;
     left: 0.75rem;
     top: 0.55rem;
-    color: var(--color-primary);
+    color: var(--color-primary-text);
     font-weight: 600;
     line-height: 1;
   }
@@ -688,7 +692,7 @@
     top: 3rem;
     bottom: 3rem;
     width: 0;
-    border-left: 3px dashed rgba(47, 110, 168, 0.3); /* fallback */
+    border-left: 3px dashed rgba(74, 144, 226, 0.3); /* fallback */
     border-left: 3px dashed color-mix(in srgb, var(--color-primary), transparent 70%);
   }
   
@@ -727,7 +731,7 @@
   .calc-accent {
     font-size: 12px;
     font-weight: 700;
-    color: var(--color-primary);
+    color: var(--color-primary-text);
     background-color: var(--color-primary-light);
     padding: 2px 8px;
     border-radius: 4px;
@@ -963,7 +967,7 @@
   }
 
   .calc-badge.is-active {
-    color: var(--color-primary);
+    color: var(--color-primary-text);
     font-weight: 700; /* bold при активном значении */
   }
 
@@ -1128,8 +1132,8 @@
 
   .uploader-drag-active {
     border-color: var(--color-primary);
-    background-color: rgba(47, 110, 168, 0.05);
-    box-shadow: inset 0 0 0 2px rgba(47, 110, 168, 0.12);
+    background-color: rgba(74, 144, 226, 0.05);
+    box-shadow: inset 0 0 0 2px rgba(74, 144, 226, 0.12);
   }
 
   .uploader-thumbnails {
@@ -1163,12 +1167,12 @@
 
   .uploader-thumb-wrap:focus-visible {
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 2px rgba(47, 110, 168, 0.3);
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.3);
   }
 
   .uploader-thumb-active {
     border-color: var(--color-primary) !important;
-    box-shadow: 0 0 0 2px rgba(47, 110, 168, 0.25);
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.25);
   }
 
   .uploader-thumb {
@@ -1253,13 +1257,13 @@
   .uploader-add-btn:hover {
     border-color: var(--color-primary);
     color: var(--color-primary);
-    background-color: rgba(47, 110, 168, 0.05);
+    background-color: rgba(74, 144, 226, 0.05);
   }
 
   .uploader-add-btn:focus-visible {
     border-color: var(--color-primary);
     color: var(--color-primary);
-    box-shadow: 0 0 0 2px rgba(47, 110, 168, 0.3);
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.3);
   }
 
   /* Inline alert for uploader */

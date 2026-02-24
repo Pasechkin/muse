@@ -212,9 +212,16 @@ npm run copy-css     # Копия для Live Server
 | Репродукция | `/pechat/reproduktsiya/` | С поиском |
 
 ### UI-компоненты (ожидают)
-- ✅ Куки-баннер (демо на `index.html`, localStorage)
-- ✅ «Это ваш город?» (демо на `index.html`, «Изменить» → city-dialog)
+- ✅ Куки-баннер (демо на `index.html`, localStorage `muse_cookie_accepted`)
+- ✅ «Это ваш город?» (демо на `index.html`, «Изменить» → city-dialog, localStorage `muse_city_confirmed`)
 - ✅ Виджет мессенджеров (демо на `index.html`, ссылки — заглушки до интеграции)
+- ✅ Обратный звонок — модальное окно `#callback-dialog` (демо на `index.html`)
+  - Кнопка-триггер: `data-open-dialog="callback-dialog"` (в CTA-секции и где угодно)
+  - Mobile: bottom-sheet (выезжает снизу, свайп вниз для закрытия)
+  - Desktop: центрированный `<dialog>` с `max-w-md`
+  - Форма: имя, телефон (маска RU), время звонка
+  - Отправка: заглушка → показ success-экрана → автозакрытие через 3 с
+  - **При интеграции:** заменить заглушку на `fetch` к Bitrix API
 - Виджет отзывов
 
 ---
