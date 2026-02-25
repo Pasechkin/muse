@@ -1,13 +1,80 @@
 /**
  * reproduction-search.js
- * Поиск репродукций через Wikidata SPARQL API
+ * Мультимузейный поиск репродукций (Met Museum, AIC, Cleveland, Rijksmuseum, Wikidata)
  * Модальный калькулятор с каталогом рам из frames.js
  */
 (function () {
   'use strict';
 
   /* ── Константы ─────────────────────────────── */
-  var LIMIT = 24;
+  var BATCH = 8; /* результатов на один источник за раз */
+
+  /* Rijksmuseum API-ключ (бесплатный, публичный, для учёта) */
+  /* ЗАМЕНИТЕ НА СВОЙ: зарегистрируйтесь на data.rijksmuseum.nl */
+  /* Rijksmuseum: новый API data.rijksmuseum.nl — ключ не нужен */
+
+  /* Названия источников для бейджей */
+  var SOURCE_LABELS = {
+    met:   'Met Museum',
+    aic:   'Art Institute',
+    cleve: 'Cleveland Museum',
+    rijks: 'Rijksmuseum',
+    wiki:  'Wikidata'
+  };
+
+  /* Словарь перевода русских запросов → английские (для Met/AIC/Cleveland/Rijks) */
+  var TRANSLATE_MAP = {
+    'винсент ван гог':    'Vincent van Gogh',
+    'ван гог':            'Van Gogh',
+    'клод моне':          'Claude Monet',
+    'моне':               'Monet',
+    'рембрандт':          'Rembrandt',
+    'боттичелли':         'Botticelli',
+    'девятый вал':        'Aivazovsky ninth wave',
+    'поцелуй климт':      'Gustav Klimt kiss',
+    'климт':              'Gustav Klimt',
+    'леонардо да винчи':  'Leonardo da Vinci',
+    'да винчи':           'Leonardo da Vinci',
+    'рафаэль':            'Raphael',
+    'караваджо':          'Caravaggio',
+    'вермеер':            'Vermeer',
+    'дега':               'Degas',
+    'ренуар':             'Renoir',
+    'сезанн':             'Cezanne',
+    'пикассо':            'Picasso',
+    'дали':               'Salvador Dali',
+    'мунк':               'Edvard Munch',
+    'шишкин':             'Shishkin',
+    'айвазовский':        'Aivazovsky',
+    'левитан':            'Levitan',
+    'репин':              'Repin',
+    'брюллов':            'Bryullov',
+    'кандинский':         'Kandinsky',
+    'малевич':            'Malevich',
+    'врубель':            'Vrubel',
+    'тициан':             'Titian',
+    'рубенс':             'Rubens',
+    'гоген':              'Gauguin',
+    'мане':               'Manet',
+    'тёрнер':             'Turner',
+    'констебль':          'Constable',
+    'эль греко':          'El Greco',
+    'веласкес':           'Velazquez',
+    'гойя':               'Goya',
+    'курбе':              'Courbet',
+    'вермеер':            'Vermeer',
+    'босх':               'Hieronymus Bosch',
+    'микеланджело':       'Michelangelo',
+    'матисс':             'Matisse'
+  };
+
+  /** Перевести русский запрос в английский (для Met/AIC/Cleveland/Rijks) */
+  function translateTerm(term) {
+    var low = term.toLowerCase().trim();
+    if (TRANSLATE_MAP[low]) return TRANSLATE_MAP[low];
+    /* Если кириллица есть, но нет в словаре — возвращаем как есть */
+    return term;
+  }
 
   var POPULAR_TAGS = [
     'Винсент Ван Гог',
@@ -41,24 +108,31 @@
     { id: 'NO_FRAME', label: 'Рулон',        priceKey: 'stretcherRoll',     fallback: 32 }
   ];
 
-  /* Кэш SPARQL (TTL 5 мин) */
+  /* Кэш запросов (TTL 5 мин) */
   var CACHE_TTL = 5 * 60 * 1000;
-  var sparqlCache = {};
+  var _cache = {};
 
   /* ── Состояние поиска ──────────────────────── */
   var searchTerm = '';
   var results    = [];
-  var offset     = 0;
-  var hasMore    = true;
   var isSearching   = false;
   var isLoadingMore = false;
   var hasSearched   = false;
   var columnCount   = 3;
-  var _cardIndex    = 0; /* счётчик карточек для lazy loading */
+  var _cardIndex    = 0;
+
+  /* Per-provider state */
+  var _met   = { ids: [], offset: 0, hasMore: true };
+  var _aic   = { page: 1, hasMore: true };
+  var _cleve = { page: 0, hasMore: true };
+  var _rijks = { buffer: [], nextUrl: '', hasMore: true, ok: true };
+  var _wiki  = { offset: 0, hasMore: true };
+  var searchTermEn = ''; /* английский вариант запроса для внешних API */
 
   /* ── Состояние модала ──────────────────────── */
   var currentPainting    = null;
-  var currentSize        = LONG_SIDES[1]; // 60 см
+  var currentLongSide    = 60; // текущая длинная сторона (число)
+  var currentSize        = LONG_SIDES[1]; // для обр. совместимости
   var currentStretcher   = STRETCHER_TYPES[0]; // Стандартный
   var currentFrame       = null;
   var currentVarnish     = true; // boolean on/off, как в foto-na-kholste
@@ -144,7 +218,7 @@
 
   /** Общая сумма */
   function calcTotal() {
-    var dim = getDimensions(currentSize.value);
+    var dim = getDimensions(currentLongSide);
     var canvas  = calcCanvasPrice(dim.w, dim.h);
     var frame   = calcFramePrice(currentFrame, dim.w, dim.h);
     var varnish = currentVarnish ? calcVarnishPrice(dim.w, dim.h) : 0;
@@ -165,9 +239,275 @@
     return columnCount <= 1 ? 600 : 400;
   }
 
-  /* ── Wikidata SPARQL ───────────────────────── */
-  function searchPaintingsAPI(term, limit, currentOffset) {
+  /** Есть ли ещё результаты хотя бы в одном источнике? */
+  function anyHasMore() {
+    return _met.hasMore || _aic.hasMore || _cleve.hasMore || (_rijks.ok && _rijks.hasMore) || _wiki.hasMore;
+  }
+
+  /* ══════════════════════════════════════════════ */
+  /*         ПРОВАЙДЕРЫ МУЗЕЙНЫХ API               */
+  /* ══════════════════════════════════════════════ */
+
+  /** Утилита: fetch с таймаутом */
+  function fetchWithTimeout(url, opts, ms) {
+    if (typeof AbortController !== 'undefined') {
+      var ctrl = new AbortController();
+      opts = opts || {};
+      opts.signal = ctrl.signal;
+      var timer = setTimeout(function () { ctrl.abort(); }, ms);
+      return fetch(url, opts).then(function (r) { clearTimeout(timer); return r; })
+        .catch(function (e) { clearTimeout(timer); throw e; });
+    }
+    return fetch(url, opts);
+  }
+
+  /* ─── Met Museum ─────────────────────────────── */
+
+  /** Шаг 1: поиск → массив objectIDs (кэшируется) */
+  function metSearch(term) {
+    var ck = 'met|' + term;
+    if (_cache[ck] && (Date.now() - _cache[ck].ts < CACHE_TTL)) {
+      _met.ids = _cache[ck].data;
+      _met.offset = 0;
+      _met.hasMore = _met.ids.length > 0;
+      return Promise.resolve();
+    }
+    var url = 'https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&medium=Paintings&q='
+      + encodeURIComponent(term);
+    return fetchWithTimeout(url, {}, 8000)
+      .then(function (r) { return r.ok ? r.json() : { objectIDs: null }; })
+      .then(function (d) {
+        _met.ids = (d.objectIDs || []).slice(0, 200); /* ограничиваем */
+        _met.offset = 0;
+        _met.hasMore = _met.ids.length > 0;
+        _cache[ck] = { data: _met.ids, ts: Date.now() };
+      })
+      .catch(function () { _met.ids = []; _met.hasMore = false; });
+  }
+
+  /** Шаг 2: загрузить следующий batch деталей */
+  function metLoadBatch(count) {
+    var slice = _met.ids.slice(_met.offset, _met.offset + count);
+    if (slice.length === 0) { _met.hasMore = false; return Promise.resolve([]); }
+    _met.offset += slice.length;
+    if (_met.offset >= _met.ids.length) _met.hasMore = false;
+
+    var promises = slice.map(function (id) {
+      return fetchWithTimeout(
+        'https://collectionapi.metmuseum.org/public/collection/v1/objects/' + id, {}, 6000
+      )
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .catch(function () { return null; });
+    });
+    return Promise.all(promises).then(function (items) {
+      var out = [];
+      for (var i = 0; i < items.length; i++) {
+        var o = items[i];
+        if (!o || !o.primaryImageSmall) continue;
+        out.push({
+          id:         'met-' + o.objectID,
+          title:      o.title || 'Untitled',
+          artist:     o.artistDisplayName || 'Unknown artist',
+          imageUrl:   o.primaryImageSmall,
+          source:     'met',
+          dimensions: o.dimensions || ''
+        });
+      }
+      return out;
+    });
+  }
+
+  /* ─── Art Institute of Chicago ──────────────── */
+
+  function aicSearch(term, count) {
+    var ck = 'aic|' + term + '|' + _aic.page;
+    if (_cache[ck] && (Date.now() - _cache[ck].ts < CACHE_TTL)) {
+      return Promise.resolve(_cache[ck].data);
+    }
+    var url = 'https://api.artic.edu/api/v1/artworks/search?q='
+      + encodeURIComponent(term)
+      + '&query%5Bbool%5D%5Bmust%5D%5B%5D%5Bterm%5D%5Bartwork_type_id%5D=1'
+      + '&query%5Bbool%5D%5Bmust%5D%5B%5D%5Bterm%5D%5Bis_public_domain%5D=true'
+      + '&fields=id,title,artist_display,image_id,dimensions,date_display'
+      + '&limit=' + count + '&page=' + _aic.page;
+    return fetchWithTimeout(url, {}, 8000)
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d || !d.data) { _aic.hasMore = false; return []; }
+        var pag = d.pagination || {};
+        if (_aic.page >= (pag.total_pages || 1)) _aic.hasMore = false;
+        _aic.page++;
+        var iiif = (d.config && d.config.iiif_url) || 'https://www.artic.edu/iiif/2';
+        var out = [];
+        for (var i = 0; i < d.data.length; i++) {
+          var a = d.data[i];
+          if (!a.image_id) continue;
+          out.push({
+            id:         'aic-' + a.id,
+            title:      a.title || 'Untitled',
+            artist:     a.artist_display || 'Unknown artist',
+            imageUrl:   iiif + '/' + a.image_id + '/full/843,/0/default.jpg',
+            source:     'aic',
+            dimensions: a.dimensions || ''
+          });
+        }
+        _cache[ck] = { data: out, ts: Date.now() };
+        return out;
+      })
+      .catch(function () { _aic.hasMore = false; return []; });
+  }
+
+  /* ─── Rijksmuseum (новый API data.rijksmuseum.nl, без ключа) ── */
+
+  /**
+   * Получаем Dublin Core детали одного объекта.
+   * Возвращает {id, title, artist, imageUrl, source, dimensions} или null.
+   */
+  function rijksFetchDetail(numId) {
+    return fetchWithTimeout(
+      'https://data.rijksmuseum.nl/' + numId + '?_profile=dc', {}, 8000
+    )
+    .then(function (r) {
+      if (!r.ok) throw new Error(r.status);
+      return r.json();
+    })
+    .then(function (dc) {
+      var imgUrl = '';
+      if (dc.relation && dc.relation['@id']) {
+        imgUrl = dc.relation['@id']
+          .replace('/full/max/', '/full/600,/')
+          .replace('/full/!800,800/', '/full/600,/');
+      }
+      if (!imgUrl) return null;
+      var artist = '';
+      if (dc.creator) {
+        artist = dc.creator.title || dc.creator['@id'] || '';
+      }
+      return {
+        id:         'rijks-' + numId,
+        title:      dc.title || 'Untitled',
+        artist:     artist || 'Unknown artist',
+        imageUrl:   imgUrl,
+        source:     'rijks',
+        dimensions: ''
+      };
+    })
+    .catch(function () { return null; });
+  }
+
+  function rijksSearch(term, count) {
+    if (!_rijks.ok) return Promise.resolve([]);
+
+    /* Если в буфере есть ранее загруженные ID — берём оттуда */
+    if (_rijks.buffer.length > 0) {
+      var batch = _rijks.buffer.splice(0, count);
+      return Promise.allSettled(
+        batch.map(function (numId) { return rijksFetchDetail(numId); })
+      ).then(function (res) {
+        var out = [];
+        for (var i = 0; i < res.length; i++) {
+          if (res[i].status === 'fulfilled' && res[i].value) out.push(res[i].value);
+        }
+        return out;
+      });
+    }
+
+    /* Иначе — делаем поисковый запрос */
+    var url = _rijks.nextUrl
+      || ('https://data.rijksmuseum.nl/search/collection'
+        + '?type=painting&imageAvailable=true'
+        + '&description=' + encodeURIComponent(term));
+
+    return fetchWithTimeout(url, {}, 8000)
+      .then(function (r) {
+        if (!r.ok) throw new Error(r.status);
+        return r.json();
+      })
+      .then(function (data) {
+        var items = data.orderedItems || [];
+        /* Пагинация: next.id содержит полный URL следующей страницы */
+        if (data.next && data.next.id) {
+          _rijks.nextUrl = data.next.id;
+        } else {
+          _rijks.nextUrl = '';
+          if (items.length === 0) _rijks.hasMore = false;
+        }
+        /* Извлекаем числовые ID из https://id.rijksmuseum.nl/{num} */
+        var allIds = [];
+        for (var i = 0; i < items.length; i++) {
+          var m = items[i].id.match(/(\d+)$/);
+          if (m) allIds.push(m[1]);
+        }
+        /* Берём count, остальные — в буфер */
+        var batchIds = allIds.splice(0, count);
+        _rijks.buffer = allIds;
+        if (batchIds.length === 0 && !_rijks.nextUrl) {
+          _rijks.hasMore = false;
+          return [];
+        }
+        /* Загружаем DC-детали параллельно */
+        return Promise.allSettled(
+          batchIds.map(function (numId) { return rijksFetchDetail(numId); })
+        ).then(function (res) {
+          var out = [];
+          for (var j = 0; j < res.length; j++) {
+            if (res[j].status === 'fulfilled' && res[j].value) out.push(res[j].value);
+          }
+          return out;
+        });
+      })
+      .catch(function () {
+        _rijks.ok = false;
+        _rijks.hasMore = false;
+        return [];
+      });
+  }
+
+  /* ─── Cleveland Museum of Art ──────────────── */
+
+  function cleveSearch(term, count) {
+    var ck = 'cleve|' + term + '|' + _cleve.page;
+    if (_cache[ck] && (Date.now() - _cache[ck].ts < CACHE_TTL)) {
+      return Promise.resolve(_cache[ck].data);
+    }
+    var url = 'https://openaccess-api.clevelandart.org/api/artworks/?q='
+      + encodeURIComponent(term)
+      + '&limit=' + count + '&skip=' + (_cleve.page * count)
+      + '&has_image=1&type=Painting';
+    return fetchWithTimeout(url, {}, 8000)
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d || !d.data) { _cleve.hasMore = false; return []; }
+        if (d.data.length < count) _cleve.hasMore = false;
+        _cleve.page++;
+        var out = [];
+        for (var i = 0; i < d.data.length; i++) {
+          var a = d.data[i];
+          if (!a.images || !a.images.web || !a.images.web.url) continue;
+          out.push({
+            id:         'cleve-' + a.id,
+            title:      a.title || 'Untitled',
+            artist:     (a.creators && a.creators[0] && a.creators[0].description) || 'Unknown artist',
+            imageUrl:   a.images.web.url,
+            source:     'cleve',
+            dimensions: a.dimensions || ''
+          });
+        }
+        _cache[ck] = { data: out, ts: Date.now() };
+        return out;
+      })
+      .catch(function () { _cleve.hasMore = false; return []; });
+  }
+
+  /* ─── Wikidata SPARQL ──────────────────────── */
+
+  function wikiSearch(term, count) {
     var safe = escapeForSparql(term);
+    var wikiOffset = _wiki.offset;
+    var ck = 'wiki|' + term + '|' + wikiOffset;
+    if (_cache[ck] && (Date.now() - _cache[ck].ts < CACHE_TTL)) {
+      return Promise.resolve(_cache[ck].data);
+    }
     var query =
       'SELECT DISTINCT ?item ?itemLabel ?image ?creatorLabel WHERE {' +
       '  { SERVICE wikibase:mwapi {' +
@@ -193,72 +533,74 @@
       '    ?item wdt:P18 ?image.' +
       '  }' +
       '  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en". }' +
-      '} LIMIT ' + limit + ' OFFSET ' + currentOffset;
+      '} LIMIT ' + count + ' OFFSET ' + wikiOffset;
 
     var url = 'https://query.wikidata.org/sparql?query=' + encodeURIComponent(query) + '&format=json';
     var thumbW = getThumbWidth();
 
-    /* Проверяем кэш */
-    var cacheKey = term + '|' + currentOffset;
-    var cached = sparqlCache[cacheKey];
-    if (cached && (Date.now() - cached.ts < CACHE_TTL)) {
-      return Promise.resolve(cached.data);
-    }
-
-    /** fetch с retry при 429 (1 повторная попытка через 2 сек) */
-    function doFetch(retries) {
-      return fetch(url, { headers: { 'Accept': 'application/sparql-results+json' } })
-        .then(function (res) {
-          if (res.status === 429 && retries > 0) {
-            /* Показываем уведомление о retry */
-            var statusEl = getEl('search-status');
-            if (statusEl) {
-              statusEl.textContent = 'Слишком много запросов, повторяю через 2 сек…';
-              statusEl.classList.remove('hidden');
-            }
-            return new Promise(function (resolve) {
-              setTimeout(function () { resolve(doFetch(retries - 1)); }, 2000);
-            });
-          }
-          if (!res.ok) throw new Error('Wikidata: ' + res.status);
-          return res.json();
-        });
-    }
-
-    return doFetch(1)
+    return fetchWithTimeout(url, { headers: { 'Accept': 'application/sparql-results+json' } }, 8000)
+      .then(function (res) {
+        if (res.status === 429) throw new Error('429');
+        if (!res.ok) throw new Error('Wikidata: ' + res.status);
+        return res.json();
+      })
       .then(function (data) {
-        /* Скрываем статус retry */
-        var statusEl = getEl('search-status');
-        if (statusEl) statusEl.classList.add('hidden');
-
         var bindings = data.results.bindings;
         var paintings = [];
         var seenIds = {};
-
         for (var i = 0; i < bindings.length; i++) {
-          var b   = bindings[i];
-          var id  = b.item.value;
+          var b = bindings[i];
+          var id = b.item.value;
           if (seenIds[id]) continue;
           seenIds[id] = true;
-
           var imageUrl = b.image.value.replace('http://', 'https://');
           if (imageUrl.indexOf('Special:FilePath') !== -1) imageUrl += '?width=' + thumbW;
-
           paintings.push({
-            id:     id,
-            title:  (b.itemLabel  && b.itemLabel.value)  || 'Неизвестная картина',
-            artist: (b.creatorLabel && b.creatorLabel.value) || 'Неизвестный автор',
-            imageUrl: imageUrl
+            id:         id,
+            title:      (b.itemLabel && b.itemLabel.value) || '\u041d\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043d\u0430\u044f \u043a\u0430\u0440\u0442\u0438\u043d\u0430',
+            artist:     (b.creatorLabel && b.creatorLabel.value) || '\u041d\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043d\u044b\u0439 \u0430\u0432\u0442\u043e\u0440',
+            imageUrl:   imageUrl,
+            source:     'wiki',
+            dimensions: ''
           });
         }
+        if (bindings.length < count) _wiki.hasMore = false;
+        _wiki.offset += count;
+        _cache[ck] = { data: paintings, ts: Date.now() };
+        return paintings;
+      })
+      .catch(function () { _wiki.hasMore = false; return []; });
+  }
 
-        var result = { paintings: paintings, rawCount: bindings.length };
+  /* ─── Общие утилиты провайдеров ────────────── */
 
-        /* Сохраняем в кэш */
-        sparqlCache[cacheKey] = { data: result, ts: Date.now() };
+  /** Round-robin перемешивание массивов */
+  function interleave(arrays) {
+    var out = [];
+    var maxLen = 0;
+    for (var a = 0; a < arrays.length; a++) {
+      if (arrays[a].length > maxLen) maxLen = arrays[a].length;
+    }
+    for (var i = 0; i < maxLen; i++) {
+      for (var j = 0; j < arrays.length; j++) {
+        if (i < arrays[j].length) out.push(arrays[j][i]);
+      }
+    }
+    return out;
+  }
 
-        return result;
-      });
+  /** Дедупликация по painting.id */
+  function dedup(paintings, existing) {
+    var seen = {};
+    for (var k = 0; k < existing.length; k++) seen[existing[k].id] = true;
+    var out = [];
+    for (var i = 0; i < paintings.length; i++) {
+      if (!seen[paintings[i].id]) {
+        seen[paintings[i].id] = true;
+        out.push(paintings[i]);
+      }
+    }
+    return out;
   }
 
   /* ── Управление UI-состоянием ──────────────── */
@@ -274,12 +616,12 @@
 
     /* Популярные теги скрываем после первого поиска */
     var tags = getEl('popular-tags');
-    if (tags && hasSearched) tags.classList.add('opacity-0', 'pointer-events-none');
+    if (tags && hasSearched) tags.classList.add('hidden');
 
     /* Кнопка «Показать ещё» */
     var lmContainer = getEl('load-more-container');
     if (lmContainer) {
-      if (results.length > 0 && hasMore) {
+      if (results.length > 0 && anyHasMore()) {
         lmContainer.classList.remove('hidden');
         lmContainer.classList.add('flex');
         var lmBtn  = getEl('load-more-btn');
@@ -321,49 +663,121 @@
     /* Первые N карточек (первый экран) грузятся eagerly, остальные — lazy */
     var eagleThreshold = columnCount * 2;
     var lazyAttr = (idx >= eagleThreshold) ? ' loading="lazy"' : '';
+    /* Wikidata CDN требует no-referrer; AIC/Met/Cleveland проверяют Referer — без него 403 */
+    var refPolicy = (painting.source === 'wiki') ? ' referrerpolicy="no-referrer"' : '';
 
     var div = document.createElement('div');
     div.className = 'group relative cursor-pointer overflow-hidden rounded-xl bg-white shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 mb-5 md:mb-6 opacity-0 translate-y-4';
     div.setAttribute('data-painting-id', painting.id);
 
+    var sourceLabel = SOURCE_LABELS[painting.source] || '';
+
     div.innerHTML =
       '<div class="w-full min-h-60 overflow-hidden bg-gray-100 relative flex items-center justify-center">' +
+        (sourceLabel ? '<span class="absolute top-2 left-2 z-10 bg-white/80 backdrop-blur-sm text-[10px] font-medium px-1.5 py-0.5 rounded shadow-sm">' + sourceLabel + '</span>' : '') +
         '<div class="absolute inset-0 flex items-center justify-center loader-container">' +
           '<svg class="w-8 h-8 text-gray-300 animate-spin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>' +
         '</div>' +
-        '<div class="py-16 text-center text-gray-400 hidden flex-col items-center error-container">' +
-          '<span class="text-sm font-medium">Ошибка загрузки</span>' +
+        '<div class="relative z-20 py-16 text-center text-gray-400 hidden flex-col items-center gap-2 error-container">' +
+          '<span class="text-sm font-medium">\u041e\u0448\u0438\u0431\u043a\u0430 \u0437\u0430\u0433\u0440\u0443\u0437\u043a\u0438</span>' +
+          '<p class="error-info text-xs text-gray-500 mt-1 px-3 line-clamp-2"></p>' +
+          '<button type="button" class="retry-btn text-xs text-primary font-medium underline hover:text-primary-hover">\u041f\u043e\u0432\u0442\u043e\u0440\u0438\u0442\u044c</button>' +
         '</div>' +
-        '<img src="' + painting.imageUrl + '" alt="' + painting.title.replace(/"/g, '&quot;') + '" class="w-full h-auto block transition-all duration-700 group-hover:scale-105 opacity-0" decoding="async"' + lazyAttr + ' referrerpolicy="no-referrer" />' +
+        '<img src="' + painting.imageUrl + '" alt="' + painting.title.replace(/"/g, '&quot;') + '" class="w-full h-auto block transition-all duration-700 group-hover:scale-105 opacity-0" decoding="async"' + lazyAttr + refPolicy + ' />' +
       '</div>' +
-      '<div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">' +
+      '<div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 hover-overlay">' +
         '<h3 class="text-white text-lg font-bold leading-tight mb-1">' + painting.title + '</h3>' +
         '<p class="text-white/80 text-sm mb-2">' + painting.artist + '</p>' +
         '<span class="inline-flex items-center gap-1 text-white/90 text-xs font-bold uppercase tracking-wide">' +
           '<svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>' +
-          'Рассчитать стоимость \u2192' +
+          '\u0420\u0430\u0441\u0441\u0447\u0438\u0442\u0430\u0442\u044c \u0441\u0442\u043e\u0438\u043c\u043e\u0441\u0442\u044c \u2192' +
         '</span>' +
       '</div>';
 
     var img    = div.querySelector('img');
     var loader = div.querySelector('.loader-container');
     var errC   = div.querySelector('.error-container');
+    var retryBtn = div.querySelector('.retry-btn');
+    var errorInfo = div.querySelector('.error-info');
+    var _retryCount = 0;
+    var _origSrc = painting.imageUrl;
+
+    /* AIC IIIF: каскад рекомендованных размеров (843 → 600 → 400 → 200) */
+    var _aicSizes = ['843,', '600,', '400,', '200,'];
 
     img.onload = function () {
       loader.classList.add('hidden');
+      errC.classList.add('hidden');
+      errC.classList.remove('flex');
       img.classList.replace('opacity-0', 'opacity-100');
+      /* Восстанавливаем hover-overlay если был скрыт при ошибке */
+      if (hoverOverlay) {
+        hoverOverlay.classList.remove('hidden');
+        hoverOverlay.style.pointerEvents = '';
+      }
     };
+    var hoverOverlay = div.querySelector('.hover-overlay');
     img.onerror = function () {
-      if (img.src.indexOf('?width=') !== -1) {
+      _retryCount++;
+
+      /* AIC: каскадный fallback по рекомендованным IIIF размерам */
+      if (painting.source === 'aic' && _retryCount <= _aicSizes.length) {
+        var sizeIdx = _retryCount; /* 1→[1]=600, 2→[2]=400, 3→[3]=200 */
+        if (sizeIdx < _aicSizes.length) {
+          var newUrl = _origSrc.replace(/\/full\/\d+,\//, '/full/' + _aicSizes[sizeIdx] + '/');
+          setTimeout(function () { img.src = newUrl; }, 800);
+          return;
+        }
+      }
+
+      if (_retryCount === 1 && painting.source === 'wiki' && img.src.indexOf('?width=') !== -1) {
+        /* Попытка 1 (только Wikidata): убираем ?width= (полноразмерное) */
         img.src = img.src.split('?')[0];
+      } else if (_retryCount <= 3) {
+        /* Попытки 2-3: повторяем с задержкой 1.5 сек */
+        setTimeout(function () {
+          var sep = _origSrc.indexOf('?') !== -1 ? '&' : '?';
+          img.src = _origSrc + sep + 'retry=' + _retryCount;
+        }, 1500);
       } else {
+        /* Все попытки исчерпаны — показываем ошибку + кнопку */
         loader.classList.add('hidden');
         errC.classList.remove('hidden');
+        errC.classList.add('flex');
+        /* Показываем название и художника в зоне ошибки */
+        if (errorInfo) {
+          errorInfo.textContent = painting.title + ' — ' + painting.artist;
+        }
+        /* Полностью скрываем hover-overlay чтобы не перекрывал кнопку «Повторить» */
+        if (hoverOverlay) {
+          hoverOverlay.classList.add('hidden');
+          hoverOverlay.style.pointerEvents = 'none';
+        }
       }
     };
 
-    /* Клик по карточке → модал */
+    /* Кнопка «Повторить» */
+    if (retryBtn) {
+      retryBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        _retryCount = 0;
+        errC.classList.add('hidden');
+        errC.classList.remove('flex');
+        loader.classList.remove('hidden');
+        img.classList.replace('opacity-100', 'opacity-0');
+        /* Восстанавливаем hover-overlay */
+        if (hoverOverlay) {
+          hoverOverlay.classList.remove('hidden');
+          hoverOverlay.style.pointerEvents = '';
+        }
+        img.src = _origSrc;
+      });
+    }
+
+    /* Клик по карточке → модал (не открывать если видна ошибка) */
     div.addEventListener('click', function () {
+      if (!errC.classList.contains('hidden')) return;
       openModal(painting);
     });
 
@@ -465,67 +879,134 @@
   }
 
   /* ── Обработчики поиска ────────────────────── */
+  function resetProviders() {
+    _met   = { ids: [], offset: 0, hasMore: true };
+    _aic   = { page: 1, hasMore: true };
+    _cleve = { page: 0, hasMore: true };
+    _rijks = { buffer: [], nextUrl: '', hasMore: true, ok: true }; /* даём шанс каждый новый поиск */
+    _wiki  = { offset: 0, hasMore: true };
+  }
+
   function handleSearch(term) {
     searchTerm  = term;
+    searchTermEn = translateTerm(term);
     isSearching = true;
     hasSearched = true;
-    offset  = 0;
-    hasMore = true;
     results = [];
+    resetProviders();
     updateUIState();
 
-    searchPaintingsAPI(searchTerm, LIMIT, 0)
-      .then(function (data) {
-        results = data.paintings;
-        if (data.rawCount < LIMIT) hasMore = false;
-        _cardIndex = 0;
-        renderGrid();
-      })
-      .catch(function (err) {
-        var msg = 'Произошла ошибка при поиске. Попробуйте другой запрос.';
-        if (err && err.message && err.message.indexOf('429') !== -1) {
-          msg = 'Слишком много запросов к базе данных. Подождите минуту и попробуйте снова.';
+    /* Шаг 1: Met search (получает все ID), остальные стартуют сразу */
+    var metReady = metSearch(searchTermEn);
+
+    /* Шаг 2: параллельно загружаем первый batch из каждого */
+    metReady.then(function () {
+      return Promise.allSettled([
+        metLoadBatch(BATCH),
+        aicSearch(searchTermEn, BATCH),
+        cleveSearch(searchTermEn, BATCH),
+        rijksSearch(searchTermEn, BATCH),
+        wikiSearch(term, BATCH) /* Wikidata получает русский запрос */
+      ]);
+    })
+    .then(function (settled) {
+      var arrays = [];
+      for (var i = 0; i < settled.length; i++) {
+        if (settled[i].status === 'fulfilled' && settled[i].value) {
+          arrays.push(settled[i].value);
         }
-        showError(msg);
-      })
-      .then(function () {
-        isSearching = false;
-        updateUIState();
-      });
+      }
+      var merged = dedup(interleave(arrays), []);
+      results = merged;
+      _cardIndex = 0;
+      renderGrid();
+
+      if (results.length === 0) {
+        showError('');  /* покажет empty-state через updateUIState */
+      }
+    })
+    .catch(function () {
+      showError('\u041f\u0440\u043e\u0438\u0437\u043e\u0448\u043b\u0430 \u043e\u0448\u0438\u0431\u043a\u0430 \u043f\u0440\u0438 \u043f\u043e\u0438\u0441\u043a\u0435. \u041f\u043e\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u0434\u0440\u0443\u0433\u043e\u0439 \u0437\u0430\u043f\u0440\u043e\u0441.');
+    })
+    .then(function () {
+      isSearching = false;
+      updateUIState();
+    });
   }
 
   function handleLoadMore() {
-    if (isLoadingMore || !hasMore) return;
+    if (isLoadingMore || !anyHasMore()) return;
     isLoadingMore = true;
     updateUIState();
 
-    var nextOffset = offset + LIMIT;
-
-    searchPaintingsAPI(searchTerm, LIMIT, nextOffset)
-      .then(function (data) {
-        var existingIds = {};
-        for (var k = 0; k < results.length; k++) existingIds[results[k].id] = true;
-        var newUnique = data.paintings.filter(function (p) { return !existingIds[p.id]; });
-
-        results = results.concat(newUnique);
-        offset  = nextOffset;
-        if (data.rawCount < LIMIT) hasMore = false;
-        appendGrid(newUnique);
-      })
-      .catch(function (err) { console.error(err); })
-      .then(function () {
-        isLoadingMore = false;
-        updateUIState();
-      });
+    Promise.allSettled([
+      _met.hasMore  ? metLoadBatch(BATCH)                : Promise.resolve([]),
+      _aic.hasMore  ? aicSearch(searchTermEn, BATCH)     : Promise.resolve([]),
+      _cleve.hasMore ? cleveSearch(searchTermEn, BATCH)  : Promise.resolve([]),
+      (_rijks.ok && _rijks.hasMore) ? rijksSearch(searchTermEn, BATCH) : Promise.resolve([]),
+      _wiki.hasMore ? wikiSearch(searchTerm, BATCH)      : Promise.resolve([])
+    ])
+    .then(function (settled) {
+      var arrays = [];
+      for (var i = 0; i < settled.length; i++) {
+        if (settled[i].status === 'fulfilled' && settled[i].value) {
+          arrays.push(settled[i].value);
+        }
+      }
+      var merged = dedup(interleave(arrays), results);
+      results = results.concat(merged);
+      appendGrid(merged);
+    })
+    .catch(function (err) { console.error(err); })
+    .then(function () {
+      isLoadingMore = false;
+      updateUIState();
+    });
   }
 
   /* ============================================================ */
   /*              МОДАЛЬНЫЙ КАЛЬКУЛЯТОР                            */
   /* ============================================================ */
 
+  /** Запрос размеров оригинала из Wikidata (лёгкий, по одному item) */
+  function fetchOriginalSize(painting) {
+    var origSizeEl = getEl('modal-original-size');
+    if (!origSizeEl) return;
+    origSizeEl.textContent = '';
+    origSizeEl.classList.add('hidden');
+
+    /* Извлекаем QID из URI вида http://www.wikidata.org/entity/Q12345 */
+    var qid = painting.id.split('/').pop();
+    var q = 'SELECT ?w ?h WHERE {' +
+      ' OPTIONAL { wd:' + qid + ' wdt:P2049 ?w. }' +
+      ' OPTIONAL { wd:' + qid + ' wdt:P2048 ?h. }' +
+      '} LIMIT 1';
+    var url = 'https://query.wikidata.org/sparql?query=' + encodeURIComponent(q) + '&format=json';
+
+    fetch(url, { headers: { 'Accept': 'application/sparql-results+json' } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) {
+        if (!data) return;
+        var b = data.results.bindings[0];
+        if (!b) return;
+        var w = b.w ? parseFloat(b.w.value) : null;
+        var h = b.h ? parseFloat(b.h.value) : null;
+        /* Показываем только если модал всё ещё для этой картины */
+        if (currentPainting !== painting) return;
+        if (w && h) {
+          var ow = Math.round(w * 10) / 10;
+          var oh = Math.round(h * 10) / 10;
+          origSizeEl.textContent = '\u041e\u0440\u0438\u0433\u0438\u043d\u0430\u043b: ' + ow + ' \u00d7 ' + oh + ' \u0441\u043c';
+          origSizeEl.classList.remove('hidden');
+        }
+      })
+      .catch(function () { /* молча игнорируем */ });
+  }
+
   /** Открыть модал */
   function openModal(painting) {
     currentPainting    = painting;
+    currentLongSide    = 60;
     currentSize        = LONG_SIDES[1];
     currentStretcher   = STRETCHER_TYPES[0];
     currentFrame       = _frameMap['NONE'] || FRAMES_DB[0];
@@ -535,6 +1016,21 @@
 
     getEl('modal-title').textContent  = painting.title;
     getEl('modal-artist').textContent = painting.artist;
+
+    /* Размер оригинала */
+    var origSizeEl = getEl('modal-original-size');
+    if (origSizeEl) {
+      origSizeEl.textContent = '';
+      origSizeEl.classList.add('hidden');
+      if (painting.dimensions) {
+        /* Met / AIC — dimensions уже есть строкой */
+        origSizeEl.textContent = '\u041e\u0440\u0438\u0433\u0438\u043d\u0430\u043b: ' + painting.dimensions;
+        origSizeEl.classList.remove('hidden');
+      } else if (painting.source === 'wiki') {
+        /* Wikidata — отдельный лёгкий SPARQL */
+        fetchOriginalSize(painting);
+      }
+    }
 
     var img = getEl('modal-image');
     /* Сброс aspect-ratio до загрузки нового изображения */
@@ -639,14 +1135,14 @@
   function renderCalculatorOptions() {
     var prices = calcTotal();
 
-    /* ─── Размеры ─── */
+    /* ─── Размеры: кнопки-пресеты ─── */
     var sizesC = getEl('sizes-container');
     if (sizesC) {
       sizesC.innerHTML = '';
       LONG_SIDES.forEach(function (s) {
         var btn = document.createElement('button');
         btn.type = 'button';
-        var isSelected = (currentSize.id === s.id);
+        var isSelected = (currentLongSide === s.value);
         btn.className = 'p-3 rounded-xl border text-left transition-all '
           + (isSelected ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'border-gray-200 hover:border-gray-300');
 
@@ -662,11 +1158,27 @@
           '<div class="text-xs text-gray-400">' + fmtPrice(sizePrice) + ' \u0440.</div>';
 
         btn.addEventListener('click', function () {
+          currentLongSide = s.value;
           currentSize = s;
           renderCalculatorOptions();
         });
         sizesC.appendChild(btn);
       });
+    }
+
+    /* ─── Размеры: слайдер ─── */
+    var slider = getEl('repro-size-slider');
+    var sizeDisplay = getEl('repro-size-display');
+    if (slider) {
+      slider.value = currentLongSide;
+      var dim = getDimensions(currentLongSide);
+      if (sizeDisplay) {
+        var dimText = currentAspectRatio
+          ? (dim.w + ' \u00d7 ' + dim.h + ' \u0441\u043c')
+          : (currentLongSide + ' \u0441\u043c');
+        var sliderPrice = calcCanvasPrice(dim.w, dim.h);
+        sizeDisplay.textContent = dimText + ' \u2014 ' + fmtPrice(sliderPrice) + ' \u0440.';
+      }
     }
 
     /* ─── Подрамник ─── */
@@ -741,7 +1253,7 @@
         orderText.textContent = '\u0417\u0430\u043a\u0430\u0437 \u043e\u0444\u043e\u0440\u043c\u043b\u0435\u043d \u2713';
       } else {
         orderBtn.className = 'hidden lg:block w-full btn-header-cta py-4 active:scale-[0.98] text-base';
-        orderText.textContent = '\u041e\u0444\u043e\u0440\u043c\u0438\u0442\u044c \u0437\u0430\u043a\u0430\u0437';
+        orderText.textContent = '\u0417\u0430\u043a\u0430\u0437\u0430\u0442\u044c';
       }
     }
   }
@@ -755,13 +1267,14 @@
     if (!name || !name.value.trim()) { name.focus(); return; }
     if (!phone || !phone.value.trim()) { phone.focus(); return; }
 
-    var dim = getDimensions(currentSize.value);
+    var dim = getDimensions(currentLongSide);
     var prices = calcTotal();
 
     var orderData = {
       painting: currentPainting ? currentPainting.title : '',
       artist:   currentPainting ? currentPainting.artist : '',
       imageUrl: currentPainting ? currentPainting.imageUrl : '',
+      source:   currentPainting ? (SOURCE_LABELS[currentPainting.source] || '') : '',
       size:     dim.w + '\u00d7' + dim.h + ' \u0441\u043c',
       stretcher: currentStretcher ? currentStretcher.label : '\u0421\u0442\u0430\u043d\u0434\u0430\u0440\u0442\u043d\u044b\u0439',
       frame:    currentFrame ? currentFrame.name : '\u0411\u0435\u0437 \u0431\u0430\u0433\u0435\u0442\u0430',
@@ -777,6 +1290,7 @@
     var body = encodeURIComponent(
       '\u041a\u0430\u0440\u0442\u0438\u043d\u0430: ' + orderData.painting + '\n' +
       '\u0425\u0443\u0434\u043e\u0436\u043d\u0438\u043a: ' + orderData.artist + '\n' +
+      '\u0418\u0441\u0442\u043e\u0447\u043d\u0438\u043a: ' + orderData.source + '\n' +
       '\u0420\u0430\u0437\u043c\u0435\u0440: ' + orderData.size + '\n' +
       '\u041f\u043e\u0434\u0440\u0430\u043c\u043d\u0438\u043a: ' + orderData.stretcher + '\n' +
       '\u0411\u0430\u0433\u0435\u0442: ' + orderData.frame + '\n' +
@@ -903,6 +1417,40 @@
         updateFrameStyle();
         renderCalculatorOptions();
       });
+    }
+
+    /* ── Слайдер размера ── */
+    var sizeSlider = getEl('repro-size-slider');
+    if (sizeSlider) {
+      sizeSlider.oninput = function () {
+        var val = parseInt(sizeSlider.value, 10);
+        var dim = getDimensions(val);
+        var display = getEl('repro-size-display');
+        if (display) {
+          var txt = currentAspectRatio
+            ? (dim.w + ' \u00d7 ' + dim.h + ' \u0441\u043c')
+            : (val + ' \u0441\u043c');
+          var price = calcCanvasPrice(dim.w, dim.h);
+          display.textContent = txt + ' \u2014 ' + fmtPrice(price) + ' \u0440.';
+        }
+        /* Подсветка пресет-кнопок при совпадении */
+        var btns = document.querySelectorAll('#sizes-container button');
+        btns.forEach(function (btn, i) {
+          var isMatch = (LONG_SIDES[i] && LONG_SIDES[i].value === val);
+          btn.className = 'p-3 rounded-xl border text-left transition-all '
+            + (isMatch ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'border-gray-200 hover:border-gray-300');
+        });
+      };
+      sizeSlider.onchange = function () {
+        currentLongSide = parseInt(sizeSlider.value, 10);
+        /* Найти совпадающий пресет или сбросить */
+        var match = null;
+        for (var i = 0; i < LONG_SIDES.length; i++) {
+          if (LONG_SIDES[i].value === currentLongSide) { match = LONG_SIDES[i]; break; }
+        }
+        currentSize = match;
+        renderCalculatorOptions();
+      };
     }
 
     /* ── Sticky bar: умная кнопка (скролл к форме / оформить заказ) ── */

@@ -815,18 +815,25 @@
     justify-content: space-between;
     align-items: center;
     gap: 0.75rem;
-    border-radius: 0.75rem 0.75rem 0 0;
-    transition: box-shadow 0.2s, border-radius 0.2s;
+    border-radius: 0;
+    transition: box-shadow 0.2s;
     @media (min-width: 1024px) {
       display: none;
     }
+  }
+
+  /* Внутри модала — компенсируем боковые padding правой панели */
+  dialog .calc-sticky-bar {
+    width: calc(100% + 2.5rem);
+    margin-left: -1.25rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
   }
 
   /* Когда форма видна — бар «отлипает» и встаёт под формой */
   .calc-sticky-bar.is-docked {
     position: static;
     box-shadow: none;
-    border-radius: 0;
     border-top: none;
     margin-top: 1rem;
   }
