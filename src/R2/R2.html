@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ArtPrint - Печать картин из Wiki</title>
+    
+    <!-- Подключаем Tailwind CSS напрямую через CDN (без сборки) -->
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    
+    <!-- Подключаем шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Пользовательские стили и настройки Tailwind -->
+    <style type="text/tailwindcss">
+      @theme {
+        --color-gallery-bg: #fdfbf7;
+        --color-gallery-ink: #1a1a1a;
+        --color-gallery-accent: #b85c38;
+        --font-serif: "Playfair Display", serif;
+        --font-sans: "Inter", sans-serif;
+      }
+
+      body {
+        background-color: var(--color-gallery-bg);
+        color: var(--color-gallery-ink);
+        font-family: var(--font-sans);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      ::-webkit-scrollbar { width: 6px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+      ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+  </head>
+  <body class="bg-[#fdfbf7] text-[#1a1a1a] font-sans antialiased min-h-screen flex flex-col">
+    
+    <!-- ШАПКА -->
+    <header class="py-6 px-4 md:px-8 flex items-center justify-between border-b border-gray-200/50 bg-white/50 backdrop-blur-md sticky top-0 z-30">
+      <div class="flex items-center gap-3 cursor-pointer" id="logo-btn">
+        <div class="w-10 h-10 bg-[#1a1a1a] text-white flex items-center justify-center rounded-sm font-serif font-bold text-2xl">A</div>
+        <span class="font-serif text-2xl font-semibold tracking-wide">ArtPrint</span>
+      </div>
+      <div class="text-sm font-medium text-gray-500 hidden sm:block">
+        Печать шедевров мировой живописи
+      </div>
+    </header>
+
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
+    <main class="flex-grow flex flex-col relative">
+      <!-- Блок поиска -->
+      <div id="hero-section" class="transition-all duration-700 ease-in-out flex flex-col items-center justify-center px-4 py-32 flex-grow">
+        <div class="w-full max-w-3xl text-center">
+          <h1 id="hero-title" class="text-4xl md:text-6xl font-serif font-medium text-gray-900 mb-6 leading-tight transition-opacity duration-500">
+            Искусство в вашем <br/><span class="italic text-[#b85c38]">интерьере</span>
+          </h1>
+          
+          <form id="search-form" class="relative w-full group">
+            <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+              <svg class="h-6 w-6 text-gray-400 group-focus-within:text-[#b85c38] transition-colors" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            </div>
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Введите название картины или имя художника..."
+              class="w-full pl-14 pr-4 py-5 bg-white border-2 border-gray-200 rounded-2xl text-lg focus:outline-none focus:border-[#b85c38] focus:ring-4 focus:ring-[#b85c38]/10 transition-all shadow-sm"
+            />
+            <button 
+              type="submit"
+              id="search-btn"
+              class="absolute inset-y-2 right-2 px-6 bg-[#1a1a1a] hover:bg-gray-800 text-white rounded-xl font-medium transition-colors disabled:opacity-50 flex items-center gap-2"
+            >
+              <span id="search-btn-text">Найти</span>
+              <svg id="search-spinner" class="w-5 h-5 animate-spin hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+            </button>
+          </form>
+
+          <div id="popular-tags" class="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm text-gray-500 transition-opacity duration-500">
+            <span>Популярное:</span>
+            <!-- Теги добавятся через JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Блок результатов -->
+      <div id="results-section" class="px-4 md:px-8 pb-24 w-full max-w-7xl mx-auto hidden">
+        <div id="error-message" class="text-center py-12 text-red-500 flex flex-col items-center gap-2 hidden">
+          <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          <p id="error-text"></p>
+        </div>
+        
+        <div id="empty-state" class="text-center py-24 text-gray-500 hidden">
+          <svg class="w-16 h-16 mx-auto mb-4 opacity-20" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+          <h3 class="text-xl font-serif mb-2 text-gray-900">Ничего не найдено</h3>
+          <p>Попробуйте изменить запрос. Например, введите фамилию художника.</p>
+        </div>
+
+        <div id="grid-container" class="flex gap-6 md:gap-8 items-start">
+          <!-- Колонки добавятся через JS -->
+        </div>
+        
+        <div id="load-more-container" class="mt-12 mb-8 flex justify-center hidden">
+          <button
+            id="load-more-btn"
+            class="px-8 py-4 bg-white border border-gray-200 hover:border-[#b85c38] hover:text-[#b85c38] rounded-xl font-medium transition-all shadow-sm flex items-center gap-2 disabled:opacity-50"
+          >
+            <span id="load-more-text">Показать еще</span>
+            <svg id="load-more-spinner" class="w-5 h-5 animate-spin hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- МОДАЛЬНОЕ ОКНО (КАЛЬКУЛЯТОР) -->
+    <div id="calculator-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 md:p-8 opacity-0 pointer-events-none transition-opacity duration-300">
+      <div class="bg-white w-full max-w-6xl max-h-[95vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row transform scale-95 transition-transform duration-300" id="modal-content" onclick="event.stopPropagation()">
+        <!-- Левая часть: Превью -->
+        <div class="w-full md:w-1/2 bg-gray-50 p-8 flex items-center justify-center relative overflow-hidden">
+          <div id="modal-frame" class="relative z-10 transition-all duration-500">
+            <img 
+              id="modal-image"
+              src="" 
+              alt="" 
+              class="max-h-[60vh] max-w-full object-contain shadow-inner bg-white"
+              referrerpolicy="no-referrer"
+            />
+            <div id="modal-glossy" class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/20 to-white/0 pointer-events-none mix-blend-overlay hidden"></div>
+            <div id="modal-matte" class="absolute inset-0 bg-black/5 pointer-events-none mix-blend-overlay backdrop-blur-[1px] hidden"></div>
+          </div>
+          <div class="absolute inset-0 opacity-30 pointer-events-none" style="background-image: url('https://www.transparenttextures.com/patterns/stucco.png')"></div>
+        </div>
+        
+        <!-- Правая часть: Настройки -->
+        <div class="w-full md:w-1/2 p-6 md:p-10 overflow-y-auto flex flex-col relative">
+          <button id="close-modal-btn" class="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors z-10 bg-white shadow-sm">
+            <svg class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+          
+          <div class="mb-8 pr-8">
+            <h2 id="modal-title" class="text-3xl font-serif font-medium text-gray-900 mb-2 leading-tight"></h2>
+            <p id="modal-artist" class="text-lg text-gray-600"></p>
+          </div>
+          
+          <div class="space-y-8 flex-grow">
+            <div>
+              <h3 class="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-3 flex items-center gap-2">
+                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+                Размер холста
+              </h3>
+              <div id="sizes-container" class="grid grid-cols-2 gap-3"></div>
+            </div>
+            
+            <div>
+              <h3 class="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-3 flex items-center gap-2">
+                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="M3 7h18"/><path d="M3 17h18"/><path d="M7 3v18"/><path d="M17 3v18"/></svg>
+                Оформление
+              </h3>
+              <div id="frames-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+            </div>
+            
+            <div>
+              <h3 class="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-3 flex items-center gap-2">
+                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9.06 11.9 8.07-8.06a2.85 2.85 0 1 1 4.03 4.03l-8.06 8.08"/><path d="M7.07 14.94c-1.66 0-3 1.35-3 3.02 0 1.33-2.5 1.52-2 2.02 1.08 1.1 2.49 2.02 4 2.02 2.2 0 4-1.8 4-4.04a3.01 3.01 0 0 0-3-3.02z"/></svg>
+                Покрытие
+              </h3>
+              <div id="varnish-container" class="flex flex-wrap gap-3"></div>
+            </div>
+          </div>
+          
+          <div class="mt-8 pt-6 border-t border-gray-100">
+            <div class="flex items-end justify-between mb-6">
+              <div>
+                <p class="text-sm text-gray-500 mb-1">Итоговая стоимость</p>
+                <p id="total-price" class="text-4xl font-serif font-medium text-gray-900">0 ₽</p>
+              </div>
+            </div>
+            
+            <button 
+              id="order-btn"
+              class="w-full py-4 rounded-xl flex items-center justify-center gap-2 text-lg font-medium transition-all bg-[#1a1a1a] text-white hover:bg-gray-800"
+            >
+              <span id="order-text">Оформить заказ</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JAVASCRIPT ЛОГИКА -->
+    <script>
+      // Данные для калькулятора
+      const LONG_SIDES = [
+        { id: 's', label: '40 см', value: 40, price: 1500 },
+        { id: 'm', label: '60 см', value: 60, price: 2500 },
+        { id: 'l', label: '80 см', value: 80, price: 3500 },
+        { id: 'xl', label: '100 см', value: 100, price: 5000 },
+      ];
+
+      const FRAMES = [
+        { id: 'none', label: 'Без рамы', price: 0 },
+        { id: 'plastic', label: 'Стандартная рама', price: 1000 },
+        { id: 'wood', label: 'Деревянная рама', price: 2500 },
+        { id: 'premium', label: 'Премиум багет', price: 4000 },
+      ];
+
+      const VARNISH = [
+        { id: 'none', label: 'Без лака', price: 0 },
+        { id: 'glossy', label: 'Глянцевый лак', price: 500 },
+        { id: 'matte', label: 'Матовый лак', price: 500 },
+      ];
+
+      const LIMIT = 24;
+
+      // Состояние приложения
+      let searchTerm = '';
+      let isSearching = false;
+      let results = [];
+      let hasSearched = false;
+      let offset = 0;
+      let hasMore = true;
+      let isLoadingMore = false;
+      let columnCount = 4;
+
+      // Состояние калькулятора
+      let currentPainting = null;
+      let currentSize = LONG_SIDES[1];
+      let currentFrame = FRAMES[0];
+      let currentVarnish = VARNISH[0];
+      let currentAspectRatio = null;
+      let isOrdered = false;
+
+      // Вспомогательная функция
+      function getEl(id) { return document.getElementById(id); }
+
+      // Инициализация при загрузке страницы
+      function init() {
+        updateColumns();
+        
+        // Обработка ресайза окна для перестроения колонок
+        window.addEventListener('resize', () => {
+          const oldCols = columnCount;
+          updateColumns();
+          if (oldCols !== columnCount && results.length > 0) renderGrid();
+        });
+
+        // Слушатели событий
+        getEl('search-form').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const term = getEl('search-input').value.trim();
+          if (term) handleSearch(term);
+        });
+
+        getEl('load-more-btn').addEventListener('click', handleLoadMore);
+
+        getEl('logo-btn').addEventListener('click', () => {
+          hasSearched = false; 
+          searchTerm = ''; 
+          getEl('search-input').value = '';
+          results = []; 
+          offset = 0; 
+          hasMore = true; 
+          updateUIState();
+        });
+
+        getEl('close-modal-btn').addEventListener('click', closeModal);
+        getEl('calculator-modal').addEventListener('click', closeModal);
+        
+        // Получение пропорций картинки при загрузке в калькуляторе
+        getEl('modal-image').addEventListener('load', (e) => {
+          const target = e.target;
+          if (target.naturalHeight > 0) {
+            currentAspectRatio = target.naturalWidth / target.naturalHeight;
+            renderCalculatorOptions();
+          }
+        });
+        
+        getEl('order-btn').addEventListener('click', handleOrder);
+        
+        // Рендер популярных тегов
+        const tags = ['Винсент Ван Гог', 'Девятый вал', 'Клод Моне', 'Поцелуй Климт'];
+        const container = getEl('popular-tags');
+        tags.forEach(term => {
+          const btn = document.createElement('button');
+          btn.className = 'px-4 py-2 rounded-full bg-white border border-gray-200 hover:border-[#b85c38] hover:text-[#b85c38] transition-colors shadow-sm';
+          btn.textContent = term;
+          btn.addEventListener('click', () => {
+            getEl('search-input').value = term;
+            handleSearch(term);
+          });
+          container.appendChild(btn);
+        });
+      }
+
+      // Определение количества колонок в зависимости от ширины экрана
+      function updateColumns() {
+        if (window.innerWidth >= 1280) columnCount = 4;
+        else if (window.innerWidth >= 1024) columnCount = 3;
+        else if (window.innerWidth >= 640) columnCount = 2;
+        else columnCount = 1;
+      }
+
+      // Запрос к Wikidata
+      async function searchPaintingsAPI(term, limit, currentOffset) {
+        const query = `
+          SELECT DISTINCT ?item ?itemLabel ?image ?creatorLabel WHERE {
+            {
+              SERVICE wikibase:mwapi {
+                bd:serviceParam wikibase:endpoint "www.wikidata.org"; wikibase:api "EntitySearch"; mwapi:search "${term}"; mwapi:language "ru".
+                ?item wikibase:apiOutputItem mwapi:item.
+              }
+              ?item wdt:P31 wd:Q3305213. ?item wdt:P18 ?image. OPTIONAL { ?item wdt:P170 ?creator. }
+            } UNION {
+              SERVICE wikibase:mwapi {
+                bd:serviceParam wikibase:endpoint "www.wikidata.org"; wikibase:api "EntitySearch"; mwapi:search "${term}"; mwapi:language "ru".
+                ?creator wikibase:apiOutputItem mwapi:item.
+              }
+              ?item wdt:P170 ?creator. ?item wdt:P31 wd:Q3305213. ?item wdt:P18 ?image.
+            }
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en". }
+          } LIMIT ${limit} OFFSET ${currentOffset}
+        `;
+        const url = `https://query.wikidata.org/sparql?query=${encodeURIComponent(query)}&format=json`;
+        
+        const response = await fetch(url, { headers: { 'Accept': 'application/sparql-results+json' } });
+        if (!response.ok) throw new Error('Failed to fetch from Wikidata');
+        
+        const data = await response.json();
+        const bindings = data.results.bindings;
+        const fetchedResults = [];
+        const seenIds = new Set();
+        
+        for (const binding of bindings) {
+          const id = binding.item.value;
+          if (!seenIds.has(id)) {
+            seenIds.add(id);
+            let imageUrl = binding.image.value.replace('http://', 'https://');
+            if (imageUrl.includes('Special:FilePath')) imageUrl = `${imageUrl}?width=800`;
+            fetchedResults.push({
+              id, 
+              title: binding.itemLabel?.value || 'Неизвестная картина',
+              artist: binding.creatorLabel?.value || 'Неизвестный автор', 
+              imageUrl,
+            });
+          }
+        }
+        return { paintings: fetchedResults, rawCount: bindings.length };
+      }
+
+      // Обработка нового поиска
+      async function handleSearch(term) {
+        searchTerm = term; 
+        isSearching = true; 
+        hasSearched = true; 
+        offset = 0; 
+        hasMore = true; 
+        results = [];
+        updateUIState();
+        
+        try {
+          const { paintings, rawCount } = await searchPaintingsAPI(searchTerm, LIMIT, 0);
+          results = paintings;
+          if (rawCount < LIMIT) hasMore = false;
+          renderGrid();
+        } catch (err) {
+          showError('Произошла ошибка при поиске. Попробуйте другой запрос.');
+        } finally {
+          isSearching = false; 
+          updateUIState();
+        }
+      }
+
+      // Обработка кнопки "Показать еще"
+      async function handleLoadMore() {
+        if (isLoadingMore || !hasMore) return;
+        isLoadingMore = true; 
+        updateUIState();
+        
+        const nextOffset = offset + LIMIT;
+        try {
+          const { paintings, rawCount } = await searchPaintingsAPI(searchTerm, LIMIT, nextOffset);
+          const existingIds = new Set(results.map(p => p.id));
+          const newUnique = paintings.filter(p => !existingIds.has(p.id));
+          
+          results = [...results, ...newUnique];
+          offset = nextOffset;
+          if (rawCount < LIMIT) hasMore = false;
+          
+          appendGrid(newUnique);
+        } catch (err) {
+          console.error(err);
+        } finally {
+          isLoadingMore = false; 
+          updateUIState();
+        }
+      }
+
+      // Обновление состояния интерфейса
+      function updateUIState() {
+        const searchBtn = getEl('search-btn');
+        searchBtn.disabled = isSearching || !getEl('search-input').value.trim();
+        getEl('search-btn-text').classList.toggle('hidden', isSearching);
+        getEl('search-spinner').classList.toggle('hidden', !isSearching);
+
+        const heroSection = getEl('hero-section');
+        if (hasSearched) {
+          heroSection.classList.replace('py-32', 'py-12'); 
+          heroSection.classList.remove('flex-grow');
+          getEl('hero-title').classList.add('hidden'); 
+          getEl('popular-tags').classList.add('hidden');
+          getEl('results-section').classList.remove('hidden');
+        } else {
+          heroSection.classList.replace('py-12', 'py-32'); 
+          heroSection.classList.add('flex-grow');
+          getEl('hero-title').classList.remove('hidden'); 
+          getEl('popular-tags').classList.remove('hidden');
+          getEl('results-section').classList.add('hidden'); 
+          getEl('grid-container').innerHTML = '';
+        }
+
+        const loadMoreContainer = getEl('load-more-container');
+        if (results.length > 0 && hasMore) {
+          loadMoreContainer.classList.remove('hidden');
+          getEl('load-more-btn').disabled = isLoadingMore;
+          getEl('load-more-text').textContent = isLoadingMore ? 'Загрузка...' : 'Показать еще';
+          getEl('load-more-spinner').classList.toggle('hidden', !isLoadingMore);
+        } else {
+          loadMoreContainer.classList.add('hidden');
+        }
+
+        getEl('empty-state').classList.toggle('hidden', !(!isSearching && hasSearched && results.length === 0 && getEl('error-text').textContent === ''));
+      }
+
+      // Показ ошибки
+      function showError(msg) {
+        getEl('error-text').textContent = msg; 
+        getEl('error-message').classList.remove('hidden');
+        getEl('empty-state').classList.add('hidden'); 
+        getEl('grid-container').innerHTML = '';
+      }
+
+      // Создание карточки картины
+      function createCardElement(painting) {
+        const div = document.createElement('div');
+        div.className = 'group relative cursor-pointer overflow-hidden rounded-xl bg-white shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 mb-6 md:mb-8 opacity-0 translate-y-4';
+        div.innerHTML = `
+          <div class="w-full min-h-[240px] overflow-hidden bg-gray-100 relative flex items-center justify-center">
+            <div class="absolute inset-0 flex items-center justify-center loader-container">
+              <svg class="w-8 h-8 text-gray-300 animate-spin" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+            </div>
+            <div class="py-16 text-center text-gray-400 flex flex-col items-center error-container hidden">
+              <span class="text-sm font-medium">Ошибка</span>
+            </div>
+            <img src="${painting.imageUrl}" alt="${painting.title}" class="w-full h-auto block transition-all duration-700 group-hover:scale-105 opacity-0" referrerpolicy="no-referrer" />
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+            <h3 class="text-white font-serif text-xl font-medium leading-tight mb-1">${painting.title}</h3>
+            <p class="text-white/80 text-sm">${painting.artist}</p>
+          </div>
+        `;
+
+        const img = div.querySelector('img');
+        const loader = div.querySelector('.loader-container');
+        const errorContainer = div.querySelector('.error-container');
+
+        img.onload = () => { 
+          loader.classList.add('hidden'); 
+          img.classList.replace('opacity-0', 'opacity-100'); 
+        };
+        
+        img.onerror = () => {
+          if (img.src.includes('?width=')) {
+            img.src = img.src.split('?')[0];
+          } else { 
+            loader.classList.add('hidden'); 
+            errorContainer.classList.remove('hidden'); 
+          }
+        };
+
+        div.addEventListener('click', () => openModal(painting));
+        
+        // Плавное появление
+        requestAnimationFrame(() => {
+          setTimeout(() => div.classList.remove('opacity-0', 'translate-y-4'), 50);
+        });
+        
+        return div;
+      }
+
+      // Отрисовка всей сетки с нуля
+      function renderGrid() {
+        const grid = getEl('grid-container'); 
+        grid.innerHTML = ''; 
+        getEl('error-message').classList.add('hidden');
+        
+        const columns = Array.from({ length: columnCount }).map(() => {
+          const col = document.createElement('div'); 
+          col.className = 'flex flex-col flex-1';
+          grid.appendChild(col); 
+          return col;
+        });
+        
+        results.forEach((painting, index) => {
+          columns[index % columnCount].appendChild(createCardElement(painting));
+        });
+      }
+
+      // Добавление новых картин в существующую сетку
+      function appendGrid(newPaintings) {
+        const columns = Array.from(getEl('grid-container').children);
+        const startIndex = results.length - newPaintings.length;
+        
+        newPaintings.forEach((painting, i) => {
+          columns[(startIndex + i) % columnCount].appendChild(createCardElement(painting));
+        });
+      }
+
+      // Открытие модального окна
+      function openModal(painting) {
+        currentPainting = painting; 
+        currentSize = LONG_SIDES[1]; 
+        currentFrame = FRAMES[0]; 
+        currentVarnish = VARNISH[0];
+        currentAspectRatio = null; 
+        isOrdered = false;
+
+        getEl('modal-title').textContent = painting.title; 
+        getEl('modal-artist').textContent = painting.artist;
+        getEl('modal-image').src = painting.imageUrl;
+        
+        updateFrameStyle(); 
+        renderCalculatorOptions();
+        
+        const modal = getEl('calculator-modal');
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        getEl('modal-content').classList.replace('scale-95', 'scale-100');
+        document.body.style.overflow = 'hidden';
+      }
+
+      // Закрытие модального окна
+      function closeModal() {
+        getEl('calculator-modal').classList.add('opacity-0', 'pointer-events-none');
+        getEl('modal-content').classList.replace('scale-100', 'scale-95');
+        document.body.style.overflow = '';
+        setTimeout(() => { getEl('modal-image').src = ''; }, 300);
+      }
+
+      // Обновление стилей рамы и лака
+      function updateFrameStyle() {
+        const frameId = currentFrame.id;
+        let cssText = 'border: none; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2);';
+        
+        if (frameId === 'plastic') {
+          cssText = 'border: 12px solid #1a1a1a; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3);';
+        } else if (frameId === 'wood') {
+          cssText = 'border: 16px solid #4a3018; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);';
+        } else if (frameId === 'premium') {
+          cssText = 'border: 20px solid #b89947; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5), inset 0 0 0 2px #fff, inset 0 0 0 4px #b89947;';
+        }
+        
+        getEl('modal-frame').style.cssText = cssText;
+        getEl('modal-glossy').classList.toggle('hidden', currentVarnish.id !== 'glossy');
+        getEl('modal-matte').classList.toggle('hidden', currentVarnish.id !== 'matte');
+      }
+
+      // Отрисовка кнопок калькулятора
+      function renderCalculatorOptions() {
+        // Размеры
+        const sizesContainer = getEl('sizes-container'); 
+        sizesContainer.innerHTML = '';
+        LONG_SIDES.forEach(s => {
+          const btn = document.createElement('button');
+          const isSelected = currentSize.id === s.id;
+          btn.className = `p-3 rounded-xl border text-left transition-all ${isSelected ? 'border-[#b85c38] bg-[#b85c38]/5 ring-1 ring-[#b85c38]' : 'border-gray-200 hover:border-gray-300'}`;
+          
+          let dimText = `Длинная сторона: ${s.value} см`;
+          if (currentAspectRatio) {
+            const shortSide = Math.round(currentAspectRatio > 1 ? s.value / currentAspectRatio : s.value * currentAspectRatio);
+            dimText = currentAspectRatio > 1 ? `${s.value} × ${shortSide} см` : `${shortSide} × ${s.value} см`;
+          }
+          
+          btn.innerHTML = `<div class="font-medium text-gray-900">${dimText}</div><div class="text-sm text-gray-500">+${s.price} ₽</div>`;
+          btn.onclick = () => { currentSize = s; renderCalculatorOptions(); };
+          sizesContainer.appendChild(btn);
+        });
+
+        // Рамы
+        const framesContainer = getEl('frames-container'); 
+        framesContainer.innerHTML = '';
+        FRAMES.forEach(f => {
+          const btn = document.createElement('button');
+          const isSelected = currentFrame.id === f.id;
+          btn.className = `p-3 rounded-xl border text-left transition-all ${isSelected ? 'border-[#b85c38] bg-[#b85c38]/5 ring-1 ring-[#b85c38]' : 'border-gray-200 hover:border-gray-300'}`;
+          btn.innerHTML = `<div class="font-medium text-gray-900">${f.label}</div><div class="text-sm text-gray-500">${f.price === 0 ? 'Включено' : `+${f.price} ₽`}</div>`;
+          btn.onclick = () => { currentFrame = f; updateFrameStyle(); renderCalculatorOptions(); };
+          framesContainer.appendChild(btn);
+        });
+
+        // Лак
+        const varnishContainer = getEl('varnish-container'); 
+        varnishContainer.innerHTML = '';
+        VARNISH.forEach(v => {
+          const btn = document.createElement('button');
+          const isSelected = currentVarnish.id === v.id;
+          btn.className = `px-4 py-2 rounded-full border text-sm transition-all ${isSelected ? 'border-[#b85c38] bg-[#b85c38] text-white' : 'border-gray-200 text-gray-700 hover:border-gray-300'}`;
+          btn.innerHTML = `${v.label} ${v.price > 0 ? `(+${v.price} ₽)` : ''}`;
+          btn.onclick = () => { currentVarnish = v; updateFrameStyle(); renderCalculatorOptions(); };
+          varnishContainer.appendChild(btn);
+        });
+
+        // Итоговая цена
+        getEl('total-price').textContent = `${(currentSize.price + currentFrame.price + currentVarnish.price).toLocaleString('ru-RU')} ₽`;
+
+        // Кнопка заказа
+        const orderBtn = getEl('order-btn');
+        if (isOrdered) {
+          orderBtn.className = 'w-full py-4 rounded-xl flex items-center justify-center gap-2 text-lg font-medium transition-all bg-green-600 text-white';
+          getEl('order-text').textContent = 'Заказ оформлен';
+        } else {
+          orderBtn.className = 'w-full py-4 rounded-xl flex items-center justify-center gap-2 text-lg font-medium transition-all bg-[#1a1a1a] text-white hover:bg-gray-800';
+          getEl('order-text').textContent = 'Оформить заказ';
+        }
+      }
+
+      // Имитация заказа
+      function handleOrder() {
+        isOrdered = true; 
+        renderCalculatorOptions();
+        setTimeout(closeModal, 2000);
+      }
+
+      // Запуск
+      document.addEventListener('DOMContentLoaded', init);
+    </script>
+  </body>
+</html>

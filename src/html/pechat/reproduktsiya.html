@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Закажите печать репродукций картин на холсте</title>
+    <meta name="description" content="Репродукция на холсте. Более 130 000 картин из мирового наследия живописи. Качественная печать по доступной цене. Оформление в багет. Бесплатная доставка до пунктов выдачи. Оплата при получении. Гарантия 5 лет.">
+    <meta name="keywords" content="репродукция на холсте, печать репродукций картин, репродукция картины на холсте, купить репродукцию">
+    <!-- Закрыто от индексации во время разработки -->
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="canonical" href="https://muse.ooo/pechat/reproduktsiya/">
+
+    <!-- Open Graph -->
+    <meta property="og:image" content="https://muse.ooo/img/o-product-reproduction-front-442.jpg">
+
+    <!-- Structured Data: Product -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Репродукция на холсте",
+        "description": "Репродукция на холсте. Более 130 000 картин из мирового наследия живописи. Качественная печать по доступной цене. Оформление в багет.",
+        "image": "https://muse.ooo/img/o-product-reproduction-front-442.jpg",
+        "brand": {
+            "@type": "Brand",
+            "name": "Muse"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "1572",
+            "priceCurrency": "RUB",
+            "availability": "https://schema.org/PreOrder",
+            "url": "https://muse.ooo/pechat/reproduktsiya/"
+        }
+    }
+    </script>
+    <link rel="stylesheet" href="../css/output.css">
+</head>
+<body class="bg-white overflow-x-hidden">
+
+    <!-- Page Navigator -->
+    <nav class="page-navigator" id="page-navigator">
+        <ul>
+            <li><a href="#search" class="inner-link" data-title="Поиск"><span class="sr-only">Поиск</span></a></li>
+            <li><a href="#work" class="inner-link" data-title="Характеристики"><span class="sr-only">Характеристики</span></a></li>
+            <li><a href="#order" class="inner-link" data-title="Как заказать"><span class="sr-only">Как заказать</span></a></li>
+        </ul>
+    </nav>
+
+    <!-- Back to Top Button -->
+    <a href="#" id="back-to-top" class="ui-control ui-control--lg fixed bottom-5 right-5 z-50 opacity-0 pointer-events-none hidden md:flex" aria-label="Наверх">
+        <svg fill="none" aria-hidden="true" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></svg>
+    </a>
+
+    <!-- Header -->
+    
+
+    <main>
+        <!-- ============================== -->
+        <!-- HERO                           -->
+        <!-- ============================== -->
+        <section id="hero" class="pt-8 pb-8 lg:pt-12 lg:pb-12 bg-secondary">
+            <div class="container">
+                <div class="max-w-4xl">
+                    <nav class="text-sm text-gray-400 mb-4" aria-label="Хлебные крошки">
+                        <ol class="flex items-center space-x-2">
+                            <li><a href="https://muse.ooo/" class="hover:text-primary-text transition-colors">Главная</a></li>
+                            <li>/</li>
+                            <li><a href="https://muse.ooo/pechat/" class="hover:text-primary-text transition-colors">Печать</a></li>
+                            <li>/</li>
+                            <li class="text-dark">Репродукция</li>
+                        </ol>
+                    </nav>
+
+                    <h1 class="heading-hero mb-4">Репродукция</h1>
+                    <p class="text-lead-xl mb-4">Мировое наследие за один клик</p>
+                    <p class="text-body mb-4">Репродукция на холсте. Более 130 000 картин из мирового наследия живописи. Качественная печать по доступной цене. Оформление в багет. Бесплатная доставка до пунктов выдачи. Оплата при получении. Гарантия 5 лет.</p>
+                    <p class="text-body mb-6">От 1572 руб. Под заказ.</p>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================== -->
+        <!-- ПОИСК КАРТИН (#search)         -->
+        <!-- ============================== -->
+        <section class="py-16 lg:py-20" id="search">
+            <div class="container">
+                <h2 class="heading-section text-center mb-8">Найдите свою картину</h2>
+
+                <!-- Поисковая форма -->
+                <form id="search-form" class="relative w-full max-w-2xl mx-auto group mb-6">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-gray-400 group-focus-within:text-primary transition-colors" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    </div>
+                    <input
+                        type="text"
+                        id="search-input"
+                        placeholder="Введите название картины или имя художника..."
+                        class="w-full pl-12 pr-28 py-4 bg-white border-2 border-gray-200 rounded-xl text-base focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
+                    >
+                    <button
+                        type="submit"
+                        id="search-btn"
+                        class="absolute inset-y-1.5 right-1.5 px-5 bg-primary hover:bg-primary-hover text-white rounded-lg font-bold text-sm uppercase tracking-wide transition-colors disabled:opacity-50 flex items-center gap-2"
+                    >
+                        <span id="search-btn-text">Найти</span>
+                        <svg id="search-spinner" class="w-5 h-5 animate-spin hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                    </button>
+                </form>
+
+                <!-- Статус (retry и т.п.) -->
+                <p id="search-status" class="text-center text-sm text-amber-600 mb-4 hidden"></p>
+
+                <!-- Популярные теги -->
+                <div id="popular-tags" class="flex flex-wrap items-center justify-center gap-3 text-sm text-gray-500 mb-10 transition-opacity duration-500">
+                    <span>Популярное:</span>
+                    <!-- Теги заполняются из JS -->
+                </div>
+
+                <!-- Ошибки и пустое состояние -->
+                <div id="error-message" class="text-center py-12 text-error hidden flex-col items-center gap-2">
+                    <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                    <p id="error-text"></p>
+                </div>
+
+                <div id="empty-state" class="text-center py-16 text-gray-500 hidden">
+                    <svg class="w-16 h-16 mx-auto mb-4 opacity-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                    <h3 class="text-xl font-bold mb-2">Ничего не найдено</h3>
+                    <p>Попробуйте изменить запрос. Например, введите фамилию художника.</p>
+                </div>
+
+                <!-- Сетка результатов -->
+                <div id="grid-container" class="flex gap-5 md:gap-6 items-start">
+                    <!-- Колонки добавятся через JS -->
+                </div>
+
+                <!-- Кнопка «Показать ещё» -->
+                <div id="load-more-container" class="mt-10 mb-4 hidden justify-center">
+                    <button
+                        id="load-more-btn"
+                        class="px-8 py-3 bg-white border border-gray-200 hover:border-primary hover:text-primary-text rounded-lg font-medium transition-all flex items-center gap-2 disabled:opacity-50"
+                    >
+                        <span id="load-more-text">Показать ещё</span>
+                        <svg id="load-more-spinner" class="w-5 h-5 animate-spin hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================== -->
+        <!-- ОПИСАНИЕ                       -->
+        <!-- ============================== -->
+        <section class="bg-secondary py-16 lg:py-20 content-auto">
+            <div class="container">
+                <h2 class="heading-section text-center mb-8">Репродукции</h2>
+                <div class="space-y-4">
+                    <p class="text-body-lg">C помощью сервиса Muse вы можете напечатать и оформить в багет репродукции картин самых известных авторов как на холсте, так и на фотобумаге. В своей работе мы используем каталог <a href="https://ru.wikipedia.org" rel="nofollow" class="text-primary-text underline hover:no-underline">Wikimedia</a>, где размещены цифровые копии шедевров мирового изобразительного искусства, находящиеся в общественном достоянии.</p>
+                    <p class="text-body-lg">Не все картины по законодательству об авторских правах можно напечатать. Если Вы что-то не нашли, то напишите нам через комментарии в форме (кнопка «Заказать») или позвоните. Мы предложим вам наиболее подходящие варианты.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Promo Banner — скидка, показывается перед характеристиками -->
+        <section class="promo-section">
+            <div class="container">
+                <div class="flex items-center justify-center">
+                    <p class="text-lead mb-0">Скидка 20% c 18 по 19 февраля</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================== -->
+        <!-- ХАРАКТЕРИСТИКИ (#work)         -->
+        <!-- ============================== -->
+        <section class="py-16 lg:py-20 content-auto" id="work">
+            <div class="container">
+                <h2 class="heading-section text-center mb-12">Характеристики</h2>
+
+                <div class="grid lg:grid-cols-2 gap-12">
+                    <!-- Список характеристик (на ПК слева) -->
+                    <div class="order-2 lg:order-1">
+                        <ul class="check-list">
+                            <li class="check-list-item"><span>Базовый дизайн</span></li>
+                            <li class="check-list-item"><span>Печать на холсте</span></li>
+                            <li class="check-list-item"><span>Галерейная натяжка</span></li>
+                            <li class="check-list-item"><span>Сосновый подрамник</span></li>
+                            <li class="check-list-item"><span>С обратной стороны защитный скотч</span></li>
+                            <li class="check-list-item"><span>Крепление</span></li>
+                            <li class="check-list-item"><span>Упаковка в пупырчатую пленку и картон</span></li>
+                            <li class="check-list-item"><span>Готово на следующий рабочий день</span></li>
+                            <li class="check-list-item"><span>Доставка до пункта выдачи</span></li>
+                            <li class="check-list-item"><span>Оплата при получении</span></li>
+                            <li class="check-list-item"><span>Гарантия 5 лет</span></li>
+                        </ul>
+
+                        <div class="mt-8 p-4 bg-secondary rounded-lg border border-gray-200">
+                            <p class="text-small">Выше приведен список стандартных характеристик работ и материалов. Вы всегда можете: посчитав в калькуляторе ниже; прочитав описание по клику на знак вопроса там же; спросив в коммуникаторе или позвонив — подобрать именно то, что нужно Вам.</p>
+                        </div>
+                    </div>
+
+                    <!-- Слайдер изображений (на ПК справа, на мобильном сверху) -->
+                    <div class="order-1 lg:order-2">
+                        <div data-tabs class="flex flex-col-reverse">
+                            <!-- Миниатюры -->
+                            <div data-tab-list class="mx-auto mt-4 w-full max-w-md grid grid-cols-2 gap-3">
+                                <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
+                                    <span class="sr-only">Лицевая сторона репродукции на холсте</span>
+                                    <span class="absolute inset-0 overflow-hidden rounded">
+                                        <img src="https://muse.ooo/img/o-product-reproduction-front-442.jpg" alt="Репродукция на холсте — лицевая сторона" title="Лицевая сторона репродукции на холсте" width="442" height="332" class="size-full object-cover" loading="lazy" decoding="async">
+                                    </span>
+                                    <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
+                                </button>
+                                <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
+                                    <span class="sr-only">Обратная сторона репродукции на холсте</span>
+                                    <span class="absolute inset-0 overflow-hidden rounded">
+                                        <img src="https://muse.ooo/img/o-product-photo-on-canvas-442-back.jpg" alt="Обратная сторона репродукции на холсте" title="Обратная сторона репродукции на холсте" width="442" height="332" class="size-full object-cover" loading="lazy" decoding="async">
+                                    </span>
+                                    <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
+                                </button>
+                            </div>
+
+                            <!-- Большие изображения -->
+                            <div data-tab-panels>
+                                <div>
+                                    <img src="https://muse.ooo/img/o-product-reproduction-front-442.jpg" alt="Репродукция на холсте — лицевая сторона" title="Лицевая сторона репродукции на холсте" width="442" height="332" class="w-full rounded-lg object-cover" loading="lazy" decoding="async">
+                                </div>
+                                <div hidden>
+                                    <img src="https://muse.ooo/img/o-product-photo-on-canvas-442-back.jpg" alt="Обратная сторона репродукции на холсте" title="Обратная сторона репродукции на холсте" width="442" height="332" class="w-full rounded-lg object-cover" loading="lazy" decoding="async">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Варианты для заказа -->
+        <section class="py-16 lg:py-24 content-auto" id="varianty">
+            <div class="container">
+                <h2 class="heading-section text-center mb-12">Варианты для заказа</h2>
+            </div>
+
+            <div class="container">
+                <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+                    <!-- Размер -->
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 1889 1889"><path d="M130 0h1729c17 0 30 13 30 30v1729c0 17-13 30-30 30h-590v20c0 17-14 30-30 30H605v20c0 17-13 30-30 30H30c-17 0-30-13-30-30v-545c0-17 13-30 30-30h20V650c0-16 13-30 30-30h20V30c0-17 13-30 30-30m475 1779h604V680H110v604h465c17 0 30 13 30 30zm-60-435H60v485h485zm724 385h560V60H160v560h1079c16 0 30 14 30 30z"/></svg>
+                        <h3 class="heading-card">Размер</h3>
+                        <p class="text-left mt-3">Конструктор Muse сам определит пропорции выбранной Вами картины. Вам нужно будет лишь определиться с ее размером.</p>
+                    </div>
+
+                    <!-- Материал -->
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 1889 1889"><path d="M517 1829h102v-6c0-16 14-30 30-30 17 0 30 14 30 30v6h358v-6c0-16 13-30 30-30 16 0 30 14 30 30v6h357v-6c0-16 13-30 30-30 16 0 30 14 30 30v6h315v-109h-4c-16 0-30-13-30-30 0-16 14-30 30-30h4v-357h-4c-16 0-30-13-30-30 0-16 14-30 30-30h4V886h-4c-16 0-30-14-30-30 0-17 14-30 30-30h4V517h-107c-1 15-14 27-29 27-16 0-29-12-30-27h-358c-1 15-14 27-30 27-15 0-28-12-30-27H888c-2 15-14 27-30 27s-28-12-30-27H517v100c16 1 29 14 29 30 0 17-13 30-29 30v358c16 0 29 13 29 29 0 17-13 30-29 30v358c16 0 29 13 29 30 0 16-13 29-29 30zm1312-109v-60h-4c-16 0-30 14-30 30 0 17 14 30 30 30zM1722 517h-59c1 15 14 27 30 27 15 0 28-12 29-27m-105 995c-17 0-30-14-30-30 0-17 13-30 30-30h151c17 0 30 13 30 30 0 16-13 30-30 30zm105 254c0 17-13 30-30 30-16 0-30-13-30-30v-151c0-17 14-30 30-30 17 0 30 13 30 30zm-314-46c-16 0-30-13-30-30 0-16 14-30 30-30h152c16 0 30 14 30 30 0 17-14 30-30 30zm255-523c0-16 13-30 30-30 16 0 30 14 30 30v152c0 16-14 30-30 30-17 0-30-14-30-30zm-255 106c-16 0-30-13-30-30 0-16 14-30 30-30h152c16 0 30 14 30 30 0 17-14 30-30 30zm106 254c0 17-14 30-30 30-17 0-30-13-30-30v-151c0-16 13-30 30-30 16 0 30 14 30 30zm-314-45c-17 0-30-14-30-30 0-17 13-30 30-30h151c16 0 30 13 30 30 0 16-14 30-30 30zm105 254c0 17-13 30-30 30-16 0-30-13-30-30v-151c0-17 14-30 30-30 17 0 30 13 30 30zm-314-46c-17 0-30-13-30-30 0-16 13-30 30-30h151c17 0 30 14 30 30 0 17-13 30-30 30zm254-523c0-16 14-30 30-30 17 0 30 14 30 30v152c0 16-13 30-30 30-16 0-30-14-30-30zm-254 106c-17 0-30-13-30-30 0-16 13-30 30-30h151c17 0 30 14 30 30 0 17-13 30-30 30zm106 254c0 17-14 30-30 30-17 0-30-13-30-30v-151c0-16 13-30 30-30 16 0 30 14 30 30zm-315-45c-16 0-30-14-30-30 0-17 14-30 30-30h152c16 0 30 13 30 30 0 16-14 30-30 30zm106 254c0 17-13 30-30 30s-30-13-30-30v-151c0-17 13-30 30-30s30 13 30 30zm-314-46c-17 0-30-13-30-30 0-16 13-30 30-30h151c17 0 30 14 30 30 0 17-13 30-30 30zm254-523c0-16 13-30 30-30s30 14 30 30v152c0 16-13 30-30 30s-30-14-30-30zm-254 106c-17 0-30-13-30-30 0-16 13-30 30-30h151c17 0 30 14 30 30 0 17-13 30-30 30zm105 254c0 17-13 30-30 30-16 0-30-13-30-30v-151c0-16 14-30 30-30 17 0 30 14 30 30zm938-463c-17 0-30-13-30-30 0-16 13-30 30-30h151c17 0 30 14 30 30 0 17-13 30-30 30zm0-417c-17 0-30-13-30-30 0-16 13-30 30-30h151c17 0 30 14 30 30 0 17-13 30-30 30zm106 255c0 16-14 30-30 30-17 0-30-14-30-30V780c0-16 13-30 30-30 16 0 30 14 30 30zm-315-46c-16 0-30-14-30-30 0-17 14-30 30-30h152c16 0 30 13 30 30 0 16-14 30-30 30zm106 254c0 17-14 30-30 30-17 0-30-13-30-30V989c0-17 13-30 30-30 16 0 30 13 30 30zm-314-46c-17 0-30-13-30-30 0-16 13-30 30-30h151c16 0 30 14 30 30 0 17-14 30-30 30zm314-371c0 16-14 30-30 30-17 0-30-14-30-30V572c0-17 13-30 30-30 16 0 30 13 30 30zm-314-46c-17 0-30-13-30-30 0-16 13-30 30-30h151c16 0 30 14 30 30 0 17-14 30-30 30zm105 255c0 16-13 30-30 30-16 0-30-14-30-30V780c0-16 14-30 30-30 17 0 30 14 30 30zm-314-46c-17 0-30-14-30-30 0-17 13-30 30-30h151c17 0 30 13 30 30 0 16-13 30-30 30zm106 254c0 17-14 30-30 30-17 0-30-13-30-30V989c0-17 13-30 30-30 16 0 30 13 30 30zm-315-46c-16 0-30-13-30-30 0-16 14-30 30-30h152c16 0 30 14 30 30 0 17-14 30-30 30zm315-371c0 16-14 30-30 30-17 0-30-14-30-30V572c0-17 13-30 30-30 16 0 30 13 30 30zm-315-46c-16 0-30-13-30-30 0-16 14-30 30-30h152c16 0 30 14 30 30 0 17-14 30-30 30zm106 255c0 16-13 30-30 30s-30-14-30-30V780c0-16 13-30 30-30s30 14 30 30zm-314-46c-17 0-30-14-30-30 0-17 13-30 30-30h151c17 0 30 13 30 30 0 16-13 30-30 30zm105 254c0 17-13 30-30 30-16 0-30-13-30-30V989c0-17 14-30 30-30 17 0 30 13 30 30zm0-417c0 16-13 30-30 30-16 0-30-14-30-30V572c0-17 14-30 30-30 17 0 30 13 30 30zM60 1372h397v-63c-1-3-2-7-2-10 0-4 1-7 2-11v-57H336c-17 0-30-14-30-30 0-17 13-30 30-30h121v-58c-1-3-2-7-2-10 0-4 1-7 2-11v-57H336c-17 0-30-14-30-30 0-17 13-30 30-30h121v-58c-1-3-2-7-2-10 0-4 1-7 2-11v-57H336c-17 0-30-14-30-30 0-17 13-30 30-30h121v-58c-1-3-2-7-2-10 0-4 1-7 2-11v-57H336c-17 0-30-14-30-30 0-17 13-30 30-30h121v-58c-1-3-2-7-2-10 0-4 1-7 2-11v-17c0-16 14-30 30-30h885v-10h-137c-17 0-30-14-30-30 0-17 13-30 30-30h137v-41c-10-5-18-15-18-27s8-23 18-28v-40h-137c-17 0-30-14-30-30 0-17 13-30 30-30h137v-41c-10-5-18-15-18-27s8-23 18-28V60H60v34c13 3 22 15 22 29 0 13-9 25-22 29v39h142c16 0 30 13 30 30 0 16-14 30-30 30H60v39c13 3 22 15 22 29 0 13-9 25-22 29v39h142c16 0 30 13 30 30 0 16-14 30-30 30H60v39c13 3 22 15 22 29 0 13-9 25-22 28v40h142c16 0 30 13 30 30 0 16-14 30-30 30H60v39c13 3 22 15 22 29 0 13-9 25-22 28v40h142c16 0 30 13 30 30 0 16-14 30-30 30H60v39c13 3 22 15 22 29 0 13-9 25-22 28v40h142c16 0 30 13 30 30 0 16-14 30-30 30H60v39c13 3 22 15 22 29 0 13-9 25-22 28v45zm397 60H30c-17 0-30-14-30-30V30C0 13 13 0 30 0h1372c16 0 30 13 30 30v427h427c17 0 30 14 30 30v1372c0 17-13 30-30 30H487c-16 0-30-13-30-30zm628-1279c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm-300 0c-16 0-30-14-30-30 0-17 14-30 30-30h166c16 0 30 13 30 30 0 16-14 30-30 30zm-300 0c-16 0-30-14-30-30 0-17 14-30 30-30h166c17 0 30 13 30 30 0 16-13 30-30 30zm-299 0c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm899 196c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm-300 0c-16 0-30-14-30-30 0-17 14-30 30-30h166c16 0 30 13 30 30 0 16-14 30-30 30zm-300 0c-16 0-30-14-30-30 0-17 14-30 30-30h166c17 0 30 13 30 30 0 16-13 30-30 30zm-299 0c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm749-98c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm-300 0c-16 0-30-14-30-30 0-17 14-30 30-30h166c16 0 30 13 30 30 0 16-14 30-30 30zm-299 0c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zM186 545c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm749-98c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm-300 0c-16 0-30-14-30-30 0-17 14-30 30-30h166c16 0 30 13 30 30 0 16-14 30-30 30zm-299 0c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zM186 741c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm0 196c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm0 196c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30zm0 196c-17 0-30-14-30-30 0-17 13-30 30-30h165c17 0 30 13 30 30 0 16-13 30-30 30z"/></svg>
+                        <h3 class="heading-card">Материал</h3>
+                        <p class="text-left mt-3">Репродукции мы рекомендуем печатать на льне. Ведь на нем написано большинство произведений живописных полотен. В других случаях (акварель, графика и т.д.) скорее подойдет хлопок.</p>
+                    </div>
+
+                    <!-- Подрамник -->
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 1889 1889"><path d="M1229 117 846 607v1222h383zM473 0h343c16 0 30 13 30 30v480l388-496v-1l1-1 1-1v-1h1V9h1V8h1V7h1V6h2V5h1V4h2V3h2V2h3V1h3l1-1h605c17 0 30 13 30 30v1829c0 17-13 30-30 30H30c-17 0-30-13-30-30V597c0-7 2-13 6-19L448 14v-1h1v-1l1-1v-1h1V9h1V8h1V7h1l1-1h1V5h1V4h2V3h2V2h3V1h3l1-1zm313 60H503v1769h283zm1043 0h-540v1769h540zM443 117 60 607v1222h383z"/></svg>
+                        <h3 class="heading-card">Подрамник</h3>
+                        <p class="text-left mt-3">Подрамник 2 см.— это стандарт. На него легко найти багет. Для интерьеров в стиле лофт, кантри и без багетного способа оформления скорее подойдет подрамник толщиной 3,5 см.</p>
+                    </div>
+
+                    <!-- Торец -->
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 1889 1889"><path d="M1388 0h471c17 0 30 13 30 30v1829c0 17-13 30-30 30H30c-17 0-30-13-30-30V597c0-7 2-13 6-19l221-282c1-1 1-2 2-3L448 14v-1h1v-1l1-1v-1h1V9h1V8h1V7h1l1-1h1V5h1V4h2V3h2V2h3V1h3l1-1h477c16 0 30 13 30 30v480l166-213c1-2 2-3 3-4l218-279 1-1v-1l1-1 1-1h1V9l1-1 1-1h1V6h1V5h1l1-1h1l1-1h2V2h2l1-1h3V0zm-195 327-218 774v147l335-1070zM975 881l121-429-121 155zM279 327 60 1101v156L400 172zM60 881l121-429L60 607zm383-646L61 1452c0 2 0 3-1 4v171L443 425zm60 177c2 6 3 13 1 20l-1 2v373c2 5 2 12 0 18v377c1 4 1 9 0 13v614h412V60H503zm-60 210L61 1819c0 2 0 3-1 4v6h50L443 815zm0 386-269 821h52l217-623zm0 379-154 442h53l101-233zm0 359-36 83h36zm975-947 411 225V699l-411-225zm411 293-411-225v325l411 225zm-471-866L975 1448v170l383-1202zm0 387L975 1815v14h47l336-1022zm0 386-273 830h52l220-630 1-1zm0 380-157 450h53l103-239 1-1zm0 360-39 90h39zM1496 60l333 182V60zm333 250L1418 85v321l411 224zm0 1175-411-225v324l411 225zm-87 344-324-177v177z"/></svg>
+                        <h3 class="heading-card">Торец</h3>
+                        <p class="text-left mt-3">Если Вам не нужен будет багет, то холст на подрамник натягивается галерейным способом. Изображение отзеркаливается и продолжается на торце. По Вашему желанию торец можно запечатать любым цветом.</p>
+                    </div>
+
+                    <!-- Лак -->
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 1889 1889"><path d="M1829 60H60v1769h1769zM956 1224l-102 205 102 204c8 15 2 33-13 40-9 4-19 4-27 0l-204-102-205 102c-14 7-32 1-40-13-4-9-4-19 0-27l103-204-103-205c-7-15-1-33 14-40 8-4 18-4 26 0l205 102 204-102c15-7 33-1 40 13 5 9 4 19 0 27m-162 191 69-137-138 68c-8 4-18 5-27 0l-137-68 69 137c4 8 4 18 0 27l-69 138 137-69c9-4 18-5 27 0l138 69-69-138c-4-8-4-18 0-27m948-843-122 245 122 245c8 15 2 33-13 40-9 5-19 5-27 0l-245-122-245 122c-15 8-33 2-40-13q-6-13.5 0-27l122-245-122-245c-7-14-1-32 13-40 9-4 19-4 27 0l245 123 245-123c15-7 33-1 40 14 5 8 4 18 0 26m-182 232 89-178-178 89c-9 4-19 4-27 0l-179-89 90 178c4 8 4 18 0 27l-90 178 179-89c8-4 18-5 26 0l179 89-89-178c-4-8-5-18 0-27M864 173 667 497l197 323c9 14 4 33-10 41-10 6-22 6-32 0L499 664 176 861c-14 9-33 4-41-10-7-10-6-22 0-31l197-323-197-324c-9-14-5-33 9-41 11-6 23-6 32 0l323 197 324-197c14-9 32-4 41 10 6 10 6 22 0 31M606 481l143-234-234 142c-9 6-21 7-31 1L250 247l142 233c6 10 7 22 1 32L250 746l233-142c10-6 22-7 32-1l234 143-143-233c-6-10-6-22 0-32M30 0h1829c17 0 30 13 30 30v1829c0 17-13 30-30 30H30c-17 0-30-13-30-30V30C0 13 13 0 30 0"/></svg>
+                        <h3 class="heading-card">Лак</h3>
+                        <p class="text-left mt-3">Пигментные чернила не выгорают, поэтому нет необходимости в покрытии лаком. Лак мы рекомендуем для придания изображению глянца или для картин, которые будут размещены в проходных местах.</p>
+                    </div>
+
+                    <!-- Рама -->
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 1889 1889"><path d="M1787 60H102l298 298h1089zM400 1531l-298 298h1685l-298-298zM60 1787l298-298V400L60 102zm1471-298 298 298V102l-298 298zm-60-1071H418v1053h1053zM30 0h1832c1 0 2 0 3 1h3l1 1h2v1h2v1h2v1h1v1h2v1h1v1h1v1h1v1h1v1h1v2h1v1h1v2h1v2h1v2l1 1v3c1 1 1 2 1 3v1835c0 1 0 2-1 3v3l-1 1v2h-1v2h-1v2h-1v1h-1v2h-1v1h-1v1h-1v1h-1v1h-1v1h-2v1h-1v1h-2v1h-2v1h-2l-1 1h-3c-1 1-2 1-3 1H27c-1 0-2 0-3-1h-3l-1-1h-2v-1h-2v-1h-2v-1h-1v-1h-2v-1h-1v-1H9v-1H8v-1H7v-1H6v-2H5v-1H4v-2H3v-2H2v-2l-1-1v-3c-1-1-1-2-1-3V27c0-1 0-2 1-3v-3l1-1v-2h1v-2h1v-2h1v-1h1v-2h1v-1h1V9h1V8h1V7h1V6h2V5h1V4h2V3h2V2h2l1-1h3c1-1 2-1 3-1z"/></svg>
+                        <h3 class="heading-card">Багет</h3>
+                        <p class="text-left mt-3">Если решите оформить работу в раму, то Вы можете самостоятельно подобрать её в конструкторе Muse на свой вкус или поручить нам, и мы пришлем варианты для выбора.</p>
+                    </div>
+
+                    <!-- Крепление -->
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 1889 1200"><path d="M1550 0h309c17 0 30 13 30 30v1140c0 16-13 30-30 30h-309c-17 0-30-14-30-30v-90l-121-121-130 130c-12 12-31 12-43 0l-130-130-130 130c-12 12-31 12-43 0L793 959l-130 130c-12 12-31 12-43 0L490 959l-121 121v90c0 16-13 30-30 30H30c-17 0-30-14-30-30V30C0 13 13 0 30 0h309c17 0 30 13 30 30v90l121 121 130-130c12-12 31-12 43 0l130 130 130-130c12-12 31-12 43 0l130 130 130-130c12-12 31-12 43 0l130 130 121-121V30c0-17 13-30 30-30m30 807c0 16-14 30-30 30-17 0-30-14-30-30V393c0-17 13-30 30-30 16 0 30 13 30 30zm-1211 0c0 16-13 30-30 30-16 0-30-14-30-30V393c0-17 14-30 30-30 17 0 30 13 30 30zm1335-305c27 0 52 11 69 29 18 17 29 42 29 69s-11 51-29 69c-17 18-42 29-69 29s-51-11-69-29c-17-18-28-42-28-69s11-52 28-69c18-18 42-29 69-29m27 71c-7-7-16-11-27-11-10 0-20 4-26 11-7 7-11 16-11 27 0 10 4 20 11 27 6 6 16 11 26 11 11 0 20-5 27-11 7-7 11-17 11-27 0-11-4-20-11-27M185 502c27 0 51 11 69 29 17 17 28 42 28 69s-11 51-28 69c-18 18-42 29-69 29s-52-11-69-29c-18-18-29-42-29-69s11-52 29-69c17-18 42-29 69-29m26 71c-6-7-16-11-26-11-11 0-20 4-27 11s-11 16-11 27c0 10 4 20 11 27 7 6 16 11 27 11 10 0 20-5 26-11 7-7 11-17 11-27 0-11-4-20-11-27M1829 60h-249v73c0 7-3 15-9 21l-151 151c-12 11-31 11-42 0l-131-130-130 130c-12 11-31 11-42 0L945 175 814 305c-11 11-30 11-42 0L642 175 511 305c-11 11-30 11-42 0L318 154c-5-6-9-13-9-21V60H60v1080h249v-73c0-7 3-15 9-21l151-151c12-12 31-12 42 0l131 130 130-130c12-12 31-12 42 0l131 130 130-130c11-12 30-12 42 0l130 130 131-130c11-12 30-12 42 0l151 151c5 5 9 13 9 21v73h249z"/></svg>
+                        <h3 class="heading-card">Крепление</h3>
+                        <p class="text-left mt-3">Для живописных работ, оформленных в багет мы рекомендуем металлический трос.</p>
+                    </div>
+
+                    <!-- Обработка -->
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage mx-auto mb-4" viewBox="0 0 2119 1889"><path d="M1829 60H60v1769h1769V691c-116 79-261 170-421 262l-1 1c-126 72-245 137-351 190-106 54-199 97-272 126-27 49-83 85-150 100-49 11-104 12-157-1-54-12-107-37-151-78-68-63-114-163-111-307 0-5 2-10 4-14 0-1 1-2 1-3l1-1 1-1 1-1 1-1 1-1h1v-1c3-2 6-3 10-4 2-1 5-2 8-2 6 0 10 2 15 4 0 1 1 1 2 2l1 1h1v1h1v1h1v1h1v1h1v1h1v1l1 1c79 113 177 99 269 87 80-10 155-20 220 33 54-39 118-83 190-130 100-66 217-137 342-209l2-2c204-117 394-216 536-279V61zM279 1067c12 81 45 140 88 180 36 33 79 54 123 64s90 10 131 1c39-9 73-26 95-49-9-6-17-13-23-22-10-14-16-32-15-52 0-12 2-24 7-37 2-6 5-11 10-14q6-6 15-12c-45-27-102-20-163-12-88 12-182 25-268-47m915-192c3 23 10 42 20 59 9 15 22 28 37 39 41-23 83-47 126-71l1-1c204-117 383-232 508-323 111-80 179-133 177-139-3-6-83 26-209 83-141 63-329 160-531 277l-3 2c-43 24-85 49-126 74m1 129c-13-12-24-25-33-40-10-16-17-35-22-56-56 34-109 68-159 100-98 64-181 123-242 170-1 5-1 9-1 12-1 7 1 13 4 17 2 4 6 6 11 8 1 1 3 1 5 1 72-28 165-71 271-125 53-27 108-56 166-87m694-354v1209c0 17-13 30-30 30H30c-17 0-30-13-30-30V30C0 13 13 0 30 0h1829c17 0 30 13 30 30v412c124-50 208-65 226-33 5 8 5 19 1 28-13 42-84 110-195 190-10 7-21 15-32 23"/></svg>
+                        <h3 class="heading-card">Базовый дизайн</h3>
+                        <p class="text-left mt-3">Полная оптимизация цвета, улучшение контрастности и экспозиции, повышение резкости изображения, устранение шумов, удаление незначительных дефектов.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================== -->
+        <!-- КАК ЗАКАЗАТЬ (#order)          -->
+        <!-- ============================== -->
+        <section class="bg-dark py-16 lg:py-24 content-auto" id="order">
+            <div class="container mb-8">
+                <div class="text-center">
+                    <h2 class="heading-section">Как заказать</h2>
+                </div>
+            </div>
+            <div class="container">
+                <div class="step-container">
+                    <div class="step-line"></div>
+
+                    <!-- Шаг 1 -->
+                    <div class="flex gap-4">
+                        <div class="shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center relative z-10">
+                            <span class="text-xl font-bold text-primary">1</span>
+                        </div>
+                        <div class="step-content">
+                            <h3 class="heading-card mb-2">Заказ</h3>
+                            <p class="text-white/80">Найдите свою картину через поиск и нажав на иконку корзины перейдите в Конструктор Muse. В нем вы сможете выбрать размер, оформить картину в багет, рассчитать стоимость. Если Вы не нашли нужной картины, то позвоните нам или нажмите кнопку <a href="https://muse.ooo/order/" class="link-on-dark">«Заказать» ↗</a> и напишите Ваши пожелания.</p>
+                        </div>
+                    </div>
+
+                    <!-- Шаг 2 -->
+                    <div class="flex gap-4">
+                        <div class="shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center relative z-10">
+                            <span class="text-xl font-bold text-primary">2</span>
+                        </div>
+                        <div class="step-content">
+                            <h3 class="heading-card mb-2">Макет</h3>
+                            <p class="text-white/80">В течение 1 часа рабочего времени мы перезвоним Вам, чтобы обсудить заказ. Только после звонка и письменного подтверждения Вами окончательного макета мы приступим к изготовлению картины.</p>
+                        </div>
+                    </div>
+
+                    <!-- Шаг 3 -->
+                    <div class="flex gap-4">
+                        <div class="shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center relative z-10">
+                            <span class="text-xl font-bold text-primary">3</span>
+                        </div>
+                        <div class="step-content">
+                            <h3 class="heading-card mb-2">Изготовление</h3>
+                            <p class="text-white/80">В течение 1 рабочего дня после согласования Вами макета работа будет напечатана, оформлена и передана в службу доставки.</p>
+                        </div>
+                    </div>
+
+                    <!-- Шаг 4 -->
+                    <div class="flex gap-4">
+                        <div class="shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-dark flex items-center justify-center relative z-10">
+                            <span class="text-xl font-bold text-primary">4</span>
+                        </div>
+                        <div class="step-content">
+                            <h3 class="heading-card mb-2">Доставка и оплата</h3>
+                            <p class="text-white/80">Доставка до пункта самовывоза — бесплатно. Оплата картины при получении.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Преимущества -->
+        <section class="advantages-section content-auto" id="preimushchestva">
+            <div class="container mb-12">
+                <h2 class="advantages-title">Преимущества</h2>
+            </div>
+            <div class="container">
+                <div class="advantages-grid">
+                    <div class="advantage-card">
+                        <div class="advantage-card__icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true" class="icon-advantage" viewBox="0 0 612 612">
+                                <path d="M592.9 306c0-79.2-32.1-150.9-84-202.9-52-51.9-123.7-84-202.9-84s-150.9 32.1-202.8 84c-52 52-84.1 123.7-84.1 202.9s32.1 151 84 202.9 123.6 84 202.8 84 150.9-32.1 202.9-84 84.1-123.7 84.1-202.9M522.4 89.6C577.8 145 612 221.5 612 306s-34.2 161-89.6 216.4S390.5 612 306 612s-161-34.2-216.4-89.6C34.3 467 0 390.5 0 306S34.2 145 89.6 89.6C145 34.3 221.5 0 306 0s161 34.2 216.4 89.6" />
+                                <path d="M296.5 439.9c5.3 0 9.6 4.3 9.6 9.6s-4.3 9.6-9.6 9.6H220c-5.3 0-9.6-4.3-9.6-9.6s4.3-9.6 9.6-9.6zm38.2-95.6c-5.3 0-9.6-4.3-9.6-9.6s4.3-9.6 9.6-9.6c18.5 0 35.2-7.5 47.3-19.6l.5-.5c11.8-12 19.1-28.6 19.1-46.8 0-18.5-7.5-35.2-19.6-47.3l-.5-.5c-12.1-11.8-28.6-19.1-46.8-19.1H220c-5.3 0-9.6-4.3-9.6-9.6s4.3-9.6 9.6-9.6h114.8c23.4 0 44.7 9.4 60.2 24.7l.6.6c15.6 15.6 25.2 37.1 25.2 60.9 0 23.4-9.4 44.7-24.6 60.2l-.6.6c-15.6 15.5-37.1 25.2-60.9 25.2" />
+                                <path d="M219.9 344.3c-5.3 0-9.6-4.3-9.6-9.6s4.3-9.6 9.6-9.6h114.8c5.3 0 9.6 4.3 9.6 9.6s-4.3 9.6-9.6 9.6z" />
+                                <path d="M267.7 449.5c0 5.3-4.3 9.6-9.6 9.6s-9.6-4.3-9.6-9.6V181.7c0-5.3 4.3-9.6 9.6-9.6s9.6 4.3 9.6 9.6z" />
+                                <path d="M219.9 382.5c-5.3 0-9.6-4.3-9.6-9.6s4.3-9.6 9.6-9.6h133.9c5.3 0 9.6 4.3 9.6 9.6s-4.3 9.6-9.6 9.6z" />
+                            </svg>
+                        </div>
+                        <p class="advantage-card__text">Оплата при получении</p>
+                    </div>
+
+                    <div class="advantage-card">
+                        <div class="advantage-card__icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true" class="icon-advantage" viewBox="0 0 458.9 458.9">
+                                <path d="m451.2 95.4.3-.8L238.6 7.9l-36.1 13.7c3.8 4.1 7.3 8.4 10.7 12.9l25.2-9.6 51.2 20.9c15.6-2.5 29.6-1.7 41.6 2.6 14 5.1 24.7 14.3 32.3 27.5l67.5 27.5-55.4 21.8c-.4 6.5-2 13.3-5.6 19.3l65.8-26v244.7l-198.4 78.3V196.8l92.3-36.4c-8.3-1.1-17.2-3.5-26.4-6.6l-73.8 29.1-71-28 35-15.9c-2.9-1.2-5.6-3.1-7.6-5.7-3.1-3.8-4.7-8.6-4.4-13.4-1.9-2.2-7.4-4.7-13.9-7l-56 23.6-81.7-32.2 56.4-21.4c-4.4-3.6-8-7.9-10.4-13L8 95.5l-.7-.3v.6h-.1V374l214.3 84.6v.3h15.9v-.3l214.3-84.5V95.2zM96.5 392.2l-73.4-29V118.6l73.4 29zm125 49.3-83.2-33.6.3-243.8 83 32.7v244.7zM143.4 97.4c19.3 5.2 48.5 13.2 47.5 22.8-.7 6.5 4.1 12.4 10.6 13.1 3.4.4 6.6-.8 9-2.9.7.6 1.4 1.2 2.2 1.6 5.8 3 13 .8 16.1-5 .1-.2.3-.4.5-.6 2.9 1.7 6.5 2.2 9.9.9 1.5-.5 2.8-1.4 4-2.4 12.2 2.2 29.4 8.9 41.5 13.6 17.6 6.8 34.6 13.3 49 14.8 10.3 1.1 19.3-.5 26.1-6.4 14.4-12.6 8.7-36.8 6.8-44.7-5.6-23.6-17.9-39-36.6-45.7-30.4-11-70.2 4.9-98.8 20.6-14.9-29.4-40-67.5-72.8-75.5-19.3-4.7-38 1.3-55.8 17.8C85.9 35 79.2 48.8 82.4 61.6c5.1 20.7 32.3 28 61 35.8m178.5-18.5c10.8 3.9 17.8 13.4 21.5 28.9 4.2 17.6.8 21.2.7 21.3-5.5 4.8-35-6.6-50.8-12.7-17.2-6.6-35.5-13.7-51.2-15.3l-.9-2.1c26-14.4 59.2-27.8 80.7-20.1M118.8 36.8c11.7-10.9 22.7-14.8 33.9-12.1 23.1 5.6 44.2 37.6 57.9 64.8-3.3 2.1-6.2 4.1-8.6 5.7-12.8-10-33.3-15.6-52.4-20.8-15.9-4.3-42.4-11.5-44.1-18.5 0-.2-1.1-5.6 13.3-19.1" />
+                            </svg>
+                        </div>
+                        <p class="advantage-card__text">Бесплатная доставка до пунктов выдачи</p>
+                    </div>
+
+                    <div class="advantage-card">
+                        <div class="advantage-card__icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true" class="icon-advantage" viewBox="0 0 214.3 214.3">
+                                <path d="M196.9 55.2c-.1-5.8-.2-11.2-.2-16.5 0-4.1-3.4-7.5-7.5-7.5-32.1 0-56.5-9.2-76.9-29-2.9-2.8-7.5-2.8-10.5 0C81.4 22 57 31.2 25 31.2c-4.1 0-7.5 3.4-7.5 7.5 0 5.3-.1 10.8-.2 16.5-1 53.8-2.4 127.6 87.3 158.7.8.3 1.6.4 2.5.4.8 0 1.7-.1 2.5-.4C199.4 182.7 198 109 196.9 55.2m-89.8 143.6c-77-28-75.8-89.2-74.8-143.4.1-3.2.1-6.4.2-9.5 30-1.3 54.1-10.4 74.6-28.3 20.6 17.9 44.6 27 74.6 28.3 0 3.1.1 6.2.2 9.5 1.1 54.2 2.2 115.4-74.8 143.4" />
+                                <path d="m133 81.1-36.2 36.2-15.4-15.4c-2.9-2.9-7.7-2.9-10.6 0s-2.9 7.7 0 10.6l20.8 20.8c1.5 1.5 3.4 2.2 5.3 2.2s3.8-.7 5.3-2.2l41.5-41.5c2.9-2.9 2.9-7.7 0-10.6-3.1-3-7.8-3-10.7-.1" />
+                            </svg>
+                        </div>
+                        <p class="advantage-card__text">Гарантия 5 лет</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================== -->
+        <!-- МОДАЛЬНЫЙ КАЛЬКУЛЯТОР           -->
+        <!-- ============================== -->
+
+        <dialog id="repro-modal" class="modal-shell">
+            <div class="bg-white w-full max-w-6xl h-[100dvh] md:h-auto md:max-h-[95vh] rounded-none md:rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row" id="repro-modal-content">
+                <!-- Левая часть: Превью картины -->
+                <div class="w-full shrink-0 md:w-1/2 bg-gray-50 p-4 md:p-8 flex items-center justify-center relative md:overflow-hidden">
+                    <div id="modal-frame" class="relative z-10 transition-all duration-500">
+                        <img
+                            id="modal-image"
+                            src=""
+                            alt=""
+                            class="max-h-[28vh] md:max-h-[60vh] max-w-full object-contain shadow-inner bg-white"
+                            referrerpolicy="no-referrer"
+                        />
+                        <div id="modal-glossy" class="absolute inset-0 bg-linear-to-tr from-white/0 via-white/20 to-white/0 pointer-events-none mix-blend-overlay hidden"></div>
+                        <div id="modal-matte" class="absolute inset-0 bg-black/5 pointer-events-none mix-blend-overlay backdrop-blur-[1px] hidden"></div>
+                    </div>
+                    <div class="absolute inset-0 opacity-30 pointer-events-none" style="background-image: url('https://www.transparenttextures.com/patterns/stucco.png')"></div>
+                </div>
+
+                <!-- Правая часть: Настройки -->
+                <div class="w-full grow min-h-0 md:w-1/2 md:grow-0 p-5 md:p-8 overflow-y-auto flex flex-col relative custom-scrollbar">
+                    <button id="close-modal-btn" type="button" class="absolute top-3 right-3 p-2 rounded-full hover:bg-gray-100 transition-colors z-10 bg-white shadow-sm" aria-label="Закрыть">
+                        <svg class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                    </button>
+
+                    <div class="mb-6 pr-8">
+                        <h2 id="modal-title" class="text-2xl md:text-3xl font-bold text-dark mb-1 leading-tight"></h2>
+                        <p id="modal-artist" class="text-base text-gray-500"></p>
+                    </div>
+
+                    <div class="space-y-6 grow">
+                        <!-- 1. Размер холста -->
+                        <div>
+                            <h3 class="section-title mb-3">
+                                <span>Размер холста</span>
+                            </h3>
+                            <div id="sizes-container" class="grid grid-cols-2 gap-3"></div>
+                        </div>
+
+                        <!-- 2. Печать и подрамник -->
+                        <div>
+                            <h3 class="section-title mb-3">
+                                <span>Печать и подрамник</span>
+                                <span class="calc-badge" id="modal-price-wrap">0 р.</span>
+                            </h3>
+                            <div class="flex p-1 bg-secondary rounded-lg" role="radiogroup" aria-label="Тип подрамника">
+                                <button class="wrap-btn is-active" data-val="STANDARD" role="radio" aria-checked="true">Стандартный</button>
+                                <button class="wrap-btn" data-val="GALLERY" role="radio" aria-checked="false">Толстый</button>
+                                <button class="wrap-btn" data-val="NO_FRAME" role="radio" aria-checked="false">Рулон</button>
+                            </div>
+                        </div>
+
+                        <!-- 3. Оформление в багет -->
+                        <div>
+                            <h3 class="section-title mb-3">
+                                <span>Оформление в багет</span>
+                                <span class="calc-badge" id="modal-price-frame">0 р.</span>
+                            </h3>
+                            <div class="mb-4">
+                                <div class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Студийный</div>
+                                <div id="modal-frames-studio" class="grid grid-cols-3 sm:grid-cols-4 gap-3"></div>
+                            </div>
+                            <div>
+                                <div class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Классический</div>
+                                <div id="modal-frames-classic" class="grid grid-cols-3 sm:grid-cols-4 gap-3"></div>
+                            </div>
+                        </div>
+
+                        <!-- 4. Покрытие лаком -->
+                        <div>
+                            <div class="section-title mb-2"><span>Покрытие лаком</span><span class="calc-badge" id="modal-price-varnish">0 р.</span></div>
+                            <div class="flex gap-3">
+                                <div class="flex h-6 shrink-0 items-center">
+                                    <div class="group grid size-4 grid-cols-1">
+                                        <input id="toggle-repro-varnish" type="checkbox" name="varnish" checked
+                                               aria-label="Покрытие лаком"
+                                               class="calc-checkbox col-start-1 row-start-1 forced-colors:appearance-auto" />
+                                        <svg viewBox="0 0 14 14" fill="none" class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white">
+                                            <path d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-0 group-has-checked:opacity-100" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="text-sm/6">
+                                    <label for="toggle-repro-varnish" class="font-medium text-body cursor-pointer">Защитит от влаги и выцветания</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Итоговая цена + Форма заказа -->
+                    <div class="mt-6 pt-5 border-t border-gray-100 pb-20 lg:pb-0">
+                        <div class="hidden lg:flex items-end justify-between mb-5">
+                            <div>
+                                <p class="text-xs text-gray-400">Итоговая стоимость</p>
+                                <p id="modal-total-price" class="text-3xl font-bold text-dark">0 р.</p>
+                            </div>
+                        </div>
+
+                        <form id="repro-order-form" novalidate>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+                                <input type="text" id="repro-name" class="form-input" placeholder="Имя*" autocomplete="name">
+                                <input type="tel" id="repro-phone" class="form-input" placeholder="Телефон*" autocomplete="tel">
+                            </div>
+                            <div class="grid grid-cols-1 gap-3 mb-3">
+                                <input type="email" id="repro-email" class="form-input" placeholder="E-mail" autocomplete="email">
+                            </div>
+                            <div class="mb-4">
+                                <textarea id="repro-comment" class="form-input resize-none" rows="2" placeholder="Комментарий"></textarea>
+                            </div>
+                            <button type="button" id="repro-order-btn" class="hidden lg:block w-full btn-header-cta py-4 active:scale-[0.98] text-base">
+                                <span id="repro-order-text">Оформить заказ</span>
+                            </button>
+                            <p class="text-[10px] text-gray-400 mt-3 leading-tight">Заполняя форму, я соглашаюсь с условиями <a href="https://muse.ooo/info/oferta/" class="underline hover:text-primary-text">Оферты</a> и <a href="https://muse.ooo/info/politika_konfidentsialnosti_sayta/" class="underline hover:text-primary-text">Политикой конфиденциальности</a></p>
+                        </form>
+                    </div>
+
+                    <!-- Мобильный sticky bar (внутри модала) -->
+                    <div id="repro-sticky-bar" class="calc-sticky-bar">
+                        <div class="min-w-0">
+                            <div class="text-lg font-bold text-primary whitespace-nowrap" id="sticky-repro-price">0 р.</div>
+                            <div class="text-xs text-gray-500 whitespace-nowrap">— цена со скидкой 20%</div>
+                        </div>
+                        <button type="button" id="btn-sticky-repro-order" class="btn-header-cta px-5 py-2.5 active:scale-[0.98] text-sm shrink-0">Заказать</button>
+                    </div>
+                </div>
+            </div>
+        </dialog>
+
+        <!-- Отзывы (placeholder) -->
+        <section class="py-16 lg:py-20 content-auto" id="review">
+            <div class="container">
+                <h2 class="heading-section text-center mb-8">Отзывы</h2>
+                <div class="text-center">
+                    <p class="text-small">Блок отзывов будет добавлен при интеграции с Bitrix</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================== -->
+        <!-- CTA финальный                  -->
+        <!-- ============================== -->
+        <section class="cta-section">
+            <div class="cta-container">
+                <h2 class="cta-title">Создай своё произведение искусства</h2>
+                <div class="cta-actions">
+                    <a href="https://muse.ooo/order/" class="btn-primary">Заказать</a>
+                    <a href="#callback" class="btn-inverse">Обратный звонок</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    
+
+    <!-- Scripts -->
+    <script defer src="../js/nav.js"></script>
+    <script defer src="../js/prices.js"></script>
+    <script defer src="../js/frames.js"></script>
+    <script defer src="../js/reproduction-search.js"></script>
+</body>
+</html>

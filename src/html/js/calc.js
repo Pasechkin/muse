@@ -18,17 +18,11 @@
   /* ========== DEFAULT DATA ========== */
 
   /*
-   * DEFAULT_FRAMES — демо-каталог багетных рам (заглушка).
-   *
-   * Новые поля (готовы к серверным данным):
-   *   pricePerM  — цена за погонный метр (р.), null = fallback на PRICES.framePerM × multiplier
-   *   imageUrl   — URL фото рамы, null = CSS-рендер (цвет + border)
-   *   available  — доступна ли рама для заказа (true по умолчанию)
-   *
-   * ⚠️  Текущие pricePerM = демо-значения (1200/1800), НЕ реальные цены.
-   *     На продакшене (Bitrix) массив заменяется серверными данными через cfg.frames.
+   * DEFAULT_FRAMES — каталог рам.
+   * Предпочтительно загружается из общего модуля frames.js (window.MUSE_FRAMES).
+   * Fallback: встроенная копия (для случаев, когда frames.js не подключён).
    */
-  var DEFAULT_FRAMES = [
+  var DEFAULT_FRAMES = (window.MUSE_FRAMES && window.MUSE_FRAMES.DEFAULT_FRAMES) || [
     { id: 'NONE', name: 'Без багета', cat: 'STUDIO', color: 'transparent', width: 0, style: 'flat', pricePerM: null, imageUrl: null, available: true },
     { id: 'ST_BLACK_M', name: 'Черный мат', cat: 'STUDIO', color: '#1a1a1a', width: 12, style: 'flat', pricePerM: 1200, imageUrl: null, available: true },
     { id: 'ST_WHITE_M', name: 'Белый мат', cat: 'STUDIO', color: '#ffffff', width: 12, style: 'flat', border: '#e2e8f0', pricePerM: 1200, imageUrl: null, available: true },
