@@ -945,14 +945,21 @@
       });
     });
 
-    /* ── Sticky bar: переключение режима при видимости формы ── */
+    /* ── Sticky bar: «отлипает» когда форма видна ── */
     var orderFormEl = document.getElementById('repro-order-form');
     var stickyBarEl = getEl('repro-sticky-bar');
-    if (orderFormEl && stickyBarEl && btnStickyOrder) {
+    var formWrapEl  = orderFormEl ? orderFormEl.closest('.pb-20') : null;
+    if (orderFormEl && stickyBarEl) {
       var scrollRoot = document.querySelector('.custom-scrollbar');
       var stickyObserver = new IntersectionObserver(function (entries) {
         _formVisible = entries[0].isIntersecting;
-        btnStickyOrder.textContent = _formVisible ? '\u041e\u0444\u043e\u0440\u043c\u0438\u0442\u044c' : '\u0417\u0430\u043a\u0430\u0437\u0430\u0442\u044c';
+        if (_formVisible) {
+          stickyBarEl.classList.add('is-docked');
+          if (formWrapEl) formWrapEl.style.paddingBottom = '0';
+        } else {
+          stickyBarEl.classList.remove('is-docked');
+          if (formWrapEl) formWrapEl.style.paddingBottom = '';
+        }
       }, { root: scrollRoot || null, threshold: 0.1 });
       stickyObserver.observe(orderFormEl);
     }

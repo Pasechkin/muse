@@ -816,9 +816,19 @@
     align-items: center;
     gap: 0.75rem;
     border-radius: 0.75rem 0.75rem 0 0;
+    transition: box-shadow 0.2s, border-radius 0.2s;
     @media (min-width: 1024px) {
       display: none;
     }
+  }
+
+  /* Когда форма видна — бар «отлипает» и встаёт под формой */
+  .calc-sticky-bar.is-docked {
+    position: static;
+    box-shadow: none;
+    border-radius: 0;
+    border-top: none;
+    margin-top: 1rem;
   }
 
   /* Оболочка модального окна (overlay + центрирование) */
