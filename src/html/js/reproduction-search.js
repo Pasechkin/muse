@@ -937,6 +937,17 @@
         }, 300);
       });
     });
+
+    /* ── Sticky bar: скрыть когда форма видна ── */
+    var orderFormEl = document.getElementById('repro-order-form');
+    var stickyBarEl = getEl('repro-sticky-bar');
+    if (orderFormEl && stickyBarEl) {
+      var scrollRoot = document.querySelector('.custom-scrollbar');
+      var stickyObserver = new IntersectionObserver(function (entries) {
+        stickyBarEl.style.display = entries[0].isIntersecting ? 'none' : '';
+      }, { root: scrollRoot || null, threshold: 0.1 });
+      stickyObserver.observe(orderFormEl);
+    }
   }
 
   /* ── Старт ─────────────────────────────────── */
