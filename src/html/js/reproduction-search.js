@@ -926,6 +926,17 @@
       getEl('search-input').value = urlSearch;
       handleSearch(urlSearch);
     }
+
+    /* ── Клавиатура на мобильном: прокрутка поля в зону видимости ── */
+    var formInputs = document.querySelectorAll('#repro-order-form input, #repro-order-form textarea');
+    formInputs.forEach(function (input) {
+      input.addEventListener('focus', function () {
+        var el = this;
+        setTimeout(function () {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 300);
+      });
+    });
   }
 
   /* ── Старт ─────────────────────────────────── */
