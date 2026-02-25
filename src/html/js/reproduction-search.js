@@ -905,16 +905,23 @@
       });
     }
 
-    /* ── Sticky bar: кнопка «Заказать» → скролл к форме ── */
+    /* ── Sticky bar: умная кнопка (скролл к форме / оформить заказ) ── */
     var btnStickyOrder = getEl('btn-sticky-repro-order');
+    var _formVisible = false;
+
     if (btnStickyOrder) {
       btnStickyOrder.addEventListener('click', function () {
-        var orderForm = getEl('repro-order-form');
-        if (orderForm) orderForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        /* Фокус на первое пустое поле */
-        var nameInput = getEl('repro-name');
-        if (nameInput && !nameInput.value.trim()) {
-          setTimeout(function () { nameInput.focus(); }, 400);
+        if (_formVisible) {
+          /* Форма видна → оформляем заказ */
+          handleOrder();
+        } else {
+          /* Форма не видна → скроллим к ней */
+          var orderForm = getEl('repro-order-form');
+          if (orderForm) orderForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          var nameInput = getEl('repro-name');
+          if (nameInput && !nameInput.value.trim()) {
+            setTimeout(function () { nameInput.focus(); }, 400);
+          }
         }
       });
     }
@@ -938,13 +945,14 @@
       });
     });
 
-    /* ── Sticky bar: скрыть когда форма видна ── */
+    /* ── Sticky bar: переключение режима при видимости формы ── */
     var orderFormEl = document.getElementById('repro-order-form');
     var stickyBarEl = getEl('repro-sticky-bar');
-    if (orderFormEl && stickyBarEl) {
+    if (orderFormEl && stickyBarEl && btnStickyOrder) {
       var scrollRoot = document.querySelector('.custom-scrollbar');
       var stickyObserver = new IntersectionObserver(function (entries) {
-        stickyBarEl.style.display = entries[0].isIntersecting ? 'none' : '';
+        _formVisible = entries[0].isIntersecting;
+        btnStickyOrder.textContent = _formVisible ? '\u041e\u0444\u043e\u0440\u043c\u0438\u0442\u044c' : '\u0417\u0430\u043a\u0430\u0437\u0430\u0442\u044c';
       }, { root: scrollRoot || null, threshold: 0.1 });
       stickyObserver.observe(orderFormEl);
     }
