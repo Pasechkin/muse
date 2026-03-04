@@ -1,0 +1,2149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muse — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   MUSE DESIGN SYSTEM — CSS Custom Properties
+   Палитра: Amber Harmonized · Якорь Amber-600 #D97706
+   Шрифты: Playfair Display + PT Sans
+   Адаптировано из Tailwind CSS v4
+═══════════════════════════════════════════════ */
+:root {
+  /* ── Шрифты ─────────────────────────────── */
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-sans:    "PT Sans", system-ui, -apple-system, sans-serif;
+  --font-mono:    ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* ── Amber Harmonized ───────────────────────────
+     Якорь: Amber-600 #D97706 = HSL(32.1°, 94.6%, 43.7%)
+     Метод: H=32° S=95% фиксированы, меняется только L
+  ─────────────────────────────────────────── */
+  --ah-25:  #FFFDFA;   /* HSL(32° 95% 99%)  — чистый белый         */
+  --ah-50:  #FFF9F3;   /* HSL(32° 95% 98%)  — персиковый белый      */
+  --ah-75:  #FEF5EA;   /* HSL(32° 95% 97%)  — тёплый белый          */
+  --ah-100: #FEF1E1;   /* HSL(32° 95% 94%)  — светлый персик        */
+  --ah-125: #FEEDDA;   /* HSL(32° 95% 93%)  — бледный янтарь         */
+  --ah-150: #FEEAD4;   /* HSL(32° 95% 92%)  — нежный янтарь          */
+  --ah-175: #FEE7CE;   /* HSL(32° 95% 91%)  — мягкий янтарь          */
+  --ah-200: #FDE5C8;   /* HSL(32° 95% 89%)  — тёплый абрикос        */
+  --ah-600: #D97706;   /* HSL(32° 95% 44%)  — ЯКОРЬ Amber-600 ★     */
+  --ah-700: #B26105;   /* HSL(32° 95% 36%)  — насыщенный янтарь     */
+  --ah-800: #8B4C04;   /* HSL(32° 95% 28%)  — тёмно-оранжевый       */
+  --ah-900: #593102;   /* HSL(32° 95% 18%)  — тёмный янтарь         */
+  --ah-950: #281601;   /* HSL(32° 95%  8%)  — почти чёрный тёплый   */
+  --ah-975: #140B01;   /* HSL(32° 95%  4%)  — глубокий чёрный       */
+
+  /* ── Производные ──────────────────────── */
+  --ah-600-lt:    rgba(217,119,6,.12);
+  --ah-600-md:    rgba(217,119,6,.30);
+  --ah-600-hover: #B86505;
+
+  /* ── Семантические алиасы ──────────────── */
+  --bg:      var(--ah-100);           /* фон страницы              */
+  --bg2:     var(--ah-200);           /* фон секций/карточек       */
+  --surface: var(--ah-50);            /* поверхность (светлее)     */
+  --border:  rgba(40,22,1,.11);       /* граница                   */
+  --ink:     var(--ah-950);           /* основной текст            */
+  --body:    var(--ah-900);           /* вторичный текст           */
+  --muted:   rgba(40,22,1,.45);       /* приглушённый текст        */
+  --acc:     var(--ah-600);           /* акцент                    */
+  --acc-h:   var(--ah-600-hover);     /* акцент hover              */
+  --acc-lt:  var(--ah-600-lt);        /* акцент фон                */
+  --acc-md:  var(--ah-600-md);        /* акцент border             */
+
+  /* ── Ритм секций ───────────────────────── */
+
+  /* ── Типографическая шкала ─────────────── */
+  --text-xs:   .75rem;      /* 12px */
+  --text-sm:   .875rem;     /* 14px */
+  --text-base: 1rem;        /* 16px */
+  --text-lg:   1.125rem;    /* 18px */
+  --text-xl:   1.25rem;     /* 20px */
+  --text-2xl:  1.5rem;      /* 24px */
+  --text-3xl:  1.875rem;    /* 30px */
+  --text-4xl:  2.25rem;     /* 36px */
+  --text-5xl:  3rem;        /* 48px */
+
+  /* ── Весовые токены ─────────────────────── */
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* ── Межбуквенный интервал ──────────────── */
+  --tracking-tight:   -.025em;
+  --tracking-normal:   0;
+  --tracking-wide:    .08em;
+  --tracking-wider:   .12em;
+  --tracking-widest:  .18em;
+
+  /* ── Отступы (unit = 4px) ───────────────── */
+  --sp: .25rem;
+
+  /* ── Скругления ─────────────────────────── */
+  --r-sm:   .25rem;    /* 4px  */
+  --r-md:   .375rem;   /* 6px  */
+  --r-lg:   .5rem;     /* 8px  */
+  --r-xl:   .75rem;    /* 12px */
+  --r-full: 9999px;
+
+  /* ── Контейнеры ─────────────────────────── */
+  --c-sm:  24rem;   /* 384px  — узкий  */
+  --c-2xl: 42rem;   /* 672px  — текст  */
+  --c-3xl: 48rem;   /* 768px  — форма  */
+  --c-4xl: 56rem;   /* 896px           */
+  --c-5xl: 64rem;   /* 1024px          */
+  --c-7xl: 80rem;   /* 1280px — макс   */
+
+  /* ── Анимации ───────────────────────────── */
+  --ease:   cubic-bezier(.4, 0, .2, 1);
+  --dur:    .15s;
+  --dur-md: .25s;
+}
+
+/* ── Тёмный режим ───────────────────────────── */
+
+/* ═══════════════════════════════════════════════
+   ДОКУМЕНТ
+═══════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-font-smoothing: antialiased; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  max-width: var(--c-7xl);
+  margin: 0 auto;
+  padding: calc(var(--sp)*12) calc(var(--sp)*8);
+}
+
+/* ── Структура ────────────────────────────────── */
+.ds-header {
+  margin-bottom: calc(var(--sp)*16);
+  padding-bottom: calc(var(--sp)*10);
+  border-bottom: 1px solid var(--border);
+  display: flex; gap: calc(var(--sp)*8); align-items: flex-end; flex-wrap: wrap;
+}
+.ds-header-left { flex: 1; min-width: 240px; }
+.ds-header h1 {
+  font-family: var(--font-display);
+  font-size: calc(var(--text-5xl) * 1.15);
+  font-weight: var(--fw-bold); line-height: 1.05;
+  letter-spacing: -.02em;
+  color: var(--ink);
+  margin-bottom: calc(var(--sp)*3);
+}
+.ds-header h1 em { font-style: italic; color: var(--acc); }
+.ds-header p { color: var(--muted); font-size: var(--text-sm); }
+
+.ds-meta {
+  display: flex; flex-direction: column; gap: calc(var(--sp)*2);
+  padding: calc(var(--sp)*5) calc(var(--sp)*6);
+  background: var(--ah-600-lt);
+  border: 1px solid var(--ah-600-md);
+  border-radius: var(--r-lg);
+  min-width: 200px;
+}
+.ds-meta-item { font-size: var(--text-xs); font-family: ui-monospace, monospace; color: var(--body); }
+.ds-meta-item strong { color: var(--ink); font-family: var(--font-sans); font-weight: var(--fw-semibold); display: block; font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 2px; color: var(--acc); }
+
+.ds-section { margin-bottom: calc(var(--sp)*16); }
+.ds-section-title {
+  font-size: var(--text-xs); font-weight: var(--fw-semibold); letter-spacing: .12em; text-transform: uppercase;
+  color: var(--acc);
+  margin-bottom: calc(var(--sp)*6);
+  padding-bottom: calc(var(--sp)*3);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: calc(var(--sp)*3);
+}
+.ds-section-title::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, var(--border), transparent);
+}
+
+/* ── Палитра ──────────────────────────────────── */
+.palette-strip { border-radius: var(--r-lg); overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,.1); }
+.scale-chip {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: .875rem 1.25rem;
+  cursor: default; transition: padding .15s;
+}
+.scale-chip:hover { padding-left: 1.75rem; }
+.scale-chip-left { display: flex; align-items: center; gap: .75rem; }
+.scale-chip-dot { width: 32px; height: 32px; border-radius: var(--r-md); flex-shrink: 0; border: 1px solid rgba(0,0,0,.06); }
+.scale-chip-name { font-size: .72rem; font-weight: var(--fw-medium); }
+.scale-chip-hex  { font-size: .65rem; font-family: ui-monospace, monospace; opacity: .55; }
+.scale-chip-hsl  { font-size: .6rem; font-family: ui-monospace, monospace; opacity: .4; margin-top: 1px; }
+.scale-chip-role { font-size: .62rem; opacity: .45; text-align: right; }
+
+/* ── Семантика ────────────────────────────────── */
+.semantic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: calc(var(--sp)*3); }
+.semantic-card {
+  padding: calc(var(--sp)*4);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  background: var(--bg2);
+}
+.semantic-swatch { height: 40px; border-radius: var(--r-md); margin-bottom: calc(var(--sp)*3); }
+.semantic-name { font-weight: var(--fw-semibold); font-size: var(--text-xs); color: var(--ink); margin-bottom: 2px; font-family: ui-monospace, monospace; }
+.semantic-desc { font-size: .65rem; color: var(--muted); line-height: 1.4; }
+
+/* ── Шрифты ───────────────────────────────────── */
+.font-demo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: calc(var(--sp)*6); }
+@media (max-width: 600px) { .font-demo-grid { grid-template-columns: 1fr; } }
+
+.font-card {
+  padding: calc(var(--sp)*7);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  background: var(--bg2);
+}
+.font-card-label { font-size: var(--text-xs); color: var(--muted); margin-bottom: calc(var(--sp)*4); font-family: ui-monospace, monospace; }
+.font-card-label strong { color: var(--acc); }
+
+.font-sample-display {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: var(--fw-regular);
+  line-height: 1.15;
+  letter-spacing: -.015em;
+  color: var(--ink);
+}
+.font-sample-display em { font-style: italic; color: var(--acc); }
+.font-weights-row { display: flex; flex-direction: column; gap: calc(var(--sp)*2); margin-top: calc(var(--sp)*4); }
+.font-weight-item { display: flex; align-items: baseline; gap: calc(var(--sp)*3); }
+.font-weight-tag { font-size: .6rem; font-family: ui-monospace, monospace; color: var(--muted); width: 60px; flex-shrink: 0; }
+
+/* ── Типошкала ────────────────────────────────── */
+.type-table { width: 100%; border-collapse: collapse; }
+.type-table tr { border-bottom: 1px solid var(--border); }
+.type-table tr:last-child { border-bottom: none; }
+.type-table td { padding: calc(var(--sp)*4); vertical-align: middle; }
+.type-table td:first-child { width: 150px; vertical-align: top; padding-top: calc(var(--sp)*5); }
+.type-meta { font-size: var(--text-xs); font-family: ui-monospace, monospace; color: var(--muted); line-height: 1.7; }
+.type-tag {
+  display: inline-block;
+  font-size: .6rem; font-weight: var(--fw-semibold); letter-spacing: .08em; text-transform: uppercase;
+  padding: 2px 7px; border-radius: var(--r-sm);
+  background: var(--ah-600-lt);
+  color: var(--acc);
+  margin-bottom: calc(var(--sp)*1.5);
+  border: 1px solid var(--ah-600-md);
+}
+
+/* ── Отступы ──────────────────────────────────── */
+.spacing-row { display: flex; align-items: flex-end; gap: calc(var(--sp)*4); flex-wrap: wrap; }
+.spacing-item { display: flex; flex-direction: column; align-items: center; gap: calc(var(--sp)*2); }
+.spacing-bar {
+  background: var(--ah-600-lt);
+  border: 1px solid var(--ah-600-md);
+  border-radius: var(--r-sm);
+  width: 36px;
+}
+.spacing-lbl { font-size: .6rem; font-family: ui-monospace, monospace; color: var(--muted); text-align: center; line-height: 1.4; }
+
+/* ── Скругления ───────────────────────────────── */
+.radii-row { display: flex; gap: calc(var(--sp)*8); flex-wrap: wrap; align-items: center; }
+.radius-item { display: flex; flex-direction: column; align-items: center; gap: calc(var(--sp)*3); }
+.radius-box {
+  width: 60px; height: 60px;
+  background: var(--ah-600-lt);
+  border: 1.5px solid var(--ah-600-md);
+}
+.radius-lbl { font-size: .6rem; font-family: ui-monospace, monospace; color: var(--muted); text-align: center; line-height: 1.5; }
+
+/* ── Контейнеры ───────────────────────────────── */
+.containers-list { display: flex; flex-direction: column; gap: calc(var(--sp)*2); }
+.container-item { display: flex; align-items: center; gap: calc(var(--sp)*4); padding: calc(var(--sp)*2.5) 0; border-bottom: 1px solid var(--border); }
+.container-item:last-child { border-bottom: none; }
+.container-bar { height: 10px; border-radius: var(--r-full); background: var(--ah-600-lt); border: 1px solid var(--ah-600-md); flex-shrink: 0; }
+.container-meta { font-size: var(--text-xs); font-family: ui-monospace, monospace; color: var(--muted); }
+.container-meta strong { color: var(--ink); font-family: var(--font-sans); font-weight: var(--fw-semibold); }
+
+/* ── Тёмный режим ─────────────────────────────── */
+.dm-note { display: flex; gap: calc(var(--sp)*4); flex-wrap: wrap; }
+.dm-card { flex: 1; min-width: 220px; padding: calc(var(--sp)*6); border-radius: var(--r-lg); border: 1px solid; }
+.dm-card.light { background: #FEF1E1; border-color: #FDE5C8; color: #281601; }
+.dm-card.dark  { background: #281601; border-color: #593102; color: #FFF9F3; }
+.dm-card .dm-title { font-family: var(--font-display); font-size: var(--text-2xl); font-weight: var(--fw-regular); margin-bottom: calc(var(--sp)*4); }
+.dm-card.light .dm-title { color: #281601; }
+.dm-card.dark  .dm-title { color: #FFF9F3; }
+.dm-card .dm-row { display: flex; align-items: center; gap: calc(var(--sp)*3); margin-bottom: calc(var(--sp)*2); }
+.dm-card .dm-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+.dm-card .dm-info { font-size: var(--text-xs); font-family: ui-monospace, monospace; }
+.dm-card.light .dm-info { color: rgba(40,22,1,.55); }
+.dm-card.dark  .dm-info { color: rgba(255,249,243,.45); }
+.dm-card .dm-info strong { font-family: var(--font-sans); font-weight: var(--fw-semibold); }
+.dm-card.light .dm-info strong { color: #281601; }
+.dm-card.dark  .dm-info strong { color: #FFF9F3; }
+
+/* ── Переходы ─────────────────────────────────── */
+.transition-demo {
+  display: inline-flex; align-items: center; gap: calc(var(--sp)*3);
+  padding: calc(var(--sp)*3) calc(var(--sp)*7);
+  border-radius: var(--r-lg);
+  border: 1.5px solid var(--ah-600-md);
+  background: var(--ah-600-lt);
+  cursor: pointer;
+  font-size: var(--text-sm); font-weight: var(--fw-medium); color: var(--ink);
+  font-family: var(--font-sans);
+  transition: background var(--dur) var(--ease), transform var(--dur-md) var(--ease), border-color var(--dur) var(--ease);
+  user-select: none;
+}
+.transition-demo:hover { background: var(--acc); color: #fff; border-color: var(--acc); transform: translateY(-2px); }
+.transition-code { margin-top: calc(var(--sp)*4); font-size: var(--text-xs); font-family: ui-monospace, monospace; color: var(--muted); line-height: 2; }
+
+/* ── CSS export блок ──────────────────────────── */
+.code-block {
+  background: #140B01;
+  color: #FFF9F3;
+  border-radius: var(--r-xl);
+  padding: calc(var(--sp)*8);
+  font-size: .72rem;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  line-height: 1.9;
+  overflow-x: auto;
+  border: 1px solid rgba(255,249,243,.06);
+}
+.code-block .c-comment { color: rgba(255,249,243,.3); }
+.code-block .c-var     { color: #D97706; }
+.code-block .c-val     { color: #a8d5a2; }
+.code-block .c-key     { color: #9ecfff; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="ds-header">
+  <div class="ds-header-left">
+    <h1>Muse <em>Design</em><br>System</h1>
+    <p>Amber Harmonized · Playfair Display + PT Sans · Адаптировано из Tailwind CSS v4</p>
+  </div>
+  <div class="ds-meta">
+    <div class="ds-meta-item"><strong>Font Display</strong>Playfair Display · 400/500/600/700/italic</div>
+    <div class="ds-meta-item"><strong>Font Sans</strong>PT Sans · 400/700/italic</div>
+    <div class="ds-meta-item"><strong>Palette</strong>Amber Harmonized — H32° S95%, меняется L</div>
+    <div class="ds-meta-item"><strong>Accent</strong>#D97706 — янтарный Amber-600</div>
+    
+  </div>
+</header>
+
+<!-- ── 1. ПАЛИТРА ─────────────────────────────── -->
+<section class="ds-section">
+  <p class="ds-section-title">Палитра — Amber Harmonized</p>
+  <div class="palette-strip">
+    <div class="scale-chip" style="background:#FFFDFA">
+      <div class="scale-chip-left">
+        <div class="scale-chip-dot" style="background:#FFFDFA;outline:1px solid #FEF1E1"></div>
+        <div><div class="scale-chip-name" style="color:rgba(40,22,1,.7)">ah-25</div><div class="scale-chip-hex" style="color:rgba(40,22,1,.4)">#FFFDFA</div><div class="scale-chip-hsl" style="color:rgba(40,22,1,.3)">H32 S95 L99</div></div>
+      </div>
+      <div class="scale-chip-role" style="color:rgba(40,22,1,.3)">—</div>
+    </div>
+    <div class="scale-chip" style="background:#FFF9F3">
+      <div class="scale-chip-left">
+        <div class="scale-chip-dot" style="background:#FFF9F3"></div>
+        <div><div class="scale-chip-name" style="color:rgba(40,22,1,.7)">ah-50</div><div class="scale-chip-hex" style="color:rgba(40,22,1,.4)">#FFF9F3</div><div class="scale-chip-hsl" style="color:rgba(40,22,1,.3)">H32 S95 L98</div></div>
+      </div>
+      <div class="scale-chip-role" style="color:rgba(40,22,1,.3)">surface</div>
+    </div>
+    <div class="scale-chip" style="background:#FEF5EA">
+      <div class="scale-chip-left">
+        <div class="scale-chip-dot" style="background:#FEF5EA"></div>
+        <div><div class="scale-chip-name" style="color:rgba(40,22,1,.7)">ah-75</div><div class="scale-chip-hex" style="color:rgba(40,22,1,.4)">#FEF5EA</div><div class="scale-chip-hsl" style="color:rgba(40,22,1,.3)">H32 S95 L97</div></div>
+      </div>
+      <div class="scale-chip-role" style="color:rgba(40,22,1,.3)">—</div>
+    </div>
+    <div class="scale-chip" style="background:#FEF1E1">
+      <div class="scale-chip-left">
+        <div class="scale-chip-dot" style="background:#FEF1E1"></div>
+        <div><div class="scale-chip-name" style="color:rgba(40,22,1,.7)">ah-100</div><div class="scale-chip-hex" style="color:rgba(40,22,1,.4)">#FEF1E1</div><div class="scale-chip-hsl" style="color:rgba(40,22,1,.3)">H32 S95 L94</div></div>
+      </div>
+      <div class="scale-chip-role" style="color:rgba(40,22,1,.3)">bg</div>
+    </div>
+    <div class="scale-chip" style="background:#FEEDDA">
+      <div class="scale-chip-left">
+        <div class="scale-chip-dot" style="background:#FEEDDA"></div>
+        <div><div class="scale-chip-name" style="color:rgba(40,22,1,.7)">ah-125</div><div class="scale-chip-hex" style="color:rgba(40,22,1,.4)">#FEEDDA</div><div class="scale-chip-hsl" style="color:rgba(40,22,1,.3)">H32 S95 L93</div></div>
+      </div>
+      <div class="scale-chip-role" style="color:rgba(40,22,1,.3)">—</div>
+    </div>
+    <div class="scale-chip" style="background:#FEEAD4">
+      <div class="scale-chip-left">
+        <div class="scale-chip-dot" style="background:#FEEAD4"></div>
+        <div><div class="scale-chip-name" style="color:rgba(40,22,1,.7)">ah-150</div><div class="scale-chip-hex" style="color:rgba(40,22,1,.4)">#FEEAD4</div><div class="scale-chip-hsl" style="color:rgba(40,22,1,.3)">H32 S95 L92</div></div>
+      </div>
+      <div class="scale-chip-role" style="color:rgba(40,22,1,.3)">—</div>
+    </div>
+    <div class="scale-chip" style="background:#FEE7CE">
+      <div class="scale-chip-left">
+        <div class="scale-chip-dot" style="background:#FEE7CE"></div>
+        <div><div class="scale-chip-name" style="color:rgba(40,22,1,.7)">ah-175</div><div class="scale-chip-hex" style="color:rgba(40,22,1,.4)">#FEE7CE</div><div class="scale-chip-hsl" style="color:rgba(40,22,1,.3)">H32 S95 L91</div></div>
+      </div>
+      <div class="scale-chip-role" style="color:rgba(40,22,1,.3)">—</div>
+    </div>
+    <div class="scale-chip" style="background:#FDE5C8">
+      <div class="scale-chip-left">
+        <div class="scale-chip-dot" style="background:#FDE5C8"></div>
+        <div><div class="scale-chip-name" style="color:rgba(40,22,1,.7)">ah-200</div><div class="scale-chip-hex" style="color:rgba(40,22,1,.4)">#FDE5C8</div><div class="scale-chip-hsl" style="color:rgba(40,22,1,.3)">H32 S95 L89</div></div>
+      </div>
+      <div class="scale-chip-role" style="color:rgba(40,22,1,.3)">bg2</div>
+    </div>
+    <div class="scale-chip" style="background:#D97706">
+      <div class="scale-chip-left">
+        <div class="scale-chip-dot" style="background:#D97706;border-color:rgba(255,255,255,.2)"></div>
+        <div><div class="scale-chip-name" style="color:#fff">ah-600</div><div class="scale-chip-hex" style="color:rgba(255,255,255,.6)">#D97706</div><div class="scale-chip-hsl" style="color:rgba(255,255,255,.4)">H32 S95 L44 ★</div></div>
+      </div>
+      <div class="scale-chip-role" style="color:rgba(255,255,255,.4)">ЯКОРЬ · акцент</div>
+    </div>
+    <div class="scale-chip" style="background:#B26105">
+      <div class="scale-chip-left">
+        <div class="scale-chip-dot" style="background:#B26105;border-color:rgba(255,255,255,.1)"></div>
+        <div><div class="scale-chip-name" style="color:rgba(255,253,250,.7)">ah-700</div><div class="scale-chip-hex" style="color:rgba(255,253,250,.4)">#B26105</div><div class="scale-chip-hsl" style="color:rgba(255,253,250,.3)">H32 S95 L36</div></div>
+      </div>
+      <div class="scale-chip-role" style="color:rgba(255,253,250,.3)">acc-hover</div>
+    </div>
+    <div class="scale-chip" style="background:#8B4C04">
+      <div class="scale-chip-left">
+        <div class="scale-chip-dot" style="background:#8B4C04;border-color:rgba(255,255,255,.1)"></div>
+        <div><div class="scale-chip-name" style="color:rgba(255,253,250,.7)">ah-800</div><div class="scale-chip-hex" style="color:rgba(255,253,250,.4)">#8B4C04</div><div class="scale-chip-hsl" style="color:rgba(255,253,250,.3)">H32 S95 L28</div></div>
+      </div>
+      <div class="scale-chip-role" style="color:rgba(255,253,250,.3)">—</div>
+    </div>
+    <div class="scale-chip" style="background:#593102">
+      <div class="scale-chip-left">
+        <div class="scale-chip-dot" style="background:#593102;border-color:rgba(255,255,255,.1)"></div>
+        <div><div class="scale-chip-name" style="color:rgba(255,253,250,.7)">ah-900</div><div class="scale-chip-hex" style="color:rgba(255,253,250,.4)">#593102</div><div class="scale-chip-hsl" style="color:rgba(255,253,250,.3)">H32 S95 L18</div></div>
+      </div>
+      <div class="scale-chip-role" style="color:rgba(255,253,250,.3)">body</div>
+    </div>
+    <div class="scale-chip" style="background:#281601">
+      <div class="scale-chip-left">
+        <div class="scale-chip-dot" style="background:#281601;border-color:rgba(255,255,255,.08)"></div>
+        <div><div class="scale-chip-name" style="color:rgba(255,253,250,.6)">ah-950</div><div class="scale-chip-hex" style="color:rgba(255,253,250,.35)">#281601</div><div class="scale-chip-hsl" style="color:rgba(255,253,250,.25)">H32 S95 L8</div></div>
+      </div>
+      <div class="scale-chip-role" style="color:rgba(255,253,250,.25)">ink</div>
+    </div>
+    <div class="scale-chip" style="background:#140B01">
+      <div class="scale-chip-left">
+        <div class="scale-chip-dot" style="background:#140B01;border-color:rgba(255,255,255,.06)"></div>
+        <div><div class="scale-chip-name" style="color:rgba(255,253,250,.5)">ah-975</div><div class="scale-chip-hex" style="color:rgba(255,253,250,.3)">#140B01</div><div class="scale-chip-hsl" style="color:rgba(255,253,250,.2)">H32 S95 L4</div></div>
+      </div>
+      <div class="scale-chip-role" style="color:rgba(255,253,250,.2)">hero · nav · footer</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 2. СЕМАНТИКА ────────────────────────────── -->
+<section class="ds-section">
+  <p class="ds-section-title">Семантические токены</p>
+  <div class="semantic-grid">
+    <div class="semantic-card">
+      <div class="semantic-swatch" style="background:#FEF1E1;border:1px solid #FDE5C8"></div>
+      <div class="semantic-name">--bg</div>
+      <div class="semantic-desc">Фон страницы<br>#FEF1E1 (ah-100)</div>
+    </div>
+    <div class="semantic-card">
+      <div class="semantic-swatch" style="background:#FDE5C8"></div>
+      <div class="semantic-name">--bg2</div>
+      <div class="semantic-desc">Фон секций, карточек<br>#FDE5C8 (ah-200)</div>
+    </div>
+    <div class="semantic-card">
+      <div class="semantic-swatch" style="background:#FFF9F3;border:1px solid #FEF1E1"></div>
+      <div class="semantic-name">--surface</div>
+      <div class="semantic-desc">Поверхность (светлее фона)<br>#FFF9F3 (ah-50)</div>
+    </div>
+    <div class="semantic-card">
+      <div class="semantic-swatch" style="background:#281601"></div>
+      <div class="semantic-name">--ink</div>
+      <div class="semantic-desc">Основной текст<br>#281601 (ah-950)</div>
+    </div>
+    <div class="semantic-card">
+      <div class="semantic-swatch" style="background:#593102"></div>
+      <div class="semantic-name">--body</div>
+      <div class="semantic-desc">Вторичный текст<br>#593102 (ah-900)</div>
+    </div>
+    <div class="semantic-card">
+      <div class="semantic-swatch" style="background:rgba(40,22,1,.45);border:1px solid rgba(40,22,1,.1)"></div>
+      <div class="semantic-name">--muted</div>
+      <div class="semantic-desc">Приглушённый текст<br>ah-950 / 45%</div>
+    </div>
+    <div class="semantic-card">
+      <div class="semantic-swatch" style="background:#D97706"></div>
+      <div class="semantic-name">--acc</div>
+      <div class="semantic-desc">Акцент (янтарь)<br>#D97706 (ah-600)</div>
+    </div>
+    <div class="semantic-card">
+      <div class="semantic-swatch" style="background:#B86505"></div>
+      <div class="semantic-name">--acc-h</div>
+      <div class="semantic-desc">Акцент hover<br>#B86505</div>
+    </div>
+    <div class="semantic-card">
+      <div class="semantic-swatch" style="background:rgba(217,119,6,.12);border:1px solid rgba(217,119,6,.3)"></div>
+      <div class="semantic-name">--acc-lt</div>
+      <div class="semantic-desc">Акцент фон / подсветка<br>ah-600 / 12%</div>
+    </div>
+    <div class="semantic-card">
+      <div class="semantic-swatch" style="background:rgba(40,22,1,.11);border:1px solid rgba(40,22,1,.08)"></div>
+      <div class="semantic-name">--border</div>
+      <div class="semantic-desc">Граница<br>ah-950 / 11%</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 3. ШРИФТЫ ───────────────────────────────── -->
+<section class="ds-section">
+  <p class="ds-section-title">Шрифты</p>
+
+  <div class="font-demo-grid">
+
+    <!-- Playfair Display -->
+    <div class="font-card">
+      <div class="font-card-label"><strong>--font-display</strong> · "Playfair Display" · заголовки</div>
+      <div class="font-sample-display" style="font-family:var(--font-display);font-weight:var(--fw-regular)">Студия <em>Muse</em><br>с 2015 года</div>
+      <div class="font-weights-row">
+        <div class="font-weight-item">
+          <span class="font-weight-tag">300</span>
+          <span style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:300;color:var(--ink)">Light — крупные номера, дисплей</span>
+        </div>
+        <div class="font-weight-item">
+          <span class="font-weight-tag">400</span>
+          <span style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:var(--fw-regular);color:var(--ink)">Regular — заголовки секций</span>
+        </div>
+        <div class="font-weight-item">
+          <span class="font-weight-tag">400i</span>
+          <span style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:var(--fw-regular);font-style:italic;color:var(--acc)">Italic — акцент, цитаты</span>
+        </div>
+        <div class="font-weight-item">
+          <span class="font-weight-tag">500</span>
+          <span style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:var(--fw-medium);color:var(--ink)">Medium — заголовки карточек</span>
+        </div>
+        <div class="font-weight-item">
+          <span class="font-weight-tag">500i</span>
+          <span style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:var(--fw-medium);font-style:italic;color:var(--ink)">Medium Italic — особые акценты</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PT Sans -->
+    <div class="font-card">
+      <div class="font-card-label"><strong>--font-sans</strong> · "PT Sans" · UI, тело, подписи</div>
+      <div style="display:flex;flex-direction:column;gap:calc(var(--sp)*3);padding:calc(var(--sp)*5) 0;margin-bottom:calc(var(--sp)*2)">
+        <div style="font-family:var(--font-sans);font-size:var(--text-3xl);font-weight:300;color:var(--ink);line-height:1.15;letter-spacing:-.01em">Студия <span style="color:var(--acc)">Muse</span></div>
+      </div>
+      <div class="font-weights-row">
+        <div class="font-weight-item">
+          <span class="font-weight-tag">300</span>
+          <span style="font-family:var(--font-sans);font-size:var(--text-base);font-weight:300;color:var(--ink)">Light — основной текст</span>
+        </div>
+        <div class="font-weight-item">
+          <span class="font-weight-tag">400</span>
+          <span style="font-family:var(--font-sans);font-size:var(--text-base);font-weight:var(--fw-regular);color:var(--ink)">Regular — UI текст</span>
+        </div>
+        <div class="font-weight-item">
+          <span class="font-weight-tag">500</span>
+          <span style="font-family:var(--font-sans);font-size:var(--text-base);font-weight:var(--fw-medium);color:var(--ink)">Medium — навигация, кнопки</span>
+        </div>
+        <div class="font-weight-item">
+          <span class="font-weight-tag">600</span>
+          <span style="font-family:var(--font-sans);font-size:var(--text-base);font-weight:var(--fw-semibold);color:var(--ink)">Semibold — подписи разделов</span>
+        </div>
+        <div class="font-weight-item">
+          <span class="font-weight-tag">700</span>
+          <span style="font-family:var(--font-sans);font-size:var(--text-base);font-weight:700;color:var(--ink)">Bold — акценты, CTA-кнопки</span>
+        </div>
+        <div class="font-weight-item">
+          <span class="font-weight-tag">caps</span>
+          <span style="font-family:var(--font-sans);font-size:var(--text-xs);font-weight:var(--fw-semibold);letter-spacing:var(--tracking-wider);text-transform:uppercase;color:var(--acc);margin-top:calc(var(--sp)*2)">КАПСЛОК .12em — метки, eyebrow</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── 4. ТИПОШКАЛА ────────────────────────────── -->
+<section class="ds-section">
+  <p class="ds-section-title">Типографическая шкала</p>
+  <table class="type-table">
+    <tr>
+      <td><div class="type-tag">text-xs</div><div class="type-meta">.75rem · 12px<br>PT Sans · caps/labels</div></td>
+      <td><div style="font-size:.75rem;font-weight:var(--fw-semibold);letter-spacing:.12em;text-transform:uppercase;color:var(--acc);font-family:var(--font-sans)">СТУДИЯ MUSE · С 2015 ГОДА</div></td>
+    </tr>
+    <tr>
+      <td><div class="type-tag">text-sm</div><div class="type-meta">.875rem · 14px<br>PT Sans · body, UI</div></td>
+      <td><div style="font-size:.875rem;color:var(--body);font-family:var(--font-sans)">Картины по фото: портреты маслом и печать на холсте. Собственное производство.</div></td>
+    </tr>
+    <tr>
+      <td><div class="type-tag">text-base</div><div class="type-meta">1rem · 16px<br>PT Sans · lead text</div></td>
+      <td><div style="font-size:1rem;color:var(--ink);font-family:var(--font-sans)">Бесплатный предварительный эскиз за 24 часа. Гарантия на каждый заказ.</div></td>
+    </tr>
+    <tr>
+      <td><div class="type-tag">text-lg</div><div class="type-meta">1.125rem · 18px<br>Playfair · benefit title</div></td>
+      <td><div style="font-size:1.125rem;font-family:var(--font-display);font-style:italic;font-weight:var(--fw-regular);color:var(--ink)">Собственное производство</div></td>
+    </tr>
+    <tr>
+      <td><div class="type-tag">text-xl</div><div class="type-meta">1.25rem · 20px<br>Playfair · card name</div></td>
+      <td><div style="font-size:1.25rem;font-family:var(--font-display);font-weight:var(--fw-medium);color:var(--ink)">Портрет маслом</div></td>
+    </tr>
+    <tr>
+      <td><div class="type-tag">text-2xl</div><div class="type-meta">1.5rem · 24px<br>Playfair · quote, H2 small</div></td>
+      <td><div style="font-size:1.5rem;font-family:var(--font-display);font-weight:var(--fw-regular);font-style:italic;color:var(--ink)">Преимущества студии Muse</div></td>
+    </tr>
+    <tr>
+      <td><div class="type-tag">text-3xl</div><div class="type-meta">1.875rem · 30px<br>Playfair · H2 large</div></td>
+      <td><div style="font-size:1.875rem;font-family:var(--font-display);font-weight:var(--fw-regular);line-height:1.18;color:var(--ink)">Начните с бесплатного <span style="color:var(--acc);font-style:italic">эскиза</span></div></td>
+    </tr>
+    <tr>
+      <td><div class="type-tag">text-4xl</div><div class="type-meta">2.25rem · 36px<br>Playfair · section H2</div></td>
+      <td><div style="font-size:2.25rem;font-family:var(--font-display);font-weight:var(--fw-regular);line-height:1.1;color:var(--ink)">Три формата — одно мастерство</div></td>
+    </tr>
+    <tr>
+      <td><div class="type-tag">text-5xl</div><div class="type-meta">3rem · 48px<br>Playfair · H1</div></td>
+      <td><div style="font-size:3rem;font-family:var(--font-display);font-weight:var(--fw-regular);line-height:1.07;letter-spacing:-.015em;color:var(--ink)">Создай своё <span style="color:var(--acc);font-style:italic">произведение</span></div></td>
+    </tr>
+    <tr>
+      <td><div class="type-tag">display</div><div class="type-meta">~5rem · hero only<br>Playfair 400/500i</div></td>
+      <td><div style="font-size:clamp(2.5rem,5vw,5rem);font-family:var(--font-display);font-weight:300;font-style:italic;line-height:1;letter-spacing:-.02em;color:var(--ink)">искусства</div></td>
+    </tr>
+  </table>
+</section>
+
+<!-- ── 5. ТЁМНЫЙ РЕЖИМ ─────────────────────────── -->
+<section class="ds-section">
+  <p class="ds-section-title">Тёмный режим</p>
+  <div class="dm-note">
+    <div class="dm-card light">
+      <div class="dm-title">Светлая тема <span style="color:#D97706">·</span> default</div>
+      <div class="dm-row"><div class="dm-dot" style="background:#FEF1E1;border:1px solid #FDE5C8"></div><div class="dm-info"><strong>--bg</strong> #FEF1E1 — фон страницы</div></div>
+      <div class="dm-row"><div class="dm-dot" style="background:#281601"></div><div class="dm-info"><strong>--ink</strong> #281601 — текст</div></div>
+      <div class="dm-row"><div class="dm-dot" style="background:#593102"></div><div class="dm-info"><strong>--body</strong> #593102 — вторичный</div></div>
+      <div class="dm-row"><div class="dm-dot" style="background:#D97706"></div><div class="dm-info"><strong>--acc</strong> #D97706 — акцент</div></div>
+    </div>
+    <div class="dm-card dark">
+      <div class="dm-title">Тёмная тема <span style="color:#D97706">·</span> auto</div>
+      <div class="dm-row"><div class="dm-dot" style="background:#281601;border:1px solid #593102"></div><div class="dm-info"><strong>--bg</strong> #281601 — фон страницы</div></div>
+      <div class="dm-row"><div class="dm-dot" style="background:#FFF9F3"></div><div class="dm-info"><strong>--ink</strong> #FFF9F3 — текст</div></div>
+      <div class="dm-row"><div class="dm-dot" style="background:#FDE5C8"></div><div class="dm-info"><strong>--body</strong> #FDE5C8 — вторичный</div></div>
+      <div class="dm-row"><div class="dm-dot" style="background:#D97706"></div><div class="dm-info"><strong>--acc</strong> #D97706 — акцент (тот же)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 6. ОТСТУПЫ ─────────────────────────────── -->
+<section class="ds-section">
+  <p class="ds-section-title">Отступы — unit: 4px</p>
+  <div class="spacing-row">
+    <div class="spacing-item"><div class="spacing-bar" style="height:4px"></div><div class="spacing-lbl">1<br>.25rem<br>4px</div></div>
+    <div class="spacing-item"><div class="spacing-bar" style="height:8px"></div><div class="spacing-lbl">2<br>.5rem<br>8px</div></div>
+    <div class="spacing-item"><div class="spacing-bar" style="height:12px"></div><div class="spacing-lbl">3<br>.75rem<br>12px</div></div>
+    <div class="spacing-item"><div class="spacing-bar" style="height:16px"></div><div class="spacing-lbl">4<br>1rem<br>16px</div></div>
+    <div class="spacing-item"><div class="spacing-bar" style="height:24px"></div><div class="spacing-lbl">6<br>1.5rem<br>24px</div></div>
+    <div class="spacing-item"><div class="spacing-bar" style="height:32px"></div><div class="spacing-lbl">8<br>2rem<br>32px</div></div>
+    <div class="spacing-item"><div class="spacing-bar" style="height:40px"></div><div class="spacing-lbl">10<br>2.5rem<br>40px</div></div>
+    <div class="spacing-item"><div class="spacing-bar" style="height:48px"></div><div class="spacing-lbl">12<br>3rem<br>48px</div></div>
+    <div class="spacing-item"><div class="spacing-bar" style="height:64px"></div><div class="spacing-lbl">16<br>4rem<br>64px</div></div>
+    <div class="spacing-item"><div class="spacing-bar" style="height:80px"></div><div class="spacing-lbl">32<br>8rem<br>128px</div></div>
+  </div>
+</section>
+
+<!-- ── 7. СКРУГЛЕНИЯ ──────────────────────────── -->
+<section class="ds-section">
+  <p class="ds-section-title">Скругления</p>
+  <div class="radii-row">
+    <div class="radius-item"><div class="radius-box" style="border-radius:.25rem"></div><div class="radius-lbl">--r-sm<br>.25rem<br>4px</div></div>
+    <div class="radius-item"><div class="radius-box" style="border-radius:.375rem"></div><div class="radius-lbl">--r-md<br>.375rem<br>6px</div></div>
+    <div class="radius-item"><div class="radius-box" style="border-radius:.5rem"></div><div class="radius-lbl">--r-lg<br>.5rem<br>8px</div></div>
+    <div class="radius-item"><div class="radius-box" style="border-radius:.75rem"></div><div class="radius-lbl">--r-xl<br>.75rem<br>12px</div></div>
+    <div class="radius-item"><div class="radius-box" style="border-radius:9999px;width:80px;height:36px"></div><div class="radius-lbl">--r-full<br>9999px<br>pill</div></div>
+  </div>
+</section>
+
+<!-- ── 8. КОНТЕЙНЕРЫ ──────────────────────────── -->
+<section class="ds-section">
+  <p class="ds-section-title">Контейнеры</p>
+  <div class="containers-list">
+    <div class="container-item"><div class="container-bar" style="width:115px"></div><div class="container-meta"><strong>--c-sm</strong> · 24rem · 384px — узкий (форма, попап)</div></div>
+    <div class="container-item"><div class="container-bar" style="width:201px"></div><div class="container-meta"><strong>--c-2xl</strong> · 42rem · 672px — текстовый блок</div></div>
+    <div class="container-item"><div class="container-bar" style="width:230px"></div><div class="container-meta"><strong>--c-3xl</strong> · 48rem · 768px — форма, отзыв</div></div>
+    <div class="container-item"><div class="container-bar" style="width:269px"></div><div class="container-meta"><strong>--c-4xl</strong> · 56rem · 896px</div></div>
+    <div class="container-item"><div class="container-bar" style="width:307px"></div><div class="container-meta"><strong>--c-5xl</strong> · 64rem · 1024px</div></div>
+    <div class="container-item"><div class="container-bar" style="width:384px"></div><div class="container-meta"><strong>--c-7xl</strong> · 80rem · 1280px — максимальная ширина</div></div>
+  </div>
+</section>
+
+<!-- ── 9. АНИМАЦИИ ────────────────────────────── -->
+<section class="ds-section">
+  <p class="ds-section-title">Анимации</p>
+  <button class="transition-demo">Hover → акцент</button>
+  <div class="transition-code">
+    --dur: .15s · --dur-md: .25s<br>
+    --ease: cubic-bezier(.4, 0, .2, 1)<br>
+    transition: background var(--dur) var(--ease), transform var(--dur-md) var(--ease)
+  </div>
+</section>
+
+<!-- ── 10. CSS VARS ────────────────────────────── -->
+<section class="ds-section">
+  <p class="ds-section-title">CSS Custom Properties — готово к копированию</p>
+  <div class="code-block"><span class="c-comment">/* ─── Muse Design System — Amber Harmonized ────────────────────
+   Якорь: Amber-600 #D97706 = HSL(32.1°, 94.6%, 43.7%)
+   Шрифты: Playfair Display + PT Sans
+   ─────────────────────────────────────────────────────────── */</span>
+<span class="c-key">:root</span> {
+  <span class="c-comment">/* Fonts */</span>
+  <span class="c-var">--font-display</span>: <span class="c-val">"Playfair Display", Georgia, serif</span>;
+  <span class="c-var">--font-sans</span>:    <span class="c-val">"PT Sans", system-ui, -apple-system, sans-serif</span>;
+  <span class="c-var">--font-mono</span>:    <span class="c-val">ui-monospace, "SF Mono", Menlo, monospace</span>;
+
+  <span class="c-comment">/* Amber Harmonized palette */</span>
+  <span class="c-var">--ah-25</span>:  <span class="c-val">#FFFDFA</span>;  <span class="c-comment">/* H32 S95 L99  — чистый белый       */</span>
+  <span class="c-var">--ah-50</span>:  <span class="c-val">#FFF9F3</span>;  <span class="c-comment">/* H32 S95 L98  — персиковый белый   */</span>
+  <span class="c-var">--ah-75</span>:  <span class="c-val">#FEF5EA</span>;  <span class="c-comment">/* H32 S95 L97  — тёплый белый       */</span>
+  <span class="c-var">--ah-100</span>: <span class="c-val">#FEF1E1</span>;  <span class="c-comment">/* H32 S95 L94  — светлый персик     */</span>
+  <span class="c-var">--ah-125</span>: <span class="c-val">#FEEDDA</span>;  <span class="c-comment">/* H32 S95 L93  — бледный янтарь     */</span>
+  <span class="c-var">--ah-150</span>: <span class="c-val">#FEEAD4</span>;  <span class="c-comment">/* H32 S95 L92  — нежный янтарь      */</span>
+  <span class="c-var">--ah-175</span>: <span class="c-val">#FEE7CE</span>;  <span class="c-comment">/* H32 S95 L91  — мягкий янтарь      */</span>
+  <span class="c-var">--ah-200</span>: <span class="c-val">#FDE5C8</span>;  <span class="c-comment">/* H32 S95 L89  — тёплый абрикос     */</span>
+  <span class="c-var">--ah-600</span>: <span class="c-val">#D97706</span>;  <span class="c-comment">/* H32 S95 L44  — ЯКОРЬ Amber-600 ★  */</span>
+  <span class="c-var">--ah-700</span>: <span class="c-val">#B26105</span>;  <span class="c-comment">/* H32 S95 L36  — насыщенный янтарь  */</span>
+  <span class="c-var">--ah-800</span>: <span class="c-val">#8B4C04</span>;  <span class="c-comment">/* H32 S95 L28  — тёмно-оранжевый    */</span>
+  <span class="c-var">--ah-900</span>: <span class="c-val">#593102</span>;  <span class="c-comment">/* H32 S95 L18  — тёмный янтарь      */</span>
+  <span class="c-var">--ah-950</span>: <span class="c-val">#281601</span>;  <span class="c-comment">/* H32 S95 L8   — янтарный чёрный    */</span>
+  <span class="c-var">--ah-975</span>: <span class="c-val">#140B01</span>;  <span class="c-comment">/* H32 S95 L4   — глубокий чёрный    */</span>
+
+  <span class="c-comment">/* Производные */</span>
+  <span class="c-var">--ah-600-lt</span>:    <span class="c-val">rgba(217,119,6,.12)</span>;
+  <span class="c-var">--ah-600-md</span>:    <span class="c-val">rgba(217,119,6,.30)</span>;
+  <span class="c-var">--ah-600-hover</span>: <span class="c-val">#B86505</span>;
+
+  <span class="c-comment">/* Семантика */</span>
+  <span class="c-var">--bg</span>:      <span class="c-val">var(--ah-100)</span>;
+  <span class="c-var">--bg2</span>:     <span class="c-val">var(--ah-200)</span>;
+  <span class="c-var">--surface</span>: <span class="c-val">var(--ah-50)</span>;
+  <span class="c-var">--border</span>:  <span class="c-val">rgba(40,22,1,.11)</span>;
+  <span class="c-var">--ink</span>:     <span class="c-val">var(--ah-950)</span>;
+  <span class="c-var">--body</span>:    <span class="c-val">var(--ah-900)</span>;
+  <span class="c-var">--muted</span>:   <span class="c-val">rgba(40,22,1,.45)</span>;
+  <span class="c-var">--acc</span>:     <span class="c-val">var(--ah-600)</span>;
+  <span class="c-var">--acc-h</span>:   <span class="c-val">var(--ah-600-hover)</span>;
+  <span class="c-var">--acc-lt</span>:  <span class="c-val">var(--ah-600-lt)</span>;
+
+  <span class="c-comment">/* Ритм секций */</span>
+
+  <span class="c-comment">/* Type scale */</span>
+  <span class="c-var">--text-xs</span>:   <span class="c-val">.75rem</span>;     <span class="c-comment">/* 12px */</span>
+  <span class="c-var">--text-sm</span>:   <span class="c-val">.875rem</span>;    <span class="c-comment">/* 14px */</span>
+  <span class="c-var">--text-base</span>: <span class="c-val">1rem</span>;        <span class="c-comment">/* 16px */</span>
+  <span class="c-var">--text-lg</span>:   <span class="c-val">1.125rem</span>;   <span class="c-comment">/* 18px */</span>
+  <span class="c-var">--text-xl</span>:   <span class="c-val">1.25rem</span>;    <span class="c-comment">/* 20px */</span>
+  <span class="c-var">--text-2xl</span>:  <span class="c-val">1.5rem</span>;     <span class="c-comment">/* 24px */</span>
+  <span class="c-var">--text-3xl</span>:  <span class="c-val">1.875rem</span>;   <span class="c-comment">/* 30px */</span>
+  <span class="c-var">--text-4xl</span>:  <span class="c-val">2.25rem</span>;    <span class="c-comment">/* 36px */</span>
+  <span class="c-var">--text-5xl</span>:  <span class="c-val">3rem</span>;        <span class="c-comment">/* 48px */</span>
+
+  <span class="c-comment">/* Font weights */</span>
+  <span class="c-var">--fw-regular</span>:  <span class="c-val">400</span>;
+  <span class="c-var">--fw-medium</span>:   <span class="c-val">500</span>;
+  <span class="c-var">--fw-semibold</span>: <span class="c-val">600</span>;
+  <span class="c-var">--fw-bold</span>:     <span class="c-val">700</span>;
+
+  <span class="c-comment">/* Letter spacing */</span>
+  <span class="c-var">--tracking-tight</span>:   <span class="c-val">-.025em</span>;
+  <span class="c-var">--tracking-wide</span>:    <span class="c-val">.08em</span>;
+  <span class="c-var">--tracking-wider</span>:   <span class="c-val">.12em</span>;
+  <span class="c-var">--tracking-widest</span>:  <span class="c-val">.18em</span>;
+
+  <span class="c-comment">/* Spacing, radius, containers */</span>
+  <span class="c-var">--sp</span>: <span class="c-val">.25rem</span>;
+  <span class="c-var">--r-sm</span>: <span class="c-val">.25rem</span>;  <span class="c-var">--r-md</span>: <span class="c-val">.375rem</span>;
+  <span class="c-var">--r-lg</span>: <span class="c-val">.5rem</span>;   <span class="c-var">--r-xl</span>: <span class="c-val">.75rem</span>;  <span class="c-var">--r-full</span>: <span class="c-val">9999px</span>;
+  <span class="c-var">--c-sm</span>: <span class="c-val">24rem</span>;  <span class="c-var">--c-2xl</span>: <span class="c-val">42rem</span>;  <span class="c-var">--c-3xl</span>: <span class="c-val">48rem</span>;
+  <span class="c-var">--c-4xl</span>: <span class="c-val">56rem</span>; <span class="c-var">--c-5xl</span>: <span class="c-val">64rem</span>;  <span class="c-var">--c-7xl</span>: <span class="c-val">80rem</span>;
+
+  <span class="c-comment">/* Animation */</span>
+  <span class="c-var">--ease</span>: <span class="c-val">cubic-bezier(.4, 0, .2, 1)</span>;
+  <span class="c-var">--dur</span>:  <span class="c-val">.15s</span>;  <span class="c-var">--dur-md</span>: <span class="c-val">.25s</span>;
+}
+
+</div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     РИТМ СЕКЦИЙ + МАКЕТ СТРАНИЦЫ
+════════════════════════════════════════════════ -->
+
+<style>
+/* ── Ритм секций ── */
+.rhythm-strip {
+  display: flex; height: 30px; border-radius: var(--r-lg);
+  overflow: hidden; margin-bottom: calc(var(--sp)*5);
+}
+.rs {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  font-size: .55rem; font-family: ui-monospace, monospace;
+  font-weight: 500; letter-spacing: .05em; text-transform: uppercase;
+}
+
+/* ── Ритм-схема ── */
+.rhythm-scheme {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 2px; margin-bottom: calc(var(--sp)*8);
+  border-radius: 10px; overflow: hidden;
+  font-family: var(--font-sans);
+}
+.rhythm-scheme-cell {
+  padding: 16px 20px;
+}
+
+/* ── Page mockup ── */
+.pm-wrap { border-radius: var(--r-xl); overflow: hidden; box-shadow: 0 8px 48px rgba(0,0,0,.14); max-width: 760px; margin: 0 auto; font-family: var(--font-sans); }
+
+.pm-nav {
+  background: var(--ah-975);
+  padding: calc(var(--sp)*4) calc(var(--sp)*10);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.pm-logo { font-family: var(--font-display); font-size: var(--text-lg); letter-spacing: .16em; color: var(--ah-25); }
+.pm-nav-links { display: flex; gap: calc(var(--sp)*9); align-items: center; }
+.pm-nav-link  { font-size: var(--text-xs); letter-spacing: .1em; text-transform: uppercase; color: rgba(255,253,250,.55); }
+.pm-nav-btn {
+  font-size: var(--text-xs); letter-spacing: .08em; text-transform: uppercase;
+  padding: calc(var(--sp)*2) calc(var(--sp)*4); border-radius: var(--r-lg);
+  border: 1px solid rgba(255,253,250,.28); color: var(--ah-25); background: transparent;
+}
+
+.pm-hero {
+  background: var(--ah-975);
+  padding: calc(var(--sp)*18) calc(var(--sp)*10) calc(var(--sp)*20);
+  display: flex; flex-direction: column; gap: calc(var(--sp)*4);
+  position: relative; overflow: hidden;
+}
+.pm-hero::before {
+  content: ''; position: absolute; top: 20%; left: -5%;
+  width: 50%; height: 60%;
+  background: radial-gradient(ellipse, rgba(217,119,6,.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.pm-eyebrow { font-size: var(--text-xs); letter-spacing: .18em; text-transform: uppercase; color: var(--ah-600); }
+.pm-h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-5xl); font-weight: var(--fw-regular); line-height: 1.07; letter-spacing: -.01em;
+  color: var(--ah-25);
+}
+.pm-h1 u { text-decoration-color: var(--ah-600); text-decoration-thickness: 2px; text-underline-offset: 7px; }
+.pm-lead { font-size: var(--text-sm); line-height: 1.74; color: rgba(255,253,250,.70); max-width: 480px; }
+.pm-hero-cta {
+  display: inline-flex; align-items: center; gap: calc(var(--sp)*2);
+  font-size: var(--text-xs); color: rgba(255,253,250,.70); margin-top: calc(var(--sp)*1);
+}
+.pm-hero-cta::after { content: '→'; }
+
+.pm-sec {
+  padding: calc(var(--sp)*14) calc(var(--sp)*10);
+  display: flex; flex-direction: column; gap: calc(var(--sp)*4);
+}
+.pm-eye  { font-size: var(--text-xs); letter-spacing: .16em; text-transform: uppercase; color: var(--ah-900); }
+.pm-h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl); font-weight: var(--fw-regular); line-height: 1.1; color: var(--ah-975);
+}
+.pm-h2 u { text-decoration-color: var(--ah-600); text-decoration-thickness: 2px; text-underline-offset: 6px; }
+.pm-body-text { font-size: var(--text-sm); line-height: 1.74; color: rgba(20,11,1,.70); max-width: 520px; }
+
+.pm-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: calc(var(--sp)*4); margin-top: calc(var(--sp)*3); }
+.pm-card  {
+  padding: calc(var(--sp)*6) calc(var(--sp)*5); border-radius: var(--r-md);
+  display: flex; flex-direction: column; gap: calc(var(--sp)*2);
+}
+.pm-card-name  { font-family: var(--font-display); font-size: var(--text-xl); font-weight: var(--fw-medium); color: var(--ah-975); }
+.pm-card-desc  { font-size: var(--text-xs); line-height: 1.55; color: rgba(20,11,1,.70); flex: 1; }
+.pm-card-price {
+  font-size: var(--text-xs); letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ah-950); font-weight: var(--fw-medium); margin-top: calc(var(--sp)*2);
+  padding-top: calc(var(--sp)*4); border-top: 1px solid rgba(20,11,1,.07);
+}
+
+.pm-steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; margin-top: calc(var(--sp)*3); }
+.pm-step  {
+  padding: calc(var(--sp)*6) calc(var(--sp)*6) calc(var(--sp)*6) 0; border-right: 1px solid rgba(20,11,1,.08);
+  display: flex; flex-direction: column; gap: calc(var(--sp)*2);
+}
+.pm-step:last-child { border-right: none; }
+.pm-step:not(:first-child) { padding-left: calc(var(--sp)*6); }
+.pm-step-num  { font-family: var(--font-display); font-size: var(--text-5xl); font-weight: 300; line-height: 1; color: rgba(20,11,1,.1); }
+.pm-step-name { font-family: var(--font-display); font-size: var(--text-lg); font-weight: var(--fw-medium); color: var(--ah-975); }
+.pm-step-desc { font-size: var(--text-xs); line-height: 1.6; color: rgba(20,11,1,.70); }
+
+.pm-quote  { font-family: var(--font-display); font-size: var(--text-2xl); font-style: italic; line-height: 1.65; color: var(--ah-975); }
+.pm-author { font-size: var(--text-xs); letter-spacing: .08em; text-transform: uppercase; color: rgba(20,11,1,.65); margin-top: calc(var(--sp)*2); }
+
+.pm-cta-h { font-family: var(--font-display); font-size: var(--text-5xl); font-weight: var(--fw-regular); line-height: 1.1; color: var(--ah-975); }
+.pm-cta-h u { text-decoration-color: var(--ah-600); text-decoration-thickness: 2px; text-underline-offset: 7px; }
+.pm-cta-note { font-size: var(--text-xs); color: rgba(20,11,1,.65); margin-top: calc(var(--sp)*3); }
+.pm-btn {
+  display: inline-flex; align-items: center;
+  font-size: var(--text-xs); letter-spacing: .06em; text-transform: uppercase;
+  padding: calc(var(--sp)*3) calc(var(--sp)*8); border-radius: var(--r-xl);
+  background: var(--ah-975); color: var(--ah-25); border: none; cursor: pointer;
+  margin-top: calc(var(--sp)*3);
+}
+.pm-footer {
+  background: var(--ah-975);
+  padding: calc(var(--sp)*10) calc(var(--sp)*10) calc(var(--sp)*8);
+}
+.pm-footer-inner {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-bottom: calc(var(--sp)*5); border-bottom: 1px solid rgba(255,253,250,.07); margin-bottom: calc(var(--sp)*4);
+}
+.pm-footer-logo  { font-family: var(--font-display); font-size: var(--text-lg); letter-spacing: .16em; color: rgba(255,253,250,.45); }
+.pm-footer-links { display: flex; gap: calc(var(--sp)*8); }
+.pm-footer-link  { font-size: var(--text-xs); color: rgba(255,253,250,.50); }
+.pm-footer-copy  { font-size: var(--text-xs); color: rgba(255,253,250,.35); letter-spacing: .04em; }
+.pm-divider { height: 1px; background: rgba(20,11,1,.07); }
+
+/* ── Section-title для блоков ниже ── */
+.supp-section { margin-bottom: calc(var(--sp)*16); }
+.supp-section-title {
+  font-size: var(--text-xs); font-weight: var(--fw-semibold); letter-spacing: .12em; text-transform: uppercase;
+  color: var(--acc);
+  margin-bottom: calc(var(--sp)*6);
+  padding-bottom: calc(var(--sp)*3);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: calc(var(--sp)*3);
+}
+.supp-section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent); }
+
+@media (max-width: 600px) {
+  .pm-cards  { grid-template-columns: 1fr; }
+  .pm-steps  { grid-template-columns: 1fr 1fr; }
+  .rhythm-scheme { grid-template-columns: 1fr; }
+}
+</style>
+
+<!-- ── 11. РИТМ СЕКЦИЙ ──────────────────────────── -->
+<div class="supp-section">
+  <p class="supp-section-title">Ритм секций — строгое чередование</p>
+
+  <div style="font-size:var(--text-xs);color:var(--muted);margin-bottom:calc(var(--sp)*4)">
+    ah-975 → ah-25 → ah-75 → ah-25 → ah-75 → ah-975. Акцент #D97706. Карточки — ah-100.
+  </div>
+
+  <!-- Схема -->
+  <div class="rhythm-scheme">
+    <div class="rhythm-scheme-cell" style="background:#140B01;border-top:3px solid #D97706">
+      <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,253,250,.4);margin-bottom:10px;font-family:var(--font-sans)">Тёмная секция</div>
+      <div style="font-size:.72rem;color:#FFFDFA;margin-bottom:4px;font-family:var(--font-sans)">Hero · Меню · Футер</div>
+      <div style="height:1px;background:rgba(255,253,250,.1);margin:10px 0"></div>
+      <div style="font-size:.68rem;color:rgba(255,253,250,.55);margin-bottom:3px;font-family:var(--font-sans)">Текст → <strong style="color:#FFFDFA">светлый</strong> 55–100%</div>
+      <div style="font-size:.68rem;color:rgba(255,253,250,.55);margin-bottom:3px;font-family:var(--font-sans)">Акцент → <strong style="color:#D97706">✓ читается</strong></div>
+      <div style="font-size:.68rem;color:rgba(255,253,250,.55);font-family:var(--font-sans)">Ссылки → opacity ≥ 55%</div>
+    </div>
+    <div class="rhythm-scheme-cell" style="background:#FFFDFA;border-top:3px solid rgba(40,22,1,.15)">
+      <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(40,22,1,.35);margin-bottom:10px;font-family:var(--font-sans)">Светлая секция</div>
+      <div style="font-size:.72rem;color:#281601;margin-bottom:4px;font-family:var(--font-sans)">Услуги · Процесс · Отзывы</div>
+      <div style="height:1px;background:rgba(40,22,1,.1);margin:10px 0"></div>
+      <div style="font-size:.68rem;color:rgba(40,22,1,.5);margin-bottom:3px;font-family:var(--font-sans)">Текст → <strong style="color:#281601">тёмный</strong></div>
+      <div style="font-size:.68rem;color:rgba(40,22,1,.5);margin-bottom:3px;font-family:var(--font-sans)">Акцент → <strong style="color:#D97706">декор</strong> (иконки, border)</div>
+      <div style="font-size:.68rem;color:rgba(40,22,1,.5);font-family:var(--font-sans)">Eyebrow/цены → декор</div>
+    </div>
+    <div class="rhythm-scheme-cell" style="background:#FEF1E1;border-top:3px solid rgba(40,22,1,.12)">
+      <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(40,22,1,.35);margin-bottom:10px;font-family:var(--font-sans)">Карточка</div>
+      <div style="font-size:.72rem;color:#281601;margin-bottom:4px;font-family:var(--font-sans)">ah-100 · #FEF1E1</div>
+      <div style="height:1px;background:rgba(40,22,1,.1);margin:10px 0"></div>
+      <div style="font-size:.68rem;color:rgba(40,22,1,.5);margin-bottom:3px;font-family:var(--font-sans)">Текст → <strong style="color:#281601">тёмный</strong></div>
+      <div style="font-size:.68rem;color:rgba(40,22,1,.5);margin-bottom:3px;font-family:var(--font-sans)">Акцент → <strong style="color:#D97706">декор</strong></div>
+      <div style="font-size:.68rem;color:rgba(40,22,1,.5);font-family:var(--font-sans)">Не использовать акцент для текста</div>
+    </div>
+  </div>
+
+  <!-- Полоска ритма -->
+  <div class="rhythm-strip">
+    <div class="rs" style="background:#140B01;color:rgba(255,253,250,.65)">меню</div>
+    <div class="rs" style="background:#140B01;color:rgba(255,253,250,.65)">hero</div>
+    <div class="rs" style="background:#FFFDFA;color:rgba(40,22,1,.65)">услуги</div>
+    <div class="rs" style="background:#FEF5EA;color:rgba(40,22,1,.65)">процесс</div>
+    <div class="rs" style="background:#FFFDFA;color:rgba(40,22,1,.65)">почему</div>
+    <div class="rs" style="background:#FEF5EA;color:rgba(40,22,1,.65)">отзывы</div>
+    <div class="rs" style="background:#FEF5EA;color:rgba(40,22,1,.65)">cta</div>
+    <div class="rs" style="background:#140B01;color:rgba(255,253,250,.65)">футер</div>
+  </div>
+</div>
+
+<!-- ── 12. МАКЕТ СТРАНИЦЫ ────────────────────────── -->
+<div class="supp-section">
+  <p class="supp-section-title">Макет страницы — Playfair Display + PT Sans</p>
+
+  <div class="pm-wrap">
+
+    <div class="pm-nav">
+      <div class="pm-logo">MUSE</div>
+      <div class="pm-nav-links">
+        <span class="pm-nav-link">Услуги</span>
+        <span class="pm-nav-link">Галерея</span>
+        <span class="pm-nav-link">О нас</span>
+        <button class="pm-nav-btn">Заказать</button>
+      </div>
+    </div>
+
+    <div class="pm-hero">
+      <div class="pm-eyebrow">Muse Studio · Москва</div>
+      <div class="pm-h1">Портреты,<br>которые <em style="font-style:italic;color:#D97706">живут</em><br>вечно</div>
+      <div class="pm-lead">Превращаем фотографии в произведения искусства. Холст, цифровой портрет и масло — от мастеров Muse.</div>
+      <a class="pm-hero-cta">Смотреть работы</a>
+    </div>
+
+    <div class="pm-sec" style="background:#FFFDFA">
+      <div class="pm-eye">Что мы создаём</div>
+      <div class="pm-h2">Три формата —<br>одно мастерство</div>
+      <div class="pm-body-text">Каждый формат — отдельное искусство. Выберите то, что подходит именно вам.</div>
+      <div class="pm-cards">
+        <div class="pm-card" style="background:#FEF1E1"><div class="pm-card-name">Холст</div><div class="pm-card-desc">Галерейная печать на натуральном льне</div><div class="pm-card-price">от 2 900 ₽ · 3–5 дней</div></div>
+        <div class="pm-card" style="background:#FEF1E1"><div class="pm-card-name">Цифровой</div><div class="pm-card-desc">Арт-портрет в выбранном стиле</div><div class="pm-card-price">от 4 500 ₽ · 5–7 дней</div></div>
+        <div class="pm-card" style="background:#FEF1E1"><div class="pm-card-name">Масло</div><div class="pm-card-desc">Ручная живопись, подпись художника</div><div class="pm-card-price">от 18 000 ₽ · 2–3 недели</div></div>
+      </div>
+    </div>
+
+    <div class="pm-divider"></div>
+
+    <div class="pm-sec" style="background:#FEF5EA">
+      <div class="pm-eye">Как это работает</div>
+      <div class="pm-h2">Четыре шага до<br>вашего портрета</div>
+      <div class="pm-steps">
+        <div class="pm-step"><div class="pm-step-num">01</div><div class="pm-step-name">Загрузите фото</div><div class="pm-step-desc">Любимая фотография хорошего качества</div></div>
+        <div class="pm-step"><div class="pm-step-num">02</div><div class="pm-step-name">Выберите стиль</div><div class="pm-step-desc">Формат, размер, художественный стиль</div></div>
+        <div class="pm-step"><div class="pm-step-num">03</div><div class="pm-step-name">Предпросмотр</div><div class="pm-step-desc">Согласуете перед финальной отправкой</div></div>
+        <div class="pm-step"><div class="pm-step-num">04</div><div class="pm-step-name">Получите работу</div><div class="pm-step-desc">Доставка по всей России</div></div>
+      </div>
+    </div>
+
+    <div class="pm-divider"></div>
+
+    <div class="pm-sec" style="background:#FFFDFA">
+      <div class="pm-eye">Отзывы</div>
+      <div class="pm-quote">"Художник уловил что-то неуловимое — взгляд, улыбку. Мама плакала от счастья."</div>
+      <div class="pm-author">Анна М. · Москва · портрет маслом</div>
+    </div>
+
+    <div class="pm-divider"></div>
+
+    <div class="pm-sec" style="background:#FEF5EA">
+      <div class="pm-eye">Начать</div>
+      <div class="pm-cta-h">Ваша история<br>заслуживает красивой рамки</div>
+      <button class="pm-btn">Создать портрет</button>
+      <div class="pm-cta-note">Бесплатный предпросмотр · Правки до отправки · Доставка по России</div>
+    </div>
+
+    <div class="pm-footer">
+      <div class="pm-footer-inner">
+        <div class="pm-footer-logo">MUSE</div>
+        <div class="pm-footer-links"><span class="pm-footer-link">Услуги</span><span class="pm-footer-link">О студии</span><span class="pm-footer-link">Контакты</span></div>
+      </div>
+      <div class="pm-footer-copy">© 2025 Muse Studio · Москва · Все права защищены</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── 13. КНОПКИ ────────────────────────────────── -->
+<div class="supp-section">
+  <p class="supp-section-title">Кнопки — четыре паттерна</p>
+
+  <style>
+  .btn-showcase {
+    display: grid; grid-template-columns: repeat(4,1fr);
+    gap: calc(var(--sp)*5); margin-bottom: calc(var(--sp)*10);
+  }
+  .btn-demo-card { border-radius: var(--r-xl); border: 1px solid var(--border); overflow: hidden; }
+  .btn-demo-head {
+    padding: calc(var(--sp)*4) calc(var(--sp)*6);
+    border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .btn-demo-label { font-size: var(--text-xs); font-weight: var(--fw-semibold); letter-spacing: .08em; text-transform: uppercase; color: var(--acc); }
+  .btn-demo-ref   { font-size: .58rem; font-family: ui-monospace, monospace; color: var(--muted); }
+  .btn-demo-body  {
+    padding: calc(var(--sp)*10) calc(var(--sp)*6);
+    background: var(--bg2);
+    display: flex; flex-direction: column; align-items: center; gap: calc(var(--sp)*6);
+  }
+  .btn-demo-foot  {
+    padding: calc(var(--sp)*4) calc(var(--sp)*6);
+    font-size: .62rem; font-family: ui-monospace, monospace;
+    color: var(--muted); border-top: 1px solid var(--border); line-height: 1.8;
+  }
+
+  /* П1: Input + accent */
+  .input-group {
+    display: flex; align-items: center;
+    background: var(--ah-50); border: 1.5px solid rgba(40,22,1,.1);
+    border-radius: var(--r-md); padding: .5rem .5rem .5rem 1.25rem;
+    width: 100%; max-width: 340px; gap: .5rem;
+    box-shadow: 0 1px 4px rgba(40,22,1,.06);
+  }
+  .input-group-placeholder {
+    flex: 1; font-size: .82rem; color: rgba(40,22,1,.35);
+    font-family: var(--font-sans); font-weight: var(--fw-regular);
+    white-space: nowrap; overflow: hidden;
+  }
+  .btn-accent-pill {
+    display: inline-flex; align-items: center; gap: .4rem;
+    padding: .55rem 1.1rem; border-radius: var(--r-md);
+    background: var(--ah-600); color: #fff;
+    font-size: .78rem; font-family: var(--font-sans); font-weight: var(--fw-medium);
+    border: none; cursor: pointer; white-space: nowrap;
+    transition: transform .15s; flex-shrink: 0;
+  }
+  .btn-accent-pill:hover { transform: translateY(-2px); }
+  .btn-accent-pill svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* П2: Ghost + dark */
+  .btn-pair { display: flex; align-items: center; gap: .75rem; }
+  .btn-ghost {
+    display: inline-flex; align-items: center;
+    padding: .55rem 1.25rem; border-radius: var(--r-md);
+    background: transparent; color: var(--ah-950);
+    font-size: .82rem; font-family: var(--font-sans); font-weight: var(--fw-medium);
+    border: 1.5px solid rgba(40,22,1,.18); cursor: pointer; transition: color .15s;
+  }
+  .btn-ghost:hover { color: #000; }
+  .btn-dark {
+    display: inline-flex; align-items: center;
+    padding: .55rem 1.25rem; border-radius: var(--r-md);
+    background: var(--ah-950); color: var(--ah-25);
+    font-size: .82rem; font-family: var(--font-sans); font-weight: var(--fw-medium);
+    border: 1.5px solid var(--ah-800); cursor: pointer;
+    transition: transform .25s cubic-bezier(.4,0,.2,1),
+               background .15s ease, border-color .15s ease;
+  }
+  .btn-dark:hover { transform: translateY(-2px); background: var(--ah-800); border-color: var(--ah-700); }
+  .btn-ghost-ondk {
+    display: inline-flex; align-items: center;
+    padding: .55rem 1.25rem; border-radius: var(--r-md);
+    background: transparent; color: rgba(255,249,243,.65);
+    font-size: .82rem; font-family: var(--font-sans); font-weight: var(--fw-medium);
+    border: 1.5px solid rgba(255,249,243,.22); cursor: pointer; transition: transform .15s;
+  }
+  .btn-ghost-ondk:hover { transform: translateY(-2px); }
+  .btn-light {
+    display: inline-flex; align-items: center;
+    padding: .55rem 1.25rem; border-radius: var(--r-md);
+    background: var(--ah-50); color: var(--ah-950);
+    font-size: .82rem; font-family: var(--font-sans); font-weight: var(--fw-medium);
+    border: none; cursor: pointer; transition: transform .15s;
+  }
+  .btn-light:hover { transform: translateY(-2px); }
+
+  /* П3: Tab bar */
+  .tab-bar {
+    display: inline-flex; align-items: center;
+    background: rgba(40,22,1,.10); border: 1px solid rgba(40,22,1,.07);
+    border-radius: var(--r-md); padding: .28rem; gap: .15rem;
+  }
+  .tab-item {
+    display: inline-flex; align-items: center; gap: .4rem;
+    padding: .42rem .9rem; border-radius: var(--r-sm);
+    font-size: .78rem; font-family: var(--font-sans); font-weight: var(--fw-regular);
+    color: rgba(40,22,1,.4); background: transparent; cursor: pointer; white-space: nowrap;
+  }
+  .tab-item:hover { color: var(--ah-900); }
+  .tab-item.active {
+    background: var(--section-bg, var(--ah-100));
+    color: var(--ah-950); font-weight: var(--fw-medium);
+  }
+
+  /* П4: Surface button */
+  .btn-surface {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .65rem 1.25rem; border-radius: var(--r-md);
+    background: var(--ah-100); color: var(--ah-900);
+    font-size: .82rem; font-family: var(--font-sans); font-weight: var(--fw-medium);
+    border: none; cursor: pointer;
+    transition: transform .15s var(--ease), color .15s var(--ease);
+  }
+  .btn-surface:hover { transform: translateY(-2px); color: var(--ah-950); }
+  .btn-surface-arrow { font-size: .9rem; line-height: 1; transition: transform .15s var(--ease); }
+  .btn-surface:hover .btn-surface-arrow { transform: translateX(2px); }
+
+  /* Spec table */
+  .btn-spec-table { width: 100%; border-collapse: collapse; margin-top: calc(var(--sp)*8); }
+  .btn-spec-table th {
+    font-size: .6rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted); font-weight: var(--fw-regular); padding: calc(var(--sp)*2) calc(var(--sp)*4);
+    text-align: left; border-bottom: 1px solid var(--border);
+    font-family: ui-monospace, monospace;
+  }
+  .btn-spec-table td {
+    padding: calc(var(--sp)*3) calc(var(--sp)*4);
+    border-bottom: 1px solid var(--border);
+    font-size: .7rem; font-family: ui-monospace, monospace;
+    color: var(--body); vertical-align: middle;
+  }
+  .btn-spec-table tr:last-child td { border-bottom: none; }
+  .btn-swatch-inline {
+    display: inline-block; width: 14px; height: 14px;
+    border-radius: 3px; vertical-align: middle; margin-right: 5px;
+    border: 1px solid rgba(0,0,0,.06);
+  }
+  @media(max-width:900px) { .btn-showcase { grid-template-columns: repeat(2,1fr); } }
+  @media(max-width:500px) { .btn-showcase { grid-template-columns: 1fr; } }
+  </style>
+
+  <div class="btn-showcase">
+
+    <!-- П1: Input + accent -->
+    <div class="btn-demo-card">
+      <div class="btn-demo-head">
+        <div class="btn-demo-label">Паттерн 1</div>
+        <div class="btn-demo-ref">Input + акцент</div>
+      </div>
+      <div class="btn-demo-body">
+        <div class="input-group">
+          <div class="input-group-placeholder">Как вам помочь?</div>
+          <button class="btn-accent-pill">
+            Задать
+            <svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+          </button>
+        </div>
+        <div style="background:var(--ah-950);border-radius:var(--r-md);padding:.5rem .5rem .5rem 1.25rem;display:flex;align-items:center;gap:.5rem;width:100%;max-width:340px">
+          <div style="flex:1;font-size:.82rem;color:rgba(255,249,243,.3);font-family:var(--font-sans)">Как вам помочь?</div>
+          <button class="btn-accent-pill">
+            Задать
+            <svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="btn-demo-foot">
+        hover: translateY(-2px) only<br>
+        bg: ah-600 — не меняется<br>
+        border: none · radius: r-md
+      </div>
+    </div>
+
+    <!-- П2: Ghost + dark -->
+    <div class="btn-demo-card">
+      <div class="btn-demo-head">
+        <div class="btn-demo-label">Паттерн 2</div>
+        <div class="btn-demo-ref">Ghost + тёмная</div>
+      </div>
+      <div class="btn-demo-body">
+        <div class="btn-pair">
+          <button class="btn-ghost">Подробнее</button>
+          <button class="btn-dark">Попробовать</button>
+        </div>
+        <div style="background:var(--ah-950);padding:1.25rem 1.5rem;border-radius:var(--r-xl);display:flex;justify-content:center">
+          <div class="btn-pair">
+            <button class="btn-ghost-ondk">Подробнее</button>
+            <button class="btn-light">Попробовать</button>
+          </div>
+        </div>
+      </div>
+      <div class="btn-demo-foot">
+        ghost hover: текст темнее<br>
+        dark/light hover: translateY(-2px)<br>
+        PT Sans 500 · radius: r-md
+      </div>
+    </div>
+
+    <!-- П3: Tab bar -->
+    <div class="btn-demo-card">
+      <div class="btn-demo-head">
+        <div class="btn-demo-label">Паттерн 3</div>
+        <div class="btn-demo-ref">Tab bar</div>
+      </div>
+      <div class="btn-demo-body" style="flex-direction:column;gap:0;padding:0">
+        <div style="background:#FFFDFA;padding:1.5rem;display:flex;flex-direction:column;align-items:center;gap:.6rem;--section-bg:#FFFDFA">
+          <div style="font-size:.58rem;font-family:ui-monospace,monospace;color:rgba(40,22,1,.3)">bg: ah-25 #FFFDFA</div>
+          <div class="tab-bar">
+            <div class="tab-item active">Обзор</div>
+            <div class="tab-item">Код</div>
+            <div class="tab-item">Анализ</div>
+          </div>
+        </div>
+        <div style="background:#FEF5EA;padding:1.5rem;display:flex;flex-direction:column;align-items:center;gap:.6rem;--section-bg:#FEF5EA">
+          <div style="font-size:.58rem;font-family:ui-monospace,monospace;color:rgba(40,22,1,.3)">bg: ah-75 #FEF5EA</div>
+          <div class="tab-bar">
+            <div class="tab-item active">Услуги</div>
+            <div class="tab-item">Процесс</div>
+            <div class="tab-item">О нас</div>
+          </div>
+        </div>
+        <div style="background:#FEF1E1;padding:1.5rem;display:flex;flex-direction:column;align-items:center;gap:.6rem;--section-bg:#FEF1E1;border-top:1px solid rgba(40,22,1,.06)">
+          <div style="font-size:.58rem;font-family:ui-monospace,monospace;color:rgba(40,22,1,.3)">bg: ah-100 #FEF1E1</div>
+          <div class="tab-bar">
+            <div class="tab-item active">Портрет</div>
+            <div class="tab-item">Холст</div>
+            <div class="tab-item">Масло</div>
+          </div>
+        </div>
+      </div>
+      <div class="btn-demo-foot">
+        ПРИНЦИП: активный таб = фон секции<br>
+        обёртка = rgba(0,0,0,.10) поверх секции<br>
+        --section-bg на родителе · без анимации
+      </div>
+    </div>
+
+    <!-- П4: Surface -->
+    <div class="btn-demo-card">
+      <div class="btn-demo-head">
+        <div class="btn-demo-label">Паттерн 4</div>
+        <div class="btn-demo-ref">Surface / поверхность</div>
+      </div>
+      <div class="btn-demo-body">
+        <div style="display:flex;flex-direction:column;align-items:flex-start;gap:.75rem">
+          <button class="btn-surface">Подробнее <span class="btn-surface-arrow">→</span></button>
+          <button class="btn-surface">Смотреть работы <span class="btn-surface-arrow">→</span></button>
+          <button class="btn-surface">Детали модели <span class="btn-surface-arrow">→</span></button>
+        </div>
+      </div>
+      <div class="btn-demo-foot">
+        bg: ah-100 — темнее фона секции<br>
+        hover: translateY(-2px) + текст темнее<br>
+        стрелка сдвигается · radius: r-md
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Spec table -->
+  <table class="btn-spec-table">
+    <thead>
+      <tr>
+        <th>Кнопка</th><th>Фон</th><th>Текст</th><th>Border</th><th>Hover</th><th>Применение</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Акцент</td>
+        <td><span class="btn-swatch-inline" style="background:#D97706"></span>#D97706 (ah-600)</td>
+        <td>#fff</td><td>нет</td>
+        <td>translateY(-2px)</td>
+        <td>Главный CTA в input-bar</td>
+      </tr>
+      <tr>
+        <td>Тёмная</td>
+        <td><span class="btn-swatch-inline" style="background:#281601"></span>#281601 (ah-950)</td>
+        <td><span class="btn-swatch-inline" style="background:#FFFDFA;border-color:rgba(0,0,0,.1)"></span>#FFFDFA (ah-25)</td>
+        <td>ah-800 1.5px</td><td>translateY(-2px) + bg→ah-800</td>
+        <td>Primary на светлом фоне, «Заказать»</td>
+      </tr>
+      <tr>
+        <td>Ghost (светлый фон)</td>
+        <td>transparent</td>
+        <td><span class="btn-swatch-inline" style="background:#281601"></span>#281601</td>
+        <td>rgba(40,22,1,.18) 1.5px</td>
+        <td>текст темнее</td>
+        <td>Secondary рядом с тёмной</td>
+      </tr>
+      <tr>
+        <td>Ghost (тёмный фон)</td>
+        <td>transparent</td>
+        <td>rgba(255,249,243,.65)</td>
+        <td>rgba(255,249,243,.22) 1.5px</td>
+        <td>translateY(-2px)</td>
+        <td>Secondary на ah-950</td>
+      </tr>
+      <tr>
+        <td>Светлая (на тёмном)</td>
+        <td><span class="btn-swatch-inline" style="background:#FFF9F3;border-color:rgba(0,0,0,.1)"></span>#FFF9F3 (ah-50)</td>
+        <td><span class="btn-swatch-inline" style="background:#281601"></span>#281601</td>
+        <td>нет</td><td>translateY(-2px)</td>
+        <td>Primary на ah-950 секции</td>
+      </tr>
+      <tr>
+        <td>Tab active</td>
+        <td>= фон секции (--section-bg)</td>
+        <td><span class="btn-swatch-inline" style="background:#281601"></span>#281601</td>
+        <td>нет · сливается с фоном</td>
+        <td>—</td>
+        <td>Активный таб в tab-bar</td>
+      </tr>
+      <tr>
+        <td>Surface (П4)</td>
+        <td><span class="btn-swatch-inline" style="background:#FEF1E1;border-color:rgba(0,0,0,.1)"></span>#FEF1E1 (ah-100)</td>
+        <td><span class="btn-swatch-inline" style="background:#593102"></span>#593102 (ah-900)</td>
+        <td>нет</td>
+        <td>translateY(-2px) + текст ah-950</td>
+        <td>Secondary на светлом фоне</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     INK / SURFACE — Правила сочетания цветов текста и фона
+     Двухцветная система калькулятора и UI-компонентов
+═══════════════════════════════════════════════════════════ -->
+<div class="ds-section" id="ink-surface-rules">
+  <div class="ds-section-title">Ink / Surface — Правила сочетания</div>
+
+  <h3 style="font-family:var(--font-display);font-size:var(--text-2xl);font-weight:var(--fw-semibold);color:var(--ink);margin-bottom:calc(var(--sp)*6);">
+    Два цвета текста: ah-950 (активный) · ah-700 (неактивный)
+  </h3>
+
+  <!-- ── Текст на светлом фоне ─────────────────── -->
+  <table style="width:100%;border-collapse:collapse;margin-bottom:calc(var(--sp)*8);font-size:var(--text-sm);">
+    <thead>
+      <tr style="border-bottom:2px solid var(--ah-200);">
+        <th style="text-align:left;padding:8px 12px;font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);">Роль</th>
+        <th style="text-align:left;padding:8px 12px;font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);">Токен текста</th>
+        <th style="text-align:left;padding:8px 12px;font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);">Цвет</th>
+        <th style="text-align:left;padding:8px 12px;font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);">Где применяется</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">ink (активный)</td>
+        <td style="padding:10px 12px;font-family:ui-monospace,monospace;color:var(--acc);">ah-950 · #281601</td>
+        <td style="padding:10px 12px;"><span style="display:inline-block;width:24px;height:24px;border-radius:4px;background:var(--ah-950);vertical-align:middle;margin-right:6px;border:1px solid rgba(0,0,0,.06);"></span></td>
+        <td style="padding:10px 12px;">Заголовки, body text, выбранные кнопки, активные лейблы, цены, текст инпутов</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">ink-muted (неактивный)</td>
+        <td style="padding:10px 12px;font-family:ui-monospace,monospace;color:var(--acc);">ah-700 · #B26105</td>
+        <td style="padding:10px 12px;"><span style="display:inline-block;width:24px;height:24px;border-radius:4px;background:var(--ah-700);vertical-align:middle;margin-right:6px;border:1px solid rgba(0,0,0,.06);"></span></td>
+        <td style="padding:10px 12px;">Невыбранные кнопки, подписи, section-title (без активной цены), подсказки, placeholder, бейджи цен (неактив), чекбокс-лейблы</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">ink-on-dark</td>
+        <td style="padding:10px 12px;font-family:ui-monospace,monospace;color:var(--acc);">ah-25 · #FFFDFA</td>
+        <td style="padding:10px 12px;"><span style="display:inline-block;width:24px;height:24px;border-radius:4px;background:var(--ah-25);vertical-align:middle;margin-right:6px;border:1px solid rgba(0,0,0,.1);"></span></td>
+        <td style="padding:10px 12px;">Текст на тёмном фоне (hero, кнопки, навигация)</td>
+      </tr>
+      <tr>
+        <td style="padding:10px 12px;font-weight:600;">ink-muted-on-dark</td>
+        <td style="padding:10px 12px;font-family:ui-monospace,monospace;color:var(--acc);">ah-200 · #FDE5C8</td>
+        <td style="padding:10px 12px;"><span style="display:inline-block;width:24px;height:24px;border-radius:4px;background:var(--ah-200);vertical-align:middle;margin-right:6px;border:1px solid rgba(0,0,0,.06);"></span></td>
+        <td style="padding:10px 12px;">Подписи на тёмном фоне (breadcrumbs, hero subtitle)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ── Поверхности (Surface) ─────────────────── -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:var(--fw-semibold);color:var(--ink);margin:calc(var(--sp)*8) 0 calc(var(--sp)*4);">
+    Поверхности (Surface) — фоны компонентов
+  </h3>
+
+  <table style="width:100%;border-collapse:collapse;margin-bottom:calc(var(--sp)*8);font-size:var(--text-sm);">
+    <thead>
+      <tr style="border-bottom:2px solid var(--ah-200);">
+        <th style="text-align:left;padding:8px 12px;font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);">Токен фона</th>
+        <th style="text-align:left;padding:8px 12px;font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);">Цвет</th>
+        <th style="text-align:left;padding:8px 12px;font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);">Назначение</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-family:ui-monospace,monospace;font-weight:600;">ah-25  #FFFDFA</td>
+        <td style="padding:10px 12px;"><span style="display:inline-block;width:40px;height:24px;border-radius:4px;background:var(--ah-25);border:1px solid rgba(0,0,0,.06);"></span></td>
+        <td style="padding:10px 12px;">Контейнеры (calc-panel, calc-order-form, calc-sticky-bar), активная кнопка, модальное тело, карточка «выбрано», upload CTA, <strong>лайтбокс (95% opacity)</strong>, <strong>desktop-price-bar</strong>, <strong>фокус инпутов</strong></td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-family:ui-monospace,monospace;font-weight:600;">ah-50  #FFF9F3</td>
+        <td style="padding:10px 12px;"><span style="display:inline-block;width:40px;height:24px;border-radius:4px;background:var(--ah-50);border:1px solid rgba(0,0,0,.06);"></span></td>
+        <td style="padding:10px 12px;">Неактивная кнопка (size-btn), <strong>инпуты по умолчанию</strong> (form-input, inp-w/h, processing-select, callback-form), wrap-btn трек, frame-trigger секция, бейдж «Популярное»</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-family:ui-monospace,monospace;font-weight:600;">ah-75  #FEF5EA</td>
+        <td style="padding:10px 12px;"><span style="display:inline-block;width:40px;height:24px;border-radius:4px;background:var(--ah-75);border:1px solid rgba(0,0,0,.06);"></span></td>
+        <td style="padding:10px 12px;">Header/footer модалок, «полоска» разделения зон</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-family:ui-monospace,monospace;font-weight:600;">ah-100 #FEF1E1</td>
+        <td style="padding:10px 12px;"><span style="display:inline-block;width:40px;height:24px;border-radius:4px;background:var(--ah-100);border:1px solid rgba(0,0,0,.06);"></span></td>
+        <td style="padding:10px 12px;">Hover неактивной кнопки, фон страницы</td>
+      </tr>
+      <tr>
+        <td style="padding:10px 12px;font-family:ui-monospace,monospace;font-weight:600;">ah-200 #FDE5C8</td>
+        <td style="padding:10px 12px;"><span style="display:inline-block;width:40px;height:24px;border-radius:4px;background:var(--ah-200);border:1px solid rgba(0,0,0,.06);"></span></td>
+        <td style="padding:10px 12px;">Обводка неактивных элементов, разделители, border</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ── Правила сочетания: компоненты ─────────── -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:var(--fw-semibold);color:var(--ink);margin:calc(var(--sp)*8) 0 calc(var(--sp)*4);">
+    Правила по компонентам
+  </h3>
+
+  <table style="width:100%;border-collapse:collapse;font-size:var(--text-sm);">
+    <thead>
+      <tr style="border-bottom:2px solid var(--ah-200);">
+        <th style="text-align:left;padding:8px 12px;font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);">Компонент</th>
+        <th style="text-align:left;padding:8px 12px;font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);">Неактивный</th>
+        <th style="text-align:left;padding:8px 12px;font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);">Hover</th>
+        <th style="text-align:left;padding:8px 12px;font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);">Активный</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">size-btn (капсулы размеров)</td>
+        <td style="padding:10px 12px;">bg:50 · text:700 · border:200</td>
+        <td style="padding:10px 12px;">bg:100 · text:950 · border:700</td>
+        <td style="padding:10px 12px;">bg:25 · text:950 · border:700</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">wrap-btn (toggle-group)</td>
+        <td style="padding:10px 12px;">bg:transparent · text:700</td>
+        <td style="padding:10px 12px;">bg:100 · text:950</td>
+        <td style="padding:10px 12px;">bg:25 + shadow · text:950 · <strong>border:1px ah-700</strong></td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">calc-badge (цена)</td>
+        <td style="padding:10px 12px;">text:700</td>
+        <td style="padding:10px 12px;">—</td>
+        <td style="padding:10px 12px;">text:950 (.is-active)</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">calc-accent («Популярное»)</td>
+        <td style="padding:10px 12px;">bg:50 · text:<strong>950</strong></td>
+        <td style="padding:10px 12px;">—</td>
+        <td style="padding:10px 12px;">—</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">checkbox label</td>
+        <td style="padding:10px 12px;">text:700</td>
+        <td style="padding:10px 12px;">—</td>
+        <td style="padding:10px 12px;">text:950 (:has checked)</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">section-title</td>
+        <td style="padding:10px 12px;">text:700 (по умолчанию)</td>
+        <td style="padding:10px 12px;">—</td>
+        <td style="padding:10px 12px;">text:950 (всегда активные: «Печать и подрамник», «Кол-во лиц»)</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">calc-hint-btn (?)</td>
+        <td style="padding:10px 12px;">text:700 · border:700</td>
+        <td style="padding:10px 12px;">text:900 · border:900</td>
+        <td style="padding:10px 12px;">—</td>
+      </tr>
+
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">form-input</td>
+        <td style="padding:10px 12px;">bg:50 · text:950 · border:200 · placeholder:700</td>
+        <td style="padding:10px 12px;">—</td>
+        <td style="padding:10px 12px;">focus → bg:25 · outline:700</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">modal header/footer</td>
+        <td style="padding:10px 12px;">bg:75 · border:200</td>
+        <td style="padding:10px 12px;">—</td>
+        <td style="padding:10px 12px;">—</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">modal body</td>
+        <td style="padding:10px 12px;">bg:25</td>
+        <td style="padding:10px 12px;">—</td>
+        <td style="padding:10px 12px;">—</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">ghost button (Отмена)</td>
+        <td style="padding:10px 12px;">bg:transparent · text:700</td>
+        <td style="padding:10px 12px;">bg:100 · text:950</td>
+        <td style="padding:10px 12px;">—</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">text link (Выбрать из каталога)</td>
+        <td style="padding:10px 12px;">text:700</td>
+        <td style="padding:10px 12px;">text:950 + underline</td>
+        <td style="padding:10px 12px;">—</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">frame-option (карточка багета)</td>
+        <td style="padding:10px 12px;">bg:transparent · border:transparent · text:700</td>
+        <td style="padding:10px 12px;">bg:100 · text:950</td>
+        <td style="padding:10px 12px;">bg:25 · text:950 · <strong>border:ah-700</strong></td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">lightbox (превью багета)</td>
+        <td style="padding:10px 12px;">bg:25 (95% opacity) · backdrop-blur</td>
+        <td style="padding:10px 12px;">—</td>
+        <td style="padding:10px 12px;">цена text:950</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">upload CTA (загрузить фото)</td>
+        <td style="padding:10px 12px;">bg:25 · border:200 · text:700</td>
+        <td style="padding:10px 12px;">border:700 · text:950</td>
+        <td style="padding:10px 12px;">—</td>
+      </tr>
+
+      <!-- ── Новые компоненты (v7.3 — lightbox, thumbnails, transitions) ── -->
+      <tr style="border-top:2px solid var(--ah-200);border-bottom:1px solid var(--ah-100);">
+        <td colspan="4" style="padding:14px 12px 6px;font-weight:700;font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.1em;color:var(--acc);">Лайтбокс &amp; миниатюры</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">lightbox (превью багета)</td>
+        <td style="padding:10px 12px;">bg:25 (95% opacity) · backdrop-blur</td>
+        <td style="padding:10px 12px;">—</td>
+        <td style="padding:10px 12px;">цена text:700</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">#lightbox-close</td>
+        <td style="padding:10px 12px;">color:700</td>
+        <td style="padding:10px 12px;">color:950</td>
+        <td style="padding:10px 12px;">—</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">.lightbox-select-btn («Выбрать этот багет»)</td>
+        <td style="padding:10px 12px;">bg:950 · text:25 · border:rgba(fff,.18)</td>
+        <td style="padding:10px 12px;">translateY(-2px)</td>
+        <td style="padding:10px 12px;">Паттерн 2 тёмная · PT Sans 600 · r-lg</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">uploader-thumb-wrap</td>
+        <td style="padding:10px 12px;">border:200 (как form-input)</td>
+        <td style="padding:10px 12px;">border:700</td>
+        <td style="padding:10px 12px;">--color-primary→ah-700 · box-shadow: color-mix(ah-700 25%)</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">frame-section icon (.w-10)</td>
+        <td style="padding:10px 12px;">transition: .3s ease (in+out)</td>
+        <td style="padding:10px 12px;">bg:600 · border:600 · svg:25</td>
+        <td style="padding:10px 12px;">—</td>
+      </tr>
+      <tr style="border-top:2px solid var(--ah-200);border-bottom:1px solid var(--ah-100);">
+        <td colspan="4" style="padding:14px 12px 6px;font-weight:700;font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.1em;color:var(--acc);">Контейнеры калькулятора</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">calc-panel</td>
+        <td style="padding:10px 12px;">bg:25 · border:200</td>
+        <td style="padding:10px 12px;">—</td>
+        <td style="padding:10px 12px;">— (input.css пишет white → override)</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">calc-order-form</td>
+        <td style="padding:10px 12px;">bg:25 · border:200</td>
+        <td style="padding:10px 12px;">—</td>
+        <td style="padding:10px 12px;">— (input.css пишет white → override)</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">calc-sticky-bar (мобильный)</td>
+        <td style="padding:10px 12px;">bg:<strong>950</strong> · border:<strong>800</strong> · text:<strong>25</strong></td>
+        <td style="padding:10px 12px;">Тёмная поверхность</td>
+        <td style="padding:10px 12px;">Кнопка: bg:950, border:700, hover→translateY(-2px)+bg:800</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">desktop-price-bar</td>
+        <td style="padding:10px 12px;">bg:<strong>25</strong> · border:<strong>200</strong> · text:<strong>950</strong></td>
+        <td style="padding:10px 12px;">Светлая поверхность</td>
+        <td style="padding:10px 12px;">Текст цены — ah-950, рамка — ah-200, border-radius 0 0 1rem 1rem</td>
+      </tr>
+
+      <tr style="border-top:2px solid var(--ah-200);border-bottom:1px solid var(--ah-100);">
+        <td colspan="4" style="padding:14px 12px 6px;font-weight:700;font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.1em;color:var(--acc);">Инпуты и селекты</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">#inp-w / #inp-h (ввод размеров)</td>
+        <td style="padding:10px 12px;">bg:50 · border:200 · text:950</td>
+        <td style="padding:10px 12px;">—</td>
+        <td style="padding:10px 12px;">focus → bg:25 · outline:700</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">#processing-select</td>
+        <td style="padding:10px 12px;">bg:50 · border:200</td>
+        <td style="padding:10px 12px;">—</td>
+        <td style="padding:10px 12px;">focus → bg:25 · outline:700</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">#callback-form input/select</td>
+        <td style="padding:10px 12px;">bg:50</td>
+        <td style="padding:10px 12px;">—</td>
+        <td style="padding:10px 12px;">focus → bg:25</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">#city-search</td>
+        <td style="padding:10px 12px;">—</td>
+        <td style="padding:10px 12px;">hover → bg:25</td>
+        <td style="padding:10px 12px;">focus → bg:25</td>
+      </tr>
+
+      <tr style="border-top:2px solid var(--ah-200);border-bottom:1px solid var(--ah-100);">
+        <td colspan="4" style="padding:14px 12px 6px;font-weight:700;font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.1em;color:var(--acc);">Глобальные переопределения</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">wrap-btn трек (контейнер)</td>
+        <td style="padding:10px 12px;" colspan="3">HTML-класс: bg-ah-50 (было bg-secondary → слишком оранжевый)</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">.bg-white catch-all</td>
+        <td style="padding:10px 12px;" colspan="3">[data-theme="amber"] .bg-white { background-color: ah-25; } — переопределяет ВСЕ .bg-white на странице</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">hover:bg-white / focus:bg-white</td>
+        <td style="padding:10px 12px;" colspan="3">→ ah-25 (иначе Tailwind даёт чистый #fff)</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">border-gray-200 / 100 (в [data-calc-root])</td>
+        <td style="padding:10px 12px;" colspan="3">→ ah-200 (Tailwind серый → тёплый янтарный border)</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--ah-100);">
+        <td style="padding:10px 12px;font-weight:600;">border-gray-600</td>
+        <td style="padding:10px 12px;" colspan="3">→ ah-700</td>
+      </tr>
+      <tr>
+        <td style="padding:10px 12px;font-weight:600;">calc-checkbox</td>
+        <td style="padding:10px 12px;" colspan="3">width/height: 1.25rem (20px), border-radius: 4px (input.css задаёт 1rem → слишком мелко)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ── Иерархия поверхностей ────────────────── -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:var(--fw-semibold);color:var(--ink);margin:calc(var(--sp)*8) 0 calc(var(--sp)*4);">
+    Иерархия поверхностей (Surface Hierarchy)
+  </h3>
+
+  <div style="font-family:var(--font-mono);font-size:var(--text-sm);line-height:1.8;padding:calc(var(--sp)*6);background:var(--ah-50);border-radius:12px;border:1px solid var(--ah-200);color:var(--ink);margin-bottom:calc(var(--sp)*8);">
+    <strong>Страница</strong>&nbsp; ah-100 (#FEF1E1) — фон body<br>
+    &nbsp;&nbsp;├─ <strong>Контейнер (светлый)</strong>&nbsp; ah-25 (#FFFDFA) — calc-panel, calc-order-form, модалки, <strong>desktop-price-bar</strong>, <strong>лайтбокс (95%)</strong><br>
+    &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;└─ <strong>Интерактив</strong>&nbsp; ah-50 (#FFF9F3) — инпуты, select, wrap-btn трек, frame-trigger<br>
+    &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ <strong>Фокус</strong>&nbsp; ah-25 (#FFFDFA) — поднимаемся обратно (focus = «стеклянная чистота»)<br>
+    &nbsp;&nbsp;└─ <strong>Контейнер (тёмный)</strong>&nbsp; ah-950 (#281601) — calc-sticky-bar, меню, футер<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ <strong>Текст на тёмном</strong>&nbsp; ah-25 (#FFFDFA) = ink-on-dark, ah-200 = ink-muted-on-dark<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ <strong>Кнопка на тёмном</strong>&nbsp; bg:950, border:rgba(fff,.18), hover → translateY(-2px)<br>
+    <br>
+    <strong>Hover неактивных</strong>&nbsp; ah-100 (#FEF1E1) — size-btn:hover, wrap-btn:hover, frame-option:hover<br>
+    <strong>Hover формы</strong>&nbsp; ah-75 (#FEF5EA) — модальные header/footer
+  </div>
+
+  <div style="background:var(--ah-100);padding:calc(var(--sp)*6);border-radius:12px;border:1px solid var(--ah-200);margin-bottom:calc(var(--sp)*8);">
+    <p style="font-weight:700;font-size:var(--text-sm);color:var(--acc);text-transform:uppercase;letter-spacing:.1em;margin-bottom:calc(var(--sp)*3);">Паттерн инпутов: ah-50 → ah-25 при фокусе</p>
+    <p style="font-size:var(--text-sm);color:var(--ink);margin-bottom:calc(var(--sp)*2);">
+      <strong>По умолчанию:</strong> bg ah-50, border ah-200, text ah-950, placeholder ah-700<br>
+      <strong>При :focus:</strong> bg ah-25, outline ah-700, border transparent<br>
+      <strong>Почему:</strong> ah-50 даёт лёгкий тон, показывающий «зона ввода». При фокусе переход на ah-25 создаёт ощущение «стеклянной чистоты» — как будто поверхность стала ярче.
+    </p>
+    <p style="font-size:var(--text-xs);color:var(--muted);margin-top:calc(var(--sp)*2);">
+      WCAG: ah-950 на ah-50 = 16.5:1 (AAA ✅) · ah-700 на ah-50 = 4.37:1 (AA для крупного текста ✅)
+    </p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     CSS OVERRIDE BLOCK — ПОЛНЫЙ КОД ДЛЯ КОПИРОВАНИЯ
+     Вставляется в <head> каждой страницы перед </head>
+     Требует: data-theme="amber" на <body>
+     ══════════════════════════════════════════════════════════ -->
+<div class="ds-section" id="css-copy-block">
+  <div class="ds-section-title">CSS Override Block — Копировать на каждую страницу</div>
+
+  <div style="background:var(--ah-100);padding:calc(var(--sp)*6);border-radius:12px;border:1px solid var(--ah-200);margin-bottom:calc(var(--sp)*6);">
+    <p style="font-weight:700;font-size:var(--text-sm);color:var(--acc);text-transform:uppercase;letter-spacing:.1em;margin-bottom:calc(var(--sp)*3);">Инструкция</p>
+    <ol style="font-size:var(--text-sm);color:var(--ink);line-height:1.6;padding-left:1.5em;">
+      <li>Добавьте <code>data-theme="amber"</code> на тег <code>&lt;body&gt;</code></li>
+      <li>Замените ссылку Google Fonts: <code>DM+Sans</code> → <code>PT+Sans:wght@400;700</code></li>
+      <li>Скопируйте весь блок <code>&lt;style&gt;...&lt;/style&gt;</code> ниже и вставьте в <code>&lt;head&gt;</code> перед <code>&lt;/head&gt;</code></li>
+      <li>В HTML замените <code>bg-secondary</code> на <code>bg-ah-50</code> у контейнера wrap-btn (трек toggle-группы)</li>
+      <li>В HTML замените <code>bg-ah-25</code> на <code>bg-ah-50</code> у <code>#frame-section</code> (если есть)</li>
+    </ol>
+  </div>
+
+  <p style="font-size:var(--text-sm);color:var(--muted);margin-bottom:calc(var(--sp)*4);">
+    Google Fonts ссылка (замените старую):
+  </p>
+  <div class="code-block" style="margin-bottom:calc(var(--sp)*6);font-size:12px;"><span class="c-comment">&lt;!-- Заменить старую ссылку на шрифты --&gt;</span>
+&lt;link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700<span class="c-val">&amp;family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700</span>&amp;display=swap" rel="stylesheet"&gt;</div>
+
+  <p style="font-size:var(--text-sm);color:var(--muted);margin-bottom:calc(var(--sp)*4);">
+    Полный &lt;style&gt; блок — эталон из <code>portret-maslom-v7.html</code>:
+  </p>
+  <div class="code-block" style="font-size:11px;max-height:80vh;overflow-y:auto;">&lt;style&gt;
+<span class="c-comment">/* ── Amber palette as CSS custom properties ────── */</span>
+<span class="c-key">:root</span> {
+  <span class="c-var">--color-ah-25</span>:  <span class="c-val">#FFFDFA</span>;
+  <span class="c-var">--color-ah-50</span>:  <span class="c-val">#FFF9F3</span>;
+  <span class="c-var">--color-ah-75</span>:  <span class="c-val">#FEF5EA</span>;
+  <span class="c-var">--color-ah-100</span>: <span class="c-val">#FEF1E1</span>;
+  <span class="c-var">--color-ah-125</span>: <span class="c-val">#FEEDDA</span>;
+  <span class="c-var">--color-ah-150</span>: <span class="c-val">#FEEAD4</span>;
+  <span class="c-var">--color-ah-175</span>: <span class="c-val">#FEE7CE</span>;
+  <span class="c-var">--color-ah-200</span>: <span class="c-val">#FDE5C8</span>;
+  <span class="c-var">--color-ah-600</span>: <span class="c-val">#D97706</span>;
+  <span class="c-var">--color-ah-700</span>: <span class="c-val">#B26105</span>;
+  <span class="c-var">--color-ah-800</span>: <span class="c-val">#8B4C04</span>;
+  <span class="c-var">--color-ah-900</span>: <span class="c-val">#593102</span>;
+  <span class="c-var">--color-ah-950</span>: <span class="c-val">#281601</span>;
+  <span class="c-var">--color-ah-975</span>: <span class="c-val">#140B01</span>;
+  <span class="c-var">--font-display</span>: <span class="c-val">"Playfair Display", Georgia, "Times New Roman", serif</span>;
+  <span class="c-var">--font-sans</span>: <span class="c-val">"PT Sans", system-ui, -apple-system, sans-serif</span>;
+}
+
+<span class="c-comment">/* ── Font utilities ───────────────────────── */</span>
+<span class="c-key">.font-display</span> { font-family: var(--font-display); }
+<span class="c-key">.font-sans</span>    { font-family: var(--font-sans); }
+
+<span class="c-comment">/* Body text → PT Sans */</span>
+<span class="c-key">[data-theme="amber"]</span> { font-family: var(--font-sans); }
+<span class="c-key">[data-theme="amber"] .btn-accent-pill,
+[data-theme="amber"] .btn-primary,
+[data-theme="amber"] .btn-inverse,
+[data-theme="amber"] .btn-header-cta</span> { font-family: var(--font-sans); }
+
+<span class="c-comment">/* ── Eyebrow utility ────────────────────────── */</span>
+<span class="c-key">.eyebrow</span> {
+  font-family: var(--font-sans);
+  font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--color-ah-600);
+}
+
+<span class="c-comment">/* ── Hero amber glow ────────────────────────── */</span>
+<span class="c-key">[data-theme="amber"] #hero</span> { position: relative; overflow: hidden; }
+<span class="c-key">[data-theme="amber"] #hero::before</span> {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 70% at 30% 50%, rgba(217,119,6,.18) 0%, transparent 70%);
+  pointer-events: none; z-index: 1;
+}
+<span class="c-key">[data-theme="amber"] #hero > .container</span> { position: relative; z-index: 2; }
+
+<span class="c-comment">/* ══ Ink utilities (light bg) ══════════════════ */</span>
+<span class="c-key">.text-ink</span>       { color: var(--color-ah-950); }
+<span class="c-key">.text-ink-soft</span>  { color: var(--color-ah-900); }
+<span class="c-key">.text-ink-muted</span> { color: var(--color-ah-700); }
+
+<span class="c-comment">/* ── Ink utilities (dark bg) ── */</span>
+<span class="c-key">.text-ink-on-dark</span>       { color: var(--color-ah-25); }
+<span class="c-key">.text-ink-muted-on-dark</span> { color: var(--color-ah-200); }
+
+<span class="c-comment">/* ══ Calc overrides using ink system ══════════ */</span>
+<span class="c-key">[data-theme="amber"] .section-title</span> { color: var(--color-ah-700); }
+<span class="c-key">[data-theme="amber"] section:has(.wrap-btn) > .section-title</span> { color: var(--color-ah-950); }
+<span class="c-key">[data-theme="amber"] #portrait-faces-section > .section-title</span> { color: var(--color-ah-950); }
+<span class="c-key">[data-theme="amber"] .calc-badge</span> { color: var(--color-ah-700); }
+<span class="c-key">[data-theme="amber"] .calc-badge.is-active</span> { color: var(--color-ah-950); }
+
+<span class="c-comment">/* Wrap-btn: transparent → ah-100 hover → ah-25 active */</span>
+<span class="c-key">[data-theme="amber"] .wrap-btn</span> {
+  color: var(--color-ah-700); background: transparent;
+}
+<span class="c-key">[data-theme="amber"] .wrap-btn:hover</span> {
+  color: var(--color-ah-950); background: var(--color-ah-100);
+}
+<span class="c-key">[data-theme="amber"] .wrap-btn.is-active</span> {
+  color: var(--color-ah-950); background: var(--color-ah-25);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--color-ah-700);
+}
+
+<span class="c-key">[data-theme="amber"] .calc-hint-btn</span>     { border-color: var(--color-ah-700); color: var(--color-ah-700); }
+<span class="c-key">[data-theme="amber"] .calc-hint-btn:hover</span> { border-color: var(--color-ah-900); color: var(--color-ah-900); }
+
+<span class="c-comment">/* Accent badge «Популярное» */</span>
+<span class="c-key">[data-theme="amber"] .calc-accent</span> { color: var(--color-ah-950); background-color: var(--color-ah-50); }
+
+<span class="c-comment">/* JS-generated gray → ah-700 */</span>
+<span class="c-key">[data-theme="amber"] [data-calc-root] .text-gray-500</span> { color: var(--color-ah-700); }
+<span class="c-key">[data-theme="amber"] [data-calc-root] .text-gray-400</span> { color: var(--color-ah-700); }
+
+<span class="c-comment">/* Checkbox labels & frame text */</span>
+<span class="c-key">[data-theme="amber"] [data-calc-root] label.text-body</span> { color: var(--color-ah-700); }
+<span class="c-key">[data-theme="amber"] [data-calc-root] section[data-portrait-option]:has(.calc-checkbox:checked) label.text-body</span> { color: var(--color-ah-950); }
+<span class="c-key">[data-theme="amber"] #selected-frame-text</span> { color: var(--color-ah-700); }
+
+<span class="c-comment">/* Checkbox: bigger 20px */</span>
+<span class="c-key">[data-theme="amber"] .calc-checkbox</span> { width: 1.25rem; height: 1.25rem; border-radius: 4px; }
+
+<span class="c-comment">/* ══ Size-btn: warm rounded buttons ══════════ */</span>
+<span class="c-key">[data-theme="amber"] .size-btn</span> {
+  background: var(--color-ah-50); color: var(--color-ah-700);
+  border-color: var(--color-ah-200); border-radius: 0.5rem;
+}
+<span class="c-key">[data-theme="amber"] .size-btn:hover</span> {
+  background: var(--color-ah-100); color: var(--color-ah-950); border-color: var(--color-ah-700);
+}
+<span class="c-key">[data-theme="amber"] .size-btn.is-active</span> {
+  background: var(--color-ah-25); color: var(--color-ah-950); border-color: var(--color-ah-700);
+}
+
+<span class="c-comment">/* ══ Form-input: ah-50 → ah-25 on focus ══════ */</span>
+<span class="c-key">[data-theme="amber"] .form-input</span> {
+  border-color: var(--color-ah-200); color: var(--color-ah-950); background: var(--color-ah-50);
+}
+<span class="c-key">[data-theme="amber"] .form-input::placeholder</span> { color: var(--color-ah-700); opacity: 1; }
+<span class="c-key">[data-theme="amber"] .form-input:focus</span> {
+  outline-color: var(--color-ah-700); border-color: transparent; background: var(--color-ah-25);
+}
+<span class="c-key">[data-theme="amber"] #order-form-container .border-gray-100</span> { border-color: var(--color-ah-200); }
+
+<span class="c-comment">/* ══ Calc containers: white → ah-25 ══════════ */</span>
+<span class="c-key">[data-theme="amber"] .calc-panel</span>      { background-color: var(--color-ah-25); border-color: var(--color-ah-200); }
+<span class="c-comment">/* Стикки-фикс: input.css задаёт min-height:38rem → панель выше левой колонки */</span>
+<span class="c-key">@media (min-width: 1024px)</span> {
+  <span class="c-key">[data-theme="amber"] .calc-panel</span> { min-height: <span class="c-val">auto</span>; }
+}
+<span class="c-key">[data-theme="amber"] .calc-order-form</span> { background-color: var(--color-ah-25); border-color: var(--color-ah-200); }
+<span class="c-comment">/* ══ Light surface: price-bar ═════════════════ */</span>
+<span class="c-key">[data-theme="amber"] #desktop-price-bar</span> {
+  background-color: var(--color-ah-25); border-color: var(--color-ah-200);
+  border-radius: 0 0 1rem 1rem;
+}
+<span class="c-key">[data-theme="amber"] #desktop-price-bar span</span> { color: var(--color-ah-950); }
+<span class="c-key">[data-theme="amber"] .calc-sticky-bar</span> { background-color: var(--color-ah-950); border-color: var(--color-ah-800); }
+<span class="c-key">[data-theme="amber"] .calc-sticky-bar *</span> { color: var(--color-ah-25); }
+
+<span class="c-comment">/* «Заказать» — Pattern 2 dark button */</span>
+<span class="c-key">[data-theme="amber"] #btn-submit-order</span> {
+  background-color: var(--color-ah-950); color: var(--color-ah-25);
+  border: 1px solid rgba(255,253,250,.18);
+  transition: transform .25s cubic-bezier(.4,0,.2,1);
+}
+<span class="c-key">[data-theme="amber"] #btn-submit-order:hover</span> {
+  transform: translateY(-2px);
+}
+<span class="c-comment">/* Mobile sticky «Заказать» */</span>
+<span class="c-key">[data-theme="amber"] #btn-sticky-order</span> {
+  background-color: var(--color-ah-950) !important; color: var(--color-ah-25) !important;
+  border: 1px solid rgba(255,253,250,.18) !important;
+  transition: transform .25s cubic-bezier(.4,0,.2,1) !important;
+}
+<span class="c-key">[data-theme="amber"] #btn-sticky-order:hover</span> {
+  transform: translateY(-2px); background-color: var(--color-ah-950) !important;
+}
+
+<span class="c-comment">/* Catch-all: every .bg-white → ah-25 */</span>
+<span class="c-key">[data-theme="amber"] .bg-white</span> { background-color: var(--color-ah-25); }
+
+<span class="c-comment">/* Gray borders → amber */</span>
+<span class="c-key">[data-theme="amber"] [data-calc-root] .border-gray-200</span> { border-color: var(--color-ah-200); }
+<span class="c-key">[data-theme="amber"] [data-calc-root] .border-gray-100</span> { border-color: var(--color-ah-200); }
+<span class="c-key">[data-theme="amber"] .border-gray-600</span> { border-color: var(--color-ah-700); }
+
+<span class="c-comment">/* ══ Size inputs → amber ══════════════════════ */</span>
+<span class="c-key">[data-theme="amber"] #inp-w,
+[data-theme="amber"] #inp-h</span> {
+  border-color: var(--color-ah-200); color: var(--color-ah-950); background-color: var(--color-ah-50);
+}
+<span class="c-key">[data-theme="amber"] #inp-w:focus-visible,
+[data-theme="amber"] #inp-h:focus-visible</span> { outline-color: var(--color-ah-700); background-color: var(--color-ah-25); }
+
+<span class="c-comment">/* ══ Processing select → amber ═══════════════ */</span>
+<span class="c-key">[data-theme="amber"] #processing-select</span>                { background-color: var(--color-ah-50); border-color: var(--color-ah-200); }
+<span class="c-key">[data-theme="amber"] #processing-select:focus-visible</span>  { outline-color: var(--color-ah-700); background-color: var(--color-ah-25); }
+
+<span class="c-comment">/* City search / callback form */</span>
+<span class="c-key">[data-theme="amber"] #city-search:hover,
+[data-theme="amber"] #city-search:focus</span> { background-color: var(--color-ah-25); }
+
+<span class="c-key">[data-theme="amber"] #callback-form input,
+[data-theme="amber"] #callback-form select</span>       { background-color: var(--color-ah-50); }
+<span class="c-key">[data-theme="amber"] #callback-form input:focus,
+[data-theme="amber"] #callback-form select:focus</span> { background-color: var(--color-ah-25); }
+
+<span class="c-comment">/* Tailwind hover/focus:bg-white → ah-25 */</span>
+<span class="c-key">[data-theme="amber"] .hover\:bg-white:hover</span> { background-color: var(--color-ah-25); }
+<span class="c-key">[data-theme="amber"] .focus\:bg-white:focus</span> { background-color: var(--color-ah-25); }
+
+<span class="c-comment">/* ══ Frame modal → amber ink system ══════════ */</span>
+<span class="c-key">[data-theme="amber"] .calc-frame-modal-content</span> { background: var(--color-ah-25); }
+<span class="c-key">[data-theme="amber"] .calc-frame-modal-header</span>  { background: var(--color-ah-75); border-color: var(--color-ah-200); }
+<span class="c-key">[data-theme="amber"] .calc-frame-modal-body</span>    { background: var(--color-ah-25); }
+<span class="c-key">[data-theme="amber"] .calc-frame-modal-footer</span>  { background: var(--color-ah-75); border-color: var(--color-ah-200); }
+<span class="c-key">[data-theme="amber"] .calc-frame-upload-cta</span>    { background: var(--color-ah-25); border-color: var(--color-ah-200); }
+<span class="c-key">[data-theme="amber"] #lightbox-content .text-primary</span> { color: var(--color-ah-700); }
+
+<span class="c-comment">/* ══ Lightbox close + select button ══════════ */</span>
+<span class="c-key">[data-theme="amber"] #lightbox-close</span> { color: var(--color-ah-700); }
+<span class="c-key">[data-theme="amber"] #lightbox-close:hover</span> { color: var(--color-ah-950); }
+
+<span class="c-key">[data-theme="amber"] .lightbox-select-btn</span> {
+  background-color: var(--color-ah-950); color: var(--color-ah-25);
+  border: 1px solid rgba(255,253,250,.18);
+  font-family: var(--font-sans); font-size: 0.75rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 0.65rem 1.5rem; border-radius: 0.5rem; cursor: pointer;
+  transition: transform .25s cubic-bezier(.4,0,.2,1);
+}
+<span class="c-key">[data-theme="amber"] .lightbox-select-btn:hover</span> { transform: translateY(-2px); }
+
+<span class="c-comment">/* ══ Uploader thumbnail borders ══════════════ */</span>
+<span class="c-key">[data-theme="amber"] .uploader-thumb-wrap</span> { border-color: var(--color-ah-200); }
+<span class="c-key">[data-theme="amber"] .uploader-thumb-active</span> {
+  --color-primary: var(--color-ah-700);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-ah-700) 25%, transparent);
+}
+<span class="c-key">[data-theme="amber"] .uploader-thumb-wrap:hover</span> { border-color: var(--color-ah-700); }
+
+<span class="c-comment">/* ══ Frame-section icon transition (.3s in+out) ═ */</span>
+<span class="c-key">[data-theme="amber"] #frame-section .w-10</span> { transition: background-color .3s ease, border-color .3s ease; }
+<span class="c-key">[data-theme="amber"] #frame-section .w-10 svg</span> { transition: color .3s ease; }
+<span class="c-key">[data-theme="amber"] #frame-section:hover .w-10</span> { background-color: var(--color-ah-600); border-color: var(--color-ah-600); }
+<span class="c-key">[data-theme="amber"] #frame-section:hover .w-10 svg</span> { color: var(--color-ah-25); }
+
+<span class="c-comment">/* ══ Frame-option cards ══════════════════════ */</span>
+<span class="c-key">[data-theme="amber"] .frame-option</span>       { background: transparent; border-color: transparent; }
+<span class="c-key">[data-theme="amber"] .frame-option:hover</span> { background: var(--color-ah-100); border-color: transparent; }
+<span class="c-key">[data-theme="amber"] .frame-option.border-primary</span> { border-color: var(--color-ah-700); background: var(--color-ah-25); }
+<span class="c-key">[data-theme="amber"] .frame-option span</span>       { color: var(--color-ah-700); }
+<span class="c-key">[data-theme="amber"] .frame-option:hover span,
+[data-theme="amber"] .frame-option.border-primary span</span> { color: var(--color-ah-950); }
+
+<span class="c-comment">/* ══ Amber theme semantic overrides ══════════ */</span>
+<span class="c-key">[data-theme="amber"]</span> {
+  --color-primary: #140B01; --color-primary-hover: #281601;
+  --color-primary-light: #FEF1E1; --color-primary-text: #8B4C04;
+  --color-primary-text-hover: #593102; --color-dark: #140B01;
+  --color-body: #281601; --color-secondary: #FDE5C8;
+  background-color: var(--color-ah-100);
+}
+
+<span class="c-comment">/* Headings → Playfair Display */</span>
+<span class="c-key">[data-theme="amber"] .heading-hero,
+[data-theme="amber"] .heading-section,
+[data-theme="amber"] .heading-subsection,
+[data-theme="amber"] .heading-card</span> {
+  font-family: var(--font-display); font-weight: 400; letter-spacing: -0.015em;
+}
+<span class="c-key">[data-theme="amber"] .heading-hero</span>    { font-size: clamp(2.25rem, 5vw, 3.5rem); line-height: 1.1; }
+<span class="c-key">[data-theme="amber"] .heading-section</span> { font-size: clamp(1.875rem, 4vw, 2.5rem); line-height: 1.15; }
+
+<span class="c-comment">/* Pill-кнопки → 0.5rem border-radius */</span>
+<span class="c-key">[data-theme="amber"] .btn-primary,
+[data-theme="amber"] .btn-header-cta</span> { border-radius: 0.5rem; }
+<span class="c-key">[data-theme="amber"] .btn-inverse</span>     { border-radius: 0.5rem; }
+
+<span class="c-comment">/* Accent-pill кнопка */</span>
+<span class="c-key">[data-theme="amber"] .btn-accent-pill</span> {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.75rem 2rem; border-radius: 0.5rem;
+  background: var(--color-ah-600); color: #fff;
+  font-size: 0.75rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  transition: background .15s cubic-bezier(.4,0,.2,1), transform .25s cubic-bezier(.4,0,.2,1);
+}
+<span class="c-key">[data-theme="amber"] .btn-accent-pill:hover</span> { background: var(--color-ah-700); transform: translateY(-2px); }
+
+<span class="c-comment">/* Ghost-кнопки на тёмных фонах */</span>
+<span class="c-key">[data-theme="amber"] :is(.bg-dark, .cta-section) :is(.btn-primary, .btn-header-cta)</span> {
+  background: transparent; border: 1px solid rgba(255,253,250,.28); color: #FFFDFA;
+}
+<span class="c-key">[data-theme="amber"] :is(.bg-dark, .cta-section) :is(.btn-primary, .btn-header-cta):hover</span> {
+  background: rgba(255,253,250,.08); border-color: rgba(255,253,250,.45);
+}
+
+<span class="c-comment">/* Акцент ah-600 — декор */</span>
+<span class="c-key">[data-theme="amber"] .text-accent</span> { color: var(--color-ah-600); }
+<span class="c-key">[data-theme="amber"] .heading-hero u,
+[data-theme="amber"] .heading-section u,
+[data-theme="amber"] .cta-title u</span> {
+  text-decoration: underline; text-decoration-color: var(--color-ah-600);
+  text-decoration-thickness: 2px; text-underline-offset: 7px;
+}
+
+<span class="c-comment">/* Amber gradients */</span>
+<span class="c-key">[data-theme="amber"] .promo-section</span> {
+  background: linear-gradient(90deg, var(--color-ah-800) 0%, var(--color-ah-600) 55%, var(--color-ah-900) 100%);
+}
+<span class="c-key">[data-theme="amber"] .advantages-section</span> {
+  background: linear-gradient(135deg, var(--color-ah-800) 0%, var(--color-ah-600) 45%, var(--color-ah-900) 100%);
+}
+&lt;/style&gt;</div>
+
+  <p style="font-size:var(--text-sm);color:var(--muted);margin:calc(var(--sp)*6) 0 calc(var(--sp)*4);">
+    Утилитарные классы (bg-ah-*, text-ah-*, border-ah-*, hover:* и т.д.) — добавить в тот же &lt;style&gt;:
+  </p>
+  <div class="code-block" style="font-size:11px;max-height:60vh;overflow-y:auto;"><span class="c-comment">/* ── Amber Tailwind-like utilities ─────────────── */</span>
+<span class="c-comment">/* Background */</span>
+.bg-ah-25   { background-color: #FFFDFA; }
+.bg-ah-50   { background-color: #FFF9F3; }
+.bg-ah-75   { background-color: #FEF5EA; }
+.bg-ah-100  { background-color: #FEF1E1; }
+.bg-ah-100\/50 { background-color: rgb(254 241 225 / .5); }
+.bg-ah-200  { background-color: #FDE5C8; }
+.bg-ah-600  { background-color: #D97706; }
+.bg-ah-600\/5  { background-color: rgb(217 119 6 / .05); }
+.bg-ah-600\/10 { background-color: rgb(217 119 6 / .1); }
+.bg-ah-600\/90 { background-color: rgb(217 119 6 / .9); }
+.bg-ah-800\/50 { background-color: rgb(139 76 4 / .5); }
+.bg-ah-975  { background-color: #140B01; }
+
+<span class="c-comment">/* Text */</span>
+.text-ah-300 { color: #C59A5E; }
+.text-ah-400 { color: #A97D3A; }
+.text-ah-500 { color: #8B6420; }
+.text-ah-600 { color: #D97706; }
+.text-ah-800 { color: #8B4C04; }
+.text-ah-900 { color: #593102; }
+.text-ah-900\/70 { color: rgb(89 49 2 / .7); }
+.text-ah-900\/80 { color: rgb(89 49 2 / .8); }
+.text-ah-950 { color: #281601; }
+.text-ah-975 { color: #140B01; }
+
+<span class="c-comment">/* Border */</span>
+.border-ah-100    { border-color: #FEF1E1; }
+.border-ah-200    { border-color: #FDE5C8; }
+.border-ah-200\/50 { border-color: rgb(253 229 200 / .5); }
+.border-ah-600\/20 { border-color: rgb(217 119 6 / .2); }
+.border-ah-600\/30 { border-color: rgb(217 119 6 / .3); }
+.border-ah-900    { border-color: #593102; }
+.border-ah-950\/10 { border-color: rgb(40 22 1 / .1); }
+
+<span class="c-comment">/* Ring */</span>
+.ring-ah-600    { --tw-ring-color: #D97706; }
+.ring-ah-600\/50 { --tw-ring-color: rgb(217 119 6 / .5); }
+
+<span class="c-comment">/* Fill / Marker / Backdrop */</span>
+.fill-ah-50 { fill: #FFF9F3; }
+.marker-ah-600 { color: #D97706; }
+.marker-ah-600 ::marker { color: #D97706; }
+dialog.backdrop\:bg-ah-950\/60::backdrop { background-color: rgb(40 22 1 / .6); }
+
+<span class="c-comment">/* Hover states */</span>
+.hover\:bg-ah-50:hover   { background-color: #FFF9F3; }
+.hover\:bg-ah-75:hover   { background-color: #FEF5EA; }
+.hover\:bg-ah-100:hover  { background-color: #FEF1E1; }
+.hover\:bg-ah-200:hover  { background-color: #FDE5C8; }
+.hover\:bg-ah-500:hover  { background-color: #8B6420; }
+.hover\:bg-ah-600:hover  { background-color: #D97706; }
+.hover\:bg-ah-600\/10:hover { background-color: rgb(217 119 6 / .1); }
+.hover\:bg-ah-800:hover  { background-color: #8B4C04; }
+.hover\:text-ah-600:hover { color: #D97706; }
+.hover\:text-ah-950:hover { color: #281601; }
+.hover\:border-ah-700:hover { border-color: #B26105; }
+.bg-ah-25\/95 { background-color: rgb(255 253 250 / .95); }
+
+<span class="c-comment">/* Focus states */</span>
+.focus\:border-ah-400:focus { border-color: #A97D3A; }
+.focus\:border-ah-600:focus { border-color: #D97706; }
+.focus\:ring-ah-600:focus   { --tw-ring-color: #D97706; }
+.focus\:ring-ah-600\/50:focus { --tw-ring-color: rgb(217 119 6 / .5); }
+
+<span class="c-comment">/* Placeholder */</span>
+.placeholder\:text-ah-400::placeholder { color: #A97D3A; }
+
+<span class="c-comment">/* aria-selected */</span>
+[aria-selected="true"].in-aria-selected\:ring-ah-600 { --tw-ring-color: #D97706; }</div>
+
+  <div style="background:var(--ah-100);padding:calc(var(--sp)*6);border-radius:12px;border:1px solid var(--ah-200);margin-top:calc(var(--sp)*6);">
+    <p style="font-weight:700;font-size:var(--text-sm);color:var(--acc);text-transform:uppercase;letter-spacing:.1em;margin-bottom:calc(var(--sp)*3);">Чеклист по HTML-правкам</p>
+    <ol style="font-size:var(--text-sm);color:var(--ink);line-height:1.8;padding-left:1.5em;">
+      <li><code>&lt;body data-theme="amber" class="text-body font-sans overflow-x-hidden style-portraits"&gt;</code></li>
+      <li>Wrap-btn контейнер (трек): <code>bg-secondary</code> → <code>bg-ah-50</code></li>
+      <li>Frame-section (если есть bg-ah-25): → <code>bg-ah-50</code></li>
+      <li>Google Fonts ссылка: DM Sans → PT Sans</li>
+    </ol>
+  </div>
+
+</div>
+
+<script>
+document.querySelectorAll('.tab-bar').forEach(bar => {
+  bar.querySelectorAll('.tab-item').forEach(item => {
+    item.addEventListener('click', () => {
+      bar.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+      item.classList.add('active');
+    });
+  });
+});
+</script>
+</body>
+</html>

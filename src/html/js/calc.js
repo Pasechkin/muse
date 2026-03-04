@@ -491,7 +491,7 @@
         var badge = document.createElement('span');
         badge.className = 'calc-badge whitespace-nowrap shrink-0';
         badge.id = badgeId;
-        badge.textContent = '0 р.';
+        badge.textContent = '0 ₽';
         row.appendChild(badge);
 
         sec.appendChild(row);
@@ -573,11 +573,8 @@
       coverageList.appendChild(potalData.section);
       coverageGroup.appendChild(coverageList);
 
-      /* Divider + mockup wrapper (visual separation from physical options) */
+      /* Mockup wrapper (digital-only option, no divider) */
       var mockupWrapper = document.createElement('div');
-      var mockupDivider = document.createElement('div');
-      mockupDivider.className = 'h-px bg-gray-200 mb-4';
-      mockupWrapper.appendChild(mockupDivider);
       var mockupNote = document.createElement('p');
       mockupNote.className = 'text-xs font-bold uppercase tracking-widest text-gray-500 mb-3';
       mockupNote.textContent = 'Без изготовления картины';
@@ -592,7 +589,7 @@
        *  4) Покрытие и обработка  — coverageGroup (лак, гель, акрил, масло, поталь)
        *  5) Багетная рама         — frameSection
        *  6) Подарочная упак.      — giftSection (rebuilt inline)
-       *  7) Цифровой макет        — mockupWrapper (with divider)
+       *  7) Цифровой макет        — mockupWrapper
        */
 
       function detach(el) { if (el && el.parentNode) el.parentNode.removeChild(el); return el; }
@@ -766,7 +763,7 @@
         row.appendChild(labelWrap);
         var badge = document.createElement('span');
         badge.className = 'calc-badge whitespace-nowrap shrink-0';
-        badge.id = badgeId; badge.textContent = '0 р.';
+        badge.id = badgeId; badge.textContent = '0 ₽';
         row.appendChild(badge);
         sec.appendChild(row);
         return { section: sec, checkbox: chk, badge: badge };
@@ -796,7 +793,7 @@
       var styleBadge = document.createElement('span');
       styleBadge.className = 'calc-badge';
       styleBadge.id = 'badge-style';
-      styleBadge.textContent = '0 р.';
+      styleBadge.textContent = '0 ₽';
       styleTitleDiv.appendChild(styleBadge);
       styleSec.appendChild(styleTitleDiv);
 
@@ -1012,7 +1009,7 @@
         var infoBadge = document.createElement('section');
         infoBadge.id = 'frame-included-section';
         infoBadge.innerHTML =
-          '<div class="section-title"><span>В комплекте</span><span class="calc-badge is-active" id="badge-print-frame">0 р.</span></div>' +
+          '<div class="section-title"><span>В комплекте</span><span class="calc-badge is-active" id="badge-print-frame">0 ₽</span></div>' +
           '<div class="flex flex-wrap gap-2">' +
             '<span class="inline-flex items-center gap-1 text-xs font-medium text-body bg-secondary px-3 py-1.5 rounded-full">' +
               '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>' +
@@ -1091,7 +1088,7 @@
       var passBadge = document.createElement('span');
       passBadge.className = 'calc-badge whitespace-nowrap shrink-0';
       passBadge.id = 'price-passepartout';
-      passBadge.textContent = '0 р.';
+      passBadge.textContent = '0 ₽';
       passRow.appendChild(passBadge);
 
       passepartoutSec.appendChild(passRow);
@@ -1165,7 +1162,7 @@
       var giftBadge = document.createElement('span');
       giftBadge.className = 'calc-badge whitespace-nowrap shrink-0';
       giftBadge.id = 'price-gift';
-      giftBadge.textContent = '0 р.';
+      giftBadge.textContent = '0 ₽';
       giftRow.appendChild(giftBadge);
 
       giftSec.appendChild(giftRow);
@@ -1390,7 +1387,7 @@
             '</div>'
           : '';
 
-        var priceText = frame.id === 'NONE' ? 'Без багета' : fmtPrice(getFramePrice(frame)) + ' р.';
+        var priceText = frame.id === 'NONE' ? 'Без багета' : fmtPrice(getFramePrice(frame)) + ' ₽';
 
         /*
          * imageUrl support: when frame has a photo, show it as background
@@ -1456,7 +1453,7 @@
       FRAMES_DB.forEach(function (frame) {
         var cached = _frameNodeCache[frame.id];
         if (!cached) return;
-        var priceText = frame.id === 'NONE' ? 'Без багета' : fmtPrice(getFramePrice(frame)) + ' р.';
+        var priceText = frame.id === 'NONE' ? 'Без багета' : fmtPrice(getFramePrice(frame)) + ' ₽';
         if (cached.priceSpan) cached.priceSpan.textContent = priceText;
         if (cached.previewBox) cached.previewBox.style.aspectRatio = aspectRatio;
       });
@@ -1582,7 +1579,7 @@
             var opt = document.createElement('option');
             opt.value = po.value;
             opt.textContent = po.value > 0
-              ? po.label + ' (+' + fmtPrice(po.value) + ' р.)'
+              ? po.label + ' (+' + fmtPrice(po.value) + ' ₽)'
               : po.label;
             els.processingSelect.appendChild(opt);
           }
@@ -1937,26 +1934,47 @@
 
       wrapper.appendChild(div);
 
-      /* Price label */
+      /* Price label + select button group */
+      var infoBlock = document.createElement('div');
+      infoBlock.style.display = 'flex';
+      infoBlock.style.flexDirection = 'column';
+      infoBlock.style.alignItems = 'flex-start';
+      infoBlock.style.gap = '0.75rem';
+
       if (frameIdToPreview !== 'NONE') {
         var priceLabel = document.createElement('div');
         priceLabel.className = 'text-2xl font-bold text-primary';
         priceLabel.style.whiteSpace = 'nowrap';
-        priceLabel.textContent = '\u0411\u0430\u0433\u0435\u0442\u043d\u0430\u044f \u0440\u0430\u043c\u0430: ' + fmtPrice(frameCost) + ' \u0440.';
+        priceLabel.textContent = '\u0411\u0430\u0433\u0435\u0442\u043d\u0430\u044f \u0440\u0430\u043c\u0430: ' + fmtPrice(frameCost) + ' ₽';
+        infoBlock.appendChild(priceLabel);
+      }
 
-        if (window.innerWidth >= 1024) {
-          /* Desktop: position absolutely to top-left of image */
-          priceLabel.style.position = 'absolute';
-          priceLabel.style.left = '0';
-          priceLabel.style.top = '0';
-          priceLabel.style.transform = 'translateX(calc(-100% - 1.5rem))';
-        } else {
-          /* Mobile: below image */
-          priceLabel.style.textAlign = 'center';
-          wrapper.appendChild(priceLabel);
-        }
+      var selectBtn = document.createElement('button');
+      selectBtn.type = 'button';
+      selectBtn.className = 'lightbox-select-btn';
+      selectBtn.textContent = 'Выбрать этот багет';
+      selectBtn.addEventListener('click', function () {
+        STATE.frame = frameIdToPreview;
+        tempFrameState = frameIdToPreview;
+        lightbox.close();
+        content.classList.remove('lightbox-enter-active');
+        var frameModal = getEl('frame-modal');
+        if (frameModal && frameModal.open) frameModal.close();
+        updateUI();
+      });
+      infoBlock.appendChild(selectBtn);
 
-        if (window.innerWidth >= 1024) wrapper.appendChild(priceLabel);
+      if (window.innerWidth >= 1024) {
+        /* Desktop: info block positioned to the left of image */
+        infoBlock.style.position = 'absolute';
+        infoBlock.style.left = '0';
+        infoBlock.style.top = '0';
+        infoBlock.style.transform = 'translateX(calc(-100% - 1.5rem))';
+        wrapper.appendChild(infoBlock);
+      } else {
+        /* Mobile: below image, left-aligned */
+        infoBlock.style.alignSelf = 'flex-start';
+        wrapper.appendChild(infoBlock);
       }
 
       content.appendChild(wrapper);
@@ -2099,7 +2117,7 @@
         /* Print on photo paper — always uses original photo size */
         var framePrintCost = PRICES.framePrintCoeff * sq;
 
-        /* Passepartout: original S(cm²) × passepartoutCoeff (default 1 р.) */
+        /* Passepartout: original S(cm²) × passepartoutCoeff (default 1 ₽) */
         var passRaw  = sq * PRICES.passepartoutCoeff;
         var passCost = STATE.passepartout ? passRaw : 0;
 
@@ -2296,13 +2314,13 @@
       /* Prices */
       var costs = calculate();
       if (els.priceTotal) els.priceTotal.textContent = fmtPrice(costs.total);
-      if (els.stickyTotal) els.stickyTotal.textContent = fmtPrice(costs.total) + ' р.';
+      if (els.stickyTotal) els.stickyTotal.textContent = fmtPrice(costs.total) + ' ₽';
 
       /* priceSize removed — combined into badge-wrap */
 
       if (els.priceVarnish) {
         var vShow = costs.varnishCost > 0 ? costs.varnishCost : costs.varnishPotential;
-        els.priceVarnish.textContent = vShow > 0 ? fmtPrice(vShow) + ' р.' : '0 р.';
+        els.priceVarnish.textContent = vShow > 0 ? fmtPrice(vShow) + ' ₽' : '0 ₽';
         els.priceVarnish.className = 'calc-badge' + (costs.varnishCost > 0 ? ' is-active' : '');
       }
       if (els.priceGift) {
@@ -2314,28 +2332,28 @@
           els.priceGift.className = 'calc-badge';
         } else {
           var gShow = costs.giftCost > 0 ? costs.giftCost : costs.giftPotential;
-          els.priceGift.textContent = gShow > 0 ? fmtPrice(gShow) + ' р.' : '0 р.';
+          els.priceGift.textContent = gShow > 0 ? fmtPrice(gShow) + ' ₽' : '0 ₽';
           els.priceGift.className = 'calc-badge' + (costs.giftCost > 0 ? ' is-active' : '');
         }
       }
       if (els.priceFrame) {
-        els.priceFrame.textContent = costs.frameCost > 0 ? costs.frameCost + ' р.' : '0 р.';
+        els.priceFrame.textContent = costs.frameCost > 0 ? costs.frameCost + ' ₽' : '0 ₽';
         els.priceFrame.className = 'calc-badge' + (costs.frameCost > 0 ? ' is-active' : '');
       }
 
       /* Wrap badge: combined print + stretcher + gallery surcharge */
       if (els.badgeWrap) {
         els.badgeWrap.textContent = costs.wrapCost > 0
-          ? fmtPrice(costs.wrapCost) + ' р.'
-          : '0 р.';
+          ? fmtPrice(costs.wrapCost) + ' ₽'
+          : '0 ₽';
         els.badgeWrap.className = 'calc-badge' + (costs.wrapCost > 0 ? ' is-active' : '');
       }
 
       /* Processing badge */
       if (els.badgeProcessing) {
         els.badgeProcessing.textContent = costs.processingCost > 0
-          ? fmtPrice(costs.processingCost) + ' р.'
-          : '0 р.';
+          ? fmtPrice(costs.processingCost) + ' ₽'
+          : '0 ₽';
         els.badgeProcessing.className = 'calc-badge' + (costs.processingCost > 0 ? ' is-active' : '');
       }
 
@@ -2343,34 +2361,34 @@
       if (isPortrait && portraitEls) {
         if (portraitEls.badgeFaces) {
           portraitEls.badgeFaces.textContent = costs.faceCost > 0
-            ? fmtPrice(costs.faceCost) + ' р.'
+            ? fmtPrice(costs.faceCost) + ' ₽'
             : 'включено';
           portraitEls.badgeFaces.className = 'calc-badge' + (costs.faceCost > 0 ? ' is-active' : '');
         }
         if (portraitEls.badgeGel) {
           var gelShow = costs.gelCost > 0 ? costs.gelCost : costs.gelPotential;
-          portraitEls.badgeGel.textContent = gelShow > 0 ? fmtPrice(gelShow) + ' р.' : '0 р.';
+          portraitEls.badgeGel.textContent = gelShow > 0 ? fmtPrice(gelShow) + ' ₽' : '0 ₽';
           portraitEls.badgeGel.className = 'calc-badge' + (costs.gelCost > 0 ? ' is-active' : '');
         }
         if (portraitEls.badgeAcrylic) {
           var acrShow = costs.acrylicCost > 0 ? costs.acrylicCost : costs.acrylicPotential;
-          portraitEls.badgeAcrylic.textContent = acrShow > 0 ? fmtPrice(acrShow) + ' р.' : '0 р.';
+          portraitEls.badgeAcrylic.textContent = acrShow > 0 ? fmtPrice(acrShow) + ' ₽' : '0 ₽';
           portraitEls.badgeAcrylic.className = 'calc-badge' + (costs.acrylicCost > 0 ? ' is-active' : '');
         }
         if (portraitEls.badgeOil) {
           var oilShow = costs.oilCost > 0 ? costs.oilCost : costs.oilPotential;
-          portraitEls.badgeOil.textContent = oilShow > 0 ? fmtPrice(oilShow) + ' р.' : '0 р.';
+          portraitEls.badgeOil.textContent = oilShow > 0 ? fmtPrice(oilShow) + ' ₽' : '0 ₽';
           portraitEls.badgeOil.className = 'calc-badge' + (costs.oilCost > 0 ? ' is-active' : '');
         }
         if (portraitEls.badgePotal) {
           var potShow = costs.potalCost > 0 ? costs.potalCost : costs.potalPotential;
-          portraitEls.badgePotal.textContent = potShow > 0 ? fmtPrice(potShow) + ' р.' : '0 р.';
+          portraitEls.badgePotal.textContent = potShow > 0 ? fmtPrice(potShow) + ' ₽' : '0 ₽';
           portraitEls.badgePotal.className = 'calc-badge' + (costs.potalCost > 0 ? ' is-active' : '');
         }
         if (portraitEls.badgeMockup) {
           portraitEls.badgeMockup.textContent = costs.digitalMockupCost > 0
-            ? fmtPrice(costs.digitalMockupCost) + ' р.'
-            : '0 р.';
+            ? fmtPrice(costs.digitalMockupCost) + ' ₽'
+            : '0 ₽';
           portraitEls.badgeMockup.className = 'calc-badge' + (costs.digitalMockupCost > 0 ? ' is-active' : '');
         }
       }
@@ -2379,20 +2397,20 @@
       if (isPortraitStyle && portraitStyleEls) {
         if (portraitStyleEls.badgeStyle) {
           portraitStyleEls.badgeStyle.textContent = costs.styleCost > 0
-            ? fmtPrice(costs.styleCost) + ' р.'
+            ? fmtPrice(costs.styleCost) + ' ₽'
             : 'включено';
           portraitStyleEls.badgeStyle.className = 'calc-badge' + (costs.styleCost > 0 ? ' is-active' : '');
         }
         if (portraitStyleEls.badgeFaces) {
           var psExtra = costs.extraFacesCost || 0;
           portraitStyleEls.badgeFaces.textContent = psExtra > 0
-            ? '+' + fmtPrice(psExtra) + ' р.'
+            ? '+' + fmtPrice(psExtra) + ' ₽'
             : 'включено';
           portraitStyleEls.badgeFaces.className = 'calc-badge' + (psExtra > 0 ? ' is-active' : '');
         }
         if (portraitStyleEls.badgeVarnish) {
           var psVShow = costs.varnishCost > 0 ? costs.varnishCost : costs.varnishPotential;
-          portraitStyleEls.badgeVarnish.textContent = psVShow > 0 ? fmtPrice(psVShow) + ' р.' : '0 р.';
+          portraitStyleEls.badgeVarnish.textContent = psVShow > 0 ? fmtPrice(psVShow) + ' ₽' : '0 ₽';
           portraitStyleEls.badgeVarnish.className = 'calc-badge' + (costs.varnishCost > 0 ? ' is-active' : '');
         }
         if (portraitStyleEls.badgeGift) {
@@ -2404,7 +2422,7 @@
             portraitStyleEls.badgeGift.className = 'calc-badge';
           } else {
             var psGShow = costs.giftCost > 0 ? costs.giftCost : costs.giftPotential;
-            portraitStyleEls.badgeGift.textContent = psGShow > 0 ? fmtPrice(psGShow) + ' р.' : '0 р.';
+            portraitStyleEls.badgeGift.textContent = psGShow > 0 ? fmtPrice(psGShow) + ' ₽' : '0 ₽';
             portraitStyleEls.badgeGift.className = 'calc-badge' + (costs.giftCost > 0 ? ' is-active' : '');
           }
         }
@@ -2414,13 +2432,13 @@
       if (isFrame && frameEls) {
         if (frameEls.badgePrintFrame) {
           frameEls.badgePrintFrame.textContent = costs.printFrameCost > 0
-            ? fmtPrice(costs.printFrameCost) + ' р.'
-            : '0 р.';
+            ? fmtPrice(costs.printFrameCost) + ' ₽'
+            : '0 ₽';
           frameEls.badgePrintFrame.className = 'calc-badge' + (costs.printFrameCost > 0 ? ' is-active' : '');
         }
         if (frameEls.badgePassepartout) {
           var passShow = costs.passepartoutCost > 0 ? costs.passepartoutCost : costs.passepartoutPotential;
-          frameEls.badgePassepartout.textContent = passShow > 0 ? fmtPrice(passShow) + ' р.' : '0 р.';
+          frameEls.badgePassepartout.textContent = passShow > 0 ? fmtPrice(passShow) + ' ₽' : '0 ₽';
           frameEls.badgePassepartout.className = 'calc-badge' + (costs.passepartoutCost > 0 ? ' is-active' : '');
         }
         if (frameEls.badgeGift) {
@@ -2432,7 +2450,7 @@
             frameEls.badgeGift.className = 'calc-badge';
           } else {
             var fgShow = costs.giftCost > 0 ? costs.giftCost : costs.giftPotential;
-            frameEls.badgeGift.textContent = fgShow > 0 ? fmtPrice(fgShow) + ' р.' : '0 р.';
+            frameEls.badgeGift.textContent = fgShow > 0 ? fmtPrice(fgShow) + ' ₽' : '0 ₽';
             frameEls.badgeGift.className = 'calc-badge' + (costs.giftCost > 0 ? ' is-active' : '');
           }
         }
