@@ -18,6 +18,9 @@ coverage/
 # Prevent accidental duplicate of Tailwind Plus Elements bundle at repo root.
 /tailwindplus-elements.js
 
+# Tailwind Plus commercial template — personal license, must not be committed.
+draft/O/
+
 .vercel
 .env*.local
 .venv/

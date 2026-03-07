@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -9,7 +9,7 @@
     <link rel="canonical" href="https://muse.ooo/pechat/foto-v-ramke/">
     <link rel="stylesheet" href="../css/output.css">
 </head>
-<body class="bg-white overflow-x-hidden">
+<body class="bg-ah-25 overflow-x-hidden">
 
     <!-- Page Navigator -->
     <nav class="page-navigator" id="page-navigator">
@@ -35,7 +35,7 @@
         <!-- ===============================================
              1. HERO — Ken Burns эффект, bg-dark
         ================================================ -->
-        <section id="hero" class="relative min-h-[520px] lg:min-h-[calc(100vh-88px)] overflow-hidden flex items-center bg-dark" itemscope itemtype="http://schema.org/Product">
+        <section id="hero" class="relative min-h-[520px] lg:min-h-[calc(100vh-88px)] overflow-hidden flex items-center bg-ah-975" itemscope itemtype="http://schema.org/Product">
             <!-- Background Image + Ken Burns Animation -->
             <div class="absolute inset-0 z-0 bg-black">
                 <picture>
@@ -70,13 +70,13 @@
                         <ol class="flex list-none p-0">
                             <li class="flex items-center">
                                 <a href="https://muse.ooo/">Главная</a>
-                                <span class="mx-2 text-gray-200">/</span>
+                                <span class="mx-2 text-ink-muted-on-dark">/</span>
                             </li>
                             <li class="flex items-center">
                                 <a href="https://muse.ooo/pechat/">Печать</a>
-                                <span class="mx-2 text-gray-200">/</span>
+                                <span class="mx-2 text-ink-muted-on-dark">/</span>
                             </li>
-                            <li class="text-gray-200">Фото в рамке</li>
+                            <li class="text-ink-muted-on-dark">Фото в рамке</li>
                         </ol>
                     </nav>
 
@@ -105,7 +105,7 @@
         <!-- ===============================================
              2. ХАРАКТЕРИСТИКИ — чеклист СЛЕВА + слайдер СПРАВА
         ================================================ -->
-        <section class="py-16 lg:py-20 content-auto" id="harakteristiki">
+        <section class="py-16 lg:py-24 content-auto" id="harakteristiki">
             <div class="container">
                 <div class="grid lg:grid-cols-2 gap-12">
                     <!-- Чеклист (на ПК слева) -->
@@ -165,23 +165,17 @@
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- ===============================================
-             3. АКЦИЯ — promo-section
-        ================================================ -->
-        <section class="promo-section my-12 lg:my-16">
-            <div class="container">
-                <div class="flex items-center justify-center">
-                    <p class="text-lead mb-0">Скидка 20% с 3 по 4 января</p>
-                </div>
-            </div>
+        </section>        <!-- Акция -->
+        <section class="sale-banner">
+            <p class="sale-banner-text">
+                <strong>Скидка 20%</strong> с 6 по 7 марта
+            </p>
         </section>
 
         <!-- ===============================================
              4. ЦЕНА — калькулятор «Фото в рамке»
         ================================================ -->
-        <section class="py-16 lg:py-20 content-auto" id="calc" data-calc-root>
+        <section class="py-16 lg:py-24 content-auto" id="calc" data-calc-root>
             <div class="container">
             <h2 class="heading-section text-center mb-8">Цена</h2>
 
@@ -224,13 +218,13 @@
                                 <div class="section-title"><span>Размер, см</span></div>
                                 <div id="size-inputs-row" class="hidden lg:flex items-center gap-2 mb-3">
                                     <input type="number" id="inp-w" value="20" enterkeyhint="next" autocomplete="off" inputmode="numeric" class="w-full h-10 lg:h-12 text-center border border-gray-200 rounded-lg text-base lg:text-lg font-bold text-dark focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary outline-none transition" placeholder="Ш">
-                                    <span class="text-gray-400">✕</span>
+                                    <span class="text-ink-muted">✕</span>
                                     <input type="number" id="inp-h" value="30" enterkeyhint="done" autocomplete="off" inputmode="numeric" class="w-full h-10 lg:h-12 text-center border border-gray-200 rounded-lg text-base lg:text-lg font-bold text-dark focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary outline-none transition" placeholder="В">
                                 </div>
                                 <div class="flex lg:hidden gap-2 overflow-x-auto pb-1 thin-scrollbar-x" id="size-presets-grid"></div>
                                 <div id="size-extra-carousel" class="hidden lg:block mt-3">
                                     <div class="flex items-center justify-between mb-2">
-                                        <span class="text-xs font-bold uppercase tracking-widest text-gray-500">Размеры</span>
+                                        <span class="text-xs font-bold uppercase tracking-widest text-ink-muted">Размеры</span>
                                     </div>
                                     <div id="size-extra-presets-track" class="flex gap-2 overflow-x-auto pb-1 scroll-smooth"></div>
                                 </div>
@@ -249,13 +243,13 @@
                                 <div class="grid grid-cols-1">
                                     <select id="processing-select" aria-label="Обработка фото" class="col-start-1 row-start-1 w-full appearance-none bg-white border border-gray-200 text-body py-3 pl-4 pr-8 rounded-lg text-sm font-medium focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary">
                                     </select>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5 self-center justify-self-end text-gray-500"><path d="m6 9 6 6 6-6"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5 self-center justify-self-end text-ink-muted"><path d="m6 9 6 6 6-6"/></svg>
                                 </div>
                             </section>
                             <section>
                                 <div class="section-title"><span>Оформление в багет</span><span class="calc-badge" id="price-frame">0 р.</span></div>
                                 <div id="frame-section" class="border border-gray-200 rounded-lg p-4 flex items-center gap-4 cursor-pointer hover:border-primary transition group bg-white">
-                                    <div class="w-10 h-10 bg-gray-50 rounded border border-gray-200 flex items-center justify-center text-gray-400"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></div>
+                                    <div class="w-10 h-10 bg-gray-50 rounded border border-gray-200 flex items-center justify-center text-ink-muted"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></div>
                                     <div>
                                         <div class="text-sm font-bold text-body" id="selected-frame-text">Без багета</div>
                                         <div class="text-xs text-primary-text font-medium group-hover:underline">Выбрать из каталога →</div>
@@ -301,7 +295,7 @@
                         </div>
                         <div class="hidden lg:block p-6 border-t border-gray-100 bg-white lg:rounded-b-2xl">
                             <div class="flex items-baseline justify-between">
-                                <span class="text-sm text-gray-500">Цена со скидкой 20%</span>
+                                <span class="text-sm text-ink-muted">Цена со скидкой 20%</span>
                                 <span class="text-2xl font-bold text-primary leading-none whitespace-nowrap"><span id="total-price">890</span> р.</span>
                             </div>
                         </div>
@@ -319,7 +313,7 @@
                             <div><textarea id="client-comment" name="client_comment_x" class="form-input h-full resize-none" rows="4" placeholder="Комментарий"></textarea></div>
                         </div>
                         <div class="flex flex-col md:flex-row items-center justify-between gap-6 border-t border-gray-100 pt-6">
-                            <div class="text-xs text-gray-500 text-left">Заполняя форму, я соглашаюсь с условиями <a href="https://muse.ooo/info/oferta/" class="underline hover:text-primary-text">Оферты</a> и даю свое согласие на обработку персональных данных в соответствии с <a href="https://muse.ooo/info/politika_konfidentsialnosti_sayta/" class="underline hover:text-primary-text">Политикой конфиденциальности сайта</a></div>
+                            <div class="text-xs text-ink-muted text-left">Заполняя форму, я соглашаюсь с условиями <a href="https://muse.ooo/info/oferta/" class="underline hover:text-primary-text">Оферты</a> и даю свое согласие на обработку персональных данных в соответствии с <a href="https://muse.ooo/info/politika_konfidentsialnosti_sayta/" class="underline hover:text-primary-text">Политикой конфиденциальности сайта</a></div>
                             <button type="button" id="btn-submit-order" class="hidden lg:block w-full md:w-auto btn-header-cta px-10 py-4 active:scale-[0.98]">Заказать</button>
                         </div>
                     </form>
@@ -328,7 +322,7 @@
                 <div id="mobile-sticky-bar" class="calc-sticky-bar">
                     <div class="min-w-0">
                         <div class="text-lg font-bold text-primary whitespace-nowrap" id="sticky-total-price">9 543 р.</div>
-                        <div class="text-xs text-gray-500 whitespace-nowrap">— цена со скидкой 20%</div>
+                        <div class="text-xs text-ink-muted whitespace-nowrap">— цена со скидкой 20%</div>
                     </div>
                     <button id="btn-sticky-order" class="btn-header-cta px-5 py-2.5 active:scale-[0.98] text-sm shrink-0">Заказать</button>
                 </div>
@@ -340,13 +334,13 @@
                 <div class="calc-frame-modal-content" id="frame-modal-content">
                     <div class="calc-frame-modal-header">
                         <h3 class="text-xl font-bold text-body">Каталог багета</h3>
-                        <button id="close-frame-modal" type="button" class="p-2 text-gray-500 hover:text-black transition">
+                        <button id="close-frame-modal" type="button" class="p-2 text-ink-muted hover:text-ink transition">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                         </button>
                     </div>
                     <div class="calc-frame-modal-body custom-scrollbar">
                         <div id="frame-upload-cta" class="calc-frame-upload-cta">
-                            <p class="text-xs text-gray-500 mb-3">Загрузите фото для примерки багета</p>
+                            <p class="text-xs text-ink-muted mb-3">Загрузите фото для примерки багета</p>
                             <button id="modal-upload-btn" type="button" class="bg-white border border-gray-200 text-body hover:border-primary hover:text-primary font-bold py-2 px-4 rounded-lg text-xs uppercase tracking-widest transition flex items-center justify-center gap-2 mx-auto">
                                 <span>Загрузить фото</span>
                             </button>
@@ -369,7 +363,7 @@
 
             <dialog id="lightbox" class="modal-shell bg-white/95 backdrop-blur-sm">
                 <div class="absolute top-4 right-4 z-10">
-                    <button id="lightbox-close" class="calc-lightbox-close p-2 text-gray-500 hover:text-black transition pointer-events-auto">
+                    <button id="lightbox-close" class="calc-lightbox-close p-2 text-ink-muted hover:text-ink transition pointer-events-auto">
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                     </button>
                 </div>
@@ -501,7 +495,7 @@
         <!-- ===============================================
              6. КАК ЗАКАЗАТЬ — bg-dark, step-container
         ================================================ -->
-        <section class="bg-dark py-16 lg:py-24 content-auto" id="kak-zakazat">
+        <section class="bg-ah-975 py-16 lg:py-24 content-auto" id="kak-zakazat">
             <div class="container">
                 <h2 class="heading-section text-center mb-12">Как заказать</h2>
 
@@ -525,7 +519,7 @@
                             <div>
                                 <h3 class="heading-card mb-2">Заказ</h3>
                                 <p class="text-white/80">
-                                    Нажмите кнопку <a class="link-on-dark" href="https://muse.ooo/order/">«Заказать» ↗</a>, загрузите фото и напишите Ваши пожелания. Или оформите заказ в <a class="link-on-dark" href="https://frame.muse.ooo/composer/product/PhotoInFrame" target="_blank">Конструкторе Muse ↗</a>. У него больше возможностей.
+                                    Нажмите кнопку <a class="link-on-dark" href="https://muse.ooo/order/">«Заказать»</a>, загрузите фото и напишите Ваши пожелания. Или оформите заказ в <a class="link-on-dark" href="https://frame.muse.ooo/composer/product/PhotoInFrame" target="_blank">Конструкторе Muse</a>. У него больше возможностей.
                                 </p>
                             </div>
                         </div>
@@ -600,7 +594,7 @@
         <!-- ===============================================
              7. ВАШИ ПРЕИМУЩЕСТВА
         ================================================ -->
-        <section class="bg-primary py-16 lg:py-20 content-auto" id="preimushchestva">
+        <section class="bg-ah-25 py-16 lg:py-24 content-auto" id="preimushchestva">
             <div class="container">
                 <h2 class="heading-section text-center mb-12">Преимущества</h2>
 
@@ -641,7 +635,7 @@
         <!-- ===============================================
              9. ПРИМЕРЫ РАБОТ — carousel-scroll
         ================================================ -->
-        <section class="py-16 lg:py-20 content-auto" id="primery">
+        <section class="py-16 lg:py-24 content-auto" id="primery">
             <div class="container mb-8">
                 <h2 class="heading-section text-center">Примеры работ</h2>
             </div>
@@ -725,7 +719,7 @@
         <!-- ===============================================
              10. ОТЗЫВЫ
         ================================================ -->
-        <section class="py-16 lg:py-20 content-auto" id="review">
+        <section class="py-16 lg:py-24 content-auto" id="review">
             <div class="container">
                 <h2 class="heading-section text-center mb-8">Отзывы</h2>
                 <div class="text-center">
@@ -737,7 +731,7 @@
         <!-- ===============================================
              11. БЛОГ — 4 статьи
         ================================================ -->
-        <section class="bg-secondary py-16 lg:py-20 content-auto">
+        <section class="bg-ah-25 py-16 lg:py-24 content-auto">
             <div class="container">
                 <h2 class="heading-section text-center mb-12">Блог</h2>
 
@@ -746,7 +740,7 @@
                         <a href="https://muse.ooo/blog/paspartu/" class="block">
                             <img loading="lazy" decoding="async" width="300" height="200" alt="Примеры паспарту" title="Что такое паспарту и как его правильно подобрать к фотографии или картине?" src="https://muse.ooo/upload/imgsite/types-of-passepartout.webp" class="w-full">
                             <div class="p-4 border-t border-gray-200">
-                                <span class="text-gray-600">Что такое паспарту и как его правильно подобрать к фотографии или картине?</span>
+                                <span class="text-ink-soft">Что такое паспарту и как его правильно подобрать к фотографии или картине?</span>
                             </div>
                         </a>
                     </article>
@@ -754,7 +748,7 @@
                         <a href="https://muse.ooo/blog/pechat-foto-i-reproduktsiy-na-fotobumage/" class="block">
                             <img loading="lazy" decoding="async" width="500" height="333" alt="Фотопечати на фотобумаге" title="Печать фотографий и репродукций на бумаге" src="https://muse.ooo/upload/imgsite/printing-on-photo-paper.webp" class="w-full">
                             <div class="p-4 border-t border-gray-200">
-                                <span class="text-gray-600">Печать фотографий и репродукций на бумаге</span>
+                                <span class="text-ink-soft">Печать фотографий и репродукций на бумаге</span>
                             </div>
                         </a>
                     </article>
@@ -762,7 +756,7 @@
                         <a href="https://muse.ooo/blog/ramka-dlya-foto-i-kartin/" class="block">
                             <img loading="lazy" decoding="async" width="297" height="200" alt="О багете и оформлении в раму" title="Что такое багет и зачем он нужен?" src="https://muse.ooo/upload/imgsite/canvas_in_frame.webp" class="w-full">
                             <div class="p-4 border-t border-gray-200">
-                                <span class="text-gray-600">Что такое багет и зачем он нужен?</span>
+                                <span class="text-ink-soft">Что такое багет и зачем он нужен?</span>
                             </div>
                         </a>
                     </article>
@@ -770,7 +764,7 @@
                         <a href="https://muse.ooo/blog/vybor-razmera-foto-i-reproduktsiy/" class="block">
                             <img loading="lazy" decoding="async" width="300" height="200" alt="Рекомендации по подбору фото на холсте правильного размера" title="7 рекомендаций по подбору фотокартин правильного размера" src="https://muse.ooo/upload/imgsite/canvas_print.webp" class="w-full">
                             <div class="p-4 border-t border-gray-200">
-                                <span class="text-gray-600">7 рекомендаций по подбору фотокартин правильного размера</span>
+                                <span class="text-ink-soft">7 рекомендаций по подбору фотокартин правильного размера</span>
                             </div>
                         </a>
                     </article>
@@ -781,7 +775,7 @@
         <!-- ===============================================
              12. SEO ТЕКСТ — About Muse
         ================================================ -->
-        <section class="bg-secondary py-16 lg:py-20 content-auto">
+        <section class="bg-ah-25 py-16 lg:py-24 content-auto">
             <div class="container">
                 <div class="grid lg:grid-cols-[2fr_1fr] gap-8">
                     <div>

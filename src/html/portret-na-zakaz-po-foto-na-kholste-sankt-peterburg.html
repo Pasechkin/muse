@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -139,23 +139,23 @@
     </script>
         <link rel="stylesheet" href="css/output.css">
 </head>
-<body class="bg-white overflow-x-hidden">
+<body class="bg-ah-25 overflow-x-hidden">
     <!-- Header -->
     
 
     <!-- Hero Section -->
-    <section class="relative h-[65vh] lg:h-screen overflow-hidden bg-dark">
+    <section class="relative h-[65vh] lg:h-screen overflow-hidden bg-ah-975">
             <!-- Видео вставляется через JS только на desktop после загрузки страницы -->
             <div id="hero-video-container" class="absolute inset-0 w-full h-full hidden lg:block"></div>
             <div class="absolute inset-0 bg-dark opacity-20 lg:opacity-20"></div>
             <div class="container h-full flex items-center relative z-10">
                 <div class="max-w-2xl">
                     <!-- Breadcrumbs -->
-                    <nav class="mb-4 text-sm text-gray-200" aria-label="Хлебные крошки">
+                    <nav class="mb-4 text-sm text-ink-muted-on-dark" aria-label="Хлебные крошки">
                         <ol class="flex items-center space-x-2">
                             <li><a href="/" class="link-on-dark-plain">Главная</a></li>
-                            <li class="text-gray-200">/</li>
-                            <li class="text-gray-100">Портрет на заказ по фото</li>
+                            <li class="text-ink-muted-on-dark">/</li>
+                            <li class="text-ink-on-dark">Портрет на заказ по фото</li>
                         </ol>
                     </nav>
                     <h1 class="heading-hero mb-4">Портрет на заказ в Петербурге</h1>
@@ -167,15 +167,11 @@
                     </a>
                 </div>
             </div>
-    </section>
-
-    <!-- Promo Banner -->
-    <section class="promo-section">
-        <div class="container">
-            <div class="flex items-center justify-center">
-                <p class="text-lead">Скидка 20% с 3 по 4 января</p>
-            </div>
-        </div>
+    </section>    <!-- Акция -->
+    <section class="sale-banner">
+        <p class="sale-banner-text">
+            <strong>Скидка 20%</strong> с 6 по 7 марта
+        </p>
     </section>
 
     <!-- Page Navigator -->
@@ -197,7 +193,7 @@
 
     <main class="main-stable">
         <!-- Portraits from Photo -->
-        <section class="bg-secondary py-16 lg:py-24 content-auto" id="portraits-from-photo">
+        <section class="bg-ah-25 py-16 lg:py-24 content-auto" id="portraits-from-photo">
             <div class="container">
                 <div class="text-center mb-12">
                     <h2 class="heading-section">Портреты по фото</h2>
@@ -209,7 +205,7 @@
         </section>
 
         <!-- CTA Examples -->
-        <section class="bg-dark py-8">
+        <section class="bg-ah-975 py-8">
             <div class="container">
                 <div class="text-center">
                     <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/" class="btn-inverse">
@@ -220,7 +216,7 @@
         </section>
 
         <!-- Styles Carousel -->
-        <section class="bg-dark py-16" id="styles">
+        <section class="bg-ah-975 py-16 lg:py-24" id="styles">
             <div class="container mb-8">
                 <div class="text-center">
                     <h2 class="heading-section">Выберите стиль</h2>
@@ -420,13 +416,13 @@
                                     <div class="section-title"><span>Размер, см</span></div>
                                     <div id="size-inputs-row" class="hidden lg:flex items-center gap-2 mb-3">
                                         <input type="number" id="inp-w" value="20" enterkeyhint="next" autocomplete="off" inputmode="numeric" class="w-full h-10 lg:h-12 text-center border border-gray-200 rounded-lg text-base lg:text-lg font-bold text-dark focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary outline-none transition" placeholder="Ш">
-                                        <span class="text-gray-400">✕</span>
+                                        <span class="text-ink-muted">✕</span>
                                         <input type="number" id="inp-h" value="30" enterkeyhint="done" autocomplete="off" inputmode="numeric" class="w-full h-10 lg:h-12 text-center border border-gray-200 rounded-lg text-base lg:text-lg font-bold text-dark focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary outline-none transition" placeholder="В">
                                     </div>
                                     <div class="flex lg:hidden gap-2 overflow-x-auto pb-1 thin-scrollbar-x" id="size-presets-grid"></div>
                                     <div id="size-extra-carousel" class="hidden lg:block mt-3">
                                         <div class="flex items-center justify-between mb-2">
-                                            <span class="text-xs font-bold uppercase tracking-widest text-gray-500">Размеры</span>
+                                            <span class="text-xs font-bold uppercase tracking-widest text-ink-muted">Размеры</span>
                                         </div>
                                         <div id="size-extra-presets-track" class="flex gap-2 overflow-x-auto pb-1 scroll-smooth"></div>
                                     </div>
@@ -445,13 +441,13 @@
                                     <div class="grid grid-cols-1">
                                         <select id="processing-select" aria-label="Обработка фото" class="col-start-1 row-start-1 w-full appearance-none bg-white border border-gray-200 text-body py-3 pl-4 pr-8 rounded-lg text-sm font-medium focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary">
                                         </select>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5 self-center justify-self-end text-gray-500"><path d="m6 9 6 6 6-6"/></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5 self-center justify-self-end text-ink-muted"><path d="m6 9 6 6 6-6"/></svg>
                                     </div>
                                 </section>
                                 <section>
                                     <div class="section-title"><span>Оформление в багет</span><span class="calc-badge" id="price-frame">0 р.</span></div>
                                     <div id="frame-section" class="border border-gray-200 rounded-lg p-4 flex items-center gap-4 cursor-pointer hover:border-primary transition group bg-white">
-                                        <div class="w-10 h-10 bg-gray-50 rounded border border-gray-200 flex items-center justify-center text-gray-400"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></div>
+                                        <div class="w-10 h-10 bg-gray-50 rounded border border-gray-200 flex items-center justify-center text-ink-muted"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></div>
                                         <div>
                                             <div class="text-sm font-bold text-body" id="selected-frame-text">Без багета</div>
                                             <div class="text-xs text-primary-text font-medium group-hover:underline">Выбрать из каталога →</div>
@@ -496,7 +492,7 @@
                             </div>
                             <div class="hidden lg:block p-6 border-t border-gray-100 bg-white lg:rounded-b-2xl">
                                 <div class="flex items-baseline justify-between">
-                                    <span class="text-sm text-gray-500">Цена со скидкой 20%</span>
+                                    <span class="text-sm text-ink-muted">Цена со скидкой 20%</span>
                                     <span class="text-2xl font-bold text-primary leading-none whitespace-nowrap"><span id="total-price">890</span> р.</span>
                                 </div>
                             </div>
@@ -514,7 +510,7 @@
                                 <div><textarea id="client-comment" name="client_comment_x" class="form-input h-full resize-none" rows="4" placeholder="Комментарий"></textarea></div>
                             </div>
                             <div class="flex flex-col md:flex-row items-center justify-between gap-6 border-t border-gray-100 pt-6">
-                                <div class="text-xs text-gray-500 text-left">Заполняя форму, я соглашаюсь с условиями <a href="https://muse.ooo/info/oferta/" class="underline hover:text-primary-text">Оферты</a> и даю свое согласие на обработку персональных данных в соответствии с <a href="https://muse.ooo/info/politika_konfidentsialnosti_sayta/" class="underline hover:text-primary-text">Политикой конфиденциальности сайта</a></div>
+                                <div class="text-xs text-ink-muted text-left">Заполняя форму, я соглашаюсь с условиями <a href="https://muse.ooo/info/oferta/" class="underline hover:text-primary-text">Оферты</a> и даю свое согласие на обработку персональных данных в соответствии с <a href="https://muse.ooo/info/politika_konfidentsialnosti_sayta/" class="underline hover:text-primary-text">Политикой конфиденциальности сайта</a></div>
                                 <button type="button" id="btn-submit-order" class="hidden lg:block w-full md:w-auto btn-header-cta px-10 py-4 active:scale-[0.98]">Заказать</button>
                             </div>
                         </form>
@@ -524,7 +520,7 @@
                     <div id="mobile-sticky-bar" class="calc-sticky-bar">
                         <div class="min-w-0">
                             <div class="text-lg font-bold text-primary whitespace-nowrap" id="sticky-total-price">9 543 р.</div>
-                            <div class="text-xs text-gray-500 whitespace-nowrap">— цена со скидкой 20%</div>
+                            <div class="text-xs text-ink-muted whitespace-nowrap">— цена со скидкой 20%</div>
                         </div>
                         <button id="btn-sticky-order" class="btn-header-cta px-5 py-2.5 active:scale-[0.98] text-sm shrink-0">Заказать</button>
                     </div>
@@ -536,13 +532,13 @@
                 <div class="calc-frame-modal-content" id="frame-modal-content">
                     <div class="calc-frame-modal-header">
                         <h3 class="text-xl font-bold text-body">Каталог багета</h3>
-                        <button id="close-frame-modal" type="button" class="p-2 text-gray-500 hover:text-black transition">
+                        <button id="close-frame-modal" type="button" class="p-2 text-ink-muted hover:text-ink transition">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                         </button>
                     </div>
                     <div class="calc-frame-modal-body custom-scrollbar">
                         <div id="frame-upload-cta" class="calc-frame-upload-cta">
-                            <p class="text-xs text-gray-500 mb-3">Загрузите фото для примерки багета</p>
+                            <p class="text-xs text-ink-muted mb-3">Загрузите фото для примерки багета</p>
                             <button id="modal-upload-btn" type="button" class="bg-white border border-gray-200 text-body hover:border-primary hover:text-primary font-bold py-2 px-4 rounded-lg text-xs uppercase tracking-widest transition flex items-center justify-center gap-2 mx-auto">
                                 <span>Загрузить фото</span>
                             </button>
@@ -565,7 +561,7 @@
 
             <dialog id="lightbox" class="modal-shell bg-white/95 backdrop-blur-sm">
                 <div class="absolute top-4 right-4 z-10">
-                    <button id="lightbox-close" class="calc-lightbox-close p-2 text-gray-500 hover:text-black transition pointer-events-auto">
+                    <button id="lightbox-close" class="calc-lightbox-close p-2 text-ink-muted hover:text-ink transition pointer-events-auto">
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                     </button>
                 </div>
@@ -576,7 +572,7 @@
         
 
         <!-- Характеристики и Сроки -->
-        <section class="bg-secondary py-16 content-auto">
+        <section class="bg-ah-25 py-16 lg:py-24 content-auto">
             <div class="container">
                 <div class="grid gap-8 lg:grid-cols-2">
                     <div>
@@ -625,7 +621,7 @@
                         <div class="text-body space-y-2">
                             <p>Срок создания цифрового макета&nbsp;&mdash; 08.01.2026.</p>
                             <p>Получение портрета на&nbsp;холсте со&nbsp;склада самовывоза&nbsp;&mdash; 09.01.2026.</p>
-                            <p>Ориентировочная дата доставки в <a href="https://muse.ooo/info/dostavka/" class="text-primary-text underline hover:no-underline">пункты выдачи ↗</a> Санкт-Петербурга (<a href="#tfLocationPopup" class="text-primary-text underline hover:no-underline">изменить местоположение ↑</a>)&nbsp;&mdash; 11 января.</p>
+                            <p>Ориентировочная дата доставки в <a href="https://muse.ooo/info/dostavka/" class="text-primary-text underline hover:no-underline">пункты выдачи</a> Санкт-Петербурга (<a href="#tfLocationPopup" class="text-primary-text underline hover:no-underline">изменить местоположение ↑</a>)&nbsp;&mdash; 11 января.</p>
                         </div>
                     </div>
                 </div>
@@ -633,7 +629,7 @@
         </section>
 
         <!-- Как заказать -->
-        <section class="bg-dark py-16 lg:py-24 content-auto" id="order">
+        <section class="bg-ah-975 py-16 lg:py-24 content-auto" id="order">
             <div class="container mb-8">
                 <div class="text-center">
                     <h2 class="heading-section">Как заказать</h2>
@@ -672,7 +668,7 @@
                             <div class="step-content">
                                 <p class="text-white/80">Сначала рекомендуем определиться со стилем портрета. В разделе <a href="#styles" class="link-on-dark">Выберите стиль ↑</a> нажмите на название понравившегося стиля. Откроется отдельная страница с его подробным описанием.</p>
                                 <p class="text-white/80 mt-2">В разделе <a href="#calc" class="link-on-dark">Цена ↑</a> можно загрузить фото, подобрать нужный размер, рассчитать стоимость и оформить заказ.</p>
-                                <p class="text-white/80 mt-2">Нет возможности разбираться? Нажмите любую кнопку <a href="https://muse.ooo/order/" class="link-on-dark">Заказать ↗</a> на сайте и перешлите нам фото. Перезвоним и поможем с выбором.</p>
+                                <p class="text-white/80 mt-2">Нет возможности разбираться? Нажмите любую кнопку <a href="https://muse.ooo/order/" class="link-on-dark">Заказать</a> на сайте и перешлите нам фото. Перезвоним и поможем с выбором.</p>
                             </div>
                         </div>
                         <div class="flex gap-4">
@@ -690,7 +686,7 @@
         </section>
 
         <!-- Изготовление -->
-        <section class="bg-white py-16 lg:py-24 content-auto" id="portraits-on-canvas">
+        <section class="bg-ah-25 py-16 lg:py-24 content-auto" id="portraits-on-canvas">
             <div class="container">
                 <h2 class="heading-section mb-6 text-center">Изготовление</h2>
                 <p class="text-xl text-body">
@@ -700,19 +696,19 @@
         </section>
 
         <!-- Доставка -->
-        <section class="bg-secondary py-16 content-auto" id="delivery">
+        <section class="bg-ah-25 py-16 lg:py-24 content-auto" id="delivery">
             <div class="container">
                 <h3 class="heading-section mb-6 text-center">Доставка</h3>
                 <p class="text-xl text-body">
                     Самовывоз в СПб — ул. Слуцкая, дом 13, корпус 2 — получение на следующий рабочий день после изготовления.<br>
                     Курьер — 450 руб. в пределах КАД — получение на следующий рабочий день после изготовления.<br>
-                    Пункты <a href="https://muse.ooo/info/dostavka/" class="text-primary-text underline hover:no-underline">выдачи ↗</a> интернет-магазинов СПб — 235 руб. — получение в течение 2-3 рабочих дней после изготовления картины.
+                    Пункты <a href="https://muse.ooo/info/dostavka/" class="text-primary-text underline hover:no-underline">выдачи</a> интернет-магазинов СПб — 235 руб. — получение в течение 2-3 рабочих дней после изготовления картины.
                 </p>
             </div>
         </section>
 
         <!-- Оплата -->
-        <section class="bg-white py-16 content-auto" id="payment">
+        <section class="bg-ah-25 py-16 lg:py-24 content-auto" id="payment">
             <div class="container">
                 <h3 class="heading-section mb-6 text-center">Оплата</h3>
                 <p class="text-xl text-body">
@@ -722,7 +718,7 @@
         </section>
 
         <!-- Advantages -->
-        <section class="bg-secondary py-16 lg:py-24 content-auto">
+        <section class="bg-ah-25 py-16 lg:py-24 content-auto">
             <div class="container">
                 <div class="mx-auto max-w-2xl mb-12 text-center">
                     <h3 class="heading-section">Преимущества</h3>
@@ -775,7 +771,7 @@
         </section>
 
         <!-- FAQ -->
-        <section class="bg-white py-16 lg:py-24 content-auto" id="faq">
+        <section class="bg-ah-25 py-16 lg:py-24 content-auto" id="faq">
             <div class="container">
                 <div class="text-center mb-8">
                     <h3 class="heading-section">Вопросы и ответы</h3>
@@ -894,7 +890,7 @@
                                         <li>выбирает фон.</li>
                                     </ul>
                                     <p class="mt-3">Очень часто при подготовке подарка нет снимка, подходящего по качеству для печати в большом размере.</p>
-                                    <p class="mt-2">Если фото хорошего разрешения, то его можно <a href="https://muse.ooo/pechat-na-kholste-sankt-peterburg/" class="text-primary-text underline hover:no-underline">напечатать на холсте ↗</a>, сделать коллаж или модульную картину.</p>
+                                    <p class="mt-2">Если фото хорошего разрешения, то его можно <a href="https://muse.ooo/pechat-na-kholste-sankt-peterburg/" class="text-primary-text underline hover:no-underline">напечатать на холсте</a>, сделать коллаж или модульную картину.</p>
                                 </div>
                             </div>
                         </details>
@@ -957,7 +953,7 @@
         </section>
 
         <!-- Examples Carousel -->
-        <section class="bg-white py-16 lg:py-24 content-auto" id="examples">
+        <section class="bg-ah-25 py-16 lg:py-24 content-auto" id="examples">
             <div class="container mb-8">
                 <div class="text-center">
                     <h2 class="heading-section">Примеры портретов на холсте</h2>

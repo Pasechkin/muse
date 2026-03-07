@@ -543,7 +543,7 @@
       chevronSvg.setAttribute('stroke-width', '2');
       chevronSvg.setAttribute('stroke-linecap', 'round');
       chevronSvg.setAttribute('stroke-linejoin', 'round');
-      chevronSvg.setAttribute('class', 'pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5 self-center justify-self-end text-gray-500');
+      chevronSvg.setAttribute('class', 'pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5 self-center justify-self-end text-ink-muted');
       var chevPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
       chevPath.setAttribute('d', 'm6 9 6 6 6-6');
       chevronSvg.appendChild(chevPath);
@@ -575,8 +575,8 @@
 
       /* Mockup wrapper (digital-only option, no divider) */
       var mockupWrapper = document.createElement('div');
-      var mockupNote = document.createElement('p');
-      mockupNote.className = 'text-xs font-bold uppercase tracking-widest text-gray-500 mb-3';
+      var mockupNote = document.createElement('div');
+      mockupNote.className = 'section-title';
       mockupNote.textContent = 'Без изготовления картины';
       mockupWrapper.appendChild(mockupNote);
       mockupWrapper.appendChild(mockupData.section);
@@ -817,7 +817,7 @@
       chevSvg1.setAttribute('viewBox', '0 0 24 24'); chevSvg1.setAttribute('fill', 'none');
       chevSvg1.setAttribute('stroke', 'currentColor'); chevSvg1.setAttribute('stroke-width', '2');
       chevSvg1.setAttribute('stroke-linecap', 'round'); chevSvg1.setAttribute('stroke-linejoin', 'round');
-      chevSvg1.setAttribute('class', 'pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5 self-center justify-self-end text-gray-500');
+      chevSvg1.setAttribute('class', 'pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5 self-center justify-self-end text-ink-muted');
       var chevPath1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
       chevPath1.setAttribute('d', 'm6 9 6 6 6-6');
       chevSvg1.appendChild(chevPath1);
@@ -860,7 +860,7 @@
       chevSvg2.setAttribute('viewBox', '0 0 24 24'); chevSvg2.setAttribute('fill', 'none');
       chevSvg2.setAttribute('stroke', 'currentColor'); chevSvg2.setAttribute('stroke-width', '2');
       chevSvg2.setAttribute('stroke-linecap', 'round'); chevSvg2.setAttribute('stroke-linejoin', 'round');
-      chevSvg2.setAttribute('class', 'pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5 self-center justify-self-end text-gray-500');
+      chevSvg2.setAttribute('class', 'pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5 self-center justify-self-end text-ink-muted');
       var chevPath2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
       chevPath2.setAttribute('d', 'm6 9 6 6 6-6');
       chevSvg2.appendChild(chevPath2);

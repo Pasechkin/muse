@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -74,7 +74,7 @@
     <link rel="canonical" href="https://muse.ooo/portret-na-zakaz/parnyy-portret/">
  <link rel="stylesheet" href="../../css/output.css">
 </head>
-<body class="bg-white overflow-x-hidden">
+<body class="bg-ah-25 overflow-x-hidden">
     <!-- Back to Top Button -->
     <a href="#" id="back-to-top" class="ui-control ui-control--lg fixed bottom-5 right-5 z-50 opacity-0 pointer-events-none hidden md:flex" aria-label="Наверх">
         <svg fill="none" aria-hidden="true" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></svg>
@@ -96,7 +96,7 @@
 
     <main>
         <!-- Первый экран (Hero) с Ken Burns эффектом -->
-        <section class="relative h-[70vh] overflow-hidden flex items-center bg-dark">
+        <section class="relative h-[70vh] overflow-hidden flex items-center bg-ah-975">
             <!-- Background Image + Animation (не грузится на мобильных) -->
             <div class="absolute inset-0 z-0 bg-black">
                 <picture>
@@ -128,8 +128,8 @@
             
             <div class="container h-full flex items-center relative z-10">
                 <div class="max-w-3xl">
-                    <nav class="text-small text-gray-400 mb-4" aria-label="Breadcrumb">
-                        <ol class="flex list-none p-0">
+                    <nav class="text-xs text-white/60 mb-4" aria-label="Breadcrumb">
+                        <ol class="flex list-none p-0 [&_a]:text-white/60 [&_a:hover]:text-white/90 [&_a]:transition-colors">
                             <li class="flex items-center">
                                 <a href="https://muse.ooo/" class="hover:underline">Главная</a>
                                 <span class="mx-2">/</span>
@@ -138,11 +138,11 @@
                                 <a href="https://muse.ooo/portret-na-zakaz/" class="hover:underline">Портрет на заказ</a>
                                 <span class="mx-2">/</span>
                             </li>
-                            <li class="text-gray-300">Парный портрет</li>
+                            <li class="text-white/80">Парный портрет</li>
                         </ol>
                     </nav>
                     
-                    <h1 class="heading-hero mb-6">Портрет пары</h1>
+                    <h1 class="heading-hero mb-6">Портрет <em style="color: var(--color-ah-600); font-style: italic;">пары</em></h1>
                     <p class="text-lead-xl mb-8">
                         Художник нарисует для Вас парный портрет и напечатает его на холсте.<br>Посмотрите примеры, выберите стиль и пришлите фото
                     </p>
@@ -152,19 +152,15 @@
                     </a>
                 </div>
             </div>
-        </section>
-
-        <!-- Promo Banner -->
-        <section class="promo-section">
-            <div class="container">
-                <div class="flex items-center justify-center">
-                    <p class="text-lead">Скидка 20% с 15 по 16 января</p>
-                </div>
-            </div>
+        </section>        <!-- Акция -->
+        <section class="sale-banner">
+            <p class="sale-banner-text">
+                <strong>Скидка 20%</strong> с 6 по 7 марта
+            </p>
         </section>
 
         <!-- Секция Стили портретов -->
-        <section class="bg-dark py-16 lg:py-20 content-auto" id="stili-portretov">
+        <section class="bg-ah-975 py-16 lg:py-20 content-auto" id="stili-portretov">
             <div class="container mb-8">
                 <div class="text-center">
                     <h2 class="heading-section mb-4">Выберите свой стиль</h2>
@@ -276,7 +272,7 @@
         </section>
 
         <!-- Примеры (заглушка для Bitrix) -->
-        <section class="bg-dark py-16 lg:py-20 content-auto" id="primery-portretov">
+        <section class="bg-ah-975 py-16 lg:py-20 content-auto" id="primery-portretov">
             <div class="container">
                 <h2 class="heading-section text-center mb-8">Портфолио</h2>
                 <p class="text-center mb-8">Портреты по фото</p>
@@ -307,7 +303,7 @@
         </section>
 
         <!-- Отзывы -->
-        <section class="bg-secondary py-16 lg:py-20 content-auto" id="review">
+        <section class="bg-ah-25 py-16 lg:py-20 content-auto" id="review">
             <div class="container">
                 <h2 class="heading-section text-center mb-8">Отзывы</h2>
                 
@@ -323,10 +319,10 @@
 
 
 
-        <section class="cta-section">
+        <section class="cta-section content-auto">
             <div class="cta-container">
-                <h2 class="cta-title">
-                    Создай своё произведение искусства
+                <h2 class="heading-section text-white">
+                    Создай своё произведение <em class="italic text-ah-600">искусства</em>
                 </h2>
                 <div class="cta-actions">
                     <a href="https://muse.ooo/order/" class="btn-primary">

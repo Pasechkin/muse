@@ -24,6 +24,11 @@
 			],
 			"isBackground": false,
 			"problemMatcher": []
+		},
+		{
+			"label": "Replace icon",
+			"type": "shell",
+			"command": "python scripts\\_replace_icon.py"
 		}
 	]
 }

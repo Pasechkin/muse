@@ -52,6 +52,7 @@
   --ink:     var(--ah-950);           /* основной текст            */
   --body:    var(--ah-900);           /* вторичный текст           */
   --muted:   rgba(40,22,1,.45);       /* приглушённый текст        */
+  --label:   var(--ah-800);           /* метки калькулятора — ah-800 6.60:1 AA ✅ */
   --acc:     var(--ah-600);           /* акцент                    */
   --acc-h:   var(--ah-600-hover);     /* акцент hover              */
   --acc-lt:  var(--ah-600-lt);        /* акцент фон                */
@@ -442,6 +443,183 @@ body {
   </div>
 </section>
 
+<!-- ── 1b. ПАЛИТРА СРАВНЕНИЕ — три насыщенности ─── -->
+<section class="ds-section">
+  <p class="ds-section-title">Сравнение палитр — S=95% vs S=80% vs S=55%</p>
+  <p style="font-size:var(--text-sm);color:var(--body);margin-bottom:calc(var(--sp)*4);line-height:1.6;">
+    Три палитры на одном тоне H=32°, разная насыщенность. S=95% — яркий янтарь (рябит),
+    <strong>S=80% — карамельный</strong> (тёплый, не грязный), S=55% — грязновато-серый.
+    Контраст измерен на фоне <code>ah-25</code> (#FFFDFA).
+  </p>
+
+  <!-- Three strips side by side -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:calc(var(--sp)*3);margin-bottom:calc(var(--sp)*6);">
+
+    <!-- COL 1: Amber Harmonized S=95% -->
+    <div>
+      <div style="font-size:var(--text-xs);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);margin-bottom:calc(var(--sp)*2);">S=95% · Amber</div>
+      <div style="display:flex;flex-direction:column;gap:2px;border-radius:12px;overflow:hidden;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#FFFDFA;border:1px solid #FEF1E1;">
+          <span style="font-size:10px;font-weight:600;color:rgba(40,22,1,.7)">ah-25</span><span style="font-size:9px;color:rgba(40,22,1,.4)">#FFFDFA</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#FFF9F3;">
+          <span style="font-size:10px;font-weight:600;color:rgba(40,22,1,.7)">ah-50</span><span style="font-size:9px;color:rgba(40,22,1,.4)">#FFF9F3</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#FEF5EA;">
+          <span style="font-size:10px;font-weight:600;color:rgba(40,22,1,.7)">ah-75</span><span style="font-size:9px;color:rgba(40,22,1,.4)">#FEF5EA</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#FEF1E1;">
+          <span style="font-size:10px;font-weight:600;color:rgba(40,22,1,.7)">ah-100</span><span style="font-size:9px;color:rgba(40,22,1,.4)">#FEF1E1</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#FDE5C8;">
+          <span style="font-size:10px;font-weight:600;color:rgba(40,22,1,.7)">ah-200</span><span style="font-size:9px;color:rgba(40,22,1,.4)">#FDE5C8</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#D97706;">
+          <span style="font-size:10px;font-weight:600;color:#fff">ah-600 ★</span><span style="font-size:9px;color:rgba(255,255,255,.6)">3.14:1</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#B26105;">
+          <span style="font-size:10px;font-weight:600;color:rgba(255,253,250,.8)">ah-700</span><span style="font-size:9px;color:rgba(255,253,250,.5)">4.49:1 ✗</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#8B4C04;">
+          <span style="font-size:10px;font-weight:600;color:rgba(255,253,250,.8)">ah-800</span><span style="font-size:9px;color:rgba(255,253,250,.5)">6.60:1 ✓</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#593102;">
+          <span style="font-size:10px;font-weight:600;color:rgba(255,253,250,.8)">ah-900</span><span style="font-size:9px;color:rgba(255,253,250,.5)">11.1:1</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#281601;">
+          <span style="font-size:10px;font-weight:600;color:rgba(255,253,250,.7)">ah-950</span><span style="font-size:9px;color:rgba(255,253,250,.4)">17.2:1</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- COL 2: Caramel S=80% ★ РЕКОМЕНДУЕМАЯ -->
+    <div>
+      <div style="font-size:var(--text-xs);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#AA6313;margin-bottom:calc(var(--sp)*2);">S=80% · Карамель ★</div>
+      <div style="display:flex;flex-direction:column;gap:2px;border-radius:12px;overflow:hidden;box-shadow:0 0 0 2px #AA6313;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#FEFDFA;border:1px solid #FCF1E3;">
+          <span style="font-size:10px;font-weight:600;color:rgba(40,22,1,.7)">cb-25</span><span style="font-size:9px;color:rgba(40,22,1,.4)">#FEFDFA</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#FEFAF6;">
+          <span style="font-size:10px;font-weight:600;color:rgba(40,22,1,.7)">cb-50</span><span style="font-size:9px;color:rgba(40,22,1,.4)">#FEFAF6</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#FDF8F1;">
+          <span style="font-size:10px;font-weight:600;color:rgba(40,22,1,.7)">cb-75</span><span style="font-size:9px;color:rgba(40,22,1,.4)">#FDF8F1</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#FCF1E3;">
+          <span style="font-size:10px;font-weight:600;color:rgba(40,22,1,.7)">cb-100</span><span style="font-size:9px;color:rgba(40,22,1,.4)">#FCF1E3</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#F9E4CD;">
+          <span style="font-size:10px;font-weight:600;color:rgba(40,22,1,.7)">cb-200</span><span style="font-size:9px;color:rgba(40,22,1,.4)">#F9E4CD</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#CA7616;">
+          <span style="font-size:10px;font-weight:600;color:#fff">cb-600</span><span style="font-size:9px;color:rgba(255,255,255,.6)">3.38:1</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#AA6313;">
+          <span style="font-size:10px;font-weight:600;color:rgba(255,253,250,.9)">label ★</span><span style="font-size:9px;color:rgba(255,253,250,.6)">4.59:1 ✓ AA</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#A56112;">
+          <span style="font-size:10px;font-weight:600;color:rgba(255,253,250,.8)">cb-700</span><span style="font-size:9px;color:rgba(255,253,250,.5)">4.79:1 ✓</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#814B0E;">
+          <span style="font-size:10px;font-weight:600;color:rgba(255,253,250,.8)">cb-800</span><span style="font-size:9px;color:rgba(255,253,250,.5)">7.02:1 ✓ AAA</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#530909;">
+          <span style="font-size:10px;font-weight:600;color:rgba(255,253,250,.8)">cb-900</span><span style="font-size:9px;color:rgba(255,253,250,.5)">11.5:1</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#251504;">
+          <span style="font-size:10px;font-weight:600;color:rgba(255,253,250,.7)">cb-950</span><span style="font-size:9px;color:rgba(255,253,250,.4)">17.4:1</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- COL 3: Soft Brown S=55% -->
+    <div>
+      <div style="font-size:var(--text-xs);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#9E692D;margin-bottom:calc(var(--sp)*2);">S=55% · Серый</div>
+      <div style="display:flex;flex-direction:column;gap:2px;border-radius:12px;overflow:hidden;opacity:.7;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#FEFDFB;border:1px solid #F8F0E7;">
+          <span style="font-size:10px;font-weight:600;color:rgba(40,22,1,.7)">sb-25</span><span style="font-size:9px;color:rgba(40,22,1,.4)">#FEFDFB</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#FDFAF7;">
+          <span style="font-size:10px;font-weight:600;color:rgba(40,22,1,.7)">sb-50</span><span style="font-size:9px;color:rgba(40,22,1,.4)">#FDFAF7</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#FCF8F3;">
+          <span style="font-size:10px;font-weight:600;color:rgba(40,22,1,.7)">sb-75</span><span style="font-size:9px;color:rgba(40,22,1,.4)">#FCF8F3</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#F8F0E7;">
+          <span style="font-size:10px;font-weight:600;color:rgba(40,22,1,.7)">sb-100</span><span style="font-size:9px;color:rgba(40,22,1,.4)">#F8F0E7</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#F2E4D4;">
+          <span style="font-size:10px;font-weight:600;color:rgba(40,22,1,.7)">sb-200</span><span style="font-size:9px;color:rgba(40,22,1,.4)">#F2E4D4</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#AE7432;">
+          <span style="font-size:10px;font-weight:600;color:#fff">sb-600</span><span style="font-size:9px;color:rgba(255,255,255,.6)">3.87:1</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#9E692D;">
+          <span style="font-size:10px;font-weight:600;color:rgba(255,253,250,.9)">label</span><span style="font-size:9px;color:rgba(255,253,250,.6)">4.58:1 ✓</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#8E5F29;">
+          <span style="font-size:10px;font-weight:600;color:rgba(255,253,250,.8)">sb-700</span><span style="font-size:9px;color:rgba(255,253,250,.5)">5.42:1 ✓</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#6F4A20;">
+          <span style="font-size:10px;font-weight:600;color:rgba(255,253,250,.8)">sb-800</span><span style="font-size:9px;color:rgba(255,253,250,.5)">7.73:1</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#473015;">
+          <span style="font-size:10px;font-weight:600;color:rgba(255,253,250,.8)">sb-900</span><span style="font-size:9px;color:rgba(255,253,250,.5)">12.2:1</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#201509;">
+          <span style="font-size:10px;font-weight:600;color:rgba(255,253,250,.7)">sb-950</span><span style="font-size:9px;color:rgba(255,253,250,.4)">17.6:1</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Text on background comparison — 3 columns -->
+  <p style="font-size:var(--text-xs);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);margin-bottom:calc(var(--sp)*3);">Текст «Размер, см» на фоне ah-25</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:calc(var(--sp)*3);margin-bottom:calc(var(--sp)*4);">
+    <div style="background:#FFFDFA;padding:calc(var(--sp)*4);border-radius:12px;border:1px solid #FEF1E1;">
+      <div style="font-size:9px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:.1em;margin-bottom:calc(var(--sp)*2);">S=95%</div>
+      <div style="font-size:var(--text-sm);color:#D97706;margin-bottom:calc(var(--sp)*1);">ah-600 — 3.14:1 ✗</div>
+      <div style="font-size:var(--text-sm);color:#B26105;margin-bottom:calc(var(--sp)*1);">ah-700 — 4.49:1 ✗</div>
+      <div style="font-size:var(--text-sm);color:#8B4C04;">ah-800 — 6.60:1 ✓</div>
+    </div>
+    <div style="background:#FFFDFA;padding:calc(var(--sp)*4);border-radius:12px;border:2px solid #AA6313;">
+      <div style="font-size:9px;font-weight:700;color:#AA6313;text-transform:uppercase;letter-spacing:.1em;margin-bottom:calc(var(--sp)*2);">S=80% ★</div>
+      <div style="font-size:var(--text-sm);color:#CA7616;margin-bottom:calc(var(--sp)*1);">cb-600 — 3.38:1 lg</div>
+      <div style="font-size:var(--text-sm);color:#AA6313;margin-bottom:calc(var(--sp)*1);font-weight:600;">label — 4.59:1 ✓ AA</div>
+      <div style="font-size:var(--text-sm);color:#A56112;margin-bottom:calc(var(--sp)*1);">cb-700 — 4.79:1 ✓</div>
+      <div style="font-size:var(--text-sm);color:#814B0E;">cb-800 — 7.02:1 ✓ AAA</div>
+    </div>
+    <div style="background:#FFFDFA;padding:calc(var(--sp)*4);border-radius:12px;border:1px solid #F8F0E7;opacity:.7;">
+      <div style="font-size:9px;font-weight:700;color:#9E692D;text-transform:uppercase;letter-spacing:.1em;margin-bottom:calc(var(--sp)*2);">S=55%</div>
+      <div style="font-size:var(--text-sm);color:#AE7432;margin-bottom:calc(var(--sp)*1);">sb-600 — 3.87:1 lg</div>
+      <div style="font-size:var(--text-sm);color:#9E692D;margin-bottom:calc(var(--sp)*1);">label — 4.58:1 ✓</div>
+      <div style="font-size:var(--text-sm);color:#6F4A20;">sb-800 — 7.73:1 ✓</div>
+    </div>
+  </div>
+
+  <!-- CSS variables — Caramel Brown -->
+  <details style="margin-bottom:calc(var(--sp)*2);">
+    <summary style="cursor:pointer;font-size:var(--text-sm);font-weight:600;color:var(--ink);padding:calc(var(--sp)*2) 0;">CSS Custom Properties — Caramel Brown S=80% (копировать)</summary>
+    <div class="code-block" style="font-size:11px;margin-top:calc(var(--sp)*2);"><span class="c-comment">/* ─── Caramel Brown — H32° S80% ──────────────────── */</span>
+  <span class="c-var">--cb-25</span>:  <span class="c-val">#FEFDFA</span>;  <span class="c-comment">/* L99 */</span>
+  <span class="c-var">--cb-50</span>:  <span class="c-val">#FEFAF6</span>;  <span class="c-comment">/* L98 */</span>
+  <span class="c-var">--cb-75</span>:  <span class="c-val">#FDF8F1</span>;  <span class="c-comment">/* L97 */</span>
+  <span class="c-var">--cb-100</span>: <span class="c-val">#FCF1E3</span>;  <span class="c-comment">/* L94 */</span>
+  <span class="c-var">--cb-125</span>: <span class="c-val">#FBEEDF</span>;  <span class="c-comment">/* L93 */</span>
+  <span class="c-var">--cb-150</span>: <span class="c-val">#FBECDA</span>;  <span class="c-comment">/* L92 */</span>
+  <span class="c-var">--cb-175</span>: <span class="c-val">#FAE9D6</span>;  <span class="c-comment">/* L91 */</span>
+  <span class="c-var">--cb-200</span>: <span class="c-val">#F9E4CD</span>;  <span class="c-comment">/* L89 */</span>
+  <span class="c-var">--cb-600</span>: <span class="c-val">#CA7616</span>;  <span class="c-comment">/* L44 — 3.38:1 AA-large */</span>
+  <span class="c-var">--cb-700</span>: <span class="c-val">#A56112</span>;  <span class="c-comment">/* L36 — 4.79:1 AA ✓    */</span>
+  <span class="c-var">--cb-800</span>: <span class="c-val">#814B0E</span>;  <span class="c-comment">/* L28 — 7.02:1 AAA ✓   */</span>
+  <span class="c-var">--cb-900</span>: <span class="c-val">#533009</span>;  <span class="c-comment">/* L18 — 11.5:1         */</span>
+  <span class="c-var">--cb-950</span>: <span class="c-val">#251504</span>;  <span class="c-comment">/* L8  — 17.4:1         */</span>
+  <span class="c-var">--cb-975</span>: <span class="c-val">#120B02</span>;  <span class="c-comment">/* L4                   */</span>
+
+  <span class="c-comment">/* Метки калькулятора → ah-800 #8B4C04 — 6.60:1 AA ✓ */</span></div>
+  </details>
+</section>
+
 <!-- ── 2. СЕМАНТИКА ────────────────────────────── -->
 <section class="ds-section">
   <p class="ds-section-title">Семантические токены</p>
@@ -806,7 +984,16 @@ body {
 }
 
 /* ── Page mockup ── */
-.pm-wrap { border-radius: var(--r-xl); overflow: hidden; box-shadow: 0 8px 48px rgba(0,0,0,.14); max-width: 760px; margin: 0 auto; font-family: var(--font-sans); }
+.pm-duo { display:grid; grid-template-columns:1fr 1fr; gap:calc(var(--sp)*6); align-items:start; }
+@media(max-width:1100px){ .pm-duo{ grid-template-columns:1fr; } }
+.pm-wrap { border-radius: var(--r-xl); overflow: hidden; box-shadow: 0 8px 48px rgba(0,0,0,.14); font-family: var(--font-sans); }
+.pm-caramel {
+  --ah-25:  #FEFDFA; --ah-50:  #FEFAF6; --ah-75: #FDF8F1;
+  --ah-100: #FCF1E3; --ah-125: #FBEEDF; --ah-150:#FBECDA;
+  --ah-175: #FAE9D6; --ah-200: #F9E4CD;
+  --ah-600: #CA7616; --ah-700: #A56112; --ah-800: #814B0E;
+  --ah-900: #533009; --ah-950: #251504; --ah-975: #120B02;
+}
 
 .pm-nav {
   background: var(--ah-975);
@@ -983,75 +1170,157 @@ body {
 <div class="supp-section">
   <p class="supp-section-title">Макет страницы — Playfair Display + PT Sans</p>
 
-  <div class="pm-wrap">
+  <div class="pm-duo">
 
-    <div class="pm-nav">
-      <div class="pm-logo">MUSE</div>
-      <div class="pm-nav-links">
-        <span class="pm-nav-link">Услуги</span>
-        <span class="pm-nav-link">Галерея</span>
-        <span class="pm-nav-link">О нас</span>
-        <button class="pm-nav-btn">Заказать</button>
+    <!-- ─── LEFT: Amber S=95% ─── -->
+    <div>
+      <div style="font-size:var(--text-xs);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8B4C04;margin-bottom:calc(var(--sp)*3);text-align:center;">S=95% · ah-800 #8B4C04 · 6.60:1</div>
+      <div class="pm-wrap">
+
+        <div class="pm-nav">
+          <div class="pm-logo">MUSE</div>
+          <div class="pm-nav-links">
+            <span class="pm-nav-link">Услуги</span>
+            <span class="pm-nav-link">Галерея</span>
+            <span class="pm-nav-link">О нас</span>
+            <button class="pm-nav-btn">Заказать</button>
+          </div>
+        </div>
+
+        <div class="pm-hero">
+          <div class="pm-eyebrow">Muse Studio · Москва</div>
+          <div class="pm-h1">Портреты,<br>которые <em style="font-style:italic;color:#D97706">живут</em><br>вечно</div>
+          <div class="pm-lead">Превращаем фотографии в произведения искусства. Холст, цифровой портрет и масло — от мастеров Muse.</div>
+          <a class="pm-hero-cta">Смотреть работы</a>
+        </div>
+
+        <div class="pm-sec" style="background:#FFFDFA">
+          <div class="pm-eye" style="color:#8B4C04">Что мы создаём</div>
+          <div class="pm-h2" style="color:#8B4C04">Три формата —<br>одно мастерство</div>
+          <div class="pm-body-text" style="color:#8B4C04">Каждый формат — отдельное искусство. Выберите то, что подходит именно вам.</div>
+          <div class="pm-cards">
+            <div class="pm-card" style="background:#FEF1E1"><div class="pm-card-name">Холст</div><div class="pm-card-desc">Галерейная печать на натуральном льне</div><div class="pm-card-price">от 2 900 ₽ · 3–5 дней</div></div>
+            <div class="pm-card" style="background:#FEF1E1"><div class="pm-card-name">Цифровой</div><div class="pm-card-desc">Арт-портрет в выбранном стиле</div><div class="pm-card-price">от 4 500 ₽ · 5–7 дней</div></div>
+            <div class="pm-card" style="background:#FEF1E1"><div class="pm-card-name">Масло</div><div class="pm-card-desc">Ручная живопись, подпись художника</div><div class="pm-card-price">от 18 000 ₽ · 2–3 недели</div></div>
+          </div>
+        </div>
+
+        <div class="pm-divider"></div>
+
+        <div class="pm-sec" style="background:#FEF5EA">
+          <div class="pm-eye">Как это работает</div>
+          <div class="pm-h2">Четыре шага до<br>вашего портрета</div>
+          <div class="pm-steps">
+            <div class="pm-step"><div class="pm-step-num">01</div><div class="pm-step-name">Загрузите фото</div><div class="pm-step-desc">Любимая фотография хорошего качества</div></div>
+            <div class="pm-step"><div class="pm-step-num">02</div><div class="pm-step-name">Выберите стиль</div><div class="pm-step-desc">Формат, размер, художественный стиль</div></div>
+            <div class="pm-step"><div class="pm-step-num">03</div><div class="pm-step-name">Предпросмотр</div><div class="pm-step-desc">Согласуете перед финальной отправкой</div></div>
+            <div class="pm-step"><div class="pm-step-num">04</div><div class="pm-step-name">Получите работу</div><div class="pm-step-desc">Доставка по всей России</div></div>
+          </div>
+        </div>
+
+        <div class="pm-divider"></div>
+
+        <div class="pm-sec" style="background:#FFFDFA">
+          <div class="pm-eye">Отзывы</div>
+          <div class="pm-quote">"Художник уловил что-то неуловимое — взгляд, улыбку. Мама плакала от счастья."</div>
+          <div class="pm-author">Анна М. · Москва · портрет маслом</div>
+        </div>
+
+        <div class="pm-divider"></div>
+
+        <div class="pm-sec" style="background:#FEF5EA">
+          <div class="pm-eye">Начать</div>
+          <div class="pm-cta-h">Ваша история<br>заслуживает красивой рамки</div>
+          <button class="pm-btn">Создать портрет</button>
+          <div class="pm-cta-note">Бесплатный предпросмотр · Правки до отправки · Доставка по России</div>
+        </div>
+
+        <div class="pm-footer">
+          <div class="pm-footer-inner">
+            <div class="pm-footer-logo">MUSE</div>
+            <div class="pm-footer-links"><span class="pm-footer-link">Услуги</span><span class="pm-footer-link">О студии</span><span class="pm-footer-link">Контакты</span></div>
+          </div>
+          <div class="pm-footer-copy">© 2025 Muse Studio · Москва · Все права защищены</div>
+        </div>
+
       </div>
     </div>
 
-    <div class="pm-hero">
-      <div class="pm-eyebrow">Muse Studio · Москва</div>
-      <div class="pm-h1">Портреты,<br>которые <em style="font-style:italic;color:#D97706">живут</em><br>вечно</div>
-      <div class="pm-lead">Превращаем фотографии в произведения искусства. Холст, цифровой портрет и масло — от мастеров Muse.</div>
-      <a class="pm-hero-cta">Смотреть работы</a>
-    </div>
+    <!-- ─── RIGHT: Caramel S=80% ─── -->
+    <div>
+      <div style="font-size:var(--text-xs);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#AA6313;margin-bottom:calc(var(--sp)*3);text-align:center;">S=80% · label #AA6313 · 4.59:1 ★</div>
+      <div class="pm-wrap pm-caramel">
 
-    <div class="pm-sec" style="background:#FFFDFA">
-      <div class="pm-eye">Что мы создаём</div>
-      <div class="pm-h2">Три формата —<br>одно мастерство</div>
-      <div class="pm-body-text">Каждый формат — отдельное искусство. Выберите то, что подходит именно вам.</div>
-      <div class="pm-cards">
-        <div class="pm-card" style="background:#FEF1E1"><div class="pm-card-name">Холст</div><div class="pm-card-desc">Галерейная печать на натуральном льне</div><div class="pm-card-price">от 2 900 ₽ · 3–5 дней</div></div>
-        <div class="pm-card" style="background:#FEF1E1"><div class="pm-card-name">Цифровой</div><div class="pm-card-desc">Арт-портрет в выбранном стиле</div><div class="pm-card-price">от 4 500 ₽ · 5–7 дней</div></div>
-        <div class="pm-card" style="background:#FEF1E1"><div class="pm-card-name">Масло</div><div class="pm-card-desc">Ручная живопись, подпись художника</div><div class="pm-card-price">от 18 000 ₽ · 2–3 недели</div></div>
+        <div class="pm-nav">
+          <div class="pm-logo">MUSE</div>
+          <div class="pm-nav-links">
+            <span class="pm-nav-link">Услуги</span>
+            <span class="pm-nav-link">Галерея</span>
+            <span class="pm-nav-link">О нас</span>
+            <button class="pm-nav-btn">Заказать</button>
+          </div>
+        </div>
+
+        <div class="pm-hero">
+          <div class="pm-eyebrow">Muse Studio · Москва</div>
+          <div class="pm-h1">Портреты,<br>которые <em style="font-style:italic;color:#CA7616">живут</em><br>вечно</div>
+          <div class="pm-lead">Превращаем фотографии в произведения искусства. Холст, цифровой портрет и масло — от мастеров Muse.</div>
+          <a class="pm-hero-cta">Смотреть работы</a>
+        </div>
+
+        <div class="pm-sec" style="background:#FEFDFA">
+          <div class="pm-eye" style="color:#AA6313">Что мы создаём</div>
+          <div class="pm-h2" style="color:#AA6313">Три формата —<br>одно мастерство</div>
+          <div class="pm-body-text" style="color:#AA6313">Каждый формат — отдельное искусство. Выберите то, что подходит именно вам.</div>
+          <div class="pm-cards">
+            <div class="pm-card" style="background:#FCF1E3"><div class="pm-card-name">Холст</div><div class="pm-card-desc">Галерейная печать на натуральном льне</div><div class="pm-card-price">от 2 900 ₽ · 3–5 дней</div></div>
+            <div class="pm-card" style="background:#FCF1E3"><div class="pm-card-name">Цифровой</div><div class="pm-card-desc">Арт-портрет в выбранном стиле</div><div class="pm-card-price">от 4 500 ₽ · 5–7 дней</div></div>
+            <div class="pm-card" style="background:#FCF1E3"><div class="pm-card-name">Масло</div><div class="pm-card-desc">Ручная живопись, подпись художника</div><div class="pm-card-price">от 18 000 ₽ · 2–3 недели</div></div>
+          </div>
+        </div>
+
+        <div class="pm-divider"></div>
+
+        <div class="pm-sec" style="background:#FDF8F1">
+          <div class="pm-eye">Как это работает</div>
+          <div class="pm-h2">Четыре шага до<br>вашего портрета</div>
+          <div class="pm-steps">
+            <div class="pm-step"><div class="pm-step-num">01</div><div class="pm-step-name">Загрузите фото</div><div class="pm-step-desc">Любимая фотография хорошего качества</div></div>
+            <div class="pm-step"><div class="pm-step-num">02</div><div class="pm-step-name">Выберите стиль</div><div class="pm-step-desc">Формат, размер, художественный стиль</div></div>
+            <div class="pm-step"><div class="pm-step-num">03</div><div class="pm-step-name">Предпросмотр</div><div class="pm-step-desc">Согласуете перед финальной отправкой</div></div>
+            <div class="pm-step"><div class="pm-step-num">04</div><div class="pm-step-name">Получите работу</div><div class="pm-step-desc">Доставка по всей России</div></div>
+          </div>
+        </div>
+
+        <div class="pm-divider"></div>
+
+        <div class="pm-sec" style="background:#FEFDFA">
+          <div class="pm-eye">Отзывы</div>
+          <div class="pm-quote">"Художник уловил что-то неуловимое — взгляд, улыбку. Мама плакала от счастья."</div>
+          <div class="pm-author">Анна М. · Москва · портрет маслом</div>
+        </div>
+
+        <div class="pm-divider"></div>
+
+        <div class="pm-sec" style="background:#FDF8F1">
+          <div class="pm-eye">Начать</div>
+          <div class="pm-cta-h">Ваша история<br>заслуживает красивой рамки</div>
+          <button class="pm-btn">Создать портрет</button>
+          <div class="pm-cta-note">Бесплатный предпросмотр · Правки до отправки · Доставка по России</div>
+        </div>
+
+        <div class="pm-footer">
+          <div class="pm-footer-inner">
+            <div class="pm-footer-logo">MUSE</div>
+            <div class="pm-footer-links"><span class="pm-footer-link">Услуги</span><span class="pm-footer-link">О студии</span><span class="pm-footer-link">Контакты</span></div>
+          </div>
+          <div class="pm-footer-copy">© 2025 Muse Studio · Москва · Все права защищены</div>
+        </div>
+
       </div>
     </div>
 
-    <div class="pm-divider"></div>
-
-    <div class="pm-sec" style="background:#FEF5EA">
-      <div class="pm-eye">Как это работает</div>
-      <div class="pm-h2">Четыре шага до<br>вашего портрета</div>
-      <div class="pm-steps">
-        <div class="pm-step"><div class="pm-step-num">01</div><div class="pm-step-name">Загрузите фото</div><div class="pm-step-desc">Любимая фотография хорошего качества</div></div>
-        <div class="pm-step"><div class="pm-step-num">02</div><div class="pm-step-name">Выберите стиль</div><div class="pm-step-desc">Формат, размер, художественный стиль</div></div>
-        <div class="pm-step"><div class="pm-step-num">03</div><div class="pm-step-name">Предпросмотр</div><div class="pm-step-desc">Согласуете перед финальной отправкой</div></div>
-        <div class="pm-step"><div class="pm-step-num">04</div><div class="pm-step-name">Получите работу</div><div class="pm-step-desc">Доставка по всей России</div></div>
-      </div>
-    </div>
-
-    <div class="pm-divider"></div>
-
-    <div class="pm-sec" style="background:#FFFDFA">
-      <div class="pm-eye">Отзывы</div>
-      <div class="pm-quote">"Художник уловил что-то неуловимое — взгляд, улыбку. Мама плакала от счастья."</div>
-      <div class="pm-author">Анна М. · Москва · портрет маслом</div>
-    </div>
-
-    <div class="pm-divider"></div>
-
-    <div class="pm-sec" style="background:#FEF5EA">
-      <div class="pm-eye">Начать</div>
-      <div class="pm-cta-h">Ваша история<br>заслуживает красивой рамки</div>
-      <button class="pm-btn">Создать портрет</button>
-      <div class="pm-cta-note">Бесплатный предпросмотр · Правки до отправки · Доставка по России</div>
-    </div>
-
-    <div class="pm-footer">
-      <div class="pm-footer-inner">
-        <div class="pm-footer-logo">MUSE</div>
-        <div class="pm-footer-links"><span class="pm-footer-link">Услуги</span><span class="pm-footer-link">О студии</span><span class="pm-footer-link">Контакты</span></div>
-      </div>
-      <div class="pm-footer-copy">© 2025 Muse Studio · Москва · Все права защищены</div>
-    </div>
-
-  </div>
+  </div><!-- /pm-duo -->
 </div>
 
 <!-- ── 13. КНОПКИ ────────────────────────────────── -->

@@ -324,6 +324,104 @@ npm run copy-css     # Копия для Live Server
   - Mobile: bottom-sheet (выезжает снизу, свайп вниз для закрытия)
   - Desktop: центрированный `<dialog>` с `max-w-md`
   - Форма: имя, телефон (маска RU), время звонка
+
+---
+
+## Редизайн V7 «Amber Harmonized» — план миграции
+
+> **Решения (зафиксировано):** Amber на весь сайт · Шрифты self-hosted woff2 · Весь CSS в input.css · Синяя тема полностью заменяется
+
+### Фаза 0 — CSS-фундамент
+
+| # | Задача | Файлы |
+|---|--------|-------|
+| 1 | Скачать woff2 Playfair Display (400/400i/700/700i) + PT Sans (400/400i/700/700i) → `src/html/fonts/` | fonts/ |
+| 2 | Добавить `@font-face` в input.css, прописать `--font-display: 'Playfair Display'`, `--font-sans: 'PT Sans'` в `@theme` | input.css |
+| 3 | Заменить цветовые токены в `@theme`: `--color-primary` → `#140B01`, `--color-primary-hover` → `#281601`, `--color-primary-light` → `#FEF1E1`, `--color-primary-text` → `#8B4C04`, `--color-dark` → `#140B01`, `--color-body` → `#281601`, `--color-secondary` → `#FDE5C8` | input.css |
+| 4 | Добавить палитру ah-25…ah-975 + ink-систему (`text-ink`, `text-ink-soft`, `text-ink-muted`, `text-ink-label`, `text-ink-on-dark`, `text-ink-muted-on-dark`) в `@theme` | input.css |
+| 5 | Перенести ~650 строк утилит из v7 inline `<style>` в `@layer components` / `@utility` (без `[data-theme="amber"]` префикса): eyebrow, step-number-giant, desc-media, info-dot, lightbox-select-btn, calc amber overrides, tab-gallery, step-animate keyframes | input.css |
+| 6 | Обновить семантические классы заголовков — добавить `font-display` (Playfair Display) | input.css |
+| 7 | `npm run build:once` — проверить компиляцию | output.css |
+| 8 | Обновить `docs/DESIGN_SYSTEM.md` — цвета, типографика, ink-система | DESIGN_SYSTEM.md |
+
+
+### Фаза 1 — Эталонная страница `portret-maslom.html` ✅ (6 марта 2026)
+
+| # | Задача | Статус |
+|---|--------|--------|
+| 9 | Удалить inline `<style>` (627 строк) и Google Fonts `<link>` из portret-maslom-v7.html → сохранить как новый portret-maslom.html | ✅ |
+| 10 | Классы amber уже в v7-разметке: `bg-ah-975`, `bg-ah-25`, `text-ink-*`, `border-ah-*`. Серые утилиты в calc-секции → CSS-переопределения в input.css | ✅ |
+| 11 | Убрать `data-theme="amber"` с `<body>`, добавить `bg-ah-100` | ✅ |
+| 12 | Калькулятор: CalcInit type `portrait`, prices.js, frames.js, IntersectionObserver — без изменений | ✅ |
+| 13 | Все 10 секций: Hero, Примеры, Калькулятор, Как заказать, Характеристики, Преимущества, Отзывы, Описание, CTA, Footer — проверены | ✅ |
+
+**Результат:** 1163 строки (было 936 + 1779 v7). CSS 188 KB. Header/Footer/Dialogs встроены.
+
+### Фаза 1.5 — Фиксы и унификация перед раскаткой
+
+> **Цель:** Исправить визуальные баги, унифицировать компоненты и подготовить структуру.
+> Все решения приняты в обсуждении 6 марта 2026.
+
+| # | Задача | Где | Статус |
+|---|--------|-----|--------|
+| 1.5a | **Исправить цвет текста на тёмных фонах.** Nav-ссылки, город, гамбургер, mobile-menu: `text-ah-200` → `text-white`, `hover:text-ah-25`. Footer: ссылки `text-white/70 hover:text-white`, копирайт `text-white/40`. Focus-ring логотипа: `ring-primary` → `ring-ah-600` | portret-maslom.html | ✅ |
+| 1.5b | **Унифицировать кнопки.** Все 13 типов кнопок → `border-radius: 0.5rem` (8px). Активный таб wrap-btn: `bg: ah-50` (amber). calc-checkbox checked: явный `ah-950`. Calc inputs: `outline-primary` → `outline-ah-600` | input.css | ✅ |
+| 1.5c | **Добавить antialiased + scroll-padding.** `html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; scroll-padding-top: 5.5rem; }` | input.css (@layer base) | ✅ |
+| 1.5d | **Извлечь header/footer, восстановить заглушки.** Сохранить amber header+dialogs → `draft/header-amber.html`, footer → `draft/footer-amber.html`. Заменить в portret-maslom и 17 style-страницах на комментарии-заглушки. Убрать back-to-top | portret-maslom.html, draft/ | ✅ |
+| 1.5e | **Обновить index.html на amber header/footer.** `bg-dark` → `bg-ah-975`, `text-gray-300` → `text-white`, `text-gray-400` → `text-white/70`, `ring-primary` → `ring-ah-600`. Обновить city/callback/mobile-menu диалоги | index.html | ✅ |
+| 1.5f | **Унифицировать иконки преимуществ.** Удалить crossfade у первой иконки (убрать вторую SVG). Все 6: `group-hover:scale-110` (убрать `scale-[3]`). CSS `.icon-advantage`: 30px (1.875rem), цвет ah-950. Контейнер: 3.625rem circle, bg-ah-50 | portret-maslom.html, input.css | ✅ |
+| 1.5g | **Аудит дизайн-системы vs Oatmeal.** Добавлены ah-300/400/500 в @theme. DESIGN_SYSTEM.md: обновлены header, mobile-menu, city-dialog, footer, CTA на amber. ~50 `text-gray-*` в контентных секциях (формы, таблицы, хлебные крошки, блог) — остаются до Phase 2–3 | input.css, DESIGN_SYSTEM.md | ✅ |
+| 1.5h | **Создать ТЗ на редизайн иконок (ICON_SPEC.md).** Grid 30×30px viewBox, stroke 2px, round linecap/linejoin. Line-art outline monostroke. Список иконок на редизайн | docs/ICON_SPEC.md | ✅ |
+| 1.5i | **Сборка + проверка.** `npm run build:once` + `npm run copy-css`. CSS 189 KB, ошибок нет. ah-300/400/500 в output ✔ | — | ✅ |
+
+**Принятые решения:**
+- Навигация на тёмном фоне: `text-white` (как логотип/телефон/CTA), hover → `text-ah-25`
+- Header/Footer: только на index.html; style-страницы — заглушки
+- Активный таб калькулятора: amber (`ah-50`), не белый
+- Радиус кнопок: 0.5rem (8px) единый
+- Иконки: 30px, ah-950, без crossfade, hover=scale-110
+- Порядок: последовательный (фиксы → структура → унификация → аудит → Phase 2)
+
+### Фаза 2 — Раскатка на 17 остальных style-страниц
+
+| # | Задача |
+|---|--------|
+| 14 | Массовая замена классов по шаблону portret-maslom.html во всех 17 файлах `src/html/portret-na-zakaz/style/*.html` |
+| 15 | Точечная проверка 2–3 страниц (portret-akvarelyu, portret-karandashom, portret-pop-art) |
+
+### Фаза 3 — Остальные группы страниц
+
+| # | Задача | Страницы |
+|---|--------|----------|
+| 16 | Главные страницы (index, portret-na-zakaz, reproduktsiya, modulnaya-kartina) | 4 стр. |
+| 17 | Объекты портретов (5 стр.), Блог (20 стр.), Info (9 стр.) | 34 стр. |
+| 18 | Печать — pechat/*.php (8 стр. + 2 reviews) | 10 стр. |
+
+### Фаза 4 — JS и анимации
+
+| # | Задача | Файлы |
+|---|--------|-------|
+| 19 | Проверить/добавить поддержку `data-tabs` в nav.js (tab-switching для Характеристики) | nav.js |
+| 20 | Step-animate (IntersectionObserver для Как заказать) — проверить/добавить в nav.js | nav.js |
+| 21 | Video-cover вариант и lightbox-select-btn — проверить совместимость | nav.js |
+
+### Фаза 5 — Очистка и валидация
+
+| # | Задача |
+|---|--------|
+| 22 | Удалить portret-maslom-v7.html (экспериментальный файл) |
+| 23 | Проверить focus-visible кольца (ring-color: ah-600 вместо тёмного ah-950) |
+| 24 | Проверить контрастность: page-navigator, cookie-баннер, city-dialog, messenger-widget |
+| 25 | `npm run build:once` + `npm run copy-css` финальная сборка |
+| 26 | Lighthouse-проверка эталонной страницы (Accessibility ≥ 95) |
+
+### Риски и заметки
+
+- **focus-visible:** `--color-primary` теперь `#140B01` (почти чёрный) — кольца фокуса могут быть невидимы на тёмном фоне → использовать `ah-600` (#D97706) для ring-color
+- **Баннеры:** Куки, город, мессенджер — стилизованы под синюю тему, нужна проверка на amber
+- **Page Navigator:** Белые точки на тёплом фоне — проверить контраст
+- **Промо-текст:** «Скидка 20% с 3 по 4 января» захардкожен в v7 — убрать или параметризировать
+- **Табы Характеристики:** `data-tabs`/`data-tab-list`/`data-tab-panels` — убедиться что nav.js поддерживает
   - Отправка: заглушка → показ success-экрана → автозакрытие через 3 с
   - **При интеграции:** заменить заглушку на `fetch` к Bitrix API
 - Виджет отзывов
@@ -436,3 +534,37 @@ npm run copy-css     # Копия для Live Server
 - Реальная отправка формы заказа (сейчас `console.log` + `alert`)
 - Серверный API для цен
 - Серверная валидация цен
+
+---
+
+## Текущий план работ (7 марта 2026)
+
+> **Контекст:** На `portret-maslom-v7.html` обновлены компоненты (Акция, Как заказать, Характеристики, Преимущества, Описание) и частично внедрена визуальная иерархия из `draft/O`. Но все v7-стили живут в inline `<style>` (~1900 строк), не в `input.css`. Из 19 style-страниц обновлена только 1 (v7). Эталон `portret-maslom.html` — гибрид (HTML v7, CSS глобальный, некоторые компоненты без стилей).
+
+### Приоритет и порядок
+
+| Шаг | Задача | Зависимости | Статус |
+|-----|--------|-------------|--------|
+| **1** | **Глобализация CSS:** перенести компоненты из inline `<style>` v7 в `input.css` | — | ✅ |
+|   | 1.1 `step-number-giant` → `@layer components` | — | ✅ |
+|   | 1.2 `info-dot` → `@layer components` | — | ✅ |
+|   | 1.3 `sale-banner` (универсальный, отвязан от calc) → `@layer components` | — | ✅ |
+|   | 1.4 `desc-media` (флоат-блок описания) → `@layer components` | — | ✅ |
+|   | 1.5 `eyebrow` (метка-бейдж над заголовком) → `@utility` | — | ✅ |
+|   | 1.6 Правила тёмных поверхностей (`:where(.bg-ah-975, .bg-ah-950)`) — уже в `input.css` | — | ✅ |
+|   | 1.7 Кнопки на тёмном фоне (CTA ghost buttons) + `btn-inverse` без обводки, hover lift | — | ✅ |
+|   | 1.8 `npm run build:once` + `npm run copy-css` — 158 KB, ок | 1.1–1.7 | ✅ |
+| **2** | **Обновить эталон:** аудит v7 inline CSS vs input.css → все ~85 `[data-theme="amber"]` правил уже перенесены (без префикса). Обновлён `.calc-accent` (ah-950/ah-50). Эталон чист: нет `<style>`, нет `data-theme`, нет Google Fonts. Build 163KB. | Шаг 1 | ✅ |
+| **3** | **Тёмные секции:** унифицированы до `ah-975` (ah-950 убран из фоновых правил). Текст на тёмных поверхностях — `text-white`. | Шаг 2 | ✅ |
+| **4** | **Доделать секцию Описание:** текст, before/after slider — без изменений, ready. Видео-карточка заменена (см. шаг 5). | Шаг 2 | ✅ |
+| **5** | **Видео в Описании:** YouTube заменён на self-hosted видео (`video-card` + `video-modal`). 2 видео: mp4 + webm. CSS модалки мигрирован в `input.css`. JS (`nav.js`) уже поддерживает. Build 167 KB. | Шаг 4 | ✅ |
+| **6** | **CTA готов:** Кнопки поменяны (Заказать первая), `btn-inverse` без обводки + hover lift | Шаг 2 | ✅ |
+| **7** | **Масштабирование на 17 страниц:** обновить Как заказать, Акцию, Характеристики, CTA по эталону | Шаги 1–6 | ⏳ |
+| **8** | **Демо иерархии O:** применить ink-роли на одной секции, визуально сравнить, принять решение о внедрении | Шаги 1–6 | ⏳ |
+
+### Принятые решения
+
+- Иерархия O — **не блокер и не первый шаг**. Ink-классы уже определены в `input.css`. Иерархия — это тюнинг, который делается после стабилизации компонентов.
+- Inline `<style>` из v7 — **главный блокер масштабирования**. Пока стили внутри одной страницы, тиражировать невозможно.
+- Header/Footer — в v7 встроены полностью и работают. В эталоне — заглушки (по плану Phase 1.5d). Проблем с тёмным фоном нет, но после глобализации нужна перепроверка.
+- `portret-maslom-v7.html` — экспериментальный файл, будет удалён после переноса всего полезного (Phase 5, задача 22).

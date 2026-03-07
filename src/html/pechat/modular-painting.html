@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -69,7 +69,7 @@
     </style>
 <link rel="stylesheet" href="/index.css">
 </head>
-<body class="min-h-screen flex flex-col font-sans text-gray-900">
+<body class="bg-ah-25 min-h-screen flex flex-col font-sans text-ink">
 
     <!-- Navbar -->
     <div class="w-full bg-white border-b border-gray-200 py-3 px-4 lg:px-8 shadow-sm flex-none z-50">
@@ -90,13 +90,13 @@
             <div class="bg-white border-b border-gray-200 px-3 py-2 flex items-center justify-between z-20 shrink-0 shadow-sm">
                 <div class="bg-gray-100 rounded-lg p-1 flex">
                    <button id="btn-mode-layout" class="px-3 py-1.5 rounded-md text-[10px] uppercase font-bold tracking-wider transition-all bg-white text-primary-text shadow-sm">Макет</button>
-                   <button id="btn-mode-image" class="px-3 py-1.5 rounded-md text-[10px] uppercase font-bold tracking-wider transition-all text-gray-500 hover:text-gray-700">Фото</button>
+                   <button id="btn-mode-image" class="px-3 py-1.5 rounded-md text-[10px] uppercase font-bold tracking-wider transition-all text-ink-muted hover:text-ink">Фото</button>
                 </div>
                 
                 <div class="flex items-center gap-2" id="img-controls" style="display: none;">
-                    <button id="btn-zoom-out" class="p-1.5 hover:bg-gray-100 rounded-full text-gray-600 transition-colors"></button>
-                    <button id="btn-center" class="p-1.5 hover:bg-gray-100 rounded-full text-gray-600 transition-colors"></button>
-                    <button id="btn-zoom-in" class="p-1.5 hover:bg-gray-100 rounded-full text-gray-600 transition-colors"></button>
+                    <button id="btn-zoom-out" class="p-1.5 hover:bg-gray-100 rounded-full text-ink-soft transition-colors"></button>
+                    <button id="btn-center" class="p-1.5 hover:bg-gray-100 rounded-full text-ink-soft transition-colors"></button>
+                    <button id="btn-zoom-in" class="p-1.5 hover:bg-gray-100 rounded-full text-ink-soft transition-colors"></button>
                 </div>
             </div>
              
@@ -145,7 +145,7 @@
             Center: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>`,
             X: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`,
             LockClosed: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary-text"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
-            LockOpen: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-300"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>`
+            LockOpen: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-ink-muted"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>`
         };
 
         const SCALE = 4;
@@ -605,11 +605,11 @@
                 container.innerHTML = `
                     <div class="space-y-4 py-5">
                         <div class="space-y-2">
-                            <div class="px-5 text-[10px] uppercase font-bold tracking-widest text-gray-400">Количество модулей</div>
+                            <div class="px-5 text-[10px] uppercase font-bold tracking-widest text-ink-muted">Количество модулей</div>
                             <!-- Added custom-scroll and pr-5 for better end visibility -->
                             <div class="flex overflow-x-auto gap-2 px-5 pb-2 snap-x custom-scroll pr-5" id="count-filters"></div>
                         </div>
-                        <div class="px-5 text-[10px] uppercase font-bold tracking-widest text-gray-400">Схема расположения</div>
+                        <div class="px-5 text-[10px] uppercase font-bold tracking-widest text-ink-muted">Схема расположения</div>
                         <div class="flex overflow-x-auto gap-3 px-5 pb-4 snap-x custom-scroll pr-5 lg:grid lg:grid-cols-2 lg:gap-4 lg:overflow-visible lg:pr-5" id="preset-list"></div>
                     </div>
                 `;
@@ -617,7 +617,7 @@
                 MODULE_COUNTS.forEach(c => {
                     const btn = document.createElement('button');
                     const isActive = State.filterCount === c;
-                    btn.className = `flex-none w-12 h-12 rounded-xl flex items-center justify-center text-sm font-bold border transition-all ${isActive ? 'bg-primary border-primary text-white shadow-lg scale-105' : 'bg-white border-gray-200 text-gray-600'}`;
+                    btn.className = `flex-none w-12 h-12 rounded-xl flex items-center justify-center text-sm font-bold border transition-all ${isActive ? 'bg-primary border-primary text-white shadow-lg scale-105' : 'bg-white border-gray-200 text-ink-soft'}`;
                     btn.textContent = c;
                     btn.onclick = () => { State.filterCount = c; renderSidebar(); };
                     filterCont.appendChild(btn);
@@ -625,20 +625,20 @@
                 const presetCont = document.getElementById('preset-list');
                 PRESETS.filter(p => p.count === State.filterCount).forEach(p => {
                     const btn = document.createElement('button');
-                    btn.className = "snap-start flex-none w-28 lg:w-full h-28 border border-gray-200 rounded-xl p-2 hover:border-primary text-gray-400 hover:text-primary-text transition-all flex flex-col items-center bg-gray-50/50";
+                    btn.className = "snap-start flex-none w-28 lg:w-full h-28 border border-gray-200 rounded-xl p-2 hover:border-primary text-ink-muted hover:text-primary-text transition-all flex flex-col items-center bg-gray-50/50";
                     const layout = applyLayout(p);
                     let minX=Infinity, minY=Infinity, maxX=-Infinity, maxY=-Infinity;
                     layout.forEach(m=>{ minX=Math.min(minX,m.offsetLeft); minY=Math.min(minY,m.offsetTop); maxX=Math.max(maxX,m.offsetLeft+m.width); maxY=Math.max(maxY,m.offsetTop+m.height); });
                     const w=maxX-minX, h=maxY-minY;
                     let svgInner = layout.map(m => `<rect x="${m.offsetLeft}" y="${m.offsetTop}" width="${m.width}" height="${m.height}" fill="currentColor" opacity="0.8" rx="2" />`).join('');
-                    btn.innerHTML = `<div class="flex-1 w-full flex items-center justify-center min-h-0"><svg viewBox="${minX} ${minY} ${w} ${h}" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" class="pointer-events-none p-2">${svgInner}</svg></div><div class="flex-none h-6 flex items-center justify-center w-full border-t border-gray-100 mt-1"><span class="text-[9px] font-bold uppercase text-gray-500">${p.name}</span></div>`;
+                    btn.innerHTML = `<div class="flex-1 w-full flex items-center justify-center min-h-0"><svg viewBox="${minX} ${minY} ${w} ${h}" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" class="pointer-events-none p-2">${svgInner}</svg></div><div class="flex-none h-6 flex items-center justify-center w-full border-t border-gray-100 mt-1"><span class="text-[9px] font-bold uppercase text-ink-muted">${p.name}</span></div>`;
                     btn.onclick = () => { State.modules = applyLayout(p); calculateTotals(); fitView(); renderModules(); };
                     presetCont.appendChild(btn);
                 });
             } else if (State.activeTab === 'photos') {
                 container.innerHTML = `
                     <div class="p-5 space-y-4">
-                        <div id="drop-zone" class="w-full h-24 border-2 border-dashed ${State.isDragOver ? 'border-primary bg-primary/5 text-primary-text' : 'border-gray-300 text-gray-400 hover:border-primary hover:text-primary-text'} rounded-xl flex flex-col items-center justify-center transition-colors gap-2 cursor-pointer">
+                        <div id="drop-zone" class="w-full h-24 border-2 border-dashed ${State.isDragOver ? 'border-primary bg-primary/5 text-primary-text' : 'border-gray-300 text-ink-muted hover:border-primary hover:text-primary-text'} rounded-xl flex flex-col items-center justify-center transition-colors gap-2 cursor-pointer">
                             ${Icons.Upload}
                             <span class="text-[10px] font-black uppercase tracking-widest">${State.isDragOver ? 'Отпустите файл' : 'Загрузить'}</span>
                         </div>
@@ -662,20 +662,20 @@
                     <div class="p-5 space-y-6">
                         <div class="bg-gray-50 p-6 rounded-2xl space-y-6">
                             <div class="space-y-3">
-                                <div class="text-[10px] uppercase tracking-widest text-gray-400 font-bold text-center">Размер конструкции (см)</div>
+                                <div class="text-[10px] uppercase tracking-widest text-ink-muted font-bold text-center">Размер конструкции (см)</div>
                                 <div class="flex items-center gap-4">
                                     <div class="flex-1">
-                                        <label class="text-[10px] text-gray-400 font-bold block mb-1">Ширина</label>
+                                        <label class="text-[10px] text-ink-muted font-bold block mb-1">Ширина</label>
                                         <input type="number" id="inp-width" value="${w}" class="w-full text-center font-bold text-xl p-2 rounded-lg border border-gray-200 focus:border-primary outline-none">
                                     </div>
-                                    <span class="text-gray-300 text-xl pt-4">x</span>
+                                    <span class="text-ink-muted text-xl pt-4">x</span>
                                     <div class="flex-1">
-                                        <label class="text-[10px] text-gray-400 font-bold block mb-1">Высота</label>
+                                        <label class="text-[10px] text-ink-muted font-bold block mb-1">Высота</label>
                                         <input type="number" id="inp-height" value="${h}" class="w-full text-center font-bold text-xl p-2 rounded-lg border border-gray-200 focus:border-primary outline-none">
                                     </div>
                                 </div>
                             </div>
-                            <div class="bg-dark text-white p-6 rounded-2xl shadow-xl shadow-dark/20"><div class="flex justify-between items-baseline mb-4"><span class="text-sm font-medium text-gray-400">Стоимость</span><span class="text-3xl font-light tracking-tight">${Math.round(State.totals.price).toLocaleString()} ₽</span></div><button class="w-full bg-primary hover:bg-primary-hover text-white py-4 rounded-xl font-black uppercase text-sm tracking-widest transition-all transform active:scale-95 shadow-lg shadow-primary/30">Заказать</button></div>
+                            <div class="bg-dark text-white p-6 rounded-2xl shadow-xl shadow-dark/20"><div class="flex justify-between items-baseline mb-4"><span class="text-sm font-medium text-ink-muted-on-dark">Стоимость</span><span class="text-3xl font-light tracking-tight">${Math.round(State.totals.price).toLocaleString()} ₽</span></div><button class="w-full bg-primary hover:bg-primary-hover text-white py-4 rounded-xl font-black uppercase text-sm tracking-widest transition-all transform active:scale-95 shadow-lg shadow-primary/30">Заказать</button></div>
                         </div>
                     </div>`;
                     
@@ -707,7 +707,7 @@
             bar.innerHTML = '';
             [{ id: 'photos', label: 'Фото', icon: Icons.Photo }, { id: 'format', label: 'Формат', icon: Icons.Format }, { id: 'layout', label: 'Макет', icon: Icons.Layout }, { id: 'order', label: 'Заказ', icon: Icons.Order }].forEach(tab => {
                 const btn = document.createElement('button');
-                btn.className = `flex-1 py-3 lg:py-4 flex flex-col items-center justify-center gap-1.5 transition-colors duration-200 ${State.activeTab === tab.id ? 'text-primary-text' : 'text-gray-400 hover:text-gray-600'}`;
+                btn.className = `flex-1 py-3 lg:py-4 flex flex-col items-center justify-center gap-1.5 transition-colors duration-200 ${State.activeTab === tab.id ? 'text-primary-text' : 'text-ink-muted hover:text-ink-soft'}`;
                 btn.innerHTML = `${tab.icon}<span class="text-[10px] font-black uppercase tracking-wider">${tab.label}</span>`;
                 btn.onclick = () => { State.activeTab = tab.id; renderSidebar(); renderTabs(); };
                 bar.appendChild(btn);
@@ -719,7 +719,7 @@
             const btnImage = document.getElementById('btn-mode-image');
             const imgControls = document.getElementById('img-controls');
             const activeClass = "px-4 py-1.5 rounded-md text-[11px] uppercase font-bold tracking-wider transition-all bg-white text-primary-text shadow-sm ring-1 ring-black/5";
-            const inactiveClass = "px-4 py-1.5 rounded-md text-[11px] uppercase font-bold tracking-wider transition-all text-gray-500 hover:text-gray-700 hover:bg-gray-50";
+            const inactiveClass = "px-4 py-1.5 rounded-md text-[11px] uppercase font-bold tracking-wider transition-all text-ink-muted hover:text-ink hover:bg-gray-50";
             btnLayout.className = State.interactionMode === 'layout' ? activeClass : inactiveClass;
             btnImage.className = State.interactionMode === 'image' ? activeClass : inactiveClass;
             imgControls.style.display = State.previewImage ? 'flex' : 'none';

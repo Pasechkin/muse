@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -30,7 +30,7 @@
 
     <link rel="stylesheet" href="../css/output.css">
 </head>
-<body class="bg-white overflow-x-hidden">
+<body class="bg-ah-25 overflow-x-hidden">
 
     <!-- Page Navigator -->
     <nav class="page-navigator" id="page-navigator">
@@ -53,7 +53,7 @@
 
     <main>
         <!-- Первый экран (Hero) с Ken Burns эффектом -->
-        <section id="hero" class="relative min-h-130 lg:min-h-[calc(100vh-88px)] overflow-hidden flex items-center bg-dark">
+        <section id="hero" class="relative min-h-130 lg:min-h-[calc(100vh-88px)] overflow-hidden flex items-center bg-ah-975">
             <!-- Background Image + Animation -->
             <div class="absolute inset-0 z-0 bg-black">
                 <picture>
@@ -89,13 +89,13 @@
                         <ol class="flex list-none p-0">
                             <li class="flex items-center">
                                 <a href="https://muse.ooo/">Главная</a>
-                                <span class="mx-2 text-gray-200">/</span>
+                                <span class="mx-2 text-ink-muted-on-dark">/</span>
                             </li>
                             <li class="flex items-center">
                                 <a href="https://muse.ooo/pechat-na-kholste-sankt-peterburg/">Печать на холсте</a>
-                                <span class="mx-2 text-gray-200">/</span>
+                                <span class="mx-2 text-ink-muted-on-dark">/</span>
                             </li>
-                            <li class="text-gray-200">Модульная картина</li>
+                            <li class="text-ink-muted-on-dark">Модульная картина</li>
                         </ol>
                     </nav>
 
@@ -112,7 +112,7 @@
         </section>
 
         <!-- Характеристики -->
-        <section class="bg-secondary py-16 lg:py-24 content-auto" id="work">
+        <section class="bg-ah-25 py-16 lg:py-24 content-auto" id="work">
             <div class="container">
             <h2 class="heading-section text-center mb-12">Характеристики</h2>
 
@@ -135,14 +135,14 @@
                     <!-- Слайдер продукта -->
                     <div data-tabs class="flex flex-col-reverse">
                         <div data-tab-list class="mx-auto mt-4 w-full max-w-md grid grid-cols-2 gap-3">
-                            <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
+                            <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-ink hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
                                 <span class="sr-only">Лицевая сторона модульной картины</span>
                                 <span class="absolute inset-0 overflow-hidden rounded">
                                     <img src="https://muse.ooo/upload/imgsite/o-product-multi-panels-front-442.webp" alt="Фото печать модульной картины на холсте с подрамником" title="Лицевая сторона модульной картины на холсте с подрамником" width="442" height="332" class="size-full object-cover" loading="lazy" decoding="async">
                                 </span>
                                 <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-primary"></span>
                             </button>
-                            <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-gray-900 hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
+                            <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-ink hover:bg-gray-50 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:outline-hidden">
                                 <span class="sr-only">Обратная сторона модульной картины</span>
                                 <span class="absolute inset-0 overflow-hidden rounded">
                                     <img src="https://muse.ooo/upload/imgsite/o-product-multi-panels-back-442.webp" alt="Фото обратной стороны модульной картины на холсте с подрамником" title="Обратная сторона модульной картины на холсте с подрамником" width="442" height="332" class="size-full object-cover" loading="lazy" decoding="async">
@@ -166,15 +166,11 @@
                     Выше приведен список стандартных характеристик работ и материалов. Вы всегда можете: спросив в коммуникаторе или позвонив – подобрать именно то, что нужно Вам.
                 </p>
             </div>
-        </section>
-
-        <!-- Promo Banner — скидка, показывается после секции характеристик -->
-        <section class="promo-section my-12 lg:my-16">
-            <div class="container">
-                <div class="flex items-center justify-center">
-                    <p class="text-lead mb-0">Скидка 20% c 18 по 19 февраля</p>
-                </div>
-            </div>
+        </section>        <!-- Акция -->
+        <section class="sale-banner">
+            <p class="sale-banner-text">
+                <strong>Скидка 20%</strong> с 6 по 7 марта
+            </p>
         </section>
 
         <!-- Конструктор модульных картин -->
@@ -203,14 +199,14 @@
                             <!-- Toolbar (above workspace, not overlapping) -->
                             <div id="mc-toolbar" class="flex-none px-3 py-1.5 flex items-center justify-between bg-white border-b border-gray-100">
                                 <div class="p-0.5 bg-gray-100 rounded-lg flex items-center gap-1">
-                                    <button id="mc-btn-mode-image" class="px-3 py-2 rounded-md text-[10px] uppercase font-bold tracking-wider text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-all" aria-pressed="false">Сдвиг фото</button>
+                                    <button id="mc-btn-mode-image" class="px-3 py-2 rounded-md text-[10px] uppercase font-bold tracking-wider text-ink-muted hover:text-ink hover:bg-gray-50 transition-all" aria-pressed="false">Сдвиг фото</button>
                                     <button id="mc-btn-mode-layout" class="px-3 py-2 rounded-md text-[10px] uppercase font-bold tracking-wider bg-white text-primary shadow-sm ring-1 ring-black/5 transition-all" aria-pressed="true">Макет</button>
                                 </div>
-                                <span id="mc-size-label" class="text-xs font-bold text-gray-500 whitespace-nowrap">0 × 0 см</span>
+                                <span id="mc-size-label" class="text-xs font-bold text-ink-muted whitespace-nowrap">0 × 0 см</span>
                                 <div id="mc-img-controls" class="hidden items-center gap-1">
-                                    <button id="mc-btn-zoom-out" class="p-1.5 rounded-lg text-gray-500 hover:bg-gray-100 transition-all"></button>
-                                    <button id="mc-btn-center" class="p-1.5 rounded-lg text-gray-500 hover:bg-gray-100 transition-all"></button>
-                                    <button id="mc-btn-zoom-in" class="p-1.5 rounded-lg text-gray-500 hover:bg-gray-100 transition-all"></button>
+                                    <button id="mc-btn-zoom-out" class="p-1.5 rounded-lg text-ink-muted hover:bg-gray-100 transition-all"></button>
+                                    <button id="mc-btn-center" class="p-1.5 rounded-lg text-ink-muted hover:bg-gray-100 transition-all"></button>
+                                    <button id="mc-btn-zoom-in" class="p-1.5 rounded-lg text-ink-muted hover:bg-gray-100 transition-all"></button>
                                 </div>
                             </div>
                             <!-- Workspace -->
@@ -229,7 +225,7 @@
                             <!-- Desktop-only: sticky bar inside sidebar (price like foto-na-kholste) -->
                             <div id="mc-sticky-bar-desktop" class="hidden lg:block flex-none border-t border-gray-100 bg-white p-6">
                                 <div class="flex items-baseline justify-between">
-                                    <span class="mc-sticky-label text-sm text-gray-500">Цена со скидкой 20%</span>
+                                    <span class="mc-sticky-label text-sm text-ink-muted">Цена со скидкой 20%</span>
                                     <span class="mc-sticky-price text-2xl font-bold text-primary leading-none whitespace-nowrap">0 р.</span>
                                 </div>
                             </div>
@@ -250,7 +246,7 @@
                 <div id="mc-sticky-bar" class="bg-white border-t border-gray-200 shadow-[0_-4px_15px_rgba(0,0,0,0.1)] px-4 py-2.5 flex items-center justify-between">
                     <div class="min-w-0">
                         <div class="mc-sticky-price text-lg font-bold text-primary whitespace-nowrap">0 р.</div>
-                        <div class="mc-sticky-label text-xs text-gray-500 whitespace-nowrap">— цена со скидкой 20%</div>
+                        <div class="mc-sticky-label text-xs text-ink-muted whitespace-nowrap">— цена со скидкой 20%</div>
                     </div>
                     <button id="mc-sticky-btn" class="btn-header-cta px-5 py-2.5 active:scale-[0.98] text-sm shrink-0">Заказать</button>
                 </div>
@@ -270,7 +266,7 @@
                         <div><textarea id="mc-client-comment" name="client_comment_x" class="form-input h-full resize-none" rows="4" placeholder="Комментарий"></textarea></div>
                     </div>
                     <div class="flex flex-col md:flex-row items-center justify-between gap-6 border-t border-gray-100 pt-6">
-                        <div class="text-xs text-gray-500 text-left">Заполняя форму, я соглашаюсь с условиями <a href="https://muse.ooo/info/oferta/" class="underline hover:text-primary-text">Оферты</a> и даю свое согласие на обработку персональных данных в соответствии с <a href="https://muse.ooo/info/politika_konfidentsialnosti_sayta/" class="underline hover:text-primary-text">Политикой конфиденциальности сайта</a></div>
+                        <div class="text-xs text-ink-muted text-left">Заполняя форму, я соглашаюсь с условиями <a href="https://muse.ooo/info/oferta/" class="underline hover:text-primary-text">Оферты</a> и даю свое согласие на обработку персональных данных в соответствии с <a href="https://muse.ooo/info/politika_konfidentsialnosti_sayta/" class="underline hover:text-primary-text">Политикой конфиденциальности сайта</a></div>
                         <button type="button" id="mc-btn-submit-order" class="w-full md:w-auto btn-header-cta px-10 py-4 active:scale-[0.98]">Заказать</button>
                     </div>
                 </form>
@@ -393,7 +389,7 @@
         </section>
 
         <!-- Как заказать модульную картину -->
-        <section class="bg-dark py-16 lg:py-24 content-auto" id="order">
+        <section class="bg-ah-975 py-16 lg:py-24 content-auto" id="order">
             <div class="container">
                 <h2 class="heading-section text-center mb-12">Как заказать модульную картину</h2>
 
@@ -451,7 +447,7 @@
         </section>
 
         <!-- Преимущества -->
-        <section class="bg-primary py-16 lg:py-20 content-auto" id="preimushchestva">
+        <section class="bg-ah-25 py-16 lg:py-24 content-auto" id="preimushchestva">
             <div class="container">
                 <h2 class="heading-section text-center mb-12">Преимущества</h2>
 
@@ -490,7 +486,7 @@
         </section>
 
         <!-- Примеры работ -->
-        <section class="py-16 lg:py-20 content-auto" id="primery">
+        <section class="py-16 lg:py-24 content-auto" id="primery">
             <div class="container mb-8">
                 <h2 class="heading-section text-center">Примеры работ</h2>
             </div>
@@ -572,7 +568,7 @@
         </section>
 
         <!-- Отзывы -->
-        <section class="bg-secondary py-16 lg:py-24 content-auto" id="review">
+        <section class="bg-ah-25 py-16 lg:py-24 content-auto" id="review">
             <div class="container">
                 <h2 class="heading-section text-center">Отзывы</h2>
                 <!-- Отзывы будут добавлены при интеграции с Bitrix -->
@@ -580,7 +576,7 @@
         </section>
 
         <!-- Блог -->
-        <section class="bg-secondary py-16 lg:py-24 content-auto">
+        <section class="bg-ah-25 py-16 lg:py-24 content-auto">
             <div class="container">
                 <h2 class="heading-section text-center mb-12">Блог</h2>
 
@@ -593,7 +589,7 @@
                                 width="360" height="254" class="w-full"
                                 loading="lazy" decoding="async">
                             <div class="p-4 border-t border-gray-200">
-                                <span class="text-gray-600">4-е совета по подбору модульной картины</span>
+                                <span class="text-ink-soft">4-е совета по подбору модульной картины</span>
                             </div>
                         </a>
                     </article>
@@ -606,7 +602,7 @@
                                 width="360" height="254" class="w-full"
                                 loading="lazy" decoding="async">
                             <div class="p-4 border-t border-gray-200">
-                                <span class="text-gray-600">Как выбрать модульную картину?</span>
+                                <span class="text-ink-soft">Как выбрать модульную картину?</span>
                             </div>
                         </a>
                     </article>
@@ -619,7 +615,7 @@
                                 width="360" height="254" class="w-full"
                                 loading="lazy" decoding="async">
                             <div class="p-4 border-t border-gray-200">
-                                <span class="text-gray-600">Печать на холсте фотографий и репродукций</span>
+                                <span class="text-ink-soft">Печать на холсте фотографий и репродукций</span>
                             </div>
                         </a>
                     </article>
@@ -632,7 +628,7 @@
                                 width="360" height="254" class="w-full"
                                 loading="lazy" decoding="async">
                             <div class="p-4 border-t border-gray-200">
-                                <span class="text-gray-600">7 рекомендаций по подбру фотокартин правильного размера</span>
+                                <span class="text-ink-soft">7 рекомендаций по подбру фотокартин правильного размера</span>
                             </div>
                         </a>
                     </article>

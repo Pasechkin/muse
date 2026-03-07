@@ -6,6 +6,142 @@
 @source not "../catalyst-ui-kit";
 @source not "../Stack 1.5.2";
 
+/* ══════════════════════════════════════════════════════════
+   Self-hosted fonts: Playfair Display (display) + PT Sans (body)
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Playfair Display ─────────────────────────────────── */
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/playfair-display-cyrillic-400.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/playfair-display-latin-400.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Playfair Display";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/playfair-display-cyrillic-400i.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Playfair Display";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/playfair-display-latin-400i.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/playfair-display-cyrillic-700.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/playfair-display-latin-700.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Playfair Display";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/playfair-display-cyrillic-700i.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Playfair Display";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/playfair-display-latin-700i.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ── PT Sans ──────────────────────────────────────────── */
+@font-face {
+  font-family: "PT Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/pt-sans-cyrillic-400.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "PT Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/pt-sans-latin-400.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "PT Sans";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/pt-sans-cyrillic-400i.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "PT Sans";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/pt-sans-latin-400i.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "PT Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/pt-sans-cyrillic-700.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "PT Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/pt-sans-latin-700.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "PT Sans";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/pt-sans-cyrillic-700i.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "PT Sans";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/pt-sans-latin-700i.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 /* Временно отключённые классы перенесены в src/disabled-temp.css */
 
 /* === Кастомный container (переопределяет дефолтный Tailwind v4) === */
@@ -59,22 +195,38 @@
 }
 
 @theme {
-  /* Colors */
-  --color-primary: #4a90e2;
-  --color-primary-hover: #3b7cc6;
-  --color-primary-light: #eff6ff;
-  --color-primary-text: #3878C1;
-  --color-primary-text-hover: #2f6ea8;
-  --color-dark: #262626;
-  --color-body: #525252;
-  --color-secondary: #fafafa;
+  /* ── Amber Harmonized palette ────────────────────────── */
+  --color-ah-25:  #FFFDFA;
+  --color-ah-50:  #FFF9F3;
+  --color-ah-75:  #FEF5EA;
+  --color-ah-100: #FEF1E1;
+  --color-ah-200: #FDE5C8;
+  --color-ah-300: #C59A5E;
+  --color-ah-400: #A97D3A;
+  --color-ah-500: #8B6420;
+  --color-ah-600: #D97706;
+  --color-ah-700: #B45309;
+  --color-ah-800: #8B4C04;
+  --color-ah-900: #593102;
+  --color-ah-950: #281601;
+  --color-ah-975: #140B01;
+
+  /* ── Semantic colors (mapped to amber) ─────────────── */
+  --color-primary: #140B01;
+  --color-primary-hover: #281601;
+  --color-primary-light: #FEF1E1;
+  --color-primary-text: #8B4C04;
+  --color-primary-text-hover: #593102;
+  --color-dark: #140B01;
+  --color-body: #281601;
+  --color-secondary: #FDE5C8;
   --color-success: #22c55e;
   --color-warning: #eab308;
   --color-error: #ef4444;
-  /* Примечание: --color-white удалён — используйте white или #fff */
 
-  /* Font Family */
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  /* ── Font Families ─────────────────────────────────── */
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-sans: "PT Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
   /* Font Weights */
   --font-weight-normal: 400;
@@ -101,15 +253,41 @@
     0% { transform: scale(1); }
     100% { transform: scale(1.1); }
   }
+
+  /* Girl with Pearl Earring icon crossfade */
+  --animate-icon-show: icon-show 8s ease-in-out infinite;
+  --animate-icon-hide: icon-hide 8s ease-in-out infinite;
+
+  @keyframes icon-show {
+    0%, 42% { opacity: 1; }
+    50%, 92% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  @keyframes icon-hide {
+    0%, 42% { opacity: 0; }
+    50%, 92% { opacity: 1; }
+    100% { opacity: 0; }
+  }
 }
 
 /* === Глобальные фокус-стили для доступности === */
 @layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-padding-top: 5.5rem;
+  }
+
   :focus-visible {
-    outline: 2px solid var(--color-primary);
+    outline: 2px solid var(--color-ah-600);
     outline-offset: 2px;
   }
 
+  /* Body: amber warm background */
+  body {
+    background-color: var(--color-ah-100);
+  }
 }
 
 /* Skip-link для клавиатурной навигации */
@@ -274,16 +452,43 @@
   }
 
   /* === Typography (pilot) === */
-  .heading-hero { @apply text-4xl lg:text-6xl font-light; }
-  .heading-section { @apply text-3xl lg:text-4xl font-light; }
-  .heading-subsection { @apply text-2xl font-light; }
+  .heading-hero {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+  .heading-section {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    font-size: clamp(1.875rem, 4vw, 2.5rem);
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+  .heading-subsection {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    @apply text-2xl;
+  }
 
   /* Legal pages: hide empty paragraphs (Word artifacts) */
   .legal-content p:empty,
   .legal-content div:empty { display: none; }
-  .heading-card { @apply text-xl font-medium; }
-  .text-lead { @apply text-lg lg:text-xl; }
-  .text-lead-xl { @apply text-xl lg:text-2xl font-light; }
+  .heading-card {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    @apply text-xl;
+  }
+  .text-lead { @apply text-lg lg:text-xl; text-wrap: pretty; }
+  .text-lead-xl { @apply text-xl lg:text-2xl font-light; text-wrap: pretty; }
+  .text-body { line-height: 1.6; }
   .text-body-lg { @apply text-base lg:text-lg; }
   .text-small { @apply text-sm; }
   .text-tiny { @apply text-xs; }
@@ -306,28 +511,29 @@
   .style-portraits .drift-zoom-pane { border-radius: 8px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2); z-index: 100; }
 
   /* === Background-based typography color helpers === */
-  body { color: var(--color-body); }                     /* дефолт → серый #525252 */
-  .bg-white { color: var(--color-body); }               /* белый фон → серый текст */
-  :where(.bg-secondary) { color: var(--color-dark); }   /* серый фон → чёрный текст */
+  body { color: var(--color-body); }                           /* дефолт → ah-950 */
+  .bg-white { color: var(--color-body); }                     /* белый фон → тёмный текст */
+  :where(.bg-secondary) { color: var(--color-dark); }         /* вторичный фон → тёмный текст */
   :where(.bg-dark, .bg-primary) { color: white; }
+  :where(.bg-ah-975) { color: white; }
 
   :where(.bg-white)
     :is(.heading-hero, .heading-section, .heading-subsection, .heading-card, summary) {
-    color: var(--color-body);  /* белый фон → серые заголовки */
+    color: var(--color-body);
   }
 
   :where(.bg-secondary)
     :is(.heading-hero, .heading-section, .heading-subsection, .heading-card, summary) {
-    color: var(--color-dark);  /* серый фон → чёрные заголовки */
+    color: var(--color-dark);
   }
 
-  :where(.bg-dark, .bg-primary)
+  :where(.bg-dark, .bg-primary, .bg-ah-975)
     :is(.heading-hero, .heading-section, .heading-subsection, .heading-card, summary) {
     color: white;
   }
 
-  /* Контраст text-gray-300 на фонах (меню и т.д.) */
-  .bg-dark .text-gray-300 { color: #e5e7eb; }
+  /* .text-lead на тёмных фонах */
+  :where(.bg-ah-975, .bg-dark) .text-lead { color: rgba(255,255,255,.85); }
 
   /* Хлебные крошки: иерархия цветов на тёмном фоне */
   .breadcrumbs {
@@ -360,7 +566,24 @@
   .btn-header-cta {
     @apply inline-flex items-center justify-center px-6 py-2.5 rounded bg-primary text-white;
     @apply text-xs font-medium uppercase tracking-widest;
-    @apply transition-colors duration-200 hover:bg-primary-hover;
+    transition: background-color 0.2s ease,
+                transform 0.25s cubic-bezier(.4,0,.2,1),
+                box-shadow 0.25s cubic-bezier(.4,0,.2,1);
+  }
+
+  .btn-primary:hover,
+  .btn-header-cta:hover {
+    @media (hover: hover) {
+      background-color: var(--color-primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(20,11,1,.18);
+    }
+  }
+
+  .btn-primary:active,
+  .btn-header-cta:active {
+    transform: translateY(0) scale(0.97);
+    box-shadow: none;
   }
 
   .btn-dark {
@@ -463,21 +686,21 @@
   /* Optional modifiers */
   
   .btn-inverse {
-    @apply inline-flex items-center justify-center px-6 py-2.5 rounded bg-transparent text-white border border-white/30;
+    @apply inline-flex items-center justify-center px-6 py-2.5 rounded bg-transparent text-white border-0;
     @apply text-xs font-medium uppercase tracking-widest;
-    @apply transition-colors duration-200 hover:bg-white hover:text-dark;
     @apply w-full md:w-auto;
+    transition: transform .3s cubic-bezier(.4,0,.2,1),
+                box-shadow .3s cubic-bezier(.4,0,.2,1);
+  }
+  .btn-inverse:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 24px rgba(139,76,4,.35);
   }
 
   /* === CTA Components === */
   .cta-section {
-    background-color: var(--color-dark);
-    padding-block: 6rem;
-  }
-  @media (min-width: 768px) {
-    .cta-section {
-      padding-block: 8rem;
-    }
+    background-color: var(--color-ah-975);
+    padding-block: 4rem; /* py-16 = 64px — единый ритм */
   }
   .cta-container {
     @apply mx-auto px-6 max-w-[1170px] flex flex-col items-center text-center gap-8;
@@ -568,12 +791,12 @@
   .ken-burns-img { animation: var(--animate-ken-burns); }
 
   /* ==========================================
-     Секция «Преимущества» — компоненты
+     Секция «Преимущества» — старые компоненты
      ========================================== */
 
-  /* Контейнер секции */
+  /* Контейнер секции (legacy) */
   .advantages-section {
-    background: linear-gradient(135deg, #8bb8eb 0%, #6aa0d9 45%, #4a90e2 100%);
+    background: linear-gradient(135deg, var(--color-ah-800) 0%, var(--color-ah-600) 45%, var(--color-ah-900) 100%);
     padding-block: 4rem;
   }
   @media (min-width: 1024px) {
@@ -583,24 +806,8 @@
   }
 
   /* ==========================================
-     PROMO SECTION (Акция)
+     SALE BANNER (Акция) — универсальный
      ========================================== */
-
-  .promo-section {
-    background: linear-gradient(90deg, #6aa0d9 0%, #4a90e2 55%, #3b7cc6 100%);
-    padding-block: 1.5rem;
-    color: white;
-  }
-
-  .promo-section .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .promo-section :is(.text-lead, .text-body, .heading-section, .heading-subsection, p) {
-    color: white;
-  }
 
   /* ==========================================
      ADVANTAGES SECTION (Преимущества)
@@ -619,24 +826,29 @@
   }
 
   .advantage-card__icon {
-    @apply w-16 h-16 mb-4 flex items-center justify-start;
+    @apply mb-4 flex items-center justify-center;
+    width: 3.625rem;
+    height: 3.625rem;
+    border-radius: 9999px;
+    background-color: var(--color-ah-50);
+    color: var(--color-ah-950);
   }
 
   /* Унифицированные стили иконок преимуществ (объединены .advantage-card__icon и .icon-advantage) */
   .advantage-card__icon svg,
   .advantage-card__icon img,
   .icon-advantage {
-    width: 2.5rem;
-    height: 2.5rem;
-    max-width: 2.5rem;
-    max-height: 2.5rem;
+    width: 1.875rem;
+    height: 1.875rem;
+    max-width: 1.875rem;
+    max-height: 1.875rem;
     flex-shrink: 0;
   }
 
   .icon-advantage,
   .advantage-card__icon svg {
-    color: var(--color-primary);
-    fill: var(--color-primary);
+    color: var(--color-ah-950);
+    fill: var(--color-ah-950);
   }
 
   .icon-advantage path {
@@ -667,8 +879,8 @@
   }
 
   .check-list-item:nth-child(odd) {
-    background-color: rgba(74, 144, 226, 0.05); /* fallback */
-    background-color: color-mix(in srgb, var(--color-primary), transparent 95%);
+    background-color: rgba(217, 119, 6, 0.05); /* ah-600 at 5% */
+    background-color: color-mix(in srgb, var(--color-ah-600), transparent 95%);
     border-radius: 0.25rem;
   }
 
@@ -695,6 +907,10 @@
   .bg-dark .step-content {
     background-color: var(--color-dark);
   }
+  .bg-ah-975 .step-container,
+  .bg-ah-975 .step-content {
+    background-color: var(--color-ah-975);
+  }
   
   .step-line {
     position: absolute;
@@ -702,8 +918,8 @@
     top: 3rem;
     bottom: 3rem;
     width: 0;
-    border-left: 3px dashed rgba(74, 144, 226, 0.3); /* fallback */
-    border-left: 3px dashed color-mix(in srgb, var(--color-primary), transparent 70%);
+    border-left: 3px dashed rgba(217, 119, 6, 0.3); /* ah-600 at 30% */
+    border-left: 3px dashed color-mix(in srgb, var(--color-ah-600), transparent 70%);
   }
   
   .step-content h3 {
@@ -722,27 +938,27 @@
   /* Checkbox — компонент для повторного использования (лак, упаковка и т.д.) */
   .calc-checkbox {
     appearance: none;
-    width: 1rem;
-    height: 1rem;
-    border-radius: 2px;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 4px;
     border: 1px solid #9ca3af;
     background-color: white;
     cursor: pointer;
   }
   .calc-checkbox:checked {
-    border-color: var(--color-primary);
-    background-color: var(--color-primary);
+    border-color: var(--color-ah-950);
+    background-color: var(--color-ah-950);
   }
   .calc-checkbox:focus-visible {
-    outline: 2px solid var(--color-primary);
+    outline: 2px solid var(--color-ah-600);
     outline-offset: 2px;
   }
 
   .calc-accent {
     font-size: 12px;
     font-weight: 700;
-    color: var(--color-primary-text);
-    background-color: var(--color-primary-light);
+    color: var(--color-ah-950);
+    background-color: var(--color-ah-50);
     padding: 2px 8px;
     border-radius: 4px;
   }
@@ -764,12 +980,16 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: #6b7280; /* gray-500 — мелкий uppercase label, аналог H6 */
+    color: var(--color-ah-800);
     margin-bottom: 0.75rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
+
+  /* Section-titles with active price/value → ah-950 */
+  section:has(.wrap-btn) > .section-title { color: var(--color-ah-950); }
+  #portrait-faces-section > .section-title { color: var(--color-ah-950); }
 
   /* Shared scrollbar base (Fix #11: deduplicate) */
   .thin-scrollbar-x,
@@ -793,10 +1013,10 @@
     z-index: 10;
     @media (min-width: 1024px) {
       width: 420px;
-      min-height: 38rem;
+      min-height: auto;
       border-radius: 1rem;
-      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-      border: 1px solid #e5e7eb;
+      box-shadow: 0 20px 25px -5px rgba(40,22,1,.10), 0 8px 10px -6px rgba(40,22,1,.08);
+      border: 1px solid var(--color-ah-200);
     }
   }
 
@@ -806,8 +1026,8 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: white;
-    border-top: 1px solid #e5e7eb;
+    background-color: var(--color-ah-975);
+    border-top: 1px solid var(--color-ah-800);
     box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
     z-index: 50;
     padding: 0.75rem;
@@ -817,6 +1037,7 @@
     gap: 0.75rem;
     border-radius: 0;
     transition: box-shadow 0.2s;
+    color: var(--color-ah-25);
     @media (min-width: 1024px) {
       display: none;
     }
@@ -864,14 +1085,15 @@
   /* Форма заказа калькулятора */
   .calc-order-form {
     background-color: white;
-    border-radius: 1rem;
+    border-radius: 0;
     padding: 1.5rem;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    border: 1px solid #e5e7eb;
+    box-shadow: 0 20px 25px -5px rgba(40,22,1,.10), 0 8px 10px -6px rgba(40,22,1,.08);
+    border: 1px solid var(--color-ah-200);
     margin-top: 2rem;
     margin-bottom: 0;
     padding-bottom: 5rem;
     @media (min-width: 1024px) {
+      border-radius: 1rem;
       padding: 2rem;
       padding-bottom: 2rem;
       margin-top: 0;
@@ -880,7 +1102,7 @@
 
   /* Контент модального окна багета */
   .calc-frame-modal-content {
-    background-color: white;
+    background-color: var(--color-ah-25);
     border-radius: 0.75rem;
     box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
     width: 800px;
@@ -896,7 +1118,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 1.5rem;
-    border-bottom: 1px solid color-mix(in srgb, var(--color-body), transparent 90%);
+    background: var(--color-ah-75);
+    border-bottom: 1px solid var(--color-ah-200);
     flex-shrink: 0;
   }
 
@@ -904,22 +1127,22 @@
     flex: 1 1 auto;
     overflow-y: auto;
     padding: 1.5rem;
-    background-color: var(--color-secondary);
+    background-color: var(--color-ah-25);
   }
 
   .calc-frame-upload-cta {
     text-align: center;
     padding: 1rem;
-    background-color: white;
+    background-color: var(--color-ah-25);
     border-radius: 0.5rem;
-    border: 1px dashed color-mix(in srgb, var(--color-primary), transparent 70%);
+    border: 1px dashed color-mix(in srgb, var(--color-ah-600), transparent 70%);
     margin-bottom: 2rem;
   }
 
   .calc-frame-modal-footer {
     padding: 1rem;
-    border-top: 1px solid color-mix(in srgb, var(--color-body), transparent 90%);
-    background-color: white;
+    border-top: 1px solid var(--color-ah-200);
+    background-color: var(--color-ah-75);
     flex-shrink: 0;
     display: flex;
     justify-content: flex-end;
@@ -930,10 +1153,10 @@
     flex: 0 0 auto;
     min-height: 2.25rem;
     padding: 0.375rem 0.75rem;
-    border: 1px solid color-mix(in srgb, var(--color-body), transparent 75%);
-    border-radius: 9999px;
-    background: var(--color-secondary);
-    color: var(--color-body);
+    border: 1px solid var(--color-ah-200);
+    border-radius: 0.5rem;
+    background: #fff;
+    color: var(--color-ah-700);
     font-size: 0.75rem;
     font-weight: 700;
     line-height: 1;
@@ -943,19 +1166,20 @@
   }
 
   .size-btn:hover {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
+    border-color: var(--color-ah-700);
+    color: var(--color-ah-950);
+    background: var(--color-ah-100);
   }
 
   .size-btn:focus-visible {
-    outline: 2px solid var(--color-primary);
+    outline: 2px solid var(--color-ah-600);
     outline-offset: 2px;
   }
 
   .size-btn.is-active {
-    border-color: var(--color-primary);
-    background-color: var(--color-primary-light);
-    color: var(--color-primary);
+    border-color: var(--color-ah-700);
+    background-color: var(--color-ah-50);
+    color: var(--color-ah-950);
     font-weight: 700;
   }
 
@@ -964,38 +1188,39 @@
   .wrap-btn {
     flex: 1;
     padding: 0.5rem 0;
-    border-radius: 0.375rem;
+    border-radius: 0.5rem;
     font-size: 0.75rem;
     font-weight: 500;
     transition: background-color .15s, color .15s, box-shadow .15s;
-    color: #6b7280; /* gray-500 — неактивная кнопка мягче активной */
+    color: var(--color-ah-700);
+    background-color: #fff;
   }
 
   .wrap-btn:hover {
-    color: var(--color-body); /* #525252 — hover мягче, не чёрный */
-    background-color: rgba(148, 163, 184, 0.12);
+    color: var(--color-ah-950);
+    background-color: var(--color-ah-100);
   }
 
   .wrap-btn.is-active {
-    background-color: white;
-    color: var(--color-body); /* #525252 — активная кнопка, но не near-black */
+    background-color: var(--color-ah-50);
+    color: var(--color-ah-950);
     font-weight: 700;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
-    border: 1px solid color-mix(in srgb, var(--color-body), transparent 85%);
+    border: 1px solid var(--color-ah-700);
   }
 
   /* ── Calc badge states ── */
 
   .calc-badge {
     font-size: 0.875rem;
-    font-weight: 500; /* medium для неактивных — визуально легче */
+    font-weight: 500;
     text-transform: none;
-    color: var(--color-gray-500, #6b7280);
+    color: var(--color-ah-800);
   }
 
   .calc-badge.is-active {
-    color: var(--color-primary-text);
-    font-weight: 700; /* bold при активном значении */
+    color: var(--color-ah-950);
+    font-weight: 700;
   }
 
   .calc-badge.is-warning {
@@ -1062,7 +1287,7 @@
     border-radius: 4px;
     font-size: 12px;
     font-weight: 600;
-    color: #4b5563; /* gray-600 — не near-black */
+    color: var(--color-ah-800);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     white-space: nowrap;
   }
@@ -1087,8 +1312,8 @@
     width: 1rem;
     height: 1rem;
     border-radius: 9999px;
-    border: 1.5px solid #6b7280;
-    color: #6b7280;
+    border: 1.5px solid var(--color-ah-700);
+    color: var(--color-ah-700);
     font-size: 0.75rem;
     font-weight: 700;
     line-height: 1;
@@ -1097,8 +1322,8 @@
     transition: border-color 0.2s, color 0.2s;
     flex-shrink: 0;
     &:hover {
-      border-color: var(--color-primary);
-      color: var(--color-primary);
+      border-color: var(--color-ah-900);
+      color: var(--color-ah-900);
     }
   }
 
@@ -1129,18 +1354,26 @@
   .form-input {
     width: 100%;
     padding: 12px 16px;
-    border: 1px solid #d1d5db;
+    border: 1px solid var(--color-ah-200);
     border-radius: 8px;
     font-size: 14px;
+    color: var(--color-ah-950);
+    background: #fff;
     outline: 1px solid transparent;
     outline-offset: -1px;
-    transition: outline-color var(--transition-normal), border-color var(--transition-normal);
+    transition: outline-color var(--transition-normal), border-color var(--transition-normal), background-color var(--transition-normal);
+  }
+
+  .form-input::placeholder {
+    color: var(--color-ah-700);
+    opacity: 1;
   }
 
   .form-input:focus {
     border-color: transparent;
-    outline: 2px solid var(--color-primary);
+    outline: 2px solid var(--color-ah-700);
     outline-offset: -2px;
+    background: var(--color-ah-50);
   }
 
   .form-input.error {
@@ -1157,9 +1390,9 @@
   }
 
   .uploader-drag-active {
-    border-color: var(--color-primary);
-    background-color: rgba(74, 144, 226, 0.05);
-    box-shadow: inset 0 0 0 2px rgba(74, 144, 226, 0.12);
+    border-color: var(--color-ah-600);
+    background-color: rgba(217, 119, 6, 0.05);
+    box-shadow: inset 0 0 0 2px rgba(217, 119, 6, 0.12);
   }
 
   .uploader-thumbnails {
@@ -1192,13 +1425,13 @@
   }
 
   .uploader-thumb-wrap:focus-visible {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.3);
+    border-color: var(--color-ah-600);
+    box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.3);
   }
 
   .uploader-thumb-active {
-    border-color: var(--color-primary) !important;
-    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.25);
+    border-color: var(--color-ah-700) !important;
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-ah-700) 25%, transparent);
   }
 
   .uploader-thumb {
@@ -1247,7 +1480,7 @@
 
   .uploader-thumb-remove:focus-visible {
     opacity: 1;
-    outline: 2px solid var(--color-primary);
+    outline: 2px solid var(--color-ah-600);
     outline-offset: 1px;
   }
 
@@ -1281,15 +1514,15 @@
   }
 
   .uploader-add-btn:hover {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-    background-color: rgba(74, 144, 226, 0.05);
+    border-color: var(--color-ah-600);
+    color: var(--color-ah-600);
+    background-color: rgba(217, 119, 6, 0.05);
   }
 
   .uploader-add-btn:focus-visible {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.3);
+    border-color: var(--color-ah-600);
+    color: var(--color-ah-600);
+    box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.3);
   }
 
   /* Inline alert for uploader */
@@ -1384,6 +1617,427 @@
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
     }
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Amber Harmonized: утилиты, ink-система, компоненты из V7
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Font utility classes ── */
+@utility font-display {
+  font-family: var(--font-display);
+}
+
+/* ── Eyebrow label ── */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ah-600);
+}
+
+/* ── Ink system (light bg) ── */
+@utility text-ink {
+  color: var(--color-ah-950);
+}
+@utility text-ink-soft {
+  color: var(--color-ah-900);
+}
+@utility text-ink-muted {
+  color: var(--color-ah-700);
+}
+@utility text-ink-label {
+  color: var(--color-ah-800);
+}
+
+/* ── Ink system (dark bg) ── */
+@utility text-ink-on-dark {
+  color: var(--color-ah-25);
+}
+@utility text-ink-muted-on-dark {
+  color: var(--color-ah-200);
+}
+
+/* ── Readable paragraph width ── */
+@utility prose-width {
+  max-width: 70ch;
+}
+
+/* ── Info dot (amber bullet) ── */
+@utility info-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background-color: var(--color-ah-600);
+  flex-shrink: 0;
+}
+
+@layer components {
+  /* ── «Как заказать»: giant background numbers ── */
+  .step-number-giant {
+    font-size: 6.6rem;
+    background: linear-gradient(135deg, var(--color-ah-600) 0%, var(--color-ah-200) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: .12;
+  }
+  @media (min-width: 640px) {
+    .step-number-giant { font-size: 8rem; }
+  }
+  @media (min-width: 1024px) {
+    .step-number-giant { font-size: 10rem; }
+  }
+
+  /* ── Описание: float media figures ── */
+  .desc-media {
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+  .desc-media--left { float: none; }
+  .desc-media--right { float: none; }
+  @media (min-width: 768px) {
+    .desc-media--left {
+      float: left;
+      width: 180px;
+      margin-right: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .desc-media--right {
+      float: right;
+      width: 360px;
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  /* ── Video Modal ── */
+  .video-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.95);
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .video-modal.active {
+    display: flex;
+  }
+  .video-modal-content {
+    position: relative;
+    max-width: 400px;
+    width: 100%;
+    max-height: 90vh;
+  }
+  .video-modal video {
+    width: 100%;
+    max-height: 80vh;
+    border-radius: 8px;
+  }
+  .video-modal .ui-control {
+    position: absolute;
+    z-index: 10;
+  }
+  .video-modal .ui-control--close {
+    top: 10px;
+    right: 10px;
+  }
+  .video-modal .ui-control--mute {
+    top: 10px;
+    left: 10px;
+  }
+  .video-modal .ui-control--prev {
+    top: 50%;
+    left: -60px;
+    transform: translateY(-50%);
+  }
+  .video-modal .ui-control--next {
+    top: 50%;
+    right: -60px;
+    transform: translateY(-50%);
+  }
+  @media (max-width: 600px) {
+    .video-modal .ui-control--prev {
+      left: 10px;
+      top: auto;
+      bottom: 80px;
+      transform: none;
+    }
+    .video-modal .ui-control--next {
+      right: 10px;
+      top: auto;
+      bottom: 80px;
+      transform: none;
+    }
+  }
+  .video-modal-open .page-navigator {
+    display: none !important;
+  }
+
+  /* ── Step fade-in animation ── */
+  @keyframes stepFadeInUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .step-animate {
+    opacity: 0;
+    animation: stepFadeInUp .7s ease-out forwards;
+  }
+  .step-animate:nth-child(1) { animation-delay: .05s; }
+  .step-animate:nth-child(2) { animation-delay: .15s; }
+  .step-animate:nth-child(3) { animation-delay: .25s; }
+  .step-animate:nth-child(4) { animation-delay: .35s; }
+  .step-animate:nth-child(5) { animation-delay: .45s; }
+
+  /* ── Промо-баннер «Акция» — универсальный ── */
+  .sale-banner {
+    padding: 1rem 1.25rem;
+    background-color: var(--color-ah-50);
+  }
+  @media (min-width: 1024px) {
+    .sale-banner {
+      padding-inline: clamp(2rem, 6vw, 5rem);
+    }
+  }
+  .sale-banner-text {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    text-align: center;
+    color: var(--color-ah-800);
+    font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    font-weight: 500;
+  }
+  .sale-banner-text strong {
+    color: inherit;
+    font-weight: 700;
+  }
+
+  /* ── Lightbox «Выбрать этот багет» button ── */
+  .lightbox-select-btn {
+    background-color: var(--color-ah-975);
+    color: var(--color-ah-25);
+    border: 1px solid rgba(255,253,250,.18);
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.65rem 1.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: transform .25s cubic-bezier(.4,0,.2,1);
+  }
+  .lightbox-select-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  /* ── Ghost-buttons on dark surfaces (ah-975/cta-section) ── */
+  :is(.bg-ah-975, .cta-section) :is(.btn-primary, .btn-header-cta) {
+    background: transparent;
+    border: 1px solid rgba(255,253,250,.28);
+    color: #FFFDFA;
+    transition: transform .3s cubic-bezier(.4,0,.2,1),
+                box-shadow .3s cubic-bezier(.4,0,.2,1);
+  }
+  :is(.bg-ah-975, .cta-section) :is(.btn-primary, .btn-header-cta):hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 24px rgba(139,76,4,.35);
+  }
+
+  /* ── Accent underline on headings ── */
+  .heading-hero u,
+  .heading-section u,
+  .cta-title u {
+    text-decoration: underline;
+    text-decoration-color: var(--color-ah-600);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 7px;
+  }
+
+  /* ── Check-list zebra override (ah-600/5%) ── */
+
+  /* ── Desktop «Заказать» — dark button ── */
+  #btn-submit-order {
+    background-color: var(--color-ah-975);
+    color: var(--color-ah-25);
+    border: 1px solid rgba(255,253,250,.18);
+    transition: transform .25s cubic-bezier(.4,0,.2,1);
+  }
+  #btn-submit-order:hover {
+    transform: translateY(-2px);
+  }
+
+  /* ── Mobile sticky bar children inherit light color ── */
+  .calc-sticky-bar * {
+    color: var(--color-ah-25);
+  }
+  #btn-sticky-order {
+    background-color: var(--color-ah-975) !important;
+    color: var(--color-ah-25) !important;
+    border: 1px solid rgba(255,253,250,.18) !important;
+    transition: transform .25s cubic-bezier(.4,0,.2,1) !important;
+  }
+  #btn-sticky-order:hover {
+    transform: translateY(-2px);
+    background-color: var(--color-ah-975) !important;
+  }
+
+  /* ── Frame-option cards ── */
+  .frame-option {
+    background: transparent;
+    border-color: transparent;
+  }
+  .frame-option:hover {
+    background: var(--color-ah-100);
+    border-color: transparent;
+  }
+  .frame-option.border-primary {
+    border-color: var(--color-ah-700);
+    background: var(--color-ah-25);
+  }
+  .frame-option span {
+    color: var(--color-ah-700);
+  }
+  .frame-option:hover span,
+  .frame-option.border-primary span {
+    color: var(--color-ah-950);
+  }
+
+  /* ── Frame-section trigger: icon hover ── */
+  #frame-section .w-10 {
+    background-color: var(--color-ah-50);
+    border-color: var(--color-ah-200);
+    transition: background-color .3s ease, border-color .3s ease;
+  }
+  #frame-section .w-10 svg {
+    transition: color .3s ease;
+  }
+  #frame-section:hover .w-10 {
+    background-color: var(--color-ah-600);
+    border-color: var(--color-ah-600);
+  }
+  #frame-section:hover .w-10 svg {
+    color: var(--color-ah-25);
+  }
+
+  /* ── Desktop price bar ── */
+  #desktop-price-bar {
+    background-color: var(--color-ah-25);
+    border-color: var(--color-ah-200);
+    border-radius: 0 0 1rem 1rem;
+  }
+  #desktop-price-bar span {
+    color: var(--color-ah-950);
+  }
+
+  /* ── Uploader thumb: amber borders ── */
+  .uploader-thumb-wrap {
+    border-color: var(--color-ah-200);
+  }
+  .uploader-thumb-wrap:hover {
+    border-color: var(--color-ah-700);
+  }
+
+  /* ── JS-generated gray text in calc → amber ── */
+  [data-calc-root] .text-gray-500 { color: var(--color-ah-700); }
+  [data-calc-root] .text-gray-400 { color: var(--color-ah-700); }
+  [data-calc-root] .border-gray-200 { border-color: var(--color-ah-200); }
+  [data-calc-root] .border-gray-100 { border-color: var(--color-ah-200); }
+  .border-gray-600 { border-color: var(--color-ah-700); }
+
+  /* ── Calc checkbox labels & frame text ── */
+  [data-calc-root] label.text-body { color: var(--color-ah-800); }
+  [data-calc-root] section[data-portrait-option]:has(.calc-checkbox:checked) label.text-body { color: var(--color-ah-950); }
+  #selected-frame-text { color: var(--color-ah-800); }
+
+  /* ── Size inputs ── */
+  #inp-w,
+  #inp-h {
+    border-color: var(--color-ah-200);
+    color: var(--color-ah-950);
+    background-color: var(--color-ah-25);
+  }
+  #inp-w:focus-visible,
+  #inp-h:focus-visible {
+    outline-color: var(--color-ah-700);
+    background-color: var(--color-ah-50);
+  }
+
+  /* ── Processing select ── */
+  #processing-select {
+    background-color: var(--color-ah-25);
+    border-color: var(--color-ah-200);
+  }
+  #processing-select:focus-visible {
+    outline-color: var(--color-ah-700);
+    background-color: var(--color-ah-50);
+  }
+
+  /* ── JS-generated selects in calc ── */
+  [data-calc-root] select:focus-visible {
+    outline-color: var(--color-ah-700);
+  }
+
+  /* ── City search ── */
+  #city-search:hover,
+  #city-search:focus {
+    background-color: var(--color-ah-25);
+  }
+
+  /* ── Callback dialog inputs ── */
+  #callback-form input,
+  #callback-form select {
+    background-color: var(--color-ah-25);
+  }
+  #callback-form input:focus,
+  #callback-form select:focus {
+    background-color: var(--color-ah-50);
+  }
+
+  /* ── Lightbox price label ── */
+  #lightbox-content .text-primary {
+    color: var(--color-ah-950);
+  }
+
+  /* ── Preview area: warm shadow on desktop ── */
+  @media (min-width: 1024px) {
+    #calc-preview-column > div {
+      box-shadow: 0 20px 25px -5px rgba(40,22,1,.10), 0 8px 10px -6px rgba(40,22,1,.08);
+      border-color: var(--color-ah-200);
+    }
+  }
+
+  /* ── Order form container borders ── */
+  #order-form-container .border-gray-100 {
+    border-color: var(--color-ah-200);
+  }
+
+  /* ── Buttons: amber pill style ── */
+  .btn-primary,
+  .btn-dark,
+  .btn-inverse,
+  .btn-header-cta {
+    border-radius: 0.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* Моб. меню: кнопка = пункты меню (18px, medium, без uppercase) */
+  #mobile-menu .btn-header-cta {
+    font-size: 1.125rem;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: normal;
   }
 }
 
