@@ -59,7 +59,7 @@
 | 0 | Input Masks | Маска телефона (RU) для `input[type="tel"]` (`+7 (___) ___-__-__`). Авто‑применяется ко всем полям tel. |
 | 1 | BxPopup | `window.BxPopup(...)` — глобальный helper для inline-совместимости с Bitrix. |
 | 2 | Page Navigator | Плавный скролл, подсветка активной секции, desktop-only видимость. |
-| 3 | Back to Top | Логика показа/скрытия и плавный скролл по клику (`#back-to-top`). |
+| 3 | Back to Top | Логика показа/скрытия и плавный скролл по клику (`#back-to-top`). **Только на Главной** (`index.html`). |
 | 3b | Video Cover | Ленивое создание `iframe` по клику на `[data-video-cover] [data-play-btn]`. |
 | 4 | Dialog + Mobile Menu | Доступность `<dialog>`: фокус, `Escape`, aria. Мобильное меню: bottom-sheet + slide-right (SM+), горизонтальный swipe-to-close. |
 | 5 | City Dialog | Выбор города: поиск, клик по городу → обновление `[data-city-current]` и `[data-city-phone]`, localStorage `muse_city`. |
@@ -782,16 +782,18 @@ Tailwind v4 сканирует HTML и JS для генерации утилит
 
 #### Правила оформления текста ссылок
 
-**Кавычки:** в тексте ссылок **НЕ используем** «…». Без кавычек — `Заказать`, а не `«Заказать»`. Кавычки ухудшают читаемость и визуально конфликтуют с подчёркиванием.
+**Кавычки:** в тексте ссылок **НЕ используем** ни «…», ни "…". Без кавычек — `Доставка`, а не `«Доставка»` и не `"Доставка"`. Кавычки ухудшают читаемость и визуально конфликтуют с подчёркиванием.
 
-**Стрелки — три правила:**
+**Стрелки — четыре правила:**
 | Тип ссылки | Стрелка | Пример |
 |---|---|---|
 | Якорь вверх по странице | `↑` | `Цена ↑` |
 | Якорь вниз по странице | `↓` | `Описание ↓` |
 | На другую страницу сайта | — нет — | `Доставка`, `Заказать` |
+| Внешняя ссылка (другой домен) | `↗` | `Wikipedia&nbsp;↗` |
 
 **Правило target:** внутренние ссылки — без `target`, внешние — `target="_blank"` + `rel="noopener noreferrer"`.
+**Правило `↗`:** неразрывный пробел `&nbsp;` перед стрелкой, чтобы `↗` не переносилась на новую строку.
 
 ### Насыщенность шрифта
 
@@ -1495,8 +1497,10 @@ Legacy: ранее использовался `` + `<dialog>`. Теперь ис
 **CSS (input.css):**
 - Фон: `var(--color-ah-50)` (мягкий тёплый)
 - Padding: `1rem 1.25rem`, на lg: `padding-inline: clamp(2rem, 6vw, 5rem)`
-- Текст: `var(--color-ah-800)`, `clamp(0.95rem, 1.3vw, 1.05rem)`, `font-weight: 500`
+- Текст: `var(--color-ah-600)`, `clamp(0.95rem, 1.3vw, 1.05rem)`, `font-weight: 500`
 - `<strong>`: `font-weight: 700`, цвет наследуется
+
+**Оверрайд на style-portraits:** на страницах стилей портретов (`body.style-portraits`) фон баннера переопределяется на `var(--color-ah-975)` (тёмный). Текст остаётся `var(--color-ah-600)` (amber-акцент на тёмном фоне).
 
 **Для изменения оформления акции — редактируйте только CSS, HTML не трогайте.**
 
@@ -1673,7 +1677,7 @@ CSS-классы для вертикального списка шагов с п
 
 #### Примеры использования
 
-**Кнопка "Наверх" (Back to Top):**
+**Кнопка "Наверх" (Back to Top) — только на Главной (`index.html`):**
 ```html
 <a href="#" id="back-to-top" 
    class="ui-control ui-control--lg hidden md:flex fixed bottom-5 right-5 z-50 opacity-0 pointer-events-none" 
@@ -3233,6 +3237,12 @@ Grid-паттерн Tailwind v4 — стрелка наложена через `
 > **Подписи медиа в секции «Описание»:** используем `text-ink` (основной цвет текста),
 > **не** `text-ink-muted` / `text-gray-500`. Класс: `mt-2 text-small text-ink`.
 
+**Выравнивание figcaption — зависит от контекста:**
+| Контекст | Классы | Пример |
+|---|---|---|
+| **Блог** (статьи) | `text-center text-small text-ink mt-2` | Подписи под фото/видео по центру |
+| **Продуктовые страницы** (style/object) | `text-small text-ink mt-2` | Подписи выровнены по левому краю |
+
 **Производительность изображений (важно):**
 - **Рендер/декодирование:** по умолчанию ставим `decoding="async"` (чтобы декодирование не блокировало основной поток).
 - **Ленивая загрузка:** по умолчанию ставим `loading="lazy"`.
@@ -3320,20 +3330,35 @@ Grid-паттерн Tailwind v4 — стрелка наложена через `
 
 ```html
 <div class="my-12">
-    <div class="bg-primary text-white py-8 px-6 rounded-lg text-center shadow-lg">
+    <div class="bg-ah-975 text-white py-8 px-6 rounded-lg text-center shadow-lg">
         <p class="text-xs uppercase tracking-widest opacity-80 mb-2">Акция</p>
         <p class="text-2xl font-light mb-4">Скидка 20% c 15 по 16 января</p>
-        <a href="/order/" class="inline-block px-6 py-2 bg-white text-primary hover:bg-gray-100 rounded uppercase transition-colors font-medium">
-            Заказать
+        <a href="https://muse.ooo/portret-na-zakaz/" class="btn-header-cta">
+            Портреты на холсте
         </a>
     </div>
 </div>
 ```
 
+> Кнопка `.btn-header-cta` внутри `.bg-ah-975` автоматически становится **ghost** (прозрачный фон, светлый бордер, кремовый текст) — правило в `input.css`.
+
+### Содержание статьи (TOC)
+
+```html
+<nav class="mb-8">
+    <h2 class="text-xl font-medium text-ink mb-4 mt-0">Содержание</h2>
+    <ol class="list-decimal list-inside space-y-2 text-lg text-ink">
+        <li><a href="#section" class="text-primary-text hover:underline">Название раздела</a></li>
+    </ol>
+</nav>
+```
+
+> Минимальный стиль: без фона и бордера. Ссылки `text-lg` (18px) — крупнее основного текста для удобства навигации. Подчёркивание только по ховеру (`hover:underline`).
+
 ### Контент статьи (wrapper)
 
 ```html
-<article class="space-y-6 text-body">
+<article class="space-y-6 text-ink">
     <p>Параграф текста...</p>
     <p>Ещё параграф...</p>
     <!-- Используйте space-y-6 для автоматических отступов между элементами -->
@@ -3343,16 +3368,18 @@ Grid-паттерн Tailwind v4 — стрелка наложена через `
 ### Breadcrumbs для блога
 
 ```html
-<nav class="text-sm text-ink-soft mb-4" aria-label="Хлебные крошки">
+<nav class="text-sm text-ink-muted mb-4" aria-label="Хлебные крошки">
     <ol class="flex items-center space-x-2">
-        <li><a href="/" class="hover:text-primary transition-colors">Главная</a></li>
+        <li><a href="/" class="text-primary-text hover:text-ah-600-text transition-colors">Главная</a></li>
         <li class="text-ink-muted">/</li>
-        <li><a href="/blog/" class="hover:text-primary transition-colors">Блог</a></li>
+        <li><a href="/blog/" class="text-primary-text hover:text-ah-600-text transition-colors">Блог</a></li>
         <li class="text-ink-muted">/</li>
-        <li class="text-body truncate">Название статьи</li>
+        <li class="text-ah-975 truncate" aria-current="page">Название статьи</li>
     </ol>
 </nav>
 ```
+
+> **Ссылки:** `text-primary-text` (ah-800) — цвет ссылок. **Текущая страница:** `text-ah-975` — активная, не кликабельная.
 
 ### Подпись автора
 
@@ -3360,21 +3387,33 @@ Grid-паттерн Tailwind v4 — стрелка наложена через `
 
 ```html
 <div class="flex items-center justify-end gap-3 mt-8">
-    <span class="text-ink-muted">Автор:</span>
+    <span class="text-small text-ink-muted">Автор:</span>
     <a href="https://muse.ooo/info/" 
-       class="flex items-center gap-2 text-primary hover:underline"
+       class="flex items-center gap-2 text-primary-text underline hover:no-underline"
        title="О студии Muse и авторе">
         <img src="https://muse.ooo/upload/imgsite/anna-60-2.webp" 
-                             alt="Фото автора Анны" 
-                             class="w-10 h-10 rounded-full object-cover"
-                             width="40" 
-                             height="40"
-                             loading="lazy"
-                             decoding="async">
+             alt="Фото автора Анны" 
+             class="w-10 h-10 rounded-full object-cover"
+             width="40" height="40"
+             loading="lazy" decoding="async">
         <span>Анна</span>
     </a>
 </div>
 ```
+
+> Лейбл «Автор:» — `text-small text-ink-muted`. Ссылка — `underline hover:no-underline` (как все ссылки в блоге).
+
+### Формат дат
+
+Всегда используем `<time>` с `datetime` и **краткий формат DD.MM.YYYY:**
+
+```html
+<div class="flex items-center gap-4 text-sm text-ink-muted mb-4">
+    <time datetime="2016-02-06">06.02.2016</time>
+</div>
+```
+
+> Формат единый: `DD.MM.YYYY`. Длинные форматы (`14 июня 2016 года`) — **запрещены**.
 
 ### Hero для страницы-списка
 
@@ -3384,11 +3423,11 @@ Grid-паттерн Tailwind v4 — стрелка наложена через `
 <section class="pt-8 pb-8 lg:pt-12 lg:pb-12 bg-secondary">
     <div class="container">
         <!-- Breadcrumbs -->
-        <nav class="text-sm text-ink-soft mb-4" aria-label="Хлебные крошки">
+        <nav class="text-sm text-ink-muted mb-4" aria-label="Хлебные крошки">
             <ol class="flex items-center space-x-2">
-                <li><a href="/" class="hover:text-primary transition-colors">Главная</a></li>
+                <li><a href="/" class="hover:text-ah-600-text transition-colors">Главная</a></li>
                 <li>/</li>
-                <li class="text-dark">Блог</li>
+                <li class="text-ink-muted" aria-current="page">Блог</li>
             </ol>
         </nav>
         
@@ -3399,38 +3438,40 @@ Grid-паттерн Tailwind v4 — стрелка наложена через `
 
 ### Pagination (пагинация)
 
+Трёхколоночный layout: стрелка «назад» | номера страниц | стрелка «вперёд».
+
+**Цветовая схема:**
+
+| Элемент | Тег | Классы | Описание |
+|---|---|---|---|
+| Текущая страница | `<span>` | `text-ah-975 font-medium border-b-2 border-ah-600` + `aria-current="page"` | Тёмный, «вы здесь» |
+| Ссылка (номер) | `<a>` | `text-primary-text hover:text-ah-600-text transition-colors` | Цвет ссылок |
+| Стрелка-ссылка | `<a>` | `text-primary-text hover:text-ah-600-text transition-colors` | Аналогично |
+| Disabled-стрелка | — | Убирается из DOM | Если перейти некуда — элемент отсутствует, пустой `<div>` сохраняет layout |
+
 ```html
-<nav class="flex items-center justify-between border-t border-gray-200 mt-12 pt-4">
-    <!-- Предыдущая -->
-    <div class="flex flex-1">
-        <a href="/blog/" class="inline-flex items-center text-sm font-medium text-ink-muted hover:text-primary transition-colors">
-            <svg viewBox="0 0 20 20" fill="currentColor" class="mr-2 w-5 h-5">
-                <path fill-rule="evenodd" d="M18 10a.75.75 0 0 1-.75.75H4.66l2.1 1.95a.75.75 0 1 1-1.02 1.1l-3.5-3.25a.75.75 0 0 1 0-1.1l3.5-3.25a.75.75 0 1 1 1.02 1.1l-2.1 1.95h12.59A.75.75 0 0 1 18 10Z" clip-rule="evenodd"/>
-            </svg>
-            Новые статьи
-        </a>
-    </div>
+<!-- Пример: страница 1 из 2 -->
+<nav class="flex items-center justify-between border-t border-ah-200 mt-12 pt-4">
+    <!-- Предыдущая (нет — первая страница) -->
+    <div class="flex flex-1"></div>
     
     <!-- Номера страниц (скрыты на мобильных) -->
     <div class="hidden md:flex gap-2">
-        <a href="/blog/" class="px-4 py-2 text-sm text-ink-muted hover:text-primary transition-colors">1</a>
-        <span class="px-4 py-2 text-sm font-medium text-primary border-b-2 border-primary">2</span>
-        <a href="/blog/page-3/" class="px-4 py-2 text-sm text-ink-muted hover:text-primary transition-colors">3</a>
+        <span class="px-4 py-2 text-sm font-medium text-ah-975 border-b-2 border-ah-600" aria-current="page">1</span>
+        <a href="blog-page-2.html" class="px-4 py-2 text-sm text-primary-text hover:text-ah-600-text transition-colors">2</a>
     </div>
     
     <!-- Следующая -->
     <div class="flex flex-1 justify-end">
-        <a href="/blog/page-3/" class="inline-flex items-center text-sm font-medium text-ink-muted hover:text-primary transition-colors">
+        <a href="blog-page-2.html" class="inline-flex items-center text-sm font-medium text-primary-text hover:text-ah-600-text transition-colors">
             Старые статьи
-            <svg viewBox="0 0 20 20" fill="currentColor" class="ml-2 w-5 h-5">
-                <path fill-rule="evenodd" d="M2 10a.75.75 0 0 1 .75-.75h12.59l-2.1-1.95a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.1-1.95H2.75A.75.75 0 0 1 2 10Z" clip-rule="evenodd"/>
-            </svg>
+            <svg fill="currentColor" class="ml-2 w-5 h-5" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2 10a.75.75 0 0 1 .75-.75h12.59l-2.1-1.95a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.1-1.95H2.75A.75.75 0 0 1 2 10" clip-rule="evenodd"/></svg>
         </a>
     </div>
 </nav>
 ```
 
-**Текущая страница:** `text-primary border-b-2 border-primary`
+> **Правило:** если на странице нет предыдущей/следующей — не рендерим disabled-элемент, оставляем пустой `<div class="flex flex-1">` для сохранения flexbox-разметки.
 
 ### Обрезка текста (line-clamp)
 
@@ -3815,7 +3856,7 @@ Grid-паттерн Tailwind v4 — стрелка наложена через `
 ### Навигация
 - [ ] Breadcrumbs: `text-sm text-ink-muted` с разделителем `/`
 - [ ] Page Navigator: CSS в `input.css` + `js/nav.js`
-- [ ] Back to Top: HTML элемент с `id="back-to-top"` + `js/nav.js`
+- [ ] Back to Top: HTML элемент с `id="back-to-top"` + `js/nav.js`. **Только на Главной** (`index.html`)
 
 ### Интерактивные компоненты
 - [ ] Before/After: `@utility before-after-slider` (или `.ba-card`) из `input.css`
@@ -3863,6 +3904,128 @@ Grid-паттерн Tailwind v4 — стрелка наложена через `
 - [ ] Arbitrary values `[value]` — только если нет токена/утилиты
 - [ ] `!important` — не используется
 - [ ] CSS изменения — только в `src/input.css`, не в `output.css`
+
+---
+
+## Style-portraits: O-hierarchy (unlayered CSS)
+
+> **Обновлено:** 9 марта 2026
+
+Unlayered CSS-блок `.style-portraits` в `input.css` (строки ~2175–2350). Применяется ко всем 18 style-страницам и 5 object-страницам через `<body class="style-portraits">`. Unlayered — чтобы побеждать `@layer utilities` из inline-классов Tailwind.
+
+### Что включает
+
+| Компонент | Описание |
+|-----------|----------|
+| **Hero** | `padding-top: 4rem; padding-bottom: 5.5rem`, heading `clamp(3.35rem, 7vw, 5.25rem)` |
+| **Heading refinements** | `heading-section`: `letter-spacing: -0.025em; text-wrap: balance`. `heading-card`: `-0.015em; line-height: 1.2` |
+| **Ink-иерархия** | PRIMARY (ah-975) для `.text-ink`, `.heading-section`, `.heading-card`. SECONDARY (`--color-ink-secondary`) для `.text-small`, `figcaption`, `.text-ink-muted`. DISABLED (`--color-ink-disabled`) для placeholder |
+| **Calc** | Фоны/бордюры/цвета переопределены на ah-палитру. Ghost → active CTA при загрузке фото |
+| **Как заказать** | `step-animate` без анимации (`opacity: 1; transform: none`), `step-number-giant: ah-200` |
+| **Характеристики** | `[data-tab-panels] max-width: 442px`, thumbnail shadow, image `border-radius: 1.25rem` + shadow |
+| **Преимущества** | V7 card design: `border: 1px solid ah-200/95`, `border-radius: 1.5rem`, shadow, hover lift |
+| **Описание** | `line-height: 1.75` для `.text-ink` |
+| **Sale banner** | `background-color: var(--color-ah-975)` (тёмный фон вместо дефолтного ah-50) |
+| **CTA** | Ghost-buttons + `letter-spacing: -0.03em` на heading |
+
+### Ink-токены (определены в `@theme`)
+
+| Токен | Значение | Назначение |
+|-------|----------|------------|
+| `--color-ink-secondary` | `rgba(20, 11, 1, 0.55)` | Подписи, мелкий текст, неактивные элементы |
+| `--color-ink-disabled` | `rgba(20, 11, 1, 0.35)` | Placeholder полей ввода |
+
+---
+
+## Описание: float-обтекание (`desc-media`)
+
+Компонент для обтекания текста медиа-элементами (видео, слайдер «До/После») в секции «Описание» на style-страницах.
+
+### HTML-паттерн
+
+```html
+<section class="py-16 lg:py-20 content-auto bg-ah-25" id="opisanie">
+    <div class="container">
+        <h2 class="heading-section text-center mb-12 md:mb-16">Описание</h2>
+
+        <div class="text-ink leading-relaxed font-sans">
+            <!-- Видео float-left (опционально) -->
+            <figure class="desc-media desc-media--left">
+                <div class="video-card ...">...</div>
+                <figcaption class="mt-2 text-small text-ink">Подпись</figcaption>
+            </figure>
+
+            <!-- До/После float-right (опционально) -->
+            <figure class="desc-media desc-media--right">
+                <div class="before-after-slider ...">...</div>
+                <figcaption class="mt-2 text-small text-ink">Потяните за ползунок</figcaption>
+            </figure>
+
+            <p class="mb-5">Текст описания...</p>
+            <p class="mb-5 italic">Muse (греч. Μούσα) — это вдохновение, это Mуза</p>
+        </div>
+    </div>
+</section>
+```
+
+### CSS (input.css)
+
+```css
+.desc-media { width: 100%; margin-bottom: 1.5rem; }
+.desc-media--left { float: none; }
+.desc-media--right { float: none; }
+
+@media (min-width: 768px) {
+    .desc-media--left { float: left; width: 180px; margin-right: 1.5rem; margin-bottom: 1rem; }
+    .desc-media--right { float: right; width: 360px; margin-left: 1.5rem; margin-bottom: 1rem; }
+}
+```
+
+### Распределение по страницам
+
+| Кол-во desc-media | Страницы |
+|-------------------|----------|
+| 2 (left + right) | portret-maslom, granzh, low-poly, wpap, portret-v-obraze |
+| 1 (right) | drim-art, graffiti, pop-art, akvarelyu, flower-art, komiks, sharzh, karandashom, portret-iz-slov |
+| 0 (нет медиа) | beauty-art, fantasy-art, fotomozaika, love-is |
+
+**Правила:**
+- Мобильные: `float: none`, блок на всю ширину
+- md+ (768px): float-обтекание, текст обтекает медиа
+- Подписи (`figcaption`): выравнивание `text-left`
+
+---
+
+## Ghost-buttons на тёмных поверхностях
+
+На тёмных секциях (`bg-ah-975`, `.cta-section`) кнопки `btn-primary` и `btn-header-cta` автоматически становятся ghost-кнопками (прозрачный фон, полупрозрачная рамка, белый текст).
+
+```css
+:is(.bg-ah-975, .cta-section) :is(.btn-primary, .btn-header-cta) {
+    background: transparent;
+    border: 1px solid rgba(255, 253, 250, .28);
+    color: #FFFDFA;
+}
+:is(.bg-ah-975, .cta-section) :is(.btn-primary, .btn-header-cta):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(20, 11, 1, .18);
+}
+```
+
+**Не нужно** добавлять отдельные классы — переключение автоматическое по родительскому фону.
+
+---
+
+## Video Modal
+
+Модальное окно для воспроизведения видео (MP4). Используется на style-страницах в секции «Описание».
+
+```css
+.video-modal { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,.95); display: none; }
+.video-modal.active { display: flex; align-items: center; justify-content: center; }
+```
+
+Управляется через `data-video` атрибуты на `.video-card` элементах. JS в `nav.js` обрабатывает клик → открытие модалки → воспроизведение.
 
 ---
 

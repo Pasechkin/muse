@@ -17,7 +17,7 @@
 
 ## Прогресс
 
-**Обновлено:** 7 марта 2026
+**Обновлено:** 9 марта 2026
 
 | Категория | Готово | Всего |
 |-----------|--------|-------|
@@ -39,6 +39,12 @@
 - ✅ Навигация — унифицированы header/footer/page-navigator → [подробнее](docs/DES IGN_SYSTEM.md#header)
 - ✅ DRY — повторяющиеся стили вынесены в `input.css`
 - ✅ Скрипты — `js/nav.js` → [подробнее](docs/DESIGN_SYSTEM.md#скрипты-navjs)
+- ✅ V7 O-hierarchy — масштабирование эталона `portret-maslom.html` на 17 стилей и 5 объектов
+- ✅ CTA-кнопки — унифицированы на 22 страницах (`btn-primary` + `&rarr;`)
+- ✅ Sale-banner — тёмный вариант (`bg-ah-975`) на style-portraits
+- ✅ Характеристики — slider max-width 442px, тени, табы
+- ✅ Описание — float-обтекание (`desc-media`) на 13 из 18 стилей (остальные 5 без медиа)
+- ✅ Видео-замена (MP4 вместо YouTube iframe) на 6 страницах
 
 ### Эталоны
 
@@ -121,9 +127,22 @@ npm run copy-css     # Копия для Live Server
 - ✅ Калькулятор для страницы фото на холсте `foto-na-kholste-sankt-peterburg.html`
 - ✅ Калькулятор для страницы портрет маслом `portret-maslom.html`
 - ⏳ **Тиражирование калькуляторов** → см. [План CALC: тиражирование](#план-calc-тиражирование-на-портретные-страницы)
+- ⏳ **Info (9 стр.) — визуальная проверка и доработка** (не завершено после amber-миграции)
 - ⏳ Переверстать оставшиеся 12 страниц (см. [Ожидают переверстки](#ожидают-переверстки))
 - ⏳ Подготовить сборку для продакшена
 - ⏳ Подготовить материалы для интеграции
+
+### Phase 2: визуальная проверка ✅
+- ✅ Все 18 style + 5 object страниц проверены (9 марта 2026)
+- ✅ beauty-art — ОК
+- ✅ drim-art — ОК (float-обтекание работает)
+- ✅ portret-iz-slov — добавлен `desc-media--right`, фон `bg-ah-25`
+- ✅ fotomozaika — фон `bg-ah-25`, подписи по левому краю
+- ✅ fantasy-art, graffiti, granzh, love-is, low-poly, pop-art — ОК
+- ✅ portret-akvarelyu, portret-flower-art, portret-karandashom — ОК
+- ✅ portret-komiks, portret-maslom, portret-v-obraze — ОК
+- ✅ sharzh-po-foto, wpap-portret — ОК
+- ✅ detskiy, muzhskoy, parnyy, semeynyy, zhenskiy portret — ОК
 
 ### Проверки качества
 - ⏳ **Контент** — сверка текстов/SEO/alt/title с muse.ooo (ничего не терять!)
@@ -137,7 +156,8 @@ npm run copy-css     # Копия для Live Server
 
 ## План: v7 иерархия O → Variant 3
 
-> **Обновлено:** 7 марта 2026
+> **Обновлено:** 9 марта 2026
+> **Статус:** ✅ V7 O-hierarchy масштабирована на все 18 стилей и 5 объектов. Unlayered CSS-блок `.style-portraits` в `input.css`.
 
 ### Контекст
 
@@ -612,9 +632,9 @@ Amber-миграция: 595 замен в 45 файлах (blog 20, info 9, pech
 
 ---
 
-## Текущий план работ (7 марта 2026)
+## Текущий план работ (9 марта 2026)
 
-> **Контекст:** Шаги 1–7 завершены. Эталон `portret-maslom.html` чист, 18 style-страниц обновлены. `portret-maslom-v7.html` = **точная копия продакшна** + inline `<style>` с proposal CSS для O-иерархии + панель переключения «База / O-иерархия». База в v7 теперь идентична продакшну (те же шрифты, output.css, body-классы, нет data-theme).
+> **Контекст:** Шаги 1–7 завершены. Эталон `portret-maslom.html` чист, 18 style-страниц и 5 object-страниц обновлены. V7 O-hierarchy масштабирована через unlayered CSS-блок `.style-portraits` в `input.css`. CTA-кнопки, sale-banner, характеристики, desc-media — всё унифицировано. `portret-maslom-v7.html` = **полигон O-иерархии** (точная копия продакшна + inline `<style>` с proposal CSS для O-иерархии + панель переключения «База / O-иерархия»).
 
 ### Приоритет и порядок
 
