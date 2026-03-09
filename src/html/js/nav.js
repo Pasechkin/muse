@@ -346,6 +346,42 @@ document.addEventListener('DOMContentLoaded', function() {
     cacheSectionPositions();
     toggleUI();
 
+    // --- Step-animate: trigger on scroll into view ---
+    (function() {
+        var steps = document.querySelectorAll('.step-animate');
+        if (!steps.length) return;
+
+        if (typeof IntersectionObserver === 'undefined') {
+            // Fallback: show all immediately
+            steps.forEach(function(el) { el.classList.add('is-visible'); });
+            return;
+        }
+
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (!entry.isIntersecting) return;
+                // Animate all steps in the same parent at once (staggered via CSS delays)
+                var parent = entry.target.parentElement;
+                if (parent) {
+                    parent.querySelectorAll('.step-animate').forEach(function(el) {
+                        el.classList.add('is-visible');
+                    });
+                }
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.15 });
+
+        // Observe only the first step-animate in each group to trigger them all together
+        var seen = [];
+        steps.forEach(function(el) {
+            var parent = el.parentElement;
+            if (seen.indexOf(parent) === -1) {
+                seen.push(parent);
+                observer.observe(el);
+            }
+        });
+    })();
+
     // Video Cover (create iframe only on click)
     document.querySelectorAll('[data-video-cover]').forEach(function(cover) {
         const playBtn = cover.querySelector('[data-play-btn]');

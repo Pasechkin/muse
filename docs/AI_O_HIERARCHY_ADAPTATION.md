@@ -277,3 +277,86 @@ Start with one page or one section, compare visually, then scale.
 ## One-Sentence Summary For AI
 
 Borrow O's hierarchy logic, not its surface styling: keep Muse semantic typography and ink colors, and adapt O only as a role-based system of display heading, lead, body, meta, and dark-surface inversion.
+
+---
+
+## Audit Findings (7 марта 2026)
+
+> Full audit of `draft/O/` source code (all 16 element components, 38 section components, 13 page templates) against this document. Grep verified 200+ `text-olive-*` matches.
+
+### Finding 1: O Uses 4 Text Tones, Not 6
+
+The document implies a smooth tonal ladder matching Muse's 6 ink utilities. In reality, O uses only **4 tones** on light backgrounds with a large gap between the top two:
+
+| O tone | Lightness | Where used | Role |
+| --- | --- | --- | --- |
+| `olive-950` | ~15% | Heading, Subheading, Feature h3, Link, NavbarLink, stat numbers, team name, pricing, Button, `<strong>`, Document h2 | PRIMARY — everything "strong" |
+| `olive-700` | ~39% | Text body, Eyebrow, Feature descriptions, bylines, FAQ answers, pricing features, stat descriptions, footer links | STANDARD BODY — main reading color |
+| `olive-600` | ~47% | Footer copyright (3 instances only) | FINEPRINT — rare |
+| `olive-500` | ~58% | Pricing period, inactive tabs, features-stacked subheadline | DE-EMPHASIZED UI |
+
+**Key insight:** O jumps from 950 directly to 700 (~24% lightness gap). There is no olive-800 or olive-900 usage for text anywhere in the template.
+
+### Finding 2: Muse Ink Ladder Mismatch
+
+| Muse ink | ah step | O equivalent | Match? |
+| --- | --- | --- | --- |
+| `text-ink` (ah-950) | darkest | olive-950 | ✅ Direct match |
+| `text-ink-soft` (ah-900) | soft | **No O equivalent** | ❌ O has no 900-level text |
+| `text-ink-label` (ah-800) | label | **No O equivalent** | ❌ O has no 800-level text |
+| `text-ink-muted` (ah-700) | muted | olive-700 | ⚠️ Match, but naming is misleading — in O this is the STANDARD body color, not "muted" |
+
+**Implication:** `ink-soft` (ah-900) and `ink-label` (ah-800) are Muse extensions, not O borrowings. They add intermediate tones that O deliberately omits. Whether they improve or dilute hierarchy is an open question for visual testing on v7.
+
+### Finding 3: Eyebrow Description Is Wrong
+
+**Document says (Rule 5):** `text-xs font-bold uppercase tracking-wider`
+
+**Real O eyebrow.tsx:** `text-sm/7 font-semibold text-olive-700`
+- Size: `text-sm` not `text-xs`
+- Weight: `font-semibold` not `font-bold`
+- No `uppercase`
+- No `tracking-wider`
+- Line-height: `/7` (1.75rem)
+
+**Correction for Muse:** Eyebrow/badge text should use `text-sm font-semibold` without forced uppercase or extra tracking, unless Muse design specifically requires it.
+
+### Finding 4: Feature h3 Uses Sans, Not Display
+
+The document implies all headings use display font. In reality, O uses `font-display` (serif) **only for h1 (Heading) and h2 (Subheading)**. Feature h3 titles use the default sans-serif stack:
+
+- `features-three-column.tsx` h3: `font-semibold` (no `font-display`)
+- `features-stacked-alternating-with-demos.tsx` h3: plain weight, sans
+
+**Open question for Muse:** Should `.heading-card` stay serif (current) or switch to sans to match O? This needs visual testing on v7.
+
+### Finding 5: text-balance vs text-pretty Not Separated
+
+The document mentions both but doesn't distinguish:
+- **h1 (Heading):** uses `text-balance` — distributes words evenly across lines
+- **h2 (Subheading):** uses `text-pretty` — prevents orphan words on last line
+
+These are different CSS properties with different effects on text layout.
+
+### Finding 6: Specific Line-Heights Not Documented
+
+O defines precise line-heights that create visual rhythm:
+
+| Element | Size | Line-height |
+| --- | --- | --- |
+| h1 (Heading) | `text-5xl/12` → `sm:text-[5rem]/20` | 3rem → 5rem |
+| h2 (Subheading) | `text-[2rem]/10` → `sm:text-5xl/14` | 2.5rem → 3.5rem |
+| Body (Text md) | `text-base/7` | 1.75rem |
+| Body (Text lg) | `text-lg/8` | 2rem |
+| Meta/Eyebrow | `text-sm/7` | 1.75rem |
+
+### Corrections To Safe Decision Table
+
+| Document says | Should say |
+| --- | --- |
+| eyebrow label → `text-xs font-bold uppercase tracking-wider` | eyebrow label → `text-sm font-semibold` (no uppercase, no tracking) |
+| muted olive paragraph → `.text-ink-soft` or `.text-ink-muted` | standard body paragraph → `.text-ink-muted` (ah-700, matches O's olive-700 body); strong/emphasis paragraph → `.text-ink` |
+
+### Status
+
+These findings inform Step 8.1 (full O-hierarchy application on v7). The v7 page will serve as a visual test bed to resolve open questions (h3 serif vs sans, ink-soft utility, ink-label utility) before any production changes.

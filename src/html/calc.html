@@ -21,7 +21,7 @@
                     <div id="uploader-zone" class="uploader-zone mb-2 lg:mb-4">
                         <div class="w-full max-w-sm mx-auto lg:max-w-none">
                             <input type="file" id="file-upload" class="hidden" accept="image/jpeg,image/png,image/gif,image/webp" multiple>
-                            <button id="btn-upload-empty" class="w-full bg-primary hover:bg-primary-hover text-white font-bold py-3 rounded-lg text-sm uppercase tracking-wide transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                            <button id="btn-upload-empty" class="w-full bg-ah-975 hover:bg-ah-900 text-white font-bold py-3 rounded-lg text-sm uppercase tracking-wide transition-all active:scale-[0.98] flex items-center justify-center gap-2">
                                 <span>Загрузить фото</span>
                             </button>
                             <div id="uploader-thumbnails" class="uploader-thumbnails thin-scrollbar-x" role="listbox" aria-label="Загруженные фотографии"></div>
@@ -52,9 +52,9 @@
                         <section id="size-section">
                             <div class="section-title"><span>Размер, см</span></div>
                             <div id="size-inputs-row" class="hidden lg:flex items-center gap-2 mb-3">
-                                <input type="number" id="inp-w" value="20" enterkeyhint="next" autocomplete="off" inputmode="numeric" class="w-full h-10 lg:h-12 text-center border border-gray-200 rounded-lg text-base lg:text-lg font-bold text-dark focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary outline-none transition" placeholder="Ш">
+                                <input type="number" id="inp-w" value="20" enterkeyhint="next" autocomplete="off" inputmode="numeric" class="w-full h-10 lg:h-12 text-center border border-gray-200 rounded-lg text-base lg:text-lg font-bold text-body focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary outline-none transition" placeholder="Ш">
                                 <span class="text-ink-muted">✕</span>
-                                <input type="number" id="inp-h" value="30" enterkeyhint="done" autocomplete="off" inputmode="numeric" class="w-full h-10 lg:h-12 text-center border border-gray-200 rounded-lg text-base lg:text-lg font-bold text-dark focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary outline-none transition" placeholder="В">
+                                <input type="number" id="inp-h" value="30" enterkeyhint="done" autocomplete="off" inputmode="numeric" class="w-full h-10 lg:h-12 text-center border border-gray-200 rounded-lg text-base lg:text-lg font-bold text-body focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary outline-none transition" placeholder="В">
                             </div>
                             <div class="flex lg:hidden gap-2 overflow-x-auto pb-1 thin-scrollbar-x" id="size-presets-grid"></div>
                             <div id="size-extra-carousel" class="hidden lg:block mt-3">
@@ -82,7 +82,7 @@
                         </section>
                         <section>
                             <div class="section-title"><span>Оформление в багет</span><span class="calc-badge" id="price-frame">0 р.</span></div>
-                            <div id="frame-section" class="border border-gray-200 rounded-lg p-4 flex items-center gap-4 cursor-pointer hover:border-primary transition group bg-white">
+                            <div id="frame-section" class="border border-gray-200 rounded-lg p-4 flex items-center gap-4 cursor-pointer hover:border-ah-600 transition group bg-white">
                                 <div class="w-10 h-10 bg-gray-50 rounded border border-gray-200 flex items-center justify-center text-ink-muted"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></div>
                                 <div>
                                     <div class="text-sm font-bold text-body" id="selected-frame-text">Без багета</div>
@@ -129,7 +129,7 @@
                     <div class="hidden lg:block p-6 border-t border-gray-100 bg-white lg:rounded-b-2xl">
                         <div class="flex items-baseline justify-between">
                             <span class="text-sm text-ink-muted">Цена со скидкой 20%</span>
-                            <span class="text-2xl font-bold text-primary leading-none whitespace-nowrap"><span id="total-price">890</span> р.</span>
+                            <span class="text-2xl font-bold text-ah-975 leading-none whitespace-nowrap"><span id="total-price">890</span> р.</span>
                         </div>
                     </div>
                 </div>
@@ -146,7 +146,7 @@
                         <div><textarea id="client-comment" name="client_comment_x" class="form-input h-full resize-none" rows="4" placeholder="Комментарий"></textarea></div>
                     </div>
                     <div class="flex flex-col md:flex-row items-center justify-between gap-6 border-t border-gray-100 pt-6">
-                        <div class="text-xs text-ink-muted text-left">Заполняя форму, я соглашаюсь с условиями <a href="https://muse.ooo/info/oferta/" class="underline hover:text-primary-text">Оферты</a> и даю свое согласие на обработку персональных данных в соответствии с <a href="https://muse.ooo/info/politika_konfidentsialnosti_sayta/" class="underline hover:text-primary-text">Политикой конфиденциальности сайта</a></div>
+                        <div class="text-xs text-ink-muted text-left">Заполняя форму, я соглашаюсь с условиями <a href="https://muse.ooo/info/oferta/" class="underline hover:text-ah-600-text">Оферты</a> и даю свое согласие на обработку персональных данных в соответствии с <a href="https://muse.ooo/info/politika_konfidentsialnosti_sayta/" class="underline hover:text-ah-600-text">Политикой конфиденциальности сайта</a></div>
                         <button type="button" id="btn-submit-order" class="hidden lg:block w-full md:w-auto btn-header-cta px-10 py-4 active:scale-[0.98]">Заказать</button>
                     </div>
                 </form>
@@ -154,8 +154,8 @@
 
             <div id="mobile-sticky-bar" class="calc-sticky-bar">
                 <div class="min-w-0">
-                    <div class="text-lg font-bold text-primary whitespace-nowrap" id="sticky-total-price">9 543 р.</div>
-                    <div class="text-xs text-ink-muted whitespace-nowrap">— цена со скидкой 20%</div>
+                    <div class="text-lg font-bold text-ink-on-dark whitespace-nowrap" id="sticky-total-price">9 543 р.</div>
+                    <div class="text-xs text-ink-on-dark whitespace-nowrap">— цена со скидкой 20%</div>
                 </div>
                 <button id="btn-sticky-order" class="btn-header-cta px-5 py-2.5 active:scale-[0.98] text-sm shrink-0">Заказать</button>
             </div>
@@ -167,14 +167,14 @@
             <div class="calc-frame-modal-content" id="frame-modal-content">
                 <div class="calc-frame-modal-header">
                     <h3 class="text-xl font-bold text-body">Каталог багета</h3>
-                    <button id="close-frame-modal" type="button" class="p-2 text-ink-muted hover:text-ink transition">
+                    <button id="close-frame-modal" type="button" class="ui-control ui-control--md" aria-label="Закрыть">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                     </button>
                 </div>
                 <div class="calc-frame-modal-body custom-scrollbar">
                     <div id="frame-upload-cta" class="calc-frame-upload-cta">
                         <p class="text-xs text-ink-muted mb-3">Загрузите фото для примерки багета</p>
-                        <button id="modal-upload-btn" type="button" class="bg-white border border-gray-200 text-body hover:border-primary hover:text-primary-text font-bold py-2 px-4 rounded-lg text-xs uppercase tracking-widest transition flex items-center justify-center gap-2 mx-auto">
+                        <button id="modal-upload-btn" type="button" class="bg-white border border-gray-200 text-body hover:border-ah-600 hover:text-ah-600-text font-bold py-2 px-4 rounded-lg text-xs uppercase tracking-widest transition flex items-center justify-center gap-2 mx-auto">
                             <span>Загрузить фото</span>
                         </button>
                     </div>
@@ -196,7 +196,7 @@
 
         <dialog id="lightbox" class="modal-shell bg-white/95 backdrop-blur-sm">
             <div class="absolute top-4 right-4 z-10">
-                <button id="lightbox-close" class="calc-lightbox-close p-2 text-ink-muted hover:text-ink transition pointer-events-auto">
+                <button id="lightbox-close" class="calc-lightbox-close ui-control ui-control--md pointer-events-auto" aria-label="Закрыть">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                 </button>
             </div>

@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="ru">
+<!-- REBUILT: O vs Muse comparison — Typography, Colors, Spacing, Buttons -->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O vs Muse — Design System Compare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=PT+Sans:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --page-bg: #f4efe6;
+  --page-ink: #1f170f;
+  --page-muted: rgba(31, 23, 15, 0.68);
+  --page-border: rgba(31, 23, 15, 0.12);
+  --page-card: rgba(255, 252, 246, 0.82);
+  --shadow-soft: 0 24px 60px rgba(31, 23, 15, 0.08);
+  --radius-xl: 28px;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(255, 248, 235, 0.95), transparent 30%),
+    radial-gradient(circle at top right, rgba(223, 207, 178, 0.22), transparent 32%),
+    linear-gradient(180deg, #f8f3ea 0%, #f1e7d7 100%);
+  color: var(--page-ink);
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.page-shell {
+  width: min(1440px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 40px 0 64px;
+}
+
+.page-header {
+  display: grid;
+  gap: 18px;
+  margin-bottom: 28px;
+  padding: 28px;
+  border: 1px solid var(--page-border);
+  border-radius: var(--radius-xl);
+  background: var(--page-card);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--shadow-soft);
+}
+
+.page-kicker {
+  display: inline-flex;
+  width: fit-content;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(31, 23, 15, 0.06);
+  color: var(--page-muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(2.2rem, 4vw, 4rem);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+.page-header p {
+  margin: 0;
+  max-width: 860px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--page-muted);
+}
+
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+
+.system {
+  border: 1px solid var(--page-border);
+  border-radius: 32px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.56);
+  box-shadow: var(--shadow-soft);
+}
+
+.system-inner {
+  padding: 24px;
+}
+
+.system-header {
+  display: grid;
+  gap: 18px;
+  margin-bottom: 22px;
+  padding: 22px;
+  border-radius: 24px;
+}
+
+.system-tag {
+  display: inline-flex;
+  width: fit-content;
+  padding: 7px 11px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.system-header h2 {
+  margin: 0;
+  font-size: clamp(1.7rem, 3vw, 2.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+.system-header p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.meta-card {
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid;
+}
+
+.meta-card strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.meta-card span {
+  display: block;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.section-block + .section-block {
+  margin-top: 20px;
+}
+
+.section-block {
+  padding: 22px;
+  border-radius: 24px;
+  border: 1px solid;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.section-heading h3 {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.section-heading::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  opacity: 0.4;
+}
+
+.sample-stack {
+  display: grid;
+  gap: 14px;
+}
+
+.detail-stack {
+  display: grid;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.guide-block {
+  margin-top: 18px;
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid;
+}
+
+.guide-block h4 {
+  margin: 0 0 10px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.guide-lines {
+  display: grid;
+  gap: 8px;
+}
+
+.guide-line {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.table-note {
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.sample-card {
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid;
+}
+
+.detail-card {
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid;
+}
+
+.detail-card h4 {
+  margin: 0 0 12px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.spec-table th,
+.spec-table td {
+  padding: 10px 0;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.spec-table th {
+  padding-top: 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.spec-table tr:last-child td {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.spec-table td strong {
+  display: block;
+  font-size: 12px;
+}
+
+.usage-list {
+  display: grid;
+  gap: 10px;
+}
+
+.example-stack {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.example-box {
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid;
+}
+
+.example-box h5 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.example-box p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.example-box p + p {
+  margin-top: 8px;
+}
+
+.usage-item {
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid;
+}
+
+.usage-item strong,
+.usage-item span {
+  display: block;
+}
+
+.usage-item strong {
+  margin-bottom: 5px;
+  font-size: 12px;
+}
+
+.usage-item span {
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.sample-label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.token-line {
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.swatch {
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid;
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.swatch-color {
+  height: 74px;
+}
+
+.swatch-meta {
+  padding: 14px;
+}
+
+.swatch-meta strong,
+.swatch-meta span {
+  display: block;
+}
+
+.swatch-meta strong {
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+
+.swatch-meta span {
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.spacing-list {
+  display: grid;
+  gap: 14px;
+}
+
+.space-row {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+}
+
+.space-meta {
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.space-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.space-bar {
+  width: 100%;
+  border-radius: 999px;
+  border: 1px solid;
+  position: relative;
+}
+
+.space-bar::after {
+  content: attr(data-size);
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.button-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  cursor: default;
+  text-decoration: none;
+  user-select: none;
+}
+
+.caption {
+  margin-top: 12px;
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.system-o .system-inner {
+  background: linear-gradient(180deg, rgba(247, 248, 242, 0.92), rgba(237, 240, 229, 0.88));
+}
+
+.system-o .system-header {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(241, 243, 235, 0.92));
+  border: 1px solid rgba(70, 84, 62, 0.12);
+}
+
+.system-o .system-tag {
+  background: rgba(39, 53, 34, 0.08);
+  color: #273522;
+}
+
+.system-o .system-header h2,
+.system-o .hero-o,
+.system-o .section-o {
+  font-family: "Instrument Serif", Georgia, serif;
+  color: #273522;
+}
+
+.system-o .system-header p,
+.system-o .body-o,
+.system-o .caption,
+.system-o .space-meta,
+.system-o .swatch-meta span,
+.system-o .token-line,
+.system-o .meta-card span {
+  color: #5f6f58;
+}
+
+.system-o .meta-card,
+.system-o .section-block,
+.system-o .sample-card,
+.system-o .detail-card,
+.system-o .swatch,
+.system-o .space-bar,
+.system-o .section-heading::after,
+.system-o .usage-item,
+.system-o .spec-table th,
+.system-o .spec-table td {
+  border-color: rgba(39, 53, 34, 0.14);
+}
+
+.system-o .meta-card,
+.system-o .sample-card,
+.system-o .detail-card,
+.system-o .guide-block,
+.system-o .example-box,
+.system-o .swatch,
+.system-o .section-block,
+.system-o .usage-item {
+  background: rgba(255, 255, 255, 0.56);
+}
+
+.system-o .section-heading h3,
+.system-o .sample-label,
+.system-o .meta-card strong,
+.system-o .swatch-meta strong,
+.system-o .detail-card h4,
+.system-o .guide-block h4,
+.system-o .example-box h5,
+.system-o .usage-item strong,
+.system-o .spec-table th,
+.system-o .spec-table td strong {
+  color: #394937;
+}
+
+.system-o .hero-o {
+  margin: 0;
+  font-size: clamp(3rem, 5vw, 5rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.system-o .section-o {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.system-o .body-o {
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.78;
+}
+
+.system-o .meta-o {
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #6b7a64;
+}
+
+.system-o .spec-table td,
+.system-o .guide-line,
+.system-o .table-note,
+.system-o .example-box p,
+.system-o .usage-item span {
+  color: #5f6f58;
+}
+
+.system-o .example-box {
+  border-color: rgba(39, 53, 34, 0.14);
+}
+
+.system-o .guide-block,
+.system-o .guide-line {
+  border-color: rgba(39, 53, 34, 0.14);
+}
+
+.system-o .space-bar {
+  background: rgba(39, 53, 34, 0.08);
+}
+
+.system-o .space-bar::after {
+  color: #394937;
+}
+
+.system-o .btn-primary {
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: #273522;
+  color: #f7f8f2;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.75;
+}
+
+.system-o .btn-soft {
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(39, 53, 34, 0.1);
+  color: #273522;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.75;
+}
+
+.system-o .btn-plain {
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: transparent;
+  color: #273522;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.75;
+  border: 1px solid rgba(39, 53, 34, 0.12);
+}
+
+.system-muse .system-inner {
+  background: linear-gradient(180deg, rgba(255, 249, 243, 0.92), rgba(254, 241, 225, 0.92));
+}
+
+.system-muse .system-header {
+  background: linear-gradient(180deg, rgba(255, 253, 250, 0.86), rgba(254, 237, 218, 0.9));
+  border: 1px solid rgba(40, 22, 1, 0.11);
+}
+
+.system-muse .system-tag {
+  background: rgba(217, 119, 6, 0.12);
+  color: #8b4c04;
+}
+
+.system-muse .system-header h2,
+.system-muse .hero-muse,
+.system-muse .section-muse {
+  font-family: "Playfair Display", Georgia, serif;
+  color: #281601;
+}
+
+.system-muse .system-header p,
+.system-muse .body-muse,
+.system-muse .caption,
+.system-muse .space-meta,
+.system-muse .swatch-meta span,
+.system-muse .token-line,
+.system-muse .meta-card span {
+  color: #593102;
+}
+
+.system-muse .meta-card,
+.system-muse .section-block,
+.system-muse .sample-card,
+.system-muse .detail-card,
+.system-muse .swatch,
+.system-muse .space-bar,
+.system-muse .section-heading::after,
+.system-muse .usage-item,
+.system-muse .spec-table th,
+.system-muse .spec-table td {
+  border-color: rgba(40, 22, 1, 0.11);
+}
+
+.system-muse .meta-card,
+.system-muse .sample-card,
+.system-muse .detail-card,
+.system-muse .guide-block,
+.system-muse .example-box,
+.system-muse .swatch,
+.system-muse .section-block,
+.system-muse .usage-item {
+  background: rgba(255, 253, 250, 0.6);
+}
+
+.system-muse .section-heading h3,
+.system-muse .sample-label,
+.system-muse .meta-card strong,
+.system-muse .swatch-meta strong,
+.system-muse .detail-card h4,
+.system-muse .guide-block h4,
+.system-muse .example-box h5,
+.system-muse .usage-item strong,
+.system-muse .spec-table th,
+.system-muse .spec-table td strong {
+  color: #8b4c04;
+}
+
+.system-muse .hero-muse {
+  margin: 0;
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+.system-muse .section-muse {
+  margin: 0;
+  font-size: clamp(1.875rem, 4vw, 2.25rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+
+.system-muse .body-muse {
+  margin: 0;
+  font-family: "PT Sans", system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.68;
+}
+
+.system-muse .meta-muse {
+  margin: 0;
+  font-family: "PT Sans", system-ui, sans-serif;
+  font-size: 12px;
+  line-height: 1.86;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #d97706;
+}
+
+.system-muse .spec-table td,
+.system-muse .guide-line,
+.system-muse .table-note,
+.system-muse .example-box p,
+.system-muse .usage-item span {
+  color: #593102;
+}
+
+.system-muse .example-box {
+  border-color: rgba(40, 22, 1, 0.11);
+}
+
+.system-muse .guide-block,
+.system-muse .guide-line {
+  border-color: rgba(40, 22, 1, 0.11);
+}
+
+.example-box.is-dark {
+  background: #140b01;
+}
+
+.example-box.is-dark h5 {
+  color: #fffdfa;
+}
+
+.example-box.is-dark p {
+  color: #fde5c8;
+}
+
+.system-muse .space-bar {
+  background: rgba(217, 119, 6, 0.12);
+}
+
+.system-muse .space-bar::after {
+  color: #8b4c04;
+}
+
+.system-muse .btn-primary {
+  padding: 10px 24px;
+  border-radius: 6px;
+  background: #140b01;
+  color: #fffdfa;
+  font-family: "PT Sans", system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.system-muse .btn-dark {
+  padding: 10px 24px;
+  border-radius: 6px;
+  background: transparent;
+  color: #281601;
+  border: 1px solid rgba(40, 22, 1, 0.3);
+  font-family: "PT Sans", system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.system-muse .btn-inverse {
+  padding: 10px 24px;
+  border-radius: 6px;
+  background: rgba(40, 22, 1, 0.88);
+  color: #fffdfa;
+  font-family: "PT Sans", system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.system-muse .btn-compact {
+  padding: 8px 16px;
+  border-radius: 6px;
+  background: rgba(217, 119, 6, 0.12);
+  color: #8b4c04;
+  font-family: "PT Sans", system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+@media (max-width: 1080px) {
+  .compare-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .meta-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .page-shell {
+    width: min(100% - 20px, 1440px);
+    padding-top: 20px;
+  }
+
+  .page-header,
+  .system-inner {
+    padding: 16px;
+  }
+
+  .system-header,
+  .section-block,
+  .sample-card {
+    padding: 16px;
+  }
+
+  .swatch-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .space-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.compare-section {
+  display: grid;
+  gap: 14px;
+}
+
+.compare-row {
+  display: grid;
+  gap: 12px;
+}
+
+.compare-row-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.compare-row-head h4 {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.compare-row-head span {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.preview-stack {
+  display: grid;
+  gap: 10px;
+}
+
+.mini-note {
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.preview-dark {
+  background: #140b01;
+}
+
+.preview-dark .preview-title {
+  color: #fffdfa !important;
+}
+
+.preview-dark .preview-text {
+  color: #fde5c8 !important;
+}
+
+.preview-title,
+.preview-text,
+.preview-kicker {
+  margin: 0;
+}
+
+.preview-kicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.preview-text + .preview-text {
+  margin-top: 6px;
+}
+
+.size-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.size-chip {
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.compare-table td,
+.compare-table th {
+  padding: 10px 0;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.compare-table th {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.compare-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.section-block.is-compact {
+  padding: 18px;
+}
+
+.system-o .compare-row-head h4,
+.system-o .size-chip,
+.system-o .preview-kicker {
+  color: #394937;
+}
+
+.system-o .compare-row-head span,
+.system-o .mini-note,
+.system-o .compare-table td {
+  color: #5f6f58;
+}
+
+.system-o .size-chip,
+.system-o .compare-table td,
+.system-o .compare-table th,
+.system-o .section-block.is-compact {
+  border-color: rgba(39, 53, 34, 0.14);
+}
+
+.system-o .size-chip,
+.system-o .section-block.is-compact {
+  background: rgba(255, 255, 255, 0.56);
+}
+
+.system-o .compare-table th,
+.system-o .preview-title {
+  color: #273522;
+}
+
+.system-o .preview-text {
+  color: #5f6f58;
+}
+
+.system-muse .compare-row-head h4,
+.system-muse .size-chip,
+.system-muse .preview-kicker {
+  color: #8b4c04;
+}
+
+.system-muse .compare-row-head span,
+.system-muse .mini-note,
+.system-muse .compare-table td {
+  color: #593102;
+}
+
+.system-muse .size-chip,
+.system-muse .compare-table td,
+.system-muse .compare-table th,
+.system-muse .section-block.is-compact {
+  border-color: rgba(40, 22, 1, 0.11);
+}
+
+.system-muse .size-chip,
+.system-muse .section-block.is-compact {
+  background: rgba(255, 253, 250, 0.6);
+}
+
+.system-muse .compare-table th,
+.system-muse .preview-title {
+  color: #281601;
+}
+
+.system-muse .preview-text {
+  color: #593102;
+}
+</style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="page-header">
+      <span class="page-kicker">Design System Compare</span>
+      <h1>Прямое сравнение O и Muse</h1>
+      <p>Одинаковые сценарии показаны слева и справа. Без длинных объяснений: только как выглядит заголовок, обычный текст, текст на тёмном фоне, отступы и кнопки.</p>
+    </header>
+
+    <main class="compare-grid">
+      <section class="system system-o" aria-labelledby="o-system-title">
+        <div class="system-inner">
+          <div class="system-header">
+            <span class="system-tag">Template O</span>
+            <div>
+              <h2 id="o-system-title">Oatmeal / olive system</h2>
+              <p>Role-first иерархия из stable-примитивов Heading, Subheading, Text, Container. Форма мягкая, круглые кнопки, serif-display + neutral olive palette.</p>
+            </div>
+            <div class="meta-grid">
+              <div class="meta-card">
+                <strong>Fonts</strong>
+                <span>Instrument Serif для display, Inter для текста и UI.</span>
+              </div>
+              <div class="meta-card">
+                <strong>Container</strong>
+                <span>max-w-2xl → md:max-w-3xl → lg:max-w-7xl, px-6 → lg:px-10.</span>
+              </div>
+              <div class="meta-card">
+                <strong>Rhythm</strong>
+                <span>Частые интервалы: gap-6, gap-16, gap-32, section py-16.</span>
+              </div>
+            </div>
+          </div>
+
+          <section class="compare-section">
+            <div class="section-block is-compact">
+              <div class="compare-row-head">
+                <h4>1. Главный заголовок</h4>
+                <span>Hero / H1</span>
+              </div>
+              <div class="preview-stack">
+                <p class="preview-title hero-o">Customer support that feels like a conversation.</p>
+                <p class="mini-note">Очень большой, мягкий, почти editorial.</p>
+                <div class="size-chip-row">
+                  <span class="size-chip">Моб: 48px</span>
+                  <span class="size-chip">Десктоп: 80px</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-block is-compact">
+              <div class="compare-row-head">
+                <h4>2. Заголовок секции</h4>
+                <span>H2</span>
+              </div>
+              <div class="preview-stack">
+                <p class="preview-title section-o">Everything you need to deliver personal, organized support.</p>
+                <p class="mini-note">Тоже serif, но уже заметно спокойнее H1.</p>
+                <div class="size-chip-row">
+                  <span class="size-chip">Моб: 32px</span>
+                  <span class="size-chip">Десктоп: 48px</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-block is-compact">
+              <div class="compare-row-head">
+                <h4>3. Обычный текст</h4>
+                <span>Body</span>
+              </div>
+              <div class="preview-stack">
+                <p class="preview-text body-o">O использует спокойный текст с большим воздухом между строк. Он кажется мягким и достаточно “премиальным”, даже когда это обычный абзац.</p>
+                <div class="size-chip-row">
+                  <span class="size-chip">Моб: 16px</span>
+                  <span class="size-chip">Десктоп: 16px</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-block is-compact preview-dark">
+              <div class="compare-row-head">
+                <h4>4. Первый абзац после заголовка</h4>
+                <span>Lead</span>
+              </div>
+              <div class="preview-stack">
+                <p class="preview-text body-o">Simplify your shared inbox, collaborate effortlessly, and give every customer a reply that feels personal.</p>
+                <div class="size-chip-row">
+                  <span class="size-chip">Моб: 18px</span>
+                  <span class="size-chip">Десктоп: 18px</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-block is-compact preview-dark">
+              <div class="compare-row-head">
+                <h4>5. Текст на тёмном фоне</h4>
+                <span>Dark hero</span>
+              </div>
+              <div class="preview-stack">
+                <p class="preview-title section-o">Heading on dark background</p>
+                <p class="preview-text">В O тёмный блок остаётся мягким: заголовок белый, обычный текст не слишком контрастный.</p>
+              </div>
+            </div>
+
+            <div class="section-block is-compact">
+              <div class="compare-row-head">
+                <h4>6. Кнопки</h4>
+                <span>Actions</span>
+              </div>
+              <div class="button-row">
+                <span class="btn btn-primary">Get started</span>
+                <span class="btn btn-soft">Start free trial</span>
+                <span class="btn btn-plain">See how it works</span>
+              </div>
+              <p class="mini-note">Кнопки округлые, мягкие, неагрессивные.</p>
+            </div>
+
+            <div class="section-block is-compact">
+              <div class="compare-row-head">
+                <h4>7. Кратко</h4>
+                <span>Суть O</span>
+              </div>
+              <table class="compare-table">
+                <tbody>
+                  <tr>
+                    <td><strong>Общее ощущение</strong></td>
+                    <td>Мягкое, журнальное, спокойное</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Заголовки</strong></td>
+                    <td>Крупные и очень выразительные</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Обычный текст</strong></td>
+                    <td>Не мелкий, с большим воздухом</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Кнопки</strong></td>
+                    <td>Круглые и мягкие</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="system system-muse" aria-labelledby="muse-system-title">
+        <div class="system-inner">
+          <div class="system-header">
+            <span class="system-tag">Muse</span>
+            <div>
+              <h2 id="muse-system-title">Amber Harmonized system</h2>
+              <p>Display-serif + PT Sans, ink-система на amber-палитре, жёстче CTA-геометрия и более прикладная продуктовая структура: hero, content sections, CTA, utility classes.</p>
+            </div>
+            <div class="meta-grid">
+              <div class="meta-card">
+                <strong>Fonts</strong>
+                <span>Playfair Display для heading-слоя, PT Sans для текста, кнопок и UI.</span>
+              </div>
+              <div class="meta-card">
+                <strong>Container</strong>
+                <span>Один container: max-width 1170px, padding-inline 16px.</span>
+              </div>
+              <div class="meta-card">
+                <strong>Rhythm</strong>
+                <span>Основные секции py-16 lg:py-24, CTA py-24 md:py-32, footer py-8 lg:py-12.</span>
+              </div>
+            </div>
+          </div>
+
+          <section class="compare-section">
+            <div class="section-block is-compact">
+              <div class="compare-row-head">
+                <h4>1. Главный заголовок</h4>
+                <span>Hero / H1</span>
+              </div>
+              <div class="preview-stack">
+                <p class="preview-title hero-muse">Портрет по фото на холсте</p>
+                <p class="mini-note">Крупный, но строже и собраннее, чем в O.</p>
+                <div class="size-chip-row">
+                  <span class="size-chip">Моб: 36px</span>
+                  <span class="size-chip">Десктоп: 60px</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-block is-compact">
+              <div class="compare-row-head">
+                <h4>2. Заголовок секции</h4>
+                <span>H2</span>
+              </div>
+              <div class="preview-stack">
+                <p class="preview-title section-muse">Преимущества и структура секции</p>
+                <p class="mini-note">Заметный, но без журнальной избыточности.</p>
+                <div class="size-chip-row">
+                  <span class="size-chip">Моб: 30px</span>
+                  <span class="size-chip">Десктоп: 36px</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-block is-compact">
+              <div class="compare-row-head">
+                <h4>3. Обычный текст</h4>
+                <span>Body</span>
+              </div>
+              <div class="preview-stack">
+                <p class="preview-text body-muse">В Muse обычный текст заметно компактнее. Он выглядит практичнее и ближе к продуктовой странице, чем текст из O.</p>
+                <div class="size-chip-row">
+                  <span class="size-chip">Моб: 13px</span>
+                  <span class="size-chip">Десктоп: 14px</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-block is-compact">
+              <div class="compare-row-head">
+                <h4>4. Первый абзац после заголовка</h4>
+                <span>Lead</span>
+              </div>
+              <div class="preview-stack">
+                <p class="preview-text body-muse">Мы поможем выбрать стиль, подготовим макет и аккуратно перенесём изображение на холст или в раму.</p>
+                <div class="size-chip-row">
+                  <span class="size-chip">Моб: 18px</span>
+                  <span class="size-chip">Десктоп: 20px</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-block is-compact preview-dark">
+              <div class="compare-row-head">
+                <h4>5. Текст на тёмном фоне</h4>
+                <span>Dark hero</span>
+              </div>
+              <div class="preview-stack">
+                <p class="preview-title section-muse">Заголовок на тёмной секции</p>
+                <p class="preview-text">В Muse тёмные блоки контрастнее: основной текст белый, вторичный светло-тёплый.</p>
+              </div>
+            </div>
+
+            <div class="section-block is-compact">
+              <div class="compare-row-head">
+                <h4>6. Кнопки</h4>
+                <span>Actions</span>
+              </div>
+              <div class="button-row">
+                <span class="btn btn-primary">Заказать</span>
+                <span class="btn btn-dark">Подробнее</span>
+                <span class="btn btn-inverse">Получить макет</span>
+              </div>
+              <p class="mini-note">Кнопки строже, прямее и заметно более рабочие по характеру.</p>
+            </div>
+
+            <div class="section-block is-compact">
+              <div class="compare-row-head">
+                <h4>7. Кратко</h4>
+                <span>Суть Muse</span>
+              </div>
+              <table class="compare-table">
+                <tbody>
+                  <tr>
+                    <td><strong>Общее ощущение</strong></td>
+                    <td>Строже, теплее, прикладнее</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Заголовки</strong></td>
+                    <td>Крупные, но собранные</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Обычный текст</strong></td>
+                    <td>Компактнее и плотнее, чем в O</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Кнопки</strong></td>
+                    <td>Более строгие и деловые</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

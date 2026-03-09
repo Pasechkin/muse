@@ -75,6 +75,7 @@
     }
     </script>
     <link rel="stylesheet" href="../../css/output.css">
+    <!-- All style-portraits CSS → input.css (.style-portraits) -->
 </head>
 <body class="bg-ah-25 text-body font-sans overflow-x-hidden style-portraits">
 
@@ -109,7 +110,7 @@
                                     <a href="https://muse.ooo/portret-na-zakaz/" class="hover:underline">Портрет на заказ</a>
                                     <span class="mx-2">/</span>
                                 </li>
-                                <li class="text-white/80">Портрет маслом</li>
+                                <li aria-current="page" class="text-white/80">Портрет маслом</li>
                             </ol>
                         </nav>
                         
@@ -153,7 +154,7 @@
                 </div>
                 
                 <div class="text-center mt-8">
-                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/maslom/" class="btn-inverse">
+                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/maslom/" class="btn-primary">
                         Смотреть все примеры работ
                     </a>
                 </div>
@@ -163,12 +164,12 @@
         <!-- Акция -->
         <section class="sale-banner">
             <p class="sale-banner-text">
-                <strong>Скидка 20%</strong> с 6 по 7 марта
+                Скидка 20% &mdash; с 6 по 7 марта
             </p>
         </section>
 
         <!-- Калькулятор портрета -->
-        <section class="pb-16 lg:pb-20 content-auto bg-ah-25" id="calc" data-calc-root>
+        <section class="py-16 lg:py-20 content-auto bg-ah-25" id="calc" data-calc-root>
             <div class="container">
                 <h2 class="heading-section text-center mb-8">Цена</h2>
 
@@ -209,9 +210,9 @@
                                 <section id="size-section">
                                     <div class="section-title"><span>Размер, см</span></div>
                                     <div id="size-inputs-row" class="hidden lg:flex items-center gap-2 mb-3">
-                                        <input type="number" id="inp-w" value="20" enterkeyhint="next" autocomplete="off" inputmode="numeric" class="w-full h-10 lg:h-12 text-center border border-gray-200 rounded-lg text-base lg:text-lg font-bold text-dark focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary outline-none transition" placeholder="Ш">
+                                        <input type="number" id="inp-w" value="20" enterkeyhint="next" autocomplete="off" inputmode="numeric" class="w-full h-10 lg:h-12 text-center border border-gray-200 rounded-lg text-base lg:text-lg font-bold text-dark tabular-nums focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary outline-none transition" placeholder="Ш">
                                         <span class="text-ink-muted">✕</span>
-                                        <input type="number" id="inp-h" value="30" enterkeyhint="done" autocomplete="off" inputmode="numeric" class="w-full h-10 lg:h-12 text-center border border-gray-200 rounded-lg text-base lg:text-lg font-bold text-dark focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary outline-none transition" placeholder="В">
+                                        <input type="number" id="inp-h" value="30" enterkeyhint="done" autocomplete="off" inputmode="numeric" class="w-full h-10 lg:h-12 text-center border border-gray-200 rounded-lg text-base lg:text-lg font-bold text-dark tabular-nums focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary outline-none transition" placeholder="В">
                                     </div>
                                     <div class="flex lg:hidden gap-2 overflow-x-auto pb-3 mt-4 thin-scrollbar-x" id="size-presets-grid"></div>
                                     <div id="size-extra-carousel" class="hidden lg:block mt-5">
@@ -222,7 +223,7 @@
                                     </div>
                                 </section>
                                 <section>
-                                    <div class="section-title"><span>Печать и подрамник</span><span id="badge-wrap" class="calc-badge">0 ₽</span></div>
+                                    <div class="section-title"><span>Печать и подрамник</span><span id="badge-wrap" class="calc-badge tabular-nums lining-nums">0 ₽</span></div>
                                     <div class="flex p-1 bg-ah-50 rounded-lg" role="radiogroup" aria-label="Тип подрамника">
                                         <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-bold transition bg-white text-body shadow-sm" data-val="STANDARD" role="radio" aria-checked="true">Стандартный</button>
                                         <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-medium transition" data-val="GALLERY" role="radio" aria-checked="false">Толстый</button>
@@ -230,7 +231,7 @@
                                     </div>
                                 </section>
                                 <section>
-                                    <div class="section-title"><span>Обработка фото</span><span id="badge-processing" class="calc-badge">0 ₽</span></div>
+                                    <div class="section-title"><span>Обработка фото</span><span id="badge-processing" class="calc-badge tabular-nums lining-nums">0 ₽</span></div>
                                     <div class="grid grid-cols-1">
                                         <select id="processing-select" aria-label="Обработка фото" class="col-start-1 row-start-1 w-full appearance-none bg-white border border-gray-200 text-body py-3 pl-4 pr-8 rounded-lg text-sm font-medium focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary">
                                         </select>
@@ -238,7 +239,7 @@
                                     </div>
                                 </section>
                                 <section>
-                                    <div class="section-title"><span>Оформление в багет</span><span class="calc-badge" id="price-frame">0 ₽</span></div>
+                                    <div class="section-title"><span>Оформление в багет</span><span class="calc-badge tabular-nums lining-nums" id="price-frame">0 ₽</span></div>
                                     <div id="frame-section" class="border border-ah-200 rounded-lg p-4 flex items-center gap-4 cursor-pointer hover:border-ah-700 hover:bg-ah-50 transition group bg-white">
                                         <div class="w-10 h-10 rounded border flex items-center justify-center text-ink-muted"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="w-5 h-5"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></div>
                                         <div>
@@ -249,7 +250,7 @@
                                 </section>
                                 <section id="varnish-gift-section" class="space-y-6">
                                     <div class="bg-white">
-                                        <div class="section-title mb-2"><span>Покрытие лаком</span><span class="calc-badge" id="price-varnish">0 ₽</span></div>
+                                        <div class="section-title mb-2"><span>Покрытие лаком</span><span class="calc-badge tabular-nums lining-nums" id="price-varnish">0 ₽</span></div>
                                         <div class="flex gap-3">
                                             <div class="flex h-6 shrink-0 items-center">
                                                 <div class="group grid size-5 grid-cols-1">
@@ -265,7 +266,7 @@
                                         </div>
                                     </div>
                                     <div class="bg-white">
-                                        <div class="section-title mb-2"><span>Подарочная упаковка</span><span class="calc-badge" id="price-gift">0 ₽</span></div>
+                                        <div class="section-title mb-2"><span>Подарочная упаковка</span><span class="calc-badge tabular-nums lining-nums" id="price-gift">0 ₽</span></div>
                                         <div class="flex gap-3">
                                             <div class="flex h-6 shrink-0 items-center">
                                                 <div class="group grid size-5 grid-cols-1">
@@ -285,7 +286,7 @@
                             <div id="desktop-price-bar" class="hidden lg:block px-6 pt-2 pb-8 -mt-8">
                                 <div class="flex items-baseline justify-between">
                                     <span class="text-sm text-ink-muted">Цена со скидкой 20%</span>
-                                    <span class="text-2xl font-bold text-ink leading-none whitespace-nowrap"><span id="total-price">890</span> ₽</span>
+                                    <span class="text-2xl font-bold text-ink leading-none whitespace-nowrap tabular-nums lining-nums"><span id="total-price">890</span> ₽</span>
                                 </div>
                             </div>
                         </div>
@@ -311,8 +312,8 @@
 
                     <div id="mobile-sticky-bar" class="calc-sticky-bar">
                         <div class="min-w-0">
-                            <div class="text-lg font-bold text-ink-on-dark whitespace-nowrap" id="sticky-total-price">9 543 ₽</div>
-                            <div class="text-xs text-ink-muted-on-dark whitespace-nowrap">— цена со скидкой 20%</div>
+                            <div class="text-lg font-bold text-ink-on-dark whitespace-nowrap tabular-nums lining-nums" id="sticky-total-price">9 543 ₽</div>
+                            <div class="text-xs text-ink-on-dark whitespace-nowrap">— цена со скидкой 20%</div>
                         </div>
                         <button id="btn-sticky-order" class="btn-header-cta px-5 py-2.5 shrink-0">Заказать</button>
                     </div>
@@ -322,17 +323,17 @@
 
             <dialog id="frame-modal" class="modal-shell">
                 <div class="calc-frame-modal-content" id="frame-modal-content">
+                    <div class="frame-modal-drag-handle" id="frame-modal-handle"></div>
                     <div class="calc-frame-modal-header">
                         <h3 class="heading-card text-2xl">Каталог багета</h3>
-                        <button id="close-frame-modal" type="button" class="p-2 rounded-lg text-ink-muted hover:text-ink transition-colors">
+                        <button id="close-frame-modal" type="button" class="ui-control ui-control--md focus:outline-none" aria-label="Закрыть">
                             <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="w-6 h-6" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6l12 12"/></svg>
                         </button>
                     </div>
                     <div class="calc-frame-modal-body custom-scrollbar">
                         <div id="frame-upload-cta" class="calc-frame-upload-cta">
-                            <p class="text-xs text-ink-muted mb-3">Загрузите фото для примерки багета</p>
-                            <button id="modal-upload-btn" type="button" class="bg-ah-25 border border-ah-200 text-ink-muted hover:border-ah-700 hover:text-ink font-bold py-2 px-4 rounded-lg text-xs uppercase tracking-widest transition flex items-center justify-center gap-2 mx-auto">
-                                <span>Загрузить фото</span>
+                            <button id="modal-upload-btn" type="button" class="btn-header-cta w-full py-3">
+                                Загрузите фото для примерки багета
                             </button>
                         </div>
                         <div class="mb-8">
@@ -345,7 +346,6 @@
                         </div>
                     </div>
                     <div class="calc-frame-modal-footer">
-                        <button id="cancel-frame-selection" type="button" class="px-6 py-3 rounded-lg text-xs font-bold uppercase tracking-widest text-ink-muted hover:text-ink hover:bg-ah-100 transition">Отмена</button>
                         <button id="apply-frame-selection" type="button" class="btn-header-cta px-8 py-3">Выбрать этот багет</button>
                     </div>
                 </div>
@@ -353,7 +353,7 @@
 
             <dialog id="lightbox" class="modal-shell bg-ah-25/95 backdrop-blur-sm">
                 <div class="absolute top-4 right-4 z-10">
-                    <button id="lightbox-close" class="calc-lightbox-close p-2 rounded-lg text-ink-muted hover:text-ink transition-colors pointer-events-auto">
+                    <button id="lightbox-close" class="calc-lightbox-close ui-control ui-control--md pointer-events-auto" aria-label="Закрыть">
                         <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="w-6 h-6" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6l12 12"/></svg>
                     </button>
                 </div>
@@ -515,7 +515,7 @@
                     <div class="order-1 lg:order-2">
                         <!-- ВИДЕО-ШАБЛОН (раскомментировать при готовом видео)
                         1) ВСТАВЬТЕ КНОПКУ в <div data-tab-list>:
-                        <button type="button" class="relative flex h-16 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-ah-950 hover:bg-ah-50 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden" data-video-tab>
+                        <button type="button" class="relative flex h-16 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-ah-975 hover:bg-ah-50 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden" data-video-tab>
                             <span class="sr-only">[ТЕКСТ: Видео]</span>
                             <span class="absolute inset-0 overflow-hidden rounded">
                                 <img src="[URL_82x62.webp]" alt="[ТЕКСТ: Описание видео]" title="[ТЕКСТ: Заголовок видео]" width="82" height="62" class="size-full object-cover" loading="lazy" decoding="async" />
@@ -543,28 +543,28 @@
                         <div data-tabs class="flex flex-col-reverse">
                             <!-- Миниатюры -->
                             <div data-tab-list class="mx-auto mt-4 w-full max-w-md grid grid-cols-4 gap-3">
-                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded-xl bg-ah-50 text-sm font-medium text-ah-950 hover:bg-ah-75 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden">
+                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded-xl bg-ah-50 text-sm font-medium text-ah-975 hover:bg-ah-75 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden">
                                         <span class="sr-only">Лицевая сторона портрета маслом</span>
                                         <span class="absolute inset-0 overflow-hidden rounded-xl">
                                             <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-442.webp" alt="Портрет маслом на холсте с лицевой стороны на подрамнике" title="Лицевая сторона портрета маслом на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-xl ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-ah-600"></span>
                                     </button>
-                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded-xl bg-ah-50 text-sm font-medium text-ah-950 hover:bg-ah-75 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden">
+                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded-xl bg-ah-50 text-sm font-medium text-ah-975 hover:bg-ah-75 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden">
                                         <span class="sr-only">Обратная сторона портрета маслом</span>
                                         <span class="absolute inset-0 overflow-hidden rounded-xl">
                                             <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-442-back.webp" alt="Портрет маслом на холсте с обратной стороны на подрамнике" title="Обратная сторона портрета маслом на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-xl ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-ah-600"></span>
                                     </button>
-                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded-xl bg-ah-50 text-sm font-medium text-ah-950 hover:bg-ah-75 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden">
+                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded-xl bg-ah-50 text-sm font-medium text-ah-975 hover:bg-ah-75 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden">
                                         <span class="sr-only">Портрет маслом на холсте</span>
                                         <span class="absolute inset-0 overflow-hidden rounded-xl">
                                             <img src="https://muse.ooo/upload/img/oil-painting-woman-05052019-442.webp" alt="Портрет маслом на холсте" title="Портрет маслом на холсте" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-xl ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-ah-600"></span>
                                     </button>
-                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded-xl bg-ah-50 text-sm font-medium text-ah-950 hover:bg-ah-75 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden hidden" data-video-tab>
+                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded-xl bg-ah-50 text-sm font-medium text-ah-975 hover:bg-ah-75 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden hidden" data-video-tab>
                                         <span class="sr-only">Видео</span>
                                         <span class="absolute inset-0 overflow-hidden rounded-xl">
                                             <img src="https://muse.ooo/upload/imgsite/canvas-on-wall-345-185.webp" alt="Девушка вешает картину на стену" title="Девушка вешает картину на стену" class="size-full object-cover" loading="lazy" decoding="async" width="345" height="185" />
@@ -604,7 +604,7 @@
                     </div>
                 </div>
 
-                <p class="mt-10 text-xs text-ink leading-[1.6]">
+                <p class="mt-10 text-xs/[1.6] text-ink">
                     Выше приведен список стандартных характеристик работ и материалов. Вы всегда можете: посчитав в калькуляторе выше; прочитав описание по клику на знак вопроса там же; спросив в коммуникаторе или позвонив — подобрать именно то, что нужно Вам.
                 </p>
             </div>
@@ -620,7 +620,7 @@
             <div class="container">
                 <div class="grid md:grid-cols-3 gap-4">
                     <div class="p-6 flex flex-col items-start group">
-                        <div class="w-[3.625rem] h-[3.625rem] rounded-full bg-ah-50 text-ah-950 flex items-center justify-center mb-4 shrink-0 transition-all duration-300 group-hover:bg-ah-100 group-hover:scale-110">
+                        <div class="w-[3.625rem] h-[3.625rem] rounded-full bg-ah-50 text-ah-975 flex items-center justify-center mb-4 shrink-0 transition-all duration-300 group-hover:bg-ah-100 group-hover:scale-110">
                             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-[1.875rem] h-[1.875rem] fill-current" viewBox="314 155 1743 1743"><path d="M1171 205a345 345 0 0 0-201 94l-12 12-17 1c-62 6-112 22-163 51a401 401 0 0 0-170 204c-2 2-8 19-10 27-5 18-2 43 6 55 1 3 1 3-7 28l-18 52c-6 20-5 38 2 71q5 24 0 50l-5 24q-12 61 0 122a486 486 0 0 0 35 117l14 33c18 40 22 51 29 79a105 105 0 0 0 59 71c37 18 76 20 126 9l36-10q2-2 6 6c22 36 36 91 36 141v11l-17 16a599 599 0 0 0-180 360c0 11 15 19 24 13 6-4 7-6 10-26a621 621 0 0 1 64-188 583 583 0 0 1 179-201 784 784 0 0 1 392-145q14-1 17-9 4-12-6-19c-3-2-5-2-17-2a794 794 0 0 0-253 64 790 790 0 0 0-182 110l-1-10a343 343 0 0 0-40-131q-3-2 6-5a1479 1479 0 0 0 101-48c31-17 62-39 64-44q4-13-7-20-7-5-19 3a603 603 0 0 1-241 108c-14 2-38 2-50 0-11-2-27-7-38-13-8-4-11-6-18-13-12-12-15-18-22-43a508 508 0 0 0-36-94c-21-51-26-65-33-92a342 342 0 0 1-3-165c5-31 5-41 0-69a124 124 0 0 1-3-47 758 758 0 0 1 27-82c7-23 9-27 16-32q10-7 19-10c31-11 77-9 124 6 21 7 35 13 56 22 66 32 131 81 219 162a2329 2329 0 0 1 164 171l6 8-4 10c-8 18-14 26-25 35l-6 4-1-3q-3-11-12-14c-9-2-19 6-19 16q2 7-13 1-15-7-21-1-6 5-6 12-1 9 9 14c6 3 19 7 26 8l5 1v7l1 7-10 3q-17 6-29 17a79 79 0 0 0-7 111q10 11 25 18c28 14 62 11 86-8 11-9 22-25 26-39 3-9 4-30 2-38a91 91 0 0 0-14-33c-8-12-27-25-43-29q-8-2-6-5v-12l7-3q29-12 45-42l5-8 1 5c5 15 6 16 8 19q7 4 14 3a251 251 0 0 0 92-76c13-17 31-51 37-69l4-10v13l21 348 1 25 3 51 3 51 4 63 9 165c3 65 5 86 7 91q4 10 18 16c30 13 74 16 106 7s56-33 65-64c2-8 2-11 3-33 0-28 0-30 8-34 4-2 5-2 13-2 29 2 33 2 43 1q26-4 45-20a99 99 0 0 0 42-84c-1-10-1-13-14-58l-58-202-49-174-14-47-55-197c-10-32-13-45-18-75a683 683 0 0 0-62-187l-6-11v-16a324 324 0 0 0-42-148l-5-8-22-32a329 329 0 0 0-291-124m75 31a297 297 0 0 1 249 237l-8-10c-16-20-39-41-52-48-11-5-16-6-26-6q-9 0-13 3-12 5-17 17c-4 11-4 16 2 54l14 96-7-14a357 357 0 0 0-66-96l-10-11c-2-4-39-37-50-46a662 662 0 0 0-114-67c-40-16-97-30-137-33-10 0-10 0-8-2a445 445 0 0 1 79-50 295 295 0 0 1 164-24M999 343a420 420 0 0 1 187 56 428 428 0 0 1 158 151 456 456 0 0 1 61 172c2 18 2 66 0 83-8 55-23 97-48 134a236 236 0 0 1-68 67l-3-5a388 388 0 0 0-64-80l-16-18-23-24c-21-24-90-92-111-110l-17-15c-33-30-104-84-136-103-26-16-63-36-81-43-49-19-81-26-120-26-26 0-41 2-57 8l-30 15q-5 5-5 2a479 479 0 0 1 74-137l25-28 8-8a309 309 0 0 1 109-68 348 348 0 0 1 157-23m423 101c6 3 10 6 22 18q27 26 46 60l5 9a579 579 0 0 1 59 146c8 28 10 37 15 61l5 27 18 65 43 151a14371 14371 0 0 0 96 339l46 165a72 72 0 0 1-57 70c-9 2-15 2-42 0q-24-1-39 14c-11 11-14 21-14 39 1 24 0 32-1 38q-9 27-34 39c-14 7-21 8-43 8-18 0-20 0-31-2q-24-6-24-10l-28-492-11-177-3-54-3-54a6659 6659 0 0 0-27-368l-5-36-8-59q4-3 15 3m-220 673q14 4 23 15c4 5 9 15 10 21l1 15c-1 8-1 10-5 17q-10 22-35 27c-30 6-59-20-57-52q1-17 13-30a66 66 0 0 1 23-14q11-4 27 1"/></svg>
                         </div>
                         <h3 class="heading-card mb-2">110+ примеров</h3>
@@ -628,7 +628,7 @@
                     </div>
 
                     <div class="p-6 flex flex-col items-start group">
-                        <div class="w-[3.625rem] h-[3.625rem] rounded-full bg-ah-50 text-ah-950 flex items-center justify-center mb-4 shrink-0 transition-all duration-300 group-hover:bg-ah-100 group-hover:scale-110">
+                        <div class="w-[3.625rem] h-[3.625rem] rounded-full bg-ah-50 text-ah-975 flex items-center justify-center mb-4 shrink-0 transition-all duration-300 group-hover:bg-ah-100 group-hover:scale-110">
                             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-[1.875rem] h-[1.875rem] fill-current" viewBox="0 0 460.94 460.94"><path d="m460.79 405.15-50.215-221a6 6 0 0 0-5.851-4.67H360.97l48.841-99.472c1.759-3.583 2.018-7.637.729-11.415s-3.973-6.828-7.556-8.587L382.59 49.993c-7.398-3.633-16.37-.569-20.001 6.828l-60.227 122.66H67.742a6 6 0 0 0-5.851 4.67l-21.138 93.03c-8.74-1.196-16.592-5.761-22.01-12.951-6.358-8.438-8.335-19.102-5.423-29.258l25.009-87.224c4.077-14.222 17.258-24.155 32.053-24.155h156.94c19.337 0 36.564-12.282 42.868-30.563l2.458-7.128a6 6 0 1 0-11.344-3.912l-2.458 7.128c-4.635 13.442-17.303 22.474-31.523 22.474H70.383c-20.12 0-38.044 13.507-43.588 32.847L1.786 231.665c-3.96 13.811-1.272 28.313 7.375 39.787 7.16 9.501 17.445 15.634 28.927 17.466l-26.41 116.23a6 6 0 0 0 5.851 7.33h437.41a6 6 0 0 0 5.851-7.33zM96.95 317.48H43.902l14.769-65h49.4zm30.14-105h159.07l-30.339 61.79c-3.097 6.307-3.552 13.442-1.282 20.091a26.14 26.14 0 0 0 7.759 11.469l-4.88 9.939a6 6 0 0 0 10.771 5.289l4.764-9.703c2.118.543 4.282.826 6.456.826a26.4 26.4 0 0 0 8.521-1.424c6.649-2.27 12.017-6.993 15.113-13.3l41.724-84.977h33.792l28.899 158h-307.4l27.034-158zM373.36 62.11a2.95 2.95 0 0 1 3.941-1.345l20.394 10.013c.953.468 1.342 1.261 1.489 1.692s.324 1.296-.144 2.249l-106.77 217.45a14.2 14.2 0 0 1-8.219 7.232 14.2 14.2 0 0 1-10.925-.697c-3.43-1.684-5.999-4.603-7.233-8.219s-.987-7.496.697-10.925zM72.53 191.48h223.94l-4.419 9h-170.02a6 6 0 0 0-5.914 4.988l-5.991 35.012H61.4l11.133-49zm-47.488 209 16.132-71h53.721l-7.869 45.988a6 6 0 0 0 5.914 7.012h321.71a6 6 0 0 0 5.901-7.08l-31.094-170a6 6 0 0 0-5.902-4.92h-32.9l4.419-9h44.856l47.489 209H25.039z"/></svg>
                         </div>
                         <h3 class="heading-card mb-2">100% сходство</h3>
@@ -636,7 +636,7 @@
                     </div>
 
                     <div class="p-6 flex flex-col items-start group">
-                        <div class="w-[3.625rem] h-[3.625rem] rounded-full bg-ah-50 text-ah-950 flex items-center justify-center mb-4 shrink-0 transition-all duration-300 group-hover:bg-ah-100 group-hover:scale-110">
+                        <div class="w-[3.625rem] h-[3.625rem] rounded-full bg-ah-50 text-ah-975 flex items-center justify-center mb-4 shrink-0 transition-all duration-300 group-hover:bg-ah-100 group-hover:scale-110">
                             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-[1.875rem] h-[1.875rem] fill-current" viewBox="0 0 325.9 325.9"><path d="M297.4 47.8h-24.5v-7.1c0-9.3-7.5-16.8-16.8-16.8H69.7c-9.3 0-16.8 7.5-16.8 16.8v7.1H28.5C12.7 47.8 0 60.5 0 76.2V116c0 12.6 8.3 23.2 19.7 27v115.7L9.5 289.6c-1.6 5 1 10.3 6 11.9 1 .3 2 .5 3 .5 4 0 7.7-2.5 9-6.5l10.7-32.4h.4v-1.3l10.2-30.9c1.6-5-1-10.3-6-11.9-1.4-.5-2.8-.5-4.2-.4v-74.1h22.9v111.4h202.9V144.5h17.2v69.4c-2.4-1.9-5.7-2.5-8.8-1.5-5 1.6-7.6 7-6 11.9l21.3 64.6c1.3 4 5 6.5 9 6.5 1 0 2-.2 3-.5 5-1.6 7.6-7 6-11.9l-6.6-19.9h1V144.2c14.3-1.5 25.4-13.5 25.4-28.2V76.2c0-15.7-12.8-28.4-28.5-28.4M63.7 40.7c0-3.3 2.7-6 6-6h186.4c3.3 0 6 2.7 6 6v7.1H63.7zm189.9 103.8v100.6H72.3V123.9c0-8.1 4.1-19.5 8.9-24.8l8.7-9.6h146l8.7 9.6c4.8 5.3 8.9 16.7 8.9 24.8v20.6z"/><path d="M232.7 106.4H93.2c-3 0-5.4 2.4-5.4 5.4s2.4 5.4 5.4 5.4h139.5c3 0 5.4-2.4 5.4-5.4s-2.5-5.4-5.4-5.4"/></svg>
                         </div>
                         <h3 class="heading-card mb-2">Служит 50+ лет</h3>
@@ -644,7 +644,7 @@
                     </div>
 
                     <div class="p-6 flex flex-col items-start group">
-                        <div class="w-[3.625rem] h-[3.625rem] rounded-full bg-ah-50 text-ah-950 flex items-center justify-center mb-4 shrink-0 transition-all duration-300 group-hover:bg-ah-100 group-hover:scale-110">
+                        <div class="w-[3.625rem] h-[3.625rem] rounded-full bg-ah-50 text-ah-975 flex items-center justify-center mb-4 shrink-0 transition-all duration-300 group-hover:bg-ah-100 group-hover:scale-110">
                             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-[1.875rem] h-[1.875rem] fill-current" viewBox="0 0 612 612"><path d="M592.9 306c0-79.2-32.1-150.9-84-202.9-52-51.9-123.7-84-202.9-84s-150.9 32.1-202.8 84c-52 52-84.1 123.7-84.1 202.9s32.1 151 84 202.9 123.6 84 202.8 84 150.9-32.1 202.9-84 84.1-123.7 84.1-202.9M522.4 89.6C577.8 145 612 221.5 612 306s-34.2 161-89.6 216.4S390.5 612 306 612s-161-34.2-216.4-89.6C34.3 467 0 390.5 0 306S34.2 145 89.6 89.6C145 34.3 221.5 0 306 0s161 34.2 216.4 89.6"/><path d="M296.5 439.9c5.3 0 9.6 4.3 9.6 9.6s-4.3 9.6-9.6 9.6H220c-5.3 0-9.6-4.3-9.6-9.6s4.3-9.6 9.6-9.6zm38.2-95.6c-5.3 0-9.6-4.3-9.6-9.6s4.3-9.6 9.6-9.6c18.5 0 35.2-7.5 47.3-19.6l.5-.5c11.8-12 19.1-28.6 19.1-46.8 0-18.5-7.5-35.2-19.6-47.3l-.5-.5c-12.1-11.8-28.6-19.1-46.8-19.1H220c-5.3 0-9.6-4.3-9.6-9.6s4.3-9.6 9.6-9.6h114.8c23.4 0 44.7 9.4 60.2 24.7l.6.6c15.6 15.6 25.2 37.1 25.2 60.9 0 23.4-9.4 44.7-24.6 60.2l-.6.6c-15.6 15.5-37.1 25.2-60.9 25.2"/><path d="M219.9 344.3c-5.3 0-9.6-4.3-9.6-9.6s4.3-9.6 9.6-9.6h114.8c5.3 0 9.6 4.3 9.6 9.6s-4.3 9.6-9.6 9.6z"/><path d="M267.7 449.5c0 5.3-4.3 9.6-9.6 9.6s-9.6-4.3-9.6-9.6V181.7c0-5.3 4.3-9.6 9.6-9.6s9.6 4.3 9.6 9.6z"/><path d="M219.9 382.5c-5.3 0-9.6-4.3-9.6-9.6s4.3-9.6 9.6-9.6h133.9c5.3 0 9.6 4.3 9.6 9.6s-4.3 9.6-9.6 9.6z"/></svg>
                         </div>
                         <h3 class="heading-card mb-2">Выгодная цена</h3>
@@ -652,7 +652,7 @@
                     </div>
 
                     <div class="p-6 flex flex-col items-start group">
-                        <div class="w-[3.625rem] h-[3.625rem] rounded-full bg-ah-50 text-ah-950 flex items-center justify-center mb-4 shrink-0 transition-all duration-300 group-hover:bg-ah-100 group-hover:scale-110">
+                        <div class="w-[3.625rem] h-[3.625rem] rounded-full bg-ah-50 text-ah-975 flex items-center justify-center mb-4 shrink-0 transition-all duration-300 group-hover:bg-ah-100 group-hover:scale-110">
                             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-[1.875rem] h-[1.875rem] fill-current" viewBox="0 0 512 512"><path d="M408.74 143.26a218 218 0 0 0-37.003-29.729l14.438-25.008 16.143 9.32a8 8 0 0 0 10.929-2.928 8 8 0 0 0-2.928-10.928l-45.883-26.49a8 8 0 0 0-8 13.856l15.883 9.17-14.387 24.919c-28.689-15.393-60.65-24.082-93.927-25.286v-.966c18.236-3.716 32-19.878 32-39.195 0-22.056-17.944-40-40-40s-40 17.944-40 40c0 19.316 13.764 35.479 32 39.195v.966c-54.694 1.979-105.83 24.199-144.74 63.104C62.468 184.058 40 238.3 40 296s22.468 111.94 63.265 152.74 95.039 63.265 152.74 63.265 111.94-22.468 152.74-63.265S472.01 353.7 472.01 296s-22.468-111.94-63.265-152.74zM232 40c0-13.233 10.767-24 24-24s24 10.767 24 24c0 10.429-6.689 19.321-16 22.624V40a8 8 0 0 0-16 0v22.624c-9.311-3.303-16-12.195-16-22.624m24 456c-110.28 0-200-89.72-200-200S145.72 96 256 96s200 89.72 200 200-89.72 200-200 200"/><path d="M412.77 199.63a8 8 0 0 0-11.007-2.616 8 8 0 0 0-2.616 11.007c16.258 26.393 24.851 56.816 24.851 87.981 0 92.636-75.364 168-168 168s-168-75.364-168-168 75.364-168 168-168c31.154 0 61.567 8.587 87.953 24.834a8 8 0 0 0 11.006-2.618 8 8 0 0 0-2.618-11.007c-28.908-17.8-62.223-27.209-96.341-27.209-101.46 0-184 82.542-184 184s82.542 184 184 184 184-82.542 184-184c0-34.13-9.416-67.455-27.228-96.372"/><path d="M368 170.77a170 170 0 0 1 13.229 13.229 7.98 7.98 0 0 0 5.964 2.665 8 8 0 0 0 5.958-13.335 186 186 0 0 0-14.481-14.48 8 8 0 0 0-11.296.626A7.997 7.997 0 0 0 368 170.77m-62.06-18.33c-15.648-5.458-32.449-8.436-49.935-8.436a8 8 0 0 0-8 8v144c0 2.122.843 4.156 2.343 5.657l101.82 101.82c1.562 1.562 3.609 2.343 5.657 2.343s4.095-.781 5.657-2.343c28.708-28.709 44.519-66.879 44.519-107.48 0-12.752-1.587-25.139-4.559-36.983a8 8 0 0 0-.242-.985 151 151 0 0 0-13.929-35.062 8 8 0 0 0-.831-1.485 152.8 152.8 0 0 0-20.273-27.956 8 8 0 0 0-.778-.918 8 8 0 0 0-.488-.44c-16.381-17.486-36.835-31.107-59.836-39.336a8 8 0 0 0-1.129-.399zm17.065 25.25-59 59v-25.372l41.846-41.847a135.5 135.5 0 0 1 17.154 8.219m27.448 20.553-86.448 86.447v-25.372l72.705-72.705a137 137 0 0 1 13.743 11.63m21.403 26.596-87.851 87.851-12.686-12.686 89.979-89.978a137 137 0 0 1 10.558 14.813m14.76 33.241-78.611 78.611-12.686-12.687 84.418-84.418a135 135 0 0 1 6.879 18.494m5.389 37.924c0 1.597-.036 3.188-.091 4.776l-59.909 59.91-12.686-12.686 71.313-71.313a136.6 136.6 0 0 1 1.373 19.313m-103.3-132.02-24.701 24.702v-28.454a135.4 135.4 0 0 1 24.701 3.752m68.96 222.36-14.347-14.347 45.205-45.205c-5.071 22.015-15.582 42.408-30.858 59.552"/></svg>
                         </div>
                         <h3 class="heading-card mb-2">Точно в срок</h3>
@@ -660,7 +660,7 @@
                     </div>
 
                     <div class="p-6 flex flex-col items-start group">
-                        <div class="w-[3.625rem] h-[3.625rem] rounded-full bg-ah-50 text-ah-950 flex items-center justify-center mb-4 shrink-0 transition-all duration-300 group-hover:bg-ah-100 group-hover:scale-110">
+                        <div class="w-[3.625rem] h-[3.625rem] rounded-full bg-ah-50 text-ah-975 flex items-center justify-center mb-4 shrink-0 transition-all duration-300 group-hover:bg-ah-100 group-hover:scale-110">
                             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-[1.875rem] h-[1.875rem] fill-current" viewBox="0 0 214.3 214.3"><path d="M196.9 55.2c-.1-5.8-.2-11.2-.2-16.5 0-4.1-3.4-7.5-7.5-7.5-32.1 0-56.5-9.2-76.9-29-2.9-2.8-7.5-2.8-10.5 0C81.4 22 57 31.2 25 31.2c-4.1 0-7.5 3.4-7.5 7.5 0 5.3-.1 10.8-.2 16.5-1 53.8-2.4 127.6 87.3 158.7.8.3 1.6.4 2.5.4.8 0 1.7-.1 2.5-.4C199.4 182.7 198 109 196.9 55.2m-89.8 143.6c-77-28-75.8-89.2-74.8-143.4.1-3.2.1-6.4.2-9.5 30-1.3 54.1-10.4 74.6-28.3 20.6 17.9 44.6 27 74.6 28.3 0 3.1.1 6.2.2 9.5 1.1 54.2 2.2 115.4-74.8 143.4"/><path d="m133 81.1-36.2 36.2-15.4-15.4c-2.9-2.9-7.7-2.9-10.6 0s-2.9 7.7 0 10.6l20.8 20.8c1.5 1.5 3.4 2.2 5.3 2.2s3.8-.7 5.3-2.2l41.5-41.5c2.9-2.9 2.9-7.7 0-10.6-3.1-3-7.8-3-10.7-.1"/></svg>
                         </div>
                         <h3 class="heading-card mb-2">Гарантия качества</h3>
@@ -700,7 +700,7 @@
             - OAuth URL должны генерироваться динамически на сервере
             - BxPopup — функция Bitrix для OAuth popup
         -->
-        <dialog id="review-modal" class="m-auto p-0 border-none bg-transparent backdrop:bg-ah-950/60">
+        <dialog id="review-modal" class="m-auto p-0 border-none bg-transparent backdrop:bg-ah-975/60">
             <div class="bg-ah-50 rounded-2xl shadow-2xl max-w-md w-full p-6 sm:p-8 border border-ah-200">
                         <!-- Заголовок и кнопка закрытия -->
                         <div class="flex items-center justify-between mb-6">
@@ -724,7 +724,7 @@
                         <!-- Яндекс -->
                         <a href="https://oauth.yandex.ru/authorize?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI" 
                            onclick="if(typeof BxPopup==='function'){BxPopup(this.href, 680, 600); return false;}"
-                           class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-ah-100 rounded-xl transition-colors w-full border border-ah-200 text-ah-950 text-sm font-medium">
+                           class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-ah-100 rounded-xl transition-colors w-full border border-ah-200 text-ah-975 text-sm font-medium">
                             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-5 h-5 fill-[#fc3f1d]" viewBox="0 0 320 320"><path d="M227.2 0h-45.5c-46.1 0-92.5 34-92.5 110 0 39.4 16.7 70 47.3 87.5l-56 101.3c-2.7 4.8-2.7 10.2-.2 14.5 2.5 4.2 7 6.7 12.1 6.7h28.3c6.4 0 11.4-3.1 13.9-8.6L187 208.8h3.8v98.4c0 6.9 5.9 12.8 12.8 12.8h24.7c7.8 0 13.2-5.4 13.2-13.2V14c.1-8.2-5.8-14-14.3-14m-36.3 163.2h-6.8c-26.2 0-41.8-21.4-41.8-57.2 0-44.5 19.8-60.4 38.2-60.4h10.3v117.6z"/></svg>
                             <span class="oauth-label">Яндекс</span>
                         </a>
@@ -732,7 +732,7 @@
                         <!-- VK ID -->
                         <a href="https://id.vk.com/authorize?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=code" 
                            onclick="if(typeof BxPopup==='function'){BxPopup(this.href, 660, 425); return false;}"
-                           class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-ah-100 rounded-xl transition-colors w-full border border-ah-200 text-ah-950 text-sm font-medium">
+                           class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-ah-100 rounded-xl transition-colors w-full border border-ah-200 text-ah-975 text-sm font-medium">
                             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-5 h-5 fill-[#0077FF]" viewBox="0 0 20 20"><path d="M17.8 12.3s1.6 1.6 2 2.3c.2.3.2.5.1.6-.1.3-.6.4-.7.4h-2.9c-.2 0-.6-.1-1.1-.4-.4-.3-.8-.7-1.1-1.1-.6-.6-1-1.2-1.5-1.2h-.2c-.4.1-.8.6-.8 2 0 .4-.3.7-.6.7H9.7c-.4 0-2.8-.2-4.8-2.3-2.5-2.7-4.8-8-4.8-8-.1-.3.2-.5.5-.5h2.9c.4 0 .5.2.6.4s.5 1.2 1.1 2.3c1 1.8 1.6 2.5 2.1 2.5.1 0 .2 0 .3-.1.6-.4.5-2.7.5-3.1 0-.1 0-1-.3-1.5-.2-.3-.6-.4-.9-.5.1-.1.2-.2.4-.3.4-.2 1.2-.3 2-.3h.4c.9 0 1.1.1 1.4.1.6.2.6.6.6 1.9V8c0 .7 0 1.5.5 1.8.1 0 .1.1.2.1.2 0 .7 0 2.1-2.4.6-1.1 1.1-2.3 1.1-2.4s.1-.2.2-.3c.1 0 .2-.1.2-.1h3.4c.4 0 .6.1.7.2.1.2 0 .9-1.6 3-.3.3-.5.7-.7.9-1.4 1.8-1.4 1.9.1 3.3z"/></svg>
                             <span class="oauth-label">ВКонтакте</span>
                         </a>
@@ -740,7 +740,7 @@
                         <!-- Google -->
                         <a href="https://accounts.google.com/o/oauth2/auth?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&scope=email+profile&response_type=code" 
                            onclick="if(typeof BxPopup==='function'){BxPopup(this.href, 580, 400); return false;}"
-                           class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-ah-100 rounded-xl transition-colors w-full border border-ah-200 text-ah-950 text-sm font-medium">
+                           class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-ah-100 rounded-xl transition-colors w-full border border-ah-200 text-ah-975 text-sm font-medium">
                             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path fill="#EA4335" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22z"/><path fill="#4285F4" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53"/></svg>
                             <span class="oauth-label">Google</span>
                         </a>
@@ -748,7 +748,7 @@
                         <!-- Mail.Ru -->
                         <a href="https://connect.mail.ru/oauth/authorize?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=code" 
                            onclick="if(typeof BxPopup==='function'){BxPopup(this.href, 580, 400); return false;}"
-                           class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-ah-100 rounded-xl transition-colors w-full border border-ah-200 text-ah-950 text-sm font-medium">
+                           class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-ah-100 rounded-xl transition-colors w-full border border-ah-200 text-ah-975 text-sm font-medium">
                             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-5 h-5 fill-[#005FF9]" viewBox="0 0 20 20"><path d="M14.6 12.2c0 .8.2 1.2.9 1.2 1.4 0 2.3-1.8 2.3-4.7 0-4.5-3.3-6.7-7.4-6.7-4.2 0-8.1 2.8-8.1 8.2 0 5.1 3.4 7.9 8.5 7.9 1.8 0 2.9-.2 4.7-.8l.4 1.6c-1.8.6-3.7.7-5.1.7C4 19.6.4 15.9.4 10.1S4.6.4 10.4.4c6 0 9.2 3.6 9.2 8 0 3.7-1.2 6.6-4.9 6.6-1.7 0-2.8-.7-2.9-2.2-.4 1.7-1.6 2.2-3.1 2.2-2.1 0-3.8-1.6-3.8-4.8 0-3.3 1.5-5.3 4.3-5.3 1.5 0 2.4.6 2.8 1.5l.7-1.3h2v7.1zM11.7 9c0-1.3-1-1.9-1.8-1.9C9 7.1 8 7.8 8 9.9c0 1.7.7 2.6 1.9 2.6.8 0 1.8-.5 1.8-1.9V8.9z"/></svg>
                             <span class="oauth-label">Mail.Ru</span>
                         </a>
@@ -756,7 +756,7 @@
                         <!-- Одноклассники -->
                         <a href="https://www.odnoklassniki.ru/oauth/authorize?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=code" 
                            onclick="if(typeof BxPopup==='function'){BxPopup(this.href, 580, 400); return false;}"
-                           class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-ah-100 rounded-xl transition-colors w-full border border-ah-200 text-ah-950 text-sm font-medium">
+                           class="flex items-center gap-3 px-4 py-3 bg-white hover:bg-ah-100 rounded-xl transition-colors w-full border border-ah-200 text-ah-975 text-sm font-medium">
                             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-5 h-5 fill-[#ee8208]" viewBox="0 0 20 28"><path d="M10 14.2c-3.9 0-7.1-3.2-7.1-7.1S6.1 0 10 0s7.1 3.2 7.1 7.1-3.2 7.1-7.1 7.1m0-10.6c-1.9 0-3.5 1.6-3.5 3.5s1.6 3.5 3.5 3.5 3.5-1.6 3.5-3.5-1.6-3.5-3.5-3.5M18.2 15c.7 1.4-.1 2.1-1.9 3.2-1.5 1-3.6 1.3-4.9 1.5l1.1 1.1 4.2 4.2c.6.6.6 1.7 0 2.3l-.2.2c-.6.6-1.7.6-2.3 0-1-1.1-2.6-2.6-4.2-4.2l-4.2 4.2c-.6.6-1.7.6-2.3 0l-.2-.2c-.6-.6-.6-1.7 0-2.3l4.2-4.2 1.1-1.1c-1.3-.1-3.4-.5-5-1.5C1.8 17 1 16.4 1.7 15c.4-.8 1.5-1.5 3-.3 0 0 2 1.6 5.2 1.6s5.2-1.6 5.2-1.6c1.5-1.2 2.6-.5 3 .3z"/></svg>
                             <span class="oauth-label">Одноклассники</span>
                         </a>
@@ -861,7 +861,7 @@
                         Заказать
                     </a>
                     <a href="#callback" class="btn-inverse">
-                        Обратный звонок
+                        Обратный звонок &rarr;
                     </a>
                 </div>
             </div>

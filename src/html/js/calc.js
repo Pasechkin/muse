@@ -1368,7 +1368,7 @@
 
       FRAMES_DB.forEach(function (frame) {
         var el = document.createElement('div');
-        el.className = 'frame-option group relative cursor-pointer flex flex-col items-center gap-2 p-2 rounded-xl border-2 border-transparent hover:bg-secondary transition';
+        el.className = 'frame-option group relative cursor-pointer flex flex-col items-center gap-2 p-2 rounded-xl border-2 border-transparent transition';
         el.dataset.id = frame.id;
 
         var hasImage = !!frame.imageUrl;
@@ -1663,10 +1663,84 @@
       }
 
       if (els.frameSection && els.frameModal) {
+        /* ── Modal Photo Strip ────────────────────────────────────────
+           Renders thumbnails of all uploaded photos inside the frame modal.
+           Lets user switch between photos without closing the modal.       */
+        function renderModalPhotoStrip() {
+          var strip = document.getElementById('modal-photo-strip');
+          if (!strip) return;
+
+          var imgs = uploaderInstance ? uploaderInstance.getImages() : [];
+          var activeImg = uploaderInstance ? uploaderInstance.getActiveImage() : null;
+          var activeId = activeImg ? activeImg.id : null;
+
+          function esc(s) {
+            return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+          }
+
+          if (imgs.length === 0) {
+            /* No photos — show full-width CTA button */
+            strip.className = 'modal-photo-strip strip-empty';
+            strip.innerHTML =
+              '<button type="button" class="btn-header-cta w-full px-6 py-3" id="modal-strip-upload-btn">' +
+                'Загрузите фото для примерки багета' +
+              '</button>';
+            var ctaBtn = strip.querySelector('#modal-strip-upload-btn');
+            if (ctaBtn) {
+              ctaBtn.addEventListener('click', function () {
+                if (uploaderInstance) uploaderInstance.openFilePicker();
+              });
+            }
+            return;
+          }
+
+          /* Has photos — thumbnail strip + "+" button */
+          strip.className = 'modal-photo-strip';
+          var html = '';
+          for (var i = 0; i < imgs.length; i++) {
+            var img = imgs[i];
+            var isActive = img.id === activeId;
+            html += '<div class="modal-strip-thumb' + (isActive ? ' is-active' : '') + '" ' +
+              'role="button" tabindex="0" data-img-id="' + img.id + '" ' +
+              'aria-label="' + esc(img.name) + '">' +
+              '<img src="' + (img.thumbUrl || img.dataUrl) + '" alt="' + esc(img.name) + '">' +
+            '</div>';
+          }
+          html += '<button type="button" class="modal-strip-add" id="modal-strip-upload-btn" aria-label="Добавить ещё фото">' +
+            '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>' +
+          '</button>';
+          strip.innerHTML = html;
+
+          /* Bind thumb clicks → setActiveImage */
+          var thumbs = strip.querySelectorAll('.modal-strip-thumb');
+          for (var t = 0; t < thumbs.length; t++) {
+            (function (thumb) {
+              function activate() {
+                if (uploaderInstance) uploaderInstance.setActiveImage(thumb.dataset.imgId);
+                renderModalPhotoStrip();
+                updateModalPreviews();
+              }
+              thumb.addEventListener('click', activate);
+              thumb.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); }
+              });
+            })(thumbs[t]);
+          }
+
+          /* "+" button → open file picker */
+          var addBtn = strip.querySelector('#modal-strip-upload-btn');
+          if (addBtn) {
+            addBtn.addEventListener('click', function () {
+              if (uploaderInstance) uploaderInstance.openFilePicker();
+            });
+          }
+        }
+
         els.frameSection.addEventListener('click', function () {
           els.frameModal.showModal();
           tempFrameState = STATE.frame;
           highlightSelectedFrameInModal(tempFrameState);
+          renderModalPhotoStrip();
           updateModalPreviews();
         });
 
@@ -1692,6 +1766,63 @@
         els.frameModal.addEventListener('cancel', function () {
           tempFrameState = STATE.frame;
         });
+
+        /* Mobile swipe-to-dismiss (bottom sheet) */
+        (function () {
+          var content = getEl('frame-modal-content');
+          var body = content && content.querySelector('.calc-frame-modal-body');
+          if (!content) return;
+          var startY = 0, lastY = 0, dragging = false;
+
+          function onTouchStart(e) {
+            if (window.innerWidth >= 768) return;
+            if (body && body.scrollTop > 0) return;
+            startY = e.touches[0].clientY;
+            lastY = startY;
+            dragging = true;
+            content.style.transition = 'none';
+            content.style.willChange = 'transform';
+          }
+          function onTouchMove(e) {
+            if (!dragging) return;
+            if (body && body.scrollTop > 0) { dragging = false; content.style.transform = ''; return; }
+            lastY = e.touches[0].clientY;
+            var delta = lastY - startY;
+            if (delta < 0) return;
+            content.style.transform = 'translateY(' + delta + 'px)';
+          }
+          function onTouchEnd() {
+            if (!dragging) return;
+            dragging = false;
+            content.style.willChange = '';
+            var delta = lastY - startY;
+            if (delta > 100) {
+              /* Dismiss: animate out then close */
+              content.style.transition = 'transform 0.28s cubic-bezier(0.32, 0.72, 0, 1)';
+              content.style.transform = 'translateY(100%)';
+              setTimeout(function () {
+                closeModal();
+                content.style.transition = '';
+                content.style.transform = '';
+              }, 280);
+            } else {
+              /* Snap back */
+              content.style.transition = 'transform 0.28s cubic-bezier(0.32, 0.72, 0, 1)';
+              content.style.transform = '';
+              var onEnd = function () {
+                content.style.transition = '';
+                content.removeEventListener('transitionend', onEnd);
+              };
+              content.addEventListener('transitionend', onEnd);
+            }
+          }
+
+          var handle = getEl('frame-modal-handle');
+          var dragTarget = handle || content;
+          dragTarget.addEventListener('touchstart', onTouchStart, { passive: true });
+          dragTarget.addEventListener('touchmove', onTouchMove, { passive: true });
+          dragTarget.addEventListener('touchend', onTouchEnd);
+        })();
 
         if (els.modalUploadBtn) {
           els.modalUploadBtn.addEventListener('click', function () {
@@ -1942,11 +2073,22 @@
       infoBlock.style.gap = '0.75rem';
 
       if (frameIdToPreview !== 'NONE') {
-        var priceLabel = document.createElement('div');
-        priceLabel.className = 'text-2xl font-bold text-primary';
-        priceLabel.style.whiteSpace = 'nowrap';
-        priceLabel.textContent = '\u0411\u0430\u0433\u0435\u0442\u043d\u0430\u044f \u0440\u0430\u043c\u0430: ' + fmtPrice(frameCost) + ' ₽';
-        infoBlock.appendChild(priceLabel);
+        var priceBlock = document.createElement('div');
+        priceBlock.style.display = 'flex';
+        priceBlock.style.flexDirection = 'column';
+        priceBlock.style.gap = '0.125rem';
+
+        var priceCaption = document.createElement('span');
+        priceCaption.style.cssText = 'font-size:0.625rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(20,11,1,0.45);white-space:nowrap;';
+        priceCaption.textContent = 'Багетная рама';
+
+        var priceValue = document.createElement('span');
+        priceValue.style.cssText = 'font-size:1.75rem;font-weight:700;line-height:1;white-space:nowrap;color:var(--color-ah-600);';
+        priceValue.textContent = fmtPrice(frameCost) + '\u00a0₽';
+
+        priceBlock.appendChild(priceCaption);
+        priceBlock.appendChild(priceValue);
+        infoBlock.appendChild(priceBlock);
       }
 
       var selectBtn = document.createElement('button');
@@ -2009,7 +2151,8 @@
       var previews = _cachedFramePreviews || document.querySelectorAll('.frame-image-preview');
       var cta = getEl('frame-upload-cta');
       if (STATE.image) {
-        if (cta) cta.style.display = 'none';
+        /* Toggle class instead of inline style — lets CSS control visibility per context */
+        if (cta) cta.classList.add('has-photo');
         previews.forEach(function (el) {
           /* Skip <img> elements — these show the frame photo, not the user photo */
           if (el.tagName === 'IMG') return;
@@ -2017,7 +2160,7 @@
           el.style.backgroundColor = 'transparent';
         });
       } else {
-        if (cta) cta.style.display = 'block';
+        if (cta) cta.classList.remove('has-photo');
         previews.forEach(function (el) {
           if (el.tagName === 'IMG') return;
           el.style.backgroundImage = 'none';

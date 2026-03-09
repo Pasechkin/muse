@@ -79,7 +79,7 @@
     </script>
 <link rel="stylesheet" href="../../css/output.css">
 </head>
-<body class="bg-ah-25 overflow-x-hidden style-portraits">
+<body class="bg-ah-25 text-body font-sans overflow-x-hidden style-portraits">
         <!-- Back to Top Button -->
         <a href="#" id="back-to-top" class="ui-control ui-control--lg fixed bottom-5 right-5 z-50 opacity-0 pointer-events-none hidden md:flex" aria-label="Наверх">
         <svg fill="none" aria-hidden="true" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></svg>
@@ -230,8 +230,8 @@
                             <div class="relative pl-4 sm:pl-8 lg:pl-20 pt-2 sm:pt-4">
                                 <h3 class="heading-card mb-2">Заказ</h3>
                                                                 <p class="text-ink">
-                                                                    В разделе <a class="text-primary-text underline hover:no-underline" href="#calc">«Цена» ↑</a> можно загрузить фото, подобрать нужный размер, рассчитать стоимость и оформить заказ.<br><br>
-                                                                    Нет времени разбираться? Нажмите любую кнопку <a href="https://muse.ooo/order/" class="text-primary-text underline hover:no-underline">«Заказать»</a> на сайте и перешлите нам фото. Перезвоним и поможем с выбором.
+                                                                    В разделе <a class="text-primary-text underline hover:no-underline" href="#calc">Цена ↑</a> можно загрузить фото, подобрать нужный размер, рассчитать стоимость и оформить заказ.<br><br>
+                                                                    Нет времени разбираться? Нажмите любую кнопку <a href="https://muse.ooo/order/" class="text-primary-text underline hover:no-underline">Заказать</a> на сайте и перешлите нам фото. Перезвоним и поможем с выбором.
                                                                 </p>
                             </div>
                         </div>
@@ -509,23 +509,25 @@
 
                     <!-- Видео — на мобильном во всю ширину, на md+ float-left -->
                     <figure class="desc-media desc-media--left">
-                        <div class="group relative aspect-video rounded-lg overflow-hidden shadow-lg" data-video-cover data-video-src="https://www.youtube.com/embed/0G9gw5JgtpA?rel=0&amp;showinfo=0" data-video-title="WPAP портрет на холсте">
-                                                                            <!-- Обложка -->
-                                                                            <img 
-                                                                                src="https://muse.ooo/upload/img/wpap-cover-360-2205.webp"
-                                                                                alt="WPAP портрет на холсте"
-                                                                                class="w-full h-full object-cover transition-opacity duration-300 group-[.video-playing]:opacity-0 group-[.video-playing]:pointer-events-none"
-                                                                                loading="lazy"
-                                                                                decoding="async"
-                                                                                width="360"
-                                                                                height="202"
-                                                                            >
-
-                                                                            <!-- Кнопка Play -->
-                                                                            <button type="button" class="ui-control ui-control--xl ui-control--play absolute inset-0 m-auto group-[.video-playing]:opacity-0 group-[.video-playing]:pointer-events-none" data-play-btn aria-label="Воспроизвести видео">
-                                                                            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                                                                        </button>
-                                                                        </div>
+                        <div class="video-card cursor-pointer relative aspect-video overflow-hidden rounded-xl" data-video="https://muse.ooo/video/video-s-primerom-portreta-v-stile-wpap.mp4" data-index="0">
+                            <img
+                                src="https://muse.ooo/upload/img/wpap-cover-360-2205.webp"
+                                alt="WPAP портрет на холсте — видео"
+                                class="w-full h-full object-cover"
+                                loading="lazy"
+                                decoding="async"
+                                width="360"
+                                height="202"
+                            >
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-3">
+                                <p class="text-sm text-white/90 mb-1">WPAP портрет на холсте</p>
+                                <div class="flex items-center gap-2 text-white/80 text-sm">
+                                    <svg fill="currentColor" class="w-4 h-4" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                    <span>0:19</span>
+                                </div>
+                            </div>
+                        </div>
+                        <figcaption class="mt-2 text-small text-ink">WPAP портрет на холсте — 19 сек.</figcaption>
                     </figure>
 
                     <!-- До/После — на мобильном во всю ширину, на md+ float-right -->
@@ -569,6 +571,26 @@
             </div>
         </section>
 
+    
+    <!-- Video Modal -->
+    <div class="video-modal" id="video-modal">
+        <div class="video-modal-content">
+            <button class="ui-control ui-control--md ui-control--close" aria-label="Закрыть">
+                <svg fill="none" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6l12 12"/></svg>
+            </button>
+            <button class="ui-control ui-control--md ui-control--mute" aria-label="Включить звук">
+                <svg aria-hidden="true" class="mute-icon" viewBox="0 0 24 24"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63m2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.8 8.8 0 0 0 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71M4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a9 9 0 0 0 3.69-1.81L19.73 21 21 19.73l-9-9zM12 4 9.91 6.09 12 8.18z"/></svg>
+                <svg aria-hidden="true" class="unmute-icon hidden" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77"/></svg>
+            </button>
+            <button class="ui-control ui-control--md ui-control--prev" aria-label="Предыдущее видео">
+                <svg fill="none" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 19-7-7 7-7"/></svg>
+            </button>
+            <video id="modal-video" preload="none" controls playsinline></video>
+            <button class="ui-control ui-control--md ui-control--next" aria-label="Следующее видео">
+                <svg fill="none" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg>
+            </button>
+        </div>
+    </div>
     </main>
 
     <!-- Footer (вставьте из эталона) -->

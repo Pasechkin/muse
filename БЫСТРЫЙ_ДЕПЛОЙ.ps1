@@ -34,9 +34,10 @@ if ([string]::IsNullOrWhiteSpace($productionBranch)) {
 }
 $currentBranch = (& git rev-parse --abbrev-ref HEAD).Trim()
 Log "Git branch: $currentBranch (production: $productionBranch)"
+$pushRef = if ($currentBranch -eq $productionBranch) { $productionBranch } else { "HEAD:$productionBranch" }
 if ($currentBranch -ne $productionBranch) {
-    Log "WARNING: You are deploying from a non-production branch. Vercel production URL updates only from the configured Production Branch."
-    $answer = Read-Host "You are on '$currentBranch'. Production branch is '$productionBranch'. Push anyway? (y/N)"
+    Log "WARNING: You are deploying from a non-production branch. Current HEAD will be pushed to origin/$productionBranch so Vercel receives the production update."
+    $answer = Read-Host "You are on '$currentBranch'. Push current HEAD to origin/$productionBranch and deploy? (y/N)"
     if ($answer.Trim().ToLower() -ne 'y') {
         Log "Deploy cancelled by user (wrong branch)."
         Start-Process notepad.exe $logFile
@@ -65,23 +66,30 @@ if ([string]::IsNullOrWhiteSpace($commitMessage)) {
 & git commit -m $commitMessage | Tee-Object -FilePath $logFile -Append
 
 Log "Step 8: Push to GitHub..."
-& git push origin main 2>&1 | Tee-Object -FilePath $logFile -Append
+Log "Push ref: $pushRef"
+& git push origin $pushRef 2>&1 | Tee-Object -FilePath $logFile -Append
 if ($LASTEXITCODE -ne 0) {
     Log "ERROR: git push failed (exit code $LASTEXITCODE)"
-    Log "Try: git push origin main manually"
+    Log "Try: git push origin $pushRef manually"
     Start-Process notepad.exe $logFile
     throw "git push failed"
 }
 
 # Verify push succeeded
 $localCommit = (& git rev-parse HEAD).Trim()
-$remoteCommit = (& git rev-parse origin/main).Trim()
+$remoteLine = (& git ls-remote origin "refs/heads/$productionBranch" | Select-Object -First 1)
+if ([string]::IsNullOrWhiteSpace($remoteLine)) {
+    Log "ERROR: Could not resolve origin/$productionBranch after push."
+    Start-Process notepad.exe $logFile
+    throw "push verification failed"
+}
+$remoteCommit = ($remoteLine -split "`t")[0].Trim()
 if ($localCommit -ne $remoteCommit) {
     Log "WARNING: Local ($localCommit) != Remote ($remoteCommit). Push may have failed."
     Start-Process notepad.exe $logFile
     throw "push verification failed"
 }
 
-Log "SUCCESS! Changes pushed to GitHub."
-Log "Local and remote are in sync: $localCommit"
+Log "SUCCESS! Changes pushed to GitHub production branch '$productionBranch'."
+Log "Local HEAD and remote '$productionBranch' are in sync: $localCommit"
 Start-Process notepad.exe $logFile
