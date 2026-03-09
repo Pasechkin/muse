@@ -102,11 +102,11 @@
 
     <main>
         <!-- Hero Section (с изображением справа, как в оригинале) -->
-        <section class="bg-ah-975 py-12 lg:py-20">
+        <section id="hero" class="bg-ah-975 py-12">
             <div class="container">
                 <div class="grid lg:grid-cols-2 gap-8 items-center">
                     <!-- Текстовый блок -->
-                    <div>
+                    <div class="max-w-xl">
                         <nav class="text-xs text-white/60 mb-4" aria-label="Breadcrumb">
                             <ol class="flex list-none p-0 [&_a]:text-white/60 [&_a:hover]:text-white/90 [&_a]:transition-colors">
                                 <li class="flex items-center">
@@ -161,8 +161,8 @@
                 </div>
                 
                 <div class="text-center mt-8">
-                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/sharzh/" class="btn-inverse">
-                        смотреть все примеры работ
+                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/sharzh/" class="btn-primary">
+                        Смотреть все примеры работ
                     </a>
                 </div>
             </div>
@@ -171,7 +171,7 @@
         <!-- Акция -->
         <section class="sale-banner">
             <p class="sale-banner-text">
-                <strong>Скидка 20%</strong> с 6 по 7 марта
+                Скидка 20% &mdash; с 6 по 7 марта
             </p>
         </section>
 
@@ -311,24 +311,34 @@
                         <div data-tabs class="flex flex-col-reverse">
                             <!-- Миниатюры -->
                             <div data-tab-list class="mx-auto mt-4 w-full max-w-md grid grid-cols-4 gap-3">
-                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded-xl bg-ah-50 text-sm font-medium text-ah-950 hover:bg-ah-75 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden">
+                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded-xl bg-ah-50 text-sm font-medium text-ah-975 hover:bg-ah-75 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden">
                                         <span class="sr-only">Лицевая сторона свадебного шаржа</span>
                                         <span class="absolute inset-0 overflow-hidden rounded-xl">
                                             <img src="https://muse.ooo/upload/img/o-sharzh-442.webp" alt="Свадебный шарж на холсте с лицевой стороны на подрамнике" title="Лицевая сторона свадебного шаржа на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-xl ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-ah-600"></span>
                                     </button>
-                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded-xl bg-ah-50 text-sm font-medium text-ah-950 hover:bg-ah-75 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden">
+                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded-xl bg-ah-50 text-sm font-medium text-ah-975 hover:bg-ah-75 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden">
                                         <span class="sr-only">Обратная сторона свадебного шаржа</span>
                                         <span class="absolute inset-0 overflow-hidden rounded-xl">
                                             <img src="https://muse.ooo/upload/img/o-sharzh-442-b.webp" alt="Свадебный шарж на холсте с обратной стороны на подрамнике" title="Обратная сторона свадебного шаржа на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-xl ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-ah-600"></span>
                                     </button>
-                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded-xl bg-ah-50 text-sm font-medium text-ah-950 hover:bg-ah-75 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden">
+                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded-xl bg-ah-50 text-sm font-medium text-ah-975 hover:bg-ah-75 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden">
                                         <span class="sr-only">Обратная сторона свадебного шаржа</span>
                                         <span class="absolute inset-0 overflow-hidden rounded-xl">
                                             <img src="https://muse.ooo/upload/img/o-sharzh-442-b.webp" alt="Свадебный шарж на холсте с обратной стороны на подрамнике" title="Обратная сторона свадебного шаржа на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
+                                        </span>
+                                        <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-xl ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-ah-600"></span>
+                                    </button>
+                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded-xl bg-ah-50 text-sm font-medium text-ah-975 hover:bg-ah-75 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden hidden" data-video-tab>
+                                        <span class="sr-only">Видео</span>
+                                        <span class="absolute inset-0 overflow-hidden rounded-xl">
+                                            <img src="https://muse.ooo/upload/imgsite/canvas-on-wall-345-185.webp" alt="Девушка вешает картину на стену" title="Девушка вешает картину на стену" class="size-full object-cover" loading="lazy" decoding="async" width="345" height="185" />
+                                            <span class="ui-control ui-control--sm absolute inset-0 m-auto">
+                                                <svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                            </span>
                                         </span>
                                         <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-xl ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-ah-600"></span>
                                     </button>
@@ -344,7 +354,20 @@
                                 </div>
                                 <div hidden>
                                     <img src="https://muse.ooo/upload/img/o-sharzh-442-b.webp" alt="Свадебный шарж на холсте с обратной стороны на подрамнике" title="Обратная сторона свадебного шаржа на холсте с подрамником" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
+                                
+                                <div hidden data-video-panel class="hidden">
+                                    <div class="video-cover aspect-video rounded-lg" data-video-cover>
+                                        <img src="https://muse.ooo/upload/imgsite/canvas-on-wall-345-185.webp" alt="Девушка вешает картину на стену" class="w-full h-full object-cover rounded-lg" loading="lazy" decoding="async" width="345" height="185" />
+                                        <button type="button" class="ui-control ui-control--xl ui-control--play" data-play-btn aria-label="Воспроизвести видео">
+                                            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                        </button>
+                                        <video title="Девушка вешает картину на стену" preload="none" playsinline class="hidden">
+                                            <source src="https://muse.ooo/video/devushka-veshaet-kartinu-na-stenu.webm" type="video/webm">
+                                            <source src="https://muse.ooo/video/devushka-veshaet-kartinu-na-stenu.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
                                 </div>
+                        </div>
                             </div>
                         </div>
                     </div>
@@ -513,7 +536,7 @@
 
                     <p class="mb-5">Подарок в виде шаржа уместен на любом празднике: дне рождения, свадьбе, юбилее, корпоративе ведь он добродушен и наполнен самыми положительными эмоциями.</p>
 
-                    <p class="mb-5 italic">Muse (в пер. c англ. — Муза) — это вдохновение.</p>
+                    <p class="mb-5">Muse (в пер. c англ. — Муза) — это вдохновение.</p>
                 </div>
             </div>
         </section>
@@ -530,7 +553,7 @@
                         Заказать
                     </a>
                     <a href="#callback" class="btn-inverse">
-                        Обратный звонок
+                        Обратный звонок &rarr;
                     </a>
                 </div>
             </div>

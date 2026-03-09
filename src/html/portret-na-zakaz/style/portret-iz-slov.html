@@ -109,11 +109,11 @@
 
     <main>
         <!-- Hero Section -->
-        <section class="bg-ah-975 py-12 lg:py-20">
+        <section id="hero" class="bg-ah-975 py-12">
             <div class="container">
                 <div class="grid lg:grid-cols-2 gap-8 items-center">
                     <!-- Текстовый блок -->
-                    <div>
+                    <div class="max-w-xl">
                         <nav class="text-xs text-white/60 mb-4" aria-label="Breadcrumb">
                             <ol class="flex list-none p-0 [&_a]:text-white/60 [&_a:hover]:text-white/90 [&_a]:transition-colors">
                                 <li class="flex items-center">
@@ -168,8 +168,8 @@
                 </div>
                 
                 <div class="text-center mt-8">
-                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/iz-slov/" class="btn-inverse">
-                        смотреть все примеры работ
+                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/iz-slov/" class="btn-primary">
+                        Смотреть все примеры работ
                     </a>
                 </div>
             </div>
@@ -178,7 +178,7 @@
         <!-- Акция -->
         <section class="sale-banner">
             <p class="sale-banner-text">
-                <strong>Скидка 20%</strong> с 6 по 7 марта
+                Скидка 20% &mdash; с 6 по 7 марта
             </p>
         </section>
 
@@ -226,7 +226,7 @@
                                                 data-zoom="https://muse.ooo/upload/img/o-portret-iz-slov-2-2000-2000.webp?w=2000&ch=DPR&dpr=2"
                                             >
                                         </div>
-                            <p class="text-center mt-4 text-small">
+                            <p class="text-left mt-4 text-small">
                                     Для увеличения наведите курсор (или нажмите на мобильном) на портрет.
                                 </p>
                         </div>
@@ -327,27 +327,37 @@
                 <div data-tabs class="flex flex-col-reverse">
                     <!-- Миниатюры -->
                     <div data-tab-list class="mx-auto mt-4 w-full max-w-md grid grid-cols-4 gap-3">
-                            <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded-xl bg-ah-50 text-sm font-medium text-ah-950 hover:bg-ah-75 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden">
+                            <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded-xl bg-ah-50 text-sm font-medium text-ah-975 hover:bg-ah-75 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden">
                                 <span class="sr-only">Лицевая сторона портрета из слов</span>
                                 <span class="absolute inset-0 overflow-hidden rounded-xl">
                                     <img src="https://muse.ooo/upload/img/o-portret-iz-slov-442.webp" alt="Портрет из слов на холсте с лицевой стороны на подрамнике" title="Лицевая сторона картины из слов на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
                                 </span>
                                 <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-xl ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-ah-600"></span>
                             </button>
-                            <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded-xl bg-ah-50 text-sm font-medium text-ah-950 hover:bg-ah-75 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden">
+                            <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded-xl bg-ah-50 text-sm font-medium text-ah-975 hover:bg-ah-75 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden">
                                 <span class="sr-only">Обратная сторона портрета из слов</span>
                                 <span class="absolute inset-0 overflow-hidden rounded-xl">
                                     <img src="https://muse.ooo/upload/img/o-portret-iz-slov-442-b.webp" alt="Портрет из слов на холсте с обратной стороны на подрамнике" title="Обратная сторона картины из слов на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
                                 </span>
                                 <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-xl ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-ah-600"></span>
                             </button>
-                            <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded-xl bg-ah-50 text-sm font-medium text-ah-950 hover:bg-ah-75 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden">
+                            <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded-xl bg-ah-50 text-sm font-medium text-ah-975 hover:bg-ah-75 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden">
                                 <span class="sr-only">Обратная сторона портрета из слов</span>
                                 <span class="absolute inset-0 overflow-hidden rounded-xl">
                                     <img src="https://muse.ooo/upload/img/o-portret-iz-slov-442-b.webp" alt="Портрет из слов на холсте с обратной стороны на подрамнике" title="Обратная сторона картины из слов на холсте с подрамником" width="442" height="278" class="size-full object-cover" loading="lazy" decoding="async" />
                                 </span>
                                 <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-xl ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-ah-600"></span>
                             </button>
+                                    <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded-xl bg-ah-50 text-sm font-medium text-ah-975 hover:bg-ah-75 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden hidden" data-video-tab>
+                                        <span class="sr-only">Видео</span>
+                                        <span class="absolute inset-0 overflow-hidden rounded-xl">
+                                            <img src="https://muse.ooo/upload/imgsite/canvas-on-wall-345-185.webp" alt="Девушка вешает картину на стену" title="Девушка вешает картину на стену" class="size-full object-cover" loading="lazy" decoding="async" width="345" height="185" />
+                                            <span class="ui-control ui-control--sm absolute inset-0 m-auto">
+                                                <svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                            </span>
+                                        </span>
+                                        <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-xl ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-ah-600"></span>
+                                    </button>
                     </div>
                     
                     <!-- Большие изображения -->
@@ -360,6 +370,19 @@
                         </div>
                         <div hidden>
                             <img src="https://muse.ooo/upload/img/o-portret-iz-slov-442-b.webp" alt="Портрет из слов на холсте с обратной стороны на подрамнике" title="Обратная сторона картины из слов на холсте с подрамником" width="442" height="278" class="w-full rounded-lg object-cover" loading="lazy" decoding="async" />
+                        
+                                <div hidden data-video-panel class="hidden">
+                                    <div class="video-cover aspect-video rounded-lg" data-video-cover>
+                                        <img src="https://muse.ooo/upload/imgsite/canvas-on-wall-345-185.webp" alt="Девушка вешает картину на стену" class="w-full h-full object-cover rounded-lg" loading="lazy" decoding="async" width="345" height="185" />
+                                        <button type="button" class="ui-control ui-control--xl ui-control--play" data-play-btn aria-label="Воспроизвести видео">
+                                            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                        </button>
+                                        <video title="Девушка вешает картину на стену" preload="none" playsinline class="hidden">
+                                            <source src="https://muse.ooo/video/devushka-veshaet-kartinu-na-stenu.webm" type="video/webm">
+                                            <source src="https://muse.ooo/video/devushka-veshaet-kartinu-na-stenu.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -483,21 +506,21 @@
       
 
         <!-- Описание -->
-        <section class="py-16 lg:py-20 content-auto" id="opisanie">
+        <section class="py-16 lg:py-20 content-auto bg-ah-25" id="opisanie">
             <div class="container">
-                <h2 class="heading-section text-center mb-12">Описание</h2>
-          
-                <!-- Flex контейнер: изображение слева, текст в 2 колонки справа -->
-                <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
-                    
-                    <!-- Левая: До/После с sticky -->
-                    <div class="lg:sticky lg:top-24 self-start">
-                        <figure class="before-after-slider relative w-full aspect-[378/251] overflow-hidden rounded-xl shadow-2xl max-w-[500px] mx-auto lg:mx-0 group select-none" style="--pos: 50%;">
+                <h2 class="heading-section text-center mb-12 md:mb-16">Описание</h2>
+
+                <!-- Текст с медиа, обтекание через float -->
+                <div class="text-ink leading-relaxed font-sans">
+
+                    <!-- До/После — на мобильном во всю ширину, на md+ float-right -->
+                    <figure class="desc-media desc-media--right">
+                        <div class="before-after-slider relative w-full aspect-[378/251] overflow-hidden rounded-xl shadow-2xl group select-none" style="--pos: 50%;">
                             <img 
                                 src="https://muse.ooo/upload/img/portret-iz-slov-b.webp"
                                 alt="Фото для портрета из слов до"
                                 title="Фото для портрета из слов"
-                                class="absolute inset-0 w-full h-full object-contain pointer-events-none select-none before-image"
+                                class="before-image absolute inset-0 w-full h-full object-contain pointer-events-none select-none"
                                 loading="lazy"
                                 decoding="async"
                                 width="378"
@@ -513,34 +536,31 @@
                                 width="378"
                                 height="251"
                             >
-                            <input type="range" class="absolute inset-0 opacity-0 cursor-ew-resize w-full h-full m-0 z-20 appearance-none" min="0" max="100" value="50" aria-label="Сравнение до и после">
+                            <input type="range" class="absolute inset-0 opacity-0 cursor-ew-resize w-full h-full m-0 z-40 appearance-none" min="0" max="100" value="50" aria-label="Сравнение до и после">
                             <div class="ba-divider"></div>
                             <div class="ba-handle" aria-hidden="true">
                                 <svg width="15" height="8" fill="none" viewBox="0 0 15 8"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m1 4 3-3M1 4l3 3M1 4h13m0 0-3-3m3 3-3 3" class="stroke-white"/></svg>
                             </div>
-                        </figure>
-                        <p class="text-center mt-4 text-small">Потяните за вертикальную линию, чтобы сравнить «До» и «После»</p>
-                    </div>
+                        </div>
+                        <figcaption class="mt-2 text-small text-ink">Потяните за ползунок — сравните «До» и «После»</figcaption>
+                    </figure>
                     
-                    <!-- Правая: Текст в 2 колонки -->
-                    <div class="flex-1 columns-1 lg:columns-2 gap-8 text-body leading-relaxed">
-                        <p class="break-inside-avoid mb-4">Портрет из слов – это, тот самый случай, когда слова важны; он помогает человеку сказать что-то главное изящно, выразительно и ответственно.</p>
-                        
-                        <p class="break-inside-avoid mb-4">Так чтобы эти слова не стерлись из памяти в потоке информации, которая обрушивается на человека ежедневно, не потерялись и не истрепались. Как сказал Лев Толстой «Время проходит, но сказанное слово остается».</p>
-                        
-                        <p class="break-inside-avoid mb-4">Портрет из слов прекрасно подойдет в качестве подарка на юбилей, на день рождения коллеги, друга и, конечно, любимым людям.</p>
-                        
-                        <p class="break-inside-avoid mb-4">За основу портрета берется фотография героя, лучше всего подойдет та, которая больше всего нравится Вам самим, но иногда нужно прислать еще и дополнительные фото, чтобы на их основе художник смог правильно выделить контуры лица, его форму и наложить тени – создать основу для будущего портрета.</p>
-                        
-                        <p class="break-inside-avoid mb-4">Вторая составляющая — это слова. Вы можете прислать собственные или мы можем предложить Вам выбрать из списков описательных прилагательных, существительных или пожеланий, которые подготовлены по тому или иному случаю нами. Так для девушки подойдут прилагательные «любимая, нежная, единственная», а для молодого человека – «мужественный, сильный, заботливый». Часто в качестве слов используют стихи, тексты песен, цитаты.</p>
-                        
-                        <p class="break-inside-avoid mb-4">Портрет из слов – это невероятно прекрасный и необычный подарок для любого торжества, изящный комплимент или просто сокровенный и нежный сюрприз.</p>
-                        
-                        <p class="break-inside-avoid mb-4">Творите вместе с Muse, создавая из фотографий прекрасные картины, на которых всегда будет приятно остановить взгляд.</p>
-                        
-                        <p class="break-inside-avoid italic text-small pt-4 border-t border-gray-200">Muse (греч. Μούса) — это вдохновение, это Mуза</p>
-                    </div>
-                    
+
+                    <p class="mb-5">Портрет из слов – это, тот самый случай, когда слова важны; он помогает человеку сказать что-то главное изящно, выразительно и ответственно.</p>
+
+                    <p class="mb-5">Так чтобы эти слова не стерлись из памяти в потоке информации, которая обрушивается на человека ежедневно, не потерялись и не истрепались. Как сказал Лев Толстой «Время проходит, но сказанное слово остается».</p>
+
+                    <p class="mb-5">Портрет из слов прекрасно подойдет в качестве подарка на юбилей, на день рождения коллеги, друга и, конечно, любимым людям.</p>
+
+                    <p class="mb-5">За основу портрета берется фотография героя, лучше всего подойдет та, которая больше всего нравится Вам самим, но иногда нужно прислать еще и дополнительные фото, чтобы на их основе художник смог правильно выделить контуры лица, его форму и наложить тени – создать основу для будущего портрета.</p>
+
+                    <p class="mb-5">Вторая составляющая — это слова. Вы можете прислать собственные или мы можем предложить Вам выбрать из списков описательных прилагательных, существительных или пожеланий, которые подготовлены по тому или иному случаю нами. Так для девушки подойдут прилагательные «любимая, нежная, единственная», а для молодого человека – «мужественный, сильный, заботливый». Часто в качестве слов используют стихи, тексты песен, цитаты.</p>
+
+                    <p class="mb-5">Портрет из слов – это невероятно прекрасный и необычный подарок для любого торжества, изящный комплимент или просто сокровенный и нежный сюрприз.</p>
+
+                    <p class="mb-5">Творите вместе с Muse, создавая из фотографий прекрасные картины, на которых всегда будет приятно остановить взгляд.</p>
+
+                    <p class="mb-5">Muse (греч. Μούσα) — это вдохновение, это Mуза</p>
                 </div>
             </div>
         </section>
@@ -556,7 +576,7 @@
                         Заказать
                     </a>
                     <a href="#callback" class="btn-inverse">
-                        Обратный звонок
+                        Обратный звонок &rarr;
                     </a>
                 </div>
             </div>

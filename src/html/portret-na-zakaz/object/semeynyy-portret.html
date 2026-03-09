@@ -74,11 +74,8 @@
     <link rel="canonical" href="https://muse.ooo/portret-na-zakaz/semeynyy-portret/">
  <link rel="stylesheet" href="../../css/output.css">
 </head>
-<body class="bg-ah-25 overflow-x-hidden">
-    <!-- Back to Top Button -->
-    <a href="#" id="back-to-top" class="ui-control ui-control--lg fixed bottom-5 right-5 z-50 opacity-0 pointer-events-none hidden md:flex" aria-label="Наверх">
-        <svg fill="none" aria-hidden="true" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></svg>
-    </a>
+<body class="bg-ah-25 text-body font-sans overflow-x-hidden style-portraits">
+
 
    <!-- Header -->
    
@@ -94,7 +91,7 @@
 
     <main>
         <!-- Первый экран (Hero) с Ken Burns эффектом -->
-        <section class="relative h-[70vh] overflow-hidden flex items-center bg-ah-975">
+        <section id="hero" class="relative h-[70vh] overflow-hidden flex items-center bg-ah-975">
             <!-- Background Image + Animation (не грузится на мобильных) -->
             <div class="absolute inset-0 z-0 bg-black">
                 <picture>
@@ -140,8 +137,8 @@
                         </ol>
                     </nav>
                     
-                    <h1 class="heading-hero mb-6"><em style="color: var(--color-ah-600); font-style: italic;">Семейный</em> портрет</h1>
-                    <p class="text-lead-xl mb-8">
+                    <h1 class="heading-hero mb-4"><em style="color: var(--color-ah-600); font-style: italic;">Семейный</em> портрет</h1>
+                    <p class="text-lead mb-6">
                         Художник нарисует для Вас семейный портрет и напечатает его на холсте. Посмотрите примеры, выберите стиль и пришлите фото
                     </p>
                     
@@ -150,27 +147,82 @@
                     </a>
                 </div>
             </div>
-        </section>        <!-- Акция -->
-        <section class="sale-banner">
-            <p class="sale-banner-text">
-                <strong>Скидка 20%</strong> с 6 по 7 марта
-            </p>
         </section>
 
  <!-- Секция Стили портретов -->
         <section class="bg-ah-975 py-16 lg:py-20 content-auto" id="stili-portretov">
             <div class="container mb-8">
                 <div class="text-center">
+                    <h2 class="heading-section mb-4">Выберите свой стиль</h2>
+                    <p class="text-body mb-8 text-left text-white/80">Чтобы рассчитать стоимость, узнать о характеристиках и сроках исполнения, пожалуйста перейдите на подробную страницу стиля по ссылке «Цена». Перейти на страницу стиля можно и из раздела «Портфолио» кликнув по понравившемуся портрету. Он откроется в большом размере, и ссылка «Цена» там тоже будет.</p>
+                </div>
+            </div>
+
+            <div class="carousel-scroll carousel--cards-md pb-4">
+                <div class="flex gap-0 px-4 min-w-max">
+                    <div class="text-center shrink-0 snap-center w-[223px]">
+                        <a href="https://muse.ooo/portret-na-zakaz/portret-akvarelyu/#calc">
+                            <img title="Акварель" height="305" width="223" alt="Акварельный портрет семьи на фоне моря" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/img/o-watercolor-12-223.jpg">
+                            <p class="mt-2">Акварель</p>
+                        </a>
+                    </div>
+                    <div class="text-center shrink-0 snap-center w-[223px]">
+                        <a href="https://muse.ooo/portret-na-zakaz/portret-maslom/#calc">
+                            <img title="Масло" height="297" width="223" alt="Портрет семьи из пяти человек живописью под масло" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/img/oil-1404-4-223.jpg">
+                            <p class="mt-2">Маслом</p>
+                        </a>
+                    </div>
+                    <div class="text-center shrink-0 snap-center w-[223px]">
+                        <a href="https://muse.ooo/portret-na-zakaz/portret-karandashom/#calc">
+                            <img title="Карандаш" height="297" width="223" alt="Портрет семьи из пяти человек под карандаш" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/img/karandashom-portret-121019-223_1.jpg">
+                            <p class="mt-2">Карандаш</p>
+                        </a>
+                    </div>
+                    <div class="text-center shrink-0 snap-center w-[223px]">
+                        <a href="https://muse.ooo/portret-na-zakaz/sharzh-po-foto/#calc">
+                            <img title="Шарж" height="223" width="223" alt="Шарж женщины с ребенком в образе кенгуру" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/img/o-sharzh-po-foto-3-223.jpg">
+                            <p class="mt-2">Шарж</p>
+                        </a>
+                    </div>
+                    <div class="text-center shrink-0 snap-center w-[223px]">
+                        <a href="https://muse.ooo/portret-na-zakaz/portret-v-obraze/#calc">
+                            <img title="В образе" height="297" width="223" alt="Портрет семьи из десяти человек и собаки в образе на основе фотомонтажа в известную картину" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/img/o-family-painting-223.jpg">
+                            <p class="mt-2">В образе</p>
+                        </a>
+                    </div>
+                    <div class="text-center shrink-0 snap-center w-[223px]">
+                        <a href="https://muse.ooo/portret-na-zakaz/portret-komiks/#calc">
+                            <img title="Комикс" height="297" width="223" alt="Семейный портрет в образе героев комиксов" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/img/komiks-portret-041119-223.jpg">
+                            <p class="mt-2">Комикс</p>
+                        </a>
+                    </div>
+                    <div class="text-center shrink-0 snap-center w-[223px]">
+                        <a href="https://muse.ooo/portret-na-zakaz/wpap-portret/#calc">
+                            <img title="WPAP" height="297" width="223" alt="WPAP портрет на белом фоне" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/img/wpap-portret-160519-223.jpg">
+                            <p class="mt-2">WPAP</p>
+                        </a>
+                    </div>
+                    <div class="text-center shrink-0 snap-center w-[223px]">
+                        <a href="https://muse.ooo/portret-na-zakaz/portret-iz-slov/#calc">
+                            <img title="Портрет из слов" height="297" width="223" alt="Нарисованный портрет семьи из слов" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/img/iz-slov-portret-30919-223_1.jpg">
+                            <p class="mt-2">Из слов</p>
+                        </a>
+                    </div>
+                    <div class="text-center shrink-0 snap-center w-[223px]">
+                        <a href="https://muse.ooo/portret-na-zakaz/fotomozaika/#calc">
+                            <img title="Фотомозаика" height="297" width="223" alt="Фотомозаика для семьи из четырёх человек" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/img/fotomozaika-180719-223_1.png">
+                            <p class="mt-2">Фотомозаика</p>
+                        </a>
                     </div>
                     <div class="text-center shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/pop-art-portret/#calc">
-                            <img title="Поп-арт" height="223" width="223" alt="Поп-арт портрет в стиле Уорхола семьи из трех человек" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/ammina.optimizer/jpg-webp/q80/img/o-pop-art-warhol-223-100.webp">
+                            <img title="Поп-арт" height="223" width="223" alt="Поп-арт портрет в стиле Уорхола семьи из трех человек" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/img/o-pop-art-warhol-223-100.jpg">
                             <p class="mt-2">Поп-арт</p>
                         </a>
                     </div>
                     <div class="text-center shrink-0 snap-center w-[223px]">
                         <a href="https://muse.ooo/portret-na-zakaz/drim-art-portret/#calc">
-                            <img title="Дрим-Арт" height="297" width="223" alt="Портрет семьи в стиле Дрим-Арт" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/upload/ammina.optimizer/jpg-webp/q80/img/o-dream-art-12-223.webp">
+                            <img title="Дрим-Арт" height="297" width="223" alt="Портрет семьи в стиле Дрим-Арт" class="rounded" decoding="async" loading="lazy" src="https://muse.ooo/img/o-dream-art-12-223.jpg">
                             <p class="mt-2">Дрим-арт</p>
                         </a>
                     </div>
@@ -191,13 +243,18 @@
                 </div>
                 
                 <div class="text-center mt-8">
-                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/" class="inline-block px-6 py-2 hover:bg-white hover:rounded uppercase transition-colors">
-                        смотреть все примеры работ
+                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/" class="btn-primary">
+                        Смотреть все примеры работ
                     </a>
                 </div>
             </div>
         </section>
       
+        <!-- Акция -->
+        <section class="sale-banner">
+            <p class="sale-banner-text">Скидка 20% с 6 по 7 марта</p>
+        </section>
+
         <!-- Цена (Калькулятор - placeholder) -->
         <section class="py-16 lg:py-20 content-auto" id="calc">
             <div class="container">
@@ -237,7 +294,7 @@
                         Заказать
                     </a>
                     <a href="#callback" class="btn-inverse">
-                        Обратный звонок
+                        Обратный звонок &rarr;
                     </a>
                 </div>
             </div>

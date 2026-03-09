@@ -74,11 +74,8 @@
     <link rel="canonical" href="https://muse.ooo/portret-na-zakaz/zhenskiy-portret/">
  <link rel="stylesheet" href="../../css/output.css">
 </head>
-<body class="bg-ah-25 overflow-x-hidden">
-    <!-- Back to Top Button -->
-    <a href="#" id="back-to-top" class="ui-control ui-control--lg fixed bottom-5 right-5 z-50 opacity-0 pointer-events-none hidden md:flex" aria-label="Наверх">
-        <svg fill="none" aria-hidden="true" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></svg>
-    </a>
+<body class="bg-ah-25 text-body font-sans overflow-x-hidden style-portraits">
+
 
    <!-- Header -->
   
@@ -95,7 +92,7 @@
 
     <main>
         <!-- Первый экран (Hero) с Ken Burns эффектом -->
-        <section class="relative h-[70vh] overflow-hidden flex items-center bg-ah-975">
+        <section id="hero" class="relative h-[70vh] overflow-hidden flex items-center bg-ah-975">
             <!-- Background Image + Animation (не грузится на мобильных) -->
             <div class="absolute inset-0 z-0 bg-black">
                 <picture>
@@ -141,8 +138,8 @@
                         </ol>
                     </nav>
                     
-                    <h1 class="heading-hero mb-6"><em style="color: var(--color-ah-600); font-style: italic;">Женский</em> портрет</h1>
-                    <p class="text-lead-xl mb-8">
+                    <h1 class="heading-hero mb-4"><em style="color: var(--color-ah-600); font-style: italic;">Женский</em> портрет</h1>
+                    <p class="text-lead mb-6">
                         Художник нарисует для Вас женский портрет и напечатает его на холсте. Посмотрите примеры, выберите стиль и пришлите фото
                     </p>
                     
@@ -151,11 +148,6 @@
                     </a>
                 </div>
             </div>
-        </section>        <!-- Акция -->
-        <section class="sale-banner">
-            <p class="sale-banner-text">
-                <strong>Скидка 20%</strong> с 6 по 7 марта
-            </p>
         </section>
 
         <!-- Секция Стили портретов -->
@@ -163,7 +155,7 @@
             <div class="container mb-8">
                 <div class="text-center">
                     <h2 class="heading-section mb-4">Выберите свой стиль</h2>
-                    <p class="text-body-lg mb-8">Чтобы рассчитать стоимость, узнать о характеристиках и сроках исполнения, пожалуйста перейдите на подробную страницу стиля по ссылке «Цена». Перейти на страницу стиля можно и из раздела «Портфолио» кликнув по понравившемуся портрету. Он откроется в большом размере, и ссылка «Цена» там тоже будет.</p>
+                    <p class="text-body mb-8 text-left text-white/80">Чтобы рассчитать стоимость, узнать о характеристиках и сроках исполнения, пожалуйста перейдите на подробную страницу стиля по ссылке «Цена». Перейти на страницу стиля можно и из раздела «Портфолио» кликнув по понравившемуся портрету. Он откроется в большом размере, и ссылка «Цена» там тоже будет.</p>
                 </div>
             </div>
 
@@ -289,13 +281,18 @@
                 </div>
                 
                 <div class="text-center mt-8">
-                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/beauty/" class="btn-inverse">
-                        смотреть все примеры работ
+                    <a href="https://muse.ooo/portret-na-zakaz/portret-po-foto/beauty/" class="btn-primary">
+                        Смотреть все примеры работ
                     </a>
                 </div>
             </div>
         </section>
       
+        <!-- Акция -->
+        <section class="sale-banner">
+            <p class="sale-banner-text">Скидка 20% с 6 по 7 марта</p>
+        </section>
+
         <!-- Цена (Калькулятор - placeholder) -->
         <section class="py-16 lg:py-20 content-auto" id="calc">
             <div class="container">
@@ -334,7 +331,7 @@
                         Заказать
                     </a>
                     <a href="#callback" class="btn-inverse">
-                        Обратный звонок
+                        Обратный звонок &rarr;
                     </a>
                 </div>
             </div>
