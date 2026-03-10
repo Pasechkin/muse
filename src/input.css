@@ -464,6 +464,12 @@
     line-height: 1.1;
     text-wrap: balance;
   }
+  /* Hero H1 — крупный размер на всех продуктовых страницах */
+  #hero .heading-hero {
+    font-size: clamp(3.35rem, 7vw, 5.25rem);
+    line-height: 0.94;
+    letter-spacing: -0.04em;
+  }
   .heading-section {
     font-family: var(--font-display);
     font-weight: 400;
@@ -700,6 +706,32 @@
     transform: translateY(-3px) scale(1.03);
     box-shadow: 0 8px 24px rgba(139,76,4,.35);
   }
+
+  /* === Advantages Card Component === */
+  /* Карточки секции «Преимущества» — универсальный компонент для всех страниц.
+     Фон body = bg-ah-25, секция = bg-ah-25 → карточки выделяются белым фоном + тень + amber-бордюр. */
+  #preimushchestva .text-ink { line-height: 1.68; }
+  #preimushchestva .group {
+    min-height: 100%;
+    border: 1px solid rgb(253 229 200 / .95);
+    border-radius: 1.5rem;
+    background: rgb(255 255 255 / .96);
+    box-shadow: 0 12px 28px rgba(20, 11, 1, .05);
+    padding: 1.75rem;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  #preimushchestva .group:hover {
+    transform: translateY(-4px);
+    border-color: rgb(241 208 168 / .95);
+    box-shadow: 0 20px 40px rgba(20, 11, 1, .09);
+  }
+
+  /* === How-to-Order Component === */
+  /* Секция «Как заказать» — универсальный компонент для всех страниц.
+     step-number-giant + step-animate. Анимация отключена, line-height увеличен. */
+  #kak-zakazat .step-animate { opacity: 1; transform: none; animation: none; }
+  #kak-zakazat .text-ink { line-height: 1.75; }
+  #kak-zakazat .step-number-giant { color: var(--color-ah-200); }
 
   /* === CTA Components === */
   .cta-section {
@@ -2208,9 +2240,6 @@
   .style-portraits #hero { padding-top: 4rem; padding-bottom: 5.5rem; }
   .style-portraits #hero .heading-hero {
     margin-bottom: 1rem;
-    font-size: clamp(3.35rem, 7vw, 5.25rem);
-    line-height: 0.94;
-    letter-spacing: -0.04em;
   }
 
   /* ── Heading refinements ── */
@@ -2308,11 +2337,7 @@
     box-shadow: 0 4px 12px rgba(20, 11, 1, .18);
   }
 
-  /* ── Как заказать ── */
-  .style-portraits #kak-zakazat .step-animate { opacity: 1; transform: none; animation: none; }
-  .style-portraits #kak-zakazat .text-ink { line-height: 1.75; }
-  .style-portraits #kak-zakazat .step-number-giant { color: var(--color-ah-200); }
-  .style-portraits #kak-zakazat .text-ah-800 { color: var(--color-ah-700); }
+  /* ── Как заказать — перенесено в @layer components как универсальный компонент ── */
 
   /* ── Характеристики ── */
   .style-portraits #harakteristiki .check-list-item { line-height: 1.75; }
@@ -2325,22 +2350,7 @@
     box-shadow: 0 18px 38px rgba(20, 11, 1, .12);
   }
 
-  /* ── Преимущества (v7 card design) ── */
-  .style-portraits #preimushchestva .text-ink { line-height: 1.68; }
-  .style-portraits #preimushchestva .group {
-    min-height: 100%;
-    border: 1px solid rgb(253 229 200 / .95);
-    border-radius: 1.5rem;
-    background: rgb(255 255 255 / .96);
-    box-shadow: 0 12px 28px rgba(20, 11, 1, .05);
-    padding: 1.75rem;
-    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-  }
-  .style-portraits #preimushchestva .group:hover {
-    transform: translateY(-4px);
-    border-color: rgb(241 208 168 / .95);
-    box-shadow: 0 20px 40px rgba(20, 11, 1, .09);
-  }
+  /* ── Преимущества — перенесено в @layer components как универсальный компонент ── */
 
   /* ── Описание ── */
   .style-portraits #opisanie .text-ink { line-height: 1.75; }

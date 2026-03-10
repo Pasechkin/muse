@@ -74,7 +74,7 @@
                         </ol>
                     </nav>
 
-                    <h1 class="heading-hero mb-6" itemprop="name">Фото в рамке</h1>
+                    <h1 class="heading-hero mb-6" itemprop="name"><em style="color: var(--color-ah-600); font-style: italic;">Фото</em> в рамке</h1>
                     <p class="text-lead-xl mb-4">
                         Превосходная печать на фотобумаге и оформление в рамку и паспарту
                     </p>
@@ -487,71 +487,66 @@
         </section>
 
         <!-- ===============================================
-             6. КАК ЗАКАЗАТЬ — bg-ah-975, step-container
+             6. КАК ЗАКАЗАТЬ — bg-ah-25, step-number-giant
         ================================================ -->
-        <section class="bg-ah-975 py-16 lg:py-24 content-auto" id="kak-zakazat">
-            <div class="container">
-                <h2 class="heading-section text-center mb-12">Как заказать</h2>
+        <section class="py-16 lg:py-20 content-auto bg-ah-25" id="kak-zakazat">
+            <div class="container mb-12 md:mb-16">
+                <h2 class="heading-section text-center">Как заказать</h2>
+            </div>
 
-                <div class="grid lg:grid-cols-2 gap-12 items-start">
-                    <!-- Фото балерины -->
-                    <div>
-                        <img loading="lazy" decoding="async" width="458" height="686" alt="Пример фото в рамке с балериной" title="Фото в рамке" src="https://muse.ooo/img/o-photo-in-frame-main.jpg" class="rounded-lg shadow-xl w-full max-w-md mx-auto">
-                        <p class="text-small mt-3 text-center">
-                            Фотограф: Дарья Ченикова. Источник: <a rel="nofollow" href="https://vk.com/dariachenikova" target="_blank" title="Открыть в новом окне сайт VK" class="text-primary-text underline hover:no-underline">vk.com</a>
-                        </p>
+            <div class="container">
+                <div class="grid lg:grid-cols-12 gap-8 lg:gap-16">
+                    <!-- Левая колонка — фото (sticky на десктопе) -->
+                    <div class="lg:col-span-5 order-2 lg:order-1">
+                        <div class="lg:sticky lg:top-24">
+                            <img loading="lazy" decoding="async" width="458" height="686" alt="Пример фото в рамке с балериной" title="Фото в рамке" src="https://muse.ooo/img/o-photo-in-frame-main.jpg" class="rounded-lg shadow-xl w-full max-w-md mx-auto">
+                            <p class="text-small mt-3 text-center">
+                                Фотограф: Дарья Ченикова. Источник: <a rel="nofollow" href="https://vk.com/dariachenikova" target="_blank" title="Открыть в новом окне сайт VK" class="text-primary-text underline hover:no-underline">vk.com</a>
+                            </p>
+                        </div>
                     </div>
 
-                    <div class="step-container">
-                        <div class="step-line"></div>
-
+                    <!-- Правая колонка — шаги -->
+                    <div class="lg:col-span-7 order-1 lg:order-2 space-y-12 sm:space-y-16 lg:space-y-20">
                         <!-- Шаг 1 — Заказ -->
-                        <div class="flex gap-4">
-                            <div class="shrink-0 w-12 h-12 rounded-full border-2 border-ah-600 bg-ah-975 flex items-center justify-center relative z-10">
-                                <span class="text-xl font-bold text-ah-950">1</span>
-                            </div>
-                            <div>
+                        <div class="relative step-animate">
+                            <div class="absolute left-0 sm:left-0 lg:left-2 -top-4 sm:-top-6 lg:-top-8 font-extralight step-number-giant leading-none select-none pointer-events-none">1</div>
+                            <div class="relative pl-4 sm:pl-8 lg:pl-20 pt-2 sm:pt-4">
                                 <h3 class="heading-card mb-2">Заказ</h3>
-                                <p class="text-white/80">
-                                    Нажмите кнопку <a class="link-on-dark" href="https://muse.ooo/order/">«Заказать»</a>, загрузите фото и напишите Ваши пожелания. Или оформите заказ в <a class="link-on-dark" href="https://frame.muse.ooo/composer/product/PhotoInFrame" target="_blank">Конструкторе Muse</a>. У него больше возможностей.
+                                <p class="text-ink">
+                                    Нажмите кнопку <a class="text-primary-text underline hover:no-underline" href="https://muse.ooo/order/">«Заказать»</a>, загрузите фото и напишите Ваши пожелания. Или оформите заказ в <a class="text-primary-text underline hover:no-underline" href="https://frame.muse.ooo/composer/product/PhotoInFrame" target="_blank">Конструкторе Muse</a>. У него больше возможностей.
                                 </p>
                             </div>
                         </div>
 
                         <!-- Шаг 2 — Макет -->
-                        <div class="flex gap-4">
-                            <div class="shrink-0 w-12 h-12 rounded-full border-2 border-ah-600 bg-ah-975 flex items-center justify-center relative z-10">
-                                <span class="text-xl font-bold text-ah-950">2</span>
-                            </div>
-                            <div>
+                        <div class="relative step-animate">
+                            <div class="absolute left-0 sm:left-0 lg:left-2 -top-4 sm:-top-6 lg:-top-8 font-extralight step-number-giant leading-none select-none pointer-events-none">2</div>
+                            <div class="relative pl-4 sm:pl-8 lg:pl-20 pt-2 sm:pt-4">
                                 <h3 class="heading-card mb-2">Макет</h3>
-                                <p class="text-white/80">
+                                <p class="text-ink">
                                     В течение 1 часа рабочего времени мы перезвоним Вам, чтобы обсудить заказ. Только после звонка и письменного подтверждения Вами окончательного макета мы приступим к изготовлению картины.
                                 </p>
                             </div>
                         </div>
 
                         <!-- Шаг 3 — Изготовление -->
-                        <div class="flex gap-4">
-                            <div class="shrink-0 w-12 h-12 rounded-full border-2 border-ah-600 bg-ah-975 flex items-center justify-center relative z-10">
-                                <span class="text-xl font-bold text-ah-950">3</span>
-                            </div>
-                            <div>
+                        <div class="relative step-animate">
+                            <div class="absolute left-0 sm:left-0 lg:left-2 -top-4 sm:-top-6 lg:-top-8 font-extralight step-number-giant leading-none select-none pointer-events-none">3</div>
+                            <div class="relative pl-4 sm:pl-8 lg:pl-20 pt-2 sm:pt-4">
                                 <h3 class="heading-card mb-2">Изготовление</h3>
-                                <p class="text-white/80">
+                                <p class="text-ink">
                                     На следующий рабочий день после подтверждения Вами заказа изображение будет напечатано, оформлено под стекло и раму, по Вашему желанию в багет, передано в службу доставки.
                                 </p>
                             </div>
                         </div>
 
                         <!-- Шаг 4 — Доставка и оплата -->
-                        <div class="flex gap-4">
-                            <div class="shrink-0 w-12 h-12 rounded-full border-2 border-ah-600 bg-ah-975 flex items-center justify-center relative z-10">
-                                <span class="text-xl font-bold text-ah-950">4</span>
-                            </div>
-                            <div>
+                        <div class="relative step-animate">
+                            <div class="absolute left-0 sm:left-0 lg:left-2 -top-4 sm:-top-6 lg:-top-8 font-extralight step-number-giant leading-none select-none pointer-events-none">4</div>
+                            <div class="relative pl-4 sm:pl-8 lg:pl-20 pt-2 sm:pt-4">
                                 <h3 class="heading-card mb-2">Доставка и оплата</h3>
-                                <p class="text-white/80">
+                                <p class="text-ink">
                                     Бесплатная доставка в выбранный пункт выдачи. Можно заказать доставку курьером. Оплата заказа при получении.
                                 </p>
                             </div>
@@ -588,39 +583,35 @@
         <!-- ===============================================
              7. ВАШИ ПРЕИМУЩЕСТВА
         ================================================ -->
-        <section class="bg-ah-25 py-16 lg:py-24 content-auto" id="preimushchestva">
+        <!-- Преимущества -->
+        <section class="py-16 lg:py-20 content-auto bg-ah-25" id="preimushchestva">
+            <div class="container mb-12 md:mb-16">
+                <h2 class="heading-section text-center text-balance">Преимущества</h2>
+            </div>
             <div class="container">
-                <h2 class="heading-section text-center mb-12">Преимущества</h2>
-
-                <div class="grid gap-6 lg:grid-cols-3">
-                    <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-lg">
-                        <div class="flex items-start justify-between gap-4">
-                            <span class="heading-card">Цветопередача</span>
-                            <div class="w-10 h-10">
-                                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage" viewBox="0 0 512 512"><path d="M501.2 340.6H277.5l40-40 118.2-118.2a8.5 8.5 0 0 0 0-12L339.4 74a8.5 8.5 0 0 0-12 0L209 192.3l-40 40V8.4a8.5 8.5 0 0 0-8.5-8.5H24.4A8.5 8.5 0 0 0 16 8.5v359.8a95 95 0 0 0-13.6 49 94.9 94.9 0 0 0 150.5 76.6h348.4a8.5 8.5 0 0 0 8.5-8.6V349.1a8.5 8.5 0 0 0-8.5-8.5zM333.4 92l84.2 84.3-81 81-84.3-84.2zM32.9 17h119.2v114.6H33zm0 131.6h119.2v100.5L138 263.4H33zm0 131.7h88l-44.2 44.3a95 95 0 0 0-43.8 22.8zm111.9 198.2a77.9 77.9 0 0 1-125.5-61.4 78 78 0 0 1 12.3-41.9 78 78 0 0 1 51-34.5 78 78 0 0 1 14.5-1.4 77 77 0 0 1 47.7 16.4 78 78 0 0 1 9.6 8.8 78 78 0 0 1 20.4 52.6l-.2 5.2a78 78 0 0 1-29.8 56.2m84.5-1.8h-58.6a95 95 0 0 0 20.7-50l29.2-29.3 8.7-8.7zm-20.8-91.3-17.7 17.7a95 95 0 0 0-23.9-50 96 96 0 0 0-11.7-10.8 94 94 0 0 0-52.4-19.8l44.3-44.3 7.5 7.5 69.3 69.3 7.5 7.5zM236 343l-69.2-69.3-7.5-7.5 7.5-7.5 54.5-54.5 19-19 84.3 84.2-19 19-54.5 54.6-7.6 7.5zm125 133.8H246.4v-105l3-3.2 11.1-11H361zm131.7 0H378.1V357.6h114.6z"/><path d="M97 358.7a58.5 58.5 0 1 0 .2 117.1 58.5 58.5 0 0 0-.1-117m0 99.8a41.5 41.5 0 1 1 0-83 41.5 41.5 0 0 1 0 83"/><path d="M97 383.7a8.5 8.5 0 0 0 0 17c9.1 0 16.5 7.4 16.5 16.5a8.5 8.5 0 0 0 17 0c0-18.5-15-33.5-33.4-33.5"/></svg>
-                            </div>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="p-6 flex flex-col items-start group">
+                        <div class="w-[3.625rem] h-[3.625rem] rounded-full bg-ah-50 text-ah-975 flex items-center justify-center mb-4 shrink-0 transition-all duration-300 group-hover:bg-ah-100 group-hover:scale-110">
+                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-[1.875rem] h-[1.875rem] fill-current" viewBox="0 0 512 512"><path d="M501.2 340.6H277.5l40-40 118.2-118.2a8.5 8.5 0 0 0 0-12L339.4 74a8.5 8.5 0 0 0-12 0L209 192.3l-40 40V8.4a8.5 8.5 0 0 0-8.5-8.5H24.4A8.5 8.5 0 0 0 16 8.5v359.8a95 95 0 0 0-13.6 49 94.9 94.9 0 0 0 150.5 76.6h348.4a8.5 8.5 0 0 0 8.5-8.6V349.1a8.5 8.5 0 0 0-8.5-8.5zM333.4 92l84.2 84.3-81 81-84.3-84.2zM32.9 17h119.2v114.6H33zm0 131.6h119.2v100.5L138 263.4H33zm0 131.7h88l-44.2 44.3a95 95 0 0 0-43.8 22.8zm111.9 198.2a77.9 77.9 0 0 1-125.5-61.4 78 78 0 0 1 12.3-41.9 78 78 0 0 1 51-34.5 78 78 0 0 1 14.5-1.4 77 77 0 0 1 47.7 16.4 78 78 0 0 1 9.6 8.8 78 78 0 0 1 20.4 52.6l-.2 5.2a78 78 0 0 1-29.8 56.2m84.5-1.8h-58.6a95 95 0 0 0 20.7-50l29.2-29.3 8.7-8.7zm-20.8-91.3-17.7 17.7a95 95 0 0 0-23.9-50 96 96 0 0 0-11.7-10.8 94 94 0 0 0-52.4-19.8l44.3-44.3 7.5 7.5 69.3 69.3 7.5 7.5zM236 343l-69.2-69.3-7.5-7.5 7.5-7.5 54.5-54.5 19-19 84.3 84.2-19 19-54.5 54.6-7.6 7.5zm125 133.8H246.4v-105l3-3.2 11.1-11H361zm131.7 0H378.1V357.6h114.6z"/><path d="M97 358.7a58.5 58.5 0 1 0 .2 117.1 58.5 58.5 0 0 0-.1-117m0 99.8a41.5 41.5 0 1 1 0-83 41.5 41.5 0 0 1 0 83"/><path d="M97 383.7a8.5 8.5 0 0 0 0 17c9.1 0 16.5 7.4 16.5 16.5a8.5 8.5 0 0 0 17 0c0-18.5-15-33.5-33.4-33.5"/></svg>
                         </div>
-                        <p class="mt-3">Благодаря чернилам Epson UltraChrome HDX Вы получите реалистичную цветопередачу, мягкие переходы оттенков и богатые полутона. Этот набор чернил из десяти цветов сертифицирован по стандарту Pantone и передаёт до 98% его цветовой гаммы. Уникальная формула чернил гарантирует высокую светостойкость. Цвет может оставаться насыщенным более 60 лет.</p>
+                        <h3 class="heading-card mb-2">Цветопередача</h3>
+                        <p class="text-ink">Благодаря чернилам Epson UltraChrome HDX Вы получите реалистичную цветопередачу, мягкие переходы оттенков и богатые полутона. Этот набор чернил из десяти цветов сертифицирован по стандарту Pantone и передаёт до 98% его цветовой гаммы. Уникальная формула чернил гарантирует высокую светостойкость. Цвет может оставаться насыщенным более 60 лет.</p>
                     </div>
 
-                    <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-lg">
-                        <div class="flex items-start justify-between gap-4">
-                            <span class="heading-card">Превосходное качество</span>
-                            <div class="w-10 h-10">
-                                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage" viewBox="0 0 325.9 325.9"><path d="M297.4 47.8h-24.5v-7.1c0-9.3-7.5-16.8-16.8-16.8H69.7c-9.3 0-16.8 7.5-16.8 16.8v7.1H28.5A28.4 28.4 0 0 0 0 76.2V116c0 12.6 8.3 23.2 19.7 27v115.7L9.5 289.6c-1.6 5 1 10.3 6 11.9q1.5.5 3 .5c4 0 7.7-2.5 9-6.5l10.7-32.4h.4v-1.3l10.2-30.9a9.4 9.4 0 0 0-10.2-12.3v-74.1h22.9v111.4h202.9V144.5h17.2v69.4a9.5 9.5 0 0 0-14.8 10.4l21.3 64.6a9.4 9.4 0 0 0 12 6c5-1.6 7.6-7 6-11.9l-6.6-19.9h1V144.2a28.3 28.3 0 0 0 25.4-28.2V76.2a28.5 28.5 0 0 0-28.5-28.4M63.7 40.7a6 6 0 0 1 6-6h186.4a6 6 0 0 1 6 6v7.1H63.7zm189.9 103.8v100.6H72.3V123.9c0-8.1 4.1-19.5 8.9-24.8l8.7-9.6h146l8.7 9.6a43 43 0 0 1 8.9 24.8v20.6z"/><path d="M232.7 106.4H93.2c-3 0-5.4 2.4-5.4 5.4s2.4 5.4 5.4 5.4h139.5c3 0 5.4-2.4 5.4-5.4s-2.5-5.4-5.4-5.4"/></svg>
-                            </div>
+                    <div class="p-6 flex flex-col items-start group">
+                        <div class="w-[3.625rem] h-[3.625rem] rounded-full bg-ah-50 text-ah-975 flex items-center justify-center mb-4 shrink-0 transition-all duration-300 group-hover:bg-ah-100 group-hover:scale-110">
+                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-[1.875rem] h-[1.875rem] fill-current" viewBox="0 0 325.9 325.9"><path d="M297.4 47.8h-24.5v-7.1c0-9.3-7.5-16.8-16.8-16.8H69.7c-9.3 0-16.8 7.5-16.8 16.8v7.1H28.5A28.4 28.4 0 0 0 0 76.2V116c0 12.6 8.3 23.2 19.7 27v115.7L9.5 289.6c-1.6 5 1 10.3 6 11.9q1.5.5 3 .5c4 0 7.7-2.5 9-6.5l10.7-32.4h.4v-1.3l10.2-30.9a9.4 9.4 0 0 0-10.2-12.3v-74.1h22.9v111.4h202.9V144.5h17.2v69.4a9.5 9.5 0 0 0-14.8 10.4l21.3 64.6a9.4 9.4 0 0 0 12 6c5-1.6 7.6-7 6-11.9l-6.6-19.9h1V144.2a28.3 28.3 0 0 0 25.4-28.2V76.2a28.5 28.5 0 0 0-28.5-28.4M63.7 40.7a6 6 0 0 1 6-6h186.4a6 6 0 0 1 6 6v7.1H63.7zm189.9 103.8v100.6H72.3V123.9c0-8.1 4.1-19.5 8.9-24.8l8.7-9.6h146l8.7 9.6a43 43 0 0 1 8.9 24.8v20.6z"/><path d="M232.7 106.4H93.2c-3 0-5.4 2.4-5.4 5.4s2.4 5.4 5.4 5.4h139.5c3 0 5.4-2.4 5.4-5.4s-2.5-5.4-5.4-5.4"/></svg>
                         </div>
-                        <p class="mt-3">Ваша работа будет напечатана плоттером Epson SureColor SC-P7000. Он предназначен для фотографов, которым важна как реалистичная цветопередача, так и плавные цветовые переходы в сочетании с четкостью изображения. Для этого в нем используется печатающая голова Epson PrecisionCore TFP с разрешением 2880 x 1440 dpi и технологией печати каплями переменного размера.</p>
+                        <h3 class="heading-card mb-2">Превосходное качество</h3>
+                        <p class="text-ink">Ваша работа будет напечатана плоттером Epson SureColor SC-P7000. Он предназначен для фотографов, которым важна как реалистичная цветопередача, так и плавные цветовые переходы в сочетании с четкостью изображения. Для этого в нем используется печатающая голова Epson PrecisionCore TFP с разрешением 2880 x 1440 dpi и технологией печати каплями переменного размера.</p>
                     </div>
 
-                    <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-lg">
-                        <div class="flex items-start justify-between gap-4">
-                            <span class="heading-card">Материалы</span>
-                            <div class="w-10 h-10">
-                                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-advantage" viewBox="0 0 226 226"><path d="M117 217l100 0 0-182-45 0 0 174c0 2-2 4-5 4l-50 0 0 4zm-18-188l-13 24 13 24c0 2 0 4-2 5-1 1-2 1-3 0l-24-12-25 12c-1 1-4 0-4-1-1-1-1-3 0-4l12-24-12-24c-1-2-1-4 1-5 1 0 2 0 3 0l25 12 24-12c2-1 4 0 5 2 0 1 0 2 0 3zm-20 23l8-17-16 8c-1 1-2 1-3 0l-16-8 8 17c0 1 0 2 0 3l-8 16 16-8c1-1 2-1 3 0l16 8-8-16c0-1 0-2 0-3zm-14 83l-9 18 9 18c1 2 0 4-2 5-1 0-2 0-3 0l-18-9-18 9c-2 1-4 0-5-2-1-1-1-2 0-3l9-18-9-18c-1-2 0-4 1-5 1-1 3 0 4 0l18 9 18-9c2-1 4 0 5 2 0 1 0 2 0 3zm-17 16l6-10-11 5c-1 1-2 1-3 0l-10-5 5 10c0 1 0 3 0 4l-5 10 10-5c1-1 2-1 3 0l11 5-6-10c0-1 0-3 0-4zm-39 40l99 0 0-182-99 0 0 182zm104 9l-50 0 0 4 100 0 0-182-46 0 0 174c0 2-2 4-4 4zm-59 0l-50 0c-2 0-4-2-4-4l0-192c0-2 2-4 4-4l109 0c2 0 4 2 4 4l0 9 50 0c3 0 5 2 5 4l0 9 49 0c3 0 5 2 5 4l0 191c0 3-2 5-5 5l-108 0c-2 0-4-2-4-5l0-8-50 0c-3 0-5-2-5-4l0-9zm148-121c-2 2-5 2-7 0-1-2-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 4 0 6l-10 10zm-20 0c-2 2-5 2-7 0-1-2-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 4 0 6l-10 10zm20-22c-2 2-5 2-7 0-1-1-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 5 0 6l-10 10zm-20 0c-2 2-5 2-7 0-1-1-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 5 0 6l-10 10zm20 87c-2 2-5 2-7 0-1-1-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 5 0 6l-10 10zm-20 0c-2 2-5 2-7 0-1-1-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 5 0 6l-10 10zm20 22c-2 2-5 2-7 0-1-2-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 5 0 6l-10 10zm-20 0c-2 2-5 2-7 0-1-2-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 5 0 6l-10 10zm20 22c-2 2-5 2-7 0-1-2-1-5 0-6l10-10c2-2 5-2 7 0 1 1 1 4 0 6l-10 10zm-20 0c-2 2-5 2-7 0-1-2-1-5 0-6l10-10c2-2 5-2 7 0 1 1 1 4 0 6l-10 10zm20-65c-2 1-5 1-7 0-1-2-1-5 0-7l10-10c2-1 5-1 7 0 1 2 1 5 0 7l-10 10zm-20 0c-2 1-5 1-7 0-1-2-1-5 0-7l10-10c2-1 5-1 7 0 1 2 1 5 0 7l-10 10zm20-22c-2 2-5 2-7 0-1-2-1-5 0-6l10-10c2-2 5-2 7 0 1 1 1 4 0 6l-10 10zm-20 0c-2 2-5 2-7 0-1-2-1-5 0-6l10-10c2-2 5-2 7 0 1 1 1 4 0 6l-10 10zm20 109c-2 1-5 1-7 0-1-2-1-5 0-7l10-10c2-1 5-1 7 0 1 2 1 5 0 7l-10 10zm-20 0c-2 1-5 1-7 0-1-2-1-5 0-7l10-10c2-1 5-1 7 0 1 2 1 5 0 7l-10 10z"/></svg>
-                            </div>
+                    <div class="p-6 flex flex-col items-start group">
+                        <div class="w-[3.625rem] h-[3.625rem] rounded-full bg-ah-50 text-ah-975 flex items-center justify-center mb-4 shrink-0 transition-all duration-300 group-hover:bg-ah-100 group-hover:scale-110">
+                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-[1.875rem] h-[1.875rem] fill-current" viewBox="0 0 226 226"><path d="M117 217l100 0 0-182-45 0 0 174c0 2-2 4-5 4l-50 0 0 4zm-18-188l-13 24 13 24c0 2 0 4-2 5-1 1-2 1-3 0l-24-12-25 12c-1 1-4 0-4-1-1-1-1-3 0-4l12-24-12-24c-1-2-1-4 1-5 1 0 2 0 3 0l25 12 24-12c2-1 4 0 5 2 0 1 0 2 0 3zm-20 23l8-17-16 8c-1 1-2 1-3 0l-16-8 8 17c0 1 0 2 0 3l-8 16 16-8c1-1 2-1 3 0l16 8-8-16c0-1 0-2 0-3zm-14 83l-9 18 9 18c1 2 0 4-2 5-1 0-2 0-3 0l-18-9-18 9c-2 1-4 0-5-2-1-1-1-2 0-3l9-18-9-18c-1-2 0-4 1-5 1-1 3 0 4 0l18 9 18-9c2-1 4 0 5 2 0 1 0 2 0 3zm-17 16l6-10-11 5c-1 1-2 1-3 0l-10-5 5 10c0 1 0 3 0 4l-5 10 10-5c1-1 2-1 3 0l11 5-6-10c0-1 0-3 0-4zm-39 40l99 0 0-182-99 0 0 182zm104 9l-50 0 0 4 100 0 0-182-46 0 0 174c0 2-2 4-4 4zm-59 0l-50 0c-2 0-4-2-4-4l0-192c0-2 2-4 4-4l109 0c2 0 4 2 4 4l0 9 50 0c3 0 5 2 5 4l0 9 49 0c3 0 5 2 5 4l0 191c0 3-2 5-5 5l-108 0c-2 0-4-2-4-5l0-8-50 0c-3 0-5-2-5-4l0-9zm148-121c-2 2-5 2-7 0-1-2-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 4 0 6l-10 10zm-20 0c-2 2-5 2-7 0-1-2-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 4 0 6l-10 10zm20-22c-2 2-5 2-7 0-1-1-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 5 0 6l-10 10zm-20 0c-2 2-5 2-7 0-1-1-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 5 0 6l-10 10zm20 87c-2 2-5 2-7 0-1-1-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 5 0 6l-10 10zm-20 0c-2 2-5 2-7 0-1-1-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 5 0 6l-10 10zm20 22c-2 2-5 2-7 0-1-2-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 5 0 6l-10 10zm-20 0c-2 2-5 2-7 0-1-2-1-4 0-6l10-10c2-2 5-2 7 0 1 2 1 5 0 6l-10 10zm20 22c-2 2-5 2-7 0-1-2-1-5 0-6l10-10c2-2 5-2 7 0 1 1 1 4 0 6l-10 10zm-20 0c-2 2-5 2-7 0-1-2-1-5 0-6l10-10c2-2 5-2 7 0 1 1 1 4 0 6l-10 10zm20-65c-2 1-5 1-7 0-1-2-1-5 0-7l10-10c2-1 5-1 7 0 1 2 1 5 0 7l-10 10zm-20 0c-2 1-5 1-7 0-1-2-1-5 0-7l10-10c2-1 5-1 7 0 1 2 1 5 0 7l-10 10zm20-22c-2 2-5 2-7 0-1-2-1-5 0-6l10-10c2-2 5-2 7 0 1 1 1 4 0 6l-10 10zm-20 0c-2 2-5 2-7 0-1-2-1-5 0-6l10-10c2-2 5-2 7 0 1 1 1 4 0 6l-10 10zm20 109c-2 1-5 1-7 0-1-2-1-5 0-7l10-10c2-1 5-1 7 0 1 2 1 5 0 7l-10 10zm-20 0c-2 1-5 1-7 0-1-2-1-5 0-7l10-10c2-1 5-1 7 0 1 2 1 5 0 7l-10 10z"/></svg>
                         </div>
-                        <p class="mt-3">Для печати Ваших работ мы используем проверенную фотобумагу Lomond, защищаем отпечатки акриловым стеклом, которое обычно не купишь в магазине, а также оформляем в настоящее паспарту стандартного качества. Рамку сделаем вручную под именно Ваш размер и цвет.</p>
+                        <h3 class="heading-card mb-2">Материалы</h3>
+                        <p class="text-ink">Для печати Ваших работ мы используем проверенную фотобумагу Lomond, защищаем отпечатки акриловым стеклом, которое обычно не купишь в магазине, а также оформляем в настоящее паспарту стандартного качества. Рамку сделаем вручную под именно Ваш размер и цвет.</p>
                     </div>
                 </div>
             </div>
@@ -802,18 +793,18 @@
             </div>
         </section>
 
-        <!-- CTA (структура как в эталоне, цвета из страницы) -->
-        <section class="cta-section">
+        <!-- CTA -->
+        <section class="cta-section content-auto">
             <div class="cta-container">
-                <h2 class="cta-title">
-                    Создай своё произведение искусства
+                <h2 class="heading-section text-white">
+                    Создай своё произведение <em class="italic text-ah-600">искусства</em>
                 </h2>
                 <div class="cta-actions">
                     <a href="https://muse.ooo/order/" class="btn-primary">
                         Заказать
                     </a>
                     <a href="#callback" class="btn-inverse">
-                        Обратный звонок
+                        Обратный звонок &rarr;
                     </a>
                 </div>
             </div>

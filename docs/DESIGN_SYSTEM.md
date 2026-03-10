@@ -582,8 +582,9 @@ Tailwind v4 сканирует HTML и JS для генерации утилит
 
 | Класс | Назначение | Размер (mob → desk) |
 |-------|------------|---------------------|
-| `heading-hero` | H1 — главный заголовок страницы (1 на страницу) | 36px → 60px |
-| `heading-section` | H2 — заголовок секции | 30px → 36px |
+| `heading-hero` | H1 — главный заголовок страницы (1 на страницу) | 36px → 56px |
+| `#hero .heading-hero` | H1 в hero-секции — крупный акцентный | 53.6px → 84px |
+| `heading-section` | H2 — заголовок секции | 30px → 40px |
 | `heading-subsection` | H3 — подзаголовок | 24px |
 | `heading-card` | H4 — заголовок карточки/блока | 20px |
 
@@ -1124,6 +1125,29 @@ SVG-иконки внутри кнопок — всегда `aria-hidden="true"`
 
 `text-balance` — утилита Tailwind, распределяет текст равномерно по строкам. Альтернатива — `text-pretty` (убирает сироты в конце абзаца).
 
+### Акцент в Hero H1
+
+На продуктовых страницах одно ключевое слово в H1 выделяется цветом `ah-600` и курсивом. Hero-секция **обязательно** должна иметь `id="hero"` для активации крупного размера шрифта.
+
+**Эталон:** [portret-maslom.html](../src/html/portret-na-zakaz/style/portret-maslom.html)
+
+```html
+<section id="hero" class="...">
+    ...
+    <h1 class="heading-hero mb-4">
+        Портрет <em style="color: var(--color-ah-600); font-style: italic;">маслом</em>
+    </h1>
+    ...
+</section>
+```
+
+| CSS-правило | Размер | Описание |
+|---|---|---|
+| `.heading-hero` | `clamp(2.25rem, 5vw, 3.5rem)` | Базовый (fallback) |
+| `#hero .heading-hero` | `clamp(3.35rem, 7vw, 5.25rem)` | Крупный в hero-секции |
+
+> **Важно:** `<em>` использует inline-стиль `color: var(--color-ah-600); font-style: italic;` для акцентного слова.
+
 ### Ссылки
 
 Текстовые ссылки **обязательно** с подчёркиванием для различимости:
@@ -1630,20 +1654,34 @@ CSS-классы для вертикального списка шагов с п
 #### CTA секция: `cta-section`, `cta-container`
 
 ```html
-<section class="cta-section">
+<!-- CTA -->
+<section class="cta-section content-auto">
     <div class="cta-container">
-        <h2 class="cta-title">[ТЕКСТ: заголовок CTA]</h2>
+        <h2 class="heading-section text-white">
+            Создай своё произведение <em class="italic text-ah-600">искусства</em>
+        </h2>
         <div class="cta-actions">
-            <a href="#" class="btn-primary">[ТЕКСТ: Заказать]</a>
-            <button data-open-dialog="callback-dialog" class="btn-inverse">[ТЕКСТ: Обратный звонок]</button>
+            <a href="https://muse.ooo/order/" class="btn-primary">Заказать</a>
+            <a href="#callback" class="btn-inverse">Обратный звонок &rarr;</a>
         </div>
     </div>
 </section>
 ```
 
-**Назначение:** унификация CTA‑блоков на ключевых страницах.
+**Назначение:** унификация CTA‑блоков на всех страницах сайта.
 
-> **Примечание:** кнопка «Обратный звонок» открывает `#callback-dialog` (bottom-sheet на мобильном, центрированный dialog на десктопе). Используйте `<button data-open-dialog="callback-dialog">`, не `<a href>`.
+| Класс / утилита | Назначение |
+|---|---|
+| `cta-section` | Фон `ah-975`, `padding-block: 4rem` |
+| `content-auto` | `content-visibility: auto` для производительности |
+| `cta-container` | Flex‑контейнер (column → row на lg), max‑width 1170px |
+| `heading-section text-white` | Заголовок секции (clamp 1.875–2.5rem), белый цвет |
+| `cta-actions` | Flex‑контейнер для кнопок (column → row на md) |
+| `btn-primary` | Ghost‑кнопка (на тёмном фоне — прозрачная с рамкой) |
+| `btn-inverse` | Второстепенная кнопка |
+
+> **Эталон:** [portret-na-zakaz/style/portret-maslom.html](../src/html/portret-na-zakaz/style/portret-maslom.html).
+> Заголовок использует `heading-section text-white` (не `cta-title`). Слово «искусства» выделено `<em class="italic text-ah-600">`. Стрелка `&rarr;` после «Обратный звонок».
 
 #### Лого‑облако (планируется)
 
