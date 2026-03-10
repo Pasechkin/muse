@@ -1,4 +1,4 @@
-# Дизайн-система Muse
+﻿# Дизайн-система Muse
 
 Полное описание дизайн-системы проекта Muse, основанной на теме Stack.
 
@@ -1317,6 +1317,55 @@ https://tailwindcss.com/plus/ui-blocks/application-ui/forms/form-layouts
         <input type="checkbox" class="size-4 rounded border-gray-300 text-primary focus-visible:ring-2 focus-visible:ring-primary/40" />
         <span>[ТЕКСТ: Согласие]</span>
 </label>
+```
+
+#### Форма заказа / вопроса (паттерн calc-order-form)
+
+Используется на страницах с калькулятором и в форме вопроса. Поля — без `<label>`, с плейсхолдером. Обязательные поля — со звёздочкой `*` в плейсхолдере (в форме вопроса — без звёздочек). Кнопка — `btn-header-cta`. Юридический дисклеймер — `text-xs text-ink-muted`, ссылки — `underline hover:text-ink`. Вся строка — `flex flex-col md:flex-row items-center justify-between gap-6`.
+
+**Форма вопроса (2 текстовых поля + textarea, без звёздочек):**
+
+Оборачивается в белую карточку на фоне `bg-ah-25`. Класс `form-neutral` делает плейсхолдеры нейтрально-серыми (38% opacity), поля — `bg-ah-25` (не белые, тот же тон что на portret-maslom), при фокусе — `bg-ah-50`. Дисклеймер — `text-ink-secondary` (60% opacity), не янтарный.
+
+```html
+<div class="bg-white rounded-xl border border-ah-200 px-6 py-8">
+    <form action="#" method="POST" novalidate class="form-neutral">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div><input type="text" id="name" name="name" class="form-input" placeholder="Имя" autocomplete="name"></div>
+            <div><input type="email" id="email" name="email" class="form-input" placeholder="E-mail" autocomplete="email" required></div>
+        </div>
+        <div class="mb-6">
+            <textarea id="message" name="message" rows="4" class="form-input resize-none" placeholder="Ваш вопрос" required></textarea>
+        </div>
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6 pt-2">
+            <div class="text-xs text-ink-secondary text-left">Заполняя форму, я соглашаюсь с условиями <a href="https://muse.ooo/info/oferta/" class="underline hover:text-ink">Оферты</a> и даю свое согласие на обработку персональных данных в соответствии с <a href="https://muse.ooo/info/politika_konfidentsialnosti_sayta/" class="underline hover:text-ink">Политикой конфиденциальности сайта</a></div>
+            <button type="submit" class="w-full md:w-auto btn-header-cta px-8 py-3">Отправить</button>
+        </div>
+    </form>
+</div>
+```
+
+**Форма заказа (3 поля + 2 textarea, со звёздочками — паттерн калькулятора):**
+
+Заголовок — `heading-card text-2xl text-center mb-6`. Кнопка — `btn-header-cta px-8 py-3`. Нет `border-t` перед дисклеймером. Ссылки — `underline hover:text-ink`. Унифицировано на всех калькуляторах (portret-maslom, портрет-спб, фото-на-холсте, фото-в-рамке, фотоколлаж, модулярная, reproduktsiya-модалка).
+
+```html
+<form novalidate>
+    <h3 class="heading-card text-2xl text-center mb-6">Оформление заказа</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+        <div><input type="text" name="name" class="form-input" placeholder="Имя*" autocomplete="name"></div>
+        <div><input type="tel" name="phone" class="form-input" placeholder="Телефон*" autocomplete="tel"></div>
+        <div><input type="email" name="email" class="form-input" placeholder="E-mail" autocomplete="email"></div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div><textarea name="link" class="form-input h-full resize-none" rows="4" placeholder="Ссылка на фото или облако"></textarea></div>
+        <div><textarea name="comment" class="form-input h-full resize-none" rows="4" placeholder="Комментарий"></textarea></div>
+    </div>
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6 pt-6">
+        <div class="text-xs text-ink-secondary text-left">Заполняя форму, я соглашаюсь с условиями <a href="https://muse.ooo/info/oferta/" class="underline hover:text-ink">Оферты</a> и даю свое согласие на обработку персональных данных в соответствии с <a href="https://muse.ooo/info/politika_konfidentsialnosti_sayta/" class="underline hover:text-ink">Политикой конфиденциальности сайта</a></div>
+        <button type="button" class="w-full md:w-auto btn-header-cta px-8 py-3">Заказать</button>
+    </div>
+</form>
 ```
 
 ---
@@ -3370,9 +3419,9 @@ Grid-паттерн Tailwind v4 — стрелка наложена через `
 ```html
 <nav class="text-sm text-ink-muted mb-4" aria-label="Хлебные крошки">
     <ol class="flex items-center space-x-2">
-        <li><a href="/" class="text-primary-text hover:text-ah-600-text transition-colors">Главная</a></li>
+        <li><a href="/" class="text-primary-text hover:text-ah-600 transition-colors">Главная</a></li>
         <li class="text-ink-muted">/</li>
-        <li><a href="/blog/" class="text-primary-text hover:text-ah-600-text transition-colors">Блог</a></li>
+        <li><a href="/blog/" class="text-primary-text hover:text-ah-600 transition-colors">Блог</a></li>
         <li class="text-ink-muted">/</li>
         <li class="text-ah-975 truncate" aria-current="page">Название статьи</li>
     </ol>
@@ -3425,7 +3474,7 @@ Grid-паттерн Tailwind v4 — стрелка наложена через `
         <!-- Breadcrumbs -->
         <nav class="text-sm text-ink-muted mb-4" aria-label="Хлебные крошки">
             <ol class="flex items-center space-x-2">
-                <li><a href="/" class="hover:text-ah-600-text transition-colors">Главная</a></li>
+                <li><a href="/" class="hover:text-ah-600 transition-colors">Главная</a></li>
                 <li>/</li>
                 <li class="text-ink-muted" aria-current="page">Блог</li>
             </ol>
@@ -3445,8 +3494,8 @@ Grid-паттерн Tailwind v4 — стрелка наложена через `
 | Элемент | Тег | Классы | Описание |
 |---|---|---|---|
 | Текущая страница | `<span>` | `text-ah-975 font-medium border-b-2 border-ah-600` + `aria-current="page"` | Тёмный, «вы здесь» |
-| Ссылка (номер) | `<a>` | `text-primary-text hover:text-ah-600-text transition-colors` | Цвет ссылок |
-| Стрелка-ссылка | `<a>` | `text-primary-text hover:text-ah-600-text transition-colors` | Аналогично |
+| Ссылка (номер) | `<a>` | `text-primary-text hover:text-ah-600 transition-colors` | Цвет ссылок |
+| Стрелка-ссылка | `<a>` | `text-primary-text hover:text-ah-600 transition-colors` | Аналогично |
 | Disabled-стрелка | — | Убирается из DOM | Если перейти некуда — элемент отсутствует, пустой `<div>` сохраняет layout |
 
 ```html
@@ -3458,12 +3507,12 @@ Grid-паттерн Tailwind v4 — стрелка наложена через `
     <!-- Номера страниц (скрыты на мобильных) -->
     <div class="hidden md:flex gap-2">
         <span class="px-4 py-2 text-sm font-medium text-ah-975 border-b-2 border-ah-600" aria-current="page">1</span>
-        <a href="blog-page-2.html" class="px-4 py-2 text-sm text-primary-text hover:text-ah-600-text transition-colors">2</a>
+        <a href="blog-page-2.html" class="px-4 py-2 text-sm text-primary-text hover:text-ah-600 transition-colors">2</a>
     </div>
     
     <!-- Следующая -->
     <div class="flex flex-1 justify-end">
-        <a href="blog-page-2.html" class="inline-flex items-center text-sm font-medium text-primary-text hover:text-ah-600-text transition-colors">
+        <a href="blog-page-2.html" class="inline-flex items-center text-sm font-medium text-primary-text hover:text-ah-600 transition-colors">
             Старые статьи
             <svg fill="currentColor" class="ml-2 w-5 h-5" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2 10a.75.75 0 0 1 .75-.75h12.59l-2.1-1.95a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.1-1.95H2.75A.75.75 0 0 1 2 10" clip-rule="evenodd"/></svg>
         </a>

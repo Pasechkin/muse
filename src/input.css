@@ -818,7 +818,11 @@
      ========================================== */
 
   .advantages-title {
-    @apply text-3xl lg:text-4xl font-light text-white text-center;
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    @apply text-3xl lg:text-4xl text-white text-center;
   }
 
   .advantages-grid {
@@ -1140,6 +1144,17 @@
       padding-bottom: 2rem;
       margin-top: 0;
     }
+  }
+
+  /* Нейтральные цвета форм заказа (все калькуляторы + модалка reproduktsiya) */
+  :is(.calc-order-form, #repro-order-form) .form-input::placeholder {
+    color: var(--color-ink-disabled);
+  }
+  :is(.calc-order-form, #repro-order-form) .form-input {
+    background-color: var(--color-ah-25);
+  }
+  :is(.calc-order-form, #repro-order-form) .form-input:focus {
+    background-color: var(--color-ah-50);
   }
 
   /* Контент модального окна багета */
@@ -1491,6 +1506,16 @@
     border-color: var(--color-error);
   }
 
+  .form-neutral .form-input::placeholder {
+    color: var(--color-ink-disabled);
+  }
+  .form-neutral .form-input {
+    background-color: var(--color-ah-25);
+  }
+  .form-neutral .form-input:focus {
+    background-color: var(--color-ah-50);
+  }
+
   /* === Universal Image Uploader Components === */
 
   .uploader-zone {
@@ -1762,6 +1787,9 @@
 }
 @utility text-ink-label {
   color: var(--color-ah-800);
+}
+@utility text-ink-secondary {
+  color: var(--color-ink-secondary);
 }
 
 /* ── Ink system (dark bg) ── */
