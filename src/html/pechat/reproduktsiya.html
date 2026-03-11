@@ -57,13 +57,17 @@
         <section id="hero" class="pt-8 pb-8 lg:pt-12 lg:pb-12 bg-ah-25">
             <div class="container">
                 <div class="max-w-4xl">
-                    <nav class="text-sm text-ink-muted mb-4" aria-label="Хлебные крошки">
-                        <ol class="flex items-center space-x-2">
-                            <li><a href="https://muse.ooo/" class="hover:text-ah-600 transition-colors">Главная</a></li>
-                            <li>/</li>
-                            <li><a href="https://muse.ooo/pechat/" class="hover:text-ah-600 transition-colors">Печать</a></li>
-                            <li>/</li>
-                            <li class="text-body">Репродукция</li>
+                    <nav class="text-sm text-ink-soft mb-4" aria-label="Breadcrumb">
+                        <ol class="flex list-none p-0">
+                            <li class="flex items-center">
+                                <a href="https://muse.ooo/" class="hover:underline">Главная</a>
+                                <span class="mx-2">/</span>
+                            </li>
+                            <li class="flex items-center">
+                                <a href="https://muse.ooo/pechat/" class="hover:underline">Печать</a>
+                                <span class="mx-2">/</span>
+                            </li>
+                            <li class="text-ink-muted">Репродукция</li>
                         </ol>
                     </nav>
 
@@ -150,14 +154,14 @@
             <div class="container">
                 <h2 class="heading-section text-center mb-8">Репродукции</h2>
                 <div class="space-y-4">
-                    <p class="text-body-lg">C помощью сервиса Muse вы можете напечатать и оформить в багет репродукции картин самых известных авторов как на холсте, так и на фотобумаге. В своей работе мы используем каталог <a href="https://ru.wikipedia.org" rel="nofollow" class="text-primary-text underline hover:no-underline">Wikimedia</a>, где размещены цифровые копии шедевров мирового изобразительного искусства, находящиеся в общественном достоянии.</p>
+                    <p class="text-body-lg">C помощью сервиса Muse вы можете напечатать и оформить в багет репродукции картин самых известных авторов как на холсте, так и на фотобумаге. В своей работе мы используем каталог <a href="https://ru.wikipedia.org" rel="nofollow noopener" target="_blank" class="text-primary-text underline hover:no-underline">Wikimedia&nbsp;↗</a>, где размещены цифровые копии шедевров мирового изобразительного искусства, находящиеся в общественном достоянии.</p>
                     <p class="text-body-lg">Не все картины по законодательству об авторских правах можно напечатать. Если Вы что-то не нашли, то напишите нам через комментарии в форме (кнопка «Заказать») или позвоните. Мы предложим вам наиболее подходящие варианты.</p>
                 </div>
             </div>
         </section>        <!-- Акция -->
         <section class="sale-banner">
             <p class="sale-banner-text">
-                <strong>Скидка 20%</strong> с 6 по 7 марта
+                Скидка 20% &mdash; с 6 по 7 марта
             </p>
         </section>
 
@@ -185,9 +189,7 @@
                             <li class="check-list-item"><span>Гарантия 5 лет</span></li>
                         </ul>
 
-                        <div class="mt-8 p-4 bg-secondary rounded-lg border border-gray-200">
-                            <p class="text-small">Выше приведен список стандартных характеристик работ и материалов. Вы всегда можете: посчитав в калькуляторе ниже; прочитав описание по клику на знак вопроса там же; спросив в коммуникаторе или позвонив — подобрать именно то, что нужно Вам.</p>
-                        </div>
+                        <p class="mt-10 text-xs/[1.6] text-ink">Выше приведен список стандартных характеристик работ и материалов. Вы всегда можете: посчитав в калькуляторе ниже; прочитав описание по клику на знак вопроса там же; спросив в коммуникаторе или позвонив — подобрать именно то, что нужно Вам.</p>
                     </div>
 
                     <!-- Слайдер изображений (на ПК справа, на мобильном сверху) -->
@@ -195,19 +197,19 @@
                         <div data-tabs class="flex flex-col-reverse">
                             <!-- Миниатюры -->
                             <div data-tab-list class="mx-auto mt-4 w-full max-w-md grid grid-cols-2 gap-3">
-                                <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-ink hover:bg-gray-50 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden">
+                                <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded-xl bg-ah-50 text-sm font-medium text-ah-975 hover:bg-ah-75 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden">
                                     <span class="sr-only">Лицевая сторона репродукции на холсте</span>
-                                    <span class="absolute inset-0 overflow-hidden rounded">
+                                    <span class="absolute inset-0 overflow-hidden rounded-xl">
                                         <img src="https://muse.ooo/img/o-product-reproduction-front-442.jpg" alt="Репродукция на холсте — лицевая сторона" title="Лицевая сторона репродукции на холсте" width="442" height="332" class="size-full object-cover" loading="lazy" decoding="async">
                                     </span>
-                                    <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-ah-600"></span>
+                                    <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-xl ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-ah-600"></span>
                                 </button>
-                                <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded bg-white text-small font-medium text-ink hover:bg-gray-50 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden">
+                                <button type="button" class="relative flex h-20 cursor-pointer items-center justify-center rounded-xl bg-ah-50 text-sm font-medium text-ah-975 hover:bg-ah-75 focus:ring-2 focus:ring-ah-600/50 focus:ring-offset-2 focus:outline-hidden">
                                     <span class="sr-only">Обратная сторона репродукции на холсте</span>
-                                    <span class="absolute inset-0 overflow-hidden rounded">
+                                    <span class="absolute inset-0 overflow-hidden rounded-xl">
                                         <img src="https://muse.ooo/img/o-product-photo-on-canvas-442-back.jpg" alt="Обратная сторона репродукции на холсте" title="Обратная сторона репродукции на холсте" width="442" height="332" class="size-full object-cover" loading="lazy" decoding="async">
                                     </span>
-                                    <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-ah-600"></span>
+                                    <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-xl ring-2 ring-transparent ring-offset-2 in-aria-selected:ring-ah-600"></span>
                                 </button>
                             </div>
 
