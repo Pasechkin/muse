@@ -175,11 +175,11 @@
 }
 
 @utility link-on-dark-plain {
-  color: #e5e7eb;
+  color: #ffffff;
   transition-property: color;
   transition-duration: 150ms;
   &:hover {
-    color: #ffffff;
+    color: rgba(255, 255, 255, 0.6);
   }
 }
 
@@ -423,12 +423,22 @@
     z-index: var(--z-index-notification);
     width: 22rem;
     padding: 1.25rem;
-    background: #fff;
+    background: var(--color-ah-25);
     border-radius: 0.75rem;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
     opacity: 0;
     pointer-events: none;
     transition: opacity 400ms ease, transform 400ms ease;
+  }
+  .notification-banner a {
+    color: var(--color-ah-800);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .notification-banner a:hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
   .notification-banner.is-visible {
     opacity: 1;
@@ -482,6 +492,8 @@
     line-height: 1.15;
     text-wrap: balance;
   }
+  .heading-section--tight { letter-spacing: -0.025em; }
+  .heading-section--extra-tight { letter-spacing: -0.03em; }
   .heading-subsection {
     font-family: var(--font-display);
     font-weight: 400;
@@ -498,6 +510,10 @@
     font-weight: 400;
     letter-spacing: -0.015em;
     text-wrap: balance;
+  }
+  .heading-card--tight {
+    letter-spacing: -0.015em;
+    line-height: 1.2;
     @apply text-xl;
   }
   .text-lead { @apply text-lg lg:text-xl; text-wrap: pretty; }
@@ -549,17 +565,17 @@
   /* .text-lead на тёмных фонах */
   :where(.bg-ah-975, .bg-dark) .text-lead { color: rgba(255,255,255,.85); }
 
-  /* Хлебные крошки: иерархия цветов на тёмном фоне */
+  /* Хлебные крошки: white-система на тёмном фоне */
   .breadcrumbs {
-    color: rgba(255, 255, 255, 0.5); /* разделители */
+    color: rgba(255, 255, 255, 0.6); /* разделители */
   }
   .breadcrumbs a {
-    color: rgba(255, 255, 255, 0.7);
+    color: #fff;
     text-decoration: none;
     transition: color 0.15s;
   }
   .breadcrumbs a:hover {
-    color: #fff;
+    color: rgba(255, 255, 255, 0.6);
   }
   .breadcrumbs li:last-child span {
     color: #fff; /* текущая страница — яркий */
@@ -616,6 +632,21 @@
   /* Компактные кнопки для notification-баннеров (cookie, город) */
   .btn-compact {
     @apply text-sm px-4 py-2;
+  }
+
+  /* Ghost-кнопка для notification-баннеров */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center;
+    @apply text-sm font-medium;
+    @apply px-0 py-1;
+    @apply bg-transparent border-none;
+    color: var(--color-ah-800);
+    transition: color 0.15s ease;
+    cursor: pointer;
+  }
+  .btn-ghost:hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
   /* Кнопка-submit в модальных формах (обратный звонок) */
   .btn-form {
@@ -710,6 +741,14 @@
     transform: translateY(-3px) scale(1.03);
     box-shadow: 0 8px 24px rgba(139,76,4,.35);
   }
+
+  /* === Section dark-text modifier === */
+  /* Компонентный модификатор: тёмные цвета текста для секций с amber O-hierarchy */
+  .section--dark-text :is(.text-ink, .heading-section, .heading-card) { color: var(--color-ah-975); }
+  .section--dark-text :is(.text-small, figcaption, .text-ink-muted) { color: var(--color-ink-secondary); }
+
+  /* === Text readability modifier === */
+  .text-ink--readable { line-height: 1.75; }
 
   /* === Advantages Card Component === */
   /* Карточки секции «Преимущества» — универсальный компонент для всех страниц.
@@ -937,6 +976,7 @@
     font-weight: 600;
     line-height: 1;
   }
+  .check-list--spaced .check-list-item { line-height: 1.75; }
 
   /* === Шаги процесса (DRY) === */
   .step-container {
@@ -2032,6 +2072,12 @@
     color: inherit;
     font-weight: inherit;
   }
+  .sale-banner--dark {
+    background-color: var(--color-ah-975);
+  }
+  .sale-banner--dark .sale-banner-text {
+    color: var(--color-ah-600);
+  }
 
   /* ── Lightbox «Выбрать этот багет» button ── */
   .lightbox-select-btn {
@@ -2381,9 +2427,9 @@
   }
 
 /* ══════════════════════════════════════════════════════════════
-   Style-portraits: O-hierarchy + section refinements
-   Shared across ALL 18 style pages (scoped by body.style-portraits)
-   UNLAYERED — must beat @layer utilities from Tailwind classes in HTML
+   Style-portraits: page-specific layout refinements
+   Kept ONLY for rules that are page-layout-specific (hero, otzyvy fighting
+   Tailwind utilities, drift-zoom library). Everything else → component modifiers.
    ══════════════════════════════════════════════════════════════ */
 
   /* ── Hero ── */
@@ -2391,22 +2437,6 @@
   .style-portraits #hero .heading-hero {
     margin-bottom: 1rem;
   }
-
-  /* ── Heading refinements ── */
-  .style-portraits .heading-section { letter-spacing: -0.025em; text-wrap: balance; }
-  .style-portraits .heading-card   { letter-spacing: -0.015em; line-height: 1.2; }
-
-  /* ── PRIMARY (100 %) — non-calc sections ── */
-  .style-portraits :is(#kak-zakazat, #harakteristiki, #preimushchestva, #otzyvy, #opisanie) :is(.text-ink, .heading-section, .heading-card) {
-    color: var(--color-ah-975);
-  }
-
-  /* ── SECONDARY (60 %) — non-calc sections ── */
-  .style-portraits :is(#kak-zakazat, #harakteristiki, #preimushchestva, #otzyvy, #opisanie) :is(.text-small, figcaption, .text-ink-muted) {
-    color: var(--color-ink-secondary);
-  }
-
-  /* ── Как заказать — перенесено в @layer components как универсальный компонент ── */
 
   /* ── Характеристики — универсальный слайдер ── */
   :is(#harakteristiki, #harakteristiki-foto-na-holste, #work) [data-tab-panels] { max-width: 442px; margin-inline: auto; }
@@ -2416,27 +2446,8 @@
     box-shadow: 0 18px 38px rgba(20, 11, 1, .12);
   }
   :is(#harakteristiki, #harakteristiki-foto-na-holste, #work) [data-tab-list] { max-width: 30rem; gap: 0.65rem; }
-  .style-portraits #harakteristiki .check-list-item { line-height: 1.75; }
-  .style-portraits #harakteristiki .container + .container .grid { align-items: start; }
+  :is(#harakteristiki, #harakteristiki-foto-na-holste, #work) .container + .container .grid { align-items: start; }
 
-  /* ── Преимущества — перенесено в @layer components как универсальный компонент ── */
-
-  /* ── Описание ── */
-  .style-portraits #opisanie .text-ink { line-height: 1.75; }
-
-  /* ── Отзывы: OAuth modal ── */
-  .style-portraits #otzyvy .text-ah-800.text-sm { color: var(--color-ah-975); }
-  .style-portraits #otzyvy .text-ah-975.text-sm.font-medium { color: var(--color-ah-975); }
-  .style-portraits #otzyvy a.bg-white { background-color: var(--color-ah-25); }
-
-  /* ── Примеры (dark section) ── */
-  .style-portraits #primery .heading-section { letter-spacing: -0.03em; }
-
-  /* ── CTA (dark section) ── */
-  .style-portraits .cta-section .heading-section { letter-spacing: -0.03em; text-wrap: balance; }
-
-  /* ── Sale banner → dark amber ── */
-  .style-portraits .sale-banner { background-color: var(--color-ah-975); }
 
 
 /* === Музейные иконки (Restore original Muse paths) === */
