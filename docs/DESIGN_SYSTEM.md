@@ -844,7 +844,7 @@ Tailwind v4 сканирует HTML и JS для генерации утилит
 | В тексте | `text-primary-text underline hover:no-underline` | Ссылки внутри абзацев |
 | Навигационная | `text-primary-text hover:text-primary-text-hover` | Меню, навигация |
 | На тёмном фоне (основная) | `link-on-dark` | Ссылки в тексте на `bg-dark` |
-| На тёмном фоне (навигация) | `link-on-dark-plain` | Меню, хлебные крошки на тёмном фоне |
+| На тёмном фоне (навигация) | `link-on-dark-plain` | Меню на тёмном фоне (для крошек используй `.breadcrumbs`) |
 | Footer | `text-white hover:text-white/60` | Нижний колонтитул |
 
 ```html
@@ -2292,29 +2292,32 @@ CSS-классы для вертикального списка шагов с п
 
 #### Breadcrumbs (хлебные крошки)
 
-Навигационная цепочка, показывающая путь до текущей страницы. Размещается в Hero-секции над заголовком.
+Навигационная цепочка, показывающая путь до текущей страницы. Размещается в Hero-секции над заголовком. Все цвета задаются через CSS-класс `.breadcrumbs` в `input.css` — **инлайновые цветовые классы в HTML не нужны**.
 
 ```html
-<nav class="text-sm text-ink-soft mb-4" aria-label="Breadcrumb">
+<nav class="breadcrumbs mb-4" aria-label="Breadcrumb">
     <ol class="flex list-none p-0">
         <li class="flex items-center">
-            <a href="/" class="hover:underline">Главная</a>
+            <a href="/">Главная</a>
             <span class="mx-2">/</span>
         </li>
         <li class="flex items-center">
-            <a href="/portret-na-zakaz/" class="hover:underline">Портрет на заказ</a>
+            <a href="/portret-na-zakaz/">Портрет на заказ</a>
             <span class="mx-2">/</span>
         </li>
-        <li class="text-ink-muted">Название страницы</li>
+        <li aria-current="page">Название страницы</li>
     </ol>
 </nav>
 ```
 
-**Характеристики:**
-- Размер: `text-sm` (14px)
-- Цвет ссылок: `text-ink-soft` → hover: `underline`
-- Цвет текущей страницы: `text-ink-muted`
-- Разделитель: `/` с отступами `mx-2`
+**Характеристики (управляются из `input.css`, класс `.breadcrumbs`):**
+- Размер: `0.875rem` (14px)
+- Ссылки (предки): `--color-primary-text` (ah-900) → hover: `--color-ah-975`
+- Текущая страница `[aria-current="page"]`: `--color-ah-975` (почти чёрный)
+- Разделители `/`: `--color-ink-secondary` (приглушённый серый)
+- На тёмном фоне (`:where(.bg-ah-975)`): ссылки `#fff`, текущая `#fff`, разделители `white/60`
+
+> **Принцип:** ховер ссылки «превращает» её в цвет текущей страницы — визуальный предпоказ «ты окажешься здесь». Разделители приглушены и не перетягивают внимание.
 
 #### Page Header (серый фон + крошки + H1)
 
@@ -2323,13 +2326,13 @@ CSS-классы для вертикального списка шагов с п
 ```html
 <section class="pt-8 pb-8 lg:pt-12 lg:pb-12 bg-secondary">
     <div class="container">
-        <nav class="text-sm text-ink-soft mb-4" aria-label="Хлебные крошки">
+        <nav class="breadcrumbs mb-4" aria-label="Хлебные крошки">
             <ol class="flex items-center space-x-2">
-                <li><a href="/" class="hover:text-primary transition-colors">Главная</a></li>
+                <li><a href="/">Главная</a></li>
                 <li>/</li>
-                <li><a href="/info/" class="hover:text-primary transition-colors">О нас</a></li>
+                <li><a href="/info/">О нас</a></li>
                 <li>/</li>
-                <li class="text-dark">Вопросы и ответы</li>
+                <li aria-current="page">Вопросы и ответы</li>
             </ol>
         </nav>
 
@@ -2342,7 +2345,7 @@ CSS-классы для вертикального списка шагов с п
 - Фон секции: `bg-secondary`
 - Отступы: `pt-8 pb-8 lg:pt-12 lg:pb-12`
 - Заголовок H1: `text-4xl lg:text-6xl font-light text-dark`
-- Крошки: `text-ink-soft` + `/` как разделитель
+- Крошки: класс `.breadcrumbs` — цвета из CSS, без инлайн-классов
 
 #### Характеристики (список с чередованием фона)
 
@@ -3386,13 +3389,13 @@ Grid-паттерн Tailwind v4 — стрелка наложена через `
 ```html
 <section class="pt-8 pb-8 lg:pt-12 lg:pb-12 bg-secondary">
     <div class="container max-w-4xl mx-auto px-4">
-        <nav class="text-sm text-ink-soft mb-4" aria-label="Хлебные крошки">
+        <nav class="breadcrumbs mb-4" aria-label="Хлебные крошки">
             <ol class="flex items-center space-x-2">
-                <li><a href="/" class="hover:text-primary transition-colors">Главная</a></li>
-                <li class="text-ink-muted">/</li>
-                <li><a href="/blog/" class="hover:text-primary transition-colors">Блог</a></li>
-                <li class="text-ink-muted">/</li>
-                <li class="text-body truncate">Заголовок статьи</li>
+                <li><a href="/">Главная</a></li>
+                <li>/</li>
+                <li><a href="/blog/">Блог</a></li>
+                <li>/</li>
+                <li class="truncate" aria-current="page">Заголовок статьи</li>
             </ol>
         </nav>
 
@@ -3580,18 +3583,18 @@ Grid-паттерн Tailwind v4 — стрелка наложена через `
 ### Breadcrumbs для блога
 
 ```html
-<nav class="text-sm text-ink-muted mb-4" aria-label="Хлебные крошки">
+<nav class="breadcrumbs mb-4" aria-label="Хлебные крошки">
     <ol class="flex items-center space-x-2">
-        <li><a href="/" class="text-primary-text hover:text-ah-600 transition-colors">Главная</a></li>
-        <li class="text-ink-muted">/</li>
-        <li><a href="/blog/" class="text-primary-text hover:text-ah-600 transition-colors">Блог</a></li>
-        <li class="text-ink-muted">/</li>
-        <li class="text-ah-975 truncate" aria-current="page">Название статьи</li>
+        <li><a href="/">Главная</a></li>
+        <li>/</li>
+        <li><a href="/blog/">Блог</a></li>
+        <li>/</li>
+        <li class="truncate" aria-current="page">Название статьи</li>
     </ol>
 </nav>
 ```
 
-> **Ссылки:** `text-primary-text` (ah-800) — цвет ссылок. **Текущая страница:** `text-ah-975` — активная, не кликабельная.
+> Цвета задаются через CSS-класс `.breadcrumbs` — инлайновые цветовые классы не нужны. См. секцию «Breadcrumbs (хлебные крошки)» выше.
 
 ### Подпись автора
 

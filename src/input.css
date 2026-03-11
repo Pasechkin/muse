@@ -478,11 +478,9 @@
     line-height: 1.1;
     text-wrap: balance;
   }
-  /* Hero H1 — крупный размер на всех продуктовых страницах */
-  #hero .heading-hero {
-    font-size: clamp(3.35rem, 7vw, 5.25rem);
-    line-height: 0.94;
-    letter-spacing: -0.04em;
+  /* Hero H1 — text-shadow для читаемости на тёмных фонах */
+  .bg-ah-975 .heading-hero {
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.3);
   }
   .heading-section {
     font-family: var(--font-display);
@@ -565,20 +563,40 @@
   /* .text-lead на тёмных фонах */
   :where(.bg-ah-975, .bg-dark) .text-lead { color: rgba(255,255,255,.85); }
 
-  /* Хлебные крошки: white-система на тёмном фоне */
+  /* ─── Хлебные крошки ─── */
+  /* Base — единый размер для всего сайта */
   .breadcrumbs {
-    color: rgba(255, 255, 255, 0.6); /* разделители */
+    font-size: 0.875rem;
+  }
+
+  /* Light theme (default) — для светлых фонов */
+  .breadcrumbs {
+    color: var(--color-ink-secondary); /* разделители */
+  }
+  .breadcrumbs [aria-current="page"] {
+    color: var(--color-ah-975);        /* текущая страница */
   }
   .breadcrumbs a {
-    color: #fff;
+    color: var(--color-primary-text);  /* ссылки — ah-900 */
     text-decoration: none;
     transition: color 0.15s;
   }
   .breadcrumbs a:hover {
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--color-ah-975);        /* ховер = цвет текущей страницы */
   }
-  .breadcrumbs li:last-child span {
-    color: #fff; /* текущая страница — яркий */
+
+  /* Dark theme — на тёмных фонах (сплошной чёрный и фото/видео) */
+  :where(.bg-ah-975) .breadcrumbs {
+    color: rgba(255, 255, 255, 0.6); /* разделители */
+  }
+  :where(.bg-ah-975) .breadcrumbs [aria-current="page"] {
+    color: #fff;                      /* текущая страница */
+  }
+  :where(.bg-ah-975) .breadcrumbs a {
+    color: #fff;
+  }
+  :where(.bg-ah-975) .breadcrumbs a:hover {
+    color: rgba(255, 255, 255, 0.6);
   }
 
   /* Типографика наследует цвет от секции */
