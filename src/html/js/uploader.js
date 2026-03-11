@@ -483,29 +483,34 @@
       var removeBtns = container.querySelectorAll('.uploader-thumb-remove');
       for (var r = 0; r < removeBtns.length; r++) {
         (function (btn) {
-          btn.addEventListener('click', function (e) {
-            e.stopPropagation();
-            var id = btn.dataset.imgId;
+          function armOrRemove(id) {
             if (pendingRemoveId !== id) {
+              // Снять armed-состояние с предыдущей кнопки (если есть)
+              var prevArmed = container.querySelector('.uploader-thumb-remove-armed');
+              if (prevArmed) {
+                prevArmed.classList.remove('uploader-thumb-remove-armed');
+                var prevImg = images.filter(function (img) { return img.id === prevArmed.dataset.imgId; })[0];
+                if (prevImg) prevArmed.setAttribute('aria-label', 'Удалить ' + escapeHtml(prevImg.name));
+              }
               pendingRemoveId = id;
-              renderThumbnails();
+              // Переключаем класс на ЭТОЙ ЖЕ кнопке — без пересоздания DOM
+              btn.classList.add('uploader-thumb-remove-armed');
+              var curImg = images.filter(function (img) { return img.id === id; })[0];
+              if (curImg) btn.setAttribute('aria-label', 'Подтвердить удаление ' + escapeHtml(curImg.name));
               announce('Нажмите ещё раз, чтобы удалить фото');
               return;
             }
             removeImage(id);
+          }
+          btn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            armOrRemove(btn.dataset.imgId);
           });
           btn.addEventListener('keydown', function (e) {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
               e.stopPropagation();
-              var id = btn.dataset.imgId;
-              if (pendingRemoveId !== id) {
-                pendingRemoveId = id;
-                renderThumbnails();
-                announce('Нажмите ещё раз, чтобы удалить фото');
-                return;
-              }
-              removeImage(id);
+              armOrRemove(btn.dataset.imgId);
             }
           });
         })(removeBtns[r]);

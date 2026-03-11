@@ -369,38 +369,126 @@
       });
     }
 
-    /* ---------- Portrait sections generator ---------- */
+    /* ---------- Shared portrait/portraitStyle helpers ---------- */
 
-    var portraitEls = {};
+    /** Create a chevron-down SVG icon for dropdown selects */
+    function _createChevronSvg() {
+      var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+      svg.setAttribute('width', '24');
+      svg.setAttribute('height', '24');
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.setAttribute('fill', 'none');
+      svg.setAttribute('stroke', 'currentColor');
+      svg.setAttribute('stroke-width', '2');
+      svg.setAttribute('stroke-linecap', 'round');
+      svg.setAttribute('stroke-linejoin', 'round');
+      svg.setAttribute('class', 'pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5 self-center justify-self-end text-ink-muted');
+      var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', 'm6 9 6 6 6-6');
+      svg.appendChild(path);
+      return svg;
+    }
 
-    function buildPortraitSections() {
-      if (!isPortrait) return;
+    function _detach(el) { if (el && el.parentNode) el.parentNode.removeChild(el); return el; }
 
+    /**
+     * Create compact inline checkbox row used by portrait/portraitStyle generators.
+     * Options: { accentBadge: 'text' } — adds a small accent badge after label.
+     */
+    function makeInlineCheckboxSection(id, label, hintKey, badgeId, checked, opts) {
+      var sec = document.createElement('section');
+      sec.id = id + '-section';
+      sec.setAttribute('data-portrait-option', id);
+
+      var row = document.createElement('div');
+      row.className = 'flex items-center gap-3';
+
+      /* Checkbox */
+      var chkWrap = document.createElement('div');
+      chkWrap.className = 'flex h-6 shrink-0 items-center';
+      var grp = document.createElement('div');
+      grp.className = 'group grid size-4 grid-cols-1';
+      var chk = document.createElement('input');
+      chk.type = 'checkbox';
+      chk.id = 'toggle-' + id;
+      chk.name = id;
+      chk.checked = !!checked;
+      chk.className = 'calc-checkbox col-start-1 row-start-1 forced-colors:appearance-auto';
+      grp.appendChild(chk);
+      var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('viewBox', '0 0 14 14');
+      svg.setAttribute('fill', 'none');
+      svg.setAttribute('class', 'pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white');
+      var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', 'M3 8L6 11L11 3.5');
+      path.setAttribute('stroke-width', '2');
+      path.setAttribute('stroke-linecap', 'round');
+      path.setAttribute('stroke-linejoin', 'round');
+      path.setAttribute('class', 'opacity-0 group-has-checked:opacity-100');
+      svg.appendChild(path);
+      grp.appendChild(svg);
+      chkWrap.appendChild(grp);
+      row.appendChild(chkWrap);
+
+      /* Label + hint btn + optional accent badge */
+      var labelWrap = document.createElement('div');
+      labelWrap.className = 'flex items-center gap-1 min-w-0 flex-1';
+      var lbl = document.createElement('label');
+      lbl.htmlFor = 'toggle-' + id;
+      lbl.className = 'text-sm font-medium text-body cursor-pointer truncate';
+      lbl.textContent = label;
+      labelWrap.appendChild(lbl);
+      if (opts && opts.accentBadge) {
+        var accent = document.createElement('span');
+        accent.className = 'calc-accent ml-1 shrink-0';
+        accent.textContent = opts.accentBadge;
+        labelWrap.appendChild(accent);
+      }
+      var hintBtn = createHintBtn(hintKey);
+      if (hintBtn) labelWrap.appendChild(hintBtn);
+      row.appendChild(labelWrap);
+
+      /* Price badge */
+      var badge = document.createElement('span');
+      badge.className = 'calc-badge whitespace-nowrap shrink-0';
+      badge.id = badgeId;
+      badge.textContent = '0 ₽';
+      row.appendChild(badge);
+
+      sec.appendChild(row);
+      return { section: sec, checkbox: chk, badge: badge };
+    }
+
+    /**
+     * Common setup shared by buildPortraitSections & buildPortraitStyleSections:
+     * hides processing/size inputs, rebuilds varnish/gift, locates static sections.
+     */
+    function _portraitCommonSetup() {
       var panel = document.querySelector('.calc-panel .p-4');
       if (!panel) panel = document.querySelector('.calc-panel > div');
-      if (!panel) return;
+      if (!panel) return null;
 
-      /* Hide processing section — portraits don't use it */
+      /* Hide processing section */
       var processingSelect = getEl('processing-select');
       if (processingSelect) {
         var procSection = processingSelect.closest('section');
-        if (procSection) procSection.style.display = 'none';
+        if (procSection) procSection.classList.add('hidden');
         STATE.processing = 0;
       }
 
-      /* Desktop: hide bare size inputs, show presets + "Свой размер" like mobile */
+      /* Desktop: hide bare size inputs, show presets */
       var sizeInputsRow = getEl('size-inputs-row');
       if (sizeInputsRow) sizeInputsRow.classList.add('hidden');
       var extraCarousel = getEl('size-extra-carousel');
-      if (extraCarousel) extraCarousel.style.display = 'none';
+      if (extraCarousel) extraCarousel.classList.add('hidden');
       var presetsGrid = getEl('size-presets-grid');
       if (presetsGrid) {
         presetsGrid.classList.remove('lg:hidden');
         presetsGrid.classList.add('flex');
       }
 
-      /* ---------- Rewrite varnish + gift into inline rows ---------- */
-
+      /* Rewrite varnish + gift into inline rows */
       var varnishGiftSection = getEl('varnish-gift-section');
       if (!varnishGiftSection) {
         var tv = getEl('toggle-varnish');
@@ -430,125 +518,87 @@
         if (sec.querySelector('#frame-section')) frameSection = sec;
       });
 
-      /* Helper: create compact inline checkbox row
-       * [ ✓ ] Label [?]                      price badge
-       * Options: { accentBadge: 'text' } — adds a small accent badge after label
-       */
-      function makeInlineCheckboxSection(id, label, hintKey, badgeId, checked, opts) {
-        var sec = document.createElement('section');
-        sec.id = id + '-section';
-        sec.setAttribute('data-portrait-option', id);
+      return {
+        panel: panel,
+        sizeSection: sizeSection,
+        wrapSection: wrapSection,
+        frameSection: frameSection,
+        varnishSection: varnishSection,
+        giftSection: giftSection
+      };
+    }
 
-        var row = document.createElement('div');
-        row.className = 'flex items-center gap-3';
+    /**
+     * Build a dropdown section (used for faces count and portrait style selectors).
+     * @param {string} selectId — id for the <select>
+     * @param {string} label — section title text
+     * @param {string} hintKey — tooltip key
+     * @param {string} badgeId — id for the badge span
+     * @param {string} badgeText — initial badge text
+     * @param {Array} options — [{value, text}, ...]
+     */
+    function _buildDropdownSection(selectId, label, hintKey, badgeId, badgeText, options) {
+      var sec = document.createElement('section');
+      sec.id = selectId + '-section';
 
-        /* Checkbox */
-        var chkWrap = document.createElement('div');
-        chkWrap.className = 'flex h-6 shrink-0 items-center';
-        var grp = document.createElement('div');
-        grp.className = 'group grid size-4 grid-cols-1';
-        var chk = document.createElement('input');
-        chk.type = 'checkbox';
-        chk.id = 'toggle-' + id;
-        chk.name = id;
-        chk.checked = !!checked;
-        chk.className = 'calc-checkbox col-start-1 row-start-1 forced-colors:appearance-auto';
-        grp.appendChild(chk);
-        var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svg.setAttribute('viewBox', '0 0 14 14');
-        svg.setAttribute('fill', 'none');
-        svg.setAttribute('class', 'pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white');
-        var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('d', 'M3 8L6 11L11 3.5');
-        path.setAttribute('stroke-width', '2');
-        path.setAttribute('stroke-linecap', 'round');
-        path.setAttribute('stroke-linejoin', 'round');
-        path.setAttribute('class', 'opacity-0 group-has-checked:opacity-100');
-        svg.appendChild(path);
-        grp.appendChild(svg);
-        chkWrap.appendChild(grp);
-        row.appendChild(chkWrap);
+      var titleDiv = document.createElement('div');
+      titleDiv.className = 'section-title';
+      var titleLeft = document.createElement('span');
+      titleLeft.className = 'flex items-center gap-1';
+      titleLeft.textContent = label;
+      var hint = createHintBtn(hintKey);
+      if (hint) titleLeft.appendChild(hint);
+      titleDiv.appendChild(titleLeft);
+      var badge = document.createElement('span');
+      badge.className = 'calc-badge';
+      badge.id = badgeId;
+      badge.textContent = badgeText;
+      titleDiv.appendChild(badge);
+      sec.appendChild(titleDiv);
 
-        /* Label + hint btn + optional accent badge */
-        var labelWrap = document.createElement('div');
-        labelWrap.className = 'flex items-center gap-1 min-w-0 flex-1';
-        var lbl = document.createElement('label');
-        lbl.htmlFor = 'toggle-' + id;
-        lbl.className = 'text-sm font-medium text-body cursor-pointer truncate';
-        lbl.textContent = label;
-        labelWrap.appendChild(lbl);
-        if (opts && opts.accentBadge) {
-          var accent = document.createElement('span');
-          accent.className = 'calc-accent ml-1 shrink-0';
-          accent.textContent = opts.accentBadge;
-          labelWrap.appendChild(accent);
-        }
-        var hintBtn = createHintBtn(hintKey);
-        if (hintBtn) labelWrap.appendChild(hintBtn);
-        row.appendChild(labelWrap);
+      var gridWrap = document.createElement('div');
+      gridWrap.className = 'grid grid-cols-1';
+      var select = document.createElement('select');
+      select.id = selectId;
+      select.setAttribute('aria-label', label);
+      select.className = 'col-start-1 row-start-1 w-full appearance-none bg-white border border-ah-200 text-body py-3 pl-4 pr-8 rounded-lg text-sm font-medium focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary';
+      options.forEach(function (o) {
+        var opt = document.createElement('option');
+        opt.value = o.value;
+        opt.textContent = o.text;
+        select.appendChild(opt);
+      });
+      gridWrap.appendChild(select);
+      gridWrap.appendChild(_createChevronSvg());
+      sec.appendChild(gridWrap);
 
-        /* Price badge */
-        var badge = document.createElement('span');
-        badge.className = 'calc-badge whitespace-nowrap shrink-0';
-        badge.id = badgeId;
-        badge.textContent = '0 ₽';
-        row.appendChild(badge);
+      return { section: sec, select: select, badge: badge };
+    }
 
-        sec.appendChild(row);
-        return { section: sec, checkbox: chk, badge: badge };
-      }
+    /* ---------- Portrait sections generator ---------- */
 
-      /* 1. Size section stays in place */
+    var portraitEls = {};
+
+    function buildPortraitSections() {
+      if (!isPortrait) return;
+
+      var setup = _portraitCommonSetup();
+      if (!setup) return;
+      var panel = setup.panel;
+      var sizeSection = setup.sizeSection;
+      var wrapSection = setup.wrapSection;
+      var frameSection = setup.frameSection;
+      var varnishSection = setup.varnishSection;
+      var giftSection = setup.giftSection;
 
       /* 2. Количество лиц — select dropdown */
-      var facesSec = document.createElement('section');
-      facesSec.id = 'portrait-faces-section';
+      var facesOpts = [];
+      for (var i = 1; i <= 10; i++) facesOpts.push({ value: i, text: '' + i });
+      var facesData = _buildDropdownSection('portrait-faces', 'Количество лиц', 'faces', 'badge-faces', 'включено', facesOpts);
+      var facesSec = facesData.section;
       facesSec.setAttribute('data-portrait-option', 'faces');
-
-      var facesTitleDiv = document.createElement('div');
-      facesTitleDiv.className = 'section-title';
-      var facesTitleLeft = document.createElement('span');
-      facesTitleLeft.className = 'flex items-center gap-1';
-      facesTitleLeft.textContent = 'Количество лиц';
-      var facesHint = createHintBtn('faces');
-      if (facesHint) facesTitleLeft.appendChild(facesHint);
-      facesTitleDiv.appendChild(facesTitleLeft);
-      var facesBadge = document.createElement('span');
-      facesBadge.className = 'calc-badge';
-      facesBadge.id = 'badge-faces';
-      facesBadge.textContent = 'включено';
-      facesTitleDiv.appendChild(facesBadge);
-      facesSec.appendChild(facesTitleDiv);
-
-      var facesGridWrap = document.createElement('div');
-      facesGridWrap.className = 'grid grid-cols-1';
-      var facesSelect = document.createElement('select');
-      facesSelect.id = 'portrait-faces';
-      facesSelect.setAttribute('aria-label', 'Количество лиц');
-      facesSelect.className = 'col-start-1 row-start-1 w-full appearance-none bg-white border border-gray-200 text-body py-3 pl-4 pr-8 rounded-lg text-sm font-medium focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary';
-      for (var i = 1; i <= 10; i++) {
-        var opt = document.createElement('option');
-        opt.value = i;
-        opt.textContent = i;
-        facesSelect.appendChild(opt);
-      }
-      facesGridWrap.appendChild(facesSelect);
-      var chevronSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      chevronSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-      chevronSvg.setAttribute('width', '24');
-      chevronSvg.setAttribute('height', '24');
-      chevronSvg.setAttribute('viewBox', '0 0 24 24');
-      chevronSvg.setAttribute('fill', 'none');
-      chevronSvg.setAttribute('stroke', 'currentColor');
-      chevronSvg.setAttribute('stroke-width', '2');
-      chevronSvg.setAttribute('stroke-linecap', 'round');
-      chevronSvg.setAttribute('stroke-linejoin', 'round');
-      chevronSvg.setAttribute('class', 'pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5 self-center justify-self-end text-ink-muted');
-      var chevPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      chevPath.setAttribute('d', 'm6 9 6 6 6-6');
-      chevronSvg.appendChild(chevPath);
-      facesGridWrap.appendChild(chevronSvg);
-      facesSec.appendChild(facesGridWrap);
+      var facesSelect = facesData.select;
+      var facesBadge = facesData.badge;
 
       /* Create portrait-specific inline checkbox sections */
       var gelData = makeInlineCheckboxSection('gel', 'Покрытие гелем', 'gel', 'price-gel', false);
@@ -592,10 +642,9 @@
        *  7) Цифровой макет        — mockupWrapper
        */
 
-      function detach(el) { if (el && el.parentNode) el.parentNode.removeChild(el); return el; }
-      detach(sizeSection);
-      detach(wrapSection);
-      detach(frameSection);
+      _detach(sizeSection);
+      _detach(wrapSection);
+      _detach(frameSection);
 
       var sectionsToOrder = [
         sizeSection,
@@ -685,191 +734,33 @@
     function buildPortraitStyleSections() {
       if (!isPortraitStyle) return;
 
-      var panel = document.querySelector('.calc-panel .p-4');
-      if (!panel) panel = document.querySelector('.calc-panel > div');
-      if (!panel) return;
-
-      /* Hide processing section */
-      var processingSelect = getEl('processing-select');
-      if (processingSelect) {
-        var procSection = processingSelect.closest('section');
-        if (procSection) procSection.style.display = 'none';
-        STATE.processing = 0;
-      }
-
-      /* Desktop: hide bare size inputs, show presets */
-      var sizeInputsRow = getEl('size-inputs-row');
-      if (sizeInputsRow) sizeInputsRow.classList.add('hidden');
-      var extraCarousel = getEl('size-extra-carousel');
-      if (extraCarousel) extraCarousel.style.display = 'none';
-      var presetsGrid = getEl('size-presets-grid');
-      if (presetsGrid) {
-        presetsGrid.classList.remove('lg:hidden');
-        presetsGrid.classList.add('flex');
-      }
-
-      /* ---------- Rewrite varnish + gift into inline rows ---------- */
-      var varnishGiftSection = getEl('varnish-gift-section');
-      if (!varnishGiftSection) {
-        var tv = getEl('toggle-varnish');
-        if (tv) varnishGiftSection = tv.closest('section.space-y-6');
-      }
-
-      var varnishSection = null;
-      var giftSection = null;
-
-      if (varnishGiftSection) {
-        varnishSection = makeInlineCheckboxSection(
-          'varnish', 'Покрытие лаком', 'varnish', 'price-varnish', STATE.varnish
-        );
-        giftSection = makeInlineCheckboxSection(
-          'gift', 'Подарочная упаковка', 'gift', 'price-gift', STATE.gift
-        );
-        varnishGiftSection.remove();
-      }
-
-      /* Reuse makeInlineCheckboxSection from portrait — it's in scope */
-      function makeInlineCheckboxSection(id, label, hintKey, badgeId, checked) {
-        var sec = document.createElement('section');
-        sec.id = id + '-section';
-        var row = document.createElement('div');
-        row.className = 'flex items-center gap-3';
-        var chkWrap = document.createElement('div');
-        chkWrap.className = 'flex h-6 shrink-0 items-center';
-        var grp = document.createElement('div');
-        grp.className = 'group grid size-4 grid-cols-1';
-        var chk = document.createElement('input');
-        chk.type = 'checkbox'; chk.id = 'toggle-' + id; chk.name = id;
-        chk.checked = !!checked;
-        chk.className = 'calc-checkbox col-start-1 row-start-1 forced-colors:appearance-auto';
-        grp.appendChild(chk);
-        var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svg.setAttribute('viewBox', '0 0 14 14'); svg.setAttribute('fill', 'none');
-        svg.setAttribute('class', 'pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white');
-        var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('d', 'M3 8L6 11L11 3.5'); path.setAttribute('stroke-width', '2');
-        path.setAttribute('stroke-linecap', 'round'); path.setAttribute('stroke-linejoin', 'round');
-        path.setAttribute('class', 'opacity-0 group-has-checked:opacity-100');
-        svg.appendChild(path); grp.appendChild(svg); chkWrap.appendChild(grp); row.appendChild(chkWrap);
-        var labelWrap = document.createElement('div');
-        labelWrap.className = 'flex items-center gap-1 min-w-0 flex-1';
-        var lbl = document.createElement('label');
-        lbl.htmlFor = 'toggle-' + id;
-        lbl.className = 'text-sm font-medium text-body cursor-pointer truncate';
-        lbl.textContent = label;
-        labelWrap.appendChild(lbl);
-        var hintBtn = createHintBtn(hintKey);
-        if (hintBtn) labelWrap.appendChild(hintBtn);
-        row.appendChild(labelWrap);
-        var badge = document.createElement('span');
-        badge.className = 'calc-badge whitespace-nowrap shrink-0';
-        badge.id = badgeId; badge.textContent = '0 ₽';
-        row.appendChild(badge);
-        sec.appendChild(row);
-        return { section: sec, checkbox: chk, badge: badge };
-      }
-
-      /* Locate static sections */
-      var sizeSection = getEl('size-section');
-      var wrapSection = null;
-      var frameSection = null;
-      var allSections = panel.querySelectorAll(':scope > section');
-      allSections.forEach(function (sec) {
-        if (sec.querySelector('.wrap-btn')) wrapSection = sec;
-        if (sec.querySelector('#frame-section')) frameSection = sec;
-      });
+      var setup = _portraitCommonSetup();
+      if (!setup) return;
+      var panel = setup.panel;
+      var sizeSection = setup.sizeSection;
+      var wrapSection = setup.wrapSection;
+      var frameSection = setup.frameSection;
+      var varnishSection = setup.varnishSection;
+      var giftSection = setup.giftSection;
 
       /* --- Style select dropdown --- */
-      var styleSec = document.createElement('section');
-      styleSec.id = 'portrait-style-section';
-      var styleTitleDiv = document.createElement('div');
-      styleTitleDiv.className = 'section-title';
-      var styleTitleLeft = document.createElement('span');
-      styleTitleLeft.className = 'flex items-center gap-1';
-      styleTitleLeft.textContent = 'Стиль портрета';
-      var styleHint = createHintBtn('style');
-      if (styleHint) styleTitleLeft.appendChild(styleHint);
-      styleTitleDiv.appendChild(styleTitleLeft);
-      var styleBadge = document.createElement('span');
-      styleBadge.className = 'calc-badge';
-      styleBadge.id = 'badge-style';
-      styleBadge.textContent = '0 ₽';
-      styleTitleDiv.appendChild(styleBadge);
-      styleSec.appendChild(styleTitleDiv);
-
-      var styleGridWrap = document.createElement('div');
-      styleGridWrap.className = 'grid grid-cols-1';
-      var styleSelect = document.createElement('select');
-      styleSelect.id = 'portrait-style-select';
-      styleSelect.setAttribute('aria-label', 'Стиль портрета');
-      styleSelect.className = 'col-start-1 row-start-1 w-full appearance-none bg-white border border-gray-200 text-body py-3 pl-4 pr-8 rounded-lg text-sm font-medium focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary';
       var styles = PRICES.styles || [];
-      styles.forEach(function (s) {
-        var opt = document.createElement('option');
-        opt.value = s.id;
-        opt.textContent = s.name;
-        styleSelect.appendChild(opt);
-      });
-      styleGridWrap.appendChild(styleSelect);
-      var chevSvg1 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      chevSvg1.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-      chevSvg1.setAttribute('width', '24'); chevSvg1.setAttribute('height', '24');
-      chevSvg1.setAttribute('viewBox', '0 0 24 24'); chevSvg1.setAttribute('fill', 'none');
-      chevSvg1.setAttribute('stroke', 'currentColor'); chevSvg1.setAttribute('stroke-width', '2');
-      chevSvg1.setAttribute('stroke-linecap', 'round'); chevSvg1.setAttribute('stroke-linejoin', 'round');
-      chevSvg1.setAttribute('class', 'pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5 self-center justify-self-end text-ink-muted');
-      var chevPath1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      chevPath1.setAttribute('d', 'm6 9 6 6 6-6');
-      chevSvg1.appendChild(chevPath1);
-      styleGridWrap.appendChild(chevSvg1);
-      styleSec.appendChild(styleGridWrap);
+      var styleOpts = styles.map(function (s) { return { value: s.id, text: s.name }; });
+      var styleData = _buildDropdownSection('portrait-style-select', 'Стиль портрета', 'style', 'badge-style', '0 ₽', styleOpts);
+      var styleSec = styleData.section;
+      var styleSelect = styleData.select;
+      var styleBadge = styleData.badge;
 
       /* --- Faces select dropdown --- */
-      var facesSec = document.createElement('section');
-      facesSec.id = 'portrait-faces-section';
-      var facesTitleDiv = document.createElement('div');
-      facesTitleDiv.className = 'section-title';
-      var facesTitleLeft = document.createElement('span');
-      facesTitleLeft.className = 'flex items-center gap-1';
-      facesTitleLeft.textContent = 'Количество лиц';
-      var facesHint = createHintBtn('faces');
-      if (facesHint) facesTitleLeft.appendChild(facesHint);
-      facesTitleDiv.appendChild(facesTitleLeft);
-      var facesBadge = document.createElement('span');
-      facesBadge.className = 'calc-badge';
-      facesBadge.id = 'badge-faces';
-      facesBadge.textContent = 'включено';
-      facesTitleDiv.appendChild(facesBadge);
-      facesSec.appendChild(facesTitleDiv);
-
-      var facesGridWrap = document.createElement('div');
-      facesGridWrap.className = 'grid grid-cols-1';
-      var facesSelect = document.createElement('select');
-      facesSelect.id = 'portrait-faces';
-      facesSelect.setAttribute('aria-label', 'Количество лиц');
-      facesSelect.className = 'col-start-1 row-start-1 w-full appearance-none bg-white border border-gray-200 text-body py-3 pl-4 pr-8 rounded-lg text-sm font-medium focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary';
-      for (var fi = 1; fi <= 10; fi++) {
-        var fOpt = document.createElement('option');
-        fOpt.value = fi; fOpt.textContent = fi;
-        facesSelect.appendChild(fOpt);
-      }
-      facesGridWrap.appendChild(facesSelect);
-      var chevSvg2 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      chevSvg2.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-      chevSvg2.setAttribute('width', '24'); chevSvg2.setAttribute('height', '24');
-      chevSvg2.setAttribute('viewBox', '0 0 24 24'); chevSvg2.setAttribute('fill', 'none');
-      chevSvg2.setAttribute('stroke', 'currentColor'); chevSvg2.setAttribute('stroke-width', '2');
-      chevSvg2.setAttribute('stroke-linecap', 'round'); chevSvg2.setAttribute('stroke-linejoin', 'round');
-      chevSvg2.setAttribute('class', 'pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5 self-center justify-self-end text-ink-muted');
-      var chevPath2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      chevPath2.setAttribute('d', 'm6 9 6 6 6-6');
-      chevSvg2.appendChild(chevPath2);
-      facesGridWrap.appendChild(chevSvg2);
-      facesSec.appendChild(facesGridWrap);
+      var facesOpts = [];
+      for (var fi = 1; fi <= 10; fi++) facesOpts.push({ value: fi, text: '' + fi });
+      var facesData = _buildDropdownSection('portrait-faces', 'Количество лиц', 'faces', 'badge-faces', 'включено', facesOpts);
+      var facesSec = facesData.section;
+      var facesSelect = facesData.select;
+      var facesBadge = facesData.badge;
 
       /* --- Assemble panel order --- */
-      function detach(el) { if (el && el.parentNode) el.parentNode.removeChild(el); return el; }
-      detach(sizeSection); detach(wrapSection); detach(frameSection);
+      _detach(sizeSection); _detach(wrapSection); _detach(frameSection);
 
       /* Lak group (just varnish, no gel/acrylic/oil/potal) */
       var varnishGroup = document.createElement('section');
@@ -883,16 +774,6 @@
       if (varnishSection) varnishList.appendChild(varnishSection.section);
       varnishGroup.appendChild(varnishList);
 
-      /*
-       * Target order:
-       *  1) Размер             — sizeSection
-       *  2) Подрамник и печать  — wrapSection
-       *  3) Стиль портрета     — styleSec
-       *  4) Количество лиц     — facesSec
-       *  5) Покрытие лаком     — varnishGroup
-       *  6) Багетная рама      — frameSection
-       *  7) Подарочная упак.   — giftSection
-       */
       var sectionsToOrder = [
         sizeSection, wrapSection, styleSec, facesSec,
         varnishGroup, frameSection,
@@ -912,10 +793,10 @@
           STATE.faces = curStyle.fixedFaces;
           facesSelect.value = curStyle.fixedFaces;
           facesSelect.disabled = true;
-          facesSelect.style.opacity = '0.5';
+          facesSelect.classList.add('opacity-50');
         } else {
           facesSelect.disabled = false;
-          facesSelect.style.opacity = '1';
+          facesSelect.classList.remove('opacity-50');
         }
       }
       applyStyleFacesLock();
@@ -980,7 +861,7 @@
       allSections.forEach(function (sec) {
         if (sec.querySelector('.wrap-btn')) {
           wrapSection = sec;
-          sec.style.display = 'none';
+          sec.classList.add('hidden');
         }
       });
 
@@ -991,7 +872,7 @@
       }
 
       if (varnishGiftSection) {
-        varnishGiftSection.style.display = 'none';
+        varnishGiftSection.classList.add('hidden');
         /* Remove old IDs to avoid conflicts with newly created elements */
         var oldGiftChk = varnishGiftSection.querySelector('#toggle-gift');
         var oldPriceGift = varnishGiftSection.querySelector('#price-gift');
@@ -1031,7 +912,7 @@
       var sizeInputsRow = getEl('size-inputs-row');
       if (sizeInputsRow) sizeInputsRow.classList.add('hidden');
       var extraCarousel = getEl('size-extra-carousel');
-      if (extraCarousel) extraCarousel.style.display = 'none';
+      if (extraCarousel) extraCarousel.classList.add('hidden');
       var presetsGrid = getEl('size-presets-grid');
       if (presetsGrid) {
         presetsGrid.classList.remove('lg:hidden');
@@ -1234,7 +1115,7 @@
       ];
 
       var allSections = _calcPanelSections || (_calcPanelSections =
-        Array.prototype.slice.call(document.querySelectorAll('.calc-panel section')));
+        Array.from(document.querySelectorAll('.calc-panel section')));
       allSections.forEach(function (sec) {
         if (sec.id === 'portrait-faces-section') return;
         if (sec.id === 'size-section') return;
@@ -1299,9 +1180,9 @@
           client: {
             name: nameInp.value,
             phone: phoneInp.value,
-            email: getEl('client-email').value,
-            link: getEl('client-link').value,
-            comment: getEl('client-comment').value
+            email: (getEl('client-email') || {}).value || '',
+            link: (getEl('client-link') || {}).value || '',
+            comment: (getEl('client-comment') || {}).value || ''
           },
           product: {
             type: cfg.type,
@@ -1316,11 +1197,26 @@
             digitalMockup: isPortrait ? STATE.digitalMockup : undefined,
             passepartout: isFrame ? STATE.passepartout : undefined
           },
-          totalPrice: getEl('total-price').textContent
+          totalPrice: (getEl('total-price') || {}).textContent || '0'
         };
 
-        console.log('Заказ отправлен:', orderData);
-        alert('Спасибо! Ваш заказ оформлен. Мы свяжемся с вами в ближайшее время.');
+        var successDialog = document.createElement('dialog');
+        successDialog.className = 'calc-hint-dialog';
+        successDialog.innerHTML =
+          '<h3 class="text-base font-bold text-body mb-3">Заказ оформлен</h3>' +
+          '<div class="text-sm text-body leading-relaxed">Спасибо! Мы свяжемся с вами в ближайшее время.</div>' +
+          '<div class="mt-4 text-right">' +
+            '<button type="button" class="text-sm font-bold text-primary-text hover:underline cursor-pointer" data-close-success>Закрыть</button>' +
+          '</div>';
+        document.body.appendChild(successDialog);
+        successDialog.querySelector('[data-close-success]').addEventListener('click', function () {
+          successDialog.close();
+          successDialog.remove();
+        });
+        successDialog.addEventListener('click', function (e) {
+          if (e.target === successDialog) { successDialog.close(); successDialog.remove(); }
+        });
+        successDialog.showModal();
       };
 
       var btnSubmit = getEl('btn-submit-order');
@@ -1438,10 +1334,10 @@
       });
 
       /* Task 3.2: cache frame element lists after first render */
-      _cachedFrameOptions = Array.prototype.slice.call(studioContainer.querySelectorAll('.frame-option'))
-        .concat(Array.prototype.slice.call(classicContainer.querySelectorAll('.frame-option')));
-      _cachedFramePreviews = Array.prototype.slice.call(studioContainer.querySelectorAll('.frame-image-preview'))
-        .concat(Array.prototype.slice.call(classicContainer.querySelectorAll('.frame-image-preview')));
+      _cachedFrameOptions = Array.from(studioContainer.querySelectorAll('.frame-option'))
+        .concat(Array.from(classicContainer.querySelectorAll('.frame-option')));
+      _cachedFramePreviews = Array.from(studioContainer.querySelectorAll('.frame-image-preview'))
+        .concat(Array.from(classicContainer.querySelectorAll('.frame-image-preview')));
 
       _frameCatalogRendered = true;
       updateModalPreviews();
@@ -2169,6 +2065,38 @@
       }
     }
 
+    /* ---------- Shared price helpers ---------- */
+
+    /** Gift wrap tier lookup — returns { raw: number, label: string|null } */
+    function calcGiftWrap(w, h) {
+      var raw = 0;
+      var label = null;
+      if (PRICES.giftWrapTiers) {
+        var minDim = Math.min(w, h);
+        var maxDim = Math.max(w, h);
+        for (var i = 0; i < PRICES.giftWrapTiers.length; i++) {
+          var tier = PRICES.giftWrapTiers[i];
+          if (minDim <= tier.maxW && maxDim <= tier.maxH) {
+            raw = tier.price;
+            break;
+          }
+        }
+        if (raw === 0) label = PRICES.giftWrapOversizeLabel || null;
+      }
+      return { raw: raw, label: label };
+    }
+
+    /** Print cost for canvas/portrait: stretcher + print formula */
+    function calcStretcherPrintCost(sq, perim) {
+      var strPrice = PRICES.stretcherStandard;
+      if (STATE.wrap === 'GALLERY') strPrice = PRICES.stretcherGallery;
+      else if (STATE.wrap === 'NO_FRAME') strPrice = PRICES.stretcherRoll;
+      return PRICES.printSqCoeff * sq
+        + PRICES.printPStrCoeff * perim * strPrice
+        + PRICES.printPBaseCoeff * perim
+        + PRICES.printConst;
+    }
+
     /* ---------- Price calculation ---------- */
 
     function calculate() {
@@ -2190,34 +2118,16 @@
         var psFaceCost = curStyle.faceFirst + psExtraFaces;
 
         /* Print + stretcher */
-        var psStrPrice = PRICES.stretcherStandard;
-        if (STATE.wrap === 'GALLERY') psStrPrice = PRICES.stretcherGallery;
-        else if (STATE.wrap === 'NO_FRAME') psStrPrice = PRICES.stretcherRoll;
-
-        var psPrintCost = PRICES.printSqCoeff * sq
-          + PRICES.printPStrCoeff * perim * psStrPrice
-          + PRICES.printPBaseCoeff * perim
-          + PRICES.printConst;
+        var psPrintCost = calcStretcherPrintCost(sq, perim);
 
         /* Varnish */
         var psVarnishRaw = sq * PRICES.varnishCoeff;
         var psVarnishCost = STATE.varnish ? psVarnishRaw : 0;
 
         /* Gift wrap */
-        var psGiftRaw = 0;
-        var psGiftLabelRaw = null;
-        if (PRICES.giftWrapTiers) {
-          var psMinDim = Math.min(STATE.w, STATE.h);
-          var psMaxDim = Math.max(STATE.w, STATE.h);
-          for (var psi = 0; psi < PRICES.giftWrapTiers.length; psi++) {
-            var psTier = PRICES.giftWrapTiers[psi];
-            if (psMinDim <= psTier.maxW && psMaxDim <= psTier.maxH) {
-              psGiftRaw = psTier.price;
-              break;
-            }
-          }
-          if (psGiftRaw === 0) psGiftLabelRaw = PRICES.giftWrapOversizeLabel || null;
-        }
+        var psGift = calcGiftWrap(STATE.w, STATE.h);
+        var psGiftRaw = psGift.raw;
+        var psGiftLabelRaw = psGift.label;
         var psGiftCost  = STATE.gift ? psGiftRaw : 0;
         var psGiftLabel = STATE.gift ? psGiftLabelRaw : null;
 
@@ -2267,21 +2177,10 @@
         /* Processing (same as canvas) */
         var frameProcessing = STATE.processing || 0;
 
-        /* Gift wrap (same logic as canvas/portrait) */
-        var fGiftRaw = 0;
-        var fGiftLabelRaw = null;
-        if (PRICES.giftWrapTiers) {
-          var fMinDim = Math.min(STATE.w, STATE.h);
-          var fMaxDim = Math.max(STATE.w, STATE.h);
-          for (var fi = 0; fi < PRICES.giftWrapTiers.length; fi++) {
-            var fTier = PRICES.giftWrapTiers[fi];
-            if (fMinDim <= fTier.maxW && fMaxDim <= fTier.maxH) {
-              fGiftRaw = fTier.price;
-              break;
-            }
-          }
-          if (fGiftRaw === 0) fGiftLabelRaw = PRICES.giftWrapOversizeLabel || null;
-        }
+        /* Gift wrap */
+        var fGift = calcGiftWrap(STATE.w, STATE.h);
+        var fGiftRaw = fGift.raw;
+        var fGiftLabelRaw = fGift.label;
         var fGiftCost  = STATE.gift ? fGiftRaw : 0;
         var fGiftLabel = STATE.gift ? fGiftLabelRaw : null;
 
@@ -2340,15 +2239,8 @@
         };
       }
 
-      /* Print + stretcher: 0.29·S + 0.04·P·strPrice + 0.76·P + const */
-      var strPrice = PRICES.stretcherStandard;
-      if (STATE.wrap === 'GALLERY') strPrice = PRICES.stretcherGallery;
-      else if (STATE.wrap === 'NO_FRAME') strPrice = PRICES.stretcherRoll;
-
-      var printCost = PRICES.printSqCoeff * sq
-        + PRICES.printPStrCoeff * perim * strPrice
-        + PRICES.printPBaseCoeff * perim
-        + PRICES.printConst;
+      /* Print + stretcher */
+      var printCost = calcStretcherPrintCost(sq, perim);
 
       /* Coatings — always compute potential cost; include in total only when active */
       var varnishRaw  = sq * PRICES.varnishCoeff;
@@ -2365,20 +2257,9 @@
       var potalCost   = STATE.potal   ? potalRaw   : 0;
 
       /* Gift wrap — always compute potential; include only when active */
-      var giftRaw = 0;
-      var giftLabelRaw = null;
-      if (PRICES.giftWrapTiers) {
-        var minDim = Math.min(STATE.w, STATE.h);
-        var maxDim = Math.max(STATE.w, STATE.h);
-        for (var gi = 0; gi < PRICES.giftWrapTiers.length; gi++) {
-          var tier = PRICES.giftWrapTiers[gi];
-          if (minDim <= tier.maxW && maxDim <= tier.maxH) {
-            giftRaw = tier.price;
-            break;
-          }
-        }
-        if (giftRaw === 0) giftLabelRaw = PRICES.giftWrapOversizeLabel || null;
-      }
+      var gift = calcGiftWrap(STATE.w, STATE.h);
+      var giftRaw = gift.raw;
+      var giftLabelRaw = gift.label;
       var giftCost  = STATE.gift ? giftRaw : 0;
       var giftLabel = STATE.gift ? giftLabelRaw : null;
 
@@ -2680,17 +2561,17 @@
 
     /* ========== BOOTSTRAP ========== */
 
-    if (isPortrait) {
+    if (isPortrait || isPortraitStyle || isFrame || cfg.tooltips) {
       initHintSystem();
+    }
+
+    if (isPortrait) {
       buildPortraitSections();
     } else if (isPortraitStyle) {
-      initHintSystem();
       buildPortraitStyleSections();
     } else if (isFrame) {
-      initHintSystem();
       buildFrameSections();
     } else if (cfg.tooltips) {
-      initHintSystem();
       enhanceStaticVarnishGift();
     }
     renderFrameCatalog();

@@ -303,7 +303,7 @@
   position: absolute;
   top: -100%;
   left: 1rem;
-  z-index: 9999;
+  z-index: var(--z-index-modal);
   padding: 0.5rem 1rem;
   background: var(--color-dark);
   color: white;
@@ -375,7 +375,7 @@
 
 @layer components {
   /* Page Navigator (старый) */
-  .page-navigator { position: fixed; top: 50%; transform: translateY(-50%); right: 1.85714286em; z-index: 9999; }
+  .page-navigator { position: fixed; top: 50%; transform: translateY(-50%); right: 1.85714286em; z-index: var(--z-index-modal); }
   .page-navigator ul { display: inline-block; padding: 0.92857143em; background: rgba(0, 0, 0, 0.4); border-radius: 1.85714286em; }
   .page-navigator ul:hover { background: rgba(0, 0, 0, 0.6); }
   .page-navigator ul li { list-style: none; }
@@ -1678,7 +1678,7 @@
   }
 
   .uploader-thumb-remove:hover {
-    background: var(--color-error);
+    background: rgba(0, 0, 0, 0.7);
   }
 
   .uploader-thumb-remove-armed,
@@ -2089,14 +2089,14 @@
   }
 
   #btn-sticky-order {
-    background-color: var(--color-ah-975) !important;
-    color: var(--color-ah-25) !important;
-    border: 1px solid rgba(255,253,250,.18) !important;
-    transition: transform .25s var(--ease-material) !important;
+    background-color: var(--color-ah-975);
+    color: var(--color-ah-25);
+    border: 1px solid rgba(255,253,250,.18);
+    transition: transform .25s var(--ease-material);
   }
   #btn-sticky-order:hover {
     transform: translateY(-2px);
-    background-color: var(--color-ah-975) !important;
+    background-color: var(--color-ah-975);
   }
 
   /* ── Frame-option cards ── */

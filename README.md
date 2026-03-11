@@ -18,9 +18,12 @@
 | Документ | Описание |
 |----------|----------|
 | [docs/HOW_TO_CREATE_PAGE.md](docs/HOW_TO_CREATE_PAGE.md) | Как создать страницу |
+| [docs/CALCULATOR.md](docs/CALCULATOR.md) | Калькулятор — API, формулы, интеграция |
+| [docs/UPLOADERS.md](docs/UPLOADERS.md) | Загрузчики изображений |
+| [docs/FRAMES.md](docs/FRAMES.md) | Каталог багетных рам — превью, CSS, roadmap |
 
 ---
 
 ---
 
-**Последнее обновление:** 07 февраля 2026
+**Последнее обновление:** июль 2025

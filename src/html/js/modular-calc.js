@@ -1081,8 +1081,23 @@
             comment: (document.getElementById('mc-client-comment') || {}).value || ''
           }
         };
-        console.log('[Muse Modular] Order data:', data);
-        alert('Заказ принят! Итого: ' + State.totals.price.toLocaleString('ru-RU') + ' ₽\nМы свяжемся с вами для подтверждения.');
+        var successDialog = document.createElement('dialog');
+        successDialog.className = 'calc-hint-dialog';
+        successDialog.innerHTML =
+          '<h3 class="text-base font-bold text-body mb-3">Заказ принят</h3>' +
+          '<div class="text-sm text-body leading-relaxed">Итого: ' + State.totals.price.toLocaleString('ru-RU') + ' ₽<br>Мы свяжемся с вами для подтверждения.</div>' +
+          '<div class="mt-4 text-right">' +
+            '<button type="button" class="text-sm font-bold text-primary-text hover:underline cursor-pointer" data-close-success>Закрыть</button>' +
+          '</div>';
+        document.body.appendChild(successDialog);
+        successDialog.querySelector('[data-close-success]').addEventListener('click', function () {
+          successDialog.close();
+          successDialog.remove();
+        });
+        successDialog.addEventListener('click', function (e) {
+          if (e.target === successDialog) { successDialog.close(); successDialog.remove(); }
+        });
+        successDialog.showModal();
       };
     }
 

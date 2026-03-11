@@ -119,10 +119,10 @@
     </section>
 
     <!-- Полноэкранный оверлей конструктора -->
-    <dialog id="constructor-modal" class="fixed inset-0 w-full h-full max-w-none max-h-none m-0 p-0 border-0 bg-white z-[9999]">
+    <dialog id="constructor-modal" class="fixed inset-0 w-full h-full max-w-none max-h-none m-0 p-0 border-0 bg-white z-[var(--z-index-modal)]">
         <div class="relative w-full h-full">
-            <button type="button" id="close-constructor-btn" class="fixed top-3 right-3 z-[10000] w-10 h-10 flex items-center justify-center rounded-full bg-white/90 shadow-lg text-ink hover:bg-white hover:text-ink transition backdrop-blur-sm" aria-label="Закрыть конструктор">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            <button type="button" id="close-constructor-btn" class="ui-control ui-control--md fixed top-3 right-3 z-[var(--z-index-lightbox)]" aria-label="Закрыть конструктор">
+                <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="w-6 h-6" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6l12 12"/></svg>
             </button>
             <iframe id="constructor-iframe" class="w-full h-full border-0" title="Конструктор фотоколлажа — выберите макет, загрузите фото, скачайте результат"></iframe>
         </div>
@@ -275,7 +275,7 @@
                         <section>
                             <div class="section-title"><span>Печать и подрамник</span><span id="badge-wrap" class="calc-badge tabular-nums lining-nums">0 ₽</span></div>
                             <div class="flex p-1 bg-ah-50 rounded-lg" role="radiogroup" aria-label="Тип подрамника">
-                                <button class="wrap-btn flex-1 py-2 rounded-md text-xs transition bg-white text-body shadow-sm font-bold" data-val="STANDARD" role="radio" aria-checked="true">Стандартный</button>
+                                <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-bold transition bg-white text-ink shadow-sm" data-val="STANDARD" role="radio" aria-checked="true">Стандартный</button>
                                 <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-medium transition" data-val="GALLERY" role="radio" aria-checked="false">Толстый</button>
                                 <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-medium transition" data-val="NO_FRAME" role="radio" aria-checked="false">Рулон</button>
                             </div>
@@ -325,10 +325,10 @@
                             </div>
                         </section>
                     </div>
-                    <div class="hidden lg:block p-6 border-t border-gray-100 bg-white lg:rounded-b-2xl">
-                        <div id="desktop-price-bar" class="flex items-baseline justify-between">
-                            <span class="text-sm text-ink">Цена со скидкой 20%</span>
-                            <span class="text-2xl font-bold text-ah-950 leading-none whitespace-nowrap tabular-nums lining-nums"><span id="total-price">890</span> ₽</span>
+                    <div id="desktop-price-bar" class="hidden lg:block px-6 py-5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-ink-muted">Цена со скидкой 20%</span>
+                            <span class="text-2xl font-bold text-ink leading-none whitespace-nowrap tabular-nums lining-nums"><span id="total-price">890</span> ₽</span>
                         </div>
                     </div>
                 </div>
@@ -364,18 +364,17 @@
 
         <dialog id="frame-modal" class="modal-shell">
             <div class="calc-frame-modal-content" id="frame-modal-content">
-                <div class="frame-modal-drag-handle"></div>
+                <div class="frame-modal-drag-handle" id="frame-modal-handle"></div>
                 <div class="calc-frame-modal-header">
                     <h3 class="heading-card text-2xl">Каталог багета</h3>
-                    <button id="close-frame-modal" type="button" class="ui-control">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                    <button id="close-frame-modal" type="button" class="ui-control ui-control--md focus:outline-none" aria-label="Закрыть">
+                        <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="w-6 h-6" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6l12 12"/></svg>
                     </button>
                 </div>
                 <div class="calc-frame-modal-body custom-scrollbar">
                     <div id="frame-upload-cta" class="calc-frame-upload-cta">
-                        <p class="text-xs text-ink-muted mb-3">Загрузите фото для примерки багета</p>
-                        <button id="modal-upload-btn" type="button" class="btn-header-cta py-2 px-4 text-xs uppercase tracking-widest flex items-center justify-center gap-2 mx-auto">
-                            <span>Загрузить фото</span>
+                        <button id="modal-upload-btn" type="button" class="btn-header-cta w-full py-3">
+                            Загрузите фото для примерки багета
                         </button>
                     </div>
                     <div class="mb-8">
@@ -388,15 +387,15 @@
                     </div>
                 </div>
                 <div class="calc-frame-modal-footer">
-                    <button id="apply-frame-selection" type="button" class="btn-header-cta w-full px-8 py-3">Выбрать этот багет</button>
+                    <button id="apply-frame-selection" type="button" class="btn-header-cta px-8 py-3">Выбрать этот багет</button>
                 </div>
             </div>
         </dialog>
 
         <dialog id="lightbox" class="modal-shell bg-ah-25/95 backdrop-blur-sm">
             <div class="absolute top-4 right-4 z-10">
-                <button id="lightbox-close" class="ui-control pointer-events-auto">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                <button id="lightbox-close" class="calc-lightbox-close ui-control ui-control--md pointer-events-auto" aria-label="Закрыть">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="w-6 h-6" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6l12 12"/></svg>
                 </button>
             </div>
             <div id="lightbox-content" class="relative transition-transform duration-300"></div>

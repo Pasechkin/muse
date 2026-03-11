@@ -1,6 +1,6 @@
 # Загрузчики изображений
 
-> **Обновлено:** 24 февраля 2026
+> **Обновлено:** 24 февраля 2026 (редакция: июль 2025 — актуализация порядка скриптов, добавлен frames.js)
 
 Документация описывает все реализации загрузчиков изображений в проекте: архитектуру, API, HTML-разметку, различия между страницами и требования к интеграции с 1С-Битрикс.
 
@@ -51,17 +51,20 @@
 | Файл | Размер | Назначение |
 |------|--------|------------|
 | `src/html/js/uploader.js` | ~679 строк | Универсальный загрузчик `MuseUploader` (используется группами A и B) |
-| `src/html/js/calc.js` | ~1700 строк | Калькулятор — создаёт `MuseUploader` внутри `CalcInit()` |
-| `src/html/js/modular-calc.js` | ~1000 строк | Калькулятор модульных картин — создаёт `MuseUploader` с `mc-` селекторами |
+| `src/html/js/calc.js` | ~2 560 строк | Калькулятор — создаёт `MuseUploader` внутри `CalcInit()` |
+| `src/html/js/frames.js` | ~56 строк | Каталог демо-рамок (`DEFAULT_FRAMES`) — подключается между prices и calc |
+| `src/html/js/modular-calc.js` | ~1 106 строк | Калькулятор модульных картин — создаёт `MuseUploader` с `mc-` селекторами |
 | `src/html/pechat/konstruktor-kollazha.html` | ~9700 строк | Конструктор коллажей — содержит собственный inline-загрузчик |
 
 ### Порядок подключения скриптов (группа A)
 
 ```html
-<!-- ОБЯЗАТЕЛЬНО: сначала prices.js, потом calc.js, потом uploader.js -->
-<script defer src="js/prices.js"></script>
-<script defer src="js/calc.js"></script>
+<!-- ОБЯЗАТЕЛЬНО: nav → uploader → prices → frames → calc -->
+<script defer src="js/nav.js"></script>
 <script defer src="js/uploader.js"></script>
+<script defer src="js/prices.js"></script>
+<script defer src="js/frames.js"></script>
+<script defer src="js/calc.js?v=3"></script>
 ```
 
 ### Порядок подключения скриптов (группа B)
@@ -505,7 +508,7 @@ file: <binary>
 
 ### Текущее поведение (заглушка)
 
-Сейчас фото хранятся **только в памяти браузера** (blob-URL / data-URL). При отправке формы заказа собираются ID загруженных фото из массива `images`, но реальная отправка — `console.log` + `alert`.
+Сейчас фото хранятся **только в памяти браузера** (blob-URL / data-URL). При нажатии «Заказать» показывается `<dialog>` с подтверждением, но реальная отправка на сервер — заглушка до интеграции с Bitrix.
 
 ### Что нужно для production
 
@@ -579,10 +582,10 @@ async function submitOrder(orderData) {
 ### Порядок подключения скриптов — не менять
 
 ```
-prices.js → calc.js (или modular-calc.js) → uploader.js
+prices.js → frames.js → calc.js (или modular-calc.js) → uploader.js
 ```
 
-Все скрипты подключены с `defer` — порядок исполнения гарантирован браузером по порядку в DOM.
+> **Примечание:** фактический порядок в HTML: `nav → uploader → prices → frames → calc`. Поскольку все с `defer`, браузер выполняет их в порядке DOM, а `CalcInit()` вызывается лазы (через IntersectionObserver), когда все скрипты уже загружены.
 
 ### Стили загрузчика
 
