@@ -22,13 +22,13 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>Конструктор фотоколлажей</title>
   <style> :root {
-     --primary-color:#4a90e2;
-     --secondary-color:#3878C1;
-     --border-color:#ddd;
-     --text-color:#525252;
-     --bg-color:#fafafa;
+     --primary-color:#D97706;
+     --secondary-color:#B45309;
+     --border-color:#e8d5c0;
+     --text-color:#281601;
+     --bg-color:#FFFDFA;
      --base-size:64px;
-     --unified-border:2px solid #bbb;
+     --unified-border:2px solid #d4b896;
 }
 /* ====== Базовая типографика конструктора ====== */
 
@@ -50,7 +50,7 @@ body,
 .text li, .constructor-text li, .collage-text li, .collage-hint-text li {
   font-size: 1em;
   line-height: 1.8571em;
-  color: #525252;
+  color: var(--text-color);
   font-weight: 400;
 }
 
@@ -66,13 +66,13 @@ body,
 .lead {
   font-size: 1.35714286em;
   line-height: 1.68421053em;
-  color: #525252;
+  color: var(--text-color);
   font-weight: 400;
   margin-bottom: 1.5em;
 }
 
 /* Цветовые классы */
-.color--primary { color: #3878C1 !important; }
+.color--primary { color: var(--secondary-color) !important; }
 .color--dark    { color: #262626 !important; }
 .color--white   { color: #fff !important; }
 .color--error   { color: #e23636 !important; }
@@ -97,7 +97,7 @@ strong, b,
 
 /* Ссылки */
 a, .text a, .constructor-text a, .collage-text a, .collage-hint-text a {
-  color: #3878C1;
+  color: var(--secondary-color);
   text-decoration: none;
 }
 a:hover, .text a:hover, .constructor-text a:hover, .collage-text a:hover, .collage-hint-text a:hover {
@@ -189,7 +189,7 @@ a:hover, .text a:hover, .constructor-text a:hover, .collage-text a:hover, .colla
 
 /* Highlight state */
 .collage-cell.highlight {
-  background: #eaf4ff;
+  background: #FEF1E1;
 }
 
 /* Placeholder внутри */
@@ -283,7 +283,7 @@ a:hover, .text a:hover, .constructor-text a:hover, .collage-text a:hover, .colla
      right: 2px;
      width: 24px;
      height: 24px;
-     background: #4a90e2 !important;
+     background: var(--primary-color) !important;
      color: #fff !important;
      border: none;
      border-radius: 50%;
@@ -388,6 +388,42 @@ a:hover, .text a:hover, .constructor-text a:hover, .collage-text a:hover, .colla
     border-radius:4px;
     border:1px solid var(--border-color);
 }
+/* Range slider — amber theme */
+ input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    background: var(--border-color);
+    border-radius: 3px;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+ input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    cursor: pointer;
+}
+ input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    cursor: pointer;
+}
+ input[type="range"]::-moz-range-track {
+    height: 6px;
+    background: var(--border-color);
+    border-radius: 3px;
+    border: none;
+}
  .action-buttons {
     display: flex;
     gap: 8px;
@@ -419,6 +455,15 @@ a:hover, .text a:hover, .constructor-text a:hover, .collage-text a:hover, .colla
  .btn-secondary {
      background:var(--secondary-color);
      color:white;
+}
+ .btn-outline {
+     background:transparent;
+     color:var(--text-color);
+     border:1.5px solid var(--border-color);
+}
+ .btn-outline:hover {
+     border-color:var(--primary-color);
+     color:var(--primary-color);
 }
  #upload-container {
      display:flex;
@@ -664,7 +709,7 @@ a:hover, .text a:hover, .constructor-text a:hover, .collage-text a:hover, .colla
      position:absolute;
      top:7px;
      right:8px;
-     background:#eaf4ff;
+     background:#FEF1E1;
      border:none;
      border-radius:50%;
      width:32px;
@@ -904,7 +949,7 @@ a:hover, .text a:hover, .constructor-text a:hover, .collage-text a:hover, .colla
      right: 6px;
      width: 28px;
      height: 28px;
-     background: #4a90e2;
+     background: var(--primary-color);
      color: #fff;
      border: none;
      border-radius: 50%;
@@ -997,7 +1042,7 @@ a:hover, .text a:hover, .constructor-text a:hover, .collage-text a:hover, .colla
      transition: background 0.22s;
 }
  .hand-panel.active {
-     background: #4a90e2;
+     background: var(--primary-color);
 }
  .hand-btn {
      width: 36px;
@@ -1012,16 +1057,21 @@ a:hover, .text a:hover, .constructor-text a:hover, .collage-text a:hover, .colla
      align-items: center;
      justify-content: center;
 }
+ .hand-panel .hand-btn svg {
+     color: var(--primary-color);
+     transition: color 0.22s;
+}
  .hand-panel .hand-btn svg path {
-     fill: #4a90e2 !important;
-     stroke: #4a90e2 !important;
-     stroke-width: 20px !important;
-     transition: fill 0.22s, stroke 0.22s;
+     fill: none !important;
+     stroke: currentColor !important;
+     stroke-width: 1.8px !important;
+}
+ .hand-panel.active .hand-btn svg {
+     color: #fff;
 }
  .hand-panel.active .hand-btn svg path {
-     fill: #fff !important;
+     fill: none !important;
      stroke: #fff !important;
-     stroke-width: 8px !important;
 }
  .zoom-value, #zoom-value {
      min-width: 36px;
@@ -1036,10 +1086,10 @@ a:hover, .text a:hover, .constructor-text a:hover, .collage-text a:hover, .colla
      transition: color 0.18s;
 }
  .zoom-value {
-     color: #3878C1;
+     color: var(--secondary-color);
 }
  .zoom-value:hover {
-     text-decoration-color:#3878C1;
+     text-decoration-color:var(--secondary-color);
 }
  .hand-panel.active .zoom-value {
      color: #fff !important;
@@ -1300,18 +1350,16 @@ function processImage(src, originalSize) {
 <style>
 body.drag-over {
   outline: 3px dashed var(--primary-color);
-  background: rgba(74,144,226,0.05);
+  background: rgba(217,119,6,0.05);
 }
 </style>
 </head>
 <body class="bg-ah-25">
  <div class="hand-panel" id="hand-panel">
-   <!-- Кнопка "рука" (пример с SVG-иконкой) -->
+   <!-- Кнопка grab — Heroicons hand (режим перемещения) -->
    <button class="hand-btn" id="hand-mode-btn" aria-label="Режим перемещения">
-      <svg width="28" height="28" viewBox="0 0 100 100" fill="none">
-         <g transform="translate(0,100) scale(0.1,-0.1)">
-            <path d="M465 975 c-14 -13 -25 -33 -25 -44 0 -17 -5 -19 -34 -14 -28 4 -39 1 -60 -20 l-26 -26 0 -228 -1 -228 -44 50 c-39 45 -48 50 -85 50 -34 0 -47 -6 -66 -28 -38 -45 -31 -75 36 -164 250 -329 242 -323 417 -323 155 0 206 22 244 105 17 36 19 71 19 363 0 267 -3 328 -15 352 -16 32 -45 45 -79 36 -21 -5 -24 -1 -30 34 -8 48 -41 74 -87 68 -23 -4 -37 1 -55 19 -31 31 -77 30 -109 -2z m83 -27 c8 -8 12 -67 12 -200 0 -181 1 -188 20 -188 19 0 20 8 22 171 3 151 5 173 21 183 12 8 22 8 35 0 15 -10 17 -33 20 -203 2 -182 3 -191 22 -191 18 0 20 9 22 141 3 122 5 143 21 153 12 8 22 8 35 0 15 -10 17 -39 20 -335 2 -357 1 -368 -61 -413 -25 -19 -43 -21 -162 -21 -128 0 -134 1 -160 25 -45 41 -275 341 -275 358 0 22 30 52 51 52 10 0 44 -30 75 -67 90 -107 88 -111 94 191 4 232 7 260 23 270 12 8 22 8 35 0 15 -10 17 -32 20 -173 2 -153 4 -161 22 -161 19 0 20 7 20 198 0 203 3 222 40 222 9 0 21 -5 28 -12z"/>
-         </g>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+         <path d="M10.05 4.575a1.575 1.575 0 1 0-3.15 0v3m3.15-3v-1.5a1.575 1.575 0 0 1 3.15 0v1.5m-3.15 0 .075 5.925m3.075.75V4.575m0 0a1.575 1.575 0 0 1 3.15 0V15M6.9 7.575a1.575 1.575 0 1 0-3.15 0v8.175a6.75 6.75 0 0 0 6.75 6.75h2.018a5.25 5.25 0 0 0 3.712-1.538l1.732-1.732a5.25 5.25 0 0 0 1.538-3.712l.003-2.024a.668.668 0 0 1 .198-.471 1.575 1.575 0 1 0-2.228-2.228 3.818 3.818 0 0 0-1.12 2.687M6.9 7.575V12m6.27 4.318A4.49 4.49 0 0 1 16.35 15m.002 0h-.002"/>
       </svg>
    </button>
    <!-- Текущий масштаб -->
@@ -1319,8 +1367,8 @@ body.drag-over {
    <!-- Кнопка сброса масштаба -->
    <button id="zoom-reset-btn" title="Сбросить масштаб к 100%" class="zoom-reset-btn" tabindex="0" aria-label="Сбросить масштаб">
       <svg width="22" height="22" viewBox="0 0 22 22">
-         <path d="M4 12a7 7 0 1 0 2-5" fill="none" stroke="#4a90e2" stroke-width="2" stroke-linecap="round"/>
-         <polyline points="2,8 4,12 8,10" fill="none" stroke="#4a90e2" stroke-width="2" stroke-linecap="round"/>
+         <path d="M4 12a7 7 0 1 0 2-5" fill="none" stroke="#D97706" stroke-width="2" stroke-linecap="round"/>
+         <polyline points="2,8 4,12 8,10" fill="none" stroke="#D97706" stroke-width="2" stroke-linecap="round"/>
       </svg>
    </button>
 </div>
@@ -1541,6 +1589,7 @@ body.drag-over {
       </div>
    </div>
    <div class="action-buttons">
+      <button class="btn btn-outline" id="exit-btn">Выйти</button>
       <button class="btn btn-primary" id="preview-btn">Предпросмотр</button>
    </div>
 </div>
@@ -1556,6 +1605,11 @@ body.drag-over {
    </div>
 </div>
 <script>
+// Кнопка «Выйти» — отправляем сообщение родителю закрыть модаль
+document.getElementById('exit-btn').addEventListener('click', function () {
+  window.parent.postMessage({ type: 'MUSE_COLLAGE_CLOSE' }, '*');
+});
+
 function isIOS() {
   return /iP(ad|hone|od)/.test(navigator.userAgent);
 }
@@ -8663,7 +8717,7 @@ function renderResizeHandles() {
     handle.style.zIndex = 10;
     handle.innerHTML = `
   <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 800.000000 800.000000" preserveAspectRatio="xMidYMid meet">
-<g transform="translate(0.000000,800.000000) scale(0.100000,-0.100000)" fill="#4a90e2" stroke="none">
+<g transform="translate(0.000000,800.000000) scale(0.100000,-0.100000)" fill="#D97706" stroke="none">
 <path d="M1910 5321 c-87 -28 -127 -64 -656 -594 -517 -518 -543 -545 -564
 -602 -29 -80 -29 -170 0 -250 21 -57 47 -84 564 -602 621 -621 592 -598 746
 -598 84 0 101 3 147 28 66 34 116 84 150 150 25 46 28 63 28 147 0 142 -10
@@ -8740,8 +8794,8 @@ function renderResizeHandles() {
     handle.style.position = 'absolute';
     handle.style.zIndex = 10;
     handle.innerHTML = `
-  <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 800 800" fill="#4a90e2" style="transform: rotate(90deg); display: block; margin: auto;">
-    <g transform="translate(0,800) scale(0.1,-0.1)" fill="#4a90e2" stroke="none">
+  <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 800 800" fill="#D97706" style="transform: rotate(90deg); display: block; margin: auto;">
+    <g transform="translate(0,800) scale(0.1,-0.1)" fill="#D97706" stroke="none">
       <path d="M1910 5321 c-87 -28 -127 -64 -656 -594 -517 -518 -543 -545 -564
 -602 -29 -80 -29 -170 0 -250 21 -57 47 -84 564 -602 621 -621 592 -598 746
 -598 84 0 101 3 147 28 66 34 116 84 150 150 25 46 28 63 28 147 0 142 -10

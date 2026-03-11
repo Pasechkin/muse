@@ -121,9 +121,6 @@
     <!-- Полноэкранный оверлей конструктора -->
     <dialog id="constructor-modal" class="fixed inset-0 w-full h-full max-w-none max-h-none m-0 p-0 border-0 bg-white z-[var(--z-index-modal)]">
         <div class="relative w-full h-full">
-            <button type="button" id="close-constructor-btn" class="ui-control ui-control--md fixed top-3 right-3 z-[var(--z-index-lightbox)]" aria-label="Закрыть конструктор">
-                <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="w-6 h-6" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6l12 12"/></svg>
-            </button>
             <iframe id="constructor-iframe" class="w-full h-full border-0" title="Конструктор фотоколлажа — выберите макет, загрузите фото, скачайте результат"></iframe>
         </div>
     </dialog>
@@ -949,7 +946,6 @@
         var modal = document.getElementById('constructor-modal');
         var iframe = document.getElementById('constructor-iframe');
         var openBtn = document.getElementById('open-constructor-btn');
-        var closeBtn = document.getElementById('close-constructor-btn');
         var loaded = false;
 
         function openConstructor() {
@@ -967,7 +963,13 @@
         }
 
         openBtn.addEventListener('click', openConstructor);
-        closeBtn.addEventListener('click', closeConstructor);
+
+        // Слушаем postMessage от iframe (кнопка «Выйти» в конструкторе)
+        window.addEventListener('message', function (e) {
+            if (e.data && e.data.type === 'MUSE_COLLAGE_CLOSE') {
+                closeConstructor();
+            }
+        });
 
         modal.addEventListener('cancel', function () {
             document.body.style.overflow = '';
