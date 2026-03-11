@@ -225,7 +225,7 @@
                                 <section>
                                     <div class="section-title"><span>Печать и подрамник</span><span id="badge-wrap" class="calc-badge tabular-nums lining-nums">0 ₽</span></div>
                                     <div class="flex p-1 bg-ah-50 rounded-lg" role="radiogroup" aria-label="Тип подрамника">
-                                        <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-bold transition bg-white text-body shadow-sm" data-val="STANDARD" role="radio" aria-checked="true">Стандартный</button>
+                                        <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-bold transition bg-white text-ink shadow-sm" data-val="STANDARD" role="radio" aria-checked="true">Стандартный</button>
                                         <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-medium transition" data-val="GALLERY" role="radio" aria-checked="false">Толстый</button>
                                         <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-medium transition" data-val="NO_FRAME" role="radio" aria-checked="false">Рулон</button>
                                     </div>
@@ -233,7 +233,7 @@
                                 <section>
                                     <div class="section-title"><span>Обработка фото</span><span id="badge-processing" class="calc-badge tabular-nums lining-nums">0 ₽</span></div>
                                     <div class="grid grid-cols-1">
-                                        <select id="processing-select" aria-label="Обработка фото" class="col-start-1 row-start-1 w-full appearance-none bg-white border border-gray-200 text-body py-3 pl-4 pr-8 rounded-lg text-sm font-medium focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary">
+                                        <select id="processing-select" aria-label="Обработка фото" class="col-start-1 row-start-1 w-full appearance-none bg-white border border-gray-200 text-ink py-3 pl-4 pr-8 rounded-lg text-sm font-medium focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary">
                                         </select>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5 self-center justify-self-end text-ink-muted"><path d="m6 9 6 6 6-6"/></svg>
                                     </div>
@@ -243,47 +243,39 @@
                                     <div id="frame-section" class="border border-ah-200 rounded-lg p-4 flex items-center gap-4 cursor-pointer hover:border-ah-700 hover:bg-ah-50 transition group bg-white">
                                         <div class="w-10 h-10 rounded border flex items-center justify-center text-ink-muted"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="w-5 h-5"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></div>
                                         <div>
-                                            <div class="text-sm font-bold text-body" id="selected-frame-text">Без багета</div>
+                                            <div class="text-sm font-bold text-ink" id="selected-frame-text">Без багета</div>
                                             <div class="text-xs text-ink font-medium group-hover:underline">Выбрать из каталога →</div>
                                         </div>
                                     </div>
                                 </section>
-                                <section id="varnish-gift-section" class="space-y-6">
-                                    <div class="bg-white">
-                                        <div class="section-title mb-2"><span>Покрытие лаком</span><span class="calc-badge tabular-nums lining-nums" id="price-varnish">0 ₽</span></div>
-                                        <div class="flex gap-3">
-                                            <div class="flex h-6 shrink-0 items-center">
-                                                <div class="group grid size-5 grid-cols-1">
-                                                    <input id="toggle-varnish" type="checkbox" name="varnish" checked aria-label="Покрытие лаком" class="calc-checkbox col-start-1 row-start-1 forced-colors:appearance-auto" />
-                                                    <svg aria-hidden="true" viewBox="0 0 14 14" fill="none" class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white">
-                                                        <path d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-0 group-has-checked:opacity-100" />
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                            <div class="text-sm/6">
-                                                <label for="toggle-varnish" class="font-medium text-body cursor-pointer">Защитит от влаги и выцветания</label>
+                                <section id="varnish-gift-section" class="space-y-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex h-6 shrink-0 items-center">
+                                            <div class="group grid size-4 grid-cols-1">
+                                                <input id="toggle-varnish" type="checkbox" name="varnish" checked aria-label="Покрытие лаком" class="calc-checkbox col-start-1 row-start-1 forced-colors:appearance-auto" />
+                                                <svg aria-hidden="true" viewBox="0 0 14 14" fill="none" class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white">
+                                                    <path d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-0 group-has-checked:opacity-100" />
+                                                </svg>
                                             </div>
                                         </div>
+                                        <label for="toggle-varnish" class="text-sm font-medium text-body cursor-pointer truncate flex-1">Покрытие лаком</label>
+                                        <span class="calc-badge whitespace-nowrap shrink-0 tabular-nums lining-nums" id="price-varnish">0 ₽</span>
                                     </div>
-                                    <div class="bg-white">
-                                        <div class="section-title mb-2"><span>Подарочная упаковка</span><span class="calc-badge tabular-nums lining-nums" id="price-gift">0 ₽</span></div>
-                                        <div class="flex gap-3">
-                                            <div class="flex h-6 shrink-0 items-center">
-                                                <div class="group grid size-5 grid-cols-1">
-                                                    <input id="toggle-gift" type="checkbox" name="gift" aria-label="Подарочная упаковка" class="calc-checkbox col-start-1 row-start-1 forced-colors:appearance-auto" />
-                                                    <svg aria-hidden="true" viewBox="0 0 14 14" fill="none" class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white">
-                                                        <path d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-0 group-has-checked:opacity-100" />
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                            <div class="text-sm/6">
-                                                <label for="toggle-gift" class="font-medium text-body cursor-pointer">Крафт-бумага, лента и открытка</label>
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex h-6 shrink-0 items-center">
+                                            <div class="group grid size-4 grid-cols-1">
+                                                <input id="toggle-gift" type="checkbox" name="gift" aria-label="Подарочная упаковка" class="calc-checkbox col-start-1 row-start-1 forced-colors:appearance-auto" />
+                                                <svg aria-hidden="true" viewBox="0 0 14 14" fill="none" class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white">
+                                                    <path d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-0 group-has-checked:opacity-100" />
+                                                </svg>
                                             </div>
                                         </div>
+                                        <label for="toggle-gift" class="text-sm font-medium text-body cursor-pointer truncate flex-1">Подарочная упаковка</label>
+                                        <span class="calc-badge whitespace-nowrap shrink-0 tabular-nums lining-nums" id="price-gift">0 ₽</span>
                                     </div>
                                 </section>
                             </div>
-                            <div id="desktop-price-bar" class="hidden lg:block px-6 pt-2 pb-8 -mt-8">
+                            <div id="desktop-price-bar" class="hidden lg:block px-6 pt-2 pb-8">
                                 <div class="flex items-baseline justify-between">
                                     <span class="text-sm text-ink-muted">Цена со скидкой 20%</span>
                                     <span class="text-2xl font-bold text-ink leading-none whitespace-nowrap tabular-nums lining-nums"><span id="total-price">890</span> ₽</span>

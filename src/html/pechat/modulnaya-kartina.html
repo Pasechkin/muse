@@ -173,7 +173,7 @@
                 <h2 class="heading-section text-center mb-4 lg:mb-10">Создайте свою модульную картину</h2>
 
                 <!-- Constructor Root -->
-                <div id="mc-calc-root" class="rounded-2xl overflow-hidden border border-gray-200 shadow-lg bg-white" data-mobile-layout="split">
+                <div id="mc-calc-root" class="rounded-2xl overflow-hidden border border-ah-200 shadow-lg bg-white" data-mobile-layout="split">
                     <div class="flex flex-col lg:flex-row mc-constructor-h">
 
                         <!-- Left column: uploader + workspace -->
@@ -182,7 +182,7 @@
                             <div id="mc-uploader-zone" class="uploader-zone flex-none px-3 pt-3 lg:px-4 lg:pt-4">
                                 <div class="w-full max-w-sm mx-auto lg:max-w-none">
                                     <input type="file" id="mc-file-input" class="hidden" accept="image/jpeg,image/png,image/gif,image/webp" multiple>
-                                    <button type="button" id="mc-btn-upload" class="w-full bg-ah-950 hover:bg-ah-900 text-white font-bold py-3 rounded-lg text-sm uppercase tracking-wide transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                                    <button type="button" id="mc-btn-upload" class="btn-header-cta w-full px-8 py-3 flex items-center justify-center gap-2">
                                         <span>Загрузить фото</span>
                                     </button>
                                     <div id="mc-uploader-thumbs" class="uploader-thumbnails thin-scrollbar-x" role="listbox" aria-label="Загруженные фотографии"></div>
@@ -191,20 +191,20 @@
                                 </div>
                             </div>
                             <!-- Toolbar (above workspace, not overlapping) -->
-                            <div id="mc-toolbar" class="flex-none px-3 py-1.5 flex items-center justify-between bg-white border-b border-gray-100">
-                                <div class="p-0.5 bg-gray-100 rounded-lg flex items-center gap-1">
-                                    <button id="mc-btn-mode-image" class="px-3 py-2 rounded-md text-[10px] uppercase font-bold tracking-wider text-ink-muted hover:text-ink hover:bg-gray-50 transition-all" aria-pressed="false">Сдвиг фото</button>
-                                    <button id="mc-btn-mode-layout" class="px-3 py-2 rounded-md text-[10px] uppercase font-bold tracking-wider bg-white text-ah-950 shadow-sm ring-1 ring-black/5 transition-all" aria-pressed="true">Макет</button>
+                            <div id="mc-toolbar" class="flex-none px-3 py-1.5 flex items-center justify-between bg-white border-b border-ah-100">
+                                <div class="p-0.5 bg-ah-50 rounded-lg flex items-center gap-1">
+                                    <button id="mc-btn-mode-image" class="size-btn" aria-pressed="false">Сдвиг фото</button>
+                                    <button id="mc-btn-mode-layout" class="size-btn is-active" aria-pressed="true">Макет</button>
                                 </div>
                                 <span id="mc-size-label" class="text-xs font-bold text-ink-muted whitespace-nowrap">0 × 0 см</span>
                                 <div id="mc-img-controls" class="hidden items-center gap-1">
-                                    <button id="mc-btn-zoom-out" class="p-1.5 rounded-lg text-ink-muted hover:bg-gray-100 transition-all"></button>
-                                    <button id="mc-btn-center" class="p-1.5 rounded-lg text-ink-muted hover:bg-gray-100 transition-all"></button>
-                                    <button id="mc-btn-zoom-in" class="p-1.5 rounded-lg text-ink-muted hover:bg-gray-100 transition-all"></button>
+                                    <button id="mc-btn-zoom-out" class="p-1.5 rounded-lg text-ink-muted hover:bg-ah-50 transition-all"></button>
+                                    <button id="mc-btn-center" class="p-1.5 rounded-lg text-ink-muted hover:bg-ah-50 transition-all"></button>
+                                    <button id="mc-btn-zoom-in" class="p-1.5 rounded-lg text-ink-muted hover:bg-ah-50 transition-all"></button>
                                 </div>
                             </div>
                             <!-- Workspace -->
-                            <div id="mc-workspace" class="relative mc-workspace-h lg:flex-1 flex flex-col bg-gray-100 min-h-0 select-none overflow-hidden" style="touch-action:pan-y">
+                            <div id="mc-workspace" class="relative mc-workspace-h lg:flex-1 flex flex-col bg-ah-25 min-h-0 select-none overflow-hidden" style="touch-action:pan-y">
                             <!-- Canvas -->
                             <div class="flex-1 relative overflow-hidden">
                                 <div id="mc-canvas-root" class="absolute top-0 left-0 origin-top-left mc-hw-accel"></div>
@@ -213,18 +213,18 @@
                         </div>
 
                         <!-- Sidebar (right) -->
-                        <div id="mc-sidebar" class="relative lg:flex-none flex flex-col w-full lg:w-95 min-h-0 border-t lg:border-t-0 lg:border-l border-gray-200 bg-white">
+                        <div id="mc-sidebar" class="relative lg:flex-none flex flex-col w-full lg:w-95 min-h-0 border-t lg:border-t-0 lg:border-l border-ah-200 bg-white lg:rounded-2xl lg:shadow-lg lg:border-ah-200">
                             <!-- Scrollable content -->
-                            <div id="mc-sidebar-content" class="flex-1 overflow-y-auto mc-custom-scroll"></div>
+                            <div id="mc-sidebar-content" class="flex-1 overflow-y-auto custom-scrollbar"></div>
                             <!-- Desktop-only: sticky bar inside sidebar (price like foto-na-kholste) -->
-                            <div id="mc-sticky-bar-desktop" class="hidden lg:block flex-none border-t border-gray-100 bg-white p-6">
-                                <div class="flex items-baseline justify-between">
+                            <div id="mc-sticky-bar-desktop" class="hidden lg:block flex-none border-t border-ah-100 bg-white px-6 py-5">
+                                <div class="flex items-center justify-between">
                                     <span class="mc-sticky-label text-sm text-ink-muted">Цена со скидкой 20%</span>
-                                    <span class="mc-sticky-price text-2xl font-bold text-ah-950 leading-none whitespace-nowrap">0 р.</span>
+                                    <span class="mc-sticky-price text-2xl font-bold text-ink leading-none whitespace-nowrap tabular-nums lining-nums">0 ₽</span>
                                 </div>
                             </div>
                             <!-- Desktop-only: tab bar inside sidebar -->
-                            <div id="mc-tab-bar-desktop" class="hidden lg:flex flex-none border-t border-gray-100 bg-secondary"></div>
+                            <div id="mc-tab-bar-desktop" class="hidden lg:flex flex-none border-t border-ah-100 bg-ah-50"></div>
                         </div>
 
                     </div>
@@ -235,14 +235,14 @@
             <!-- Mobile sticky bottom (sticky — уходит при прокрутке мимо секции #calc) -->
             <div id="mc-mobile-bottom" class="sticky bottom-0 z-50 lg:hidden">
                 <!-- Mobile tab bar -->
-                <div id="mc-tab-bar" class="bg-secondary border-t border-gray-100 flex"></div>
+                <div id="mc-tab-bar" class="bg-ah-50 border-t border-ah-100 flex"></div>
                 <!-- Mobile sticky bar -->
-                <div id="mc-sticky-bar" class="bg-white border-t border-gray-200 shadow-[0_-4px_15px_rgba(0,0,0,0.1)] px-4 py-2.5 flex items-center justify-between">
+                <div id="mc-sticky-bar" class="calc-sticky-bar">
                     <div class="min-w-0">
-                        <div class="mc-sticky-price text-lg font-bold text-ah-950 whitespace-nowrap">0 р.</div>
-                        <div class="mc-sticky-label text-xs text-ink-muted whitespace-nowrap">— цена со скидкой 20%</div>
+                        <div class="mc-sticky-price text-lg font-bold text-ink-on-dark whitespace-nowrap tabular-nums lining-nums">0 ₽</div>
+                        <div class="mc-sticky-label text-xs text-ink-on-dark whitespace-nowrap">— цена со скидкой 20%</div>
                     </div>
-                    <button id="mc-sticky-btn" class="btn-header-cta px-5 py-2.5 active:scale-[0.98] text-sm shrink-0">Заказать</button>
+                    <button id="mc-sticky-btn" class="btn-header-cta px-5 py-2.5 shrink-0">Заказать</button>
                 </div>
             </div>
 
@@ -261,7 +261,7 @@
                     </div>
                     <div class="flex flex-col md:flex-row items-center justify-between gap-6 pt-6">
                         <div class="text-xs text-ink-secondary text-left">Заполняя форму, я соглашаюсь с условиями <a href="https://muse.ooo/info/oferta/" class="underline hover:text-ink">Оферты</a> и даю свое согласие на обработку персональных данных в соответствии с <a href="https://muse.ooo/info/politika_konfidentsialnosti_sayta/" class="underline hover:text-ink">Политикой конфиденциальности сайта</a></div>
-                        <button type="button" id="mc-btn-submit-order" class="w-full md:w-auto btn-header-cta px-8 py-3">Заказать</button>
+                        <button type="button" id="mc-btn-submit-order" class="hidden lg:block w-full md:w-auto btn-header-cta px-8 py-3">Заказать</button>
                     </div>
                 </form>
             </div>

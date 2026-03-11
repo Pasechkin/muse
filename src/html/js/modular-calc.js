@@ -24,6 +24,13 @@
   var MAX_MODULE_W = 150;
   var MAX_MODULE_H = 100;
 
+  // Timeout constants (no magic numbers in setTimeout)
+  var TOAST_FADE_MS      = 5000;
+  var TOAST_REMOVE_MS    = 5500;
+  var FORM_FOCUS_MS      = 600;
+  var RESIZE_DEBOUNCE_MS = 80;
+  var INIT_FIT_DELAY_MS  = 100;
+
   /* Format price with thousands separator: 1234 → "1 234" */
   function fmtPrice(n) {
     var s = String(Math.ceil(n));
@@ -443,19 +450,19 @@
     State.modules.forEach(function (m) {
       var el = document.createElement('div');
       el.dataset.moduleId = m.id;
-      el.className = 'absolute bg-white shadow-xl ring-1 ring-black/10 group mc-hw-accel mc-module-item mc-module-touch' + (State.interactionMode === 'layout' ? ' cursor-move' : '');
+      el.className = 'absolute bg-white ring-1 ring-black/10 group mc-hw-accel mc-module-item mc-module-touch' + (State.interactionMode === 'layout' ? ' cursor-move' : '');
       el.setAttribute('draggable', 'false');
       var x = m.offsetLeft * SCALE, y = m.offsetTop * SCALE, w = m.width * SCALE, h = m.height * SCALE;
       el.style.transform = 'translate3d(' + x + 'px, ' + y + 'px, 0)';
       el.style.width = w + 'px'; el.style.height = h + 'px';
 
       var bg = document.createElement('div');
-      bg.className = 'absolute inset-0 bg-no-repeat pointer-events-none bg-gray-100 transition-colors duration-200';
+      bg.className = 'absolute inset-0 bg-no-repeat pointer-events-none bg-ah-50 transition-colors duration-200';
       el.appendChild(bg);
 
       if (State.interactionMode === 'layout') {
         var border = document.createElement('div');
-        border.className = 'absolute inset-0 border-2 border-transparent group-hover:border-primary/40 transition-colors pointer-events-none';
+        border.className = 'absolute inset-0 border-2 border-transparent group-hover:border-ah-600/40 transition-colors pointer-events-none';
         el.appendChild(border);
         [
           { t: 'e', c: 'top-0 bottom-0 right-[-10px] w-5 cursor-ew-resize' },
@@ -559,8 +566,7 @@
   function handleEnd() {
     if (Gesture.mode === 'drag' && State.interactionMode === 'layout') {
       resolveOverlaps();
-      calculateTotals(); updateAllBackgrounds();
-      if (State.activeTab === 'order') renderSidebar();
+      calculateTotals(); updateAllBackgrounds(); renderSidebar();
     }
     Gesture.mode = 'idle';
   }
@@ -606,21 +612,20 @@
 
     if (State.activeTab === 'layout') {
       container.innerHTML =
-        '<div class="space-y-2 py-3">' +
+        '<div class="p-4 lg:p-6 space-y-2">' +
           '<div class="space-y-1">' +
-            '<div class="px-4 text-[10px] uppercase font-bold tracking-widest text-gray-500">Количество модулей</div>' +
-            '<div class="flex overflow-x-auto gap-1.5 px-4 pb-1 snap-x thin-scrollbar-x" id="mc-count-filters"></div>' +
+            '<div class="text-[10px] uppercase font-bold tracking-widest text-ink-muted">Количество модулей</div>' +
+            '<div class="flex overflow-x-auto gap-2 pb-1 snap-x thin-scrollbar-x" id="mc-count-filters"></div>' +
           '</div>' +
-          '<div class="px-4 text-[10px] uppercase font-bold tracking-widest text-gray-500">Схема расположения</div>' +
-          '<div class="flex overflow-x-auto gap-2 px-4 pb-2 snap-x thin-scrollbar-x lg:grid lg:grid-cols-2 lg:gap-4 lg:overflow-visible" id="mc-preset-list"></div>' +
+          '<div class="text-[10px] uppercase font-bold tracking-widest text-ink-muted">Схема расположения</div>' +
+          '<div class="flex overflow-x-auto gap-2 p-1 snap-x thin-scrollbar-x lg:grid lg:grid-cols-2 lg:gap-4 lg:overflow-visible" id="mc-preset-list"></div>' +
         '</div>';
 
       var filterCont = document.getElementById('mc-count-filters');
       MODULE_COUNTS.forEach(function (c) {
         var btn = document.createElement('button');
         var isActive = State.filterCount === c;
-        btn.className = 'flex-none w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold border transition-all ' +
-          (isActive ? 'bg-primary border-primary text-white shadow-lg scale-105' : 'bg-white border-gray-200 text-gray-600');
+        btn.className = 'size-btn' + (isActive ? ' is-active' : '');
         btn.textContent = c;
         btn.onclick = function () { State.filterCount = c; renderSidebar(); };
         filterCont.appendChild(btn);
@@ -630,13 +635,13 @@
         var btn = document.createElement('button');
         var isActive = State.activePresetName === p.name;
         btn.className = 'snap-start flex-none w-24 lg:w-full h-24 border-2 rounded-xl p-1.5 transition-all flex flex-col items-center ' +
-          (isActive ? 'border-primary text-primary bg-primary/5 shadow-md' : 'border-gray-200 text-gray-500 hover:border-primary hover:text-primary bg-secondary/50');
+          (isActive ? 'ring-2 ring-ah-600 border-transparent text-ah-975 bg-ah-50' : 'border-ah-200 text-ink-secondary hover:border-ah-400 bg-ah-25');
         var layout = applyLayout(p);
         var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
         layout.forEach(function (m) { minX = Math.min(minX, m.offsetLeft); minY = Math.min(minY, m.offsetTop); maxX = Math.max(maxX, m.offsetLeft + m.width); maxY = Math.max(maxY, m.offsetTop + m.height); });
         var w = maxX - minX, h = maxY - minY;
         var svgInner = layout.map(function (m) { return '<rect x="' + m.offsetLeft + '" y="' + m.offsetTop + '" width="' + m.width + '" height="' + m.height + '" fill="currentColor" opacity="0.8" rx="2" />'; }).join('');
-        btn.innerHTML = '<div class="flex-1 w-full flex items-center justify-center min-h-0"><svg viewBox="' + minX + ' ' + minY + ' ' + w + ' ' + h + '" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" class="pointer-events-none p-2">' + svgInner + '</svg></div><div class="flex-none h-6 flex items-center justify-center w-full border-t border-gray-100 mt-1"><span class="text-[9px] font-bold uppercase text-gray-500">' + p.name + '</span></div>';
+        btn.innerHTML = '<div class="flex-1 w-full flex items-center justify-center min-h-0"><svg viewBox="' + minX + ' ' + minY + ' ' + w + ' ' + h + '" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" class="pointer-events-none p-2">' + svgInner + '</svg></div><div class="flex-none h-6 flex items-center justify-center w-full border-t border-ah-100 mt-1"><span class="text-[9px] font-bold uppercase text-ink-muted">' + p.name + '</span></div>';
         btn.onclick = function () {
           var prevW = State.totals.fullWidth;
           var prevH = State.totals.fullHeight;
@@ -657,24 +662,24 @@
       var fh = Math.round(State.totals.fullHeight);
       var ratio = (State.totals.fullHeight && State.totals.fullWidth) ? State.totals.fullHeight / State.totals.fullWidth : 1;
       container.innerHTML =
-        '<div class="py-3 space-y-3">' +
-          '<div class="bg-secondary mx-4 p-3 rounded-2xl space-y-2">' +
+        '<div class="p-4 lg:p-6 space-y-3">' +
+          '<div class="bg-ah-25 p-3 rounded-2xl space-y-2">' +
             '<div class="flex items-center justify-between">' +
-              '<span class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Размер</span>' +
-              '<span id="mc-size-display" class="text-sm font-bold text-body">' + fw + ' × ' + fh + ' см</span>' +
+              '<span class="text-[10px] uppercase tracking-widest text-ink-muted font-bold">Размер</span>' +
+              '<span id="mc-size-display" class="text-sm font-bold text-ink">' + fw + ' × ' + fh + ' см</span>' +
             '</div>' +
             '<input type="range" id="mc-size-slider" min="60" max="200" step="1" value="' + fw + '" class="w-full accent-primary cursor-pointer">' +
-            '<div class="flex justify-between text-[9px] text-gray-400 font-medium"><span>60 см</span><span>200 см</span></div>' +
+            '<div class="flex justify-between text-[9px] text-ink-muted font-medium"><span>60 см</span><span>200 см</span></div>' +
           '</div>' +
-          '<div class="border-t border-gray-200 mx-4"></div>' +
-          '<div class="flex overflow-x-auto gap-2 px-4 pb-1 snap-x snap-mandatory thin-scrollbar-x lg:grid lg:grid-cols-3 lg:gap-3 lg:overflow-visible" id="mc-format-list"></div>' +
+          '<div class="border-t border-ah-200"></div>' +
+          '<div class="flex overflow-x-auto gap-2 p-1 snap-x snap-mandatory thin-scrollbar-x lg:grid lg:grid-cols-3 lg:gap-3 lg:overflow-visible" id="mc-format-list"></div>' +
         '</div>';
       var flist = document.getElementById('mc-format-list');
       FORMAT_PRESETS.forEach(function (p) {
         var btn = document.createElement('button');
         var isActive = State.activeFormat === p.label;
         btn.className = 'snap-start flex-none w-20 h-20 lg:w-full lg:h-28 border-2 rounded-xl transition-colors flex flex-col items-center justify-center gap-1 ' +
-          (isActive ? 'border-primary text-primary bg-primary/5 shadow-md' : 'border-gray-200 hover:border-primary hover:text-primary');
+          (isActive ? 'ring-2 ring-ah-600 border-transparent text-ah-975 bg-ah-50' : 'border-ah-200 text-ink-secondary hover:border-ah-400 hover:text-ah-700');
         btn.innerHTML = '<div class="w-10 h-10 lg:w-12 lg:h-12 flex items-center justify-center"><div class="border-2 border-current rounded-sm opacity-60" style="aspect-ratio:' + p.rw + '/' + p.rh + '; width:' + (p.rw >= p.rh ? '100%' : 'auto') + '; height:' + (p.rh > p.rw ? '100%' : 'auto') + '"></div></div><span class="text-[10px] font-bold">' + p.label + '</span>';
         btn.onclick = function () { State.activeFormat = p.label; handleResize(p.targetW, p.targetH); };
         flist.appendChild(btn);
@@ -715,18 +720,18 @@
 
       /* Varnish price */
       var varnishVal = Math.ceil(State.totals.totalArea * P.varnishCoeff);
-      var varnishText = varnishVal > 0 ? fmtPrice(varnishVal) + ' р.' : '0 р.';
+      var varnishText = varnishVal > 0 ? fmtPrice(varnishVal) + ' ₽' : '0 ₽';
 
       /* Processing price */
       var procVal = State.processing || 0;
-      var procText = procVal > 0 ? fmtPrice(procVal) + ' р.' : '0 р.';
+      var procText = procVal > 0 ? fmtPrice(procVal) + ' ₽' : '0 ₽';
 
       /* Gift price */
-      var giftText = '0 р.';
+      var giftText = '0 ₽';
       if (State.totals.giftLabel) {
         giftText = State.totals.giftLabel;
       } else if (State.totals.giftCost > 0) {
-        giftText = fmtPrice(State.totals.giftCost) + ' р.';
+        giftText = fmtPrice(State.totals.giftCost) + ' ₽';
       } else if (State.gift) {
         /* Calculate potential gift cost for display */
         var potGift = 0;
@@ -739,11 +744,11 @@
             if (mnD <= gt.maxW && mxD <= gt.maxH) { potGift = gt.price * State.modules.length; break; }
           }
         }
-        giftText = potGift > 0 ? fmtPrice(potGift) + ' р.' : '0 р.';
+        giftText = potGift > 0 ? fmtPrice(potGift) + ' ₽' : '0 ₽';
       }
 
       container.innerHTML =
-        '<div class="px-4 py-3 space-y-4">' +
+        '<div class="p-4 lg:p-6 space-y-4">' +
           /* Options — unified with foto-na-kholste */
           '<div class="space-y-4">' +
             /* Varnish — single row: [✓] label [?] price */
@@ -764,8 +769,8 @@
             '<section>' +
               '<div class="section-title"><span>Обработка фото</span><span id="mc-proc-price" class="calc-badge' + (procVal > 0 ? ' is-active' : '') + '">' + procText + '</span></div>' +
               '<div class="grid grid-cols-1">' +
-                '<select id="mc-select-processing" aria-label="Обработка фото" class="col-start-1 row-start-1 w-full appearance-none bg-white border border-gray-200 text-body py-2 pl-3 pr-8 rounded-lg text-sm font-medium focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary">' + procOpts + '</select>' +
-                '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5 self-center justify-self-end text-gray-500"><path d="m6 9 6 6 6-6"/></svg>' +
+                '<select id="mc-select-processing" aria-label="Обработка фото" class="col-start-1 row-start-1 w-full appearance-none bg-ah-25 border border-ah-200 text-body py-2 pl-3 pr-8 rounded-lg text-sm font-medium focus-visible:border-transparent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ah-600">' + procOpts + '</select>' +
+                '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="pointer-events-none col-start-1 row-start-1 mr-2 w-5 h-5 self-center justify-self-end text-ink-muted"><path d="m6 9 6 6 6-6"/></svg>' +
               '</div>' +
             '</section>' +
             /* Gift wrap — single row: [✓] label [?] price */
@@ -844,9 +849,11 @@
       bar.innerHTML = '';
       tabs.forEach(function (tab) {
         var btn = document.createElement('button');
+        var isActive = State.activeTab === tab.id;
         btn.className = 'flex-1 py-3 lg:py-4 flex flex-col items-center justify-center gap-1.5 transition-colors ' +
-          (State.activeTab === tab.id ? 'text-primary-text' : 'text-gray-500 hover:text-gray-700');
-        btn.innerHTML = tab.icon + '<span class="text-[10px] font-black uppercase tracking-wider">' + tab.label + '</span>';
+          (isActive ? 'text-primary-text' : 'text-ink-muted hover:text-ah-700');
+        var icon = isActive ? tab.icon : tab.icon.replace('stroke-width="2"', 'stroke-width="1.1"');
+        btn.innerHTML = icon + '<span class="text-[10px] font-black uppercase tracking-wider">' + tab.label + '</span>';
         btn.onclick = function () {
           State.activeTab = tab.id;
           renderSidebar();
@@ -862,8 +869,8 @@
     var btnI = document.getElementById('mc-btn-mode-image');
     var ctrl = document.getElementById('mc-img-controls');
     if (!btnL || !btnI || !ctrl) return;
-    var active = 'px-3 py-2 rounded-md text-[10px] uppercase font-bold tracking-wider transition-all bg-white text-primary shadow-sm ring-1 ring-black/5';
-    var inactive = 'px-3 py-2 rounded-md text-[10px] uppercase font-bold tracking-wider transition-all text-gray-500 hover:text-gray-700 hover:bg-gray-50';
+    var active = 'size-btn is-active';
+    var inactive = 'size-btn';
     btnL.className = State.interactionMode === 'layout' ? active : inactive;
     btnI.className = State.interactionMode === 'image' ? active : inactive;
     btnL.setAttribute('aria-pressed', State.interactionMode === 'layout' ? 'true' : 'false');
@@ -887,11 +894,33 @@
     bars.forEach(function (bar) {
       if (!bar) return;
       var priceEl = bar.querySelector('.mc-sticky-price');
-      if (priceEl) priceEl.textContent = fmtPrice(State.totals.price || 0) + ' р.';
+      if (priceEl) priceEl.textContent = fmtPrice(State.totals.price || 0) + ' ₽';
     });
   }
 
-  function renderUI() { renderModules(); renderSidebar(); renderTabs(); renderToolbar(); }
+  /* Button states: upload becomes muted when photo loaded, order becomes active */
+  var MC_BTN_CTA = 'btn-header-cta';
+  var MC_BTN_MUTED = 'rounded border border-ah-300 bg-ah-25 text-ink-secondary text-xs font-bold uppercase tracking-widest transition-colors hover:bg-ah-50';
+  function updateButtonStates() {
+    var hasPhoto = !!State.previewImage;
+    var upload = document.getElementById('mc-btn-upload');
+    var submit = document.getElementById('mc-btn-submit-order');
+    var sticky = document.getElementById('mc-sticky-btn');
+    if (upload) {
+      if (hasPhoto) { upload.className = MC_BTN_MUTED + ' w-full px-8 py-3 flex items-center justify-center gap-2'; }
+      else { upload.className = MC_BTN_CTA + ' w-full px-8 py-3 flex items-center justify-center gap-2'; }
+      var span = upload.querySelector('span');
+      if (span) span.textContent = hasPhoto ? 'Сменить фото' : 'Загрузить фото';
+    }
+    if (submit) {
+      submit.className = 'hidden lg:block w-full md:w-auto px-8 py-3 ' + (hasPhoto ? MC_BTN_CTA : MC_BTN_MUTED + ' cursor-not-allowed opacity-60');
+    }
+    if (sticky) {
+      sticky.className = 'px-5 py-2.5 shrink-0 ' + (hasPhoto ? MC_BTN_CTA : 'rounded bg-white/20 text-ink-on-dark/50 text-xs font-bold uppercase tracking-widest cursor-not-allowed');
+    }
+  }
+
+  function renderUI() { renderModules(); renderSidebar(); renderTabs(); renderToolbar(); updateButtonStates(); }
 
   /* ═══════════════════════════════════════════════════════════
    *  RESIZE
@@ -906,8 +935,7 @@
         offsetLeft: m.offsetLeft * sx, offsetTop: m.offsetTop * sy
       });
     });
-    calculateTotals(); fitView(); renderModules();
-    if (State.activeTab === 'order' || State.activeTab === 'format') renderSidebar();
+    calculateTotals(); fitView(); renderModules(); renderSidebar();
   }
 
   /* ═══════════════════════════════════════════════════════════
@@ -924,10 +952,10 @@
     localStorage.setItem('mc-hint-shown', '1');
     var toast = document.createElement('div');
     toast.textContent = 'Сдвиг фото -передвигайте фото • Макет - изменяйте границы модулей';
-    toast.style.cssText = 'position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.75);color:#fff;font-size:12px;line-height:1.4;padding:8px 14px;border-radius:10px;pointer-events:none;z-index:50;max-width:90%;text-align:center;transition:opacity 0.5s;opacity:1';
+    toast.className = 'mc-onboarding-toast';
     ws.appendChild(toast);
-    setTimeout(function () { toast.style.opacity = '0'; }, 5000);
-    setTimeout(function () { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 5500);
+    setTimeout(function () { toast.style.opacity = '0'; }, TOAST_FADE_MS);
+    setTimeout(function () { if (toast.parentNode) toast.parentNode.removeChild(toast); }, TOAST_REMOVE_MS);
   }
 
   /* ═══════════════════════════════════════════════════════════
@@ -996,6 +1024,7 @@
             renderModules();
             renderToolbar();
           }
+          updateButtonStates();
         },
         onImagesChange: function (imgs) {
           State.uploadedImages = imgs;
@@ -1004,6 +1033,7 @@
             renderModules();
             renderToolbar();
           }
+          updateButtonStates();
         }
       });
     }
@@ -1026,7 +1056,7 @@
       if (form) {
         form.scrollIntoView({ behavior: 'smooth', block: 'center' });
         var nameEl = document.getElementById('mc-client-name');
-        if (nameEl) setTimeout(function () { nameEl.focus(); }, 600);
+        if (nameEl) setTimeout(function () { nameEl.focus(); }, FORM_FOCUS_MS);
       }
     };
 
@@ -1067,7 +1097,7 @@
       var roTimer = null;
       new ResizeObserver(function () {
         if (roTimer) clearTimeout(roTimer);
-        roTimer = setTimeout(function () { fitView(); }, 80);
+        roTimer = setTimeout(function () { fitView(); }, RESIZE_DEBOUNCE_MS);
       }).observe(ws);
     } else {
       window.addEventListener('resize', fitView);
@@ -1078,8 +1108,18 @@
 
     // Start with 3-module preset, default width 140 cm
     var defaultPreset = PRESETS.filter(function (p) { return p.count === 3; })[0] || PRESETS[0];
+    State.activePresetName = defaultPreset.name;
     State.modules = applyLayout(defaultPreset);
     calculateTotals();
+    // Match initial format to closest preset
+    if (State.totals.fullWidth && State.totals.fullHeight) {
+      var initRatio = State.totals.fullWidth / State.totals.fullHeight;
+      var bestDiff = Infinity;
+      FORMAT_PRESETS.forEach(function (fp) {
+        var d = Math.abs(fp.rw / fp.rh - initRatio);
+        if (d < bestDiff) { bestDiff = d; State.activeFormat = fp.label; }
+      });
+    }
     // Scale to default ~140 cm width (2/3 of standard sofa)
     if (State.totals.fullWidth > 0) {
       var defRatio = 140 / State.totals.fullWidth;
@@ -1092,7 +1132,7 @@
       calculateTotals();
     }
     renderUI();
-    setTimeout(function () { fitView(); renderModules(); }, 100);
+    setTimeout(function () { fitView(); renderModules(); }, INIT_FIT_DELAY_MS);
   }
 
   // Auto-init when DOM ready

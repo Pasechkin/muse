@@ -136,10 +136,32 @@
   var currentStretcher   = STRETCHER_TYPES[0]; // Стандартный
   var currentFrame       = null;
   var currentVarnish     = true; // boolean on/off, как в foto-na-kholste
+  var currentGift        = false; // boolean on/off для подарочной упаковки
   var currentAspectRatio = null;
   var isOrdered          = false;
   var FRAMES_DB          = [];
   var _frameMap          = {};
+
+  /* ── Константы таймаутов (ms) ───────────── */
+  var FETCH_ABORT_MS       = 8000;
+  var AIC_RETRY_MS         = 800;
+  var WIKI_RETRY_MS        = 1500;
+  var MASONRY_FADE_MS      = 50;
+  var MODAL_CLOSE_MS       = 300;
+  var MODAL_IMAGE_CLEAR_MS = 300;
+  var FORM_FOCUS_MS        = 400;
+  var KEYBOARD_SCROLL_MS   = 300;
+
+  /* ── Константы миниатюр рам ───────────── */
+  var FRAME_PREVIEW_H     = 48;
+  var FRAME_BORDER_MIN    = 2;
+  var FRAME_BORDER_MAX    = 8;
+  var FRAME_BORDER_DIVISOR = 5;
+  var FRAME_STYLE_MAP = {
+    ornate_gold:       { borderImage: 'linear-gradient(135deg,#d4af37,#f5e5a0,#c5972c,#f5e5a0,#d4af37) 1', borderColor: '#d4af37' },
+    ornate_silver:     { borderImage: 'linear-gradient(135deg,#c0c0c0,#f0f0f0,#a0a0a0,#f0f0f0,#c0c0c0) 1', borderColor: '#c0c0c0' },
+    ornate_gold_inner: { borderImage: 'linear-gradient(135deg,#1a1a1a,#333,#1a1a1a) 1', outline: '1px solid #d4af37' }
+  };
 
   /* ── Утилиты ───────────────────────────────── */
   function getEl(id) { return document.getElementById(id); }
@@ -189,6 +211,21 @@
     return Math.ceil(w * h * P('varnishCoeff', 0.10));
   }
 
+  /** Цена подарочной упаковки по тарифам */
+  function calcGiftPrice(w, h) {
+    var mp = window.MUSE_PRICES;
+    if (mp && mp.canvas && mp.canvas.giftWrapTiers) {
+      var minDim = Math.min(w, h);
+      var maxDim = Math.max(w, h);
+      for (var i = 0; i < mp.canvas.giftWrapTiers.length; i++) {
+        var tier = mp.canvas.giftWrapTiers[i];
+        if (minDim <= tier.maxW && maxDim <= tier.maxH) return tier.price;
+      }
+      return 0; // oversize — не помещается
+    }
+    return 500; // fallback
+  }
+
   /** Цена рамы по периметру */
   function calcFramePrice(frame, w, h) {
     var fpm = P('framePerM', 1200);
@@ -222,7 +259,8 @@
     var canvas  = calcCanvasPrice(dim.w, dim.h);
     var frame   = calcFramePrice(currentFrame, dim.w, dim.h);
     var varnish = currentVarnish ? calcVarnishPrice(dim.w, dim.h) : 0;
-    return { canvas: canvas, frame: frame, varnish: varnish, total: canvas + frame + varnish, w: dim.w, h: dim.h, stretcher: currentStretcher.label };
+    var gift    = currentGift ? calcGiftPrice(dim.w, dim.h) : 0;
+    return { canvas: canvas, frame: frame, varnish: varnish, gift: gift, total: canvas + frame + varnish + gift, w: dim.w, h: dim.h, stretcher: currentStretcher.label };
   }
 
   /* ── Адаптивные колонки ────────────────────── */
@@ -274,7 +312,7 @@
     }
     var url = 'https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&medium=Paintings&q='
       + encodeURIComponent(term);
-    return fetchWithTimeout(url, {}, 8000)
+    return fetchWithTimeout(url, {}, FETCH_ABORT_MS)
       .then(function (r) { return r.ok ? r.json() : { objectIDs: null }; })
       .then(function (d) {
         _met.ids = (d.objectIDs || []).slice(0, 200); /* ограничиваем */
@@ -330,7 +368,7 @@
       + '&query%5Bbool%5D%5Bmust%5D%5B%5D%5Bterm%5D%5Bis_public_domain%5D=true'
       + '&fields=id,title,artist_display,image_id,dimensions,date_display'
       + '&limit=' + count + '&page=' + _aic.page;
-    return fetchWithTimeout(url, {}, 8000)
+    return fetchWithTimeout(url, {}, FETCH_ABORT_MS)
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (d) {
         if (!d || !d.data) { _aic.hasMore = false; return []; }
@@ -365,7 +403,7 @@
    */
   function rijksFetchDetail(numId) {
     return fetchWithTimeout(
-      'https://data.rijksmuseum.nl/' + numId + '?_profile=dc', {}, 8000
+      'https://data.rijksmuseum.nl/' + numId + '?_profile=dc', {}, FETCH_ABORT_MS
     )
     .then(function (r) {
       if (!r.ok) throw new Error(r.status);
@@ -418,7 +456,7 @@
         + '?type=painting&imageAvailable=true'
         + '&description=' + encodeURIComponent(term));
 
-    return fetchWithTimeout(url, {}, 8000)
+    return fetchWithTimeout(url, {}, FETCH_ABORT_MS)
       .then(function (r) {
         if (!r.ok) throw new Error(r.status);
         return r.json();
@@ -474,7 +512,7 @@
       + encodeURIComponent(term)
       + '&limit=' + count + '&skip=' + (_cleve.page * count)
       + '&has_image=1&type=Painting';
-    return fetchWithTimeout(url, {}, 8000)
+    return fetchWithTimeout(url, {}, FETCH_ABORT_MS)
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (d) {
         if (!d || !d.data) { _cleve.hasMore = false; return []; }
@@ -538,7 +576,7 @@
     var url = 'https://query.wikidata.org/sparql?query=' + encodeURIComponent(query) + '&format=json';
     var thumbW = getThumbWidth();
 
-    return fetchWithTimeout(url, { headers: { 'Accept': 'application/sparql-results+json' } }, 8000)
+    return fetchWithTimeout(url, { headers: { 'Accept': 'application/sparql-results+json' } }, FETCH_ABORT_MS)
       .then(function (res) {
         if (res.status === 429) throw new Error('429');
         if (!res.ok) throw new Error('Wikidata: ' + res.status);
@@ -712,8 +750,7 @@
       img.classList.replace('opacity-0', 'opacity-100');
       /* Восстанавливаем hover-overlay если был скрыт при ошибке */
       if (hoverOverlay) {
-        hoverOverlay.classList.remove('hidden');
-        hoverOverlay.style.pointerEvents = '';
+        hoverOverlay.classList.remove('hidden', 'pointer-events-none');
       }
     };
     var hoverOverlay = div.querySelector('.hover-overlay');
@@ -725,7 +762,7 @@
         var sizeIdx = _retryCount; /* 1→[1]=600, 2→[2]=400, 3→[3]=200 */
         if (sizeIdx < _aicSizes.length) {
           var newUrl = _origSrc.replace(/\/full\/\d+,\//, '/full/' + _aicSizes[sizeIdx] + '/');
-          setTimeout(function () { img.src = newUrl; }, 800);
+          setTimeout(function () { img.src = newUrl; }, AIC_RETRY_MS);
           return;
         }
       }
@@ -738,7 +775,7 @@
         setTimeout(function () {
           var sep = _origSrc.indexOf('?') !== -1 ? '&' : '?';
           img.src = _origSrc + sep + 'retry=' + _retryCount;
-        }, 1500);
+        }, WIKI_RETRY_MS);
       } else {
         /* Все попытки исчерпаны — показываем ошибку + кнопку */
         loader.classList.add('hidden');
@@ -750,8 +787,7 @@
         }
         /* Полностью скрываем hover-overlay чтобы не перекрывал кнопку «Повторить» */
         if (hoverOverlay) {
-          hoverOverlay.classList.add('hidden');
-          hoverOverlay.style.pointerEvents = 'none';
+          hoverOverlay.classList.add('hidden', 'pointer-events-none');
         }
       }
     };
@@ -768,8 +804,7 @@
         img.classList.replace('opacity-100', 'opacity-0');
         /* Восстанавливаем hover-overlay */
         if (hoverOverlay) {
-          hoverOverlay.classList.remove('hidden');
-          hoverOverlay.style.pointerEvents = '';
+          hoverOverlay.classList.remove('hidden', 'pointer-events-none');
         }
         img.src = _origSrc;
       });
@@ -783,7 +818,7 @@
 
     /* Плавное появление */
     requestAnimationFrame(function () {
-      setTimeout(function () { div.classList.remove('opacity-0', 'translate-y-4'); }, 50);
+      setTimeout(function () { div.classList.remove('opacity-0', 'translate-y-4'); }, MASONRY_FADE_MS);
     });
 
     return div;
@@ -1035,6 +1070,7 @@
     var img = getEl('modal-image');
     /* Сброс aspect-ratio до загрузки нового изображения */
     img.style.aspectRatio = '';
+    img.hidden = false;
     img.src = painting.imageUrl;
     img.alt = painting.title + ' \u2014 ' + painting.artist;
 
@@ -1051,8 +1087,8 @@
     if (dialog && dialog.close) dialog.close();
     setTimeout(function () {
       var img = getEl('modal-image');
-      if (img) img.src = '';
-    }, 300);
+      if (img) { img.src = ''; img.hidden = true; }
+    }, MODAL_IMAGE_CLEAR_MS);
   }
 
   /** Обновить стили рамы на превью */
@@ -1069,11 +1105,14 @@
       if (css.borderColor) frameEl.style.borderColor = css.borderColor;
       frameEl.style.boxShadow   = css.boxShadow;
     } else {
+      frameEl.className = 'relative z-10 transition-all duration-500';
       if (!currentFrame || currentFrame.id === 'NONE') {
-        frameEl.style.cssText = 'border:none;box-shadow:0 20px 25px -5px rgba(0,0,0,0.2);';
+        frameEl.classList.add('frame-preview--none');
+        frameEl.style.border = '';
       } else {
+        frameEl.classList.add('frame-preview--framed');
         var bw = Math.max(4, Math.min(currentFrame.width, 20));
-        frameEl.style.cssText = 'border:' + bw + 'px solid ' + currentFrame.color + ';box-shadow:0 20px 25px -5px rgba(0,0,0,0.3);';
+        frameEl.style.border = bw + 'px solid ' + currentFrame.color;
       }
     }
 
@@ -1090,9 +1129,9 @@
     var btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'flex flex-col items-center gap-1 p-2 rounded-lg border transition-all text-center '
-      + (isSelected ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'border-gray-200 hover:border-gray-300');
+      + (isSelected ? 'border-ah-700 bg-ah-25 ring-1 ring-ah-700' : 'border-ah-200 hover:border-ah-300');
 
-    var previewH = 48;
+    var previewH = FRAME_PREVIEW_H;
     var ar = (w && h) ? (w / h) : 1;
     var previewW = Math.round(previewH * ar);
 
@@ -1100,14 +1139,13 @@
     if (frame.id === 'NONE') {
       previewCSS = 'background-color:#f1f5f9;border:1px dashed #cbd5e1;';
     } else {
-      var bpx = Math.max(2, Math.min(Math.round(frame.width / 5), 8));
+      var bpx = Math.max(FRAME_BORDER_MIN, Math.min(Math.round(frame.width / FRAME_BORDER_DIVISOR), FRAME_BORDER_MAX));
       previewCSS = 'background-color:#f1f5f9;border:' + bpx + 'px solid ' + frame.color + ';';
-      if (frame.style === 'ornate_gold') {
-        previewCSS += 'border-image:linear-gradient(135deg,#d4af37,#f5e5a0,#c5972c,#f5e5a0,#d4af37) 1;border-color:#d4af37;';
-      } else if (frame.style === 'ornate_silver') {
-        previewCSS += 'border-image:linear-gradient(135deg,#c0c0c0,#f0f0f0,#a0a0a0,#f0f0f0,#c0c0c0) 1;border-color:#c0c0c0;';
-      } else if (frame.style === 'ornate_gold_inner') {
-        previewCSS += 'border-image:linear-gradient(135deg,#1a1a1a,#333,#1a1a1a) 1;outline:1px solid #d4af37;';
+      var fsm = FRAME_STYLE_MAP[frame.style];
+      if (fsm) {
+        if (fsm.borderImage) previewCSS += 'border-image:' + fsm.borderImage + ';';
+        if (fsm.borderColor) previewCSS += 'border-color:' + fsm.borderColor + ';';
+        if (fsm.outline) previewCSS += 'outline:' + fsm.outline + ';';
       }
       if (frame.border) {
         previewCSS += 'outline:1px solid ' + frame.border + ';';
@@ -1115,12 +1153,11 @@
     }
 
     var priceVal = calcFramePrice(frame, w, h);
-    var priceLabel = frame.id === 'NONE' ? '' : (fmtPrice(priceVal) + ' \u0440.');
+    var priceLabel = frame.id === 'NONE' ? '' : (fmtPrice(priceVal) + ' \u20bd');
 
     btn.innerHTML =
       '<div style="width:' + previewW + 'px;height:' + previewH + 'px;' + previewCSS + '" class="rounded-sm shrink-0"></div>' +
-      '<span class="text-[10px] leading-tight font-medium text-body truncate w-full">' + frame.name + '</span>' +
-      (priceLabel ? '<span class="text-[10px] text-gray-400">' + priceLabel + '</span>' : '');
+      (priceLabel ? '<span class="text-[10px] text-gray-400 tabular-nums lining-nums">' + priceLabel + '</span>' : '');
 
     btn.addEventListener('click', function () {
       currentFrame = frame;
@@ -1144,7 +1181,7 @@
         btn.type = 'button';
         var isSelected = (currentLongSide === s.value);
         btn.className = 'p-3 rounded-xl border text-left transition-all '
-          + (isSelected ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'border-gray-200 hover:border-gray-300');
+          + (isSelected ? 'border-ah-700 bg-ah-25 ring-1 ring-ah-700' : 'border-ah-200 hover:border-ah-300');
 
         var dim = getDimensions(s.value);
         var dimText = currentAspectRatio
@@ -1155,7 +1192,7 @@
 
         btn.innerHTML =
           '<div class="font-medium text-dark text-sm">' + dimText + '</div>' +
-          '<div class="text-xs text-gray-400">' + fmtPrice(sizePrice) + ' \u0440.</div>';
+          '<div class="text-xs text-gray-400 tabular-nums lining-nums">' + fmtPrice(sizePrice) + ' \u20bd</div>';
 
         btn.addEventListener('click', function () {
           currentLongSide = s.value;
@@ -1177,7 +1214,7 @@
           ? (dim.w + ' \u00d7 ' + dim.h + ' \u0441\u043c')
           : (currentLongSide + ' \u0441\u043c');
         var sliderPrice = calcCanvasPrice(dim.w, dim.h);
-        sizeDisplay.textContent = dimText + ' \u2014 ' + fmtPrice(sliderPrice) + ' \u0440.';
+        sizeDisplay.textContent = dimText + ' \u2014 ' + fmtPrice(sliderPrice) + ' \u20bd';
       }
     }
 
@@ -1194,7 +1231,7 @@
     });
     var wrapBadge = getEl('modal-price-wrap');
     if (wrapBadge) {
-      wrapBadge.textContent = fmtPrice(prices.canvas) + ' \u0440.';
+      wrapBadge.textContent = fmtPrice(prices.canvas) + ' \u20bd';
       wrapBadge.className = 'calc-badge' + (prices.canvas > 0 ? ' is-active' : '');
     }
 
@@ -1204,7 +1241,7 @@
     if (studioC) {
       studioC.innerHTML = '';
       FRAMES_DB.forEach(function (f) {
-        if (f.cat === 'STUDIO') studioC.appendChild(createFrameOption(f, prices.w, prices.h));
+        if (f.cat === 'STUDIO' && f.id !== 'NONE') studioC.appendChild(createFrameOption(f, prices.w, prices.h));
       });
     }
     if (classicC) {
@@ -1214,10 +1251,18 @@
       });
     }
 
+    /* Кнопка «Без багета» */
+    var noneBtn = getEl('modal-frame-none');
+    if (noneBtn) {
+      var isNone = currentFrame && currentFrame.id === 'NONE';
+      noneBtn.className = 'w-full mb-4 border rounded-lg p-3 text-sm font-bold text-center transition-all '
+        + (isNone ? 'border-ah-700 bg-ah-25 ring-1 ring-ah-700 text-ink' : 'border-ah-200 bg-white text-ink-muted hover:border-ah-300');
+    }
+
     /* Badge цены рамы */
     var frameBadge = getEl('modal-price-frame');
     if (frameBadge) {
-      frameBadge.textContent = prices.frame > 0 ? (fmtPrice(prices.frame) + ' \u0440.') : '0 \u0440.';
+      frameBadge.textContent = prices.frame > 0 ? (fmtPrice(prices.frame) + ' \u20bd') : '0 \u20bd';
       frameBadge.className = 'calc-badge' + (prices.frame > 0 ? ' is-active' : '');
     }
 
@@ -1232,27 +1277,42 @@
     if (varnishBadge) {
       var varnishPotential = calcVarnishPrice(prices.w, prices.h);
       var vShow = prices.varnish > 0 ? prices.varnish : varnishPotential;
-      varnishBadge.textContent = vShow > 0 ? (fmtPrice(vShow) + ' \u0440.') : '0 \u0440.';
+      varnishBadge.textContent = vShow > 0 ? (fmtPrice(vShow) + ' \u20bd') : '0 \u20bd';
       varnishBadge.className = 'calc-badge' + (prices.varnish > 0 ? ' is-active' : '');
+    }
+
+    /* ─── Подарочная упаковка ─── */
+    var giftCheckbox = getEl('toggle-repro-gift');
+    if (giftCheckbox) {
+      giftCheckbox.checked = currentGift;
+    }
+
+    /* Badge цены подарочной */
+    var giftBadge = getEl('modal-price-gift');
+    if (giftBadge) {
+      var giftPotential = calcGiftPrice(prices.w, prices.h);
+      var gShow = prices.gift > 0 ? prices.gift : giftPotential;
+      giftBadge.textContent = gShow > 0 ? (fmtPrice(gShow) + ' \u20bd') : '0 \u20bd';
+      giftBadge.className = 'calc-badge' + (prices.gift > 0 ? ' is-active' : '');
     }
 
     /* ─── Итого ─── */
     var totalEl = getEl('modal-total-price');
-    if (totalEl) totalEl.textContent = fmtPrice(prices.total) + ' \u0440.';
+    if (totalEl) totalEl.textContent = fmtPrice(prices.total) + ' \u20bd';
 
     /* ─── Sticky bar (мобильный) ─── */
     var stickyPrice = getEl('sticky-repro-price');
-    if (stickyPrice) stickyPrice.textContent = fmtPrice(prices.total) + ' \u0440.';
+    if (stickyPrice) stickyPrice.textContent = fmtPrice(prices.total) + ' \u20bd';
 
     /* ─── Кнопка заказа ─── */
     var orderBtn  = getEl('repro-order-btn');
     var orderText = getEl('repro-order-text');
     if (orderBtn && orderText) {
       if (isOrdered) {
-        orderBtn.className = 'hidden lg:block w-full py-4 rounded-xl text-base font-bold transition-all bg-green-600 text-white active:scale-[0.98]';
+        orderBtn.className = 'hidden lg:block w-full py-3 px-8 rounded-xl font-bold transition-all bg-green-600 text-white active:scale-[0.98]';
         orderText.textContent = '\u0417\u0430\u043a\u0430\u0437 \u043e\u0444\u043e\u0440\u043c\u043b\u0435\u043d \u2713';
       } else {
-        orderBtn.className = 'hidden lg:block w-full btn-header-cta py-4 active:scale-[0.98] text-base';
+        orderBtn.className = 'hidden lg:block w-full btn-header-cta px-8 py-3';
         orderText.textContent = '\u0417\u0430\u043a\u0430\u0437\u0430\u0442\u044c';
       }
     }
@@ -1279,6 +1339,7 @@
       stretcher: currentStretcher ? currentStretcher.label : '\u0421\u0442\u0430\u043d\u0434\u0430\u0440\u0442\u043d\u044b\u0439',
       frame:    currentFrame ? currentFrame.name : '\u0411\u0435\u0437 \u0431\u0430\u0433\u0435\u0442\u0430',
       varnish:  currentVarnish ? 'Лак включён' : 'Без лака',
+      gift:     currentGift ? 'Подарочная упаковка' : 'Без упаковки',
       total:    prices.total,
       name:     name.value.trim(),
       phone:    phone.value.trim(),
@@ -1295,7 +1356,8 @@
       '\u041f\u043e\u0434\u0440\u0430\u043c\u043d\u0438\u043a: ' + orderData.stretcher + '\n' +
       '\u0411\u0430\u0433\u0435\u0442: ' + orderData.frame + '\n' +
       '\u041f\u043e\u043a\u0440\u044b\u0442\u0438\u0435: ' + orderData.varnish + '\n' +
-      '\u0418\u0442\u043e\u0433\u043e: ' + fmtPrice(orderData.total) + ' \u0440.\n\n' +
+      '\u0423\u043f\u0430\u043a\u043e\u0432\u043a\u0430: ' + orderData.gift + '\n' +
+      '\u0418\u0442\u043e\u0433\u043e: ' + fmtPrice(orderData.total) + ' \u20bd\n\n' +
       '\u0418\u043c\u044f: ' + orderData.name + '\n' +
       '\u0422\u0435\u043b\u0435\u0444\u043e\u043d: ' + orderData.phone + '\n' +
       'Email: ' + orderData.email + '\n' +
@@ -1409,12 +1471,31 @@
       });
     });
 
+    /* ── Без багета: выделенная кнопка ── */
+    var frameNoneBtn = getEl('modal-frame-none');
+    if (frameNoneBtn) {
+      frameNoneBtn.addEventListener('click', function () {
+        currentFrame = _frameMap['NONE'] || { id: 'NONE', name: 'Без багета', pricePerM: null, width: 0, color: 'transparent', style: 'flat' };
+        updateFrameStyle();
+        renderCalculatorOptions();
+      });
+    }
+
     /* ── Лак: checkbox toggle ── */
     var varnishToggle = getEl('toggle-repro-varnish');
     if (varnishToggle) {
       varnishToggle.addEventListener('change', function (e) {
         currentVarnish = e.target.checked;
         updateFrameStyle();
+        renderCalculatorOptions();
+      });
+    }
+
+    /* ── Подарочная упаковка: checkbox toggle ── */
+    var giftToggle = getEl('toggle-repro-gift');
+    if (giftToggle) {
+      giftToggle.addEventListener('change', function (e) {
+        currentGift = e.target.checked;
         renderCalculatorOptions();
       });
     }
@@ -1431,7 +1512,7 @@
             ? (dim.w + ' \u00d7 ' + dim.h + ' \u0441\u043c')
             : (val + ' \u0441\u043c');
           var price = calcCanvasPrice(dim.w, dim.h);
-          display.textContent = txt + ' \u2014 ' + fmtPrice(price) + ' \u0440.';
+          display.textContent = txt + ' \u2014 ' + fmtPrice(price) + ' \u20bd';
         }
         /* Подсветка пресет-кнопок при совпадении */
         var btns = document.querySelectorAll('#sizes-container button');
@@ -1468,7 +1549,7 @@
           if (orderForm) orderForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
           var nameInput = getEl('repro-name');
           if (nameInput && !nameInput.value.trim()) {
-            setTimeout(function () { nameInput.focus(); }, 400);
+            setTimeout(function () { nameInput.focus(); }, FORM_FOCUS_MS);
           }
         }
       });
@@ -1489,7 +1570,7 @@
         var el = this;
         setTimeout(function () {
           el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, 300);
+        }, KEYBOARD_SCROLL_MS);
       });
     });
 
@@ -1498,15 +1579,15 @@
     var stickyBarEl = getEl('repro-sticky-bar');
     var formWrapEl  = orderFormEl ? orderFormEl.closest('.pb-20') : null;
     if (orderFormEl && stickyBarEl) {
-      var scrollRoot = document.querySelector('.custom-scrollbar');
+      var scrollRoot = document.querySelector('#repro-modal .custom-scrollbar');
       var stickyObserver = new IntersectionObserver(function (entries) {
         _formVisible = entries[0].isIntersecting;
         if (_formVisible) {
           stickyBarEl.classList.add('is-docked');
-          if (formWrapEl) formWrapEl.style.paddingBottom = '0';
+          if (formWrapEl) formWrapEl.classList.add('form-wrap--docked');
         } else {
           stickyBarEl.classList.remove('is-docked');
-          if (formWrapEl) formWrapEl.style.paddingBottom = '';
+          if (formWrapEl) formWrapEl.classList.remove('form-wrap--docked');
         }
       }, { root: scrollRoot || null, threshold: 0.1 });
       stickyObserver.observe(orderFormEl);

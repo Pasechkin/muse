@@ -250,6 +250,10 @@
   /* Layout tokens */
   --max-w-city: 48rem;
 
+  /* Easing tokens */
+  --ease-sheet: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-material: cubic-bezier(0.4, 0, 0.2, 1);
+
   /* Ken Burns animation */
   --animate-ken-burns: kenburns 20s ease-out forwards;
 
@@ -577,8 +581,8 @@
     @apply inline-flex items-center justify-center px-6 py-2.5 rounded bg-primary text-white;
     @apply text-xs font-medium uppercase tracking-widest;
     transition: background-color 0.2s ease,
-                transform 0.25s cubic-bezier(.4,0,.2,1),
-                box-shadow 0.25s cubic-bezier(.4,0,.2,1);
+                transform 0.25s var(--ease-material),
+                box-shadow 0.25s var(--ease-material);
   }
 
   .btn-primary:hover,
@@ -640,7 +644,7 @@
   /* Bottom sheet на мобильных - выезжает снизу */
   .mobile-menu-dialog > [data-swipe-panel] {
     transform: translateY(100%);
-    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+    transition: transform 0.3s var(--ease-sheet);
   }
   
   .mobile-menu-dialog[open] > [data-swipe-panel] {
@@ -676,7 +680,7 @@
   }
   .bottom-sheet-dialog > [data-swipe-panel] {
     transform: translateY(100%);
-    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+    transition: transform 0.3s var(--ease-sheet);
   }
   .bottom-sheet-dialog[open] > [data-swipe-panel] {
     transform: translateY(0);
@@ -699,8 +703,8 @@
     @apply inline-flex items-center justify-center px-6 py-2.5 rounded bg-transparent text-white border-0;
     @apply text-xs font-medium uppercase tracking-widest;
     @apply w-full md:w-auto;
-    transition: transform .3s cubic-bezier(.4,0,.2,1),
-                box-shadow .3s cubic-bezier(.4,0,.2,1);
+    transition: transform .3s var(--ease-material),
+                box-shadow .3s var(--ease-material);
   }
   .btn-inverse:hover {
     transform: translateY(-3px) scale(1.03);
@@ -1084,13 +1088,8 @@
     }
   }
 
-  /* Внутри модала — компенсируем боковые padding правой панели */
-  dialog .calc-sticky-bar {
-    width: calc(100% + 2.5rem);
-    margin-left: -1.25rem;
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-  }
+  /* Внутри модала — sticky bar теперь снаружи scrollable контейнера,
+     компенсация padding не нужна. Правило dialog .calc-sticky-bar удалено. */
 
   /* Когда форма видна — бар «отлипает» и встаёт под формой */
   .calc-sticky-bar.is-docked {
@@ -1098,6 +1097,48 @@
     box-shadow: none;
     border-top: none;
     margin-top: 1rem;
+  }
+
+  /* Обёртка формы: убираем нижний padding когда бар «отлип» */
+  .form-wrap--docked {
+    padding-bottom: 0 !important;
+  }
+
+  /* Рама-превью: тень для варианта «Без багета» */
+  .frame-preview--none {
+    border: none;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+  }
+  /* Рама-превью: тень для обрамлённого варианта (border задаётся из JS) */
+  .frame-preview--framed {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Текстура стены — чистый CSS grain (замена CDN stucco.png) */
+  .texture-stucco {
+    background-image:
+      repeating-conic-gradient(rgba(120, 100, 80, 0.06) 0% 25%, transparent 0% 50%);
+    background-size: 4px 4px;
+  }
+
+  /* Onboarding toast — модульные картины (замена inline cssText) */
+  .mc-onboarding-toast {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    font-size: 12px;
+    line-height: 1.4;
+    padding: 8px 14px;
+    border-radius: 10px;
+    pointer-events: none;
+    z-index: 50;
+    max-width: 90%;
+    text-align: center;
+    transition: opacity 0.5s;
+    opacity: 1;
   }
 
   /* Оболочка модального окна (overlay + центрирование) */
@@ -1133,7 +1174,7 @@
       max-width: 100%;
       height: 92vh;
       border-radius: 1rem 1rem 0 0;
-      animation: frame-sheet-up 0.35s cubic-bezier(0.32, 0.72, 0, 1) both;
+      animation: frame-sheet-up 0.35s var(--ease-sheet) both;
     }
     @keyframes frame-sheet-up {
       from { transform: translateY(100%); }
@@ -2005,7 +2046,7 @@
     padding: 0.65rem 1.5rem;
     border-radius: 0.5rem;
     cursor: pointer;
-    transition: transform .25s cubic-bezier(.4,0,.2,1);
+    transition: transform .25s var(--ease-material);
   }
   .lightbox-select-btn:hover {
     transform: translateY(-2px);
@@ -2016,8 +2057,8 @@
     background: transparent;
     border: 1px solid rgba(255,253,250,.28);
     color: #FFFDFA;
-    transition: transform .3s cubic-bezier(.4,0,.2,1),
-                box-shadow .3s cubic-bezier(.4,0,.2,1);
+    transition: transform .3s var(--ease-material),
+                box-shadow .3s var(--ease-material);
   }
   :is(.bg-ah-975, .cta-section) :is(.btn-primary, .btn-header-cta):hover {
     transform: translateY(-3px) scale(1.03);
@@ -2041,7 +2082,7 @@
     background-color: var(--color-ah-975);
     color: var(--color-ah-25);
     border: 1px solid rgba(255,253,250,.18);
-    transition: transform .25s cubic-bezier(.4,0,.2,1);
+    transition: transform .25s var(--ease-material);
   }
   #btn-submit-order:hover {
     transform: translateY(-2px);
@@ -2051,7 +2092,7 @@
     background-color: var(--color-ah-975) !important;
     color: var(--color-ah-25) !important;
     border: 1px solid rgba(255,253,250,.18) !important;
-    transition: transform .25s cubic-bezier(.4,0,.2,1) !important;
+    transition: transform .25s var(--ease-material) !important;
   }
   #btn-sticky-order:hover {
     transform: translateY(-2px);
@@ -2231,6 +2272,115 @@
 }
 
 /* ══════════════════════════════════════════════════════════════
+   Calculator: Material Design color hierarchy (O-hierarchy)
+   Global — applies to ALL pages with #calc AND #repro-modal
+   PRIMARY 100% → active elements, headings, selected states
+   SECONDARY 60% → inactive elements, labels, muted text
+   DISABLED 38%  → placeholder text
+   UNLAYERED — must beat @layer utilities from Tailwind classes
+   ══════════════════════════════════════════════════════════════ */
+
+  /* ── PRIMARY (100 %) ── */
+  :is(#calc, #repro-modal) :is(.text-ink, .heading-section, .heading-card) { color: var(--color-ah-975); }
+  :is(#calc, #repro-modal) .section-title { color: var(--color-ah-975); }
+  :is(#calc, #repro-modal) :is(section, div):has(.calc-checkbox:checked) label,
+  :is(#calc, #repro-modal) #selected-frame-text { color: var(--color-ah-975); }
+  :is(#calc, #repro-modal) .size-btn.is-active  { color: var(--color-ah-975); }
+  :is(#calc, #repro-modal) .calc-badge.is-active { color: var(--color-ah-975); }
+  :is(#calc, #repro-modal) .form-input { color: var(--color-ah-975); }
+  #calc #desktop-price-bar .text-ink-muted { color: var(--color-ah-975); }
+
+  /* ── SECONDARY (60 %) ── */
+  :is(#calc, #repro-modal) :is(.text-small, figcaption, .text-ink-muted) { color: var(--color-ink-secondary); }
+  :is(#calc, #repro-modal) label                      { color: var(--color-ink-secondary); }
+  :is(#calc, #repro-modal) .wrap-btn[aria-checked="false"] { color: var(--color-ink-secondary); }
+  :is(#calc, #repro-modal) .text-xs.text-left          { color: var(--color-ink-secondary); }
+  :is(#calc, #repro-modal) .size-btn:not(.is-active)   { color: var(--color-ink-secondary); }
+  :is(#calc, #repro-modal) .calc-badge:not(.is-active) { color: var(--color-ink-secondary); }
+
+  /* ── DISABLED (38 %) ── */
+  :is(#calc, #repro-modal) .form-input::placeholder { color: var(--color-ink-disabled); }
+
+  /* ── Backgrounds & borders ── */
+  :is(#calc, #repro-modal) .size-btn { background: var(--color-ah-25); }
+  :is(#calc, #repro-modal) .size-btn.is-active { background: var(--color-ah-50); }
+  :is(#calc, #repro-modal) [role="radiogroup"] { background-color: transparent; padding: 0; gap: 0.5rem; }
+  :is(#calc, #repro-modal) .wrap-btn { background: var(--color-ah-25); border: 1px solid var(--color-ah-200); border-radius: 0.5rem; }
+  :is(#calc, #repro-modal) .wrap-btn[aria-checked="true"],
+  :is(#calc, #repro-modal) .wrap-btn.is-active { background-color: var(--color-ah-50); border-color: var(--color-ah-700); }
+  :is(#calc, #repro-modal) .form-input { background-color: var(--color-ah-25); }
+  :is(#calc, #repro-modal) .form-input:focus { background-color: var(--color-ah-50); }
+  #calc #processing-select { background-color: var(--color-ah-25); border-color: var(--color-ah-200); }
+  #calc #frame-section { background-color: var(--color-ah-25); }
+  #calc #frame-section .text-ink-muted { color: var(--color-ah-600); }
+  #calc #frame-section .w-10.rounded { border-color: var(--color-ah-200); }
+  #calc #inp-w,
+  #calc #inp-h {
+    background-color: var(--color-ah-25);
+    border-color: var(--color-ah-200);
+    color: var(--color-ah-975);
+  }
+  #calc #inp-w:focus,
+  #calc #inp-h:focus { background-color: var(--color-ah-50); }
+  #calc #calc-preview-column > div { border-color: var(--color-ah-200); }
+  #calc #calc-preview-column { background-color: var(--color-ah-25); }
+
+  /* ── Progressive CTA (ghost → active) ── */
+  #calc #btn-upload-empty,
+  #calc #btn-submit-order {
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease,
+                transform 0.25s var(--ease-material),
+                box-shadow 0.25s var(--ease-material);
+  }
+  #calc #btn-submit-order {
+    background: transparent;
+    color: rgba(20, 11, 1, 0.35);
+    border: 1px solid rgba(20, 11, 1, 0.12);
+    pointer-events: none;
+    box-shadow: none;
+  }
+  #calc:has(#uploader-thumbnails:not(:empty)) #btn-upload-empty {
+    background: var(--color-ah-25);
+    color: var(--color-ink-secondary);
+    border: 1px solid var(--color-ah-200);
+    transform: translateY(0);
+    box-shadow: none;
+  }
+  #calc:has(#uploader-thumbnails:not(:empty)) #btn-upload-empty:hover {
+    background: var(--color-ah-50);
+    color: var(--color-ah-975);
+    border-color: var(--color-ah-600);
+    transform: translateY(0);
+    box-shadow: none;
+  }
+  #calc:has(#uploader-thumbnails:not(:empty)) #btn-submit-order {
+    background: var(--color-primary);
+    color: #fff;
+    border-color: transparent;
+    pointer-events: auto;
+    box-shadow: none;
+  }
+  #calc:has(#uploader-thumbnails:not(:empty)) #btn-submit-order:hover {
+    background: var(--color-ah-975);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(20, 11, 1, .18);
+  }
+
+  /* ── Frame modal: ghost → active ── */
+  #apply-frame-selection {
+    background: transparent;
+    color: var(--color-ink-disabled);
+    border: 1px solid rgba(20, 11, 1, 0.12);
+    box-shadow: none;
+  }
+  #frame-modal:has(.calc-frame-upload-cta.has-photo) #apply-frame-selection {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+  }
+
+/* ══════════════════════════════════════════════════════════════
    Style-portraits: O-hierarchy + section refinements
    Shared across ALL 18 style pages (scoped by body.style-portraits)
    UNLAYERED — must beat @layer utilities from Tailwind classes in HTML
@@ -2246,95 +2396,14 @@
   .style-portraits .heading-section { letter-spacing: -0.025em; text-wrap: balance; }
   .style-portraits .heading-card   { letter-spacing: -0.015em; line-height: 1.2; }
 
-  /* ── PRIMARY (100 %) ── */
-  .style-portraits :is(#calc, #kak-zakazat, #harakteristiki, #preimushchestva, #otzyvy, #opisanie) :is(.text-ink, .heading-section, .heading-card) {
+  /* ── PRIMARY (100 %) — non-calc sections ── */
+  .style-portraits :is(#kak-zakazat, #harakteristiki, #preimushchestva, #otzyvy, #opisanie) :is(.text-ink, .heading-section, .heading-card) {
     color: var(--color-ah-975);
   }
-  .style-portraits #calc .section-title { color: var(--color-ah-975); }
-  .style-portraits #calc section[data-portrait-option]:has(.calc-checkbox:checked) label,
-  .style-portraits #calc #selected-frame-text { color: var(--color-ah-975); }
-  .style-portraits #calc .size-btn.is-active  { color: var(--color-ah-975); }
-  .style-portraits #calc .calc-badge.is-active { color: var(--color-ah-975); }
-  .style-portraits #calc #desktop-price-bar .text-ink-muted { color: var(--color-ah-975); }
-  .style-portraits #calc .form-input { color: var(--color-ah-975); }
 
-  /* ── SECONDARY (60 %) ── */
-  .style-portraits :is(#calc, #kak-zakazat, #harakteristiki, #preimushchestva, #otzyvy, #opisanie) :is(.text-small, figcaption, .text-ink-muted) {
+  /* ── SECONDARY (60 %) — non-calc sections ── */
+  .style-portraits :is(#kak-zakazat, #harakteristiki, #preimushchestva, #otzyvy, #opisanie) :is(.text-small, figcaption, .text-ink-muted) {
     color: var(--color-ink-secondary);
-  }
-  .style-portraits #calc label                      { color: var(--color-ink-secondary); }
-  .style-portraits #calc .wrap-btn[aria-checked="false"] { color: var(--color-ink-secondary); }
-  .style-portraits #calc .text-xs.text-left          { color: var(--color-ink-secondary); }
-  .style-portraits #calc .size-btn:not(.is-active)   { color: var(--color-ink-secondary); }
-  .style-portraits #calc .calc-badge:not(.is-active) { color: var(--color-ink-secondary); }
-
-  /* ── DISABLED (38 %) ── */
-  .style-portraits #calc .form-input::placeholder { color: var(--color-ink-disabled); }
-
-  /* ── Calc: backgrounds & borders ── */
-  .style-portraits #calc .size-btn { background: var(--color-ah-25); }
-  .style-portraits #calc .size-btn.is-active { background: var(--color-ah-50); }
-  .style-portraits #calc [role="radiogroup"] { background-color: transparent; padding: 0; gap: 0.5rem; }
-  .style-portraits #calc .wrap-btn { background: var(--color-ah-25); border: 1px solid var(--color-ah-200); border-radius: 0.5rem; }
-  .style-portraits #calc .wrap-btn[aria-checked="true"],
-  .style-portraits #calc .wrap-btn.is-active { background-color: var(--color-ah-50); border-color: var(--color-ah-700); }
-  .style-portraits #calc #processing-select { background-color: var(--color-ah-25); border-color: var(--color-ah-200); }
-  .style-portraits #calc #frame-section { background-color: var(--color-ah-25); }
-  .style-portraits #calc .form-input { background-color: var(--color-ah-25); }
-  .style-portraits #calc .form-input:focus { background-color: var(--color-ah-50); }
-  .style-portraits #calc #frame-section .text-ink-muted { color: var(--color-ah-600); }
-  .style-portraits #calc #frame-section .w-10.rounded { border-color: var(--color-ah-200); }
-  .style-portraits #calc #inp-w,
-  .style-portraits #calc #inp-h {
-    background-color: var(--color-ah-25);
-    border-color: var(--color-ah-200);
-    color: var(--color-ah-975);
-  }
-  .style-portraits #calc #inp-w:focus,
-  .style-portraits #calc #inp-h:focus { background-color: var(--color-ah-50); }
-  .style-portraits #calc #calc-preview-column > div { border-color: var(--color-ah-200); }
-  .style-portraits #calc #calc-preview-column { background-color: var(--color-ah-25); }
-
-  /* ── Progressive CTA (ghost → active) ── */
-  .style-portraits #calc #btn-upload-empty,
-  .style-portraits #calc #btn-submit-order {
-    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease,
-                transform 0.25s cubic-bezier(.4,0,.2,1),
-                box-shadow 0.25s cubic-bezier(.4,0,.2,1);
-  }
-  .style-portraits #calc #btn-submit-order {
-    background: transparent;
-    color: rgba(20, 11, 1, 0.35);
-    border: 1px solid rgba(20, 11, 1, 0.12);
-    pointer-events: none;
-    box-shadow: none;
-  }
-  .style-portraits #calc:has(#uploader-thumbnails:not(:empty)) #btn-upload-empty {
-    background: var(--color-ah-25);
-    color: var(--color-ink-secondary);
-    border: 1px solid var(--color-ah-200);
-    transform: translateY(0);
-    box-shadow: none;
-  }
-  .style-portraits #calc:has(#uploader-thumbnails:not(:empty)) #btn-upload-empty:hover {
-    background: var(--color-ah-50);
-    color: var(--color-ah-975);
-    border-color: var(--color-ah-600);
-    transform: translateY(0);
-    box-shadow: none;
-  }
-  .style-portraits #calc:has(#uploader-thumbnails:not(:empty)) #btn-submit-order {
-    background: var(--color-primary);
-    color: #fff;
-    border-color: transparent;
-    pointer-events: auto;
-    box-shadow: none;
-  }
-  .style-portraits #calc:has(#uploader-thumbnails:not(:empty)) #btn-submit-order:hover {
-    background: var(--color-ah-975);
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(20, 11, 1, .18);
   }
 
   /* ── Как заказать — перенесено в @layer components как универсальный компонент ── */
@@ -2355,19 +2424,6 @@
   /* ── Описание ── */
   .style-portraits #opisanie .text-ink { line-height: 1.75; }
 
-  /* ── Модал багета: ghost → active ── */
-  .style-portraits #apply-frame-selection {
-    background: transparent;
-    color: var(--color-ink-disabled);
-    border: 1px solid rgba(20, 11, 1, 0.12);
-    box-shadow: none;
-  }
-  .style-portraits #frame-modal:has(.calc-frame-upload-cta.has-photo) #apply-frame-selection {
-    background: var(--color-primary);
-    color: white;
-    border: none;
-  }
-
   /* ── Отзывы: OAuth modal ── */
   .style-portraits #otzyvy .text-ah-800.text-sm { color: var(--color-ah-975); }
   .style-portraits #otzyvy .text-ah-975.text-sm.font-medium { color: var(--color-ah-975); }
@@ -2381,6 +2437,7 @@
 
   /* ── Sale banner → dark amber ── */
   .style-portraits .sale-banner { background-color: var(--color-ah-975); }
+
 
 /* === Музейные иконки (Restore original Muse paths) === */
 
@@ -2422,7 +2479,7 @@
     border-radius: 16px 16px 0 0;
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.12);
     transform: translateY(100%);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.3s var(--ease-material);
   }
 }
 
@@ -2488,16 +2545,21 @@
 }
 
 @utility mc-module-item {
+  box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.3);
   transition: box-shadow 0.15s ease;
   &:hover {
-    box-shadow: 0 0 0 2px var(--color-primary);
+    box-shadow: 0 0 0 2px var(--color-ah-600), 2px 4px 15px rgba(0, 0, 0, 0.3);
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.12;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    z-index: 5;
   }
 }
 
-@utility mc-custom-scroll {
-  scrollbar-width: thin;
-  scrollbar-color: color-mix(in srgb, var(--color-primary), transparent 70%) transparent;
-  &::-webkit-scrollbar { width: 4px; height: 4px; }
-  &::-webkit-scrollbar-track { background: transparent; }
-  &::-webkit-scrollbar-thumb { background-color: color-mix(in srgb, var(--color-primary), transparent 70%); border-radius: 20px; }
-}
+/* mc-custom-scroll удалён — используем .custom-scrollbar из @layer components */

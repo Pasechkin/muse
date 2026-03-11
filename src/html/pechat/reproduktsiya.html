@@ -394,33 +394,34 @@
 
         <dialog id="repro-modal" class="modal-shell">
             <div class="bg-white w-full max-w-6xl h-[100dvh] md:h-auto md:max-h-[95vh] rounded-none md:rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row relative" id="repro-modal-content">
-                <!-- Крестик закрытия (всегда поверх) -->
-                <button id="close-modal-btn" type="button" class="absolute top-3 right-3 p-2 rounded-full hover:bg-gray-100 transition-colors z-30 bg-white/80 backdrop-blur-sm shadow-sm" aria-label="Закрыть">
-                    <svg class="w-6 h-6 text-ink-muted" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                <!-- Крестик закрытия (ui-control как в calc) -->
+                <button id="close-modal-btn" type="button" class="ui-control ui-control--md absolute top-3 right-3 z-30 focus:outline-none" aria-label="Закрыть">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="w-6 h-6" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6l12 12"/></svg>
                 </button>
 
                 <!-- Левая часть: Превью картины -->
-                <div class="w-full shrink-0 md:w-1/2 bg-gray-50 p-4 md:p-8 flex items-center justify-center relative md:overflow-hidden">
+                <div class="w-full shrink-0 md:w-1/2 bg-ah-25 p-4 md:p-8 flex items-center justify-center relative md:overflow-hidden">
                     <div id="modal-frame" class="relative z-10 transition-all duration-500">
                         <img
                             id="modal-image"
-                            src=""
                             alt=""
+                            hidden
                             class="max-h-[28vh] md:max-h-[60vh] max-w-full object-contain shadow-inner bg-white"
                             referrerpolicy="no-referrer"
                         />
                         <div id="modal-glossy" class="absolute inset-0 bg-linear-to-tr from-white/0 via-white/20 to-white/0 pointer-events-none mix-blend-overlay hidden"></div>
                         <div id="modal-matte" class="absolute inset-0 bg-black/5 pointer-events-none mix-blend-overlay backdrop-blur-[1px] hidden"></div>
                     </div>
-                    <div class="absolute inset-0 opacity-30 pointer-events-none" style="background-image: url('https://www.transparenttextures.com/patterns/stucco.png')"></div>
+                    <div class="absolute inset-0 opacity-30 pointer-events-none texture-stucco"></div>
                 </div>
 
                 <!-- Правая часть: Настройки -->
-                <div class="w-full grow min-h-0 md:w-1/2 md:grow-0 px-5 pt-5 pb-0 md:px-8 md:pt-8 md:pb-0 overflow-y-auto flex flex-col relative custom-scrollbar">
+                <div class="w-full grow min-h-0 md:w-1/2 md:grow-0 flex flex-col relative">
+                  <div class="px-5 pt-5 pb-0 md:px-8 md:pt-8 md:pb-0 overflow-y-auto grow flex flex-col custom-scrollbar">
                     <div class="mb-6 pr-8">
-                        <h2 id="modal-title" class="text-2xl md:text-3xl font-bold text-body mb-1 leading-tight"></h2>
-                        <p id="modal-artist" class="text-base text-ink-muted"></p>
-                        <p id="modal-original-size" class="text-sm text-ink-muted mt-1 hidden"></p>
+                        <h2 id="modal-title" class="text-2xl md:text-3xl font-bold text-ink mb-1 leading-tight"></h2>
+                        <p id="modal-artist" class="text-base text-ink"></p>
+                        <p id="modal-original-size" class="text-sm text-ink mt-1 hidden"></p>
                     </div>
 
                     <div class="space-y-6 grow">
@@ -431,10 +432,10 @@
                             </h3>
                             <div id="sizes-container" class="grid grid-cols-2 gap-3"></div>
                             <!-- Слайдер точного размера -->
-                            <div class="bg-secondary mt-3 p-3 rounded-xl space-y-2">
+                            <div class="bg-ah-50 mt-3 p-3 rounded-xl space-y-2">
                                 <div class="flex items-center justify-between">
                                     <span class="text-[10px] uppercase tracking-widest text-ink-muted font-bold">Свой размер</span>
-                                    <span id="repro-size-display" class="text-sm font-bold text-body">60 см</span>
+                                    <span id="repro-size-display" class="text-sm font-bold text-ink">60 см</span>
                                 </div>
                                 <input type="range" id="repro-size-slider" min="30" max="120" step="1" value="60" class="w-full accent-primary cursor-pointer">
                                 <div class="flex justify-between text-[9px] text-ink-muted font-medium"><span>30 см</span><span>120 см</span></div>
@@ -445,12 +446,12 @@
                         <div>
                             <h3 class="section-title mb-3">
                                 <span>Печать и подрамник</span>
-                                <span class="calc-badge" id="modal-price-wrap">0 р.</span>
+                                <span class="calc-badge tabular-nums lining-nums" id="modal-price-wrap">0 ₽</span>
                             </h3>
-                            <div class="flex p-1 bg-secondary rounded-lg" role="radiogroup" aria-label="Тип подрамника">
-                                <button class="wrap-btn is-active" data-val="STANDARD" role="radio" aria-checked="true">Стандартный</button>
-                                <button class="wrap-btn" data-val="GALLERY" role="radio" aria-checked="false">Толстый</button>
-                                <button class="wrap-btn" data-val="NO_FRAME" role="radio" aria-checked="false">Рулон</button>
+                            <div class="flex p-1 bg-ah-50 rounded-lg" role="radiogroup" aria-label="Тип подрамника">
+                                <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-bold transition bg-white text-ink shadow-sm" data-val="STANDARD" role="radio" aria-checked="true">Стандартный</button>
+                                <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-medium transition" data-val="GALLERY" role="radio" aria-checked="false">Толстый</button>
+                                <button class="wrap-btn flex-1 py-2 rounded-md text-xs font-medium transition" data-val="NO_FRAME" role="radio" aria-checked="false">Рулон</button>
                             </div>
                         </div>
 
@@ -458,8 +459,10 @@
                         <div>
                             <h3 class="section-title mb-3">
                                 <span>Оформление в багет</span>
-                                <span class="calc-badge" id="modal-price-frame">0 р.</span>
+                                <span class="calc-badge tabular-nums lining-nums" id="modal-price-frame">0 ₽</span>
                             </h3>
+                            <!-- Без багета — отдельная кнопка -->
+                            <button type="button" id="modal-frame-none" class="w-full mb-4 border border-ah-700 bg-ah-25 ring-1 ring-ah-700 rounded-lg p-3 text-sm font-bold text-ink text-center transition-all">Без багета</button>
                             <div class="mb-4">
                                 <div class="text-xs font-bold uppercase tracking-widest text-ink-muted mb-2">Студийный</div>
                                 <div id="modal-frames-studio" class="grid grid-cols-3 sm:grid-cols-4 gap-3"></div>
@@ -470,35 +473,50 @@
                             </div>
                         </div>
 
-                        <!-- 4. Покрытие лаком -->
-                        <div>
-                            <div class="section-title mb-2"><span>Покрытие лаком</span><span class="calc-badge" id="modal-price-varnish">0 р.</span></div>
-                            <div class="flex gap-3">
+                        <!-- 4. Покрытие лаком и подарочная упаковка -->
+                        <section id="repro-varnish-gift-section" class="space-y-4">
+                            <!-- Покрытие лаком: checkbox + title + price (inline) -->
+                            <div class="flex items-center gap-3">
                                 <div class="flex h-6 shrink-0 items-center">
                                     <div class="group grid size-4 grid-cols-1">
                                         <input id="toggle-repro-varnish" type="checkbox" name="varnish" checked
                                                aria-label="Покрытие лаком"
                                                class="calc-checkbox col-start-1 row-start-1 forced-colors:appearance-auto" />
-                                        <svg viewBox="0 0 14 14" fill="none" class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white">
+                                        <svg viewBox="0 0 14 14" fill="none" aria-hidden="true" class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white">
                                             <path d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-0 group-has-checked:opacity-100" />
                                         </svg>
                                     </div>
                                 </div>
-                                <div class="text-sm/6">
-                                    <label for="toggle-repro-varnish" class="font-medium text-body cursor-pointer">Защитит от влаги и выцветания</label>
-                                </div>
+                                <label for="toggle-repro-varnish" class="text-sm font-medium text-body cursor-pointer truncate flex-1">Покрытие лаком</label>
+                                <span class="calc-badge whitespace-nowrap shrink-0 tabular-nums lining-nums" id="modal-price-varnish">0 ₽</span>
                             </div>
-                        </div>
+                            <!-- Подарочная упаковка: checkbox + title + price (inline) -->
+                            <div class="flex items-center gap-3">
+                                <div class="flex h-6 shrink-0 items-center">
+                                    <div class="group grid size-4 grid-cols-1">
+                                        <input id="toggle-repro-gift" type="checkbox" name="gift"
+                                               aria-label="Подарочная упаковка"
+                                               class="calc-checkbox col-start-1 row-start-1 forced-colors:appearance-auto" />
+                                        <svg viewBox="0 0 14 14" fill="none" aria-hidden="true" class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white">
+                                            <path d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-0 group-has-checked:opacity-100" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <label for="toggle-repro-gift" class="text-sm font-medium text-body cursor-pointer truncate flex-1">Подарочная упаковка</label>
+                                <span class="calc-badge whitespace-nowrap shrink-0 tabular-nums lining-nums" id="modal-price-gift">0 ₽</span>
+                            </div>
+                        </section>
                     </div>
 
                     <!-- Итоговая цена + Форма заказа -->
-                    <div class="mt-6 pt-5 border-t border-gray-100 pb-20 lg:pb-0">
+                    <div class="mt-6 pt-5 pb-20 lg:pb-0">
                         <div class="hidden lg:flex items-baseline justify-between mb-5">
                             <span class="text-sm text-ink-muted">Цена со скидкой 20%</span>
-                            <span id="modal-total-price" class="text-2xl font-bold text-ah-950 leading-none whitespace-nowrap">0 р.</span>
+                            <span id="modal-total-price" class="text-2xl font-bold text-ink leading-none whitespace-nowrap tabular-nums lining-nums">0 ₽</span>
                         </div>
 
                         <form id="repro-order-form" novalidate>
+                            <h3 class="heading-card text-xl text-center mb-4">Оформление заказа</h3>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
                                 <input type="text" id="repro-name" class="form-input" placeholder="Имя*" autocomplete="name">
                                 <input type="tel" id="repro-phone" class="form-input" placeholder="Телефон*" autocomplete="tel">
@@ -512,18 +530,19 @@
                             <button type="button" id="repro-order-btn" class="hidden lg:block w-full btn-header-cta px-8 py-3">
                                 <span id="repro-order-text">Заказать</span>
                             </button>
-                            <p class="text-xs text-ink-secondary mt-3 leading-tight">Заполняя форму, я соглашаюсь с условиями <a href="https://muse.ooo/info/oferta/" class="underline hover:text-ink">Оферты</a> и даю свое согласие на обработку персональных данных в соответствии с <a href="https://muse.ooo/info/politika_konfidentsialnosti_sayta/" class="underline hover:text-ink">Политикой конфиденциальности сайта</a></p>
+                            <p class="text-xs text-ink-muted mt-3 mb-6 leading-tight">Заполняя форму, я соглашаюсь с условиями <a href="https://muse.ooo/info/oferta/" class="underline hover:text-ink">Оферты</a> и даю свое согласие на обработку персональных данных в соответствии с <a href="https://muse.ooo/info/politika_konfidentsialnosti_sayta/" class="underline hover:text-ink">Политикой конфиденциальности сайта</a></p>
                         </form>
                     </div>
+                  </div>
 
-                    <!-- Мобильный sticky bar (внутри модала) -->
-                    <div id="repro-sticky-bar" class="calc-sticky-bar">
-                        <div class="min-w-0">
-                            <div class="text-lg font-bold text-ah-950 whitespace-nowrap" id="sticky-repro-price">0 р.</div>
-                            <div class="text-xs text-ink-muted whitespace-nowrap">— цена со скидкой 20%</div>
-                        </div>
-                        <button type="button" id="btn-sticky-repro-order" class="btn-header-cta px-5 py-2.5 active:scale-[0.98] text-sm shrink-0">Заказать</button>
-                    </div>
+                  <!-- Мобильный sticky bar (снаружи scrollable, без компенсации padding) -->
+                  <div id="repro-sticky-bar" class="calc-sticky-bar">
+                      <div class="min-w-0">
+                          <div class="text-lg font-bold text-ink-on-dark whitespace-nowrap tabular-nums lining-nums" id="sticky-repro-price">0 ₽</div>
+                          <div class="text-xs text-ink-on-dark whitespace-nowrap">— цена со скидкой 20%</div>
+                      </div>
+                      <button type="button" id="btn-sticky-repro-order" class="btn-header-cta px-5 py-2.5 shrink-0">Заказать</button>
+                  </div>
                 </div>
             </div>
         </dialog>
