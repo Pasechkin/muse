@@ -1311,6 +1311,9 @@
       var aspectRatioStyle = (STATE.w && STATE.h) ? 'aspect-ratio: ' + STATE.w + '/' + STATE.h : 'aspect-ratio: 1/1';
 
       FRAMES_DB.forEach(function (frame) {
+        /* «Без багета» теперь отдельная кнопка в footer — не рендерим карточку */
+        if (frame.id === 'NONE') return;
+
         var el = document.createElement('div');
         el.className = 'frame-option group relative cursor-pointer flex flex-col items-center gap-2 p-2 rounded-xl border-2 border-transparent transition';
         el.dataset.id = frame.id;
@@ -1363,51 +1366,57 @@
             { bottom:'0',right:'0',transform:'scale(-1,-1)' }
           ];
 
-          /* Render sides + corners once strips are loaded */
-          (function (fw, wrap, sideCfgs, cornerCfgs, f) {
+          /* Render sides + corners once strips are loaded — deferred via IntersectionObserver */
+          (function (fw, wrap, sideCfgs, cornerCfgs, f, card) {
             /* solid-color fallback first */
             wrap.style.backgroundColor = f.color || '#8B7355';
-            
-            if (window.MUSE_FRAMES && typeof window.MUSE_FRAMES.getStrips === 'function') {
-              window.MUSE_FRAMES.getStrips(f, function (strips) {
-                if (!strips) return;
-                wrap.style.backgroundColor = 'transparent';
-                
-                sideCfgs.forEach(function (sc) {
-                  var d = document.createElement('div');
-                  var css = 'position:absolute;z-index:2;';
-                  if (sc.top !== undefined) css += 'top:' + sc.top + ';';
-                  if (sc.bottom !== undefined) css += 'bottom:' + sc.bottom + ';';
-                  if (sc.left !== undefined) css += 'left:' + sc.left + ';';
-                  if (sc.right !== undefined) css += 'right:' + sc.right + ';';
-                  if (sc.height) css += 'height:' + sc.height + ';';
-                  if (sc.width) css += 'width:' + sc.width + ';';
-                  var url = strips[sc.bg];
-                  css += 'background:url(' + url + ') repeat-' + sc.dir + ' left top;';
-                  if (sc.sizeH) css += 'background-size:auto 100%;';
-                  if (sc.sizeW) css += 'background-size:100% auto;';
-                  d.style.cssText = css;
-                  wrap.appendChild(d);
-                });
 
-                cornerCfgs.forEach(function (cc) {
-                  var d = document.createElement('div');
-                  d.style.cssText = 'position:absolute;z-index:3;width:' + fw + '%;height:' + fw + '%;overflow:hidden;';
-                  if (cc.top !== undefined) d.style.top = cc.top;
-                  if (cc.bottom !== undefined) d.style.bottom = cc.bottom;
-                  if (cc.left !== undefined) d.style.left = cc.left;
-                  if (cc.right !== undefined) d.style.right = cc.right;
-                  d.style.transform = cc.transform;
-                  var img = document.createElement('img');
-                  img.src = f.cornerUrl;
-                  img.alt = '';
-                  img.style.cssText = 'width:100%;height:100%;display:block;object-fit:cover;';
-                  d.appendChild(img);
-                  wrap.appendChild(d);
+            card._loadStrips = function () {
+              if (card._stripsLoaded) return;
+              card._stripsLoaded = true;
+              if (window.MUSE_FRAMES && typeof window.MUSE_FRAMES.getStrips === 'function') {
+                window.MUSE_FRAMES.getStrips(f, function (strips) {
+                  if (!strips) return;
+                  wrap.style.backgroundColor = 'transparent';
+
+                  sideCfgs.forEach(function (sc) {
+                    var d = document.createElement('div');
+                    var css = 'position:absolute;z-index:2;';
+                    if (sc.top !== undefined) css += 'top:' + sc.top + ';';
+                    if (sc.bottom !== undefined) css += 'bottom:' + sc.bottom + ';';
+                    if (sc.left !== undefined) css += 'left:' + sc.left + ';';
+                    if (sc.right !== undefined) css += 'right:' + sc.right + ';';
+                    if (sc.height) css += 'height:' + sc.height + ';';
+                    if (sc.width) css += 'width:' + sc.width + ';';
+                    var url = strips[sc.bg];
+                    css += 'background:url(' + url + ') repeat-' + sc.dir + ' left top;';
+                    if (sc.sizeH) css += 'background-size:auto 100%;';
+                    if (sc.sizeW) css += 'background-size:100% auto;';
+                    d.style.cssText = css;
+                    wrap.appendChild(d);
+                  });
+
+                  cornerCfgs.forEach(function (cc) {
+                    var d = document.createElement('div');
+                    d.style.cssText = 'position:absolute;z-index:3;width:' + fw + '%;height:' + fw + '%;overflow:hidden;';
+                    if (cc.top !== undefined) d.style.top = cc.top;
+                    if (cc.bottom !== undefined) d.style.bottom = cc.bottom;
+                    if (cc.left !== undefined) d.style.left = cc.left;
+                    if (cc.right !== undefined) d.style.right = cc.right;
+                    d.style.transform = cc.transform;
+                    var img = document.createElement('img');
+                    img.src = f.cornerUrl;
+                    img.alt = '';
+                    img.loading = 'lazy';
+                    img.decoding = 'async';
+                    img.style.cssText = 'width:100%;height:100%;display:block;object-fit:cover;';
+                    d.appendChild(img);
+                    wrap.appendChild(d);
+                  });
                 });
-              });
-            }
-          })(fwPct, frameWrap, sidesCfg, cornersCfg, frame);
+              }
+            };
+          })(fwPct, frameWrap, sidesCfg, cornersCfg, frame, el);
 
           box.appendChild(frameWrap);
           box.appendChild(photoDiv);
@@ -1449,7 +1458,7 @@
 
         if (frame.cat === 'FLAT' && flatContainer) {
           flatContainer.appendChild(el);
-        } else if (frame.cat === 'STUDIO' || frame.id === 'NONE') {
+        } else if (frame.cat === 'STUDIO') {
           studioContainer.appendChild(el);
         } else {
           classicContainer.appendChild(el);
@@ -1463,6 +1472,21 @@
       allContainers.forEach(function (c) {
         _cachedFrameOptions = _cachedFrameOptions.concat(Array.from(c.querySelectorAll('.frame-option')));
         _cachedFramePreviews = _cachedFramePreviews.concat(Array.from(c.querySelectorAll('.frame-image-preview')));
+      });
+
+      /* Stage 2D: IntersectionObserver — load strip textures only when card is visible */
+      var modalBody = document.querySelector('.calc-frame-modal-body');
+      var observerRoot = (modalBody && modalBody.scrollHeight > modalBody.clientHeight) ? modalBody : null;
+      var _stripObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting && entry.target._loadStrips) {
+            entry.target._loadStrips();
+            _stripObserver.unobserve(entry.target);
+          }
+        });
+      }, { root: observerRoot, rootMargin: '200px' });
+      _cachedFrameOptions.forEach(function (el) {
+        if (el._loadStrips) _stripObserver.observe(el);
       });
 
       _frameCatalogRendered = true;
@@ -1771,6 +1795,13 @@
           tempFrameState = STATE.frame;
         };
 
+        /* Release ObjectURLs on page unload to free blob memory */
+        window.addEventListener('beforeunload', function () {
+          if (window.MUSE_FRAMES && typeof window.MUSE_FRAMES.revokeAll === 'function') {
+            window.MUSE_FRAMES.revokeAll();
+          }
+        });
+
         if (els.closeFrameModal) {
           els.closeFrameModal.addEventListener('click', function (e) {
             e.stopPropagation();
@@ -1849,6 +1880,20 @@
         if (els.modalUploadBtn) {
           els.modalUploadBtn.addEventListener('click', function () {
             if (uploaderInstance) uploaderInstance.openFilePicker();
+          });
+        }
+
+        var noFrameBtn = getEl('no-frame-btn');
+        if (noFrameBtn) {
+          noFrameBtn.addEventListener('click', function () {
+            var noneFrame = FRAMES_DB.filter(function (f) { return f.id === 'NONE'; })[0];
+            if (noneFrame) {
+              tempFrameState = noneFrame;
+              STATE.frame = tempFrameState;
+              highlightSelectedFrameInModal(tempFrameState);
+              updateUI(els);
+              closeModal();
+            }
           });
         }
 
@@ -2028,11 +2073,14 @@
       if (vpW / ratio <= vpH) { imgW = vpW; imgH = vpW / ratio; }
       else { imgH = vpH; imgW = vpH * ratio; }
 
-      /* Scale frame border proportionally to image size */
+      /* Scale frame border proportionally: real-world ratio of frame to canvas */
       var borderPx = 0;
       if (frameIdToPreview !== 'NONE') {
-        var sf = Math.max(1, imgW / (STATE.w * 4));
-        borderPx = Math.round((f.widthMm || f.width || 20) * 0.8 * sf);
+        if (f.widthMm && STATE.w > 0) {
+          borderPx = Math.round(imgW * f.widthMm / (STATE.w * 10));
+        } else {
+          borderPx = Math.round((f.width || 12) * Math.max(1, imgW / 300));
+        }
       }
 
       /* Shrink image so image + frame fits in viewport */
@@ -2759,7 +2807,13 @@
 
         var bw = 0;
         if (STATE.frame !== 'NONE') {
-          bw = fr.width || 12;
+          /* Scale frame border proportionally: widthMm relative to canvas cm */
+          var roomW = els.canvas.parentElement ? els.canvas.parentElement.clientWidth : 0;
+          if (roomW > 0 && fr.widthMm) {
+            bw = Math.max(2, Math.round(fr.widthMm * factorW * roomW / 1000));
+          } else {
+            bw = fr.width || 12;
+          }
           /* Transparent border reserves space for the DOM texture overlay */
           css += 'border:' + bw + 'px solid transparent;';
           css += 'border-image:none;';

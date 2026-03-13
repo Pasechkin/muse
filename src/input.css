@@ -2171,6 +2171,13 @@
     background: transparent;
     border-color: transparent;
   }
+
+  /* ── Perf: skip layout/paint for offscreen baguette grids ── */
+  #frames-grid-studio,
+  #frames-grid-classic {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 400px;
+  }
   .frame-option:hover {
     background: var(--color-ah-100);
     border-color: transparent;

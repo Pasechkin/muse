@@ -9,7 +9,8 @@
     "copy-css": "node -e \"const fs=require('fs');const path=require('path');const d='src/html/css';if(!fs.existsSync(d))fs.mkdirSync(d,{recursive:true});['output.css','page-info.css'].forEach(f=>{const src=path.join('src/css',f);if(fs.existsSync(src))fs.copyFileSync(src,path.join(d,f))});\"",
     "dev": "npm run build",
     "preview": "npm run build:once && npm run copy-css && npx http-server src/html -p 3000",
-    "preview:mobile": "npm run build:once && npm run copy-css && npx http-server src/html -p 3000 -a 0.0.0.0 --cors"
+    "preview:mobile": "npm run build:once && npm run copy-css && npx http-server src/html -p 3000 -a 0.0.0.0 --cors",
+    "optimize:bagets": "node scripts/optimize-bagets.js"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +21,7 @@
     "cssnano": "^7.0.6",
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
+    "sharp": "^0.34.5",
     "svg-path-bounds": "^1.0.2",
     "svgo": "^4.0.0",
     "tailwindcss": "^4.1.18",
