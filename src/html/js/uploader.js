@@ -160,7 +160,6 @@
       container.className = 'uploader-alert ' + typeClass;
       container.innerHTML = '<span>' + message + '</span>' +
         '<button type="button" class="uploader-alert-close" aria-label="Закрыть">&times;</button>';
-      container.style.display = 'flex';
 
       var closeBtn = container.querySelector('.uploader-alert-close');
       if (closeBtn) {
@@ -173,7 +172,7 @@
     function hideAlert() {
       var container = alertEl();
       if (!container) return;
-      container.style.display = 'none';
+      container.className = 'uploader-alert';
       container.innerHTML = '';
       if (alertTimer) { clearTimeout(alertTimer); alertTimer = null; }
     }

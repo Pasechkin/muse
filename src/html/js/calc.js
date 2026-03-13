@@ -209,6 +209,10 @@
     var _frameMap = {};
     FRAMES_DB.forEach(function (f) { _frameMap[f.id] = f; });
 
+    /* --- Preview frame DOM overlay (Approach B for main preview) --- */
+    var _previewFrameId = null;   /* last rendered frame id */
+    var _previewFrameWrap = null; /* wrapper div for the 8 texture divs */
+
     /* --- Perf: cached .calc-panel sections for toggleDigitalMockupMode (fix #3) --- */
     var _calcPanelSections = null;
 
@@ -1163,16 +1167,35 @@
         e.preventDefault();
         var nameInp = getEl('client-name');
         var phoneInp = getEl('client-phone');
-        var isValid = true;
+        var linkInp = getEl('client-link');
 
-        if (!nameInp.value.trim()) { nameInp.classList.add('error'); isValid = false; }
+        /* Шаг 1: проверка фото / ссылки */
+        var hasPhotos = uploaderInstance && typeof uploaderInstance.getCount === 'function' && uploaderInstance.getCount() > 0;
+        var hasLink = linkInp && linkInp.value.trim().length > 0;
+        if (!hasPhotos && !hasLink) {
+          if (linkInp) linkInp.classList.add('error');
+          if (uploaderInstance && typeof uploaderInstance.showAlert === 'function') {
+            uploaderInstance.showAlert('Пожалуйста, добавьте хотя бы одно изображение или ссылку на него.', 'error');
+          }
+          if (linkInp) linkInp.focus();
+          return;
+        }
+        if (linkInp) linkInp.classList.remove('error');
+
+        /* Шаг 2: проверка обязательных полей */
+        var emptyFields = [];
+
+        if (!nameInp.value.trim()) { nameInp.classList.add('error'); emptyFields.push(nameInp); }
         else { nameInp.classList.remove('error'); }
 
-        if (!phoneInp.value.trim() || phoneInp.value.length < 16) { phoneInp.classList.add('error'); isValid = false; }
+        if (!phoneInp.value.trim() || phoneInp.value.length < 16) { phoneInp.classList.add('error'); emptyFields.push(phoneInp); }
         else { phoneInp.classList.remove('error'); }
 
-        if (!isValid) {
-          document.getElementById('order-form-container').scrollIntoView({ behavior: 'smooth' });
+        if (emptyFields.length) {
+          if (uploaderInstance && typeof uploaderInstance.showAlert === 'function') {
+            uploaderInstance.showAlert('Пожалуйста, заполните обязательные поля.', 'error');
+          }
+          emptyFields[0].focus();
           return;
         }
 
@@ -1222,6 +1245,28 @@
       var btnSubmit = getEl('btn-submit-order');
       if (btnSubmit) btnSubmit.addEventListener('click', handleOrder);
 
+      /* Снятие .error при вводе + обновление ghost/active кнопки по ссылке */
+      var formFields = [getEl('client-name'), getEl('client-phone'), getEl('client-link')];
+      formFields.forEach(function (el) {
+        if (!el) return;
+        el.addEventListener('input', function () {
+          el.classList.remove('error');
+          /* Поле ссылки влияет на состояние кнопки (CSS :has() не отслеживает ссылку) */
+          if (el.id === 'client-link' && btnSubmit) {
+            var hasPhotos = uploaderInstance && typeof uploaderInstance.getCount === 'function' && uploaderInstance.getCount() > 0;
+            var hasLink = el.value.trim().length > 0;
+            if (hasPhotos || hasLink) {
+              btnSubmit.style.background = '';
+              btnSubmit.style.color = '';
+              btnSubmit.style.borderColor = '';
+              btnSubmit.classList.add('has-media');
+            } else {
+              btnSubmit.classList.remove('has-media');
+            }
+          }
+        });
+      });
+
       var btnSticky = getEl('btn-sticky-order');
       if (btnSticky) {
         btnSticky.addEventListener('click', function () {
@@ -1237,16 +1282,18 @@
      * Приоритет: frame.pricePerM (индивидуальная цена) → PRICES.framePerM × multiplier (fallback).
      */
     function getFramePrice(frame) {
-      if (frame.id === 'NONE') return 0;
-      var perimeter = (STATE.w + STATE.h) * 2 / 100;
-      var ppm = (typeof frame.pricePerM === 'number')
-        ? frame.pricePerM
-        : PRICES.framePerM * ((frame.cat === 'CLASSIC') ? PRICES.frameClassicMult : 1);
-      return Math.ceil(perimeter * ppm);
+      if (frame.id === 'NONE' || typeof frame.pricePerM !== 'number') return 0;
+      /* Real baguettes have widthMm; legacy demo frames do not */
+      if (frame.widthMm) {
+        return Math.round(0.18 * (STATE.w + STATE.h) * frame.pricePerM);
+      }
+      /* Legacy fallback formula */
+      return Math.ceil((STATE.w + STATE.h) * 2 / 100 * frame.pricePerM);
     }
 
     function renderFrameCatalog() {
-      var studioContainer = getEl('frames-grid-studio');
+      var flatContainer    = getEl('frames-grid-flat');
+      var studioContainer  = getEl('frames-grid-studio');
       var classicContainer = getEl('frames-grid-classic');
       if (!studioContainer || !classicContainer) return;
 
@@ -1257,6 +1304,7 @@
         return;
       }
 
+      if (flatContainer) flatContainer.innerHTML = '';
       studioContainer.innerHTML = '';
       classicContainer.innerHTML = '';
 
@@ -1266,14 +1314,6 @@
         var el = document.createElement('div');
         el.className = 'frame-option group relative cursor-pointer flex flex-col items-center gap-2 p-2 rounded-xl border-2 border-transparent transition';
         el.dataset.id = frame.id;
-
-        var hasImage = !!frame.imageUrl;
-        var borderStyle = (frame.width > 0 ? '8px' : '0') + ' solid ' + frame.color;
-        var styleCSS = '';
-        if (frame.id === 'NONE') {
-          styleCSS = 'background-color: #f1f5f9; border: 1px dashed #cbd5e1;';
-          borderStyle = 'none';
-        }
 
         var noFrameIcon = frame.id === 'NONE'
           ? '<div class="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">' +
@@ -1285,37 +1325,118 @@
 
         var priceText = frame.id === 'NONE' ? 'Без багета' : fmtPrice(getFramePrice(frame)) + ' ₽';
 
-        /*
-         * imageUrl support: when frame has a photo, show it as background
-         * covering the entire preview box (no CSS border).
-         * When imageUrl is null — CSS-rendered border preview (current behavior).
-         */
-        var innerHtml;
-        if (hasImage) {
-          innerHtml =
-            '<div class="relative w-full rounded-lg shadow-sm overflow-hidden bg-white frame-preview-box" style="' + aspectRatioStyle + '">' +
-              '<div class="w-full h-full box-border relative z-10">' +
-                '<img src="' + frame.imageUrl + '" alt="' + frame.name + '" class="w-full h-full object-cover frame-image-preview" loading="lazy">' +
-              '</div>' +
-              noFrameIcon +
-            '</div>' +
-            '<span class="text-xs font-bold text-body text-center leading-tight group-hover:text-primary-text transition">' + priceText + '</span>';
+        /* Build the preview box container */
+        var box = document.createElement('div');
+        box.className = 'relative w-full rounded-lg shadow-sm overflow-hidden bg-white frame-preview-box';
+        box.style.cssText = aspectRatioStyle + ';';
+
+        if (frame.id !== 'NONE' && frame.stripUrl) {
+          /* Real baguette: DOM composition (Approach B) rendered at pixel size */
+          /* Frame border width as % of card. Scale: widthMm maps to ~12-22% */
+          var fwPct = Math.max(10, Math.min(24, Math.round(frame.widthMm * 0.45)));
+          
+          /* Container for the frame rendering */
+          var frameWrap = document.createElement('div');
+          frameWrap.className = 'modal-frame-render';
+          frameWrap.style.cssText = 'position:absolute;inset:0;overflow:hidden;';
+
+          /* The photo area (user photo placeholder) */
+          var photoDiv = document.createElement('div');
+          photoDiv.className = 'frame-image-preview';
+          photoDiv.style.cssText = 'position:absolute;z-index:1;'
+            + 'top:' + fwPct + '%;left:' + fwPct + '%;right:' + fwPct + '%;bottom:' + fwPct + '%;'
+            + 'background-color:#f1f5f9;background-size:cover;background-position:center;';
+          
+          /* 4 Sides using strip texture (%) */
+          var sidesCfg = [
+            /* top */    { top:'0',left:fwPct+'%',right:fwPct+'%',height:fwPct+'%',bg:'topUrl',   dir:'x', sizeH:true },
+            /* bottom */ { bottom:'0',left:fwPct+'%',right:fwPct+'%',height:fwPct+'%',bg:'bottomUrl',dir:'x', sizeH:true },
+            /* left */   { left:'0',top:fwPct+'%',bottom:fwPct+'%',width:fwPct+'%',bg:'leftUrl',  dir:'y', sizeW:true },
+            /* right */  { right:'0',top:fwPct+'%',bottom:fwPct+'%',width:fwPct+'%',bg:'rightUrl', dir:'y', sizeW:true }
+          ];
+
+          /* 4 Corners */
+          var cornersCfg = [
+            { top:'0',left:'0',   transform:'none' },
+            { top:'0',right:'0',  transform:'scaleX(-1)' },
+            { bottom:'0',left:'0',transform:'scaleY(-1)' },
+            { bottom:'0',right:'0',transform:'scale(-1,-1)' }
+          ];
+
+          /* Render sides + corners once strips are loaded */
+          (function (fw, wrap, sideCfgs, cornerCfgs, f) {
+            /* solid-color fallback first */
+            wrap.style.backgroundColor = f.color || '#8B7355';
+            
+            if (window.MUSE_FRAMES && typeof window.MUSE_FRAMES.getStrips === 'function') {
+              window.MUSE_FRAMES.getStrips(f, function (strips) {
+                if (!strips) return;
+                wrap.style.backgroundColor = 'transparent';
+                
+                sideCfgs.forEach(function (sc) {
+                  var d = document.createElement('div');
+                  var css = 'position:absolute;z-index:2;';
+                  if (sc.top !== undefined) css += 'top:' + sc.top + ';';
+                  if (sc.bottom !== undefined) css += 'bottom:' + sc.bottom + ';';
+                  if (sc.left !== undefined) css += 'left:' + sc.left + ';';
+                  if (sc.right !== undefined) css += 'right:' + sc.right + ';';
+                  if (sc.height) css += 'height:' + sc.height + ';';
+                  if (sc.width) css += 'width:' + sc.width + ';';
+                  var url = strips[sc.bg];
+                  css += 'background:url(' + url + ') repeat-' + sc.dir + ' left top;';
+                  if (sc.sizeH) css += 'background-size:auto 100%;';
+                  if (sc.sizeW) css += 'background-size:100% auto;';
+                  d.style.cssText = css;
+                  wrap.appendChild(d);
+                });
+
+                cornerCfgs.forEach(function (cc) {
+                  var d = document.createElement('div');
+                  d.style.cssText = 'position:absolute;z-index:3;width:' + fw + '%;height:' + fw + '%;overflow:hidden;';
+                  if (cc.top !== undefined) d.style.top = cc.top;
+                  if (cc.bottom !== undefined) d.style.bottom = cc.bottom;
+                  if (cc.left !== undefined) d.style.left = cc.left;
+                  if (cc.right !== undefined) d.style.right = cc.right;
+                  d.style.transform = cc.transform;
+                  var img = document.createElement('img');
+                  img.src = f.cornerUrl;
+                  img.alt = '';
+                  img.style.cssText = 'width:100%;height:100%;display:block;object-fit:cover;';
+                  d.appendChild(img);
+                  wrap.appendChild(d);
+                });
+              });
+            }
+          })(fwPct, frameWrap, sidesCfg, cornersCfg, frame);
+
+          box.appendChild(frameWrap);
+          box.appendChild(photoDiv);
+        } else if (frame.id === 'NONE') {
+          /* «Без багета»: dashed placeholder */
+          box.innerHTML =
+            '<div class="w-full h-full box-border relative z-10" style="background-color: #f1f5f9; border: 1px dashed #cbd5e1;">' +
+              '<div class="w-full h-full bg-cover bg-center frame-image-preview" style="background-color: #f1f5f9;"></div>' +
+            '</div>';
+          if (noFrameIcon) box.insertAdjacentHTML('beforeend', noFrameIcon);
         } else {
-          innerHtml =
-            '<div class="relative w-full rounded-lg shadow-sm overflow-hidden bg-white frame-preview-box" style="' + aspectRatioStyle + '">' +
-              '<div class="w-full h-full box-border relative z-10" style="border: ' + borderStyle + '; ' + styleCSS + ' transition: border 0.2s;">' +
-                '<div class="w-full h-full bg-cover bg-center frame-image-preview" style="background-color: #f1f5f9;"></div>' +
-              '</div>' +
-              noFrameIcon +
-            '</div>' +
-            '<span class="text-xs font-bold text-body text-center leading-tight group-hover:text-primary-text transition">' + priceText + '</span>';
+          /* Fallback: solid color border */
+          var borderStyle = (frame.width > 0 ? '8px' : '0') + ' solid ' + frame.color;
+          box.innerHTML =
+            '<div class="w-full h-full box-border relative z-10" style="border: ' + borderStyle + '; transition: border 0.2s;">' +
+              '<div class="w-full h-full bg-cover bg-center frame-image-preview" style="background-color: #f1f5f9;"></div>' +
+            '</div>';
         }
-        el.innerHTML = innerHtml;
+
+        el.appendChild(box);
+        var priceSpan = document.createElement('span');
+        priceSpan.className = 'text-xs font-bold text-body text-center leading-tight group-hover:text-primary-text transition';
+        priceSpan.textContent = priceText;
+        el.appendChild(priceSpan);
 
         /* Task 3.3: cache references for incremental updates */
         _frameNodeCache[frame.id] = {
-          priceSpan: el.querySelector('span'),
-          previewBox: el.querySelector('.frame-preview-box')
+          priceSpan: priceSpan,
+          previewBox: box
         };
 
         el.addEventListener('click', function (e) {
@@ -1326,7 +1447,9 @@
           }
         });
 
-        if (frame.cat === 'STUDIO' || frame.id === 'NONE') {
+        if (frame.cat === 'FLAT' && flatContainer) {
+          flatContainer.appendChild(el);
+        } else if (frame.cat === 'STUDIO' || frame.id === 'NONE') {
           studioContainer.appendChild(el);
         } else {
           classicContainer.appendChild(el);
@@ -1334,10 +1457,13 @@
       });
 
       /* Task 3.2: cache frame element lists after first render */
-      _cachedFrameOptions = Array.from(studioContainer.querySelectorAll('.frame-option'))
-        .concat(Array.from(classicContainer.querySelectorAll('.frame-option')));
-      _cachedFramePreviews = Array.from(studioContainer.querySelectorAll('.frame-image-preview'))
-        .concat(Array.from(classicContainer.querySelectorAll('.frame-image-preview')));
+      var allContainers = [flatContainer, studioContainer, classicContainer].filter(Boolean);
+      _cachedFrameOptions = [];
+      _cachedFramePreviews = [];
+      allContainers.forEach(function (c) {
+        _cachedFrameOptions = _cachedFrameOptions.concat(Array.from(c.querySelectorAll('.frame-option')));
+        _cachedFramePreviews = _cachedFramePreviews.concat(Array.from(c.querySelectorAll('.frame-image-preview')));
+      });
 
       _frameCatalogRendered = true;
       updateModalPreviews();
@@ -1906,7 +2032,7 @@
       var borderPx = 0;
       if (frameIdToPreview !== 'NONE') {
         var sf = Math.max(1, imgW / (STATE.w * 4));
-        borderPx = f.width * sf;
+        borderPx = Math.round((f.widthMm || f.width || 20) * 0.8 * sf);
       }
 
       /* Shrink image so image + frame fits in viewport */
@@ -1918,6 +2044,10 @@
         imgH = imgH * scale;
         borderPx = borderPx * scale;
       }
+
+      imgW = Math.round(imgW);
+      imgH = Math.round(imgH);
+      borderPx = Math.round(borderPx);
 
       /* Frame cost for label */
       var frameCost = 0;
@@ -1936,30 +2066,38 @@
         wrapper.style.gap = '1rem';
       }
 
-      var div = document.createElement('div');
-      div.style.boxSizing = 'content-box';
-      div.style.width = Math.round(imgW) + 'px';
-      div.style.height = Math.round(imgH) + 'px';
-      div.style.backgroundClip = 'padding-box';
-      div.style.backgroundOrigin = 'padding-box';
-      div.style.backgroundImage = 'url(' + STATE.image + ')';
-      div.style.backgroundSize = 'cover';
-      div.style.backgroundPosition = 'center';
-      div.style.boxShadow = '0 8px 30px rgba(0,0,0,0.15)';
-      div.style.flexShrink = '0';
+      /* --- DOM texture rendering (approach B) --- */
+      var frameContainer = document.createElement('div');
 
-      if (frameIdToPreview !== 'NONE') {
-        div.style.border = Math.round(borderPx) + 'px solid ' + f.color;
-        if (f.border) div.style.outline = Math.max(1, Math.round(borderPx / f.width)) + 'px solid ' + f.border;
-        if (f.style === 'ornate_gold') {
-          div.style.borderImage = 'linear-gradient(to bottom right, #bf953f, #fcf6ba, #b38728, #fbf5b7) 1';
-          div.style.borderColor = '#d4af37';
+      var renderWithStrips = f.stripUrl && window.MUSE_FRAMES && typeof window.MUSE_FRAMES.getStrips === 'function';
+
+      if (frameIdToPreview !== 'NONE' && renderWithStrips) {
+        /* Show color fallback immediately, then upgrade with textures */
+        window.MUSE_FRAMES.renderFrameDOM(frameContainer, f, null, STATE.image, imgW, imgH, borderPx);
+        wrapper.appendChild(frameContainer);
+        window.MUSE_FRAMES.getStrips(f, function (strips) {
+          if (strips) {
+            window.MUSE_FRAMES.renderFrameDOM(frameContainer, f, strips, STATE.image, imgW, imgH, borderPx);
+          }
+        });
+      } else {
+        /* NONE or no texture: simple CSS approach */
+        var div = document.createElement('div');
+        div.style.boxSizing = 'content-box';
+        div.style.width = imgW + 'px';
+        div.style.height = imgH + 'px';
+        div.style.backgroundImage = 'url(' + STATE.image + ')';
+        div.style.backgroundSize = 'cover';
+        div.style.backgroundPosition = 'center';
+        div.style.flexShrink = '0';
+        if (frameIdToPreview !== 'NONE') {
+          div.style.border = borderPx + 'px solid ' + (f.color || '#8B7355');
         }
-      } else if (STATE.wrap === 'NO_FRAME') {
-        div.style.boxShadow = 'none';
+        div.style.boxShadow = (frameIdToPreview === 'NONE' && STATE.wrap === 'NO_FRAME')
+          ? 'none' : '0 8px 30px rgba(0,0,0,0.15)';
+        frameContainer = div;
+        wrapper.appendChild(div);
       }
-
-      wrapper.appendChild(div);
 
       /* Price label + select button group */
       var infoBlock = document.createElement('div');
@@ -2299,6 +2437,101 @@
       };
     }
 
+    /* ---------- Preview frame DOM overlay (Approach B) ---------- */
+
+    /**
+     * Renders / updates the DOM-based texture overlay inside #preview-canvas.
+     * The canvas already has a transparent CSS border that reserves space.
+     * We overlay divs for 4 sides + 4 corners ON TOP of that transparent border.
+     *
+     * @param {HTMLElement} canvas - #preview-canvas
+     * @param {Object} fr - frame object from FRAMES_DB
+     * @param {number} bw - border width in px (same as CSS border)
+     */
+    function _renderPreviewFrame(canvas, fr, bw) {
+      /* Remove old overlay if frame changed or frame is NONE */
+      if (_previewFrameWrap) {
+        _previewFrameWrap.remove();
+        _previewFrameWrap = null;
+      }
+      _previewFrameId = null;
+
+      if (!fr || fr.id === 'NONE' || !bw) return;
+      if (!fr.stripUrl || !window.MUSE_FRAMES || typeof window.MUSE_FRAMES.getStrips !== 'function') {
+        /* No textures available — paint solid-color border as fallback */
+        canvas.style.borderColor = fr.color || '#8B7355';
+        return;
+      }
+
+      /* Keep border transparent while we load textures */
+      _previewFrameId = fr.id;
+
+      window.MUSE_FRAMES.getStrips(fr, function (strips) {
+        /* Guard: frame may have changed while loading */
+        if (_previewFrameId !== fr.id) return;
+        if (!strips) {
+          canvas.style.borderColor = fr.color || '#8B7355';
+          return;
+        }
+
+        var wrap = document.createElement('div');
+        wrap.className = 'preview-frame-overlay';
+        wrap.style.cssText = 'position:absolute;inset:-' + bw + 'px;z-index:2;pointer-events:none;overflow:hidden;';
+
+        /* 4 Sides — positioned inside the wrap (which covers border + content area) */
+        var sides = [
+          /* Top */
+          'position:absolute;top:0;left:' + bw + 'px;right:' + bw + 'px;height:' + bw + 'px;'
+            + 'background:url(' + strips.topUrl + ') repeat-x left top;background-size:auto ' + bw + 'px;',
+          /* Bottom */
+          'position:absolute;bottom:0;left:' + bw + 'px;right:' + bw + 'px;height:' + bw + 'px;'
+            + 'background:url(' + strips.bottomUrl + ') repeat-x left top;background-size:auto ' + bw + 'px;',
+          /* Left */
+          'position:absolute;left:0;top:' + bw + 'px;bottom:' + bw + 'px;width:' + bw + 'px;'
+            + 'background:url(' + strips.leftUrl + ') repeat-y left top;background-size:' + bw + 'px auto;',
+          /* Right */
+          'position:absolute;right:0;top:' + bw + 'px;bottom:' + bw + 'px;width:' + bw + 'px;'
+            + 'background:url(' + strips.rightUrl + ') repeat-y left top;background-size:' + bw + 'px auto;'
+        ];
+        sides.forEach(function (css) {
+          var d = document.createElement('div');
+          d.style.cssText = css;
+          wrap.appendChild(d);
+        });
+
+        /* 4 Corners */
+        var corners = [
+          { top: '0', left: '0', transform: 'none' },
+          { top: '0', right: '0', transform: 'scaleX(-1)' },
+          { bottom: '0', left: '0', transform: 'scaleY(-1)' },
+          { bottom: '0', right: '0', transform: 'scale(-1,-1)' }
+        ];
+        corners.forEach(function (c) {
+          var d = document.createElement('div');
+          d.style.position = 'absolute';
+          d.style.width = bw + 'px';
+          d.style.height = bw + 'px';
+          d.style.zIndex = '3';
+          d.style.overflow = 'hidden';
+          if (c.top !== undefined) d.style.top = c.top;
+          if (c.bottom !== undefined) d.style.bottom = c.bottom;
+          if (c.left !== undefined) d.style.left = c.left;
+          if (c.right !== undefined) d.style.right = c.right;
+          d.style.transform = c.transform;
+          var img = document.createElement('img');
+          img.src = fr.cornerUrl;
+          img.alt = '';
+          img.style.cssText = 'width:100%;height:100%;display:block;';
+          d.appendChild(img);
+          wrap.appendChild(d);
+        });
+
+        /* Insert into canvas (behind labels but above photo) */
+        canvas.appendChild(wrap);
+        _previewFrameWrap = wrap;
+      });
+    }
+
     /* ---------- UI update ---------- */
 
     function updateUI(els) {
@@ -2524,16 +2757,14 @@
           + 'translate:' + (roomData.translate || '0 0') + ';'
           + 'width:' + wPct + '%;height:' + hPct + '%;';
 
+        var bw = 0;
         if (STATE.frame !== 'NONE') {
-          css += 'border:' + fr.width + 'px solid ' + fr.color + ';';
+          bw = fr.width || 12;
+          /* Transparent border reserves space for the DOM texture overlay */
+          css += 'border:' + bw + 'px solid transparent;';
+          css += 'border-image:none;';
           css += 'background-clip:padding-box;background-origin:padding-box;';
-          css += fr.border ? 'outline:1px solid ' + fr.border + ';' : 'outline:none;';
-          if (fr.style === 'ornate_gold') {
-            css += 'border-image:linear-gradient(to bottom right,#bf953f,#fcf6ba,#b38728,#fbf5b7) 1;';
-            css += 'border-color:#d4af37;';
-          } else {
-            css += 'border-image:none;';
-          }
+          css += 'outline:none;';
         } else {
           css += 'border:none;outline:none;border-image:none;';
           if (STATE.wrap === 'NO_FRAME') css += 'box-shadow:2px 4px 10px rgba(0,0,0,0.1);';
@@ -2553,6 +2784,9 @@
         }
 
         els.canvas.style.cssText = css;
+
+        /* DOM texture overlay (Approach B) for the main preview */
+        _renderPreviewFrame(els.canvas, fr, bw);
       }
 
       /* Fix #1: skip heavy preview update when modal is closed */

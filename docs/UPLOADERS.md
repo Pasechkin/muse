@@ -1,6 +1,6 @@
 # Загрузчики изображений
 
-> **Обновлено:** 24 февраля 2026 (редакция: июль 2025 — актуализация порядка скриптов, добавлен frames.js)
+> **Обновлено:** 13 марта 2026 (редакция: март 2026 — Variant B валидация, alert-механизм, legal text → text-ink-secondary, убраны CSS-костыли)
 
 Документация описывает все реализации загрузчиков изображений в проекте: архитектуру, API, HTML-разметку, различия между страницами и требования к интеграции с 1С-Битрикс.
 
@@ -14,10 +14,11 @@
 4. [Группа A: Стандартный калькулятор (calc.js)](#4-группа-a-стандартный-калькулятор-calcjs)
 5. [Группа B: Модульная картина (modular-calc.js)](#5-группа-b-модульная-картина-modular-calcjs)
 6. [Группа C: Конструктор коллажей (автономный)](#6-группа-c-конструктор-коллажей-автономный)
-7. [Мост: конструктор → калькулятор](#7-мост-конструктор--калькулятор)
-8. [Сводная таблица страниц](#8-сводная-таблица-страниц)
-9. [Требования к серверной части](#9-требования-к-серверной-части)
-10. [Рекомендации по интеграции с Bitrix](#10-рекомендации-по-интеграции-с-bitrix)
+7. [Группа D: Репродукция (reproduction-search.js)](#7-группа-d-репродукция-reproduction-searchjs)
+8. [Мост: конструктор → калькулятор](#8-мост-конструктор--калькулятор)
+9. [Сводная таблица страниц](#9-сводная-таблица-страниц)
+10. [Требования к серверной части](#10-требования-к-серверной-части)
+11. [Рекомендации по интеграции с Bitrix](#11-рекомендации-по-интеграции-с-bitrix)
 
 ---
 
@@ -30,8 +31,7 @@
 | **A** — Стандартный калькулятор | `CalcInit()` внутри `calc.js` | 6 страниц | `MuseUploader` из `uploader.js` |
 | **A-standalone** — Быстрый заказ | Inline-скрипт (без `calc.js`) | 1 страница | `MuseUploader` из `uploader.js` |
 | **B** — Модульная картина | `modular-calc.js` | 1 страница | `MuseUploader` из `uploader.js` (с `mc-` префиксами) |
-| **C** — Конструктор коллажей | Inline-скрипт | 1 страница | Собственная реализация (без `uploader.js`) |
-
+| **C** — Конструктор коллажей | Inline-скрипт | 1 страница | Собственная реализация (без `uploader.js`) || **D** — Репродукция | `reproduction-search.js` | 1 страница | Нет загрузчика (картина выбирается из Wikimedia) |
 Все загрузчики работают **полностью на клиенте**: файлы читаются в память браузера через `FileReader` / `URL.createObjectURL()` и **не отправляются на сервер**. Отправка на сервер — задача интеграции с Битрикс.
 
 ### Общие принципы
@@ -44,6 +44,24 @@
 - **Accessibility:** ARIA-атрибуты, `aria-live` для screen reader, keyboard navigation
 - **Двойное подтверждение удаления:** первый клик «взводит», второй удаляет (группы A и B)
 
+### Валидация формы заказа (Variant B)
+
+Все группы используют **единый паттерн валидации** — кнопка «Заказать» **всегда кликабельна** (нет `pointer-events: none` / `cursor-not-allowed`), при нажатии срабатывает двухэтапная проверка:
+
+1. **Шаг 1 — медиа:** проверяется наличие фото (`uploaderInstance.getCount() > 0` / `State.previewImage`) **ИЛИ** непустая ссылка (`client-link`). Если ничего нет → `.error` на поле ссылки + `showAlert('…добавьте изображение…', 'error')`.
+2. **Шаг 2 — обязательные поля:** проверяются имя и телефон. Если пустые → `.error` на полях + `showAlert('…заполните обязательные поля.', 'error')`.
+
+**Визуальное состояние кнопки (Progressive CTA):**
+- **Ghost** (по умолчанию, нет медиа): transparent bg, `rgba(20,11,1,0.35)` text, `rgba(20,11,1,0.12)` border
+- **Active** (есть фото или ссылка): `--color-primary` bg, white text
+- CSS `:has(#uploader-thumbnails:not(:empty))` переключает по фото; JS-класс `.has-media` переключает по ссылке (только `calc.js`)
+- **Снятие `.error`:** при вводе в поле автоматически убирается класс `.error`
+
+| Группа | Файл | Как проверяет фото | showAlert через |
+|--------|------|--------------------|-----------------|
+| A | `calc.js` → `handleOrder()` | `uploaderInstance.getCount()` | `uploaderInstance.showAlert()` |
+| A-standalone | `order.html` inline | `hasImages()` (кол-во `<li>`) | Собственная `showAlert()` |
+| B | `modular-calc.js` | `State.previewImage` | `window._mcUploader.showAlert()` || D | `reproduction-search.js` | Не применимо (картина выбрана в модале) | Нет (только `.error` класс на полях) |
 ---
 
 ## 2. Файлы загрузчика
@@ -54,6 +72,7 @@
 | `src/html/js/calc.js` | ~2 560 строк | Калькулятор — создаёт `MuseUploader` внутри `CalcInit()` |
 | `src/html/js/frames.js` | ~56 строк | Каталог демо-рамок (`DEFAULT_FRAMES`) — подключается между prices и calc |
 | `src/html/js/modular-calc.js` | ~1 106 строк | Калькулятор модульных картин — создаёт `MuseUploader` с `mc-` селекторами |
+| `src/html/js/reproduction-search.js` | ~1 560 строк | Поиск картин из Wikimedia + модальный калькулятор репродукций (группа D) |
 | `src/html/pechat/konstruktor-kollazha.html` | ~9700 строк | Конструктор коллажей — содержит собственный inline-загрузчик |
 
 ### Порядок подключения скриптов (группа A)
@@ -70,9 +89,11 @@
 ### Порядок подключения скриптов (группа B)
 
 ```html
+<!-- ОБЯЗАТЕЛЬНО: nav → prices → uploader → modular-calc -->
+<script defer src="../js/nav.js"></script>
 <script defer src="../js/prices.js"></script>
-<script defer src="../js/modular-calc.js"></script>
 <script defer src="../js/uploader.js"></script>
+<script defer src="../js/modular-calc.js"></script>
 ```
 
 ### Подключение скриптов (группа C)
@@ -120,7 +141,7 @@ var uploader = MuseUploader({
 | `destroy()` | Уничтожить экземпляр, снять обработчики |
 | `openFilePicker()` | Открыть системный диалог выбора файла |
 | `getCount()` | Количество загруженных фото |
-| `showAlert(msg, type)` | Показать уведомление (`'error'` / `'warning'` / `'success'`) |
+| `showAlert(msg, type)` | Показать уведомление (`'error'` / `'warning'` / `'success'`). CSS-классы `.uploader-alert-*` сами устанавливают `display: flex` |
 | `hideAlert()` | Скрыть уведомление |
 
 ### Объект изображения
@@ -159,7 +180,7 @@ var uploader = MuseUploader({
 |----------|------|---------------|-----------|
 | Эталон/демо | `src/html/calc.html` | URL-based (`?type=canvas`) | `js/` |
 | Портрет маслом | `src/html/portret-na-zakaz/style/portret-maslom.html` | `'portrait'` | `../../js/` |
-| Портреты СПб (главная) | `src/html/portret-na-zakaz-po-foto-na-kholste-sankt-peterburg.html` | через `calc.js` | `js/` |
+| Портреты СПб (главная) | `src/html/portret-na-zakaz-po-foto-na-kholste-sankt-peterburg.html` | `'portraitStyle'` | `js/` |
 | Фото на холсте СПб | `src/html/pechat/foto-na-kholste-sankt-peterburg.html` | `'canvas'` | `../js/` |
 | Фото в рамке | `src/html/pechat/foto-v-ramke.html` | `'frame'` | `../js/` |
 | Фотоколлаж на холсте | `src/html/pechat/fotokollazh-na-kholste.html` | `'canvas'` | `../js/` |
@@ -174,9 +195,7 @@ var uploader = MuseUploader({
         <input type="file" id="file-upload" class="hidden"
                accept="image/jpeg,image/png,image/gif,image/webp" multiple>
         <button id="btn-upload-empty"
-                class="w-full bg-primary hover:bg-primary-hover text-white font-bold
-                       py-3 rounded-lg text-sm uppercase tracking-wide transition-all
-                       active:scale-[0.98] flex items-center justify-center gap-2">
+                class="btn-header-cta w-full px-8 py-3 flex items-center justify-center gap-2">
             <span>Загрузить фото</span>
         </button>
         <div id="uploader-thumbnails" class="uploader-thumbnails thin-scrollbar-x"
@@ -225,7 +244,9 @@ window.__museUploader = uploaderInstance;
 
 ### Standalone-использование: Быстрый заказ (order.html)
 
-Страница `src/html/order/order.html` использует **ту же HTML-разметку** группы A (те же ID элементов), но **без калькулятора** — `calc.js` и `prices.js` не подключены.
+Страница `src/html/order/order.html` — **быстрый заказ** для клиентов, которые не знают, какой продукт им нужен. Клиент загружает фотографию, заполняет контактную форму и отправляет заявку; менеджер перезванивает для уточнения деталей.
+
+Используется **та же HTML-разметка** загрузчика группы A (те же ID элементов, класс кнопки `btn-header-cta`), но **без калькулятора** — `calc.js` и `prices.js` не подключены.
 
 `MuseUploader` инициализируется напрямую в inline-скрипте:
 
@@ -255,8 +276,8 @@ window.__orderUploader = MuseUploader({
 **Подключение скриптов:**
 
 ```html
-<script src="../js/nav.js" defer></script>
-<script src="../js/uploader.js" defer></script>
+<script defer src="../js/nav.js"></script>
+<script defer src="../js/uploader.js"></script>
 <!-- calc.js и prices.js НЕ подключены -->
 ```
 
@@ -412,7 +433,50 @@ document.getElementById('file-input').addEventListener('change', function(e) {
 
 ---
 
-## 7. Мост: конструктор → калькулятор
+## 7. Группа D: Репродукция (reproduction-search.js)
+
+### Страница
+
+| Страница | Файл | JS-скрипты |
+|----------|------|------------|
+| Репродукция | `src/html/pechat/reproduktsiya.html` | `nav.js`, `prices.js`, `frames.js`, `reproduction-search.js` |
+
+### Архитектура
+
+Страница **не использует `MuseUploader`** и `uploader.js`. Пользователь выбирает картину из каталога Wikimedia через поисковый интерфейс. При клике на картину открывается модальный калькулятор (`#repro-modal`) с настройками размера, подрамника, рамы, лака.
+
+### ID элементов (префикс `repro-`)
+
+| ID | Тег | Назначение |
+|----|-----|------------|
+| `repro-name` | `<input>` | Имя клиента |
+| `repro-phone` | `<input>` | Телефон клиента |
+| `repro-email` | `<input>` | E-mail (необязательно) |
+| `repro-comment` | `<textarea>` | Комментарий (необязательно) |
+| `repro-order-btn` | `<button>` | Кнопка «Заказать» (десктоп) |
+| `btn-sticky-repro-order` | `<button>` | Кнопка «Заказать» (мобильный sticky) |
+
+### Валидация формы
+
+Обработчик `handleOrder()` в `reproduction-search.js`:
+- Проверяет обязательные поля (имя, телефон) → добавляет `.error` на пустые поля
+- Снимает `.error` при вводе (`input` event)
+- Нет `showAlert()` — визуальная обратная связь только через `.error` класс на полях
+- При успешной валидации → `mailto:` с данными заказа → `isOrdered = true`
+
+### Отличия от групп A/B
+
+| Параметр | Группы A/B | Группа D |
+|----------|-----------|----------|
+| Загрузчик | `MuseUploader` (uploader.js) | Нет (картина из Wikimedia) |
+| Медиа-валидация | Фото ИЛИ ссылка | Не применимо (картина выбрана в модале) |
+| Уведомления | `showAlert()` через uploader | Только `.error` класс на полях |
+| Отправка заказа | `<dialog>` (заглушка) | `mailto:` |
+| Кнопка | Progressive CTA (ghost → active) | Всегда `btn-header-cta` |
+
+---
+
+## 8. Мост: конструктор → калькулятор
 
 Страница `fotokollazh-na-kholste.html` уникальна — на ней конструктор коллажей встроен через `<iframe>`, а калькулятор работает на основной странице. При экспорте готового коллажа изображение передаётся из iframe в калькулятор.
 
@@ -461,18 +525,19 @@ if (window.__museCalcSetSize) {
 
 ---
 
-## 8. Сводная таблица страниц
+## 9. Сводная таблица страниц
 
 | Страница | Файл | Группа | uploader.js | Движок | CalcInit type | Глобальная переменная |
 |----------|------|--------|-------------|--------|---------------|----------------------|
 | Эталон | `calc.html` | A | Да | `calc.js` | URL-based | `__museUploader` |
 | Портрет маслом | `portret-maslom.html` | A | Да | `calc.js` | `portrait` | `__museUploader` |
-| Портреты СПб | `portret-na-zakaz-po-foto-na-kholste-sankt-peterburg.html` | A | Да | `calc.js` | из calc.js | `__museUploader` |
+| Портреты СПб | `portret-na-zakaz-po-foto-na-kholste-sankt-peterburg.html` | A | Да | `calc.js` | `'portraitStyle'` | `__museUploader` |
 | Фото на холсте | `foto-na-kholste-sankt-peterburg.html` | A | Да | `calc.js` | `canvas` | `__museUploader` |
 | Фото в рамке | `foto-v-ramke.html` | A | Да | `calc.js` | `frame` | `__museUploader` |
 | Фотоколлаж на холсте | `fotokollazh-na-kholste.html` | A | Да | `calc.js` | `canvas` | `__museUploader` |
 | Модульная картина | `modulnaya-kartina.html` | B | Да | `modular-calc.js` | — | `_mcUploader` |
 | Конструктор коллажей | `konstruktor-kollazha.html` | C | **Нет** | inline | — | — |
+| **Репродукция** | `reproduktsiya.html` | D | **Нет** | `reproduction-search.js` | — | — |
 | **Быстрый заказ** | `order/order.html` | A-standalone | Да | inline | — | `__orderUploader` |
 
 ### Будущие страницы
@@ -481,7 +546,7 @@ if (window.__museCalcSetSize) {
 
 ---
 
-## 9. Требования к серверной части
+## 10. Требования к серверной части
 
 > Подробный контракт API: [CALCULATOR.md, раздел 10](CALCULATOR.md#10-требования-к-серверной-части)
 
@@ -519,7 +584,7 @@ file: <binary>
 
 ---
 
-## 10. Рекомендации по интеграции с Bitrix
+## 11. Рекомендации по интеграции с Bitrix
 
 ### Группы A и B: минимальные правки
 
@@ -581,11 +646,12 @@ async function submitOrder(orderData) {
 
 ### Порядок подключения скриптов — не менять
 
-```
-prices.js → frames.js → calc.js (или modular-calc.js) → uploader.js
-```
+Все скрипты подключаются с `defer` — браузер выполняет их в порядке DOM. `CalcInit()` вызывается лениво (через IntersectionObserver), когда все скрипты уже загружены.
 
-> **Примечание:** фактический порядок в HTML: `nav → uploader → prices → frames → calc`. Поскольку все с `defer`, браузер выполняет их в порядке DOM, а `CalcInit()` вызывается лазы (через IntersectionObserver), когда все скрипты уже загружены.
+```
+Группа A: nav.js → uploader.js → prices.js → frames.js → calc.js
+Группа B: nav.js → prices.js → uploader.js → modular-calc.js
+```
 
 ### Стили загрузчика
 

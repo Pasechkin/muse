@@ -1318,14 +1318,35 @@
     }
   }
 
+  /* ── Alert (аналог showAlert из uploader.js) ── */
+  function showReproAlert(msg, type) {
+    var el = getEl('repro-alert');
+    if (!el) return;
+    el.textContent = msg;
+    el.className = 'uploader-alert uploader-alert-' + (type || 'error');
+  }
+  function hideReproAlert() {
+    var el = getEl('repro-alert');
+    if (!el) return;
+    el.textContent = '';
+    el.className = 'uploader-alert';
+  }
+
   /** Обработка заказа */
   function handleOrder() {
     if (isOrdered) return;
+    hideReproAlert();
 
     var name  = getEl('repro-name');
     var phone = getEl('repro-phone');
-    if (!name || !name.value.trim()) { name.focus(); return; }
-    if (!phone || !phone.value.trim()) { phone.focus(); return; }
+    var emptyFields = [];
+    if (name && !name.value.trim())  { name.classList.add('error');  emptyFields.push(name); }
+    if (phone && !phone.value.trim()) { phone.classList.add('error'); emptyFields.push(phone); }
+    if (emptyFields.length) {
+      showReproAlert('Пожалуйста, заполните обязательные поля.', 'error');
+      emptyFields[0].focus();
+      return;
+    }
 
     var dim = getDimensions(currentLongSide);
     var prices = calcTotal();
@@ -1455,6 +1476,12 @@
     /* Кнопка заказа */
     var orderBtn = getEl('repro-order-btn');
     if (orderBtn) orderBtn.addEventListener('click', handleOrder);
+
+    /* Снятие .error при вводе */
+    ['repro-name', 'repro-phone'].forEach(function (id) {
+      var el = getEl(id);
+      if (el) el.addEventListener('input', function () { el.classList.remove('error'); hideReproAlert(); });
+    });
 
     /* ── Подрамник: обработчики кнопок ── */
     var wrapBtns = document.querySelectorAll('.wrap-btn');

@@ -646,13 +646,14 @@
                 <div class="pt-8">
                     <div class="max-w-xl mx-auto bg-white rounded-xl border border-ah-200 px-6 py-8">
                         <h3 class="heading-card text-2xl text-center mb-8">Задать свой вопрос</h3>
-                        <form action="#" method="POST" novalidate class="form-neutral">
+                        <div id="faq-alert" class="uploader-alert" role="status" aria-live="polite"></div>
+                        <form id="faq-form" action="#" method="POST" novalidate class="form-neutral">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                                <div><input type="text" id="name" name="name" class="form-input" placeholder="Имя" autocomplete="name"></div>
-                                <div><input type="email" id="email" name="email" class="form-input" placeholder="E-mail" autocomplete="email" required></div>
+                                <div><input type="text" id="faq-name" name="name" class="form-input" placeholder="Имя*" autocomplete="name"></div>
+                                <div><input type="email" id="faq-email" name="email" class="form-input" placeholder="E-mail*" autocomplete="email"></div>
                             </div>
                             <div class="mb-6">
-                                <textarea id="message" name="message" rows="4" class="form-input resize-none" placeholder="Ваш вопрос" required></textarea>
+                                <textarea id="faq-message" name="message" rows="4" class="form-input resize-none" placeholder="Ваш вопрос*" required></textarea>
                             </div>
                             <div class="flex flex-col md:flex-row items-center justify-between gap-6 pt-2">
                                 <div class="text-xs text-ink-secondary text-left">Заполняя форму, я соглашаюсь с условиями <a href="https://muse.ooo/info/oferta/" class="underline hover:text-ink">Оферты</a> и даю свое согласие на обработку персональных данных в соответствии с <a href="https://muse.ooo/info/politika_konfidentsialnosti_sayta/" class="underline hover:text-ink">Политикой конфиденциальности сайта</a></div>
@@ -674,5 +675,50 @@
 
     <!-- Navigation Scripts -->
     <script src="../../js/nav.js" defer></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var form  = document.getElementById('faq-form');
+      var alert = document.getElementById('faq-alert');
+      if (!form) return;
+
+      function showAlert(msg, type) {
+        if (!alert) return;
+        alert.textContent = msg;
+        alert.className = 'uploader-alert uploader-alert-' + (type || 'error');
+      }
+      function hideAlert() {
+        if (!alert) return;
+        alert.textContent = '';
+        alert.className = 'uploader-alert';
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        hideAlert();
+
+        var name  = document.getElementById('faq-name');
+        var email = document.getElementById('faq-email');
+        var msg   = document.getElementById('faq-message');
+        var empty = [];
+        if (name && !name.value.trim())  { name.classList.add('error');  empty.push(name); }
+        if (email && !email.value.trim()) { email.classList.add('error'); empty.push(email); }
+        if (msg && !msg.value.trim())     { msg.classList.add('error');   empty.push(msg); }
+        if (empty.length) {
+          showAlert('Пожалуйста, заполните обязательные поля.', 'error');
+          empty[0].focus();
+          return;
+        }
+
+        /* Заглушка — реальная отправка при интеграции с Bitrix */
+        showAlert('Спасибо! Мы получили ваш вопрос и скоро ответим.', 'success');
+        form.reset();
+      });
+
+      ['faq-name', 'faq-email', 'faq-message'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.addEventListener('input', function () { el.classList.remove('error'); hideAlert(); });
+      });
+    });
+    </script>
 </body>
 </html>

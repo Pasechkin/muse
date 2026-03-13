@@ -1,61 +1,68 @@
 /**
- * frames.js — общий модуль каталога багетных рам Muse
+ * frames.js — модуль каталога багетных рам Muse
+ *
+ * 39 реальных багетов (плоский / студийный / классический)
+ * + DOM-рендер текстурных рам (Подход B)
  *
  * Используется в:
  *   - calc.js       (основной калькулятор)
  *   - reproduction-search.js (модальный калькулятор репродукций)
  *
  * Экспорт: window.MUSE_FRAMES
- *
- * ⚠️  Текущие pricePerM = демо-значения (1200/1800), НЕ реальные цены.
- *     На продакшене (Bitrix) массив заменяется серверными данными через cfg.frames.
  */
 (function () {
   'use strict';
 
-  /* ========== PRICE CONSTANTS ========== */
-  var PRICE_STUDIO  = 1200;   // демо-цена за п.м. для STUDIO
-  var PRICE_CLASSIC = 1800;   // демо-цена за п.м. для CLASSIC
-
-  /* ========== КАТАЛОГ РАМ ========== */
+  /* ========== КАТАЛОГ РАМ (39 реальных + «Без багета») ========== */
 
   var DEFAULT_FRAMES = [
-    { id: 'NONE',       name: 'Без багета',        cat: 'STUDIO',  color: 'transparent', width: 0,  style: 'flat',              pricePerM: null, imageUrl: null, available: true },
-    { id: 'ST_BLACK_M', name: 'Черный мат',         cat: 'STUDIO',  color: '#1a1a1a',     width: 12, style: 'flat',              pricePerM: PRICE_STUDIO, imageUrl: null, available: true },
-    { id: 'ST_WHITE_M', name: 'Белый мат',          cat: 'STUDIO',  color: '#ffffff',      width: 12, style: 'flat',  border: '#e2e8f0', pricePerM: PRICE_STUDIO, imageUrl: null, available: true },
-    { id: 'ST_GREY',    name: 'Серый графит',       cat: 'STUDIO',  color: '#475569',     width: 12, style: 'flat',              pricePerM: PRICE_STUDIO, imageUrl: null, available: true },
-    { id: 'ST_SILVER_S',name: 'Серебро сатин',      cat: 'STUDIO',  color: '#cbd5e1',     width: 10, style: 'metallic',          pricePerM: PRICE_STUDIO, imageUrl: null, available: true },
-    { id: 'ST_GOLD_S',  name: 'Золото сатин',       cat: 'STUDIO',  color: '#eab308',     width: 10, style: 'metallic',          pricePerM: PRICE_STUDIO, imageUrl: null, available: true },
-    { id: 'ST_BLUE_DP', name: 'Синий дип',          cat: 'STUDIO',  color: '#1e3a8a',     width: 15, style: 'flat',              pricePerM: PRICE_STUDIO, imageUrl: null, available: true },
-    { id: 'ST_RED_BR',  name: 'Красный кирпич',    cat: 'STUDIO',  color: '#991b1b',     width: 15, style: 'flat',              pricePerM: PRICE_STUDIO, imageUrl: null, available: true },
-    { id: 'ST_BEIGE',   name: 'Бежевый',            cat: 'STUDIO',  color: '#f5f5dc',      width: 12, style: 'flat',  border: '#d6d3d1', pricePerM: PRICE_STUDIO, imageUrl: null, available: true },
-    { id: 'ST_ALU_BLK', name: 'Алюм. черный',       cat: 'STUDIO',  color: '#000',         width: 5,  style: 'metallic',          pricePerM: PRICE_STUDIO, imageUrl: null, available: true },
-    { id: 'ST_ALU_SIL', name: 'Алюм. серебро',      cat: 'STUDIO',  color: '#94a3b8',     width: 5,  style: 'metallic',          pricePerM: PRICE_STUDIO, imageUrl: null, available: true },
-    { id: 'ST_ALU_GLD', name: 'Алюм. золото',       cat: 'STUDIO',  color: '#ca8a04',     width: 5,  style: 'metallic',          pricePerM: PRICE_STUDIO, imageUrl: null, available: true },
-    { id: 'ST_WENGE',   name: 'Венге',               cat: 'STUDIO',  color: '#3f2e26',     width: 14, style: 'wood',              pricePerM: PRICE_STUDIO, imageUrl: null, available: true },
-    { id: 'ST_OAK_L',   name: 'Светлый дуб',        cat: 'STUDIO',  color: '#d4a373',     width: 14, style: 'wood',              pricePerM: PRICE_STUDIO, imageUrl: null, available: true },
-    { id: 'ST_WALNUT',  name: 'Орех',                cat: 'STUDIO',  color: '#5D4037',     width: 14, style: 'wood',              pricePerM: PRICE_STUDIO, imageUrl: null, available: true },
-    { id: 'CL_GOLD_ORN',name: 'Золото узор',        cat: 'CLASSIC', color: '#d4af37',     width: 40, style: 'ornate_gold',       pricePerM: PRICE_CLASSIC, imageUrl: null, available: true },
-    { id: 'CL_SILV_ORN',name: 'Серебро узор',       cat: 'CLASSIC', color: '#c0c0c0',     width: 40, style: 'ornate_silver',     pricePerM: PRICE_CLASSIC, imageUrl: null, available: true },
-    { id: 'CL_MAHOGANY',name: 'Махагон',             cat: 'CLASSIC', color: '#4a0404',     width: 35, style: 'wood_gloss',        pricePerM: PRICE_CLASSIC, imageUrl: null, available: true },
-    { id: 'CL_VINT_WHT',name: 'Винтаж белый',       cat: 'CLASSIC', color: '#f0f0f0',     width: 30, style: 'shabby',            pricePerM: PRICE_CLASSIC, imageUrl: null, available: true },
-    { id: 'CL_BRONZE',  name: 'Бронза антик',       cat: 'CLASSIC', color: '#cd7f32',     width: 35, style: 'metallic',          pricePerM: PRICE_CLASSIC, imageUrl: null, available: true },
-    { id: 'CL_BLK_GLD', name: 'Черный с золотом',   cat: 'CLASSIC', color: '#1a1a1a',     width: 45, style: 'ornate_gold_inner', pricePerM: PRICE_CLASSIC, imageUrl: null, available: true },
-    { id: 'CL_ITALY_WD',name: 'Итал. орех',         cat: 'CLASSIC', color: '#654321',     width: 50, style: 'wood_carved',       pricePerM: PRICE_CLASSIC, imageUrl: null, available: true },
-    { id: 'CL_PROVANCE',name: 'Прованс',             cat: 'CLASSIC', color: '#e5e7eb',     width: 25, style: 'shabby',            pricePerM: PRICE_CLASSIC, imageUrl: null, available: true },
-    { id: 'CL_GOLD_LG', name: 'Золото широкое',     cat: 'CLASSIC', color: '#ffd700',     width: 60, style: 'ornate_gold',       pricePerM: PRICE_CLASSIC, imageUrl: null, available: true },
-    { id: 'CL_SILV_LG', name: 'Серебро широкое',    cat: 'CLASSIC', color: '#e2e8f0',     width: 60, style: 'ornate_silver',     pricePerM: PRICE_CLASSIC, imageUrl: null, available: true },
-    { id: 'CL_CHERRY',  name: 'Вишня',               cat: 'CLASSIC', color: '#722F37',     width: 30, style: 'wood',              pricePerM: PRICE_CLASSIC, imageUrl: null, available: true },
-    { id: 'CL_PINE',    name: 'Сосна лак',           cat: 'CLASSIC', color: '#E3C08D',     width: 25, style: 'wood',              pricePerM: PRICE_CLASSIC, imageUrl: null, available: true }
+    { id: 'NONE', name: 'Без багета', cat: 'STUDIO', group: 'none', widthMm: 0, width: 0, pricePerM: null, stripUrl: null, cornerUrl: null, imageUrl: null, color: 'transparent', available: true },
+    /* ── Плоский (5 шт., 22 мм, 70 р/м) ── */
+    { id: '22-19-1', name: '22-19-1', cat: 'FLAT', group: 'плоский', widthMm: 22, width: 18, pricePerM: 70, stripUrl: 'img/bagets/22-19-1/1.jpeg', cornerUrl: 'img/bagets/22-19-1/2.jpeg', imageUrl: 'img/bagets/22-19-1/2.jpeg', color: '#C4A87C', available: true },
+    { id: '22-19-2', name: '22-19-2', cat: 'FLAT', group: 'плоский', widthMm: 22, width: 18, pricePerM: 70, stripUrl: 'img/bagets/22-19-2/1.jpeg', cornerUrl: 'img/bagets/22-19-2/2.jpeg', imageUrl: 'img/bagets/22-19-2/2.jpeg', color: '#C4A87C', available: true },
+    { id: '22-19-3', name: '22-19-3', cat: 'FLAT', group: 'плоский', widthMm: 22, width: 18, pricePerM: 70, stripUrl: 'img/bagets/22-19-3/1.jpeg', cornerUrl: 'img/bagets/22-19-3/2.jpeg', imageUrl: 'img/bagets/22-19-3/2.jpeg', color: '#C4A87C', available: true },
+    { id: '22-19-4', name: '22-19-4', cat: 'FLAT', group: 'плоский', widthMm: 22, width: 18, pricePerM: 70, stripUrl: 'img/bagets/22-19-4/1.jpeg', cornerUrl: 'img/bagets/22-19-4/2.jpeg', imageUrl: 'img/bagets/22-19-4/2.jpeg', color: '#C4A87C', available: true },
+    { id: '22-19-5', name: '22-19-5', cat: 'FLAT', group: 'плоский', widthMm: 22, width: 18, pricePerM: 70, stripUrl: 'img/bagets/22-19-5/1.jpeg', cornerUrl: 'img/bagets/22-19-5/2.jpeg', imageUrl: 'img/bagets/22-19-5/2.jpeg', color: '#C4A87C', available: true },
+    /* ── Студийный (8 шт., 25 мм, 205 р/м) ── */
+    { id: '25-981-01', name: '25-981-01', cat: 'STUDIO', group: 'студийный', widthMm: 25, width: 20, pricePerM: 205, stripUrl: 'img/bagets/25-981-01/1.jpeg', cornerUrl: 'img/bagets/25-981-01/2.jpeg', imageUrl: 'img/bagets/25-981-01/2.jpeg', color: '#4A4A4A', available: true },
+    { id: '25-981-02', name: '25-981-02', cat: 'STUDIO', group: 'студийный', widthMm: 25, width: 20, pricePerM: 205, stripUrl: 'img/bagets/25-981-02/1.jpeg', cornerUrl: 'img/bagets/25-981-02/2.jpeg', imageUrl: 'img/bagets/25-981-02/2.jpeg', color: '#4A4A4A', available: true },
+    { id: '25-981-07', name: '25-981-07', cat: 'STUDIO', group: 'студийный', widthMm: 25, width: 20, pricePerM: 205, stripUrl: 'img/bagets/25-981-07/1.jpeg', cornerUrl: 'img/bagets/25-981-07/2.jpeg', imageUrl: 'img/bagets/25-981-07/2.jpeg', color: '#4A4A4A', available: true },
+    { id: '25-981-08', name: '25-981-08', cat: 'STUDIO', group: 'студийный', widthMm: 25, width: 20, pricePerM: 205, stripUrl: 'img/bagets/25-981-08/1.jpeg', cornerUrl: 'img/bagets/25-981-08/2.jpeg', imageUrl: 'img/bagets/25-981-08/2.jpeg', color: '#4A4A4A', available: true },
+    { id: '25-981-09', name: '25-981-09', cat: 'STUDIO', group: 'студийный', widthMm: 25, width: 20, pricePerM: 205, stripUrl: 'img/bagets/25-981-09/1.jpeg', cornerUrl: 'img/bagets/25-981-09/2.jpeg', imageUrl: 'img/bagets/25-981-09/2.jpeg', color: '#4A4A4A', available: true },
+    { id: '25-981-10', name: '25-981-10', cat: 'STUDIO', group: 'студийный', widthMm: 25, width: 20, pricePerM: 205, stripUrl: 'img/bagets/25-981-10/1.jpeg', cornerUrl: 'img/bagets/25-981-10/2.jpeg', imageUrl: 'img/bagets/25-981-10/2.jpeg', color: '#4A4A4A', available: true },
+    { id: '25-981-11', name: '25-981-11', cat: 'STUDIO', group: 'студийный', widthMm: 25, width: 20, pricePerM: 205, stripUrl: 'img/bagets/25-981-11/1.jpeg', cornerUrl: 'img/bagets/25-981-11/2.jpeg', imageUrl: 'img/bagets/25-981-11/2.jpeg', color: '#4A4A4A', available: true },
+    { id: '25-981-12', name: '25-981-12', cat: 'STUDIO', group: 'студийный', widthMm: 25, width: 20, pricePerM: 205, stripUrl: 'img/bagets/25-981-12/1.jpeg', cornerUrl: 'img/bagets/25-981-12/2.jpeg', imageUrl: 'img/bagets/25-981-12/2.jpeg', color: '#4A4A4A', available: true },
+    /* ── Классический (26 шт., 33–60 мм, 115–195 р/м) ── */
+    { id: '33-24-1', name: '33-24-1', cat: 'CLASSIC', group: 'классический', widthMm: 33, width: 26, pricePerM: 115, stripUrl: 'img/bagets/33-24-1/1.jpeg', cornerUrl: 'img/bagets/33-24-1/2.jpeg', imageUrl: 'img/bagets/33-24-1/2.jpeg', color: '#8B7355', available: true },
+    { id: '33-24-2', name: '33-24-2', cat: 'CLASSIC', group: 'классический', widthMm: 33, width: 26, pricePerM: 115, stripUrl: 'img/bagets/33-24-2/1.jpeg', cornerUrl: 'img/bagets/33-24-2/2.jpeg', imageUrl: 'img/bagets/33-24-2/2.jpeg', color: '#8B7355', available: true },
+    { id: '33-24-3', name: '33-24-3', cat: 'CLASSIC', group: 'классический', widthMm: 33, width: 26, pricePerM: 115, stripUrl: 'img/bagets/33-24-3/1.jpeg', cornerUrl: 'img/bagets/33-24-3/2.jpeg', imageUrl: 'img/bagets/33-24-3/2.jpeg', color: '#8B7355', available: true },
+    { id: '33-24-4', name: '33-24-4', cat: 'CLASSIC', group: 'классический', widthMm: 33, width: 26, pricePerM: 115, stripUrl: 'img/bagets/33-24-4/1.jpeg', cornerUrl: 'img/bagets/33-24-4/2.jpeg', imageUrl: 'img/bagets/33-24-4/2.jpeg', color: '#8B7355', available: true },
+    { id: '33-24-5', name: '33-24-5', cat: 'CLASSIC', group: 'классический', widthMm: 33, width: 26, pricePerM: 115, stripUrl: 'img/bagets/33-24-5/1.jpeg', cornerUrl: 'img/bagets/33-24-5/2.jpeg', imageUrl: 'img/bagets/33-24-5/2.jpeg', color: '#8B7355', available: true },
+    { id: '39-22-1', name: '39-22-1', cat: 'CLASSIC', group: 'классический', widthMm: 39, width: 31, pricePerM: 135, stripUrl: 'img/bagets/39-22-1/1.jpeg', cornerUrl: 'img/bagets/39-22-1/2.jpeg', imageUrl: 'img/bagets/39-22-1/2.jpeg', color: '#8B7355', available: true },
+    { id: '39-22-10', name: '39-22-10', cat: 'CLASSIC', group: 'классический', widthMm: 39, width: 31, pricePerM: 135, stripUrl: 'img/bagets/39-22-10/1.png', cornerUrl: 'img/bagets/39-22-10/2.png', imageUrl: 'img/bagets/39-22-10/2.png', color: '#8B7355', available: true },
+    { id: '39-22-15', name: '39-22-15', cat: 'CLASSIC', group: 'классический', widthMm: 39, width: 31, pricePerM: 135, stripUrl: 'img/bagets/39-22-15/1.jpeg', cornerUrl: 'img/bagets/39-22-15/2.jpeg', imageUrl: 'img/bagets/39-22-15/2.jpeg', color: '#8B7355', available: true },
+    { id: '39-22-16', name: '39-22-16', cat: 'CLASSIC', group: 'классический', widthMm: 39, width: 31, pricePerM: 135, stripUrl: 'img/bagets/39-22-16/1.jpeg', cornerUrl: 'img/bagets/39-22-16/2.jpeg', imageUrl: 'img/bagets/39-22-16/2.jpeg', color: '#8B7355', available: true },
+    { id: '39-22-2', name: '39-22-2', cat: 'CLASSIC', group: 'классический', widthMm: 39, width: 31, pricePerM: 135, stripUrl: 'img/bagets/39-22-2/1.jpeg', cornerUrl: 'img/bagets/39-22-2/2.jpeg', imageUrl: 'img/bagets/39-22-2/2.jpeg', color: '#8B7355', available: true },
+    { id: '39-22-4', name: '39-22-4', cat: 'CLASSIC', group: 'классический', widthMm: 39, width: 31, pricePerM: 135, stripUrl: 'img/bagets/39-22-4/1.jpeg', cornerUrl: 'img/bagets/39-22-4/2.jpeg', imageUrl: 'img/bagets/39-22-4/2.jpeg', color: '#8B7355', available: true },
+    { id: '39-22-6', name: '39-22-6', cat: 'CLASSIC', group: 'классический', widthMm: 39, width: 31, pricePerM: 140, stripUrl: 'img/bagets/39-22-6/1.png', cornerUrl: 'img/bagets/39-22-6/2.png', imageUrl: 'img/bagets/39-22-6/2.png', color: '#8B7355', available: true },
+    { id: '39-22-7', name: '39-22-7', cat: 'CLASSIC', group: 'классический', widthMm: 39, width: 31, pricePerM: 140, stripUrl: 'img/bagets/39-22-7/1.jpeg', cornerUrl: 'img/bagets/39-22-7/2.jpeg', imageUrl: 'img/bagets/39-22-7/2.jpeg', color: '#8B7355', available: true },
+    { id: '44-21-1', name: '44-21-1', cat: 'CLASSIC', group: 'классический', widthMm: 44, width: 35, pricePerM: 138, stripUrl: 'img/bagets/44-21-1/1.jpeg', cornerUrl: 'img/bagets/44-21-1/2.jpeg', imageUrl: 'img/bagets/44-21-1/2.jpeg', color: '#8B7355', available: true },
+    { id: '44-21-2', name: '44-21-2', cat: 'CLASSIC', group: 'классический', widthMm: 44, width: 35, pricePerM: 138, stripUrl: 'img/bagets/44-21-2/1.jpeg', cornerUrl: 'img/bagets/44-21-2/2.jpeg', imageUrl: 'img/bagets/44-21-2/2.jpeg', color: '#8B7355', available: true },
+    { id: '44-21-3', name: '44-21-3', cat: 'CLASSIC', group: 'классический', widthMm: 44, width: 35, pricePerM: 138, stripUrl: 'img/bagets/44-21-3/1.jpeg', cornerUrl: 'img/bagets/44-21-3/2.jpeg', imageUrl: 'img/bagets/44-21-3/2.jpeg', color: '#8B7355', available: true },
+    { id: '44-21-4', name: '44-21-4', cat: 'CLASSIC', group: 'классический', widthMm: 44, width: 35, pricePerM: 138, stripUrl: 'img/bagets/44-21-4/1.jpeg', cornerUrl: 'img/bagets/44-21-4/2.jpeg', imageUrl: 'img/bagets/44-21-4/2.jpeg', color: '#8B7355', available: true },
+    { id: '45-35-1', name: '45-35-1', cat: 'CLASSIC', group: 'классический', widthMm: 45, width: 36, pricePerM: 158, stripUrl: 'img/bagets/45-35-1/1.jpeg', cornerUrl: 'img/bagets/45-35-1/2.jpeg', imageUrl: 'img/bagets/45-35-1/2.jpeg', color: '#8B7355', available: true },
+    { id: '45-35-2', name: '45-35-2', cat: 'CLASSIC', group: 'классический', widthMm: 45, width: 36, pricePerM: 158, stripUrl: 'img/bagets/45-35-2/1.jpeg', cornerUrl: 'img/bagets/45-35-2/2.jpeg', imageUrl: 'img/bagets/45-35-2/2.jpeg', color: '#8B7355', available: true },
+    { id: '45-35-6', name: '45-35-6', cat: 'CLASSIC', group: 'классический', widthMm: 45, width: 36, pricePerM: 158, stripUrl: 'img/bagets/45-35-6/1.jpeg', cornerUrl: 'img/bagets/45-35-6/2.jpeg', imageUrl: 'img/bagets/45-35-6/2.jpeg', color: '#8B7355', available: true },
+    { id: '47-26-1', name: '47-26-1', cat: 'CLASSIC', group: 'классический', widthMm: 47, width: 38, pricePerM: 165, stripUrl: 'img/bagets/47-26-1/1.png', cornerUrl: 'img/bagets/47-26-1/2.png', imageUrl: 'img/bagets/47-26-1/2.png', color: '#8B7355', available: true },
+    { id: '47-26-2', name: '47-26-2', cat: 'CLASSIC', group: 'классический', widthMm: 47, width: 38, pricePerM: 165, stripUrl: 'img/bagets/47-26-2/1.jpeg', cornerUrl: 'img/bagets/47-26-2/2.jpeg', imageUrl: 'img/bagets/47-26-2/2.jpeg', color: '#8B7355', available: true },
+    { id: '47-26-3', name: '47-26-3', cat: 'CLASSIC', group: 'классический', widthMm: 47, width: 38, pricePerM: 165, stripUrl: 'img/bagets/47-26-3/1.jpeg', cornerUrl: 'img/bagets/47-26-3/2.jpeg', imageUrl: 'img/bagets/47-26-3/2.jpeg', color: '#8B7355', available: true },
+    { id: '47-26-30', name: '47-26-30', cat: 'CLASSIC', group: 'классический', widthMm: 47, width: 38, pricePerM: 158, stripUrl: 'img/bagets/47-26-30/1.jpeg', cornerUrl: 'img/bagets/47-26-30/2.jpeg', imageUrl: 'img/bagets/47-26-30/2.jpeg', color: '#8B7355', available: true },
+    { id: '50-26-1', name: '50-26-1', cat: 'CLASSIC', group: 'классический', widthMm: 50, width: 40, pricePerM: 195, stripUrl: 'img/bagets/50-26-1/1.jpeg', cornerUrl: 'img/bagets/50-26-1/2.jpeg', imageUrl: 'img/bagets/50-26-1/2.jpeg', color: '#8B7355', available: true },
+    { id: '60-35-10', name: '60-35-10', cat: 'CLASSIC', group: 'классический', widthMm: 60, width: 48, pricePerM: 158, stripUrl: 'img/bagets/60-35-10/1.jpeg', cornerUrl: 'img/bagets/60-35-10/2.jpeg', imageUrl: 'img/bagets/60-35-10/2.jpeg', color: '#8B7355', available: true }
   ];
 
   /* ========== УТИЛИТЫ ========== */
 
-  /**
-   * buildFrameMap — создаёт хэш-таблицу { id → frame } из массива рам.
-   * @param {Array} frames
-   * @returns {Object}
-   */
   function buildFrameMap(frames) {
     var map = {};
     for (var i = 0; i < frames.length; i++) {
@@ -65,77 +72,32 @@
   }
 
   /**
-   * getFramePrice — стоимость рамы по периметру.
-   *
-   * Формула: Math.ceil(perimeter_m × effectivePricePerM)
-   *   perimeter_m = (w + h) × 2 / 100
-   *
-   * @param {Object} frame          — объект рамы из каталога
-   * @param {number} w              — ширина холста, см
-   * @param {number} h              — высота холста, см
-   * @param {number} fallbackPerM   — fallback цена за п.м. (по умолчанию 1200)
-   * @param {number} classicMult    — множитель CLASSIC (по умолчанию 1.5)
-   * @returns {number}
+   * getFramePrice — стоимость рамы.
+   * Формула: Math.round(0.18 × (w + h) × pricePerM)
    */
-  function getFramePrice(frame, w, h, fallbackPerM, classicMult) {
-    if (!frame || frame.id === 'NONE') return 0;
-    fallbackPerM = fallbackPerM || 1200;
-    classicMult  = classicMult  || 1.5;
-
-    var perimeter = (w + h) * 2 / 100; // метры
-    var ppm = (typeof frame.pricePerM === 'number')
-      ? frame.pricePerM
-      : fallbackPerM * (frame.cat === 'CLASSIC' ? classicMult : 1);
-
-    return Math.ceil(perimeter * ppm);
+  function getFramePrice(frame, w, h) {
+    if (!frame || frame.id === 'NONE' || typeof frame.pricePerM !== 'number') return 0;
+    return Math.round(0.18 * (w + h) * frame.pricePerM);
   }
 
   /**
-   * getFramePreviewCSS — возвращает объект стилей для CSS-рендера рамы на превью.
-   *
-   * @param {Object} frame — объект рамы
-   * @returns {Object} { border, outline, borderImage, borderColor, boxShadow }
+   * getFramePreviewCSS — CSS-стили для превью рамы (backward compat).
+   * Используется в reproduction-search.js и как fallback.
    */
   function getFramePreviewCSS(frame) {
     if (!frame || frame.id === 'NONE') {
-      return {
-        border: 'none',
-        outline: 'none',
-        borderImage: 'none',
-        borderColor: '',
-        boxShadow: '0 20px 25px -5px rgba(0,0,0,0.2)'
-      };
+      return { border: 'none', outline: 'none', borderImage: 'none', borderColor: '', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.2)' };
     }
-
-    var bw = Math.max(4, Math.min(frame.width, 20)); // clamp для превью (4–20px)
-    var result = {
-      border: bw + 'px solid ' + frame.color,
-      outline: frame.border ? '1px solid ' + frame.border : 'none',
+    var bw = Math.max(4, Math.min(frame.width || 12, 20));
+    return {
+      border: bw + 'px solid ' + (frame.color || '#8B7355'),
+      outline: 'none',
       borderImage: 'none',
       borderColor: '',
       boxShadow: '0 20px 25px -5px rgba(0,0,0,0.3)'
     };
-
-    if (frame.style === 'ornate_gold') {
-      result.borderImage = 'linear-gradient(135deg, #d4af37, #f5e5a0, #c5972c, #f5e5a0, #d4af37) 1';
-      result.borderColor = '#d4af37';
-    } else if (frame.style === 'ornate_silver') {
-      result.borderImage = 'linear-gradient(135deg, #c0c0c0, #f0f0f0, #a0a0a0, #f0f0f0, #c0c0c0) 1';
-      result.borderColor = '#c0c0c0';
-    } else if (frame.style === 'ornate_gold_inner') {
-      result.borderImage = 'linear-gradient(135deg, #1a1a1a, #333, #1a1a1a) 1';
-      result.borderColor = '#1a1a1a';
-      result.outline = '2px solid #d4af37';
-    }
-
-    return result;
   }
 
-  /**
-   * fmtPrice — форматирование числа с пробелами-разделителями.
-   * @param {number} n
-   * @returns {string}
-   */
   function fmtPrice(n) {
     var s = String(Math.round(n));
     var result = '';
@@ -146,6 +108,127 @@
     return result;
   }
 
+  /* ========== STRIP ROTATION & DOM RENDER (Подход B) ========== */
+
+  var _stripCache = {};
+
+  /** Offscreen canvas with img rotated/flipped */
+  function _makeRotated(img, angleDeg, flipX) {
+    var c = document.createElement('canvas');
+    var ctx = c.getContext('2d');
+    var sw = img.naturalWidth, sh = img.naturalHeight;
+    if (angleDeg === -90 || angleDeg === 90) {
+      c.width = sh; c.height = sw;
+    } else {
+      c.width = sw; c.height = sh;
+    }
+    ctx.save();
+    ctx.translate(c.width / 2, c.height / 2);
+    if (flipX) ctx.scale(-1, 1);
+    ctx.rotate(angleDeg * Math.PI / 180);
+    ctx.drawImage(img, -sw / 2, -sh / 2);
+    ctx.restore();
+    return c.toDataURL('image/jpeg', 0.85);
+  }
+
+  /**
+   * getStrips — загружает полоску, создаёт 4 повёрнутых data URL (с кешем).
+   * @param {Object} frame
+   * @param {Function} cb — callback(strips | null)
+   */
+  function getStrips(frame, cb) {
+    if (!frame || !frame.stripUrl) { cb(null); return; }
+    if (_stripCache[frame.id]) { cb(_stripCache[frame.id]); return; }
+    var img = new Image();
+    img.onload = function () {
+      var strips = {
+        topUrl:    _makeRotated(img, 90, false),
+        bottomUrl: _makeRotated(img, -90, false),
+        leftUrl:   _makeRotated(img, 0, false),
+        rightUrl:  _makeRotated(img, 0, true)
+      };
+      _stripCache[frame.id] = strips;
+      cb(strips);
+    };
+    img.onerror = function () { cb(null); };
+    img.src = frame.stripUrl;
+  }
+
+  /**
+   * renderFrameDOM — отрисовка текстурной рамы (подход B: DOM-композиция).
+   * Строит внутри container: фото + 4 стороны (tiled strip) + 4 угла (corner img).
+   */
+  function renderFrameDOM(container, frame, strips, photoUrl, photoW, photoH, fw) {
+    if (!fw) fw = Math.max(4, Math.round((frame.widthMm || 20) * 0.8));
+    container.innerHTML = '';
+    /* Reset ALL inline styles to avoid leftover border/width from previous call */
+    container.style.cssText = 'position:relative;overflow:hidden;'
+      + 'width:' + (photoW + fw * 2) + 'px;'
+      + 'height:' + (photoH + fw * 2) + 'px;'
+      + 'flex-shrink:0;'
+      + 'box-shadow:0 8px 30px rgba(0,0,0,0.15);';
+
+    /* Photo */
+    var photo = document.createElement('div');
+    photo.style.cssText = 'position:absolute;z-index:0;left:' + fw + 'px;top:' + fw + 'px;'
+      + 'width:' + photoW + 'px;height:' + photoH + 'px;'
+      + 'background:url("' + photoUrl + '") center/cover;';
+    container.appendChild(photo);
+
+    if (!strips) {
+      /* Fallback: solid CSS border */
+      container.style.cssText = 'position:relative;overflow:hidden;'
+        + 'box-sizing:content-box;'
+        + 'width:' + photoW + 'px;'
+        + 'height:' + photoH + 'px;'
+        + 'border:' + fw + 'px solid ' + (frame.color || '#8B7355') + ';'
+        + 'flex-shrink:0;'
+        + 'box-shadow:0 8px 30px rgba(0,0,0,0.15);';
+      photo.style.left = '0'; photo.style.top = '0';
+      return;
+    }
+
+    /* 4 Sides */
+    var sides = [
+      'position:absolute;z-index:1;top:0;left:' + fw + 'px;width:' + photoW + 'px;height:' + fw + 'px;background:url(' + strips.topUrl + ') repeat-x left top;background-size:auto ' + fw + 'px;',
+      'position:absolute;z-index:1;bottom:0;left:' + fw + 'px;width:' + photoW + 'px;height:' + fw + 'px;background:url(' + strips.bottomUrl + ') repeat-x left top;background-size:auto ' + fw + 'px;',
+      'position:absolute;z-index:1;top:' + fw + 'px;left:0;width:' + fw + 'px;height:' + photoH + 'px;background:url(' + strips.leftUrl + ') repeat-y left top;background-size:' + fw + 'px auto;',
+      'position:absolute;z-index:1;top:' + fw + 'px;right:0;width:' + fw + 'px;height:' + photoH + 'px;background:url(' + strips.rightUrl + ') repeat-y left top;background-size:' + fw + 'px auto;'
+    ];
+    sides.forEach(function (css) {
+      var d = document.createElement('div');
+      d.style.cssText = css;
+      container.appendChild(d);
+    });
+
+    /* 4 Corners */
+    var corners = [
+      { top: '0', left: '0', transform: 'none' },
+      { top: '0', right: '0', transform: 'scaleX(-1)' },
+      { bottom: '0', left: '0', transform: 'scaleY(-1)' },
+      { bottom: '0', right: '0', transform: 'scale(-1,-1)' }
+    ];
+    corners.forEach(function (c) {
+      var d = document.createElement('div');
+      d.style.position = 'absolute';
+      d.style.width = fw + 'px';
+      d.style.height = fw + 'px';
+      d.style.zIndex = '3';
+      d.style.overflow = 'hidden';
+      if (c.top !== undefined) d.style.top = c.top;
+      if (c.bottom !== undefined) d.style.bottom = c.bottom;
+      if (c.left !== undefined) d.style.left = c.left;
+      if (c.right !== undefined) d.style.right = c.right;
+      d.style.transform = c.transform;
+      var img = document.createElement('img');
+      img.src = frame.cornerUrl;
+      img.alt = '';
+      img.style.cssText = 'width:100%;height:100%;display:block;';
+      d.appendChild(img);
+      container.appendChild(d);
+    });
+  }
+
   /* ========== ЭКСПОРТ ========== */
 
   window.MUSE_FRAMES = {
@@ -153,7 +236,9 @@
     buildFrameMap:      buildFrameMap,
     getFramePrice:      getFramePrice,
     getFramePreviewCSS: getFramePreviewCSS,
-    fmtPrice:           fmtPrice
+    fmtPrice:           fmtPrice,
+    getStrips:          getStrips,
+    renderFrameDOM:     renderFrameDOM
   };
 
 })();

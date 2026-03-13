@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тест рендеринга багета — Muse</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.5; }
+  .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+  h1 { font-size: 1.5rem; margin-bottom: 4px; }
+  h2 { font-size: 1.2rem; margin: 24px 0 12px; color: #475569; }
+  h3 { font-size: 1rem; margin-bottom: 8px; }
+
+  /* Controls */
+  .controls { display: flex; flex-wrap: wrap; gap: 16px; align-items: end; padding: 16px; background: #fff; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.1); margin-bottom: 24px; }
+  .control-group { display: flex; flex-direction: column; gap: 4px; }
+  .control-group label { font-size: 0.8rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; }
+  .control-group input { width: 80px; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; text-align: center; }
+  .control-group input:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,.15); }
+
+  /* Upload zone */
+  .upload-zone { display: flex; align-items: center; justify-content: center; min-width: 200px; padding: 12px 24px; border: 2px dashed #cbd5e1; border-radius: 12px; cursor: pointer; transition: border-color .2s, background .2s; font-size: 0.9rem; color: #64748b; }
+  .upload-zone:hover, .upload-zone.drag-over { border-color: #3b82f6; background: #eff6ff; }
+  .upload-zone.has-photo { border-color: #22c55e; border-style: solid; background: #f0fdf4; color: #16a34a; }
+  .upload-zone input { display: none; }
+
+  /* Baguette catalog grid */
+  .catalog { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; margin-bottom: 24px; }
+  .catalog-item { cursor: pointer; border: 2px solid transparent; border-radius: 10px; padding: 6px; text-align: center; transition: border-color .15s, background .15s; background: #fff; }
+  .catalog-item:hover { background: #f1f5f9; }
+  .catalog-item.active { border-color: #3b82f6; background: #eff6ff; }
+  .catalog-item img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 6px; background: #e2e8f0; }
+  .catalog-item .name { font-size: 0.7rem; font-weight: 600; margin-top: 4px; color: #334155; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .catalog-item .price { font-size: 0.65rem; color: #64748b; }
+
+  /* Group headers */
+  .group-header { grid-column: 1 / -1; font-size: 0.85rem; font-weight: 700; color: #475569; padding: 8px 4px 2px; border-bottom: 1px solid #e2e8f0; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* Preview area — 3 approaches side by side */
+  .previews { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 32px; }
+  @media (max-width: 900px) { .previews { grid-template-columns: 1fr; } }
+  .preview-card { background: #fff; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.1); padding: 16px; display: flex; flex-direction: column; align-items: center; }
+  .preview-card h3 { text-align: center; }
+  .preview-label { font-size: 0.7rem; color: #94a3b8; text-align: center; margin-bottom: 12px; }
+
+  /* Frame wrapper common */
+  .frame-wrap { position: relative; display: inline-block; background: #f1f5f9; max-width: 100%; }
+
+  /* Approach A: border-image */
+  .frame-a { overflow: visible; }
+  .frame-a .photo { display: block; max-width: 100%; max-height: 350px; }
+  .frame-a-border { position: relative; display: inline-block; }
+
+  /* Approach B: DOM composition */
+  .frame-b-outer { position: relative; display: inline-flex; align-items: center; justify-content: center; }
+  .frame-b-outer .photo { display: block; position: relative; z-index: 2; max-width: 100%; max-height: 350px; }
+  .frame-b-side { position: absolute; z-index: 1; overflow: hidden; }
+  .frame-b-corner { position: absolute; z-index: 3; }
+  .frame-b-corner img { display: block; width: 100%; height: 100%; }
+
+  /* Approach C: Canvas */
+  .frame-c canvas { max-width: 100%; height: auto; }
+
+  /* Price section */
+  .price-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+  .price-table th, .price-table td { padding: 8px 12px; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 0.85rem; }
+  .price-table th { background: #f8fafc; font-weight: 600; color: #475569; }
+  .price-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .price-highlight { font-weight: 700; color: #059669; }
+
+  /* Checklist */
+  .checklist { list-style: none; padding: 0; }
+  .checklist li { padding: 6px 0; border-bottom: 1px solid #f1f5f9; display: flex; gap: 8px; align-items: center; font-size: 0.85rem; }
+  .checklist li::before { content: "☐"; font-size: 1.1rem; }
+
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 9999px; font-size: 0.7rem; font-weight: 600; }
+  .badge-a { background: #dbeafe; color: #1d4ed8; }
+  .badge-b { background: #dcfce7; color: #16a34a; }
+  .badge-c { background: #fef3c7; color: #d97706; }
+
+  .info-box { background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 12px 16px; margin: 16px 0; font-size: 0.85rem; }
+  .formula { font-family: 'Courier New', monospace; background: #f1f5f9; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Тест: рендеринг настоящего багета</h1>
+  <p style="color: #64748b; font-size: 0.85rem; margin-bottom: 16px;">Сравнение 3 подходов отрисовки рамы из реальных текстур (полоска + уголок)</p>
+
+  <!-- Controls -->
+  <div class="controls">
+    <div class="control-group">
+      <label>Ширина (см)</label>
+      <input type="number" id="inp-w" value="50" min="20" max="300">
+    </div>
+    <div class="control-group">
+      <label>Высота (см)</label>
+      <input type="number" id="inp-h" value="70" min="20" max="300">
+    </div>
+    <div class="control-group">
+      <label>Ширина рамы (px)</label>
+      <input type="number" id="inp-frame-w" value="30" min="5" max="80">
+    </div>
+    <div class="control-group" style="align-self:center;">
+      <label style="display:flex;align-items:center;gap:6px;cursor:pointer;white-space:nowrap;">
+        <input type="checkbox" id="chk-flip-strip">
+        Отзеркалить полоску
+      </label>
+      <span style="font-size:0.7rem;color:#94a3b8;">Если узор не совпадает с уголком</span>
+    </div>
+    <label class="upload-zone" id="upload-zone">
+      <span id="upload-text">📷 Загрузите фото (или drag-drop)</span>
+      <input type="file" id="file-input" accept="image/*">
+    </label>
+    <div style="margin-left: auto; text-align: right;">
+      <div id="selected-name" style="font-weight: 600; font-size: 0.95rem;">—</div>
+      <div id="selected-price" style="font-size: 0.85rem; color: #64748b;">Выберите багет</div>
+    </div>
+  </div>
+
+  <!-- Assembly diagram -->
+  <details style="margin-bottom:16px;">
+    <summary style="cursor:pointer;font-size:0.85rem;color:#475569;font-weight:600;">📐 Схема сборки рамы (как полоска и уголок стыкуются)</summary>
+    <pre style="background:#f8fafc;border:1px solid #e2e8f0;padding:12px;border-radius:8px;font-size:0.75rem;line-height:1.6;margin-top:8px;overflow-x:auto;">
+Полоска (1.jpeg) = ВЕРТИКАЛЬНЫЙ брусок рамы (левая сторона)
+Уголок  (2.jpeg) = ВЕРХНИЙ ЛЕВЫЙ угол рамы
+
+Сборка:
+┌──────────┬────────────────────────────┬──────────┐
+│  Уголок  │  Полоска повёрнута +90°    │  Уголок  │
+│  as-is   │  (CW → горизонталь)       │  flipX   │
+│  (TL)    │  TOP SIDE                  │  (TR)    │
+├──────────┼────────────────────────────┼──────────┤
+│ Полоска  │                            │ Полоска  │
+│ as-is    │        ФОТО               │ flipX    │
+│ repeat-y │                            │ repeat-y │
+│ LEFT     │                            │ RIGHT    │
+├──────────┼────────────────────────────┼──────────┤
+│  Уголок  │  Полоска повёрнута -90°    │  Уголок  │
+│  flipY   │  (CCW → горизонталь)        │  flipXY  │
+│  (BL)    │  BOTTOM SIDE              │  (BR)    │
+└──────────┴────────────────────────────┴──────────┘
+
+Узор полоски обращён ВНУТРЬ (к картине).
+Если не совпадает — включите «Отзеркалить полоску».
+    </pre>
+  </details>
+
+  <!-- Catalog -->
+  <h2>Каталог багетов (39 шт.)</h2>
+  <div class="catalog" id="catalog"></div>
+
+  <!-- 3 Previews -->
+  <h2>Сравнение подходов</h2>
+  <div class="previews">
+    <!-- A: border-image -->
+    <div class="preview-card">
+      <h3><span class="badge badge-a">A</span> CSS border-image</h3>
+      <p class="preview-label">border-image-source + абсолютные углы</p>
+      <div id="preview-a" class="frame-wrap frame-a">
+        <div class="frame-a-border" id="frame-a-border" style="display:inline-block;">
+          <img class="photo" id="photo-a" src="" alt="Фото" style="display:none;">
+          <div id="placeholder-a" style="width:200px;height:280px;background:#e2e8f0;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:0.8rem;">Загрузите фото</div>
+        </div>
+        <!-- Corners overlaid -->
+        <img id="corner-a-tl" class="frame-b-corner" style="top:0;left:0;display:none;" alt="">
+        <img id="corner-a-tr" class="frame-b-corner" style="top:0;right:0;display:none;" alt="">
+        <img id="corner-a-bl" class="frame-b-corner" style="bottom:0;left:0;display:none;" alt="">
+        <img id="corner-a-br" class="frame-b-corner" style="bottom:0;right:0;display:none;" alt="">
+      </div>
+    </div>
+
+    <!-- B: DOM composition -->
+    <div class="preview-card">
+      <h3><span class="badge badge-b">B</span> DOM-композиция</h3>
+      <p class="preview-label">4 полоски (repeat) + 4 уголка (rotate)</p>
+      <div id="preview-b" class="frame-wrap">
+        <div class="frame-b-outer" id="frame-b-outer">
+          <!-- Sides -->
+          <div class="frame-b-side" id="side-top"></div>
+          <div class="frame-b-side" id="side-bottom"></div>
+          <div class="frame-b-side" id="side-left"></div>
+          <div class="frame-b-side" id="side-right"></div>
+          <!-- Corners -->
+          <div class="frame-b-corner" id="corner-b-tl"><img alt=""></div>
+          <div class="frame-b-corner" id="corner-b-tr"><img alt=""></div>
+          <div class="frame-b-corner" id="corner-b-bl"><img alt=""></div>
+          <div class="frame-b-corner" id="corner-b-br"><img alt=""></div>
+          <!-- Photo -->
+          <img class="photo" id="photo-b" src="" alt="Фото" style="display:none;">
+          <div id="placeholder-b" style="width:200px;height:280px;background:#e2e8f0;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:0.8rem;">Загрузите фото</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- C: Canvas -->
+    <div class="preview-card">
+      <h3><span class="badge badge-c">C</span> Canvas API</h3>
+      <p class="preview-label">drawImage() полосок и уголков программно</p>
+      <div id="preview-c" class="frame-wrap frame-c">
+        <canvas id="canvas-c" width="260" height="340"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Price comparison -->
+  <h2>Расчёт цены</h2>
+  <div class="info-box">
+    <strong>Новая формула:</strong> <span class="formula">Цена = 0,18 × (A + B) × C</span><br>
+    <strong>Текущая формула (calc.js):</strong> <span class="formula">Цена = (A + B) × 2 / 100 × C</span><br>
+    <span style="color:#92400e;">A = ширина (см), B = высота (см), C = стоимость погонного метра (руб.)</span>
+  </div>
+  <table class="price-table" id="price-table">
+    <thead>
+      <tr>
+        <th>Багет</th>
+        <th>C (руб/м)</th>
+        <th class="num">Новая формула</th>
+        <th class="num">Текущая формула</th>
+        <th class="num">Разница</th>
+      </tr>
+    </thead>
+    <tbody id="price-tbody"></tbody>
+  </table>
+
+  <!-- Evaluation checklist -->
+  <h2>Чек-лист оценки</h2>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+    <div>
+      <h3><span class="badge badge-a">A</span> border-image</h3>
+      <ul class="checklist">
+        <li>Текстура видна</li>
+        <li>Стыки уголок/полоска</li>
+        <li>Масштабирование</li>
+        <li>Респонсивность</li>
+        <li>Простота интеграции</li>
+      </ul>
+    </div>
+    <div>
+      <h3><span class="badge badge-b">B</span> DOM-композиция</h3>
+      <ul class="checklist">
+        <li>Текстура видна</li>
+        <li>Стыки уголок/полоска</li>
+        <li>Масштабирование</li>
+        <li>Респонсивность</li>
+        <li>Простота интеграции</li>
+      </ul>
+    </div>
+    <div>
+      <h3><span class="badge badge-c">C</span> Canvas API</h3>
+      <ul class="checklist">
+        <li>Текстура видна</li>
+        <li>Стыки уголок/полоска</li>
+        <li>Масштабирование</li>
+        <li>Респонсивность</li>
+        <li>Простота интеграции</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script src="baget-data.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  /* ── State ── */
+  var STATE = {
+    w: 50,           // width cm
+    h: 70,           // height cm
+    frameW: 30,      // frame border width px (for preview)
+    flipStrip: false, // mirror strip (if pattern is on wrong side)
+    photoUrl: null,   // data URL of loaded photo
+    photoImg: null,   // Image object
+    selected: null,   // selected baguette object
+    stripImg: null,   // loaded Image for strip (vertical)
+    cornerImg: null,  // loaded Image for corner (top-left)
+    /* Pre-baked rotated versions (data URLs): */
+    stripTopUrl: null,  // strip rotated -90° (for top side)
+    stripBotUrl: null,  // strip rotated +90° (for bottom side)
+    stripLeftUrl: null, // strip as-is or flipped (for left side)
+    stripRightUrl: null, // strip flipped (for right side)
+    /* Rotated canvas elements (for 9-slice & Canvas approach): */
+    stripTopCanvas: null,
+    stripBotCanvas: null,
+    stripLeftCanvas: null,
+    stripRightCanvas: null
+  };
+
+  /* ── DOM refs ── */
+  var $ = function (id) { return document.getElementById(id); };
+  var inpW = $('inp-w'), inpH = $('inp-h'), inpFW = $('inp-frame-w');
+  var uploadZone = $('upload-zone'), fileInput = $('file-input');
+  var catalogEl = $('catalog');
+
+  /* ── Utilities ── */
+  function fmtPrice(n) {
+    return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  }
+
+  function calcPriceNew(w, h, c) {
+    return Math.round(0.18 * (w + h) * c);
+  }
+
+  function calcPriceOld(w, h, c) {
+    return Math.ceil((w + h) * 2 / 100 * c);
+  }
+
+  /* ─────────────────────────────────────────────
+     STRIP ROTATION HELPER
+     The strip (1.jpeg) is a VERTICAL bar (left side of frame).
+     - Left side:   strip as-is          (pattern faces right → toward picture)
+     - Right side:  strip mirrored horiz (pattern faces left  → toward picture)
+     - Top side:    strip rotated -90° CCW (pattern faces down → toward picture)
+     - Bottom side: strip rotated +90° CW  (pattern faces up   → toward picture)
+     If flipStrip=true, the pattern side is swapped.
+     ───────────────────────────────────────────── */
+
+  /** Returns an offscreen canvas with img rotated/flipped */
+  function makeTransformedCanvas(img, angleDeg, flipX) {
+    var c = document.createElement('canvas');
+    var ctx = c.getContext('2d');
+    var sw = img.naturalWidth, sh = img.naturalHeight;
+
+    if (angleDeg === -90 || angleDeg === 90) {
+      c.width = sh; c.height = sw;
+    } else {
+      c.width = sw; c.height = sh;
+    }
+
+    ctx.save();
+    ctx.translate(c.width / 2, c.height / 2);
+    if (flipX) ctx.scale(-1, 1);
+    ctx.rotate(angleDeg * Math.PI / 180);
+    ctx.drawImage(img, -sw / 2, -sh / 2);
+    ctx.restore();
+    return c;
+  }
+
+  function prepareStripVariants() {
+    var strip = STATE.stripImg;
+    if (!strip) return;
+
+    var flip = STATE.flipStrip;
+
+    // Strip (1.jpeg) = left side of frame. Right edge = inner (toward picture).
+    // Left side:   as-is (right edge → toward picture) or flipped if flip=true
+    // Right side:  scaleX(-1) so right edge still faces picture
+    // Top side:    rotate +90° CW → right edge goes DOWN toward picture
+    // Bottom side: rotate -90° CCW → right edge goes UP toward picture
+    STATE.stripLeftCanvas  = makeTransformedCanvas(strip, 0, flip);
+    STATE.stripRightCanvas = makeTransformedCanvas(strip, 0, !flip);
+    STATE.stripTopCanvas   = makeTransformedCanvas(strip, 90, flip);
+    STATE.stripBotCanvas   = makeTransformedCanvas(strip, -90, flip);
+
+    // Data URLs (for Approach B DOM backgrounds)
+    STATE.stripLeftUrl  = STATE.stripLeftCanvas.toDataURL('image/jpeg', 0.92);
+    STATE.stripRightUrl = STATE.stripRightCanvas.toDataURL('image/jpeg', 0.92);
+    STATE.stripTopUrl   = STATE.stripTopCanvas.toDataURL('image/jpeg', 0.92);
+    STATE.stripBotUrl   = STATE.stripBotCanvas.toDataURL('image/jpeg', 0.92);
+  }
+
+  /* ── Build catalog ── */
+  function buildCatalog() {
+    var groups = {};
+    REAL_BAGETS.forEach(function (b) {
+      var key = b.group;
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(b);
+    });
+
+    var groupOrder = ['плоский', 'студийный', 'классический'];
+    var groupLabels = { 'плоский': 'Плоский', 'студийный': 'Студийный', 'классический': 'Классический' };
+
+    catalogEl.innerHTML = '';
+    groupOrder.forEach(function (gKey) {
+      var items = groups[gKey];
+      if (!items) return;
+
+      var header = document.createElement('div');
+      header.className = 'group-header';
+      header.textContent = groupLabels[gKey] + ' (' + items.length + ')';
+      catalogEl.appendChild(header);
+
+      items.forEach(function (b) {
+        var div = document.createElement('div');
+        div.className = 'catalog-item';
+        div.dataset.id = b.id;
+        div.innerHTML =
+          '<img src="' + b.cornerUrl + '" alt="' + b.id + '" loading="lazy">' +
+          '<div class="name">' + b.id + '</div>' +
+          '<div class="price">' + b.widthMm + ' мм · ' + b.pricePerM + ' р/м</div>';
+        div.addEventListener('click', function () { selectBaguette(b); });
+        catalogEl.appendChild(div);
+      });
+    });
+  }
+
+  /* ── Select baguette ── */
+  function selectBaguette(b) {
+    STATE.selected = b;
+
+    var items = catalogEl.querySelectorAll('.catalog-item');
+    items.forEach(function (el) {
+      el.classList.toggle('active', el.dataset.id === b.id);
+    });
+
+    $('selected-name').textContent = b.id + ' (' + b.group + ', ' + b.widthMm + ' мм)';
+    $('selected-price').textContent = b.pricePerM + ' руб/пог.м';
+
+    // Auto-set frame border width proportional to real width
+    // Scale: 1 mm ≈ 1 px (reasonable for preview at typical photo sizes)
+    STATE.frameW = Math.max(10, Math.round(b.widthMm * 0.8));
+    inpFW.value = STATE.frameW;
+
+    loadBaguetteImages(b, function () {
+      prepareStripVariants();
+      renderAll();
+    });
+
+    updatePriceTable();
+  }
+
+  function loadBaguetteImages(b, cb) {
+    var loaded = 0;
+    function check() { if (++loaded >= 2) cb(); }
+
+    var strip = new Image();
+    strip.onload = function () { STATE.stripImg = strip; check(); };
+    strip.onerror = function () { STATE.stripImg = null; check(); };
+    strip.src = b.stripUrl;
+
+    var corner = new Image();
+    corner.onload = function () { STATE.cornerImg = corner; check(); };
+    corner.onerror = function () { STATE.cornerImg = null; check(); };
+    corner.src = b.cornerUrl;
+  }
+
+  /* ── Photo upload ── */
+  fileInput.addEventListener('change', function (e) {
+    if (e.target.files && e.target.files[0]) handleFile(e.target.files[0]);
+  });
+
+  uploadZone.addEventListener('dragover', function (e) {
+    e.preventDefault();
+    uploadZone.classList.add('drag-over');
+  });
+  uploadZone.addEventListener('dragleave', function () {
+    uploadZone.classList.remove('drag-over');
+  });
+  uploadZone.addEventListener('drop', function (e) {
+    e.preventDefault();
+    uploadZone.classList.remove('drag-over');
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+  });
+
+  function handleFile(file) {
+    if (!file.type.startsWith('image/')) return;
+    var reader = new FileReader();
+    reader.onload = function (ev) {
+      STATE.photoUrl = ev.target.result;
+      var img = new Image();
+      img.onload = function () {
+        STATE.photoImg = img;
+        uploadZone.classList.add('has-photo');
+        $('upload-text').textContent = '✅ ' + file.name;
+        renderAll();
+      };
+      img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  /* ── Input handlers ── */
+  inpW.addEventListener('input', function () { STATE.w = parseInt(this.value) || 50; renderAll(); updatePriceTable(); });
+  inpH.addEventListener('input', function () { STATE.h = parseInt(this.value) || 70; renderAll(); updatePriceTable(); });
+  inpFW.addEventListener('input', function () { STATE.frameW = parseInt(this.value) || 30; renderAll(); });
+  $('chk-flip-strip').addEventListener('change', function () {
+    STATE.flipStrip = this.checked;
+    prepareStripVariants();
+    renderAll();
+  });
+
+  /* ============================
+     RENDERING
+     ============================ */
+
+  function getPhotoSize() {
+    if (STATE.photoImg) {
+      var scale = Math.min(300 / STATE.photoImg.naturalWidth, 350 / STATE.photoImg.naturalHeight, 1);
+      return {
+        w: Math.round(STATE.photoImg.naturalWidth * scale),
+        h: Math.round(STATE.photoImg.naturalHeight * scale)
+      };
+    }
+    return { w: 200, h: 280 };
+  }
+
+  function renderAll() {
+    renderA();
+    renderB();
+    renderC();
+  }
+
+  /* ── Approach A: CSS border-image (9-slice composed image) ── */
+  function renderA() {
+    var border = $('frame-a-border');
+    var photo = $('photo-a');
+    var placeholder = $('placeholder-a');
+    var fw = STATE.frameW;
+
+    if (STATE.photoUrl) {
+      photo.src = STATE.photoUrl;
+      photo.style.display = 'block';
+      placeholder.style.display = 'none';
+    } else {
+      photo.style.display = 'none';
+      placeholder.style.display = 'flex';
+    }
+
+    // Hide corner overlays (we bake them into the 9-slice)
+    ['corner-a-tl', 'corner-a-tr', 'corner-a-bl', 'corner-a-br'].forEach(function (id) {
+      $(id).style.display = 'none';
+    });
+
+    if (!STATE.stripImg || !STATE.cornerImg) {
+      border.style.border = 'none';
+      border.style.borderImage = 'none';
+      return;
+    }
+
+    // Compose 9-slice image: corners + rotated strips
+    var nineSlice = compose9Slice(fw);
+    border.style.border = fw + 'px solid transparent';
+    border.style.borderImage = 'url(' + nineSlice + ') ' + fw + ' round';
+  }
+
+  function compose9Slice(fw) {
+    // 3×3 grid: corners in 4 corner cells, strip tiles in 4 edge cells
+    var size = fw * 3;
+    var c = document.createElement('canvas');
+    c.width = size; c.height = size;
+    var ctx = c.getContext('2d');
+
+    var corner = STATE.cornerImg;
+    var strip = STATE.stripImg;
+    var sw = strip.naturalWidth;
+
+    // ---- CORNERS ----
+    ctx.drawImage(corner, 0, 0, fw, fw);                                       // TL
+    ctx.save(); ctx.translate(size, 0); ctx.scale(-1, 1);
+    ctx.drawImage(corner, 0, 0, fw, fw); ctx.restore();                        // TR
+    ctx.save(); ctx.translate(0, size); ctx.scale(1, -1);
+    ctx.drawImage(corner, 0, 0, fw, fw); ctx.restore();                        // BL
+    ctx.save(); ctx.translate(size, size); ctx.scale(-1, -1);
+    ctx.drawImage(corner, 0, 0, fw, fw); ctx.restore();                        // BR
+
+    // ---- SIDE TILES (one fw×fw tile per side, drawn from pre-rotated canvases) ----
+    // Left cell
+    var leftSrc = STATE.stripLeftCanvas;
+    ctx.save(); ctx.beginPath(); ctx.rect(0, fw, fw, fw); ctx.clip();
+    ctx.drawImage(leftSrc, 0, 0, sw, sw, 0, fw, fw, fw);
+    ctx.restore();
+
+    // Right cell
+    var rightSrc = STATE.stripRightCanvas;
+    ctx.save(); ctx.beginPath(); ctx.rect(2 * fw, fw, fw, fw); ctx.clip();
+    ctx.drawImage(rightSrc, 0, 0, sw, sw, 2 * fw, fw, fw, fw);
+    ctx.restore();
+
+    // Top cell: use rotated -90° canvas (width=sh, height=sw)
+    var topC = STATE.stripTopCanvas;
+    ctx.save(); ctx.beginPath(); ctx.rect(fw, 0, fw, fw); ctx.clip();
+    ctx.drawImage(topC, 0, 0, topC.height, topC.height, fw, 0, fw, fw);
+    ctx.restore();
+
+    // Bottom cell: use rotated +90° canvas
+    var botC = STATE.stripBotCanvas;
+    ctx.save(); ctx.beginPath(); ctx.rect(fw, 2 * fw, fw, fw); ctx.clip();
+    ctx.drawImage(botC, 0, 0, botC.height, botC.height, fw, 2 * fw, fw, fw);
+    ctx.restore();
+
+    return c.toDataURL('image/jpeg', 0.92);
+  }
+
+  /* ── Approach B: DOM composition ── */
+  function renderB() {
+    var outer = $('frame-b-outer');
+    var photo = $('photo-b');
+    var placeholder = $('placeholder-b');
+    var fw = STATE.frameW;
+    var ps = getPhotoSize();
+
+    if (STATE.photoImg) {
+      photo.src = STATE.photoUrl;
+      photo.style.display = 'block';
+      placeholder.style.display = 'none';
+      photo.style.width = ps.w + 'px';
+      photo.style.height = ps.h + 'px';
+    } else {
+      photo.style.display = 'none';
+      placeholder.style.display = 'flex';
+    }
+
+    var totalW = ps.w + fw * 2;
+    var totalH = ps.h + fw * 2;
+    outer.style.width = totalW + 'px';
+    outer.style.height = totalH + 'px';
+
+    // Position photo/placeholder in center
+    var centerEl = STATE.photoImg ? photo : placeholder;
+    centerEl.style.position = 'absolute';
+    centerEl.style.left = fw + 'px';
+    centerEl.style.top = fw + 'px';
+
+    if (!STATE.selected || !STATE.stripImg) {
+      ['side-top', 'side-bottom', 'side-left', 'side-right',
+       'corner-b-tl', 'corner-b-tr', 'corner-b-bl', 'corner-b-br']
+        .forEach(function (id) { $(id).style.display = 'none'; });
+      return;
+    }
+
+    var cornerUrl = STATE.selected.cornerUrl;
+
+    // --- SIDES (using pre-rotated strip data URLs) ---
+
+    // Top: rotated -90° strip, tiled horizontally
+    var sTop = $('side-top');
+    sTop.style.cssText = 'position:absolute; display:block; top:0; left:' + fw + 'px;' +
+      'width:' + ps.w + 'px; height:' + fw + 'px; z-index:1; overflow:hidden;' +
+      'background: url(' + STATE.stripTopUrl + ') repeat-x left top;' +
+      'background-size: auto ' + fw + 'px;';
+
+    // Bottom: rotated +90° strip, tiled horizontally
+    var sBot = $('side-bottom');
+    sBot.style.cssText = 'position:absolute; display:block; bottom:0; left:' + fw + 'px;' +
+      'width:' + ps.w + 'px; height:' + fw + 'px; z-index:1; overflow:hidden;' +
+      'background: url(' + STATE.stripBotUrl + ') repeat-x left top;' +
+      'background-size: auto ' + fw + 'px;';
+
+    // Left: vertical strip as-is, tiled vertically
+    var sLeft = $('side-left');
+    sLeft.style.cssText = 'position:absolute; display:block; top:' + fw + 'px; left:0;' +
+      'width:' + fw + 'px; height:' + ps.h + 'px; z-index:1; overflow:hidden;' +
+      'background: url(' + STATE.stripLeftUrl + ') repeat-y left top;' +
+      'background-size: ' + fw + 'px auto;';
+
+    // Right: vertical strip mirrored, tiled vertically
+    var sRight = $('side-right');
+    sRight.style.cssText = 'position:absolute; display:block; top:' + fw + 'px; right:0;' +
+      'width:' + fw + 'px; height:' + ps.h + 'px; z-index:1; overflow:hidden;' +
+      'background: url(' + STATE.stripRightUrl + ') repeat-y left top;' +
+      'background-size: ' + fw + 'px auto;';
+
+    // --- CORNERS ---
+    var corners = [
+      { id: 'corner-b-tl', top: '0',  left: '0',   transform: 'none' },
+      { id: 'corner-b-tr', top: '0',  right: '0',  transform: 'scaleX(-1)' },
+      { id: 'corner-b-bl', bottom:'0', left: '0',  transform: 'scaleY(-1)' },
+      { id: 'corner-b-br', bottom:'0', right: '0', transform: 'scale(-1,-1)' }
+    ];
+
+    corners.forEach(function (c) {
+      var el = $(c.id);
+      el.style.display = 'block';
+      el.style.position = 'absolute';
+      el.style.width = fw + 'px';
+      el.style.height = fw + 'px';
+      el.style.zIndex = '3';
+      el.style.top = c.top || 'auto';
+      el.style.bottom = c.bottom || 'auto';
+      el.style.left = c.left || 'auto';
+      el.style.right = c.right || 'auto';
+      el.style.transform = c.transform;
+      var img = el.querySelector('img');
+      img.src = cornerUrl;
+      img.style.width = '100%';
+      img.style.height = '100%';
+      img.style.display = 'block';
+    });
+  }
+
+  /* ── Approach C: Canvas API ── */
+  function renderC() {
+    var canvas = $('canvas-c');
+    var ctx = canvas.getContext('2d');
+    var fw = STATE.frameW;
+    var ps = getPhotoSize();
+
+    canvas.width = ps.w + fw * 2;
+    canvas.height = ps.h + fw * 2;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw photo or placeholder
+    if (STATE.photoImg) {
+      ctx.drawImage(STATE.photoImg, fw, fw, ps.w, ps.h);
+    } else {
+      ctx.fillStyle = '#e2e8f0';
+      ctx.fillRect(fw, fw, ps.w, ps.h);
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '12px system-ui';
+      ctx.textAlign = 'center';
+      ctx.fillText('Загрузите фото', fw + ps.w / 2, fw + ps.h / 2);
+    }
+
+    if (!STATE.stripImg || !STATE.cornerImg) return;
+
+    var strip = STATE.stripImg;
+    var corner = STATE.cornerImg;
+    var sw = strip.naturalWidth, sh = strip.naturalHeight;
+
+    // Scale: fit strip width → frame border width
+    var sc = fw / sw;
+    var segH = sh * sc; // tile height for vertical sides
+    // For horizontal sides, use rotated canvases: rotated strip has w=sh, h=sw
+    // After scaling sw→fw: tile width = sh * sc
+    var segW = sh * sc;
+
+    // Source canvases for left/right (always pre-built)
+    var leftSrc = STATE.stripLeftCanvas;
+    var rightSrc = STATE.stripRightCanvas;
+
+    /* --- LEFT SIDE --- */
+    ctx.save();
+    ctx.beginPath(); ctx.rect(0, fw, fw, ps.h); ctx.clip();
+    for (var y = fw; y < fw + ps.h; y += segH) {
+      var dh = Math.min(segH, fw + ps.h - y);
+      var srcH = dh / sc;
+      ctx.drawImage(leftSrc, 0, 0, sw, srcH, 0, y, fw, dh);
+    }
+    ctx.restore();
+
+    /* --- RIGHT SIDE --- */
+    ctx.save();
+    ctx.beginPath(); ctx.rect(fw + ps.w, fw, fw, ps.h); ctx.clip();
+    for (var y2 = fw; y2 < fw + ps.h; y2 += segH) {
+      var dh2 = Math.min(segH, fw + ps.h - y2);
+      var srcH2 = dh2 / sc;
+      ctx.drawImage(rightSrc, 0, 0, sw, srcH2, fw + ps.w, y2, fw, dh2);
+    }
+    ctx.restore();
+
+    /* --- TOP SIDE (use pre-rotated canvas, tile horizontally) --- */
+    var topC = STATE.stripTopCanvas; // dimensions: sh × sw
+    var scTop = fw / topC.height; // scale rotated strip height (sw) → fw
+    ctx.save();
+    ctx.beginPath(); ctx.rect(fw, 0, ps.w, fw); ctx.clip();
+    for (var x = fw; x < fw + ps.w; x += segW) {
+      var dw = Math.min(segW, fw + ps.w - x);
+      var srcW = dw / scTop;
+      ctx.drawImage(topC, 0, 0, srcW, topC.height, x, 0, dw, fw);
+    }
+    ctx.restore();
+
+    /* --- BOTTOM SIDE (use pre-rotated canvas, tile horizontally) --- */
+    var botC = STATE.stripBotCanvas; // dimensions: sh × sw
+    ctx.save();
+    ctx.beginPath(); ctx.rect(fw, fw + ps.h, ps.w, fw); ctx.clip();
+    for (var x2 = fw; x2 < fw + ps.w; x2 += segW) {
+      var dw2 = Math.min(segW, fw + ps.w - x2);
+      var srcW2 = dw2 / scTop;
+      ctx.drawImage(botC, 0, 0, srcW2, botC.height, x2, fw + ps.h, dw2, fw);
+    }
+    ctx.restore();
+
+    /* --- CORNERS --- */
+    ctx.drawImage(corner, 0, 0, fw, fw);                                       // TL
+
+    ctx.save(); ctx.translate(canvas.width, 0); ctx.scale(-1, 1);              // TR
+    ctx.drawImage(corner, 0, 0, fw, fw); ctx.restore();
+
+    ctx.save(); ctx.translate(0, canvas.height); ctx.scale(1, -1);             // BL
+    ctx.drawImage(corner, 0, 0, fw, fw); ctx.restore();
+
+    ctx.save(); ctx.translate(canvas.width, canvas.height); ctx.scale(-1, -1); // BR
+    ctx.drawImage(corner, 0, 0, fw, fw); ctx.restore();
+  }
+
+  /* ── Price table ── */
+  function updatePriceTable() {
+    var tbody = $('price-tbody');
+    var w = STATE.w, h = STATE.h;
+    tbody.innerHTML = '';
+
+    var samples = [];
+    if (STATE.selected) samples.push(STATE.selected);
+
+    var tiers = {};
+    REAL_BAGETS.forEach(function (b) {
+      if (STATE.selected && b.id === STATE.selected.id) return;
+      if (!tiers[b.pricePerM]) { tiers[b.pricePerM] = b; }
+    });
+    Object.keys(tiers).sort(function(a,b){return a-b;}).forEach(function (k) {
+      samples.push(tiers[k]);
+    });
+
+    samples.forEach(function (b) {
+      var newP = calcPriceNew(w, h, b.pricePerM);
+      var oldP = calcPriceOld(w, h, b.pricePerM);
+      var diff = newP - oldP;
+      var tr = document.createElement('tr');
+      if (STATE.selected && b.id === STATE.selected.id) tr.style.background = '#eff6ff';
+      tr.innerHTML =
+        '<td>' + b.id + ' <small style="color:#94a3b8">(' + b.group + ')</small></td>' +
+        '<td class="num">' + b.pricePerM + '</td>' +
+        '<td class="num price-highlight">' + fmtPrice(newP) + ' ₽</td>' +
+        '<td class="num">' + fmtPrice(oldP) + ' ₽</td>' +
+        '<td class="num" style="color:' + (diff > 0 ? '#dc2626' : '#16a34a') + '">' +
+          (diff > 0 ? '+' : '') + fmtPrice(diff) + ' ₽ (×' + (newP / (oldP || 1)).toFixed(1) + ')</td>';
+      tbody.appendChild(tr);
+    });
+  }
+
+  /* ── Init ── */
+  buildCatalog();
+  updatePriceTable();
+  if (REAL_BAGETS.length > 0) {
+    selectBaguette(REAL_BAGETS[0]);
+  }
+
+})();
+</script>
+</body>
+</html>

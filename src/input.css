@@ -1820,6 +1820,7 @@
   .uploader-alert-close:hover { opacity: 1; }
 
   .uploader-alert-error {
+    display: flex;
     background-color: #fef2f2; /* red-50 */
     border: 1px solid #fecaca; /* red-200 */
     color: #991b1b; /* red-800 */
@@ -1827,6 +1828,7 @@
   .uploader-alert-error .uploader-alert-close { color: #991b1b; }
 
   .uploader-alert-warning {
+    display: flex;
     background-color: #fefce8; /* yellow-50 */
     border: 1px solid #fde68a; /* yellow-200 */
     color: #854d0e; /* yellow-800 */
@@ -1834,6 +1836,7 @@
   .uploader-alert-warning .uploader-alert-close { color: #854d0e; }
 
   .uploader-alert-success {
+    display: flex;
     background-color: #f0fdf4; /* green-50 */
     border: 1px solid #bbf7d0; /* green-200 */
     color: #166534; /* green-800 */
@@ -2358,7 +2361,6 @@
   :is(#calc, #repro-modal) :is(.text-small, figcaption, .text-ink-muted) { color: var(--color-ink-secondary); }
   :is(#calc, #repro-modal) label                      { color: var(--color-ink-secondary); }
   :is(#calc, #repro-modal) .wrap-btn[aria-checked="false"] { color: var(--color-ink-secondary); }
-  :is(#calc, #repro-modal) .text-xs.text-left          { color: var(--color-ink-secondary); }
   :is(#calc, #repro-modal) .size-btn:not(.is-active)   { color: var(--color-ink-secondary); }
   :is(#calc, #repro-modal) .calc-badge:not(.is-active) { color: var(--color-ink-secondary); }
 
@@ -2400,7 +2402,6 @@
     background: transparent;
     color: rgba(20, 11, 1, 0.35);
     border: 1px solid rgba(20, 11, 1, 0.12);
-    pointer-events: none;
     box-shadow: none;
   }
   #calc:has(#uploader-thumbnails:not(:empty)) #btn-upload-empty {
@@ -2417,14 +2418,15 @@
     transform: translateY(0);
     box-shadow: none;
   }
-  #calc:has(#uploader-thumbnails:not(:empty)) #btn-submit-order {
+  #calc:has(#uploader-thumbnails:not(:empty)) #btn-submit-order,
+  #calc #btn-submit-order.has-media {
     background: var(--color-primary);
     color: #fff;
     border-color: transparent;
-    pointer-events: auto;
     box-shadow: none;
   }
-  #calc:has(#uploader-thumbnails:not(:empty)) #btn-submit-order:hover {
+  #calc:has(#uploader-thumbnails:not(:empty)) #btn-submit-order:hover,
+  #calc #btn-submit-order.has-media:hover {
     background: var(--color-ah-975);
     color: #fff;
     transform: translateY(-2px);

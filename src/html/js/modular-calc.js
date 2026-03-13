@@ -913,10 +913,10 @@
       if (span) span.textContent = hasPhoto ? 'Сменить фото' : 'Загрузить фото';
     }
     if (submit) {
-      submit.className = 'hidden lg:block w-full md:w-auto px-8 py-3 ' + (hasPhoto ? MC_BTN_CTA : MC_BTN_MUTED + ' cursor-not-allowed opacity-60');
+      submit.className = 'hidden lg:block w-full md:w-auto px-8 py-3 ' + (hasPhoto ? MC_BTN_CTA : MC_BTN_MUTED);
     }
     if (sticky) {
-      sticky.className = 'px-5 py-2.5 shrink-0 ' + (hasPhoto ? MC_BTN_CTA : 'rounded bg-white/20 text-ink-on-dark/50 text-xs font-bold uppercase tracking-widest cursor-not-allowed');
+      sticky.className = 'px-5 py-2.5 shrink-0 ' + (hasPhoto ? MC_BTN_CTA : 'rounded bg-white/20 text-ink-on-dark/50 text-xs font-bold uppercase tracking-widest');
     }
   }
 
@@ -1066,8 +1066,30 @@
       submitBtn.onclick = function () {
         var nameEl = document.getElementById('mc-client-name');
         var phoneEl = document.getElementById('mc-client-phone');
-        if (nameEl && !nameEl.value.trim()) { nameEl.classList.add('error'); nameEl.focus(); return; }
-        if (phoneEl && !phoneEl.value.trim()) { phoneEl.classList.add('error'); phoneEl.focus(); return; }
+        var linkEl = document.getElementById('mc-client-link');
+
+        /* Шаг 1: проверка медиа (фото ИЛИ ссылка) */
+        var hasPhoto = !!State.previewImage;
+        var hasLink = linkEl && linkEl.value.trim().length > 0;
+        if (!hasPhoto && !hasLink) {
+          if (linkEl) { linkEl.classList.add('error'); linkEl.focus(); }
+          if (window._mcUploader && typeof window._mcUploader.showAlert === 'function') {
+            window._mcUploader.showAlert('Пожалуйста, добавьте хотя бы одно изображение или ссылку на него.', 'error');
+          }
+          return;
+        }
+
+        /* Шаг 2: проверка обязательных полей (имя, телефон) */
+        var emptyFields = [];
+        if (nameEl && !nameEl.value.trim()) { nameEl.classList.add('error'); emptyFields.push(nameEl); }
+        if (phoneEl && !phoneEl.value.trim()) { phoneEl.classList.add('error'); emptyFields.push(phoneEl); }
+        if (emptyFields.length) {
+          if (window._mcUploader && typeof window._mcUploader.showAlert === 'function') {
+            window._mcUploader.showAlert('Пожалуйста, заполните обязательные поля.', 'error');
+          }
+          emptyFields[0].focus();
+          return;
+        }
         var data = {
           modules: State.modules.map(function (m) { return { w: Math.round(m.width), h: Math.round(m.height) }; }),
           totalSize: Math.round(State.totals.fullWidth) + '×' + Math.round(State.totals.fullHeight),
@@ -1102,7 +1124,7 @@
     }
 
     // Clear validation on input
-    ['mc-client-name', 'mc-client-phone'].forEach(function (id) {
+    ['mc-client-name', 'mc-client-phone', 'mc-client-link'].forEach(function (id) {
       var el = document.getElementById(id);
       if (el) el.addEventListener('input', function () { el.classList.remove('error'); });
     });
